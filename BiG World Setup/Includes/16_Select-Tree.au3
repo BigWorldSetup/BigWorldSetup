@@ -314,6 +314,7 @@ Func _Tree_Populate($p_Show=1)
 ; ---------------------------------------------------------------------------------------------
 ; Create the entries for the mod in an two-dimensional main-array.
 ; ---------------------------------------------------------------------------------------------
+			ConsoleWrite('@@ Debug(' & @ScriptLineNumber & ') : $Setup[$s][2] = ' & $g_TreeviewItem[$cs][0] & @crlf) ;### Debug Console
 			$g_CentralArray[$g_TreeviewItem[$cs][0]][0] = $Setup[$s][2]; current setup
 			$g_CentralArray[$g_TreeviewItem[$cs][0]][1] = $Setup[$s][8]; tag
 			$g_CentralArray[$g_TreeviewItem[$cs][0]][2] = '-'; tag as no component
@@ -493,7 +494,7 @@ Func _Tree_Populate($p_Show=1)
 EndFunc   ;==>_Tree_Populate
 
 ; ---------------------------------------------------------------------------------------------
-; Run checks before rebuilding the 
+; Run checks before rebuilding the treeview
 ; ---------------------------------------------------------------------------------------------
 Func _Tree_Populate_PreCheck()
 	Local $Error=0, $Rebuild=0
@@ -861,7 +862,7 @@ EndFunc   ;==>Tree_SelectConvert
 ; ---------------------------------------------------------------------------------------------
 Func _Tree_SelectReadForBatch()
 	$Array=StringSplit(StringStripCR(FileRead($g_GConfDir&'\Select.txt')), @LF); go through select.txt
-	Local $Return[4000][10], $Theme=-1
+	Local $Return[$Array[0]][10], $Theme=-1
 	For $a=1 to $Array[0]
 		If StringLeft($Array[$a], 5) = 'ANN;#' Then $Theme+=1; don't read values because there are not consistent (usage of 5A)
 		If StringRegExp($Array[$a], '(?i)\A(ANN|CMD|GRP)') Then ContinueLoop; skip annotations,commands,groups
@@ -888,6 +889,8 @@ Func _Tree_SelectReadForBatch()
 		$Return[$Return[0][0]][1]=$Return[0][1]; $Index-number (will be used for connections)
 	Next
 	$Return[0][3]=$Theme
+	$Return[0][4]=$Return[0][0]+$Return[0][1]+$Return[0][3]+$g_UI_Menu[8][10]+100; calculate Treeview-items: Items+Mods+Themes+GUI-items+Error-Margin for wrong calculation
+	Global $g_CentralArray[$Return[0][4]][16];set size for global array before running _Tree_Populate -- if the BWS goes kaboom, recalculatre this number...
 	ReDim $Return[$Return[0][0]+1][10]
 	Return $Return
 EndFunc   ;==>_Tree_SelectReadForBatch
@@ -896,8 +899,8 @@ EndFunc   ;==>_Tree_SelectReadForBatch
 ; Read the select.txt-file which contains the installation-procedure
 ; ---------------------------------------------------------------------------------------------
 Func _Tree_SelectRead($p_Admin=0)
-	Local $Return[4000][10]
 	$Array=StringSplit(StringStripCR(FileRead($g_GConfDir&'\Select.txt')), @LF)
+	Local $Return[$Array[0]][10]
 	For $a=1 to $Array[0]
 		If StringRegExp($Array[$a], '\A(\s.*\z|\z)') Then ContinueLoop; skip emtpty lines
 		If StringRegExp($Array[$a], '(?i)\A(ANN|CMD|GRP)') Then 
@@ -933,6 +936,8 @@ Func _Tree_SelectRead($p_Admin=0)
 		EndIf
 		$Return[$Return[0][0]][1]=$Return[0][1]; $Index-number (will be used for connections)
 	Next
+	$Return[0][4]=$Return[0][0]+$Return[0][1]+$Return[0][3]+$g_UI_Menu[8][10]+100; calculate Treeview-items: Items+Mods+Themes+GUI-items+Error-Margin for wrong calculation
+	Global $g_CentralArray[$Return[0][4]][16];set size for global array before running _Tree_Populate -- if the BWS goes kaboom, recalculatre this number...
 	ReDim $Return[$Return[0][0]+1][10]
 	Return $Return
 EndFunc   ;==>_Tree_SelectRead

@@ -1011,7 +1011,8 @@ EndFunc   ;==>_Net_RemoveFixedFaults
 ; ---------------------------------------------------------------------------------------------
 Func _Net_SingleLinkUpdate($p_Setup, $p_Update = 0 )
 	Local $Result = '', $UpdateIni = $g_ProgDir & '\Update\Mod.ini'
-	If Not StringRegExp($g_Flags[14], 'BWP|BWS') Then Return; currently no updates for other games than BWP
+;	If Not StringRegExp($g_Flags[14], 'BWP|BWS') Then Return; currently no updates for other games than BWP
+	Return; new string
 	$OldTime = StringTrimRight(FileGetTime($UpdateIni,1,1), 4)
 	$NewTime = @YEAR&@MON&@MDAY&@HOUR
 	If $NewTime <> $OldTime Or StringInStr($p_Update, 1) Then

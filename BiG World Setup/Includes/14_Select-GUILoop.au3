@@ -65,11 +65,12 @@ Func Au3Select($p_Num = 0)
 ; ---------------------------------------------------------------------------------------------
 	If $g_Flags[14] <> '' Then
 		_Misc_SwichGUIToInstallMethod()
-		If _IniRead($ReadSection, 'SuppressUpdate', 0) = 0 Then 
-			_Net_StartupUpdate()
-		ElseIf Not StringRegExp($g_Flags[14], 'BWP|BWS') Then; currently no updates for other games than BWP
-			GUICtrlSetState($g_UI_Button[3][6], $GUI_DISABLE)
-		EndIf
+;		If _IniRead($ReadSection, 'SuppressUpdate', 0) = 0 Then 
+;			_Net_StartupUpdate()
+;		ElseIf Not StringRegExp($g_Flags[14], 'BWP|BWS') Then; currently no updates for other games than BWP
+;			GUICtrlSetState($g_UI_Button[3][6], $GUI_DISABLE)
+;		EndIf
+        GUICtrlSetState($g_UI_Button[3][6], $GUI_DISABLE); disable button (new line)
 		_Misc_SetAvailableSelection()
 		_Misc_SetTab(2)		
 		GUICtrlSetState($g_UI_Interact[1][2], $GUI_HIDE); combobox

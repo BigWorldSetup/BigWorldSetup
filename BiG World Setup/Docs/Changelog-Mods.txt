@@ -184,7 +184,7 @@ Updated: Selection fits 11.2 (adjusted sequence)
 20120907
 Fixed: TP2 for NEJ268 (BWS-Check failed because of 2 tabs in front of the Backup-keyword)
 20121017
-Added: Some new mods to experiment with. BG1 NPCs at Beginning,  Mal des Vampirismus, Arath NPC, almaQuest 2, Enkida's Portrait Pack, Parting Ways, I Shall Never Forget.
+Added: Some new mods to experiment with. BG1 NPCs at Beginning, Mal des Vampirismus, Arath NPC, almaQuest 2, Enkida's Portrait Pack, Parting Ways, I Shall Never Forget.
 20121202
 Added: Laviconia.
 Updated: Selection fits IP 11.2.6, FP 11.2.7, TP GE 11.2.5, RU 11.1.4+TP10
@@ -217,3 +217,6 @@ Fixed: Changed WeiDUs mark from download-only to extract-only. Adjusted some dep
 Updated: Selection fits IP 11.3.9
 20130518
 Updated: Selection fits IP 11.4.0, TP EN 11.4.0
+20130916
+Updated: Updates to fit BWP 13 (new mods, adjusted sequence, link-updates), Selection fits IP 13.0.2, TP EN 13
+Added: Branwen BG2 NPC, IWDification, RPG Dungeon Kit Pack

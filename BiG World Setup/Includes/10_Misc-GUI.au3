@@ -414,7 +414,7 @@ Func _Misc_ReBuildTreeView($p_Save=0)
 	For $c=$g_CentralArray[0][1] to $g_CentralArray[0][0]; remove treeview-items
 		GUICtrlDelete($c)
 	Next
-	Global $g_TreeviewItem[1][1], $g_CHTreeviewItem[1][1], $g_Connections[1000][3], $g_CentralArray[4000][16], $g_Test=''; This cleans all the old settings (has to be removed, since its content depends on the language)
+	Global $g_TreeviewItem[1][1], $g_CHTreeviewItem[1][1], $g_Connections[1000][3], $g_CentralArray[1][16], $g_Test=''; This cleans all the old settings (has to be removed, since its content depends on the language)
 	$Pos=ControlGetPos($g_UI[0], '', $g_UI_Interact[4][1])
 	_GUICtrlListView_DeleteAllItems($g_UI_Handle[1]); delete dependencies
 	_Selection_GetCurrentInstallType()
@@ -720,10 +720,10 @@ Func _Misc_SetWelcomeScreen($p_String)
 					EndIf
 				EndIf
 			Next
-			If IniRead($g_UsrIni, 'Options', 'SuppressUpdate', 0) = 0 Then
-				$State=BitAND(GUICtrlGetState($g_UI_Button[3][6]), $GUI_ENABLE)
-				If $State Then _Net_StartupUpdate(); update was not done... ask again
-			EndIf	
+;			If IniRead($g_UsrIni, 'Options', 'SuppressUpdate', 0) = 0 Then
+;				$State=BitAND(GUICtrlGetState($g_UI_Button[3][6]), $GUI_ENABLE)
+;				If $State Then _Net_StartupUpdate(); update was not done... ask again
+;			EndIf	
 			If $g_Flags[10] > 0 Then
 				If $g_Skip <> '' Then _Misc_ReBuildTreeView()
 				$g_Flags[10] = 0

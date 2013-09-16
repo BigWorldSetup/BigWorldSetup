@@ -924,3 +924,5 @@ Fixed: Copy PST-files to HDD works as expected. [_Test_CheckRequieredFiles_PST]
 20130613
 Fixed: DDrawFix-detection. [_Backup_Test]
 Updated: Expanded documentation. [docs\faq.htm]
+20130916 - Updated by Silent
+Changed: Temporarily disabled auto-update links (thanks to Dabus) and disabled selections "Total happiness", "Megamod" and "Arkenor's Adventure Picks".

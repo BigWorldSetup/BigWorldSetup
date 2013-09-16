@@ -16,7 +16,7 @@ Global $g_BG1Dir, $g_BG2Dir, $g_BGEEDIR, $g_IWD1Dir, $g_IWD2Dir, $g_PSTDir, $g_R
 Global $g_BWSIni = $g_ProgDir & '\Config\Setup.ini', $g_MODIni, $g_UsrIni = $g_ProgDir & '\Config\User.ini'
 ; select-gui vars
 Global $g_Compilation='R', $g_LimitedSelection = 0, $g_Tags, $g_ActiveConnections[1], $g_Groups
-Global $g_TreeviewItem[1][1], $g_CHTreeviewItem[1][1], $g_Connections, $g_CentralArray[4000][16], $g_GUIFold
+Global $g_TreeviewItem[1][1], $g_CHTreeviewItem[1][1], $g_Connections, $g_CentralArray[1][16], $g_GUIFold
 ; Logging, Reading Streams / Process-Window
 Global $g_ConsoleOutput = '', $g_STDStream, $g_ConsoleOutput, $g_pQuestion = 0
 ; program options and misc

@@ -271,7 +271,10 @@ Func Au3ExFix($p_Num)
 	If StringRegExp($g_Flags[14], 'BWP|BWS') Then
 		If FileExists($g_BG2Dir&'\setup-aurora.exe') Then DirCreate($g_BG2Dir&'\aurpatch')
 		If FileExists($g_BG2Dir&'\setup-gavin_bg2.exe') Then DirCreate($g_BG2Dir&'\gavin_bg2_bgt')
-		If FileExists($g_BG2Dir&'\Setup-TobEx.exe') Then DirCreate($g_BG2Dir&'\poison_effect_supplement')
+		If FileExists($g_BG2Dir&'\setup-bggraphics.exe') Then DirCreate($g_BG2Dir&'\hotfix_gavin_bggraphics')
+		If FileExists($g_BG2Dir&'\stratagems') Then DirCreate($g_BG2Dir&'\stratagems_external')
+		If FileExists($g_BG2Dir&'\setup-item_rev.exe') Then DirCreate($g_BG2Dir&'\ninjawakifix')
+		If FileExists($g_BG2Dir&'\setup-tobex.exe') Then DirCreate($g_BG2Dir&'\poison_effect_supplement')
 	ElseIf $g_Flags[14] = 'PST' Then
 		If FileExists($g_PSTDir&'\setup-pst-drawfix.exe') Then DirCreate($g_PSTDir&'\pst-drawfix_backup')
 	EndIf
@@ -304,6 +307,7 @@ Func Au3ExFix($p_Num)
 			If $Fault[$f][0] = 'BG1TP' Then ContinueLoop; German bg1-addons
 			If $Fault[$f][0] = 'Abra' Or $Fault[$f][0] = 'BG1TotSCSound' Then ContinueLoop; Spanish bg1-addons
 			If $Fault[$f][0] = 'BG1correcfr' Then ContinueLoop; French bg1-addon
+;			If $Fault[$f][0] = 'stratagems' Then ContinueLoop; New Stratagems
 			If $g_Flags[0] = 0 Then; the exit button was pressed
 				Exit
 			EndIf
