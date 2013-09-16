@@ -1,0 +1,219 @@
+9.2.0 - Mods related (Installation Package)
+  06.05.2010
+- Added "IA Content - PST Paletted Animations v2"
+- Added new components of "The Bigg Tweaks v2.30" and "BG2 Tweaks v9"
+- Added Polish entries of "BG1 Unfinished Business v12"
+- Added Russian entries of "Cloakwood Squares v4", "de'Arnise Romance v3", "Banter Packs v12", "Goo NPC v6" and "Turnip Golem v4"
+- Added Spanish entries of "Goo NPC v6"
+- Updated German entries of "BG1 Unfinished Business v12"
+- Updated Russian entries of "Unfinished Business v19"
+- Removed Sarah-SCSII hotfixes from Select.txt
+  11.05.2010
+- Added new component 212 of "aTweaks v3.05"
+- Added Spanish entries of "A Mod for the Orderly v4"
+- Added Russian entries of "Alcool v0.11"
+- Updated component selection of "SCSI" and "SCSII"
+- Updated conflicts between "SCSI" and "SCSII" and a few other mods
+- Updated description of component 6095 of "SCSII"
+- Updated all language entries of "SCSI v14" and "SCSII v13"
+- Updated German entries of "BG2 Tweaks v9"
+- Moved component 5 of "Kiara-Zaiya" into the expert-version
+- Removed "Move Boo into inventory=C:BGT(-):scsII(5020)" and put the Boo-components into the expert-version
+- Removed "Infinity Animations"-dependency of "Vecna"
+- Removed "Only one Kitpack from TDD or RoT=C:TDD(1):RoT(1)"
+  15.05.2010
+- Added "Ascalons Breagar" to the "BP-BGT-Worldmap" dependancies
+- Updated entries for "Infinity Animations Core (WeiDU beta 5)"
+- Updated a few conflicts with SCSI and SCSII
+- Corrected BGTNeJ dependancy
+- Removed "Imoen Friendship"
+  19.05.2010
+- Updated language entries of "TS25MiniMod" to consider Fennek's updates from the "BW Fixpack"
+- Updated language entries for "Summon Bhaalspawn v3"
+- Updated Select.txt and Setup.ini (compared with the output.html of the Install.bat)
+- Added more "BG2 Tweaks" components
+- Added sub-components and conflicts for "Item Randomiser"
+- Added descriptions for "Aurora Patch v5.1"
+- Corrected description of "Mawgul NPC"
+- Corrected "Horns of Valhalla conflict"
+  21.05.2010
+- Added new components 202 and 241 of "aTweaks v3.1"
+- Added components 1 and 2 of "Homeward Bound"
+- Added conflict between the kits of "Enhanced BG2" and "TDD"
+- Added conflict between Harder Irenicus of "Kiara-Zaiya" and "Big Picture"
+- Added German entries of "Haer'Dalis' Swords"
+- Updated description of "TS25MiniMod"
+- Changed default component 18 to 17 of "BP-Balancer"
+- Moved components 1 and 2 of "The Undying" into the expert-version
+- Removed German entries of "Spell Revisions"
+  24.05.2010
+- Added Italian entries of "Sir Renal v2.4"
+- Updated entries for the new "Selune's Armoury" version "Volcanic Armoury v1.0"
+- Updated entries for "Wikaede NPC v3.4" and "Kari NPC beta v1.3"
+- Updated description of "Hanna NPC"
+  28.05.2010
+- Added Russian entries of "Jan's Alchemy v5"
+- Updated entries for "Macholy's Teammates Fight Scripts (NMRF-PC) v2.8"
+- Updated German and Russian entries and added Japanese entries of "Rogue Rebalancing v4.37"
+- Added conflict between the "Scrollable Spellbooks" of "ToB Hacks" and the mod "W_GUI"
+- Added all components of "Throne of Bhaal Extender"
+- Added Polish entries of "Thalantyr Item Upgrade v3.7"
+- "ToB Hacks" is not a fixed mod anymore
+  30.05.2010
+- Changed LANGUAGE 2 to Italian for "Cerberus v1.03"
+- Updated Italian and Russian entries of "aTweaks v3.11"
+  06.06.2010
+- "A6XPPatch", "A6CharmPatch" and "CreFixer" are not fixed mods anymore
+- Only component 0 of "BG2 Fixpack" is fixed, now
+- Added portrait sub-components of "Ajantis BG1 Expansion"
+- Added Berelinde's BGT-hotfix installation of "Gavin NPC for BG2"
+- Moved component "Watcher's Keep" of "SCSII" into the normal "SCSII" installation
+- Corrected installations of "BG1NPC Portrait Pack" and "BG2 Alternate Soundtrack"
+- Added German entries of "Mystigan the Merchant v1.5"
+- Added Russian entries of "Adalon's Blood v10", "Portable Hole v0.3", "Shed's Mods v1.02", "Semi-Multi-Cleric v0.2.3", "ToB Refinements v3.23" and "The Bigg Tweaks v2.31"
+- Added Polish entries of "Tower of Deception v3.3.1"
+- Updated all language entries of "BGT-Music" and "BGT-GUI"
+- Updated Russian entries of "The Bigg Quest Pack v2.04"
+- Improved "Happy Patch" conflicts
+- Improved "True Grand Mastery" conflicts
+- Added conflicts between the components 1100 until 1400 of "Item Randomiser"
+- Removed conflict: Triple-class HLA tables=C:bg2_tweaks(2300):RR(-)
+  07.06.2010
+- Added missing xcopy line "BiG World Fixpack\_BG2GavinHotfix" for Berelinde's BG2Gavin BGT-Hotfix
+- Moved "Vecna" into the tactic-version and moved it after "ToB Revisited" of the installation-order
+- Added all components of "BG1 NPC Portrait Pack"
+- Added "Wonnimchunha's Portrait Mod"
+- Corrected some TRA assignments
+- Updated download-links, mod-names, etc. with the BWP linklist
+  08.06.2010
+- Updated all entries for the new "Big Picture v180a"
+- Removed "BPSeries", because it is included in "Big Picture", now.
+  10.06.2010
+- "A6XPPatch", "A6CharmPatch" and "CreFixer" are not fixed mods anymore
+- Only component 0 of "BG2 Fixpack" is fixed, now
+- Added portrait sub-components of "Ajantis BG1 Expansion"
+- Added Berelinde's BGT-hotfix installation of "Gavin NPC for BG2"
+- Moved component "Watcher's Keep" of "SCSII" into the normal "SCSII" installation
+- Corrected installations of "BG1NPC Portrait Pack" and "BG2 Alternate Soundtrack"
+- Added German entries of "Mystigan the Merchant v1.5"
+- Added Russian entries of "Adalon's Blood v10", "Portable Hole v0.3", "Shed's Mods v1.02", "Semi-Multi-Cleric v0.2.3", "ToB Refinements v3.23" and "The Bigg Tweaks v2.31"
+- Added Polish entries of "Tower of Deception v3.3.1"
+- Updated all language entries of "BGT-Music" and "BGT-GUI"
+- Updated Russian entries of "The Bigg Quest Pack v2.04"
+- Improved "Happy Patch" conflicts
+- Improved "True Grand Mastery" conflicts
+- Added conflicts between the components 1100 until 1400 of "Item Randomiser"
+- Removed conflict: Triple-class HLA tables=C:bg2_tweaks(2300):RR(-)
+- Added missing xcopy line "BiG World Fixpack\_BG2GavinHotfix" for Berelinde's BG2Gavin BGT-Hotfix
+- Moved "Vecna" into the tactic-version and moved it after "ToB Revisited" of the installation-order
+- Added all components of "BG1 NPC Portrait Pack"
+- Added "Wonnimchunha's Portrait Mod"
+- Corrected some TRA assignments
+- Updated download-links, mod-names, etc. with the BWP linklist
+- Updated all entries for the new "Big Picture v180a"
+- Removed "BPSeries", because it is included in "Big Picture", now.
+  19.06.2010
+- removed BGT from "Gavin NPC for BG2 - BGT Hot-Fix" dependency. Otherwise installations that don't install English mods will crash
+- install SCS-coponents 6000-6200 (Tactical challenges) in one batch to avoid problems with components 6110, 6130 and 6140
+- moved "Vecna" after InfinityAnimations because it needs it
+  05.07.2010
+- some small updates to new/updated mods to fit BWP v9.2
+- revised translation-numbers and WeiDU-RU.ini by prowler
+- a bunch of new dependencies and conflicts
+  27.08.2010
+- some updates to new/updated mods to fit BWP v9.3
+- added russian Textpack, french Txtmusic, BG1UB-soundfiles
+  31.08.2010
+- put ImoenRom back in and removed Imoen Friendship
+- replaced update-URLs
+  08.09.2010
+- scsII v15, scs v16, DH 2.04
+- disabled Lester, Nikita, abSolestia and Pofkits (no download available)
+- enabled TobEx(1300) to avoid crashes
+  20101010
+- some updates to fit BWP v9.4
+- added some additional (selectable) tb#tweaks-components
+20101108
+- new sorting of mods
+- added additional (selectable) level1npcs
+20101129
+- threw out all SUBs for level1npcs(1) since I don't get that now
+- added new level1npc components
+- added a bunch of dependencies (bpv180, tactics, scs, scsII)
+- updated some translations
+20101212
+- Adjusted Worldmap, Trim/Borkpack, SCSII-dependencies, Aurora Fix & usual small updates
+20101226
+- some updates to fit BWP 9.6 (new mods, adjusted sequence)
+- checked conflicts (some of A conflict with some of B)
+- replace Chinese, Japanese and Korean component-descriptions with English ones like already done with Russian stuff (to get rid of the codepage-rubbish until someone puts in the correct text)
+20110115
+- regular updates
+20110130
+- some updates to fit BWP 9.7 (new mods, adjusted sequence)
+- checked for non-available conflicts and dependencies
+- checked for some missing mod-translations
+20110303
+- some updates to fit BWP 9.8 (new mods, adjusted sequence)
+20110316
+- use Weidu.exe-download so updates don't affect the download
+- small adjustments
+20110404
+- some updates to fit BWP 9.9 (new mods, adjusted sequence)
+20110410
+- some updates to fit BWP 9.10 (adjusted sequence)
+20110511
+- small maintenance (conflicts, adjusted dependencies, mod-updates)
+20120322
+- big update to fit BWP 11.0 (new mods, adjusted dependencies and sequence)
+20120401
+- added infinity animation dependencies and some others + mod updates
+20120414
+- updated dsotsc-entries, updated to fit German and German textpack
+20120422
+- fixed preselections so they don't report new stuff. Added some BPv180-dependencies.
+20120620
+Updated: portrait-options for ajantis-mods and some other mod updates.
+Fixed: Spitems-entries. Create aurpatch and gavin_bg2_bgt-folder so the tp2-check does not fail for those weidu-patches. Replace backup-file with folder for BG1NPCSoA. Correct German Bonehill-translation. Test and replace DSotSC tp2. Correct BP-Balancers DSotSC-recognition.
+20120623
+Removed: Fixes for BG1NPCSoA, BP-Balancers (already included). Minor updates.
+20120701
+Updated: Edwin Romance, rename Gavins German Textpack-file. Added some text-strings.
+20120903
+Updated: Selection fits 11.2 (adjusted sequence)
+20120907
+Fixed: TP2 for NEJ268 (BWS-Check failed because of 2 tabs in front of the Backup-keyword)
+20121017
+Added: Some new mods to experiment with. BG1 NPCs at Beginning,  Mal des Vampirismus, Arath NPC, almaQuest 2, Enkida's Portrait Pack, Parting Ways, I Shall Never Forget.
+20121202
+Added: Laviconia.
+Updated: Selection fits IP 11.2.6, FP 11.2.7, TP GE 11.2.5, RU 11.1.4+TP10
+20130117
+Fixed: TP2 for dsotsc
+Updated: Selection fits IP 11.2.12, TP EN 11.2.3, RU 11.2.1+TP3
+20130211
+Added: IWD1, IWD2, PST mods
+20130222
+Updated: Selection fits IP 11.3.2, TP EN 11.3, RU 11.3+TP1
+Fixed: Ran some tests and updated false settings.
+Added: BP/SCS-Conflict between >>all<< documented AI-components.
+20130303
+Added: Dace, Isra, PaintBG, SarevokFriendship, Tobaurora, Valerie, Psionics Unleashed for testing.
+Fixed: Removed non-existing conflicts.
+20130304
+Updated: Selection fits IP 11.3.6, TP EN 11.3.2, RU 11.3+TP2. Updated Russian translations by Quiet.
+20130310
+Updated: Updated BG1NPCSoA settings (new component-numbers). Updated BWP preselections.
+20130311
+Fixed: Create directory so poison_effect_supplement is found by BWS. [Au3ExFix]
+20130419
+Updated: Selection fits IP 11.3.8, TP EN 11.3.4
+Added: White for testing.
+20130429
+Added: BGEE mods.
+20130430
+Fixed: Changed WeiDUs mark from download-only to extract-only. Adjusted some dependencies, removed unneeded components.
+20130505
+Updated: Selection fits IP 11.3.9
+20130518
+Updated: Selection fits IP 11.4.0, TP EN 11.4.0
