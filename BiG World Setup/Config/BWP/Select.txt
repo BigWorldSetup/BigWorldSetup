@@ -920,7 +920,7 @@ MUC;laviconia;10;14;0000;
 STD;laviconia;50;14;0000;
 STD;yeslicknpc;0;12;0111;
 STD;sarevokfriendship;0;12;0111;
-STD;Branwen;0;12;0111;
+STD;Branwen;0;14;0111;
 ANN;#17. MORE BG2 NPC MODS
 STD;cliffhistory;0;12;0001;
 STD;Chiara;0;12;1111;
