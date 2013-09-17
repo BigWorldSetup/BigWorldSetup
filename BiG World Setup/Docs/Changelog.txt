@@ -928,3 +928,5 @@ Updated: Expanded documentation. [docs\faq.htm]
 Changed: Temporarily disabled auto-update links (thanks to Dabus) and disabled selections "Total happiness", "Megamod" and "Arkenor's Adventure Picks".
 20130917 - Updated by Silent
 Fixed: Problem with Branwen mod.
+20130917 - Updated by AL|EN
+Added: BGEE_FixPack

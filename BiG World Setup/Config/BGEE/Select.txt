@@ -352,4 +352,10 @@ MUC;w_packmule;1;04;0000;
 SUB;generalized_biffing;0;00;1111;
 SUB;generalized_biffing;0?1_0;00;0000;
 SUB;generalized_biffing;0?1_1;00;1111;
+SUB;BGEE_FixPack;0;00;1111;
+SUB;BGEE_FixPack;1;00;1111;
+SUB;BGEE_FixPack;2;00;1111;
+SUB;BGEE_FixPack;3;00;1111;
+SUB;BGEE_FixPack;4;00;1111;
+SUB;BGEE_FixPack;5;00;1111;
 ANN;Added due to patching
