@@ -217,6 +217,14 @@ Fixed: Changed WeiDUs mark from download-only to extract-only. Adjusted some dep
 Updated: Selection fits IP 11.3.9
 20130518
 Updated: Selection fits IP 11.4.0, TP EN 11.4.0
-20130916
+20130916 - Updated by Silent
 Updated: Updates to fit BWP 13 (new mods, adjusted sequence, link-updates), Selection fits IP 13.0.2, TP EN 13
-Added: Branwen BG2 NPC, IWDification, RPG Dungeon Kit Pack
+Added: Branwen BG2 NPC, IWDification, RPG Dungeon Kit Pack.
+20130917 - Updated by Silent
+Fixed: Problem with Branwen mod.
+20130917 - Updated by AL|EN
+Added: BGEE_FixPack.
+Updated: BGEE mod-list.
+20130918 - Updated by Silent
+Fixed: Some files from the BiG World Fixpack now are copied correctly.
+Updated: aTweaks. Adjusted some dependencies.
