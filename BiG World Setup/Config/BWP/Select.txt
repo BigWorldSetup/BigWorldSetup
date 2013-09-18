@@ -163,8 +163,8 @@ STD;NeJ2;10;09;0001;
 STD;BGTNeJ;0;19;0001;D:NEJ2(7)
 STD;NeJ2v602;0;01;0001;D:NEJ2(7)
 STD;NeJ2v602;2;01;0001;D:NEJ2(7)
-CMD;copy /Y ".\BiG World Fixpack\_override\NEJ2\*.*" ".\override";;;;D:NEJ2(7)
-CMD;IF EXIST setup-randomiser.exe copy /Y ".\NeJ2\NEJ-BIFF\override\obsdem01.cre" ".\override";;;;D:NEJ2(7)
+CMD;IF NOT EXIST Setup-NeJ2v691.exe IF NOT EXIST Setup-NeJ2v68.exe copy /Y ".\BiG World Fixpack\_override\NEJ2\*.*" ".\override";;;;D:NEJ2(7)
+CMD;IF EXIST setup-randomiser.exe IF NOT EXIST Setup-NeJ2v691.exe copy /Y ".\NeJ2\NEJ-BIFF\override\obsdem01.cre" ".\override";;;;D:NEJ2(7)
 ANN;#3. BIG BG2 MODS PRE BGT
 STD;SOS;0;09;0111;
 STD;CtB;0;09;0111;
@@ -194,17 +194,17 @@ STD;TDD;1;19;1111;
 STD;BGTNeJ2;0;01;0111;D:NEJ2(7)
 STD;BGTNeJ2;3;19;0111;D:NEJ2(7)
 STD;BGTNeJ;0;19;0111;C:NEJ2(7)
-STD;BGTNeJ;2;19;0001;
-STD;BGTNeJ;4;16;0001;
-STD;BGTNeJ;5;08;0001;
-STD;BGTNeJ;6;08;0001;
-STD;BGTNeJ;7;17;0001;
+STD;BGTNeJ;2;19;0111;
+STD;BGTNeJ;4;16;0111;
+STD;BGTNeJ;5;08;0111;
+STD;BGTNeJ;6;08;0111;
+STD;BGTNeJ;7;17;0111;
+CMD;IF EXIST ".\BiG World Fixpack\_temp\tisunpack.exe" copy ".\BiG World Fixpack\_temp\tisunpack.exe" "*.*"
 STD;TS;0;09;1111;
 STD;TS;1;20;1111;
 STD;TS;2;20;1111;
-CMD;IF EXIST "TS.exe" copy ".\BiG World Fixpack\temp\tisunpack.exe" ".\"
 STD;TS;3;09;1111;
-CMD;IF EXIST "TS.exe" copy ".\BiG World Fixpack\_override\GUI\*.*" ".\override"
+CMD;IF EXIST "Setup-TS.exe" copy ".\BiG World Fixpack\_override\GUI\*.*" ".\override"
 STD;NeJ2v68;0;09;0001;
 STD;NeJ2v68;1;19;0001;
 STD;NeJ2v68;3;19;0001;
@@ -1249,7 +1249,7 @@ CMD;IF EXIST Setup-BP.exe copy /Y ".\BiG World Fixpack\_TheUndying_for_BP\*.*" "
 STD;BP;0;18;1111;
 STD;BP;10;18;1111;
 STD;BP;35;16;1111;
-CMD;IF EXIST override\A#GHAUN.2da move .\override\A#GHAUN.2da ".\BiG World Fixpack\_temp\override"
+CMD;IF EXIST ".\override\A#GHAUN.2da" move ".\override\A#GHAUN.2da" ".\BiG World Fixpack\_temp\override"
 STD;BP;50;16;1111;
 CMD;IF EXIST ".\BiG World Fixpack\_temp\override\A#GHAUN.2da" move ".\BiG World Fixpack\_temp\override\A#GHAUN.2da" ".\override"
 STD;BP;60;16;1111;
@@ -1526,6 +1526,7 @@ STD;haerdalisromance;0;14;0111;
 STD;nephele;0;12;0111;
 STD;nephele;1;12;0111;
 STD;Petsy;0;12;0111;
+STD;Petsy;1;12;0111;
 STD;RevisedBattles;0;15;0011;
 STD;RevisedBattles;1;15;0011;
 STD;RevisedBattles;2;15;0011;
@@ -1858,7 +1859,7 @@ STD;ninjawakifix;0;16;1111;
 MUC;UniqueArtifacts;Init;16;0001;
 MUC;UniqueArtifacts;1;16;0000;
 MUC;UniqueArtifacts;2;16;0001;
-CMD;IF EXIST Setup-UniqueArtifacts.exe copy /Y uniqueartifacts\backup\2\TASLGURK.CRE ".\override"
+CMD;IF EXIST Setup-UniqueArtifacts.exe copy /Y ".\uniqueartifacts\backup\2\TASLGURK.CRE" ".\override"
 STD;cursed_items;0;16;0001;
 STD;cursed_items;10;16;0111;
 STD;freeact;10;16;1111;
