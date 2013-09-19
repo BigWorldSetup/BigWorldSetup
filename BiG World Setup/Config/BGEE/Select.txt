@@ -1,6 +1,7 @@
 ANN;Added due to patching
 DWN;WeiDU;0;00;1111;
 DWN;eekeeper;0;00;1111;
+STD;DarkHorizonsBGee;0;02;0011;
 STD;karatur;0;03;1111;
 STD;BGeeAR;0;10;0111;
 STD;BGeeW;0;10;0111;
