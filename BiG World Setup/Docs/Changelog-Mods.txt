@@ -228,3 +228,6 @@ Updated: BGEE mod-list.
 20130918 - Updated by Silent
 Fixed: Some files from the BiG World Fixpack now are copied correctly.
 Updated: aTweaks. Adjusted some dependencies.
+20130919 - Updated by Silent
+Fixed: Specified the right type of mods.
+Updated: Adjusted some dependencies.
