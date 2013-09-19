@@ -231,3 +231,6 @@ Updated: aTweaks. Adjusted some dependencies.
 20130919 - Updated by Silent
 Fixed: Specified the right type of mods.
 Updated: Adjusted some dependencies.
+20130919 - Updated by AL|EN
+Added: Dark Horizons BGEE.
+Updated: BGEE mod-list.
