@@ -249,6 +249,10 @@ CMD;IF EXIST Setup-drizztsaga.exe copy /Y ".\BiG World Fixpack\_override\worldma
 STD;drizztsaga;0;02;0111;
 STD;drizztsaga;1;02;0111;
 ANN;#7. BG1 QUEST MODS
+CMD;IF EXIST ".\override\alissa8.cre" IF NOT EXIST ".\override\cadder2.cre" copy /Y ".\RoTerror\CRE\nostring\cadder2.cre" ".\override"
+CMD;IF EXIST ".\override\alissa8.cre" IF NOT EXIST ".\override\cadder3.cre" copy /Y ".\RoTerror\CRE\nostring\cadder3.cre" ".\override"
+CMD;IF EXIST ".\override\alissa8.cre" IF NOT EXIST ".\override\cadder5.cre" copy /Y ".\RoTerror\CRE\nostring\cadder5.cre" ".\override"
+CMD;IF EXIST ".\override\alissa8.cre" IF NOT EXIST ".\override\cadderly.cre" copy /Y ".\RoTerror\CRE\nostring\cadderly.cre" ".\override"
 STD;Vault;0;03;0011;
 STD;Vault;1;03;0011;
 STD;bgqe;0;03;1111;

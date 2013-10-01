@@ -237,5 +237,5 @@ Updated: BGEE mod-list.
 20131001 - Updated by AL|EN
 Updated: WeiDu.
 20131001 - Updated by Silent
-Fixed: Adjusted some dependencies.
+Fixed: Adjusted some dependencies. Solved Vault installation problem with RoT kits.
 Updated: Amber, Auren Aseph, BG2 Tweaks, G3 Anniversary, I Shall Never Forget, Mur'Neth, P&P Celestials, The White Queen.
