@@ -234,3 +234,8 @@ Updated: Adjusted some dependencies.
 20130919 - Updated by AL|EN
 Added: Dark Horizons BGEE.
 Updated: BGEE mod-list.
+20131001 - Updated by AL|EN
+Updated: WeiDu.
+20131001 - Updated by Silent
+Fixed: Adjusted some dependencies.
+Updated: Amber, Auren Aseph, BG2 Tweaks, G3 Anniversary, I Shall Never Forget, Mur'Neth, P&P Celestials, The White Queen.
