@@ -235,7 +235,10 @@ Updated: Adjusted some dependencies.
 Added: Dark Horizons BGEE.
 Updated: BGEE mod-list.
 20131001 - Updated by AL|EN
-Updated: WeiDu.
+Updated: WeiDU.
 20131001 - Updated by Silent
 Fixed: Adjusted some dependencies. Solved Vault installation problem with RoT kits.
 Updated: Amber, Auren Aseph, BG2 Tweaks, G3 Anniversary, I Shall Never Forget, Mur'Neth, P&P Celestials, The White Queen.
+20131010 - Updated by Silent
+Fixed: Added some missing components.
+Updated: Ajantis NPC for BG2, Amber, Auren Aseph, BG1 NPCs for BG2, WeiDU.
