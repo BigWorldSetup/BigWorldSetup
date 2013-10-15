@@ -45,7 +45,7 @@ CMD;IF EXIST "BiG World Fixpack\_AuroraPatch" IF EXIST Setup-aurora.exe xcopy /Y
 CMD;IF EXIST "BiG World Fixpack\_CtBcutImp" IF EXIST Setup-ctb.exe xcopy /Y /S /E ".\BiG World Fixpack\_CtBcutImp\*.*" "."
 CMD;IF EXIST "BiG World Fixpack\_Gavin_Hotfixes" IF EXIST Setup-gavin.exe xcopy /Y /S /E ".\BiG World Fixpack\_Gavin_Hotfixes\*.*" "."
 CMD;IF EXIST "BiG World Fixpack\_iwditemfix" If EXIST Setup-iwditempack.exe xcopy /Y /S /E ".\BiG World Fixpack\_iwditemfix\*.*" "."
-CMD;IF NOT EXIST Setup-lolfixer.exe xcopy /Y /S /E ".\BiG World Fixpack\_Lolfixer_22082013\*.*" "."
+CMD;IF NOT EXIST Setup-lolfixer.exe xcopy /Y /S /E ".\BiG World Fixpack\_Lolfixer\*.*" "."
 ANN;Workaround until German BG1NPC translation is finished - use _Textharmonisation to determine language
 CMD;IF EXIST "BiG World Textpack\_Textharmonisation" IF EXIST Setup-bg1npc.exe MD .\bg1npc\tra\german
 CMD;IF EXIST "BiG World Textpack\_Textharmonisation" IF EXIST Setup-bg1npc.exe copy .\bg1npc\tra\english\*.* .\bg1npc\tra\german
