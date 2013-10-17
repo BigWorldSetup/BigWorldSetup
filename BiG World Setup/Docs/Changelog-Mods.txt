@@ -245,3 +245,7 @@ Updated: Ajantis NPC for BG2, Amber, Auren Aseph, BG1 NPCs for BG2, WeiDU.
 20131015 - Updated by Silent
 Fixed: Create directory so iwditemfix is found by BWS.
 Updated: Adjusted some dependencies.
+20131017 - Updated by Silent
+Added: Difficulty and Tweak mod, SCS, SCSII and connections with them.
+Removed: Mix Mod.
+Updated: Petsy Chattertone, TeamBG Weapon Pack. Adjusted some dependencies.
