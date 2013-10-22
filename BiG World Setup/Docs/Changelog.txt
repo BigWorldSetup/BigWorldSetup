@@ -914,7 +914,7 @@ Changed: Show output of fix_Kit_IDS.bat and ref_ids.bat [Au3Install]
 Added: BWS should be able to handle BGEE-installs. Added search for the game, testing files, settings hardlinks and so on.
 Fixed: Disable link-update-button for other games than BWP to prevent errors when using it. [_Net_StartupUpdate]
 20130430
-Added: Accpept BGEE main folder and redirect to Data\00766 when using BGEE. [_Misc_SelectFolder] Russian translation for BWS BGEE part.
+Added: Accept BGEE main folder and redirect to Data\00766 when using BGEE. [_Misc_SelectFolder] Russian translation for BWS BGEE part.
 Fixed: Disable Widescreen-mod for BGEE-installs. [_Tree_Populate, _Misc_SwichGUIToInstallMethod] Use corrected BGEE-folder-names. [_Test_GetGamePath] Don't overwrite beta-WeiDU with stable WeiDU (except for BGEE). [Au3RunFix, Au3Install, _Install_UpdateWeiDU]
 20130505
 Changed: If BGEE is installed on a non NTFS-drive, move dialog[F].tlk back into lang-folders rather than copy when finished tp prevent misunderstandings.
@@ -928,3 +928,5 @@ Updated: Expanded documentation. [docs\faq.htm]
 Changed: Temporarily disabled auto-update links (thanks to Dabus) and disabled selections "Total happiness", "Megamod" and "Arkenor's Adventure Picks".
 20130917 - Updated by AL|EN
 Updated: Run BWS always as admin to avoid problems.
+20131022 - Updated by Silent
+Fixed: Changing the codepage (thanks to Dabus).

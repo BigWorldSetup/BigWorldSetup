@@ -113,7 +113,7 @@ Func _Test_ACP()
 		Return 0
 	ElseIf $Answer = 3 Then; install the mod
 		$Test=RegWrite('HKEY_LOCAL_MACHINE\SYSTEM\CurrentControlSet\Control\Nls\CodePage', 'ACP', 'REG_SZ', '1252')
-		_Tree_GetCurrentSelection()
+		If $g_CentralArray[0][0] <> '' Then _Tree_GetCurrentSelection()
 		If @error Then
 			_Misc_MsgGUI(3, _GetTR($g_UI_Message, '0-T1'), _GetTR($g_UI_Message, '2-L7')); => Warning
 		Else

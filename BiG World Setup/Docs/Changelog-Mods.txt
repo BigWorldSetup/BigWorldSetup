@@ -249,3 +249,6 @@ Updated: Adjusted some dependencies.
 Added: Difficulty and Tweak mod, SCS, SCSII and connections with them.
 Removed: Mix Mod.
 Updated: Petsy Chattertone, TeamBG Weapon Pack. Adjusted some dependencies.
+20131022 - Updated by Silent
+Fixed: Toughened SCS conflict. Renamed Grimuars files. 
+Updated: Dark Horizons, Grimuars, WeiDU.
