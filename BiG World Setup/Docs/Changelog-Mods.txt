@@ -250,5 +250,8 @@ Added: Difficulty and Tweak mod, SCS, SCSII and connections with them.
 Removed: Mix Mod.
 Updated: Petsy Chattertone, TeamBG Weapon Pack. Adjusted some dependencies.
 20131022 - Updated by Silent
-Fixed: Toughened SCS conflict. Renamed Grimuars files. 
+Fixed: Toughened SCS conflict. Renamed Grimuars files.
 Updated: Dark Horizons, Grimuars, WeiDU.
+20131030 - Updated by Silent
+Fixed: SCS connections. Type of some mods.
+Updated: Garrick - Tales of a Troubadour, Kitanya, PaintBG, Rolles, Spell-50, Unfinished Business, WeiDU, Yoshimo Romance. Links to fit BWP mod-list.

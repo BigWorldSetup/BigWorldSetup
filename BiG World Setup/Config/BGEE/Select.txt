@@ -360,7 +360,6 @@ STD;DiffTweak;44;16;0000;
 MUC;BGEEClassicMovies;Init;13;1111;
 MUC;BGEEClassicMovies;0;13;0000;
 MUC;BGEEClassicMovies;1;13;1111;
-STD;PaintBG;0;13;1111;
 MUC;w_packmule;Init;04;0111;
 MUC;w_packmule;0;04;0111;
 MUC;w_packmule;1;04;0000;

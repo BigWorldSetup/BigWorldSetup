@@ -930,3 +930,5 @@ Changed: Temporarily disabled auto-update links (thanks to Dabus) and disabled s
 Updated: Run BWS always as admin to avoid problems.
 20131022 - Updated by Silent
 Fixed: Changing the codepage (thanks to Dabus).
+20131030 - Updated by Silent
+Changed: Selections "Total happiness", "Megamod" and "Arkenor's Adventure Picks" is recovered back.
