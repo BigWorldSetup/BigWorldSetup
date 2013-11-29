@@ -255,3 +255,10 @@ Updated: Dark Horizons, Grimuars, WeiDU.
 20131030 - Updated by Silent
 Fixed: SCS connections. Type of some mods.
 Updated: Garrick - Tales of a Troubadour, Kitanya, PaintBG, Rolles, Spell-50, Unfinished Business, WeiDU, Yoshimo Romance. Links to fit BWP mod-list.
+20131112 - Updated by Silent
+Fixed: Adjusted some dependencies.
+Updated: Ajantis NPC for BG2, Bard Song Switching, Branwen BG2 NPC, Petsy Chattertone, SCS, Wheels of Prophecy, Yoshimo Romance & WeiDU.
+20131113 - Updated by Silent
+Fixed: Tags for non-BWP games.
+20131129 - Updated by Silent
+Updated: Mod list. Now uses FP by Lollorian.

@@ -215,6 +215,14 @@ Func Au3ExFix($p_Num)
 			_Extract_MoveMod('CtBv1.13a\CtBv1.13')
 		EndIf
 	EndIf
+	If StringRegExp($g_Flags[14], 'BWP|BWS') And FileExists($g_BG2Dir&'\arpv3-4-1') Then
+		FileWrite($g_LogFile, '>arpv3-4-1\* .' & @CRLF)
+		_Extract_MoveMod('arpv3-4-1')
+	EndIf
+	If StringRegExp($g_Flags[14], 'BWP|BWS') And FileExists($g_BG2Dir&'\BiG-World-Fixpack-master') Then
+		FileWrite($g_LogFile, '>BiG-World-Fixpack-master\* .' & @CRLF)
+		_Extract_MoveMod('BiG-World-Fixpack-master')
+	EndIf
 ; ==============  Fix textstring so weidu will not fail to install the mod ============
 	If StringRegExp($g_Flags[14], 'BWP|BWS') And FileExists($g_BG2Dir&'\setup-bonehillv275.exe') Then
 		$Text=FileRead($g_BG2Dir&'\bonehillv275\Language\deutsch\D\BHARRNES.TRA')
@@ -276,6 +284,7 @@ Func Au3ExFix($p_Num)
 		If FileExists($g_BG2Dir&'\setup-grimuars_v4.1.exe') Then FileMove($g_BG2Dir&'\setup-grimuars_v4.1.exe', $g_BG2Dir&'\setup-grimuars.exe')
 		If FileExists($g_BG2Dir&'\setup-grimuars_v4.1.tp2') Then FileMove($g_BG2Dir&'\setup-grimuars_v4.1.tp2', $g_BG2Dir&'\setup-grimuars.tp2')
 		If FileExists($g_BG2Dir&'\stratagems') Then DirCreate($g_BG2Dir&'\stratagems_external')
+		If FileExists($g_BG2Dir&'\wheels') Then DirCreate($g_BG2Dir&'\stratagems_external')
 		If FileExists($g_BG2Dir&'\setup-item_rev.exe') Then DirCreate($g_BG2Dir&'\ninjawakifix')
 		If FileExists($g_BG2Dir&'\setup-tobex.exe') Then DirCreate($g_BG2Dir&'\poison_effect_supplement')
 	ElseIf $g_Flags[14] = 'PST' Then
@@ -310,7 +319,7 @@ Func Au3ExFix($p_Num)
 			If $Fault[$f][0] = 'BG1TP' Then ContinueLoop; German bg1-addons
 			If $Fault[$f][0] = 'Abra' Or $Fault[$f][0] = 'BG1TotSCSound' Then ContinueLoop; Spanish bg1-addons
 			If $Fault[$f][0] = 'BG1correcfr' Then ContinueLoop; French bg1-addon
-;			If $Fault[$f][0] = 'stratagems' Then ContinueLoop; New Stratagems
+			If $Fault[$f][0] = 'arestorationp' Then ContinueLoop
 			If $g_Flags[0] = 0 Then; the exit button was pressed
 				Exit
 			EndIf

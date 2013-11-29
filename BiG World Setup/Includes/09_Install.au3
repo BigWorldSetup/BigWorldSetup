@@ -82,6 +82,7 @@ Func Au3PrepInst($p_Num = 0)
 		_Misc_MsgGUI(1, $g_ProgName, _GetTR($Message, 'L3')); => remove cds
 		_CDTray('Closed')
 	EndIf
+	If FileExists($g_DownDir&'\WeiDU.exe') Then FileDelete($g_DownDir&'\WeiDU.exe')
 	IniWrite($g_BWSIni, 'Order', 'Au3PrepInst', 0); Skip this one if the Setup is rerun
 EndFunc   ;==>Au3PrepInst
 
@@ -112,7 +113,6 @@ Func Au3RunFix($p_Num = 0)
 				ProcessClose($Setup[$s])
 				While 1
 					If $Size = FileGetSize($g_GameDir&'\'&$Setup[$s]) Then ExitLoop
-					If $Size + 100000 < FileGetSize($g_GameDir&'\'&$Setup[$s]) Then ExitLoop ; prevent overwriting betas with current setups (which are much smaller)
 					$Test=FileCopy($g_GameDir&'\WeiDU\WeiDU.exe', $g_GameDir&'\'&$Setup[$s], 1)
 					If $Test = 1 Then ExitLoop
 					$Test=_Misc_MsgGUI(3, _GetTR($g_UI_Message, '0-T1'), _GetTR($Message, 'L9')&'||'& StringFormat(_GetTR($Message, 'L10'), $Setup[$s], $Type), 2); => cannot continue without current WeiDU
@@ -1225,8 +1225,6 @@ EndFunc   ;==>_Install_ReadWeiDU
 Func _Install_UpdateWeiDU($p_File, $p_Size=0)
 	If $p_Size = 0 Then $p_Size=FileGetSize($g_GameDir&'\WeiDU\WeiDU.exe')
 	$Size=FileGetSize($g_GameDir&'\'&$p_File)
-	If ($p_Size <> 0) And ($p_Size+100000<$Size) Then; do nothing if WeiDU is a beta and would be overwritten by a stable WeiDU - beta is a bit bigger, so use size here
-	Else
-		FileCopy($g_GameDir&'\WeiDU\WeiDU.exe', $g_GameDir&'\'&$p_File, 1); Just update the WeiDU-setupfile
-	EndIf
+	If $p_Size = 0 Then Return; do nothing if WeiDU does not exist
+	FileCopy($g_GameDir&'\WeiDU\WeiDU.exe', $g_GameDir&'\'&$p_File, 1); Just update the WeiDU-setupfile
 EndFunc   ;==>_Install_UpdateWeiDU
