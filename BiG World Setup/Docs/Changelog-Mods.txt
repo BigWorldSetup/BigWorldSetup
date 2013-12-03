@@ -262,3 +262,6 @@ Updated: Ajantis NPC for BG2, Bard Song Switching, Branwen BG2 NPC, Petsy Chatte
 Fixed: Tags for non-BWP games.
 20131129 - Updated by Silent
 Updated: Mod list. Now uses FP by Lollorian.
+20131203 - Updated by Silent
+Changed: Disabled the forced installation of BGT Music.
+Updated: Isra BG2.

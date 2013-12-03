@@ -934,3 +934,5 @@ Fixed: Changing the codepage (thanks to Dabus).
 Changed: Selections "Total happiness", "Megamod" and "Arkenor's Adventure Picks" is recovered back.
 20131129 - Updated by Silent
 Changed: Replaces "old" WeiDUs (thanks to Dabus).
+20131203 - Updated by Silent
+Changed: Disabled auto-update links function, again.
