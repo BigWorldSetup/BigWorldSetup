@@ -34,7 +34,7 @@ Func _Tree_EndSelection()
 	If GUICtrlRead($g_UI_Interact[14][5]) = $GUI_CHECKED Then ; widescreen
 		If $g_Flags[14]='PST' Then
 			IniWrite($g_UsrIni, 'Current', 'widescreen', '0 0?1_'&GUICtrlRead($g_UI_Interact[14][6]) & ' 0?2_' & GUICtrlRead($g_UI_Interact[14][7]) & ' 0?3_N 0?4_N 0?5_Y')
-		Else	
+		Else
 			IniWrite($g_UsrIni, 'Current', 'widescreen', '0 0?1_'&GUICtrlRead($g_UI_Interact[14][6]) & ' 0?2_' & GUICtrlRead($g_UI_Interact[14][7]) & ' 0?3_Y')
 		EndIf	
 	Else
@@ -307,14 +307,13 @@ Func _Tree_Populate($p_Show=1)
 			EndIf
 			$Setup[$s][7]=_IniRead($ReadSection, 'Name', $Setup[$s][2])
 			$Ext = _IniRead($ATMod, $Setup[$s][2], '', $ATIdx[Asc(StringLower(StringLeft($Setup[$s][2], 1)))]); gather the mods description
-			If $Ext = '' Then ConsoleWrite('!'&$Setup[$s][2]&@CRLF)
+			If $Ext = '' Then ConsoleWrite('!No mod description: '&$Setup[$s][2]&@CRLF)
 			$g_TreeviewItem[$cs][0] = GUICtrlCreateTreeViewItem($Setup[$s][7]&' ['&$Setup[$s][5]& ']', $g_CHTreeviewItem[$Setup[$s][8]]); create a treeviewitem (gui-element) for the mod itself (headline)
 			$g_CentralArray[$g_CHTreeviewItem[$Setup[$s][8]]][10]+= 1; increase "mods per chapter" counter
 			GUICtrlSetState($g_TreeviewItem[$cs][0], $GUI_DEFBUTTON); only set the mod-line bold
 ; ---------------------------------------------------------------------------------------------
 ; Create the entries for the mod in an two-dimensional main-array.
 ; ---------------------------------------------------------------------------------------------
-			ConsoleWrite('@@ Debug(' & @ScriptLineNumber & ') : $Setup[$s][2] = ' & $g_TreeviewItem[$cs][0] & @crlf) ;### Debug Console
 			$g_CentralArray[$g_TreeviewItem[$cs][0]][0] = $Setup[$s][2]; current setup
 			$g_CentralArray[$g_TreeviewItem[$cs][0]][1] = $Setup[$s][8]; tag
 			$g_CentralArray[$g_TreeviewItem[$cs][0]][2] = '-'; tag as no component
@@ -323,9 +322,9 @@ Func _Tree_Populate($p_Show=1)
 			$g_CentralArray[$g_TreeviewItem[$cs][0]][5] = GUICtrlGetHandle($g_TreeviewItem[$cs][0]); handle
 			$Test = _Depend_ItemGetConnections($g_Connections, $g_TreeviewItem[$cs][0],  $Index[$Setup[$s][1]][2], $Setup[$s][2])
 			If $Test <> '' Then
-				$g_CentralArray[$g_TreeviewItem[$cs][0]][6] = $Ext & @CRLF & @CRLF & $ConnNote & $Test
+				$g_CentralArray[$g_TreeviewItem[$cs][0]][6] = StringReplace($Ext, '|', @CRLF) & @CRLF & @CRLF & $ConnNote & $Test
 			Else
-				$g_CentralArray[$g_TreeviewItem[$cs][0]][6] = $Ext
+				$g_CentralArray[$g_TreeviewItem[$cs][0]][6] = StringReplace($Ext, '|', @CRLF)
 			EndIf
 			$g_CentralArray[$g_TreeviewItem[$cs][0]][7] = _IniRead($ReadSection, 'Size', '102400'); get the size of the mod
 			$g_CentralArray[$g_TreeviewItem[$cs][0]][8] = $Setup[$s][5] ; get the language of the mod
@@ -474,7 +473,7 @@ Func _Tree_Populate($p_Show=1)
 			EndIf
 		Next
 		If $p_Show = 1 Then _Tree_SetPreSelected(); so $p_Show=2 will do the reload later
-		If $g_Flags[14] = 'BGEE' Then; no widescreen for BGEE needed
+		If StringInStr($g_Flags[14], 'EE') Then; no widescreen for BGEE/BG2EE needed
 		ElseIf $g_Flags[14] = 'BWP' Then; do a batch-install
 			$g_Flags[22] = _Tree_GetID('widescreen', 'BATCH')
 		Else; do a bws-install
@@ -625,7 +624,7 @@ Func _Tree_PurgeUnNeeded()
 			If Not StringRegExp($ReadSection[$r][1], '\x3a'&$g_MLang[1]&'\x3a') Then ContinueLoop; remove mods only if certain language was selected
 		EndIf
 		$Line=StringRegExpReplace($ReadSection[$r][1], '(?i)\AD\x3a|\AC\x3a[[:alpha:]]{2}\x3a|\x3aBGT\x28\x2d\x29\z|\x28\x2d\x29|\x3a[[:alpha:]]{2}\z|\x3a\d[\x2e\d|\x7c]{1,}\z', ''); remove D:|C:XX:|:BGT(-)|(-)|:XX
-		$g_Skip&='|'&StringReplace(StringReplace($Line, '&', '|'), '(', ';(')
+		$g_Skip&='|'&StringReplace(StringReplace(StringReplace($Line, '&', '|'), '(', ';('), '?', '\x3f')
 	Next
 	If _Test_ACP() = 1 Then Exit
 	If $g_BG1Dir <> '-' And $g_MLang[0] = 2 And $g_MLang[1] = 'GE' Then; second $g_Mlang-entry is --
@@ -900,7 +899,7 @@ EndFunc   ;==>_Tree_SelectReadForBatch
 ; ---------------------------------------------------------------------------------------------
 Func _Tree_SelectRead($p_Admin=0)
 	$Array=StringSplit(StringStripCR(FileRead($g_GConfDir&'\Select.txt')), @LF)
-	Local $Return[$Array[0]][10]
+	Local $Return[$Array[0]+1][10]
 	For $a=1 to $Array[0]
 		If StringRegExp($Array[$a], '\A(\s.*\z|\z)') Then ContinueLoop; skip emtpty lines
 		If StringRegExp($Array[$a], '(?i)\A(ANN|CMD|GRP)') Then 
@@ -917,7 +916,6 @@ Func _Tree_SelectRead($p_Admin=0)
 			EndIf
 		EndIf	
 		If $p_Admin = 0 And StringRegExp($Array[$a], '(?i);('&$g_Skip&');') Then ContinueLoop; skip mods that don't fit the selection
-		
 		$Split=StringSplit($Array[$a], ';')
 		$Return[0][0]+=1
 		$Return[$Return[0][0]][0]=$Split[1]; linetype

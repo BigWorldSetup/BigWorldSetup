@@ -442,7 +442,8 @@ Func _Misc_SelectFolder($p_Type, $p_Text)
 	If Not FileExists($Folder) Then $Folder = $g_BaseDir
 	$Folder = FileSelectFolder($p_Text, '', 2, $Folder & '\', $g_UI[0]); => select folder
 	If $Folder = '' Then Return
-	If $p_Type = 'BGEE' And FileExists($Folder&'\Data\00766') Then $Folder=$Folder&'\Data\00766'; Maybe this works for Steam?
+	If $p_Type = 'BGEE' And FileExists($Folder&'\Data\00766') Then $Folder=$Folder&'\Data\00766'; get BGEE Beamdog-subfolder
+	If $p_Type = 'BG2EE' And FileExists($Folder&'\Data\00783') Then $Folder=$Folder&'\Data\00783'; get BG2EE Beamdog-subfolder
 	Assign('g_'&$p_Type&'Dir', $Folder)
 	If $p_Type='Down' Then
 		$Test = 1
@@ -515,14 +516,13 @@ Func _Misc_SetLang()
 	GUICtrlSetData($g_UI_Static[2][2], _GetGameName())
 	GUICtrlSetData($g_UI_Static[3][1], StringFormat(_GetSTR($Message, 'Static[3][1]'), $g_Flags[14])); => backup important files
 	GUICtrlSetData($g_UI_Interact[3][4], StringFormat(_GetSTR($Message, 'Interact[3][4]'), _GetGameName(), $g_Flags[14], $g_Flags[14])); => backup help text
-	
 	; Items that need special treetment
 	$Split = StringSplit(_GetTR($Message, 'Interact[1][2]'), '|'); => BWS translations
 	GUICtrlSetData($g_UI_Interact[1][2], '')
 	GUICtrlSetData($g_UI_Interact[1][2], _GetTR($Message, 'Interact[1][2]'), $Split[$g_ATNum]); => BWS translations
-	$Split = StringSplit(_GetTR($Message, 'Interact[1][3]'), '|'); => installation method
 	GUICtrlSetData($g_UI_Interact[1][3], '')
-	GUICtrlSetData($g_UI_Interact[1][3], _GetTR($Message, 'Interact[1][3]'), $Split[1]); => installation method
+	$g_GameList=_GetGameList()
+	GUICtrlSetData($g_UI_Interact[1][3], $g_GameList[0][2], $g_GameList[1][2]); => installation method
 	$g_Flags[3]=IniRead($g_UsrIni, 'Options', 'ModLang', '')
 	If $g_Flags[3] = '' Then
 		If $g_ATrans[$g_ATNum] <> 'EN' Then
@@ -533,7 +533,6 @@ Func _Misc_SetLang()
 	EndIf
 	GUICtrlSetData($g_UI_Interact[2][5], $g_Flags[3])
 	$g_MLang = StringSplit($g_Flags[3]&' --', ' '); reset the array with the selected languages. -- is added for mods with no text = suitable for all languages
-
 	$Split = StringSplit(_GetTR($Message, 'Menu[2][1]'), '|'); => Special|All
 	For $n=1 to 2
 		For $m=2 to 4
@@ -680,19 +679,17 @@ Func _Misc_SetTab($p_Tab)
 EndFunc   ;==>_Misc_SetTab
 
 ; ---------------------------------------------------------------------------------------------
-; Change the entries on the tip-screen.
+; Change the entries on the tip-screen. Stage 0 = Initial / 1 = Question screen
 ; ---------------------------------------------------------------------------------------------
-Func _Misc_SetTip()
-	Local $Game[7]=[6, 'BWP', 'BWP', 'IWD1', 'IWD2', 'PST', 'BGEE']
-	$Split = StringSplit(IniRead($g_TRAIni, 'UI-Buildtime', 'Interact[1][3]', ''), '|'); => install-methods
-	$Value = GUICtrlRead($g_UI_Interact[1][3])
-	For $s=1 to $Split[0]
-		If $Split[$s]=$Value Then ExitLoop
-	Next	
-	GUICtrlSetData($g_UI_Interact[1][1], StringReplace(IniRead($g_ProgDir&'\Config\'&$Game[$s]&'\Translation-'&$g_ATrans[$g_ATNum]&'.ini', 'UI-RunTime', '1-L2', ''), '|', @CRLF)); => questionary (did you have installed...)
+Func _Misc_SetTip($p_Stage=1)
+	$Value = GUICtrlRead($g_UI_Interact[1][3]); get current value so function works if game-type is changed
+	For $g=1 to $g_GameList[0][0]
+		If $Value=$g_GameList[$g][2] Then ExitLoop
+	Next
+	If $p_Stage <> 0 Then GUICtrlSetData($g_UI_Interact[1][1], StringReplace(IniRead($g_ProgDir&'\Config\'&$g_GameList[$g][0]&'\Translation-'&$g_ATrans[$g_ATNum]&'.ini', 'UI-RunTime', '1-L2', ''), '|', @CRLF)); => questionary (did you have installed...)
 	GUICtrlSetData($g_UI_Static[2][2], _GetGameName()); game-folder
-	GUICtrlSetData($g_UI_Static[3][1], StringFormat(StringReplace(IniRead($g_TRAIni, 'UI-Buildtime', 'Static[3][1]', ''), '|', @CRLF), $g_Flags[14])); => backup hint
-	GUICtrlSetData($g_UI_Interact[3][4], StringFormat(StringReplace(IniRead($g_TRAIni, 'UI-Buildtime', 'Interact[3][4]', ''), '|', @CRLF), _GetGameName(), $g_Flags[14], $g_Flags[14])); => backup help
+	GUICtrlSetData($g_UI_Static[3][1], StringFormat(StringReplace(IniRead($g_TRAIni, 'UI-Buildtime', 'Static[3][1]', ''), '|', @CRLF), $g_GameList[$g][1])); => backup hint
+	GUICtrlSetData($g_UI_Interact[3][4], StringFormat(StringReplace(IniRead($g_TRAIni, 'UI-Buildtime', 'Interact[3][4]', ''), '|', @CRLF), _GetGameName(), $g_GameList[$g][1], $g_GameList[$g][1])); => backup help
 EndFunc   ;==>_Misc_SetTip
 
 ; ---------------------------------------------------------------------------------------------
@@ -700,23 +697,21 @@ EndFunc   ;==>_Misc_SetTip
 ; ---------------------------------------------------------------------------------------------
 Func _Misc_SetWelcomeScreen($p_String)
 	_PrintDebug('+' & @ScriptLineNumber & ' Calling _Misc_SetWelcomeScreen')
-	Local $Game[7]=[6, 'BWS', 'BWP', 'IWD1', 'IWD2', 'PST', 'BGEE']
 	$Current = GUICtrlRead($g_UI_Seperate[0][0])+1
 	$State=BitAND(GUICtrlGetState($g_UI_Interact[1][2]), $GUI_HIDE)
 	If $p_String = '+' Then
 		If $State Then; jump from install selection to folder selection
-			$Method = GUICtrlRead($g_UI_Interact[1][3]); look if install-method changed
-			$Split = StringSplit(IniRead($g_TRAIni, 'UI-Buildtime', 'Interact[1][3]', ''), '|')
-			For $s = 1 to $Split[0]
-				If $Method = $Split[$s] Then
-					If $g_Flags[14] <> $Game[$s] Then
-						$g_Flags[14]=$Game[$s]
+			$Method = GUICtrlRead($g_UI_Interact[1][3]); look if install-method changed			
+			For $g = 1 to $g_GameList[0][0]
+				If $Method = $g_GameList[$g][2] Then
+					If $g_Flags[14] <> $g_GameList[$g][1] Then
+						$g_Flags[14] = $g_GameList[$g][1]
 						_Misc_SwichGUIToInstallMethod()
 						_Misc_SetAvailableSelection()
-						IniWrite($g_UsrIni, 'Options', 'AppType', $g_Flags[14])
+						IniWrite($g_UsrIni, 'Options', 'AppType', $g_GameList[$g][0]&':'&$g_Flags[14])
 						$g_Flags[10] = 1
 					Else; make sure the correct config-dir is used (rare case if you use something, go back, change game , go back, go forth, revert game, continue)
-						$g_GConfDir = $g_ProgDir & '\Config\'&StringReplace($Game[$s], 'BWS', 'BWP')
+						$g_GConfDir = $g_ProgDir & '\Config\'&$g_GameList[$g][0]
 					EndIf
 				EndIf
 			Next
@@ -746,13 +741,12 @@ Func _Misc_SetWelcomeScreen($p_String)
 			GUICtrlSetData($g_UI_Interact[1][1], StringReplace(IniRead($g_GConfDir&'\Translation-'&$g_ATrans[$g_ATNum]&'.ini', 'UI-RunTime', '1-L2', ''), '|', @CRLF)); => questionary (did you have installed...)
 			_Misc_SetTab(1)
 		ElseIf $State Then; jump from install selection to welcome
-			$Method = GUICtrlRead($g_UI_Interact[1][3]); look if install-method changed
-			$Split = StringSplit(IniRead($g_TRAIni, 'UI-Buildtime', 'Interact[1][3]', ''), '|')
-			For $s = 1 to $Split[0]
-				If $Method = $Split[$s] Then
-					If $g_Flags[14] <> $Game[$s] Then $g_GConfDir = $g_ProgDir & '\Config\'&StringReplace($Game[$s], 'BWS', 'BWP')
+			$Method = GUICtrlRead($g_UI_Interact[1][3]); look if install-method changed			
+			For $g = 1 to $g_GameList[0][0]
+				If $Method = $g_GameList[$g][2] Then
+					If $g_Flags[14] <> $g_GameList[$g][1] Then $g_GConfDir = $g_ProgDir & '\Config\'&$g_GameList[$g][0]
 				EndIf
-			Next
+			Next	
 			GUICtrlSetData($g_UI_Static[1][1], StringReplace(IniRead($g_TRAIni, 'UI-Buildtime', 'Static[1][1]', ''), '|', @CRLF)); => important notes
 			GUICtrlSetData($g_UI_Interact[1][1], StringReplace(IniRead($g_TRAIni, 'UI-Buildtime', 'Interact[1][1]', ''), '|', @CRLF)); => questionary (did you have installed...)
 			GUICtrlSetState($g_UI_Interact[1][2], $GUI_SHOW); combobox
@@ -771,12 +765,12 @@ EndFunc   ;==>_Misc_SetWelcomeScreen
 Func _Misc_SwichGUIToInstallMethod()
 	_PrintDebug('+' & @ScriptLineNumber & ' Calling _Misc_SwichGUIToInstallMethod')
 	Local $Message = IniReadSection($g_TRAIni, 'UI-Buildtime')
-	Local $Game[7]=[6, 'BWS', 'BWP', 'IWD1', 'IWD2', 'PST', 'BGEE'], $State=$GUI_ENABLE
-	For $g=1 to $Game[0]
-		If $g_Flags[14] = $Game[$g] Then ExitLoop
+	Local $State=$GUI_ENABLE
+	For $g = 1 to $g_GameList[0][0]
+		If $g_Flags[14] = $g_GameList[$g][1] Then ExitLoop
 	Next
-	$Split = StringSplit(_GetTR($Message, 'Interact[1][3]'), '|'); => install-methods
-	GUICtrlSetData($g_UI_Interact[1][3], $Split[$g])
+	$g_GConfDir = $g_ProgDir & '\Config\'&$g_GameList[$g][0]
+	GUICtrlSetData($g_UI_Interact[1][3], $g_GameList[$g][2])
 	If StringRegExp($g_Flags[14], 'BWS|BWP') Then
 		GUICtrlSetState($g_UI_Static[2][1], $GUI_SHOW)
 		GUICtrlSetState($g_UI_Interact[2][1], $GUI_SHOW)
@@ -792,7 +786,6 @@ Func _Misc_SwichGUIToInstallMethod()
 		$g_GameDir = $g_BG2Dir
 		GUICtrlSetData($g_UI_Interact[2][1], $g_BG1Dir)
 		GUICtrlSetData($g_UI_Interact[2][2], $g_BG2Dir)
-		$g_GConfDir = $g_ProgDir & '\Config\BWP'
 		If $g_Flags[14] = 'BWP' Then
 			$g_Flags[21] = 1; sort components according to PDF
 			$State=$GUI_DISABLE
@@ -816,7 +809,6 @@ Func _Misc_SwichGUIToInstallMethod()
 		_Test_GetGamePath($g_Flags[14])
 		$g_GameDir = Eval('g_'&$g_Flags[14]&'Dir')
 		GUICtrlSetData($g_UI_Interact[2][2], $g_GameDir)
-		$g_GConfDir = $g_ProgDir & '\Config\'&$g_Flags[14]
 	EndIf
 	GUICtrlSetBkColor($g_UI_Button[2][1], Default)
 	GUICtrlSetColor($g_UI_Button[2][1], Default)
@@ -833,8 +825,8 @@ Func _Misc_SwichGUIToInstallMethod()
 	GUICtrlSetState($g_UI_Interact[14][6], $State); desktopwidth
 	GUICtrlSetState($g_UI_Interact[14][7], $State); desktopheight
 	GUICtrlSetState($g_UI_Interact[14][8], $State); install additional textpatch
-	If $g_Flags[14]='BGEE' Then
-		$State = $GUI_HIDE; BGEE doesn't need widescreen for bigger resolutions
+	If StringInStr($g_Flags[14], 'EE') Then
+		$State = $GUI_HIDE; BGEE/BG2EE doesn't need widescreen for bigger resolutions
 	Else
 		$State = $GUI_SHOW
 	EndIf
@@ -872,7 +864,7 @@ EndFunc    ;==>_Misc_SwichLang
 ; Enable or disable Widescreen checkbox if mod is deselected and vice versa
 ; ---------------------------------------------------------------------------------------------
 Func _Misc_SwitchWideScreen($p_ID, $p_State=-1)
-	If $g_Flags[14] = 'BGEE' Then Return
+	If StringInStr($g_Flags[14], 'EE') Then Return; Widescreen already built into BGEE/BG2EE
 	If $p_State = -1 Then
 		If GUICtrlRead($g_UI_Interact[14][5]) = $GUI_CHECKED Then
 			$p_State = 1

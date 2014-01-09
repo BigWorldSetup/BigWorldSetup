@@ -265,3 +265,14 @@ Updated: Mod list. Now uses FP by Lollorian.
 20131203 - Updated by Silent
 Changed: Disabled the forced installation of BGT Music.
 Updated: Isra BG2.
+20131224 - Update by dabus
+Added: BG2EE section.
+20131229 - Update by dabus
+Added: BG2EE text and sound patch.
+20140105 - Updated by Silent
+Added: Universal IWD1&2 Translators (Russian only).
+Updated: Selection fits IP 14, TP GE 14.
+20140105 - Updated by dabus
+Added: Classic Adventures selection.
+20140107 - Updated by Silent
+Added: aTweaks, FP, TP and TobEx to CA-installation.

@@ -1,7 +1,7 @@
 #include-once
 
 Func Au3BuildGUI($p_Num = 0)
-	_PrintDebug('+' & @ScriptLineNumber & ' Calling _BuildGUI')
+	_PrintDebug('+' & @ScriptLineNumber & ' Calling Au3BuildGUI')
 	Local $Message = IniReadSection($g_TRAIni, 'UI-Buildtime')
 	$g_UI[0] = GUICreate($g_ProgName, 750, 480, -1, -1, $WS_MINIMIZEBOX + $WS_MAXIMIZEBOX + $WS_CAPTION + $WS_POPUP + $WS_SYSMENU + $WS_SIZEBOX)
 	GUISetOnEvent($GUI_EVENT_CLOSE, '_Process_OnEvent')
@@ -75,7 +75,7 @@ Func Au3BuildGUI($p_Num = 0)
 	$g_UI_Static[2][1] =  GUICtrlCreateLabel('', 30, 80, 370, 15); BG1 if BWS/BWP
 	$g_UI_Interact[2][1] = GUICtrlCreateInput('', 30, 95, 300, 20)
 	$g_UI_Button[2][1] = GUICtrlCreateButton('...', 350, 95, 50, 20, 0)
-	$g_UI_Static[2][2] =  GUICtrlCreateLabel('', 30, 135, 370, 15); BG2/IWD1/IWD2/PST/BGEE
+	$g_UI_Static[2][2] =  GUICtrlCreateLabel('', 30, 135, 370, 15); BG2/IWD1/IWD2/PST/BGEE/BG2EE
 	$g_UI_Interact[2][2] = GUICtrlCreateInput('', 30, 150, 300, 20)
 	$g_UI_Button[2][2] = GUICtrlCreateButton('...', 350, 150, 50, 20, 0)
 	$g_UI_Static[2][3] = GUICtrlCreateLabel('', 30, 190, 370, 15); download

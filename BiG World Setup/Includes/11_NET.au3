@@ -580,7 +580,7 @@ Func _Net_DownloadStart($p_URL, $p_File, $p_Setup, $p_Prefix, $p_String); Link, 
 		If StringInStr($p_URL, 'fastshare.org') Then
 			$p_URL = StringReplace($p_URL, 'download', 'files')
 			_Net_LoginFastShare($p_URL); activate/unlock the fastshare-link again.
-		ElseIf StringLeft($p_URL, 4) = 'http' Then
+		ElseIf StringLeft($p_URL, 4) = 'http' And Not StringInStr($p_URL, 'sourceforge.net') Then
 			$Referer='--referer="'&StringLeft($p_URL, StringInStr($p_URL, '/', 1, 3)-1)&'"'
 		EndIf
 		_Process_SetConsoleLog('')

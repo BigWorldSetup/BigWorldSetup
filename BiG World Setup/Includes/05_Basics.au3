@@ -99,10 +99,39 @@ Func _GetArchiveSizes()
 EndFunc    ;==>_GetArchiveSizes
 
 ; ---------------------------------------------------------------------------------------------
+; Get the possible list of games/flavours that can be installed
+; ---------------------------------------------------------------------------------------------
+Func _GetGameList()
+	Local  $GameList[100][3]=[[0]], $Game
+	$Game=_FileSearch($g_ProgDir & '\Config', '*')
+	For $g=1 to $Game[0]
+		If StringInStr($g_ProgDir & '\Config\'&$Game[$g], '.') Then ContinueLoop
+		$Contains=StringSplit(IniRead($g_ProgDir & '\Config\'&$Game[$g]&'\Game.ini', 'Options', 'Contains', ''), '|')
+		$Description=StringSplit(IniRead($g_ProgDir & '\Config\'&$Game[$g]&'\Translation-'&$g_ATrans[$g_ATNum]&'.ini', 'UI-BuildTime', 'Interact[1][3]', ''), '|')
+		If $Contains[0] <> $Description[0] Then 
+			ConsoleWrite('!Faulty Game:'&$Game[$g] & @CRLF)
+			ContinueLoop
+		EndIf	
+		For $c=1 to $Contains[0]
+			$GameList[0][0]+=1
+			$GameList[$GameList[0][0]][0]=$Game[$g]
+			$GameList[$GameList[0][0]][1]=StringUpper($Contains[$c])
+			$GameList[$GameList[0][0]][2]=$Description[$c]
+			$GameList[0][2]&='|'&$Description[$c]
+		Next
+		$GameList[0][1]&='|'&$Game[$g]
+	Next
+	$GameList[0][2]=StringRegExpReplace($GameList[0][2], '\A\x7c{1,}', '')
+	$GameList[0][1]=StringRegExpReplace($GameList[0][1], '\A\x7c{1,}', '')
+	ReDim $GameList[$GameList[0][0]+1][3]
+	Return $GameList
+EndFunc    ;==>_GetGameList
+
+; ---------------------------------------------------------------------------------------------
 ; Returns the "long" gamename
 ; ---------------------------------------------------------------------------------------------
 Func _GetGameName($p_Text='-')
-	Local $Return[8][2]=[[7], ['BG1', "Baldur's Gate"],['BWP', "Baldur's Gate II"], ['BWS', "Baldur's Gate II"], ['IWD1', 'IceWind Dale'], ['IWD2', 'IceWind Dale II'], ['PST', 'PlaneScape: Torment'], ['BGEE', "Baldur's Gate - Enhanced Edition"]]
+	Local $Return[10][2]=[[9], ['BG1', "Baldur's Gate"],['BG2', "Baldur's Gate II"],['BWP', "Baldur's Gate II"], ['BWS', "Baldur's Gate II"], ['IWD1', 'IceWind Dale'], ['IWD2', 'IceWind Dale II'], ['PST', 'PlaneScape: Torment'], ['BGEE', "Baldur's Gate - Enhanced Edition"], ['BG2EE', "Baldur's Gate II - Enhanced Edition"]]
 	If $p_Text = '-' Then $p_Text = $g_Flags[14]
 	For $r=1 to $Return[0][0]
 		If $p_Text = $Return[$r][0] Then Return $Return[$r][1]

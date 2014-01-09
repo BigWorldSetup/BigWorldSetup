@@ -1,13 +1,17 @@
 #include-once
 
 Func Au3Select($p_Num = 0)
-	_PrintDebug('+' & @ScriptLineNumber & ' Calling _BuildGUI')
+	_PrintDebug('+' & @ScriptLineNumber & ' Calling Au3Select')
 	Local $MouseClicked, $SpaceClicked
 	$ReadSection = IniReadSection($g_UsrIni, 'Options')
 	Local $AccelKeys[1][2] = [["{F1}", $g_UI_Static[0][3]]]
 	GUISetAccelerators($AccelKeys)
 	GUISwitch($g_UI[0])
-	$g_Flags[14] =_IniRead($ReadSection, 'AppType', '')
+	$Test=StringSplit(_IniRead($ReadSection, 'AppType', ''),':'); need correct gametype
+	If $Test[0] = 2 Then
+		$g_GConfDir = $g_ProgDir & '\Config\'&$Test[1]
+		$g_Flags[14] = $Test[2]
+	EndIf	
 	__TristateTreeView_LoadStateImage($g_UI_Handle[0], $g_ProgDir & '\Pics\Icons.bmp')
 	_Misc_SetLang()
 	_Misc_SetTab(9)
@@ -63,6 +67,7 @@ Func Au3Select($p_Num = 0)
 ; ---------------------------------------------------------------------------------------------
 ; lift off
 ; ---------------------------------------------------------------------------------------------
+	GUICtrlSetState($g_UI_Button[3][6], $GUI_DISABLE); disable update-button (remove and uncomment lines below to restore it)
 	If $g_Flags[14] <> '' Then
 		_Misc_SwichGUIToInstallMethod()
 ;		If _IniRead($ReadSection, 'SuppressUpdate', 0) = 0 Then 
@@ -70,22 +75,21 @@ Func Au3Select($p_Num = 0)
 ;		ElseIf Not StringRegExp($g_Flags[14], 'BWP|BWS') Then; currently no updates for other games than BWP
 ;			GUICtrlSetState($g_UI_Button[3][6], $GUI_DISABLE)
 ;		EndIf
-        GUICtrlSetState($g_UI_Button[3][6], $GUI_DISABLE); disable button (new line)
-		_Misc_SetAvailableSelection()
+        _Misc_SetAvailableSelection()
 		_Misc_SetTab(2)		
 		GUICtrlSetState($g_UI_Interact[1][2], $GUI_HIDE); combobox
 		GUICtrlSetState($g_UI_Static[1][2], $GUI_HIDE); language label
 		GUICtrlSetState($g_UI_Interact[1][3], $GUI_SHOW); combobox
 		GUICtrlSetState($g_UI_Static[1][3], $GUI_SHOW); install label
 	ElseIf _IniRead($ReadSection, 'AppLang', '') <> '' Then
-		$g_GConfDir = $g_ProgDir & '\Config\BWP'
+		$g_GConfDir = $g_ProgDir & '\Config\'&$g_GameList[1][0]
 		_Misc_SetWelcomeScreen('+')
 		_Misc_SetTip()
 		$g_Flags[10] = 1
 		_Misc_SetTab(1)
 	Else
-		$g_GConfDir = $g_ProgDir & '\Config\BWP'
-		_Misc_SetTip()
+		$g_GConfDir = $g_ProgDir & '\Config\'&$g_GameList[1][0]
+		_Misc_SetTip(0)
 		$g_Flags[10] = 2
 		_Misc_SetTab(1)
 	EndIf
@@ -391,6 +395,8 @@ Func Au3Select($p_Num = 0)
             EndIf
 			_Misc_ReBuildTreeView(1)
 			_Misc_SetTab(4)
+			While GUIGetMsg() <> 0; throw away events prior to this point
+			WEnd
 #EndRegion advsel
 ; ---------------------------------------------------------------------------------------------
 #Region install opts

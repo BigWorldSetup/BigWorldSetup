@@ -243,7 +243,7 @@ Func _Process_Question($p_String, $p_Text, $p_Translation, $p_Close=-1, $p_Ring=
 	WEnd
 	If StringLen($g_pQuestion) = 1 Then
 		$Ascii=Asc($g_pQuestion)
-		If 96 < $Ascii And $Ascii < 123 Then $g_pQuestion = StringMid($p_String, StringInStr($p_Translation, $g_pQuestion), 1)
+		If StringLen($g_pQuestion) = 1 Then $g_pQuestion = StringMid($p_String, StringInStr($p_Translation, $g_pQuestion), 1)
 	EndIf
 	FileWrite($g_LogFile, '['&$g_pQuestion&']'&@CRLF)
 EndFunc   ;==>_Process_Question

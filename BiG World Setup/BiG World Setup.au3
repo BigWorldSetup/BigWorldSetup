@@ -12,10 +12,10 @@ TraySetIcon (@ScriptDir&'\Pics\BWS.ico'); sets the tray-icon
 ; files and folders
 Global $g_BaseDir = StringLeft(@ScriptDir, StringInStr(@ScriptDir, '\', 1, -1)-1), $g_GConfDir, $g_GameDir, $g_ProgName = 'BiG World Setup'
 Global $g_ProgDir = $g_BaseDir & '\BiG World Setup', $g_LogDir=$g_ProgDir&'\Logs', $g_DownDir = $g_BaseDir & '\BiG World Downloads'
-Global $g_BG1Dir, $g_BG2Dir, $g_BGEEDIR, $g_IWD1Dir, $g_IWD2Dir, $g_PSTDir, $g_RemovedDir, $g_BackupDir, $g_LogFile = $g_LogDir & '\BiG World Debug.txt'
+Global $g_BG1Dir, $g_BG2Dir, $g_BGEEDIR, $g_BG2EEDIR, $g_IWD1Dir, $g_IWD2Dir, $g_PSTDir, $g_RemovedDir, $g_BackupDir, $g_LogFile = $g_LogDir & '\BiG World Debug.txt'
 Global $g_BWSIni = $g_ProgDir & '\Config\Setup.ini', $g_MODIni, $g_UsrIni = $g_ProgDir & '\Config\User.ini'
 ; select-gui vars
-Global $g_Compilation='R', $g_LimitedSelection = 0, $g_Tags, $g_ActiveConnections[1], $g_Groups
+Global $g_Compilation='R', $g_LimitedSelection = 0, $g_Tags, $g_ActiveConnections[1], $g_Groups, $g_GameList
 Global $g_TreeviewItem[1][1], $g_CHTreeviewItem[1][1], $g_Connections, $g_CentralArray[1][16], $g_GUIFold
 ; Logging, Reading Streams / Process-Window
 Global $g_ConsoleOutput = '', $g_STDStream, $g_ConsoleOutput, $g_pQuestion = 0
@@ -62,6 +62,8 @@ Global $g_TRAIni = $g_ProgDir & '\Config\Translation-'&$g_ATrans[$g_ATNum]&'.ini
 #EndRegion Includes
 ;#NoTrayIcon
 
+#Region Copy between games
+
 $g_Order = IniReadSection($g_BWSIni, 'Order'); reload this to get the new selected functions
 
 For $g_CurrentOrder = 1 To $g_Order[0][0]; Calling the functions. This is the main loop. Cute, isn't it? :)
@@ -91,14 +93,14 @@ Func Au3GetVal($p_Num = 0)
 	_PrintDebug('+' & @ScriptLineNumber & ' Calling Au3GetVal')
 	$g_Order = IniReadSection($g_BWSIni, 'Order'); reload this to get the new selected functions
 	$ReadSection = IniReadSection($g_UsrIni, 'Options')
-	$g_Flags[14]=_IniRead($ReadSection, 'AppType', ''); need correct gametype
+	$Test=StringSplit(_IniRead($ReadSection, 'AppType', ''),':'); need correct gametype
+	$g_GConfDir = $g_ProgDir & '\Config\'&$Test[1]
+	$g_Flags[14]=StringUpper($Test[2])
 	If StringRegExp($g_Flags[14], 'BWS|BWP') Then
-		$g_GConfDir = $g_ProgDir & '\Config\BWP'
 		_Test_GetGamePath('BG1')
 		_Test_GetGamePath('BG2')
 		$g_GameDir = $g_BG2Dir
 	Else
-		$g_GConfDir = $g_ProgDir & '\Config\'&$g_Flags[14]
 		_Test_GetGamePath($g_Flags[14])
 		$g_GameDir = Eval('g_'&$g_Flags[14]&'Dir')
 	EndIf
@@ -257,6 +259,7 @@ EndFunc   ;==>_PrintDebug
 ; Set all values to start a new install
 ; ---------------------------------------------------------------------------------------------
 Func _ResetInstall($p_DeletePause=1)
+	Local $OldLogDir = $g_LogDir
 	IniWrite($g_BWSIni, 'Order', 'Au3Select', '1'); Enable the start of the selection-gui
 	IniWrite($g_BWSIni, 'Order', 'Au3PrepInst', '1'); remove cds
 	IniWrite($g_BWSIni, 'Order', 'Au3CleanInst', '1'); backup
@@ -271,10 +274,12 @@ Func _ResetInstall($p_DeletePause=1)
 	IniWrite($g_BWSIni, 'Options', 'Start', '1')
 	FileMove($g_LogDir & '\*.txt', $g_LogDir & '\Bak\', 9); save old logs
 	If DirGetSize($g_LogDir & '\Bak') > 0 Then
-		DirMove($g_LogDir & '\Bak', $g_LogDir & '\Bak-'& @YEAR & @MON & @MDAY & @HOUR & @MIN)
+		$OldLogDir = $g_LogDir & '\Bak-'& @YEAR & @MON & @MDAY & @HOUR & @MIN
+		DirMove($g_LogDir & '\Bak', $OldLogDir)
 	Else
 		DirRemove($g_LogDir & '\Bak')
 	EndIf
 	IniDelete($g_UsrIni, 'RemovedFromCurrent'); delete old failures-mesages
 	If $p_DeletePause = 1 Then IniDelete($g_UsrIni, 'Pause'); delete old pauses
+	Return $OldLogDir
 EndFunc   ;==>_ResetInstall

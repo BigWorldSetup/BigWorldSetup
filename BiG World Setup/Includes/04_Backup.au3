@@ -176,8 +176,8 @@ Func _Backup_CreateMultiInstall()
 	_PrintDebug('+' & @ScriptLineNumber & ' Calling Au3CleanInst')
 	Global $g_LogFile = $g_LogDir & '\BiG World Backup Multi-Install.txt'
 	Local $CSize, $Error, $Size, $Type, $MultiDir=''
-	Local $Game[7][4]=[[6], ['BG1', 'BGMain', 'Baldur', 'Baldur'],['BG2', 'BGMain', 'Baldur', 'Baldur'], ['IWD1', 'IDMain', 'Icewind', 'IDMain'], _
-	['IWD2', 'IWD2', 'IWD2', 'IWD2'], ['PST', 'Torment', 'Torment', 'Torment'], ['BGEE', 'Baldur', 'Baldur', 'Baldur']]
+	Local $Game[8][4]=[[7], ['BG1', 'BGMain', 'Baldur', 'Baldur'],['BG2', 'BGMain', 'Baldur', 'Baldur'], ['IWD1', 'IDMain', 'Icewind', 'IDMain'], _
+	['IWD2', 'IWD2', 'IWD2', 'IWD2'], ['PST', 'Torment', 'Torment', 'Torment'], ['BGEE', 'Baldur', 'Baldur', 'Baldur'], ['BG2EE', 'Baldur', 'Baldur', 'Baldur']]
 	If StringRegExp($g_Flags[14], 'BWS|BWP') Then
 		$Type = 'BG2'
 	Else
@@ -248,7 +248,7 @@ Func _Backup_CreateMultiInstall()
 		$Error+=_Backup_FileAction($Files[$f], $g_GameDir, $MultiDir, $IsDir, $CSize, $Size, $FMessage)
 	Next
 	If $Error = 0 Then; all right
-		If $g_Flags[14] <> 'BGEE' Then; alias-section does not seem to exist in BGEE
+		If Not StringInStr($g_Flags[14], 'EE') Then; alias-section does not seem to exist in BGEE/BG2EE
 			_Process_SetScrollLog(@CRLF&StringFormat(_GetTR($Message, 'L3'), $Game[$g][2]), 1, -1); => adjusting alias-section in ini-file
 			IniWrite($MultiDir&'\'&$Game[$g][2]&'.ini', 'Alias', 'HD0:', $MultiDir&'\')
 			For $c=1 to 6
@@ -485,7 +485,7 @@ EndFunc   ;==>_Backup_Restore
 ; ---------------------------------------------------------------------------------------------
 Func _Backup_Test($p_Game)
 	Local $IsInstalled=0
-	Local $Game[7][2]=[[6], ['BG1', 'BGMain2'],['BG2', 'BGMain'], ['IWD1', 'IDMain'],['IWD2', 'IWD2'], ['PST', 'Torment'], ['BGEE', 'Baldur']]
+	Local $Game[8][2]=[[7], ['BG1', 'BGMain2'],['BG2', 'BGMain'], ['IWD1', 'IDMain'],['IWD2', 'IWD2'], ['PST', 'Torment'], ['BGEE', 'Baldur'], ['BG2EE', 'Baldur']]
 	For $g=1 to $Game[0][0]
 		If $Game[$g][0] = $p_Game Then ExitLoop
 	Next

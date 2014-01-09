@@ -215,9 +215,21 @@ Func Au3ExFix($p_Num)
 			_Extract_MoveMod('CtBv1.13a\CtBv1.13')
 		EndIf
 	EndIf
-	If StringRegExp($g_Flags[14], 'BWP|BWS') And FileExists($g_BG2Dir&'\arpv3-4-1') Then
-		FileWrite($g_LogFile, '>arpv3-4-1\* .' & @CRLF)
-		_Extract_MoveMod('arpv3-4-1')
+	If StringRegExp($g_Flags[14], 'BWP|BWS|BG2EE') And FileExists($g_GameDir&'\arpv3-4-1') Then
+		$TP2Exists = _Test_GetCustomTP2('arestorationp', '\arpv3-4-1\')
+		If $TP2Exists <> '0' Then; this is a folder
+			FileWrite($g_LogFile, '>arpv3-4-1\* .' & @CRLF)
+			_Extract_MoveMod('arpv3-4-1')
+			IniDelete($g_BWSIni, 'Faults', 'arestorationp')
+		EndIf
+	EndIf
+	If StringRegExp($g_Flags[14], 'BWP|BWS') And FileExists($g_BG2Dir&'\InifKit') Then
+		FileWrite($g_LogFile, '>InifKit\* .' & @CRLF)
+		_Extract_MoveMod('InifKit')
+	EndIf
+	If StringRegExp($g_Flags[14], 'BWP|BWS') And FileExists($g_BG2Dir&'\Keenmarker') Then
+		FileWrite($g_LogFile, '>Keenmarker\* .' & @CRLF)
+		_Extract_MoveMod('Keenmarker')
 	EndIf
 	If StringRegExp($g_Flags[14], 'BWP|BWS') And FileExists($g_BG2Dir&'\BiG-World-Fixpack-master') Then
 		FileWrite($g_LogFile, '>BiG-World-Fixpack-master\* .' & @CRLF)
@@ -258,7 +270,7 @@ Func Au3ExFix($p_Num)
 	If StringRegExp($g_Flags[14], 'BWP|BWS') And FileExists($g_BG2Dir&'\dsotsc\setup-dsotsc.tp2') Then
 		$Text=FileRead($g_BG2Dir&'\dsotsc\setup-dsotsc.tp2')
 		If StringInStr($Text, Chr(0)) Then
-			$Handle = FileOpen($g_BG2Dir&'\dsotsc\setup-dsotsc.tp2', 2) ; Open for reading binary
+			$Handle = FileOpen($g_BG2Dir&'\dsotsc\setup-dsotsc.tp2', 2) ; Open for overwriting
 			FileWrite($Handle, StringReplace($Text, Chr(0), ''))
 			FileClose($Handle)
 		EndIf
@@ -276,15 +288,15 @@ Func Au3ExFix($p_Num)
 		If FileExists($g_BGEEDir&'\kitpack.tp2') Then DirCreate($g_BGEEDir&'\SBACKUP')
 	EndIf
 ; ==============    create the mods folder so the tp2-test will not fail   ============		
-	If StringRegExp($g_Flags[14], 'BWP|BWS') Then
+	If StringRegExp($g_Flags[14], 'BWP|BWS|BGEE|BG2EE') And FileExists($g_GameDir&'\stratagems') Then DirCreate($g_GameDir&'\stratagems_external')
+	If StringRegExp($g_Flags[14], 'BWP|BWS|BG2EE') And FileExists($g_GameDir&'\wheels') Then DirCreate($g_GameDir&'\stratagems_external')
+	If StringRegExp($g_Flags[14], 'BWP|BWS|BG2') Then
 		If FileExists($g_BG2Dir&'\setup-aurora.exe') Then DirCreate($g_BG2Dir&'\aurpatch')
 		If FileExists($g_BG2Dir&'\setup-gavin_bg2.exe') Then DirCreate($g_BG2Dir&'\gavin_bg2_bgt')
 		If FileExists($g_BG2Dir&'\setup-bggraphics.exe') Then DirCreate($g_BG2Dir&'\hotfix_gavin_bggraphics')
 		If FileExists($g_BG2Dir&'\setup-iwditempack.exe') Then DirCreate($g_BG2Dir&'\iwditemfix')
-		If FileExists($g_BG2Dir&'\setup-grimuars_v4.1.exe') Then FileMove($g_BG2Dir&'\setup-grimuars_v4.1.exe', $g_BG2Dir&'\setup-grimuars.exe')
-		If FileExists($g_BG2Dir&'\setup-grimuars_v4.1.tp2') Then FileMove($g_BG2Dir&'\setup-grimuars_v4.1.tp2', $g_BG2Dir&'\setup-grimuars.tp2')
-		If FileExists($g_BG2Dir&'\stratagems') Then DirCreate($g_BG2Dir&'\stratagems_external')
-		If FileExists($g_BG2Dir&'\wheels') Then DirCreate($g_BG2Dir&'\stratagems_external')
+		If FileExists($g_BG2Dir&'\Setup-R*deur.tp2') Then DirMove($g_BG2Dir&"\RÓdeur de l'ombre", $g_BG2Dir&"\Rôdeur de l'ombre")
+		If FileExists($g_BG2Dir&'\SetupP!Bhaal.tp2') Then DirMove($g_BG2Dir&'\PrÈtre de Bhaal', $g_BG2Dir&'\Prêtre de Bhaal')
 		If FileExists($g_BG2Dir&'\setup-item_rev.exe') Then DirCreate($g_BG2Dir&'\ninjawakifix')
 		If FileExists($g_BG2Dir&'\setup-tobex.exe') Then DirCreate($g_BG2Dir&'\poison_effect_supplement')
 	ElseIf $g_Flags[14] = 'PST' Then
@@ -319,7 +331,6 @@ Func Au3ExFix($p_Num)
 			If $Fault[$f][0] = 'BG1TP' Then ContinueLoop; German bg1-addons
 			If $Fault[$f][0] = 'Abra' Or $Fault[$f][0] = 'BG1TotSCSound' Then ContinueLoop; Spanish bg1-addons
 			If $Fault[$f][0] = 'BG1correcfr' Then ContinueLoop; French bg1-addon
-			If $Fault[$f][0] = 'arestorationp' Then ContinueLoop
 			If $g_Flags[0] = 0 Then; the exit button was pressed
 				Exit
 			EndIf

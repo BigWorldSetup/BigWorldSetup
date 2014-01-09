@@ -1,6 +1,15 @@
 ANN;Added due to patching
+CMD;IF EXIST Setup-iwd1tra.tp2 copy /Y dialog.tlk dialogf.tlk
 DWN;Textpack;0;00;1111;
 DWN;WeiDU;0;00;1111;
+MUC;iwd1tra;Init;00;1111;
+MUC;iwd1tra;0;00;1111;
+MUC;iwd1tra;1;00;0000;
+MUC;iwd1tra;2;00;0000;
+MUC;iwd1tra;Init;00;1111;
+MUC;iwd1tra;3;00;1111;
+MUC;iwd1tra;4;00;0000;
+MUC;iwd1tra;5;00;0000;
 STD;IWD2_sorcerers_fixes;0;01;1111;
 STD;IWD2_sorcerers_fixes;1;01;1111;
 STD;LOS;1;01;0111;

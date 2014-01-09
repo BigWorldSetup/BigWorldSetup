@@ -30,8 +30,9 @@ EndFunc   ;==>Au3Detect
 ; Checks for the current Options and fills them if needed
 ; ---------------------------------------------------------------------------------------------
 Func _Test_GetGamePath($p_Game, $p_Force=0)
-	Local $Game[7][4]=[[6], ['BG1', 'BGMain', 'Baldur*', 'Config.exe'],['BG2', 'BG2Main', 'BGII*', 'BGConfig.exe'], ['IWD1', 'IDMain', 'Icewind Dale', 'IDMain.exe'], _
-	['IWD2', 'IWD2', 'Icewind Dale II', 'IWD2.exe'], ['PST', 'Torment', 'Torment', 'Torment.exe'], ['BGEE', 'BeamDog.BGEE', 'Baldur*', 'decrypt.dll']]
+	Local $Game[8][4]=[[7], ['BG1', 'BGMain', 'Baldur*', 'Config.exe'],['BG2', 'BG2Main', 'BGII*', 'BGConfig.exe'], ['IWD1', 'IDMain', 'Icewind Dale', 'IDMain.exe'], _
+	['IWD2', 'IWD2', 'Icewind Dale II', 'IWD2.exe'], ['PST', 'Torment', 'Torment', 'Torment.exe'], ['BGEE', 'BeamDog.BGEE', 'Baldur*', 'movies\mineflod.wbm'], _
+	['BG2EE', 'BeamDog.BG2EE', 'Baldur*', 'movies\melissan.wbm']]
 	For $g=1 to $Game[0][0]
 		If $Game[$g][0] = $p_Game Then ExitLoop
 	Next
@@ -42,18 +43,19 @@ Func _Test_GetGamePath($p_Game, $p_Force=0)
 			Return $Test
 		EndIf	
 	EndIf
-	If $p_Game = 'BGEE' Then
+	If StringInStr($p_Game, 'EE') Then
 		$Test=''
 		For $k= 1 to 1000
 			$key = RegEnumKey("HKEY_LOCAL_MACHINE\SOFTWARE\Microsoft\Windows\CurrentVersion\Uninstall", $k)
 			If @error <> 0 then ExitLoop
 			$Name=RegRead('HKEY_LOCAL_MACHINE\SOFTWARE\Microsoft\Windows\CurrentVersion\Uninstall\'&$Key, 'DisplayName')
-			If $Name = "Baldur's Gate - Enhanced Edition" Then
-				$Test=RegRead('HKEY_LOCAL_MACHINE\SOFTWARE\Microsoft\Windows\CurrentVersion\Uninstall\'&$Key, 'UninstallString')
-				$Test=StringRegExpReplace($Test, '\A"|\\[^\\]*\z', '')
-				If FileExists($Test&'\Data\00766') Then $Test=$Test&'\Data\00766'; Maybe this works for Steam?
-				ExitLoop
-			EndIf	
+			If $p_Game = 'BGEE' And $Name <> "Baldur's Gate - Enhanced Edition" Then ContinueLoop
+			If $p_Game = 'BG2EE' And $Name <> "Baldur's Gate II Enhanced Edition" Then ContinueLoop
+			$Test=RegRead('HKEY_LOCAL_MACHINE\SOFTWARE\Microsoft\Windows\CurrentVersion\Uninstall\'&$Key, 'UninstallString')
+			$Test=StringRegExpReplace($Test, '\A"|\\[^\\]*\z', '')
+			If $p_Game = 'BGEE' And FileExists($Test&'\Data\00766') Then $Test=$Test&'\Data\00766'; Maybe this works for Steam?
+			If $p_Game = 'BG2EE' And FileExists($Test&'\Data\00783') Then $Test=$Test&'\Data\00783'; Maybe this works for Steam?
+			ExitLoop
 		Next
 	Else
 		$Test = RegRead('HKLM\SOFTWARE\Microsoft\Windows\CurrentVersion\App Paths\'&$Game[$g][1]&'.exe', 'Path')
@@ -62,16 +64,25 @@ Func _Test_GetGamePath($p_Game, $p_Force=0)
 	If $Test <> '' And FileExists($Test&'\'&$Game[$g][3]) Then
 	ElseIf $p_Game = 'BGEE' Then
 		$Test=''
-		$Files=_FileSearch(@ProgramFilesDir, "Baldur's Gate*Enhanced Edition"); Maybe this works for Steam, too?
+		$Files=_FileSearch(@ProgramFilesDir, "Baldur's Gate*Enhanced Edition")
 		If $Files[0] <> 0 Then
-			If FileExists(@ProgramFilesDir & '\' & $Files[1] &'\'&$Game[$g][3]) Then $Test = @ProgramFilesDir & '\' & $Files[1]
-			If FileExists($Test&'\Data\00766') Then $Test=$Test&'\Data\00766'; get BeamDog
+			If FileExists(@ProgramFilesDir&'\'&$Files[1]&'\'&$Game[$g][3]) Then $Test = @ProgramFilesDir&'\'&$Files[1]; Steam-version
+			If FileExists(@ProgramFilesDir&'\'&$Files[1]&'\Data\00766\'&$Game[$g][3]) Then $Test=@ProgramFilesDir&'\'&$Files[1]&'\Data\00766'; BeamDog-version
 		EndIf
+		If FileExists(@ProgramFilesDir&'\BeamDog\Data\00766\'&$Game[$g][3]) Then $Test=@ProgramFilesDir&'\BeamDog\Data\00766'; BeamDog-version (2. attempt)
+	ElseIf $p_Game = 'BG2EE' Then
+		$Test=''
+		$Files=_FileSearch(@ProgramFilesDir, "Baldur's Gate II*Enhanced Edition")
+		If $Files[0] <> 0 Then
+			If FileExists(@ProgramFilesDir&'\'&$Files[1]&'\'&$Game[$g][3]) Then $Test = @ProgramFilesDir&'\'&$Files[1]; Steam-version
+			If FileExists(@ProgramFilesDir&'\'&$Files[1]&'\Data\00783\'&$Game[$g][3]) Then $Test=@ProgramFilesDir&'\'&$Files[1]&'\Data\00783'; BeamDog-version
+		EndIf
+		If FileExists(@ProgramFilesDir&'\BeamDog\Data\00783\'&$Game[$g][3]) Then $Test=@ProgramFilesDir&'\BeamDog\Data\00783'; BeamDog-version (2. attempt)
 	Else
 		$Test=''
-		$Files=_FileSearch(@ProgramFilesDir & '\Black Isle', $Game[$g][2])
+		$Files=_FileSearch(@ProgramFilesDir&'\Black Isle', $Game[$g][2])
 		If $Files[0] <> 0 Then
-			If FileExists(@ProgramFilesDir & '\Black Isle\' & $Files[1] &'\'&$Game[$g][3]) Then $Test = @ProgramFilesDir & '\Black Isle\' & $Files[1]
+			If FileExists(@ProgramFilesDir&'\Black Isle\'&$Files[1] &'\'&$Game[$g][3]) Then $Test = @ProgramFilesDir&'\Black Isle\'&$Files[1]
 		EndIf
 	EndIf
 	If $Test <> '' Then 
@@ -85,7 +96,8 @@ Func _Test_GetGamePath($p_Game, $p_Force=0)
 			If Not StringInStr(FileGetAttrib($SearchDir & '\' & $Files[$f]), 'D') Then ContinueLoop
 			If StringInStr($Files[$f], 'BiG World Clean Install') Then ContinueLoop
 			If FileExists($SearchDir & '\' & $Files[$f] & '\'&$Game[$g][3]) Then
-				If FileExists($SearchDir & '\' & $Files[$f] &'\Data\00766') Then $Files[$f]=$Files[$f] &'\Data\00766'; Maybe this works for Steam?
+				If FileExists($SearchDir & '\' & $Files[$f] &'\Data\00766') Then $Files[$f]=$Files[$f] &'\Data\00766'; BGEE
+				If FileExists($SearchDir & '\' & $Files[$f] &'\Data\00783') Then $Files[$f]=$Files[$f] &'\Data\00783'; BG2EE
 				Assign ('g_'&$p_Game&'Dir', $SearchDir & '\' & $Files[$f])
 				IniWrite($g_UsrIni, 'Options', $p_Game, $SearchDir & '\' & $Files[$f])
 				Return $SearchDir & '\' & $Files[$f]
@@ -99,7 +111,7 @@ EndFunc   ;==>_Test_GetGamePath
 ; ---------------------------------------------------------------------------------------------
 Func _Test_ACP()
 	_PrintDebug('+' & @ScriptLineNumber & ' Calling _Test_ACP')
-	If Not StringRegExp ($g_Flags[14], 'BWS|BWP') Then Return; mod was made for Baldurs Gate
+	If Not StringRegExp ($g_Flags[14], 'BWS|BWP') Then Return; mod was made for Baldurs Gate (ToB)
 	$Test = RegRead('HKEY_LOCAL_MACHINE\SYSTEM\CurrentControlSet\Control\Nls\CodePage', 'ACP')
 	If $Test = '1252' Then Return; codepage fits
 	If $g_MLang[1] = 'RU' And $Test = '1251' Then Return; IA is converted for Russian translation, so Cyrillic codepage also fits
@@ -256,7 +268,7 @@ EndFunc   ;==>_Test_ArchivesExist
 ; ---------------------------------------------------------------------------------------------
 Func _Test_CheckBG1TP()
 	Local $CurrentVersion, $InstalledVersion
-	If Not StringRegExp($g_Flags[14], 'BWP|BWS') Then Return 1; no BWP/BWS-installation
+	If Not StringRegExp($g_Flags[14], 'BWP|BWS') Then Return 1; no BWP/BWS-installation (BG1)
 	If $g_MLang[1] <> 'GE' Then Return 1
 	If $g_BG1Dir = '-' Then Return 1
 	$CurrentVersion=IniRead($g_ModIni, 'BG1TP', 'Rev', '')
@@ -298,7 +310,7 @@ EndFunc    ;==>_Test_CheckTotSCFiles_BG1
 Func _Test_CheckRequieredFiles()
 	_PrintDebug('+' & @ScriptLineNumber & ' Calling FileCheck')
 	Local $Error=0
-	If StringRegExp($g_Flags[14], 'BWS|BWP') Then
+	If StringRegExp($g_Flags[14], 'BWS|BWP') Then; (BGT)
 		$Return = _Test_CheckRequieredFiles_BG1()
 		$Error += @error
 		If $Return = 1 Then $Error += 1
@@ -406,6 +418,8 @@ Func _Test_CheckRequieredFiles_BG2()
 	If Not FileExists($BG2AliasDir & 'Movies\25movies.bif') Then $Error&=_GetTR($Message, 'L2')&@CRLF; => movie-file is missing
 	If FileGetVersion($g_BG2Dir&'\bgmain.exe') = '2.5.0.2' And FileGetVersion($g_BG2Dir&'\bgmain.exe', 'PrivateBuild') = '26498' Then
 		; ok
+	ElseIf IniRead($g_MODIni, 'Classics053', 'Name', '') = 'The Classic Adventures' And FileGetVersion($g_BG2Dir&'\bgmain.exe') = '2.5.0.2' Then
+		; ok, CA patches EXE
 	Else
 		$Error&=_GetTR($Message, 'L3')&@CRLF; => patch is missing
 	EndIf
@@ -439,7 +453,7 @@ Func _Test_CheckRequieredFiles_BGEE()
 		_Test_SetButtonColor(1, 1, 1)
 		Return SetError(1, 1, 1)
 	EndIf
-	If FileExists($g_BGEEDir&'\lang\en_US') And FileExists($g_BGEEDir&'\Baldur.exe') Then; BGEE-directory structure
+	If FileExists($g_BGEEDir&'\lang\en_US') And FileExists($g_BGEEDir&'\movies\mineflod.wbm') And FileExists($g_BGEEDir&'\Baldur.exe') Then; BGEE-directory structure
 	Else	
 		$Error&=_GetTR($Message, 'L2')&@CRLF; => structure not valid
 	EndIf
@@ -455,6 +469,39 @@ Func _Test_CheckRequieredFiles_BGEE()
 	_Test_SetButtonColor(2, $ret_Error, $ret_Extended)
 	Return SetError($ret_Error, $ret_Extended, $Return)
 EndFunc    ;==>_Test_CheckRequieredFiles_BGEE
+
+; ---------------------------------------------------------------------------------------------
+; Searches for required bg2ee-files and dirs...
+; ---------------------------------------------------------------------------------------------
+Func _Test_CheckRequieredFiles_BG2EE()
+	Local $Message = IniReadSection($g_TRAIni, 'TE-BG2EE')
+	_PrintDebug('+' & @ScriptLineNumber & ' Calling BG2EE-FileCheck')
+	Local $Missing='', $Hint='', $Error='', $Return
+	If IniRead($g_BWSIni, 'Order', 'Au3Select', 0) = 1 Then
+		$g_BG2EEDir=GUICtrlRead($g_UI_Interact[2][2])
+		IniWrite($g_UsrIni, 'Options', 'BG2EE', $g_BG2EEDir)
+	EndIf
+	If Not FileExists($g_BG2EEDir) Or $g_BG2EEDir = '' Then
+		_Misc_MsgGUI(4, $g_ProgName, _GetTR($Message, 'L1'), 1); => folder does not exist
+		_Test_SetButtonColor(1, 1, 1)
+		Return SetError(1, 1, 1)
+	EndIf
+	If FileExists($g_BG2EEDir&'\lang\en_US') And FileExists($g_BG2EEDir&'\movies\melissan.wbm') And FileExists($g_BG2EEDir&'\Baldur.exe') Then; BG2EE-directory structure
+	Else	
+		$Error&=_GetTR($Message, 'L2')&@CRLF; => structure not valid
+	EndIf
+	If $Error <> '' Then
+		_Misc_MsgGUI(4, $g_ProgName, $Hint&$Error, 1)
+		Local $ret_Error=1, $ret_Extended=0, $Return = 1
+	ElseIf $Hint<> '' Then
+		$Return = _Misc_MsgGUI(3, $g_ProgName, $Hint, 2)
+		Local $ret_Error=0, $ret_Extended=1
+	Else
+		Local $ret_Error=0, $ret_Extended=0, $Return = 2
+	EndIf
+	_Test_SetButtonColor(2, $ret_Error, $ret_Extended)
+	Return SetError($ret_Error, $ret_Extended, $Return)
+EndFunc    ;==>_Test_CheckRequieredFiles_BG2EE
 
 ; ---------------------------------------------------------------------------------------------
 ; Searches for required iwd1-files and dirs...

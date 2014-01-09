@@ -936,3 +936,14 @@ Changed: Selections "Total happiness", "Megamod" and "Arkenor's Adventure Picks"
 Changed: Replaces "old" WeiDUs (thanks to Dabus).
 20131203 - Updated by Silent
 Changed: Disabled auto-update links function, again.
+20131224 - Updated by dabus
+Added: BWS can handle BG2EE installations
+20131229 - Updated by dabus
+Fixed: Clicking "View debug" will open the log after install is finished. [_ResetInstall/Au3Install] Get downloads from Sourceforge without referers to get the actual files. [_Net_DownloadStart] Show Linebeaks in mods descriptions. [_Tree_Populate]
+20140104 - Updated by dabus
+Added: No more code changes required for adding new game-types. Sepcify the type the folder contains in the folders Game.ini and you're set.
+20140105 - Updated by dabus
+Fixed: Show BG2 as games name when using BG2-style. [_GetGameName] Calculate array correctly. [_Tree_SelectRead]
+Added: Enable restart of the install after Classic Adventures is installed. [_Test_CheckRequieredFiles_BG2]
+20140108 - Updated by dabus
+Fixed: Suppress oddities after changing the sequence in the selection-window. [Au3Select] Support answers for questions with international characters. [_Process_Question]

@@ -13,7 +13,7 @@ Func Au3PrepInst($p_Num = 0)
 		If Not FileExists($g_BG2Dir&'\BG2-ToBPatchReadMe.txt') Then FileClose(FileOpen($g_BG2Dir&'\BG2-ToBPatchReadMe.txt',2))
 		If Not FileExists($g_BG2Dir&'\CD5\movies\25Movies.bif') Then FileClose(FileOpen($g_BG2Dir&'\CD5\movies\25Movies.bif',2+8))
 	EndIf	
-	If StringRegExp($g_Flags[14], 'BWP|BWS') Then
+	If StringRegExp($g_Flags[14], 'BWP|BWS') Then; BG2-options
 ; entries from Ini_Cheats.bat
 		IniWrite($g_BG2Dir & '\baldur.ini', 'Program Options', 'Logging On', 1); enable crash-logs
 		IniWrite($g_BG2Dir & '\baldur.ini', 'Program Options', 'Debug Mode', 1); enable cheats
@@ -54,25 +54,23 @@ Func Au3PrepInst($p_Num = 0)
 		IniWrite($g_PSTDir & '\Torment.ini', 'Config', 'CacheSize', 1); disable caching
 	ElseIf $g_Flags[14] = 'IWD1' Then
 		IniWrite($g_IWD1Dir & '\icewind.ini', 'Game Options', 'Cheats', '1')
-	ElseIf $g_Flags[14] = 'BGEE' Then
-		$MyBGEE=@MyDocumentsDir&"\Baldur's Gate - Enhanced Edition"
+	ElseIf StringInStr($g_Flags[14], 'EE') Then
+		If $g_Flags[14]='BGEE' Then
+			$MyBGEE=@MyDocumentsDir&"\Baldur's Gate - Enhanced Edition"
+		Else
+			$MyBGEE=@MyDocumentsDir&"\Baldur's Gate II - Enhanced Edition"
+		EndIf
 		If Not FileExists($MyBGEE&'\save') Then DirCreate($MyBGEE&'\save')
 		If Not FileExists($MyBGEE&'\characters') Then DirCreate($MyBGEE&'\characters')
 		If Not FileExists($MyBGEE&'\portraits') Then DirCreate($MyBGEE&'\portraits')
-		If Not FileExists($g_BGEEDir&'\override') Then DirCreate($g_BGEEDir&'\override')
-		If Not FileExists($g_BGEEDir&'\dialog.tlk') Then
-			$Lang=_Install_GetBGEELang(_GetTR($Message, 'L4'))
-			If DriveGetFileSystem(StringLeft($g_BGEEDir, 2)) = 'NTFS' Then; hard links only work for NTFS
-				FileCreateNTFSLink($g_BGEEDir&'\lang\'&$Lang&'\Dialog.tlk', $g_BGEEDir&'\Dialog.tlk')
-				If FileExists($g_BGEEDir&'\lang\'&$Lang&'\DialogF.tlk') Then FileCreateNTFSLink($g_BGEEDir&'\lang\'&$Lang&'\DialogF.tlk', $g_BGEEDir&'\DialogF.tlk')
-				FileCreateNTFSLink($MyBGEE&'\Baldur.ini', $g_BGEEDir&'\Baldur.ini'); may not be created if this would be a cross volume-link -- that's not an error!
-				FileCreateNTFSLink($MyBGEE&'\save', $g_BGEEDir&'\Save')
-				FileCreateNTFSLink($MyBGEE&'\characters', $g_BGEEDir&'\characters')
-				FileCreateNTFSLink($MyBGEE&'\portraits', $g_BGEEDir&'\portraits')
-			Else; try to handle FAT-systems
-				FileCopy($g_BGEEDir&'\lang\'&$Lang&'\Dialog.tlk', $g_BGEEDir&'\Dialog.tlk')
-				If FileExists($g_BGEEDir&'\lang\'&$Lang&'\DialogF.tlk') Then FileCopy($g_BGEEDir&'\lang\'&$Lang&'\DialogF.tlk', $g_BGEEDir&'\DialogF.tlk')
-			EndIf
+		If Not FileExists($g_GameDir&'\override') Then DirCreate($g_GameDir&'\override')
+		If Not FileExists($g_GameDir&'\WeiDu.conf') Then
+			If $g_Flags[14]='BGEE' Then
+				$Lang=_Install_GetBGEELang(_GetTR($Message, 'L4'), 1); => choose a language BGEE
+			Else
+				$Lang=_Install_GetBGEELang(_GetTR($Message, 'L4'), 2); => choose a language BG2EE
+			EndIf	
+			FileWrite($g_GameDir&'\WeiDu.conf', 'lang_dir = '&$Lang) 
 		EndIf
 	EndIf
 	FileMove($g_GameDir & '\*.DEBUG', $g_GameDir & '\DEBUG-Bak\', 9)
@@ -505,7 +503,7 @@ Func Au3Install($p_Num = 0)
 	GUICtrlSetData($g_UI_Static[6][2], _GetTR($Message, 'L11')); => create bug-report-archive
 	_Install_CompressLog()
 	GUICtrlSetState($g_UI_Button[0][3], $Gui_ENABLE)
-	_ResetInstall()
+	$g_LogFile = _ResetInstall() & '\BiG World Install Debug.txt'
 	If StringRegExp($g_Flags[14], 'BWP|BWS') Then
 		If $g_MLang[1] = 'GE' Then; prepare Cleanup-tool to delete stuff
 			FileCopy($g_BG2Dir&'\BiG World Installpack\German\*', $g_BG2Dir&'\BiG World Installpack\temp\', 1)
@@ -517,10 +515,6 @@ Func Au3Install($p_Num = 0)
 			FileCopy($g_BG2Dir&'\BiG World Installpack\English\*', $g_BG2Dir&'\BiG World Installpack\temp\', 1)
 		EndIf
 		FileCopy($g_BG2Dir&'\BiG World Installpack\move to main folder\BiG World Clean-Up.bat', $g_BG2Dir&'\', 1)
-	ElseIf $g_Flags[14] = 'BGEE' And DriveGetFileSystem(StringLeft($g_BGEEDir, 2)) <> 'NTFS' Then; hard links only work for NTFS
-		$Lang=_Install_GetBGEELang()
-		FileMove($g_BGEEDir&'\Dialog.tlk', $g_BGEEDir&'\lang\'&$Lang&'\Dialog.tlk', 1)
-		If FileExists($g_BGEEDir&'\lang\'&$Lang&'\DialogF.tlk') Then FileMove($g_BGEEDir&'\DialogF.tlk', $g_BGEEDir&'\lang\'&$Lang&'\DialogF.tlk', 1)
 	EndIf
 	GUICtrlSetData($g_UI_Static[6][2], _GetTR($Message, 'L13')); => complete
 	_Process_Gui_Delete(7, 7, 1)
@@ -762,11 +756,12 @@ Func _Install_CreateTP2Entry($p_Setup, $p_Text, $p_Process=1, $p_File=''); $a=tp
 EndFunc   ;==>_Install_CreateTP2Entry
 
 ; ---------------------------------------------------------------------------------------------
-; Get BGEE-translation-setting
+; Get BGEE/BG2EE-translation-setting
 ; ---------------------------------------------------------------------------------------------
-Func _Install_GetBGEELang($p_String='')
+Func _Install_GetBGEELang($p_String='', $p_Version=1)
 	If $p_String='' Then IniRead($g_TRAIni, 'IN-Au3PrepInst', 'L4', '')
 	Local $Lang='en_US', $MyIni=@MyDocumentsDir&"\Baldur's Gate - Enhanced Edition\Baldur.ini"
+	If $p_Version=2 Then $MyIni=@MyDocumentsDir&"\Baldur's Gate II - Enhanced Edition\Baldur.ini"
 	If FileExists($MyIni) Then
 		$Array=StringSplit(StringStripCR(FileRead($MyIni)), @LF)
 		For $a=1 to $Array[0]
