@@ -165,7 +165,7 @@ Func Au3RunFix($p_Num = 0)
 ; run textharmonisation if wanted
 ; ---------------------------------------------------------------------------------------------
 		If $g_MLang[1] = 'GE' And IniRead($g_UsrIni, 'Options', 'TAPatch', 1) = 1 Then
-			_Process_Run('xcopy /Y /S /E ".\BiG World Textpack\_Textharmonisation" ".\BiG World Textpack"', 'xcopy.exe')
+			_Process_Run('xcopy /Y /S /E ".\BiG World Textpack GERMAN\_Textharmonisation" ".\BiG World Textpack GERMAN"', 'xcopy.exe')
 			If Not StringInStr(FileRead($g_BG2Dir&'\WeiDU.log'), 'Textharmonisation.TP2') Then _Install_CreateTP2Entry('Textharmonisation', IniRead($g_MODIni, 'BWTextpack', 'GE-AddSave', ''))
 		EndIf
 		If Not StringInStr(FileRead($g_BG2Dir&'\WeiDU.log'), 'BWTrimpack.TP2') Then _Install_CreateTP2Entry('BWTrimpack', IniRead($g_MODIni, 'BWTrimpack', 'Save', 'Unknown'))

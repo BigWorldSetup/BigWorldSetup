@@ -276,3 +276,5 @@ Updated: Selection fits IP 14, TP GE 14.
 Added: Classic Adventures selection.
 20140107 - Updated by Silent
 Added: aTweaks, FP, TP and TobEx to CA-installation.
+20140111 - Updated by Silent
+Fixed: TP-folder names.

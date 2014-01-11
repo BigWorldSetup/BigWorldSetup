@@ -38,7 +38,7 @@ CMD;IF EXIST ".\override\override" move ".\override\override\*.*" ".\override"
 CMD;IF EXIST ".\override\override" rmdir /s /q ".\override\override"
 CMD;IF EXIST ".\BiG World Installpack\BiG World Smoothpack" move ".\BiG World Installpack\BiG World Smoothpack\_modify\*.*" "."
 ANN;This skips the choices within the Textpack
-CMD;IF EXIST "BiG World Textpack\override\_optional" rmdir /s /q ".\BiG World Textpack\override\_optional"
+CMD;IF EXIST "BiG World Textpack GERMAN\override\_optional" rmdir /s /q ".\BiG World Textpack GERMAN\override\_optional"
 CMD;IF EXIST "Big World Fixpack\_aD&L" ren ".\BiG World Fixpack\_aD&L" "aD&L"
 CMD;IF EXIST "BiG World Fixpack" xcopy /Y /S /E ".\BiG World Fixpack\_BWP compatibility\*.*" ".\BiG World Fixpack"
 ANN;This skips the choices within the Fixpack
@@ -57,11 +57,11 @@ CMD;IF EXIST "BiG World Fixpack\_Gavin_Hotfixes" IF EXIST Setup-gavin.exe xcopy 
 CMD;IF EXIST "BiG World Fixpack\_iwditemfix" If EXIST Setup-iwditempack.exe xcopy /Y /S /E ".\BiG World Fixpack\_iwditemfix\*.*" "."
 CMD;IF NOT EXIST Setup-lolfixer.exe xcopy /Y /S /E ".\BiG World Fixpack\_Lolfixer\*.*" "."
 ANN;Workaround until German BG1NPC translation is finished - use _Textharmonisation to determine language
-CMD;IF EXIST "BiG World Textpack\_Textharmonisation" IF EXIST Setup-bg1npc.exe MD .\bg1npc\tra\german
-CMD;IF EXIST "BiG World Textpack\_Textharmonisation" IF EXIST Setup-bg1npc.exe copy .\bg1npc\tra\english\*.* .\bg1npc\tra\german
+CMD;IF EXIST "BiG World Textpack GERMAN\_Textharmonisation" IF EXIST Setup-bg1npc.exe MD .\bg1npc\tra\german
+CMD;IF EXIST "BiG World Textpack GERMAN\_Textharmonisation" IF EXIST Setup-bg1npc.exe copy .\bg1npc\tra\english\*.* .\bg1npc\tra\german
 CMD;IF EXIST "BiG World Trimpack" IF NOT EXIST BWP_Trimpack.installed CALL "BiG World Trimpack.bat"
 CMD;IF EXIST "BiG World Fixpack" IF NOT EXIST BWP_Fixpack.installed CALL "BiG World Fixpack.bat"
-CMD;IF EXIST "BiG World Textpack" IF NOT EXIST  BWP_Textpack.installed CALL "BiG World Textpack.bat"
+CMD;IF NOT EXIST BWP_Textpack.installed CALL "BiG World Textpack.bat"
 CMD;IF NOT EXIST BWP_Smoothpack.installed CALL ".\BiG World Installpack\BiG World Smoothpack.bat"
 CMD;IF EXIST ".\BiG World Installpack\BWP_Smoothpack.installed" copy ".\BiG World Installpack\BWP_Smoothpack.installed" "."
 CMD;IF NOT EXIST ".\BiG World Fixpack\_temp\override" MD ".\BiG World Fixpack\_temp\override"
@@ -358,7 +358,7 @@ SUB;ACBre;0?1_4;04;0000;
 SUB;ACBre;0?1_5;04;0000;
 SUB;ACBre;0?2_1;04;1111;
 SUB;ACBre;0?2_2;04;0000;
-CMD;IF EXIST "BiG World Textpack\_Textharmonisation" IF EXIST Setup-FinchNPCv3.exe del ".\finch\audio\IMOEN28.WAV"
+CMD;IF EXIST "BiG World Textpack GERMAN\_Textharmonisation" IF EXIST Setup-FinchNPCv3.exe del ".\finch\audio\IMOEN28.WAV"
 STD;FinchNPCv3;0;04;1111;
 STD;gavin;0;04;1111;
 SUB;gavin;1;04;1111;

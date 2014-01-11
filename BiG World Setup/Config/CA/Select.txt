@@ -1,6 +1,6 @@
 ANN;Added due to patching
 CMD;IF EXIST "BiG World Fixpack" If Not Exist "BiG World Installpack\Big World Smoothpack" mkdir "BiG World Installpack\Big World Smoothpack"
-CMD;IF EXIST "BiG World Textpack\override\_optional" rmdir /s /q ".\BiG World Textpack\override\_optional"
+CMD;IF EXIST "BiG World Textpack GERMAN\override\_optional" rmdir /s /q ".\BiG World Textpack GERMAN\override\_optional"
 CMD;IF EXIST "BiG World Fixpack" xcopy /Y /S /E ".\BiG World Fixpack\_resfixer_v1\*.*" "."
 CMD;IF EXIST "BiG World Fixpack" xcopy /Y /S /E ".\BiG World Fixpack\_crefixer_v2\*.*" "."
 CMD;IF EXIST "BiG World Fixpack" xcopy /Y /S /E ".\BiG World Fixpack\_poison_effect_supplement\*.*" "."
@@ -8,7 +8,7 @@ CMD;IF EXIST "BiG World Fixpack" xcopy /Y /S /E ".\BiG World Fixpack\_Innate_Fix
 CMD;IF EXIST "BiG World Fixpack\_AuroraPatch" IF EXIST Setup-aurora.exe xcopy /Y /S /E ".\BiG World Fixpack\_AuroraPatch\*.*" "."
 CMD;IF NOT EXIST Setup-lolfixer.exe xcopy /Y /S /E ".\BiG World Fixpack\_Lolfixer\*.*" "."
 CMD;IF EXIST "BiG World Fixpack" IF NOT EXIST BWP_Fixpack.installed CALL "BiG World Fixpack.bat"
-CMD;IF EXIST "BiG World Textpack" IF NOT EXIST  BWP_Textpack.installed CALL "BiG World Textpack.bat"
+CMD;IF NOT EXIST BWP_Textpack.installed CALL "BiG World Textpack.bat"
 DWN;BWFixpack;0;00;1111;
 DWN;BWTextpack;0;00;1111;
 DWN;WeiDU;0;00;1111;
