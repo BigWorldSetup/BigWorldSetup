@@ -278,3 +278,8 @@ Added: Classic Adventures selection.
 Added: aTweaks, FP, TP and TobEx to CA-installation.
 20140111 - Updated by Silent
 Fixed: TP-folder names.
+20140124 - Updated by Silent
+Added: Showing components for some old mods.
+Fixed: Problem with BGTMusic installation.
+Removed: Gavin vs BGGraphics Hotfix.
+Updated: CoM Encounters EE and UB.
