@@ -283,3 +283,6 @@ Added: Showing components for some old mods.
 Fixed: Problem with BGTMusic installation.
 Removed: Gavin vs BGGraphics Hotfix.
 Updated: CoM Encounters EE and UB.
+20140127 - Updated by Silent
+Updated: Selection fits IP 14.0.1, FP 14.0.1.
+Fixed: DSotSC/NToSC no more needed Turambar fixes and tweaks' kits.

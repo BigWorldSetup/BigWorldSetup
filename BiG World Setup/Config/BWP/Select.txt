@@ -204,8 +204,8 @@ STD;TDD;1;19;0111;
 STD;BGTNeJ2;0;01;0111;D:NEJ2(7)
 STD;BGTNeJ2;3;19;0111;D:NEJ2(7)
 STD;BGTNeJ;0;19;0111;C:NEJ2(7)
-STD;BGTNeJ;2;19;0111;
-STD;BGTNeJ;4;16;0111;
+STD;BGTNeJ;2;19;0000;
+STD;BGTNeJ;4;16;0000;
 STD;BGTNeJ;5;08;0111;
 STD;BGTNeJ;6;08;0111;
 STD;BGTNeJ;7;17;0111;
@@ -1604,7 +1604,7 @@ STD;ACBre;2;14;1111;
 ANN;#22. INSTALLATION OF KITS
 STD;npckit;30;19;1111;
 STD;npckit;31;19;1111;
-STD;npckit;400;19;0000;
+STD;npckit;400;19;1111;
 STD;npckit;410;19;0000;
 STD;npckit;420;19;0000;
 STD;npckit;900;19;1111;
@@ -1784,6 +1784,13 @@ STD;BGII-Subrace;1;19;0111;
 STD;BGII-Subrace;2;19;0000;
 STD;BGII-Subrace;3;19;0000;
 ANN;#23. HLA-TABLES CHANGING MODS
+STD;ashesofembers;5;19;0001;
+STD;ashesofembers;6;19;0001;
+STD;ashesofembers;7;19;0001;
+STD;ashesofembers;8;19;0001;
+STD;ashesofembers;9;19;0001;
+STD;ashesofembers;10;19;0001;
+STD;ashesofembers;11;19;0001;
 STD;ashesofembers;14;16;0001;
 STD;ashesofembers;15;16;0001;
 STD;Oversight;2;16;0001;
@@ -1874,13 +1881,6 @@ STD;ashesofembers;0;16;0001;
 STD;ashesofembers;2;16;0001;
 STD;ashesofembers;3;16;0001;
 STD;ashesofembers;4;16;0001;
-STD;ashesofembers;5;19;0001;
-STD;ashesofembers;6;19;0001;
-STD;ashesofembers;7;19;0001;
-STD;ashesofembers;8;19;0001;
-STD;ashesofembers;9;19;0001;
-STD;ashesofembers;10;19;0001;
-STD;ashesofembers;11;19;0001;
 STD;ashesofembers;12;16;0001;
 STD;ashesofembers;16;16;0001;
 STD;ashesofembers;17;16;0001;

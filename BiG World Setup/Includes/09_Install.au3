@@ -107,7 +107,6 @@ Func Au3RunFix($p_Num = 0)
 		$Setup[$Setup[0]]='WeiDU.exe'
 		$Size=FileGetSize($g_GameDir&'\WeiDU\WeiDU.exe')
 		For $s=1 to $Setup[0]
-			If $Setup[$s] = 'setup-bgt.exe' Then ContinueLoop
 			If StringRegExp($Setup[$s], '(?i)-{0,1}(setup)-{0,1}.*exe\z|WeiDU.exe') Then
 				ProcessClose($Setup[$s])
 				While 1
@@ -1219,8 +1218,6 @@ EndFunc   ;==>_Install_ReadWeiDU
 ; Overwrite WeiDU-settup with a current one; prevent beta releases to be overwritten by stable releases
 ; ---------------------------------------------------------------------------------------------
 Func _Install_UpdateWeiDU($p_File, $p_Size=0)
-	If $p_File = 'setup-bgt.exe'  Then Return; do nothing if it's BGT
-	If $p_File = 'setup-bgtmusic.exe'  Then Return; do nothing if it's BGTMusic
 	If $p_Size = 0 Then $p_Size=FileGetSize($g_GameDir&'\WeiDU\WeiDU.exe')
 	$Size=FileGetSize($g_GameDir&'\'&$p_File)
 	If $p_Size = 0 Then Return; do nothing if WeiDU does not exist
