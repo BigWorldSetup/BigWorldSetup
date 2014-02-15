@@ -255,9 +255,10 @@ STD;DSotSC;480;02;0111;
 STD;NTotSC;0;02;0111;
 STD;NTotSCv171;0;01;0111;
 STD;Bonehillv275;0;02;0111;
-CMD;IF EXIST Setup-drizztsaga.exe copy /Y ".\BiG World Fixpack\_override\worldmap\*.*" ".\override"
-STD;drizztsaga;0;02;0111;
-STD;drizztsaga;1;02;0111;
+MUC;drizztsaga;Init;02;0111;
+MUC;drizztsaga;0;02;0000;
+MUC;drizztsaga;1;02;0111;
+STD;drizztsaga;3;02;0111;
 ANN;#7. BG1 QUEST MODS
 CMD;IF EXIST ".\override\alissa8.cre" IF NOT EXIST ".\override\cadder2.cre" copy /Y ".\RoTerror\CRE\nostring\cadder2.cre" ".\override"
 CMD;IF EXIST ".\override\alissa8.cre" IF NOT EXIST ".\override\cadder3.cre" copy /Y ".\RoTerror\CRE\nostring\cadder3.cre" ".\override"
@@ -909,7 +910,8 @@ MUC;Khalid;7;14;0000;
 MUC;Khalid;Init;14;0000;
 MUC;Khalid;8;14;0000;
 MUC;Khalid;9;14;0000;
-STD;THEONEDRIZZT;0;14;0111;
+ANN;Not compatible with DrizztSaga v3
+ANN;STD;THEONEDRIZZT;0;14;0111;
 STD;LaValygar;0;14;1111;
 MUC;laviconia;Init;14;0000;
 MUC;laviconia;0;14;0000;
@@ -1818,6 +1820,7 @@ STD;Divine_Remix;409;19;0111;
 STD;Divine_Remix;412;19;0111;
 STD;Divine_Remix;415;19;0111;
 STD;Divine_Remix;600;19;0111;
+STD;Divine_Remix;610;19;0111;
 STD;SPSTUFF;0;19;0111;
 STD;SPSTUFF;1;19;0111;
 STD;SPSTUFF;2;19;0111;
@@ -2731,7 +2734,9 @@ MUC;BGTTweak;2002;07;0000;
 STD;BGTTweak;2100;07;1111;
 STD;BGTTweak;2204;07;0000;
 STD;BGTTweak;2300;07;1111;
+CMD;IF EXIST ".\override\viconi.cre" move ".\override\viconi.cre" ".\BiG World Fixpack\_temp\override";;;;D:stratagems(4040)
 STD;BGTTweak;2400;07;1111;
+CMD;IF EXIST ".\BiG World Fixpack\_temp\override\viconi.cre" move ".\BiG World Fixpack\_temp\override\viconi.cre" ".\override";;;;D:stratagems(4040)
 STD;BGTTweak;2500;07;1111;
 STD;BGTTweak;2600;07;1111;
 STD;BGTTweak;2700;07;1111;
