@@ -189,6 +189,10 @@ CMD;copy /Y ".\RoTerror\anim\Yeti\*.bam" ".\override";;;;D:SOS(0)&ROT(0)
 CMD;copy /Y ".\RoTerror\anim\Yeti\*.bam" ".\override";;;;D:CTB(0)&ROT(0)
 ANN;#4. BGT
 STD;BGT;0;09;1111;
+MUC;BGTMusic;Init;20;1111;
+MUC;BGTMusic;0;20;0000;
+MUC;BGTMusic;1;20;0000;
+MUC;BGTMusic;2;20;1111;
 SUB;bggraphics;0;20;1111;
 SUB;bggraphics;0?1_1;20;1111;
 SUB;bggraphics;0?1_2;20;0000;
@@ -204,19 +208,20 @@ STD;TDD;1;19;0111;
 STD;BGTNeJ2;0;01;0111;D:NEJ2(7)
 STD;BGTNeJ2;3;19;0111;D:NEJ2(7)
 STD;BGTNeJ;0;19;0111;C:NEJ2(7)
-STD;BGTNeJ;2;19;0000;
-STD;BGTNeJ;4;16;0000;
+STD;BGTNeJ;2;19;0001;
+STD;BGTNeJ;4;16;0001;
 STD;BGTNeJ;5;08;0111;
 STD;BGTNeJ;6;08;0111;
 STD;BGTNeJ;7;17;0111;
-STD;NeJ2v68;0;09;0001;
-STD;NeJ2v68;1;19;0001;
+CMD;IF EXIST ".\BiG World Fixpack\_temp\tisunpack.exe" copy ".\BiG World Fixpack\_temp\tisunpack.exe" "*.*"
+STD;NeJ2v68;0;09;0111;
+STD;NeJ2v68;1;19;0111;
 STD;NeJ2v68;3;19;0001;
 STD;NeJ2v68;5;09;0001;
-STD;NeJ2v68;6;19;0001;
-STD;NeJ2v68;7;16;0001;
-STD;NeJ2v68;8;16;0001;
-STD;NeJ2v68;10;09;0001;
+STD;NeJ2v68;6;19;0111;
+STD;NeJ2v68;7;16;0111;
+STD;NeJ2v68;8;16;0111;
+STD;NeJ2v68;10;09;0111;
 STD;NeJ2v691;0;01;0001;
 STD;NeJ2v691;1;19;0001;
 STD;NeJ2v691;3;19;0001;
@@ -228,12 +233,12 @@ STD;NeJ2v691;9;16;0001;
 STD;NeJ2v691;10;16;0001;
 STD;NeJ2v691;12;09;0001;
 STD;NeJ2v694;0;01;0001;
+CMD;IF EXIST ".\override\CLABCHRG.2DA" IF NOT EXIST ".\override\SPIN506.SPL" del ".\override\CLABCHRG.2DA"
 CMD;IF EXIST ".\NEJ2" copy /Y ".\BiG World Fixpack\_override\NEJ2\*.*" ".\override"
-ANN;CMD;IF EXIST ".\BiG World Fixpack\_temp\tisunpack.exe" copy ".\BiG World Fixpack\_temp\tisunpack.exe" "*.*"
-STD;TS;0;09;0001;
-STD;TS;1;20;0001;
-STD;TS;2;20;0001;
-STD;TS;3;09;0001;
+STD;TS;0;09;0111;
+STD;TS;1;20;0111;
+STD;TS;2;20;0111;
+STD;TS;3;09;0111;
 CMD;IF EXIST "Setup-TS.exe" copy ".\BiG World Fixpack\_override\GUI_original_fonts\*.*" ".\override"
 ANN;#6. BIG BG1 MODS
 STD;DarkHorizons;0;02;0011;
@@ -351,13 +356,13 @@ STD;MulgoreXaviaNPC;0;04;0111;
 STD;XanBG1Friend;0;05;1111;
 STD;coranbgfriend;0;05;1111;
 STD;AjantisBG1;0;05;1111;
-SUB;ACBre;0;04;1111;
-SUB;ACBre;0?1_1;04;1111;
+SUB;ACBre;0;04;0111;
+SUB;ACBre;0?1_1;04;0111;
 SUB;ACBre;0?1_2;04;0000;
 SUB;ACBre;0?1_3;04;0000;
 SUB;ACBre;0?1_4;04;0000;
 SUB;ACBre;0?1_5;04;0000;
-SUB;ACBre;0?2_1;04;1111;
+SUB;ACBre;0?2_1;04;0111;
 SUB;ACBre;0?2_2;04;0000;
 CMD;IF EXIST "BiG World Textpack GERMAN\_Textharmonisation" IF EXIST Setup-FinchNPCv3.exe del ".\finch\audio\IMOEN28.WAV"
 STD;FinchNPCv3;0;04;1111;
@@ -381,10 +386,10 @@ STD;Huple_NPC;0;04;0111;
 STD;Huple_NPC;1;04;0111;
 STD;ChaosKnight;0;04;0011;
 STD;Askaria;0;04;0011;
-STD;valerie;0;04;1111;
-STD;isra;0;04;1111;
-STD;isra;1;04;1111;
-STD;isra;2;04;1111;
+STD;valerie;0;04;0111;
+STD;isra;0;04;0111;
+STD;isra;1;04;0111;
+STD;isra;2;04;0111;
 STD;white;0;04;0111;
 SUB;garrick_flirt;0;05;1111;
 SUB;garrick_flirt;0?1_1;05;1111;
@@ -437,6 +442,7 @@ STD;ktweaks;301;08;1111;
 STD;item_rev;0;16;1111;
 STD;item_rev;1;16;1111;
 STD;BDToBv168;6;01;0111;
+GRP;Start
 STD;kittomes;0;19;0111;
 MUC;kittomes;Init;19;0111;
 MUC;kittomes;1;19;0000;
@@ -446,6 +452,7 @@ MUC;kittomes;4;19;0111;
 MUC;kittomes;Init;19;0111;
 MUC;kittomes;5;19;0111;
 MUC;kittomes;6;19;0000;
+GRP;Stop
 ANN;#11. BG2 QUEST MODS
 STD;ToA;1;10;0111;
 STD;ToA;10;10;0111;
@@ -841,7 +848,7 @@ STD;dace;1;12;0000;
 STD;Gahesh;0;12;0111;
 STD;Lena;1;12;0111;
 STD;Lena;2;12;0000;
-STD;Isra_bg2;0;12;1111;
+STD;Isra_bg2;0;12;0111;
 ANN;#15. BG2 ONE-DAY NPCS
 STD;alassa;0;13;0111;
 STD;allison;0;13;0111;
@@ -913,8 +920,8 @@ MUC;Khalid;9;14;0000;
 ANN;Not compatible with DrizztSaga v3
 ANN;STD;THEONEDRIZZT;0;14;0111;
 STD;LaValygar;0;14;1111;
-MUC;laviconia;Init;14;0000;
-MUC;laviconia;0;14;0000;
+MUC;laviconia;Init;14;0111;
+MUC;laviconia;0;14;0111;
 MUC;laviconia;10;14;0000;
 STD;laviconia;50;14;0000;
 STD;yeslicknpc;0;12;1111;
@@ -965,7 +972,7 @@ STD;BG1NPCSoA;80;13;0111;
 STD;BG1NPCSoA;90;13;0111;
 STD;BG1NPCSoA;95;13;0111;
 STD;BG1NPCSoA;100;13;0111;
-STD;BG1NPCSoA;110;13;1111;
+STD;BG1NPCSoA;110;13;0111;
 STD;BG1NPCSoA;120;13;0111;
 STD;BG1NPCSoA;130;13;0111;
 STD;BG1NPCSoA;140;13;0111;
@@ -1062,6 +1069,8 @@ STD;arestorationp;4;16;0111;
 STD;arestorationp;5;16;0111;
 STD;arestorationp;6;16;0111;
 STD;arestorationp;7;16;0111;
+STD;arestorationp;8;16;0111;
+STD;arestorationp;9;16;0111;
 STD;ghost;0;16;0111;
 STD;FamiliarPack;0;14;0001;
 STD;Vic;0;16;0001;
@@ -1082,6 +1091,7 @@ STD;spell_rev;40;16;1111;
 STD;spell_rev;50;16;1111;
 STD;fairydragon;0;14;0001;
 STD;semi_multi_clerics;0;16;0001;
+GRP;Start
 STD;SpellPackB6;1105;16;0111;
 STD;SpellPackB6;1106;16;0111;
 STD;SpellPackB6;1109;16;0111;
@@ -1217,6 +1227,7 @@ STD;SpellPackB6;2911;16;0111;
 STD;SpellPackB6;2912;16;0111;
 STD;SpellPackB6;2913;16;0111;
 STD;SpellPackB6;2915;16;0111;
+GRP;Stop
 STD;Spell50;0;16;0001;
 STD;Spell50;1;16;0001;
 STD;Spell50;2;16;0001;
@@ -1259,11 +1270,9 @@ STD;res_fixer;0;01;1111;
 CMD;IF EXIST Setup-BP.exe copy /Y ".\BiG World Fixpack\_TheUndying_for_BP\*.*" ".\BP\SNIP";;;;D:TheUndying(1)
 CMD;IF EXIST ".\override\.itm" del ".\override\.itm"
 STD;BP;0;18;1111;
-STD;BP;10;18;1111;
 STD;BP;35;16;1111;
 STD;BP;50;16;1111;
 STD;BP;60;16;1111;
-STD;BP;75;16;1111;
 STD;BP;1020;15;0011;
 MUC;BP;Init;15;0011;
 MUC;BP;1030;15;0000;
@@ -1602,7 +1611,7 @@ STD;sarevokromance;0;14;0111;
 STD;CrossmodBG2;0;14;1111;
 STD;CrossmodBG2;1;14;1111;
 STD;CrossmodBG2;2;14;1111;
-STD;ACBre;2;14;1111;
+STD;ACBre;2;14;0111;
 ANN;#22. INSTALLATION OF KITS
 STD;npckit;30;19;1111;
 STD;npckit;31;19;1111;
@@ -2186,6 +2195,13 @@ STD;NSCPortraits;1400;20;1111;
 STD;NSCPortraits;1410;20;1111;
 STD;NSCPortraits;1420;20;1111;
 STD;NSCPortraits;1430;20;1111;
+STD;NSCPortraits;1440;20;1111;
+STD;NSCPortraits;1450;20;1111;
+STD;NSCPortraits;1470;20;1111;
+STD;NSCPortraits;1480;20;1111;
+STD;NSCPortraits;1490;20;1111;
+STD;NSCPortraits;1500;20;1111;
+STD;NSCPortraits;1510;20;1111;
 STD;NSCPortraits;2000;20;1111;
 STD;NSCPortraits;2010;20;1111;
 STD;NSCPortraits;3000;20;1111;
@@ -2431,7 +2447,6 @@ STD;vecna;0;10;0011;
 MUC;w_packmule;Init;16;0111;
 MUC;w_packmule;0;16;0111;
 MUC;w_packmule;1;16;0000;
-CMD;IF EXIST Setup-Derats_kits.exe IF EXIST ".\override\pxw8copi.spl" move ".\override\pxw8copi.spl" ".\BiG World Fixpack\_temp\override\pxw8copi.spl"
 STD;iwdification;10;16;0111;
 STD;iwdification;20;16;0000;
 STD;iwdification;30;16;0111;
@@ -2451,7 +2466,6 @@ STD;stratagems;2030;15;1111;
 MUC;stratagems;Init;15;1111;
 MUC;stratagems;2040;15;0000;
 MUC;stratagems;2041;15;1111;
-STD;stratagems;2050;15;1111;
 STD;stratagems;2060;15;1111;
 STD;stratagems;2070;15;1111;
 STD;stratagems;2080;15;1111;
@@ -2656,6 +2670,7 @@ MUC;NMR-Happy;2;18;0011;
 MUC;NMR-Happy;3;18;0000;
 MUC;NMR-Happy;4;18;0000;
 STD;Tactics;19;15;0011;
+STD;BP;10;18;1111;
 STD;BP;325;18;0011;
 STD;BP;350;18;0011;
 STD;BP;375;18;0011;
@@ -2734,9 +2749,13 @@ MUC;BGTTweak;2002;07;0000;
 STD;BGTTweak;2100;07;1111;
 STD;BGTTweak;2204;07;0000;
 STD;BGTTweak;2300;07;1111;
-CMD;IF EXIST ".\override\viconi.cre" move ".\override\viconi.cre" ".\BiG World Fixpack\_temp\override";;;;D:stratagems(4040)
+CMD;IF EXIST ".\override\VICONI.CRE" move ".\override\VICONI.CRE" ".\BiG World Fixpack\_temp\override"
+CMD;IF EXIST ".\override\JA#FACAP.CRE" move ".\override\JA#FACAP.CRE" ".\BiG World Fixpack\_temp\override"
+CMD;IF EXIST ".\override\JA#LAW03.CRE" move ".\override\JA#LAW03.CRE" ".\BiG World Fixpack\_temp\override"
 STD;BGTTweak;2400;07;1111;
-CMD;IF EXIST ".\BiG World Fixpack\_temp\override\viconi.cre" move ".\BiG World Fixpack\_temp\override\viconi.cre" ".\override";;;;D:stratagems(4040)
+CMD;IF EXIST ".\BiG World Fixpack\_temp\override\VICONI.CRE" move ".\BiG World Fixpack\_temp\override\VICONI.CRE" ".\override"
+CMD;IF EXIST ".\BiG World Fixpack\_temp\override\JA#FACAP.CRE" move ".\BiG World Fixpack\_temp\override\JA#FACAP.CRE" ".\override"
+CMD;IF EXIST ".\BiG World Fixpack\_temp\override\JA#LAW03.CRE" move ".\BiG World Fixpack\_temp\override\JA#LAW03.CRE" ".\override"
 STD;BGTTweak;2500;07;1111;
 STD;BGTTweak;2600;07;1111;
 STD;BGTTweak;2700;07;1111;
@@ -3476,9 +3495,9 @@ STD;level1npcs;4920;16;0000;
 CMD;IF EXIST ".\level1npcs\backup\0\kit.ids" copy ".\level1npcs\backup\0\kit.ids" ".\override";;;;D:REFINEMENTS(10)
 STD;Virtue;0;16;0001;
 STD;gloran;1;12;0111;
-STD;w_psionics_unleashed;10;16;0111;
-MUC;w_psionics_unleashed;Init;16;0111;
-MUC;w_psionics_unleashed;61;16;0111;
+STD;w_psionics_unleashed;10;16;0001;
+MUC;w_psionics_unleashed;Init;16;0001;
+MUC;w_psionics_unleashed;61;16;0001;
 MUC;w_psionics_unleashed;62;16;0000;
 MUC;infinityanimations;Init;20;0111;
 MUC;infinityanimations;8000;20;0000;
@@ -3501,10 +3520,26 @@ MUC;BP-BGT-Worldmap;2;20;0000;
 STD;BG2_Tweaks;3220;16;0111;
 STD;mapnames;0;20;1111;
 STD;mapnames;25;20;1111;
-MUC;BGTMusic;Init;20;1111;
-MUC;BGTMusic;0;20;0000;
-MUC;BGTMusic;1;20;0000;
-MUC;BGTMusic;2;20;1111;
+STD;BG1Sounds;0;20;0000;
+STD;BG1Sounds;1;20;0000;
+STD;BG1Sounds;2;20;0000;
+STD;BG1Sounds;3;20;0000;
+MUC;BG1Sounds;Init;20;0000;
+MUC;BG1Sounds;4;20;0000;
+MUC;BG1Sounds;5;20;0000;
+MUC;BG1Sounds;Init;20;0000;
+MUC;BG1Sounds;6;20;0000;
+MUC;BG1Sounds;7;20;0000;
+STD;BG1Sounds;8;20;0000;
+MUC;1pp_hq_music_BGT;Init;20;0000;
+MUC;1pp_hq_music_BGT;0;20;0000;
+MUC;1pp_hq_music_BGT;1;20;0000;
+MUC;1pp_hq_music_BGT;Init;20;0000;
+MUC;1pp_hq_music_BGT;2;20;0000;
+MUC;1pp_hq_music_BGT;3;20;0000;
+STD;1pp_hq_music_BGT;4;20;0000;
+DWN;1pp_hq_music_ToSC;0;20;0000;
+DWN;1pp_hq_music_II;0;20;0000;
 MUC;GUI;Init;20;0000;
 MUC;GUI;0;20;0000;
 MUC;GUI;1;20;0000;

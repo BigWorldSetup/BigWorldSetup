@@ -287,4 +287,8 @@ Updated: CoM Encounters EE and UB.
 Updated: Selection fits IP 14.0.1, FP 14.0.1.
 Fixed: DSotSC/NToSC no more needed Turambar fixes and tweaks' kits.
 20140215 - Updated by Silent
-Updated: Selection fits IP 14.0.4, TP GE 14.0.1. Ajantis NPC for BG2, Branwen BG2 NPC, Coran NPC for BG2, Drizzt Saga, Garrick's Infatuation, Mal des Vampirismus, Tiax NPC, Tsujatha NPC & Xan NPC.
+Updated: Selection fits IP 14.0.4, TP GE 14.0.1. Ajantis NPC for BG2, Branwen BG2 NPC, Coran NPC for BG2, Drizzt Saga, Garrick's Infatuation, Malj des Vampirismus, Tiax NPC, Tsujatha NPC & Xan NPC.
+20140429 - Updated by Silent
+Added: One Pixel Productions High Quality Music, Recolored toolbar buttons, Restored BG1 Sounds.
+Fixed: Adjusted some dependencies.
+Updated: Selection fits IP 14.1, TP GE 14.1. Ajantis NPC for BG2, Almateria's Restoration Project, aTweaks, Baldur's Gate Trilogy Graphics Overhaul, Big Picture, BGT NPC Portraits, BP-Balancer, Eilistraee's Song, Innershade, Lure of the Sirine's Call, More Style for Mages, Rogue Rebalancing, The Sellswords, Universal IWD2 Translator (Russian only).

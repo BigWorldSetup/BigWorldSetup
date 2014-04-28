@@ -215,14 +215,6 @@ Func Au3ExFix($p_Num)
 			_Extract_MoveMod('CtBv1.13a\CtBv1.13')
 		EndIf
 	EndIf
-	If StringRegExp($g_Flags[14], 'BWP|BWS|BG2EE') And FileExists($g_GameDir&'\arpv3-4-1') Then
-		$TP2Exists = _Test_GetCustomTP2('arestorationp', '\arpv3-4-1\')
-		If $TP2Exists <> '0' Then; this is a folder
-			FileWrite($g_LogFile, '>arpv3-4-1\* .' & @CRLF)
-			_Extract_MoveMod('arpv3-4-1')
-			IniDelete($g_BWSIni, 'Faults', 'arestorationp')
-		EndIf
-	EndIf
 	If StringRegExp($g_Flags[14], 'BWP|BWS') And FileExists($g_BG2Dir&'\InifKit') Then
 		FileWrite($g_LogFile, '>InifKit\* .' & @CRLF)
 		_Extract_MoveMod('InifKit')
@@ -234,6 +226,10 @@ Func Au3ExFix($p_Num)
 	If StringRegExp($g_Flags[14], 'BWP|BWS') And FileExists($g_BG2Dir&'\BiG-World-Fixpack-master') Then
 		FileWrite($g_LogFile, '>BiG-World-Fixpack-master\* .' & @CRLF)
 		_Extract_MoveMod('BiG-World-Fixpack-master')
+	EndIf
+	If StringRegExp($g_Flags[14], 'BGEE|BG2EE') And FileExists($g_GameDir&'\MSFM WeiDU Install v1.35') Then
+		FileWrite($g_LogFile, '>MSFM WeiDU Install v1.35\* .' & @CRLF)
+		_Extract_MoveMod('MSFM WeiDU Install v1.35')
 	EndIf
 ; ==============  Fix textstring so weidu will not fail to install the mod ============
 	If StringRegExp($g_Flags[14], 'BWP|BWS') And FileExists($g_BG2Dir&'\setup-bonehillv275.exe') Then
