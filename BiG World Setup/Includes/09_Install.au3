@@ -130,7 +130,7 @@ Func Au3RunFix($p_Num = 0)
 		Exit
 	EndIf
 	If Not StringInStr(FileRead($g_GameDir&'\WeiDU.log'), 'BWS.tp2') Then
-		$Array=StringSplit(StringStripCR(FileRead($g_ProgDir&'\Docs\Changelog.txt')), @LF); read the version-number from the changelog
+		$Array=StringSplit(StringStripCR(FileRead($g_ProgDir&'\Docs\Changelog-Mods.txt')), @LF); read the version-number from the changelog
 		For $a=$Array[0] to 1 Step -1
 			If StringRegExp($Array[$a], '\A\d') Then
 				If $g_Flags[14]='BWP' Then $Array[$a]&=' setting up BWP-install'
