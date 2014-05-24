@@ -41,7 +41,7 @@ Func _Test_GetGamePath($p_Game, $p_Force=0)
 		If ($p_Game = 'BG1' And $Test = '-') Or ($Test <> '' And FileExists($Test&'\'&$Game[$g][3])) Then
 			Assign ('g_'&$p_Game&'Dir', $Test)
 			Return $Test
-		EndIf	
+		EndIf
 	EndIf
 	If StringInStr($p_Game, 'EE') Then
 		$Test=''
@@ -85,7 +85,7 @@ Func _Test_GetGamePath($p_Game, $p_Force=0)
 			If FileExists(@ProgramFilesDir&'\Black Isle\'&$Files[1] &'\'&$Game[$g][3]) Then $Test = @ProgramFilesDir&'\Black Isle\'&$Files[1]
 		EndIf
 	EndIf
-	If $Test <> '' Then 
+	If $Test <> '' Then
 		IniWrite($g_UsrIni, 'Options', $p_Game, $Test)
 		Assign ('g_'&$p_Game&'Dir', $Test)
 		Return $Test
@@ -115,7 +115,7 @@ Func _Test_ACP()
 	$Test = RegRead('HKEY_LOCAL_MACHINE\SYSTEM\CurrentControlSet\Control\Nls\CodePage', 'ACP')
 	If $Test = '1252' Then Return; codepage fits
 	If $g_MLang[1] = 'RU' And $Test = '1251' Then Return; IA is converted for Russian translation, so Cyrillic codepage also fits
-	$Answer=_Misc_MsgGUI(1, _GetTR($g_UI_Message, '0-T1'), _GetTR($g_UI_Message, '2-L6'), 3, _GetTR($g_UI_Message, '0-B1'), _GetTR($g_UI_Message, '0-B2'), _GetTR($g_UI_Message, '0-B3')); => Hint / This may affect your programs
+	$Answer=_Misc_MsgGUI(1, _GetTR($g_UI_Message, '0-T1'), StringFormat(_GetTR($g_UI_Message, '2-L6'), $Test), 3, _GetTR($g_UI_Message, '0-B1'), _GetTR($g_UI_Message, '0-B2'), _GetTR($g_UI_Message, '0-B3')); => Hint / This may affect your programs
 	If $Answer = 1 Then
 		ShellExecute(IniRead($g_ModIni, 'infinityanimations', 'Link', 'http://www.spellholdstudios.net/ie/infinityanimations')); open the homepage if it is nursed
 		_Test_ACP()
@@ -124,8 +124,9 @@ Func _Test_ACP()
 		$g_Skip&='|infinityanimations|IAContent.*|Bear_Animations_D2|vecna|JA#BGT_AdvPack;1'
 		Return 0
 	ElseIf $Answer = 3 Then; install the mod
-		$Test=RegWrite('HKEY_LOCAL_MACHINE\SYSTEM\CurrentControlSet\Control\Nls\CodePage', 'ACP', 'REG_SZ', '1252')
+		IniWrite($g_UsrIni, 'Options', 'ACP', $Test)
 		If $g_CentralArray[0][0] <> '' Then _Tree_GetCurrentSelection()
+		$Test=RegWrite('HKEY_LOCAL_MACHINE\SYSTEM\CurrentControlSet\Control\Nls\CodePage', 'ACP', 'REG_SZ', '1252')
 		If @error Then
 			_Misc_MsgGUI(3, _GetTR($g_UI_Message, '0-T1'), _GetTR($g_UI_Message, '2-L7')); => Warning
 		Else
@@ -454,7 +455,7 @@ Func _Test_CheckRequieredFiles_BGEE()
 		Return SetError(1, 1, 1)
 	EndIf
 	If FileExists($g_BGEEDir&'\lang\en_US') And FileExists($g_BGEEDir&'\movies\mineflod.wbm') And FileExists($g_BGEEDir&'\Baldur.exe') Then; BGEE-directory structure
-	Else	
+	Else
 		$Error&=_GetTR($Message, 'L2')&@CRLF; => structure not valid
 	EndIf
 	If $Error <> '' Then
@@ -487,7 +488,7 @@ Func _Test_CheckRequieredFiles_BG2EE()
 		Return SetError(1, 1, 1)
 	EndIf
 	If FileExists($g_BG2EEDir&'\lang\en_US') And FileExists($g_BG2EEDir&'\movies\melissan.wbm') And FileExists($g_BG2EEDir&'\Baldur.exe') Then; BG2EE-directory structure
-	Else	
+	Else
 		$Error&=_GetTR($Message, 'L2')&@CRLF; => structure not valid
 	EndIf
 	If $Error <> '' Then
@@ -529,7 +530,7 @@ Func _Test_CheckRequieredFiles_IWD1()
 	ElseIf $Version = '1.4.1.0' Then; patched IWD1 HoW 1.41
 		$Hint&=_GetTR($Message, 'L5')&@CRLF; => no current installation
 	ElseIf $Version = '1.4.2.0' Then; How with TotL
-	
+
 	EndIf
 	If $Error <> '' Then
 		_Misc_MsgGUI(4, $g_ProgName, $Hint&$Error, 1)
@@ -561,7 +562,7 @@ Func _Test_CheckRequieredFiles_IWD2()
 		Return SetError(1, 1, 1)
 	EndIf
 	If FileGetVersion($g_IWD2Dir&'\iwd2.exe') = '2.0.1.0' Then; IWD patched
-	Else	
+	Else
 		$Error&=_GetTR($Message, 'L2')&@CRLF; => no current installation
 	EndIf
 	If $Error <> '' Then
@@ -595,7 +596,7 @@ Func _Test_CheckRequieredFiles_PST()
 	EndIf
 		If FileGetVersion($g_PSTDir&'\torment.exe') = '1.0.0.1' Then; PST may be patched or unpatched
 		If Not FileExists($g_PSTDir&'\Override\ar0700.ini') Then $Error&=_GetTR($Message, 'L3')&@CRLF; => no current installation
-	Else	
+	Else
 		$Error&=_GetTR($Message, 'L3')&@CRLF; => no current installation
 	EndIf
 	$ReadSection=IniReadSection($g_PSTDir&'\torment.ini', 'Alias')
@@ -608,9 +609,9 @@ Func _Test_CheckRequieredFiles_PST()
 	Next
 	If $Test = 0 Then
 		$Test=_Misc_MsgGUI(2, $g_ProgName, _GetTR($Message, 'L2'), 2); => files on hdd
-		If $Test=1 Then 
+		If $Test=1 Then
 			$Error&=_GetTR($Message, 'L8')&@CRLF; => need to copy files
-		Else	
+		Else
 			DirCreate($g_PSTDir&'\CDs')
 			For $r=1 to $ReadSection[0][0]
 				If StringLeft($ReadSection[$r][0], 2) = 'CD' Then
@@ -627,7 +628,7 @@ Func _Test_CheckRequieredFiles_PST()
 								If FileExists($ReadSection[$r][1]&'\*.bif') Then ExitLoop; don't do funny things when using virtual drives
 								CDTray($Drive, 'close')
 								If FileExists($ReadSection[$r][1]&'\*.bif') Then ExitLoop
-							WEnd	
+							WEnd
 						EndIf
 						$Size=DirGetSize($ReadSection[$r][1])
 						$List=_FileSearch($ReadSection[$r][1], '*')
@@ -640,7 +641,7 @@ Func _Test_CheckRequieredFiles_PST()
 							If FileExists($g_PSTDir&'\CDs\'&$List[$l]) And FileGetSize($g_PSTDir&'\CDs\'&$List[$l]) = $FileSize Then
 								$cSize +=$FileSize
 								ContinueLoop
-							EndIf		
+							EndIf
 							$Success=FileCopy($ReadSection[$r][1]&'\'&$List[$l], $g_PSTDir&'\CDs\'&$List[$l], 9)
 							If $Success = 0 Then
 								$Error&=StringFormat(_GetTR($Message, 'L7'), $List[$l])&@CRLF; => no current installation
@@ -648,14 +649,14 @@ Func _Test_CheckRequieredFiles_PST()
 							EndIf
 							FileSetAttrib($g_PSTDir&'\CDs\'&$List[$l], '-R'); remove read-only-bit
 							$cSize+=$FileSize
-						Next	
+						Next
 					EndIf
 					IniWrite($g_PSTDir&'\torment.ini', 'Alias', $ReadSection[$r][0], $g_PSTDir&'\CDs')
 				EndIf
 			Next
 			_Misc_SetTab(2)
 		EndIf
-	EndIf		
+	EndIf
 	If $Error <> '' Then
 		_Misc_MsgGUI(4, $g_ProgName, $Hint&$Error, 1)
 		Local $ret_Error=1, $ret_Extended=0, $Return = 1

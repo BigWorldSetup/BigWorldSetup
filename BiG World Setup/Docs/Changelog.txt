@@ -947,3 +947,8 @@ Fixed: Show BG2 as games name when using BG2-style. [_GetGameName] Calculate arr
 Added: Enable restart of the install after Classic Adventures is installed. [_Test_CheckRequieredFiles_BG2]
 20140108 - Updated by dabus
 Fixed: Suppress oddities after changing the sequence in the selection-window. [Au3Select] Support answers for questions with international characters. [_Process_Question]
+20140501 - Updated by AL|EN
+Changed: Source for version-number (thanks to dabus).
+Fixed: Debug mode (thanks to dabus).
+20140502 - Updated by Silent
+Changed: Codepage testing (thanks to dabus). [_Test_ACP]

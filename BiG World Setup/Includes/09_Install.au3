@@ -12,7 +12,7 @@ Func Au3PrepInst($p_Num = 0)
 		If Not FileExists($g_BG1Dir&'\readme_patch.txt') Then FileClose(FileOpen($g_BG1Dir&'\readme_patch.txt',2))
 		If Not FileExists($g_BG2Dir&'\BG2-ToBPatchReadMe.txt') Then FileClose(FileOpen($g_BG2Dir&'\BG2-ToBPatchReadMe.txt',2))
 		If Not FileExists($g_BG2Dir&'\CD5\movies\25Movies.bif') Then FileClose(FileOpen($g_BG2Dir&'\CD5\movies\25Movies.bif',2+8))
-	EndIf	
+	EndIf
 	If StringRegExp($g_Flags[14], 'BWP|BWS') Then; BG2-options
 ; entries from Ini_Cheats.bat
 		IniWrite($g_BG2Dir & '\baldur.ini', 'Program Options', 'Logging On', 1); enable crash-logs
@@ -39,7 +39,7 @@ Func Au3PrepInst($p_Num = 0)
 		IniWrite($g_BG2Dir & '\baldur.ini', 'Config', 'Graphics', 1)
 		IniWrite($g_BG2Dir & '\baldur.ini', 'Config', 'Sound', 1)
 		IniWrite($g_BG2Dir & '\baldur.ini', 'Config', 'CacheSize', 1000)
-#ce	
+#ce
 ; entries from Ini_movies.bat
 		If StringRegExp($g_Compilation, '(?i)S|T|E') Then; enable skipping of movies for experienced players
 			$Movies = StringSplit('BISLOGO,BWDRAGON,BEREGOST,BGENTER,BGINTRO,BGSUNRIS,BGSUNSET,BHALL,CAMP,CBCTMOVE,CBSOUBAR,CNDLKEEP,' & _
@@ -69,8 +69,8 @@ Func Au3PrepInst($p_Num = 0)
 				$Lang=_Install_GetBGEELang(_GetTR($Message, 'L4'), 1); => choose a language BGEE
 			Else
 				$Lang=_Install_GetBGEELang(_GetTR($Message, 'L4'), 2); => choose a language BG2EE
-			EndIf	
-			FileWrite($g_GameDir&'\WeiDu.conf', 'lang_dir = '&$Lang) 
+			EndIf
+			FileWrite($g_GameDir&'\WeiDu.conf', 'lang_dir = '&$Lang)
 		EndIf
 	EndIf
 	FileMove($g_GameDir & '\*.DEBUG', $g_GameDir & '\DEBUG-Bak\', 9)
@@ -118,7 +118,7 @@ Func Au3RunFix($p_Num = 0)
 				WEnd
 			EndIf
 		Next
-		If Not StringInStr(FileRead($g_GameDir&'\WeiDU.log'), 'WeiDU.tp2') Then 
+		If Not StringInStr(FileRead($g_GameDir&'\WeiDU.log'), 'WeiDU.tp2') Then
 			$PID=Run('"'&$g_GameDir&'\WeiDU\WeiDU.exe" --exit', $g_GameDir, @SW_HIDE, 8); read the version-number directly from weidu
 			ProcessWaitClose($PID)
 			$Version=StringRegExp(StdoutRead($PID), '\d{5}\r\n', 3)
@@ -130,7 +130,7 @@ Func Au3RunFix($p_Num = 0)
 		Exit
 	EndIf
 	If Not StringInStr(FileRead($g_GameDir&'\WeiDU.log'), 'BWS.tp2') Then
-		$Array=StringSplit(StringStripCR(FileRead($g_ProgDir&'\Docs\Changelog.txt')), @LF); read the version-number from the changelog
+		$Array=StringSplit(StringStripCR(FileRead($g_ProgDir&'\Docs\Changelog-Mods.txt')), @LF); read the version-number from the changelog
 		For $a=$Array[0] to 1 Step -1
 			If StringRegExp($Array[$a], '\A\d') Then
 				If $g_Flags[14]='BWP' Then $Array[$a]&=' setting up BWP-install'
@@ -145,7 +145,7 @@ Func Au3RunFix($p_Num = 0)
 		ShellExecuteWait($g_GameDir&'\shs#soundsets\install_win.bat', '', $g_GameDir&'\shs#soundsets', '', @SW_HIDE)
 	EndIf
 	If Not FileExists($g_GameDir&'\Portraits') Then DirCreate($g_GameDir&'\Portraits')
-	If StringRegExp($g_Flags[14], 'BWP|BWS') Then 
+	If StringRegExp($g_Flags[14], 'BWP|BWS') Then
 		_Install_BG1Textpatch($Message)
 		If Not StringInStr(FileRead($g_BG2Dir&'\WeiDU.log'), 'BWFixpack.TP2') Then _Install_CreateTP2Entry('BWFixpack', IniRead($g_MODIni, 'BWFixpack', 'Save', ''))
 		If IniRead($g_UsrIni, 'Save', 'BWTextpack', '') <> '' Then
@@ -173,7 +173,7 @@ Func Au3RunFix($p_Num = 0)
 		If _Install_PatchTest() = 0 Then
 			_Misc_MsgGUI(4, _GetTR($g_UI_Message, '0-T1'), _GetTR($Message, 'L13')&'|'& StringFormat(StringRegExpReplace(_GetTR($g_UI_Message, '8-L2'), '\A[^\x7c]*\x7c', ''), @AutoItExe), 1, _GetTR($g_UI_Message, '8-B3')); => cannot read log -> exit
 			Exit
-		EndIf	
+		EndIf
 	EndIf
 ; ---------------------------------------------------------------------------------------------
 ; Install Russian textpack from arcanecoast.ru
@@ -195,9 +195,9 @@ Func Au3RunFix($p_Num = 0)
 				EndIf
 			Next
 		Next
-		If $Counter > 0 Then 
+		If $Counter > 0 Then
 			$Rev=IniRead($g_MODIni, 'Textpack', 'Rev', 'Unknown')
-			If Not StringInStr(FileRead($g_GameDir&'\WeiDU.log'), 'Textpack.TP2') Then 
+			If Not StringInStr(FileRead($g_GameDir&'\WeiDU.log'), 'Textpack.TP2') Then
 				_Install_CreateTP2Entry('Textpack', $Rev)
 			EndIf
 		EndIf
@@ -328,7 +328,7 @@ Func Au3Install($p_Num = 0)
 								$a-=1
 								$Group=''
 								ContinueLoop 3; redo from that position
-							EndIf	
+							EndIf
 						EndIf
 						$a-=1
 					WEnd
@@ -372,7 +372,7 @@ Func Au3Install($p_Num = 0)
 						_Process_SetConsoleLog($Dependent[0][1])
 					EndIf
 					If $Logic = 5 Then; always continue-logic
-						If $Dependent[0][0] <> 0 Then 
+						If $Dependent[0][0] <> 0 Then
 							$Dependent[0][0]+=1
 							ReDim $Dependent[$Dependent[0][0]+1][4]
 							$Dependent[$Dependent[0][0]][0]=$Setup[2]
@@ -385,12 +385,12 @@ Func Au3Install($p_Num = 0)
 					If $g_pQuestion = 'e' Then; exit
 						Exit
 					ElseIf $g_pQuestion = 'c' Then; continue
-						If $Dependent[0][0] <> 0 Then 
+						If $Dependent[0][0] <> 0 Then
 							$Dependent[0][0]+=1
 							ReDim $Dependent[$Dependent[0][0]+1][4]
 							$Dependent[$Dependent[0][0]][0]=$Setup[2]
 							_Depend_RemoveFromCurrent($Dependent)
-						EndIf	
+						EndIf
 						ContinueLoop
 					Else; retry
 						$a-=1
@@ -495,7 +495,22 @@ Func Au3Install($p_Num = 0)
 		_Process_SetScrollLog('|'&StringFormat(_GetTR($Message, 'L18'), $Counter[0], IniRead($g_ModIni, 'generalized_biffing', 'Down', '')), 0, -1); => sees like you have many files
 		If _Install_ReadWeiDU('widescreen') Then _Process_SetScrollLog('|'&_GetTR($Message, 'L19'), 0, -1); => sees like you have many files
 	EndIf
-	If StringRegExp($g_Flags[14], 'BWS|BWP') Then 
+	$ACP=IniRead($g_UsrIni, 'Options', 'ACP', '')
+	If $ACP <> '' Then
+		_Process_SetScrollLog('||'&StringFormat(_GetTR($Message, 'L20'), $ACP), -1); => ACP was set. Reset?
+		Local $TMessage = IniReadSection($g_TRAIni, 'BA-MultiInstall')
+		_Process_Question('y|n', _GetTR($TMessage, 'L5'), _GetTR($TMessage, 'Q1')); => enter yes/no
+		If $g_pQuestion = 'y' Then
+			$Test=RegWrite('HKEY_LOCAL_MACHINE\SYSTEM\CurrentControlSet\Control\Nls\CodePage', 'ACP', 'REG_SZ', $ACP)
+			If @error Then
+				_Process_SetScrollLog(StringReplace(_GetTR($g_UI_Message, '2-L7'), '1252', $ACP)); => Warning
+			Else
+				_Process_SetScrollLog(StringRegExpReplace(_GetTR($g_UI_Message, '2-L8'), '\x7c{2}[^\x7c]*\z', '')); => Hint / Applied & need to reboot.
+			EndIf
+		EndIf
+		IniDelete($g_UsrIni, 'Options', 'ACP')
+	EndIf
+	If StringRegExp($g_Flags[14], 'BWS|BWP') Then
 		_Process_SetScrollLog('||'&_GetTR($Message, 'L8'), 0, -1); => finish + how to start
 	Else
 		_Process_SetScrollLog('||'&StringRegExpReplace(_GetTR($Message, 'L8'), '\x7c.*\x7c{3}', '|||'), 0, -1); => finish + thank you (stripped BG2-stuff)
@@ -743,7 +758,7 @@ Func _Install_CreateTP2Entry($p_Setup, $p_Text, $p_Process=1, $p_File=''); $a=tp
 		$Type=StringRegExpReplace($g_Flags[14], '(?i)BWS|BWP', 'BG2')
 		_Misc_MsgGUI(4, _GetTR($g_UI_Message, '0-T1'), StringFormat(_GetTR($g_UI_Message, '8-L2'), $Type, @AutoItExe), 1, _GetTR($g_UI_Message, '8-B3')); => don't have write-permission -> exit
 		Exit
-	EndIf	
+	EndIf
 	If Not FileExists($g_GameDir&'\WeiDU') Then DirCreate($g_GameDir&'\WeiDU')
 	If Not FileExists($g_GameDir&'\WeiDU\BWP_Backup') Then DirCreate($g_GameDir&'\WeiDU\BWP_Backup')
 	FileWriteLine($Handle, 'BACKUP ~WeiDU/bwp_backup~')
@@ -964,10 +979,10 @@ Func _Install_RepairIDS()
 			For $r=1 to $Ref[0]
 				$Found=0
 				For $o=1 to $Override[0]
-					If $Override[$o]=$Ref[$r] Then 
+					If $Override[$o]=$Ref[$r] Then
 						$Found=1
 						ExitLoop
-					EndIf	
+					EndIf
 				Next
 				If $Found = 0 Then $Append&=$Ref[$r]&@CRLF
 			Next
@@ -976,7 +991,7 @@ Func _Install_RepairIDS()
 				If $Override[$Override[0]] <> '' Then FileWrite($Handle, @CRLF)
 				FileWrite($Handle, $Append)
 				FileClose($Handle)
-			EndIf	
+			EndIf
 		EndIf
 	Next
 EndFunc    ;==>_Install_RepairIDS
@@ -1001,7 +1016,7 @@ Func _Install_SetPrompt($p_TP2, $p_Num)
 						$Folder=$g_GameDir&'\'&StringReplace(StringRegExpReplace($Language[$l], '\A\s{0,}~|/[^/]*\z', ''), '/', '\')
 						If StringInStr($Array[$a], 'prompt') Then; also look for items that contain the word prompt
 							$Prompt=$g_GameDir&'\'&StringReplace(StringRegExpReplace(StringReplace($Language[$l], '%WEIDU_OS%', 'win32'), '\A\s{0,}~|~\z', ''), '/', '\')
-							If FileExists($Prompt) Then ExitLoop 2	
+							If FileExists($Prompt) Then ExitLoop 2
 						EndIf
 						$Prompt=$Folder&'\Prompts.tra'
 						If FileExists($Prompt) Then ExitLoop 2
@@ -1069,7 +1084,7 @@ Func _Install_TestInstalled($p_Setup, $p_DebugTest, $p_Logic, $p_Num, $p_Message
 	If $p_DebugTest[0][1] = 'Log not found' Then
 		_Misc_MsgGUI(4, _GetTR($g_UI_Message, '0-T1'), _GetTR($g_UI_Message, '6-L7')&'|'& StringFormat(StringRegExpReplace(_GetTR($g_UI_Message, '8-L2'), '\A[^\x7c]*\x7c', ''), @AutoItExe), 1, _GetTR($g_UI_Message, '8-B3')); => cannot read log -> exit
 		Exit
-	EndIf	
+	EndIf
 	If ($WeiDUTest = 1 And $p_DebugTest[$p_Num][0] = 1) Or ($WeiDUTest = 0 And ($p_DebugTest[$p_Num][0] = 2 OR  $p_DebugTest[$p_Num][0] = 3)) Then; show output
 		$DebugLines=StringSplit($DebugLines, '|')
 		For $t=1 To $DebugLines[0]
@@ -1142,7 +1157,7 @@ EndFunc   ;==>_Install_TestInstalled
 Func _Install_ReadDebug($p_Setup)
 	Local $Return[100][3]
 	$Return[0][1]=95
-	If Not FileExists($g_GameDir&'\Setup-'&$p_Setup&'.debug') Then 
+	If Not FileExists($g_GameDir&'\Setup-'&$p_Setup&'.debug') Then
 		Local $Return[2][3]=[[1, 'Log not found'],[0]]
 		Return SetError(1, '', $Return)
 	EndIf
@@ -1164,10 +1179,10 @@ Func _Install_ReadDebug($p_Setup)
 		ElseIf StringRegExp($Array[$a], '\AERROR:\s') Then
 			$Return[$Return[0][0]][2 ]&='|'&$Array[$a]
 		EndIf
-		If $Return[0][0] = $Return[0][1] Then; expand array if it's nearly filled 
+		If $Return[0][0] = $Return[0][1] Then; expand array if it's nearly filled
 			ReDim $Return[$Return[0][0]+50][3]
 			$Return[0][1]+=50
-		EndIf	
+		EndIf
 	Next
 ; ---------------------------------------------------------------------------------------------
 ; Search for WeiDUs return valure and assign the selected messages for that type of value

@@ -503,7 +503,7 @@ Func _Tree_Populate_PreCheck()
 	If $Error > 0 Then Return 0
 	If _Test_CheckRequieredFiles() > 0 Then Return 0; see if files are present
 	If _Misc_LS_Verify() = 0 Then Return 0; look if language settings are ok
-	If _Test_ACP() = 1 Then Return 0; remove infiniy-mods if codepage may not support the mods files characters
+;	If _Test_ACP() = 1 Then Return 0; remove infiniy-mods if codepage may not support the mods files characters
 	If $g_CentralArray[0][0] = '' Then _Tree_Populate(1); build the tree if needed
 	If $g_BG1Dir = '-' Then; BG2-only-install
 		If Not StringInStr($g_Skip, '|BGT|') Then $Rebuild=1; skipped mods did not include BGT -> rebuild
