@@ -159,8 +159,8 @@ STD;BDToBv168;7;01;0111;
 STD;iiKeyNames;2001;16;0111;
 STD;1pp;101;20;1111;
 SUB;1pp;200;20;1111;
-SUB;1pp;200?1_1;10;0000;
-SUB;1pp;200?1_2;10;1111;
+SUB;1pp;200?1_1;20;0000;
+SUB;1pp;200?1_2;20;1111;
 ANN;#2. NEJ
 ANN;Now we need the files unbiffed in the override
 STD;NeJ2Biffer;0;01;0000;
