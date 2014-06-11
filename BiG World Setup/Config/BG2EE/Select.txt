@@ -661,11 +661,11 @@ STD;aTweaks;220;09;1111;
 STD;aTweaks;230;09;1111;
 STD;aTweaks;239;09;1111;
 CMD;IF EXIST Setup-ajantisbg2.exe IF EXIST ".\override\C#AJCUD1.bcs" move ".\override\C#AJCUD1.bcs" ".\BiG World Fixpack\_temp\override"
-MUC;aTweaks;Init;16;1111;
-MUC;aTweaks;300;16;0000;
-MUC;aTweaks;322;16;0000;
-MUC;aTweaks;323;16;0000;
-MUC;aTweaks;324;16;1111;
+MUC;aTweaks;Init;09;1111;
+MUC;aTweaks;300;09;0000;
+MUC;aTweaks;322;09;0000;
+MUC;aTweaks;323;09;0000;
+MUC;aTweaks;324;09;1111;
 CMD;IF EXIST Setup-ajantisbg2.exe IF EXIST ".\BiG World Fixpack\_temp\override\C#AJCUD1.bcs" move ".\BiG World Fixpack\_temp\override\C#AJCUD1.bcs" ".\override"
 STD;aTweaks;301;09;1111;
 STD;aTweaks;302;09;1111;
