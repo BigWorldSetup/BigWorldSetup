@@ -155,6 +155,9 @@ STD;arestorationp;6;09;0111;
 STD;arestorationp;7;09;0111;
 STD;arestorationp;8;09;0111;
 STD;arestorationp;9;09;0111;
+STD;arestorationp;10;09;0111;
+STD;arestorationp;11;09;0111;
+STD;arestorationp;12;09;0111;
 STD;DungeonBeGone;0;09;0001;
 STD;wheels;0;04;1111;
 STD;Kelsey;0;05;1111;
@@ -690,5 +693,8 @@ MUC;randomiser;Init;09;0011;
 MUC;randomiser;10100;09;0000;
 MUC;randomiser;10200;09;0011;
 STD;randomiser;10210;10;0111;
+MUC;w_packmule;Init;04;0111;
+MUC;w_packmule;2;04;0111;
+MUC;w_packmule;3;04;0000;
 STD;recoloredbuttons;2;13;0000;
 ANN;Added due to patching

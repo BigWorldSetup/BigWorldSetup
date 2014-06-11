@@ -301,3 +301,10 @@ Fixed: Type of some components that cause crash in BG2EE selection.
 20140524 - Updated by Silent
 Fixed: BGEE, BG2EE, BWP and CA selections. Adjusted some dependencies.
 Updated: Adrian, Ajantis NPC for BG2, Almateria's Restoration Project, aTweaks, Difficulty and Tweak mod, Edwin Romance, Recolored toolbar buttons, Restored BG1 Sounds, Rogue Rebalancing, Xan's Friendship Path
+20140531 - Updated by AL|EN
+Fixed: 1pp Core content patches category.
+20140602 - Updated by AL|EN
+Fixed: Worldmap Polish component description.
+Updated: Baldur's Gate Trilogy Graphics Overhaul.
+20140611 - Updated by Silent
+Updated: Almateria's Restoration Project, Auror kit for the Ranger Class, Fishing for Trouble, Isra, Pack Mule.

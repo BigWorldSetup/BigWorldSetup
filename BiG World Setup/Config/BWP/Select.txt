@@ -4,12 +4,12 @@ CMD;IF EXIST SETUP-NMT.tp2 copy /Y WeiDU.exe SETUP-NMT.exe
 CMD;IF EXIST SETUP-NMR-HAPPY.tp2 copy /Y WeiDU.exe SETUP-NMR-HAPPY.exe
 CMD;IF EXIST #!Yoshi\#!yoshi.tp2 copy /Y WeiDU.exe SETUP-#!yoshi.exe
 ANN;Force all names to fit standards so BWP can patch them if needed
-CMD;IF EXIST "1Sylm-setup.tp2" ren "1Sylm-setup.tp2" "setup-1Sylm.tp2"
-CMD;IF EXIST "1Sylm-setup.exe" ren "1Sylm-setup.exe" "setup-1Sylm.exe"
-CMD;IF EXIST "setup RGenie.tp2" ren "setup RGenie.tp2" "setup-RGenie.tp2"
-CMD;IF EXIST "setup RGenie.exe" ren "setup RGenie.exe" "setup-RGenie.exe"
-CMD;IF EXIST "Setup-BWL Contest.tp2" ren "Setup-BWL Contest.tp2" "Setup-BWL_Contest.tp2"
-CMD;IF EXIST "Setup-BWL Contest.exe" ren "Setup-BWL Contest.exe" "Setup-BWL_Contest.exe"
+CMD;IF EXIST 1Sylm-setup.tp2 ren 1Sylm-setup.tp2 setup-1Sylm.tp2
+CMD;IF EXIST 1Sylm-setup.exe ren 1Sylm-setup.exe setup-1Sylm.exe
+CMD;IF EXIST setup RGenie.tp2 ren setup RGenie.tp2 setup-RGenie.tp2
+CMD;IF EXIST setup RGenie.exe ren setup RGenie.exe setup-RGenie.exe
+CMD;IF EXIST Setup-BWL Contest.tp2 ren Setup-BWL Contest.tp2 Setup-BWL_Contest.tp2
+CMD;IF EXIST Setup-BWL Contest.exe ren Setup-BWL Contest.exe Setup-BWL_Contest.exe
 CMD;IF EXIST setup-b!tweak.exe move .\b!tweak\setup-b!tweak.tp2 "."
 CMD;IF EXIST setup-b!tweak.exe ren setup-b!tweak.exe setup-btweak.exe
 CMD;IF EXIST setup-b!tweak.tp2 ren setup-b!tweak.tp2 setup-btweak.tp2
@@ -33,6 +33,8 @@ CMD;IF EXIST lyricsetup.tp2 ren lyricsetup.tp2 setup-lyric.tp2
 CMD;IF EXIST Setup-Jedi^&Sith.exe ren Setup-Jedi^&Sith.exe Setup-Jedi_Sith.exe
 CMD;IF EXIST Setup-Jedi^&Sith.tp2 ren Setup-Jedi^&Sith.tp2 Setup-Jedi_Sith.tp2
 CMD;IF EXIST ".\stratagems" copy /Y WeiDU.exe setup-stratagems.exe
+CMD;IF EXIST bggraphics.tph move bggraphics.tph ".\bggraphics\bggraphics.tph"
+CMD;IF EXIST setup-dq.tp2 move setup-dq.tp2 ".\dq\setup-dq.tp2"
 ANN;Solve the issue with Cespy Audio
 CMD;IF EXIST ".\override\override" move ".\override\override\*.*" ".\override"
 CMD;IF EXIST ".\override\override" rmdir /s /q ".\override\override"
@@ -193,15 +195,11 @@ MUC;BGTMusic;Init;20;1111;
 MUC;BGTMusic;0;20;0000;
 MUC;BGTMusic;1;20;0000;
 MUC;BGTMusic;2;20;1111;
-CMD;IF EXIST "setup-bggraphics.exe" copy /Y ".\override\ar8701.tis" ".\BiG World Fixpack\_temp\override"
-CMD;IF EXIST "setup-bggraphics.exe" copy /Y ".\override\ard000.tis" ".\BiG World Fixpack\_temp\override"
 SUB;bggraphics;0;20;1111;
 SUB;bggraphics;0?1_1;20;1111;
 SUB;bggraphics;0?1_2;20;0000;
 SUB;bggraphics;0?2_1;20;1111;
 SUB;bggraphics;0?2_2;20;0000;
-CMD;IF EXIST "setup-bggraphics.exe" copy /Y ".\BiG World Fixpack\_temp\override\ar8701.tis" ".\override"
-CMD;IF EXIST "setup-bggraphics.exe" copy /Y ".\BiG World Fixpack\_temp\override\ard000.tis" ".\override"
 STD;JondalarFix;0;01;1111;
 STD;TP;1;01;1111;
 STD;BGT-NPCSound;0;01;1111;
@@ -218,6 +216,7 @@ STD;BGTNeJ;5;08;0111;
 STD;BGTNeJ;6;08;0111;
 STD;BGTNeJ;7;17;0111;
 CMD;IF EXIST ".\BiG World Fixpack\_temp\tisunpack.exe" copy /Y ".\BiG World Fixpack\_temp\tisunpack.exe" "*.*"
+CMD;IF EXIST "setup-bggraphics.exe" copy /Y ".\override\ar8701.wed" ".\BiG World Fixpack\_temp\override\ar8701.wed"
 STD;NeJ2v68;0;09;0111;
 STD;NeJ2v68;1;19;0111;
 STD;NeJ2v68;3;19;0001;
@@ -237,6 +236,7 @@ STD;NeJ2v691;9;16;0001;
 STD;NeJ2v691;10;16;0001;
 STD;NeJ2v691;12;09;0001;
 STD;NeJ2v694;0;01;0001;
+CMD;IF EXIST "setup-bggraphics.exe" copy /Y ".\BiG World Fixpack\_temp\override\ar8701.wed" ".\override\ar8701.wed"
 CMD;IF EXIST ".\override\CLABCHRG.2DA" IF NOT EXIST ".\override\SPIN506.SPL" del ".\override\CLABCHRG.2DA"
 CMD;IF EXIST ".\NEJ2" copy /Y ".\BiG World Fixpack\_override\NEJ2\*.*" ".\override"
 STD;TS;0;09;0111;
@@ -269,10 +269,10 @@ MUC;drizztsaga;0;02;0000;
 MUC;drizztsaga;1;02;0111;
 STD;drizztsaga;3;02;0111;
 ANN;#7. BG1 QUEST MODS
-CMD;IF EXIST ".\override\alissa8.cre" IF NOT EXIST ".\override\cadder2.cre" copy /Y ".\RoTerror\CRE\nostring\cadder2.cre" ".\override"
-CMD;IF EXIST ".\override\alissa8.cre" IF NOT EXIST ".\override\cadder3.cre" copy /Y ".\RoTerror\CRE\nostring\cadder3.cre" ".\override"
-CMD;IF EXIST ".\override\alissa8.cre" IF NOT EXIST ".\override\cadder5.cre" copy /Y ".\RoTerror\CRE\nostring\cadder5.cre" ".\override"
-CMD;IF EXIST ".\override\alissa8.cre" IF NOT EXIST ".\override\cadderly.cre" copy /Y ".\RoTerror\CRE\nostring\cadderly.cre" ".\override"
+CMD;IF EXIST ".\override\alissa8.cre" IF NOT EXIST ".\override\cadder2.cre" copy /Y ".\RoTerror\CRE\nostring\cadder2.cre" ".\override\cadder2.cre";;;;D:RoT(0)
+CMD;IF EXIST ".\override\alissa8.cre" IF NOT EXIST ".\override\cadder3.cre" copy /Y ".\RoTerror\CRE\nostring\cadder3.cre" ".\override\cadder3.cre";;;;D:RoT(0)
+CMD;IF EXIST ".\override\alissa8.cre" IF NOT EXIST ".\override\cadder5.cre" copy /Y ".\RoTerror\CRE\nostring\cadder5.cre" ".\override\cadder5.cre";;;;D:RoT(0)
+CMD;IF EXIST ".\override\alissa8.cre" IF NOT EXIST ".\override\cadderly.cre" copy /Y ".\RoTerror\CRE\nostring\cadderly.cre" ".\override\cadderly.cre";;;;D:RoT(0)
 STD;Vault;0;03;0011;
 STD;Vault;1;03;0011;
 STD;bgqe;0;03;1111;
@@ -1075,6 +1075,9 @@ STD;arestorationp;6;16;0111;
 STD;arestorationp;7;16;0111;
 STD;arestorationp;8;16;0111;
 STD;arestorationp;9;16;0111;
+STD;arestorationp;10;16;0111;
+STD;arestorationp;11;16;0111;
+STD;arestorationp;12;16;0111;
 STD;ghost;0;16;0111;
 STD;FamiliarPack;0;14;0001;
 STD;Vic;0;16;0001;
@@ -1751,7 +1754,7 @@ MUC;Pirate;6;19;0111;
 STD;lyric;0;19;0111;
 STD;ChanterKit;0;19;0111;
 STD;rogue-switch;0;19;0111;
-STD;AurorKit;0;19;0111;
+STD;A4Auror;0;19;0111;
 SUB;BearWalker;0;19;0111;
 SUB;BearWalker;0?1_0;19;0111;
 SUB;BearWalker;0?1_1;19;0000;
@@ -1862,7 +1865,7 @@ STD;phord_druidkits;1;16;0000;
 SUB;AnimalCompanions;0;16;0111;
 SUB;AnimalCompanions;0?1_0;16;0111;
 SUB;AnimalCompanions;0?1_1;16;0000;
-SUB;AnimalCompanions;0?2_1;16;0111;
+SUB;AnimalCompanions;0?2_Buddy;16;0111;
 SUB;AnimalCompanions;0?3_1;16;0111;
 SUB;AnimalCompanions;0?3_2;16;0000;
 STD;song_and_silence;0;16;0111;
@@ -2448,9 +2451,9 @@ STD;JA#BGT_AdvPack;1;03;1111;
 STD;JA#BGT_AdvPack;2;03;1111;
 STD;JA#BGT_AdvPack;3;03;1111;
 STD;vecna;0;10;0011;
-MUC;w_packmule;Init;16;0111;
-MUC;w_packmule;0;16;0111;
-MUC;w_packmule;1;16;0000;
+MUC;w_packmule;Init;11;0111;
+MUC;w_packmule;0;11;0111;
+MUC;w_packmule;1;11;0000;
 STD;iwdification;10;16;0111;
 STD;iwdification;20;16;0000;
 STD;iwdification;30;16;0111;
@@ -3079,13 +3082,13 @@ STD;aTweaks;270;16;1111;
 STD;aTweaks;220;16;1111;
 STD;aTweaks;230;16;1111;
 STD;aTweaks;239;16;1111;
-CMD;IF EXIST Setup-ajantisbg2.exe IF EXIST ".\override\C#AJCUD1.bcs" move ".\override\C#AJCUD1.bcs" ".\BiG World Fixpack\_temp\override"
+CMD;IF EXIST Setup-ajantisbg2.exe IF EXIST ".\override\C#AJCUD1.bcs" move ".\override\C#AJCUD1.bcs" ".\BiG World Fixpack\_temp\override\C#AJCUD1.bcs"
 MUC;aTweaks;Init;16;1111;
 MUC;aTweaks;300;16;0000;
 MUC;aTweaks;322;16;0000;
 MUC;aTweaks;323;16;0000;
 MUC;aTweaks;324;16;1111;
-CMD;IF EXIST Setup-ajantisbg2.exe IF EXIST ".\BiG World Fixpack\_temp\override\C#AJCUD1.bcs" move ".\BiG World Fixpack\_temp\override\C#AJCUD1.bcs" ".\override"
+CMD;IF EXIST Setup-ajantisbg2.exe IF EXIST ".\BiG World Fixpack\_temp\override\C#AJCUD1.bcs" move ".\BiG World Fixpack\_temp\override\C#AJCUD1.bcs" ".\override\C#AJCUD1.bcs"
 STD;aTweaks;301;16;1111;
 STD;aTweaks;302;16;1111;
 STD;aTweaks;310;16;1111;
