@@ -308,3 +308,5 @@ Fixed: Worldmap Polish component description.
 Updated: Baldur's Gate Trilogy Graphics Overhaul.
 20140611 - Updated by Silent
 Updated: Almateria's Restoration Project, Auror kit for the Ranger Class, Fishing for Trouble, Isra, Pack Mule.
+20140618 - Updated by AL|EN
+Updated: W_PackMule
