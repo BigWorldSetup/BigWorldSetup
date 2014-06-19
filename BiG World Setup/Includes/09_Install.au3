@@ -624,6 +624,16 @@ Func _Install_BuildSubcmd($p_Setup, $p_Comp)
 			$Components=StringRegExpReplace($Components, '1\x3f3_\d\s', '')
 		EndIf
 	EndIf
+	If $p_Setup = '1pp' Then
+		$Test=IniRead($g_UsrIni, 'Current', 'item_rev', '')
+		If StringInStr($Components, '400?') And StringInStr($Test, '0') Then ; Remove 1pp's shields and helmets if Item Revisions will be installed.
+			$Components=StringRegExpReplace($Components, '400\x3f3_\d\s', '')
+			$Components=StringRegExpReplace($Components, '400\x3f4_\d\s', '')
+			$Components=StringRegExpReplace($Components, '400\x3f5_\d\s', '')
+			$Components=StringRegExpReplace($Components, '400\x3f6_\d\s', '')
+			$Components=StringRegExpReplace($Components, '400\x3f7_\d\s', '')
+		EndIf
+	EndIf
 	$Components=_SplitComp($Components)
 	$Handle=FileOpen($g_GameDir&'\BWS_Sub.nul', 2)
 	For $c=1 to $Components[0]

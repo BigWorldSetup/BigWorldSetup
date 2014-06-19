@@ -295,9 +295,6 @@ Updated: Selection fits IP 14.1, TP GE 14.1. Ajantis NPC for BG2, Almateria's Re
 20140430 - Updated by Silent
 Added: Lure of the Sirine's Call for BGEE.
 Fixed: Type of some components that cause crash in BG2EE selection.
-20140430 - Updated by Silent
-Added: Lure of the Sirine's Call for BGEE.
-Fixed: Type of some components that cause crash in BG2EE selection.
 20140524 - Updated by Silent
 Fixed: BGEE, BG2EE, BWP and CA selections. Adjusted some dependencies.
 Updated: Adrian, Ajantis NPC for BG2, Almateria's Restoration Project, aTweaks, Difficulty and Tweak mod, Edwin Romance, Recolored toolbar buttons, Restored BG1 Sounds, Rogue Rebalancing, Xan's Friendship Path
@@ -310,3 +307,7 @@ Updated: Baldur's Gate Trilogy Graphics Overhaul.
 Updated: Almateria's Restoration Project, Auror kit for the Ranger Class, Fishing for Trouble, Isra, Pack Mule.
 20140618 - Updated by AL|EN
 Updated: W_PackMule
+20140619 - Updated by Silent
+Added: Almateria's IWD2 Fixpack, Saradas Magic.
+Fixed: Some dependencies. Type of some components.
+Updated: Almateria's Restoration Project, Fade, Pack Mule, Restored BG1 Sounds. BG2EE modlist.

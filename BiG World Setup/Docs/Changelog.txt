@@ -952,3 +952,5 @@ Changed: Source for version-number (thanks to dabus).
 Fixed: Debug mode (thanks to dabus).
 20140502 - Updated by Silent
 Changed: Codepage testing (thanks to dabus). [_Test_ACP]
+20140619 - Updated by Silent
+Fixed: The problem with the wrong answers during 1pp's "Core updates and item patches" installation (thanks to dabus). [_Install_BuildSubcmd]
