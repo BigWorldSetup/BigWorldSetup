@@ -313,3 +313,4 @@ Fixed: Some dependencies. Type of some components.
 Updated: Almateria's Restoration Project, Fade, Pack Mule, Restored BG1 Sounds. BG2EE modlist.
 20140627 - Updated by AL|EN
 Added: Korekta Przedmiotów (PL)
+Added: Northern Tales of the Sword Coast Natalin fix (PL)
