@@ -3610,6 +3610,7 @@ CMD;Call ".\BiG World Installpack\trim_KitIDS.bat"
 ANN;Hotfixes
 CMD;copy /Y ".\BiG World Fixpack\_Hotfixes\RoT\dltcepsmithy\*.*" ".\override";;;;D:ROT(0)
 CMD;IF EXIST Setup-Derats_kits.exe IF EXIST ".\BiG World Fixpack\_temp\override\pxw8copi.spl" move ".\BiG World Fixpack\_temp\override\pxw8copi.spl" ".\override\pxw8copi.spl"
+STD;korekta_przedmiotow;0;01;1111;
 SUB;generalized_biffing;0;00;1111;
 SUB;generalized_biffing;0?1_0;00;0000;
 SUB;generalized_biffing;0?1_1;00;1111;
