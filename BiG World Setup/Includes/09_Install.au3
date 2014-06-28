@@ -605,6 +605,23 @@ Func _Install_BG1Textpatch($p_Message)
 		EndIf
 		_Process_ChangeDir($g_BG2Dir, 1)
 	EndIf
+; ---------------------------------------------------------------------------------------------
+; install the Polish BG1 characters conversion if needed
+; ---------------------------------------------------------------------------------------------
+	If $g_MLang[1] = 'PO' And FileGetSize($g_BG1Dir&'\DialogF.tlk') = '3430385' And Not FileExists($g_BG1Dir&'\Dialog.bak') And $g_BG1Dir <> '-' Then; first installation
+		GUICtrlSetData($g_UI_Static[6][2], _GetTR($p_Message, 'L4')); => install textpatch
+		_Process_ChangeDir($g_BG1Dir, 1)
+		FileCopy($g_BG2Dir&'\BGT\kpzbg1.exe', $g_BG1Dir&'\kpzbg1.exe', 1)
+		$Handle=FileOpen($g_BG1Dir&'\kpzbg1.txt', 2)
+		FileWrite($Handle, 3&@CRLF&1&@CRLF)
+		FileClose($Handle)
+		_Process_Run('type kpzbg1.txt|kpzbg1.exe', 'kpzbg1.exe')
+		If Not StringInStr($g_ConsoleOutput, 'Operacja sie powiodla.') Then
+			_Misc_MsgGUI(4, _GetTR($p_Message, 'T1'), _GetTR($p_Message, 'L1'), 1, _GetTR($p_Message, 'B1')); => cannot install textpatch
+			Exit
+		EndIf
+		_Process_ChangeDir($g_BG2Dir, 1)
+	EndIf
 EndFunc   ;==>_Install_BG1Textpatch
 
 ; ---------------------------------------------------------------------------------------------
