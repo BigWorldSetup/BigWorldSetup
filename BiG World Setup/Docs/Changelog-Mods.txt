@@ -314,4 +314,7 @@ Updated: Almateria's Restoration Project, Fade, Pack Mule, Restored BG1 Sounds. 
 20140627 - Updated by AL|EN
 Added: Korekta Przedmiotów by dradiel (PL)
 20140630 - Updated by AL|EN
-Added: Added: Northern Tales of the Sword Coast Natalin fix by dradiel (PL)
+Added: Northern Tales of the Sword Coast Natalin fix by dradiel (PL)
+20140706 - Updated by Silent
+Fixed: Some dependencies.
+Updated: Auror kit for the Ranger Class, BG1 Unfinished Business, Kelsey, Restored BG1 Sounds.
