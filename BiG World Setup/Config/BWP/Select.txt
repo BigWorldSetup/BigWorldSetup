@@ -1,5 +1,5 @@
 ANN;# Conversion of polish BGMain.exe from "Saga Baldur's Gate" edition for all mods that modiffiyng BGMain.exe
-CMD;CALL BGMain-BG2-PolishSagaBGConversion.bat
+CMD;Call BGMain-BG2-PolishSagaBGConversion.bat
 ANN;Added due to patching
 ANN;Add missing setup-###.exe
 CMD;IF EXIST SETUP-NMT.tp2 copy /Y WeiDU.exe SETUP-NMT.exe
@@ -63,10 +63,10 @@ CMD;IF NOT EXIST Setup-lolfixer.exe xcopy /Y /S /E ".\BiG World Fixpack\_Lolfixe
 ANN;Workaround until German BG1NPC translation is finished - use _Textharmonisation to determine language
 CMD;IF EXIST "BiG World Textpack GERMAN\_Textharmonisation" IF EXIST Setup-bg1npc.exe MD .\bg1npc\tra\german
 CMD;IF EXIST "BiG World Textpack GERMAN\_Textharmonisation" IF EXIST Setup-bg1npc.exe copy .\bg1npc\tra\english\*.* .\bg1npc\tra\german
-CMD;IF EXIST "BiG World Trimpack" IF NOT EXIST BWP_Trimpack.installed CALL "BiG World Trimpack.bat"
-CMD;IF EXIST "BiG World Fixpack" IF NOT EXIST BWP_Fixpack.installed CALL "BiG World Fixpack.bat"
-CMD;IF NOT EXIST BWP_Textpack.installed CALL "BiG World Textpack.bat"
-CMD;IF NOT EXIST BWP_Smoothpack.installed CALL ".\BiG World Installpack\BiG World Smoothpack.bat"
+CMD;IF EXIST "BiG World Trimpack" IF NOT EXIST BWP_Trimpack.installed Call "BiG World Trimpack.bat"
+CMD;IF EXIST "BiG World Fixpack" IF NOT EXIST BWP_Fixpack.installed Call "BiG World Fixpack.bat"
+CMD;IF NOT EXIST BWP_Textpack.installed Call "BiG World Textpack.bat"
+CMD;IF NOT EXIST BWP_Smoothpack.installed Call ".\BiG World Installpack\BiG World Smoothpack.bat"
 CMD;IF EXIST ".\BiG World Installpack\BWP_Smoothpack.installed" copy ".\BiG World Installpack\BWP_Smoothpack.installed" "."
 CMD;IF NOT EXIST ".\BiG World Fixpack\_temp\override" MD ".\BiG World Fixpack\_temp\override"
 CMD;IF EXIST tisunpack.exe copy tisunpack.exe ".\BiG World Fixpack\_temp"
@@ -79,7 +79,7 @@ ANN;Call ".\BiG World Installpack\Ini_movies.bat
 ANN;change settings - optional -- settings are set with Au3PrepInst of BWS
 ANN;Call ".\BiG World Installpack\Ini_settings.bat
 ANN;update setup-###.exe -- weidu is replaced before running it during installation by BWS
-ANN;CALL ".\BiG World Installpack\ReplaceWeiDU.bat"
+ANN;Call ".\BiG World Installpack\ReplaceWeiDU.bat"
 ANN;EDITING
 ANN;#0. GENERAL
 DWN;polishsagabgconversion;0;00;1111;
@@ -272,6 +272,7 @@ MUC;drizztsaga;Init;02;0111;
 MUC;drizztsaga;0;02;0000;
 MUC;drizztsaga;1;02;0111;
 STD;drizztsaga;3;02;0111;
+CMD;echo.>> Worldmap/map_mods_links.tbl
 ANN;#7. BG1 QUEST MODS
 CMD;IF EXIST ".\override\alissa8.cre" IF NOT EXIST ".\override\cadder2.cre" copy /Y ".\RoTerror\CRE\nostring\cadder2.cre" ".\override\cadder2.cre";;;;D:RoT(0)
 CMD;IF EXIST ".\override\alissa8.cre" IF NOT EXIST ".\override\cadder3.cre" copy /Y ".\RoTerror\CRE\nostring\cadder3.cre" ".\override\cadder3.cre";;;;D:RoT(0)
@@ -435,6 +436,8 @@ STD;bg1ub;22;07;1111;
 STD;bg1ub;23;07;1111;
 STD;bg1ub;24;07;1111;
 STD;bg1ub;27;07;1111;
+STD;bg1ub;28;07;1111;
+STD;bg1ub;29;07;1111;
 STD;BGSpawn;0;06;0111;
 SUB;BGSpawn;1;06;0111;
 SUB;BGSpawn;1?1_1;06;0000;
@@ -511,8 +514,8 @@ MUC;Innershade;6;10;1111;
 SUB;WhiteQueen;0;10;1111;
 SUB;WhiteQueen;0?1_1;10;0000;
 SUB;WhiteQueen;0?1_2;10;1111;
-ANN;No download for RUKRAKIA - Rukrakia NPC, degraded from 1111
-STD;RUKRAKIA;0;10;0000;
+ANN;No download for Rukrakia - Rukrakia NPC, degraded from 1111
+STD;Rukrakia;0;10;0000;
 STD;isnf;0;10;1111;
 STD;ts25mini;0;10;0111;
 STD;ts25mini;1;10;0111;
@@ -557,7 +560,7 @@ MUC;imnesvale;2;15;0000;
 ANN;No download for DNT - Tomoyo and the Underground City, degraded from 0011
 STD;DNT;0;15;0000;
 STD;Arena;0;15;0011;
-ANN;No download for Uot - Umbra of TROW - Arena, degraded from 0011
+ANN;No download for UoT - Umbra of TROW - Arena, degraded from 0011
 STD;UoT;0;15;0000;
 ANN;#13. BG2 STORES AND ITEMS
 STD;AM;0;17;0111;
@@ -656,8 +659,8 @@ STD;OLDMODSPACK;0;17;0111;
 STD;RFWIP;0;17;0111;
 ANN;No Download for HOUYI, degraded from 0111
 STD;HOUYI;0;17;0000;
-ANN;No Download for YLITEMS - YLItems Pack, degraded from 0111
-STD;YLITEMS;0;17;0000;
+ANN;No Download for YLItems - YLItems Pack, degraded from 0111
+STD;YLItems;0;17;0000;
 SUB;DragonSummon;0;17;0111;
 SUB;DragonSummon;0?1_1;17;0111;
 SUB;DragonSummon;0?1_2;17;0000;
@@ -1590,9 +1593,9 @@ STD;RevisedBattles;24;15;0111;
 STD;RevisedBattles;25;15;0111;
 STD;RevisedBattles;26;15;0111;
 STD;RevisedBattles;27;15;0011;
-CMD;findstr /D:override /C:"B#BLADE" kit.ids > B#BLADEtemp.txt;;;;D:REVISEDBATTLES(24)
-CMD;more +1 B#BLADEtemp.txt > B#BLADEstring.txt;;;;D:REVISEDBATTLES(24)
-CMD;del B#BLADEtemp.txt;;;;D:REVISEDBATTLES(24)
+CMD;findstr /D:override /C:"B#BLADE" kit.ids > B#BLADEtemp.txt;;;;D:RevisedBattles(24)
+CMD;more +1 B#BLADEtemp.txt > B#BLADEstring.txt;;;;D:RevisedBattles(24)
+CMD;del B#BLADEtemp.txt;;;;D:RevisedBattles(24)
 STD;d0questpack;4;10;0111;
 STD;d0questpack;5;10;0001;
 STD;d0questpack;6;10;0111;
@@ -1915,7 +1918,7 @@ STD;ashesofembers;21;16;0001;
 STD;Tactics;26;19;0111;
 STD;Tactics;27;19;0111;
 STD;WSR;100;16;1111;
-CMD;type B#BLADEstring.txt >> ./override/kit.ids;;;;D:REVISEDBATTLES(24)
+CMD;type B#BLADEstring.txt >> ./override/kit.ids;;;;D:RevisedBattles(24)
 STD;refinements;10;16;1111;
 STD;refinements;40;16;1111;
 STD;refinements;50;19;1111;
@@ -2065,6 +2068,8 @@ SUB;1pp;114?3_1;20;1111;
 SUB;1pp;114?3_2;20;0000;
 STD;1pp;201;20;1111;
 CMD;IF EXIST Setup-SpellPackB6.exe IF EXIST ".\override\SPPR342.SPL" move ".\override\SPPR342.SPL" ".\BiG World Fixpack\_temp\override\SPPR342.SPL"
+CMD;IF EXIST Setup-SpellPackB6.exe IF EXIST ".\override\spmagglo.bam" move ".\override\spmagglo.bam" ".\BiG World Fixpack\_temp\override\spmagglo.bam"
+CMD;IF EXIST Setup-SpellPackB6.exe IF EXIST ".\override\spmagglo.vvc" move ".\override\spmagglo.vvc" ".\BiG World Fixpack\_temp\override\spmagglo.vvc"
 CMD;IF EXIST divine_remix.exe IF EXIST ".\override\SPPR342.SPL" move ".\override\SPPR342.SPL" ".\BiG World Fixpack\_temp\override\SPPR342.SPL"
 CMD;IF EXIST ".\override\SPWI414.SPL" move ".\override\SPWI414.SPL" ".\BiG World Fixpack\_temp\override\SPWI414.SPL"
 SUB;1pp;202;20;1111;
@@ -2073,6 +2078,8 @@ SUB;1pp;202?1_2;20;1111;
 SUB;1pp;202?2_1;20;1111;
 SUB;1pp;202?2_2;20;0000;
 CMD;IF EXIST Setup-SpellPackB6.exe IF EXIST ".\BiG World Fixpack\_temp\override\SPPR342.SPL" move ".\BiG World Fixpack\_temp\override\SPPR342.SPL" ".\override\SPPR342.SPL"
+CMD;IF EXIST Setup-SpellPackB6.exe IF EXIST ".\BiG World Fixpack\_temp\override\spmagglo.bam" move ".\BiG World Fixpack\_temp\override\spmagglo.bam" ".\override\spmagglo.bam"
+CMD;IF EXIST Setup-SpellPackB6.exe IF EXIST ".\BiG World Fixpack\_temp\override\spmagglo.vvc" move ".\BiG World Fixpack\_temp\override\spmagglo.vvc" ".\override\spmagglo.vvc"
 CMD;IF EXIST divine_remix.exe IF EXIST ".\BiG World Fixpack\_temp\override\SPPR342.SPL" move ".\BiG World Fixpack\_temp\override\SPPR342.SPL" ".\override\SPPR342.SPL"
 CMD;IF EXIST ".\BiG World Fixpack\_temp\override\SPWI414.SPL" move ".\BiG World Fixpack\_temp\override\SPWI414.SPL" ".\override\SPWI414.SPL"
 STD;1pp;203;20;1111;
@@ -3166,6 +3173,13 @@ STD;DiffTweak;44;16;0000;
 STD;fullplate;1;16;0111;
 STD;fullplate;102;16;0111;
 STD;fullplate;204;16;0111;
+STD;randomiser;500;16;0000;
+STD;randomiser;510;16;0000;
+STD;randomiser;520;16;0000;
+STD;randomiser;530;16;0000;
+STD;randomiser;540;16;0000;
+STD;randomiser;560;16;0000;
+STD;randomiser;570;16;0000;
 SUB;randomiser;1100;16;0000;
 SUB;randomiser;1100?1_y;16;0000;
 SUB;randomiser;1100?1_n;16;0000;
@@ -3178,11 +3192,22 @@ SUB;randomiser;1300?1_n;16;0000;
 SUB;randomiser;1400;16;0000;
 SUB;randomiser;1400?1_y;16;0000;
 SUB;randomiser;1400?1_n;16;0000;
+STD;randomiser;5005;16;0000;
+STD;randomiser;5015;16;0000;
+STD;randomiser;5025;16;0000;
+STD;randomiser;5035;16;0000;
+STD;randomiser;5045;16;0000;
+STD;randomiser;5055;16;0000;
+STD;randomiser;5065;16;0000;
+STD;randomiser;5075;16;0000;
+STD;randomiser;5085;16;0000;
 STD;randomiser;9000;16;0111;
+STD;randomiser;9050;16;0000;
 MUC;randomiser;Init;16;0011;
 MUC;randomiser;10100;16;0000;
 MUC;randomiser;10200;16;0011;
 STD;randomiser;10210;17;0111;
+STD;randomiser;10300;16;0000;
 STD;tb#tweaks;100;16;0111;
 STD;tb#tweaks;150;16;0111;
 STD;tb#tweaks;200;16;0111;
@@ -3301,10 +3326,8 @@ MUC;BP-Balancer;Init;16;1111;
 MUC;BP-Balancer;29;16;0000;
 MUC;BP-Balancer;30;16;1111;
 MUC;BP-Balancer;31;16;0000;
-ANN;ii-Mods are SUBs, but too complicated to code.
-ANN;So the installation will just stall here.
-ANN;Since it would change the play to some Elder scrolls-system,
-ANN;they are degraded from 0111.
+ANN;ii-Mods are SUBs, but too complicated to code. So the installation will just stall here.
+ANN;Since it would change the play to some Elder scrolls-system, they are degraded from 0111.
 STD;iiSpellSystemAdjustments;0;16;0000;
 STD;iiSpellSystemAdjustments;1;16;0000;
 STD;iiSpellSystemAdjustments;2;16;0000;
@@ -3515,7 +3538,7 @@ STD;level1npcs;4830;16;0000;
 STD;level1npcs;4900;16;0000;
 STD;level1npcs;4910;16;0000;
 STD;level1npcs;4920;16;0000;
-CMD;IF EXIST ".\level1npcs\backup\0\kit.ids" copy ".\level1npcs\backup\0\kit.ids" ".\override";;;;D:REFINEMENTS(10)
+CMD;IF EXIST ".\level1npcs\backup\0\kit.ids" copy ".\level1npcs\backup\0\kit.ids" ".\override";;;;D:refinements(10)
 STD;Virtue;0;16;0001;
 STD;gloran;1;12;0111;
 STD;w_psionics_unleashed;10;16;0001;
@@ -3531,7 +3554,7 @@ MUC;infinityanimations;Init;20;0111;
 MUC;infinityanimations;9500;20;0000;
 MUC;infinityanimations;9510;20;0000;
 MUC;infinityanimations;9520;20;0111;
-CMD;copy /Y ".\BiG World Fixpack\_override\infinityanimations\*.*" ".\override";;;;D:INFINITYANIMATIONS(0)
+CMD;copy /Y ".\BiG World Fixpack\_override\infinityanimations\*.*" ".\override";;;;D:infinityanimations(0)
 SUB;BP-BGT-Worldmap;0;20;1111;
 SUB;BP-BGT-Worldmap;0?1_1;20;1111;
 SUB;BP-BGT-Worldmap;0?1_2;20;0000;
