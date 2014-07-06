@@ -2059,6 +2059,8 @@ MUC;1pp;110;20;0000;
 MUC;1pp;111;20;1111;
 MUC;1pp;112;20;0000;
 STD;1pp;113;20;1111;
+CMD;IF EXIST Setup-SpellPackB6.exe IF EXIST ".\override\spmagglo.bam" copy /Y ".\override\spmagglo.bam" ".\BiG World Fixpack\_temp\override\spmagglo.bam"
+CMD;IF EXIST Setup-SpellPackB6.exe IF EXIST ".\override\spmagglo.vvc" copy /Y ".\override\spmagglo.vvc" ".\BiG World Fixpack\_temp\override\spmagglo.vvc"
 SUB;1pp;114;20;1111;
 SUB;1pp;114?1_1;20;1111;
 SUB;1pp;114?1_2;20;0000;
@@ -2066,10 +2068,10 @@ SUB;1pp;114?2_1;20;1111;
 SUB;1pp;114?2_2;20;0000;
 SUB;1pp;114?3_1;20;1111;
 SUB;1pp;114?3_2;20;0000;
+CMD;IF EXIST Setup-SpellPackB6.exe IF EXIST ".\BiG World Fixpack\_temp\override\spmagglo.bam" copy /Y ".\BiG World Fixpack\_temp\override\spmagglo.bam" ".\override\spmagglo.bam"
+CMD;IF EXIST Setup-SpellPackB6.exe IF EXIST ".\BiG World Fixpack\_temp\override\spmagglo.vvc" copy /Y ".\BiG World Fixpack\_temp\override\spmagglo.vvc" ".\override\spmagglo.vvc"
 STD;1pp;201;20;1111;
 CMD;IF EXIST Setup-SpellPackB6.exe IF EXIST ".\override\SPPR342.SPL" move ".\override\SPPR342.SPL" ".\BiG World Fixpack\_temp\override\SPPR342.SPL"
-CMD;IF EXIST Setup-SpellPackB6.exe IF EXIST ".\override\spmagglo.bam" move ".\override\spmagglo.bam" ".\BiG World Fixpack\_temp\override\spmagglo.bam"
-CMD;IF EXIST Setup-SpellPackB6.exe IF EXIST ".\override\spmagglo.vvc" move ".\override\spmagglo.vvc" ".\BiG World Fixpack\_temp\override\spmagglo.vvc"
 CMD;IF EXIST divine_remix.exe IF EXIST ".\override\SPPR342.SPL" move ".\override\SPPR342.SPL" ".\BiG World Fixpack\_temp\override\SPPR342.SPL"
 CMD;IF EXIST ".\override\SPWI414.SPL" move ".\override\SPWI414.SPL" ".\BiG World Fixpack\_temp\override\SPWI414.SPL"
 SUB;1pp;202;20;1111;
@@ -2078,8 +2080,6 @@ SUB;1pp;202?1_2;20;1111;
 SUB;1pp;202?2_1;20;1111;
 SUB;1pp;202?2_2;20;0000;
 CMD;IF EXIST Setup-SpellPackB6.exe IF EXIST ".\BiG World Fixpack\_temp\override\SPPR342.SPL" move ".\BiG World Fixpack\_temp\override\SPPR342.SPL" ".\override\SPPR342.SPL"
-CMD;IF EXIST Setup-SpellPackB6.exe IF EXIST ".\BiG World Fixpack\_temp\override\spmagglo.bam" move ".\BiG World Fixpack\_temp\override\spmagglo.bam" ".\override\spmagglo.bam"
-CMD;IF EXIST Setup-SpellPackB6.exe IF EXIST ".\BiG World Fixpack\_temp\override\spmagglo.vvc" move ".\BiG World Fixpack\_temp\override\spmagglo.vvc" ".\override\spmagglo.vvc"
 CMD;IF EXIST divine_remix.exe IF EXIST ".\BiG World Fixpack\_temp\override\SPPR342.SPL" move ".\BiG World Fixpack\_temp\override\SPPR342.SPL" ".\override\SPPR342.SPL"
 CMD;IF EXIST ".\BiG World Fixpack\_temp\override\SPWI414.SPL" move ".\BiG World Fixpack\_temp\override\SPWI414.SPL" ".\override\SPWI414.SPL"
 STD;1pp;203;20;1111;

@@ -636,16 +636,18 @@ Func _Install_BuildSubcmd($p_Setup, $p_Comp)
 		EndIf
 	EndIf
 	If $p_Setup = 'level1npcs' Then
-		$Test=IniRead($g_UsrIni, 'Current', 'Divine_Remix', '')
+		$Test=IniRead($g_UsrIni, 'Current', 'Divine_Remix', '200')
 		If StringInStr($Components, '1?') And StringInStr($Test, '200') Then ; Remove "Restrict fighter/druids from armors single class druids cannot wear?" if Druid Remix will be installed.
 			$Components=StringRegExpReplace($Components, '1\x3f3_\d\s', '')
 		EndIf
 	EndIf
 	If $p_Setup = '1pp' Then
-		$Test=IniRead($g_UsrIni, 'Current', 'item_rev', '')
-		If StringInStr($Components, '400?') And StringInStr($Test, '0') Then ; Remove 1pp's shields and helmets if Item Revisions will be installed.
+;		$Test=IniRead($g_UsrIni, 'Current', 'item_rev', '')
+		If StringInStr($Components, '400?') And Not StringInStr($Components, '206') Then ; Remove Shields Appearance if Additional Shield Animations was not selected before.
 			$Components=StringRegExpReplace($Components, '400\x3f3_\d\s', '')
 			$Components=StringRegExpReplace($Components, '400\x3f4_\d\s', '')
+		EndIf
+		If StringInStr($Components, '400?') And Not StringInStr($Components, '208') Then ; Remove Helmets Appearance if Additional Helmet Animations was not selected before.
 			$Components=StringRegExpReplace($Components, '400\x3f5_\d\s', '')
 			$Components=StringRegExpReplace($Components, '400\x3f6_\d\s', '')
 			$Components=StringRegExpReplace($Components, '400\x3f7_\d\s', '')
