@@ -318,3 +318,6 @@ Added: Northern Tales of the Sword Coast Natalin fix by dradiel (PL)
 20140706 - Updated by Silent
 Fixed: Some dependencies.
 Updated: Auror kit for the Ranger Class, BG1 Unfinished Business, Kelsey, Restored BG1 Sounds.
+20140707 - Updated by Silent
+Added: Mur'Neth for BG:EE.
+Fixed: BG1 Unfinished Business link.

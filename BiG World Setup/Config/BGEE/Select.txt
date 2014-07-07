@@ -35,6 +35,7 @@ STD;saradas_magic;0;10;0111;
 STD;ConvinientAmmunition;0;10;1111;
 STD;WandCase;0;10;0111;
 STD;wmart;0;10;0011;
+STD;Mur'Neth;0;05;0111;
 STD;XanBG1Friend;0;05;1111;
 STD;AjantisBG1;0;05;1111;
 SUB;ajantisportraitpackee;1;05;0000;
