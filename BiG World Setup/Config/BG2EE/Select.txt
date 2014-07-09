@@ -806,7 +806,7 @@ STD;randomiser;9050;09;0000;
 MUC;randomiser;Init;09;0011;
 MUC;randomiser;10100;09;0000;
 MUC;randomiser;10200;09;0011;
-STD;randomiser;10210;17;0111;
+STD;randomiser;10210;09;0111;
 STD;randomiser;10300;09;0000;
 MUC;w_packmule;Init;04;0111;
 MUC;w_packmule;2;04;0111;
