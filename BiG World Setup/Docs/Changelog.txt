@@ -956,3 +956,5 @@ Changed: Codepage testing (thanks to dabus). [_Test_ACP]
 Fixed: The problem with the wrong answers during 1pp's "Core updates and item patches" installation (thanks to dabus). [_Install_BuildSubcmd]
 20140628 - Updated by AL|EN
 Added: Automatic install of Polish BG1 characters conversion if needed (thanks to dabus)
+20140712 - Updated by AL|EN
+Added: Added workaround for custom BG2 Installation

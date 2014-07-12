@@ -323,4 +323,6 @@ Added: Mur'Neth for BG:EE.
 Fixed: BG1 Unfinished Business link.
 Added: Korekta Przedmiotów (PL)
 201400712 - Updated by AL|EN
+Fixed: Fixed "Item Randomiser" category for BG2:EE
 Added: Secret of Bone Hill Part II fix by dradiel (PL)
+Changed: Northern Tales of the Sword Coast Natalin fix by dradiel (PL) set as forced
