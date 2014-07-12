@@ -327,3 +327,4 @@ Fixed: Fixed "Item Randomiser" category for BG2:EE
 Added: Secret of Bone Hill Part II fix by dradiel (PL)
 Changed: Northern Tales of the Sword Coast Natalin fix by dradiel (PL) set as forced
 Updated: Almateria's Restoration Project 6.3
+Changed: Almateria's Restoration Project set as Recomended
