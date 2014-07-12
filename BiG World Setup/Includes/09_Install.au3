@@ -11,7 +11,7 @@ Func Au3PrepInst($p_Num = 0)
 	If $g_Flags[14] = 'BWP' Then; create dummy-patch-files
 		If Not FileExists($g_BG1Dir&'\readme_patch.txt') Then FileClose(FileOpen($g_BG1Dir&'\readme_patch.txt',2))
 		If Not FileExists($g_BG2Dir&'\BG2-ToBPatchReadMe.txt') Then FileClose(FileOpen($g_BG2Dir&'\BG2-ToBPatchReadMe.txt',2))
-		If Not FileExists($g_BG2Dir&'\CD5\movies\25Movies.bif') Then FileClose(FileOpen($g_BG2Dir&'\CD5\movies\25Movies.bif',2+8))
+		If Not ( FileExists($g_BG2Dir&'\CD5\movies\25Movies.bif') Or FileExists($g_BG2Dir & '\' & 'Movies\25movies.bif') ) Then FileClose(FileOpen($g_BG2Dir&'\CD5\movies\25Movies.bif',2+8))
 	EndIf
 	If StringRegExp($g_Flags[14], 'BWP|BWS') Then; BG2-options
 ; entries from Ini_Cheats.bat
