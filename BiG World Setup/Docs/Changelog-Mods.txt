@@ -321,3 +321,6 @@ Updated: Auror kit for the Ranger Class, BG1 Unfinished Business, Kelsey, Restor
 20140707 - Updated by Silent
 Added: Mur'Neth for BG:EE.
 Fixed: BG1 Unfinished Business link.
+Added: Korekta Przedmiotów (PL)
+201400712 - Updated by AL|EN
+Added: Secret of Bone Hill Part II fix by dradiel (PL)
