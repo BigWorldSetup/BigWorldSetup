@@ -409,14 +409,14 @@ Func _Test_CheckRequieredFiles_BG2()
 		$BG2AliasDir=StringSplit($BG2AliasDir, ';')
 		For $b=1 to $BG2AliasDir[0]
 			If StringRegExp($BG2AliasDir[$b], '\x5c\z') = 0 Then $BG2AliasDir[$b]&='\'; add trailing backslash if it's missing in new compilations
-			If FileExists($BG2AliasDir[$b] & 'Movies\25movies.bif') Then
+			If ( FileExists($BG2AliasDir[$b] & 'Movies\25movies.bif') Or FileExists($g_BG2Dir & '\' & 'Movies\25movies.bif') ) Then
 				$BG2AliasDir=$BG2AliasDir[$b]
 				ExitLoop
 			EndIf
 		Next
 	EndIf
 	If StringRegExp($BG2AliasDir, '\x5c\z') = 0 Then $BG2AliasDir&='\'; add trailing backslash if missing
-	If Not FileExists($BG2AliasDir & 'Movies\25movies.bif') Then $Error&=_GetTR($Message, 'L2')&@CRLF; => movie-file is missing
+	If Not ( FileExists($BG2AliasDir & 'Movies\25movies.bif') Or FileExists($g_BG2Dir & '\' & 'Movies\25movies.bif') ) Then $Error&=_GetTR($Message, 'L2')&@CRLF; => movie-file is missing
 	If FileGetVersion($g_BG2Dir&'\bgmain.exe') = '2.5.0.2' And FileGetVersion($g_BG2Dir&'\bgmain.exe', 'PrivateBuild') = '26498' Then
 		; ok
 	ElseIf IniRead($g_MODIni, 'Classics053', 'Name', '') = 'The Classic Adventures' And FileGetVersion($g_BG2Dir&'\bgmain.exe') = '2.5.0.2' Then
