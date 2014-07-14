@@ -8,8 +8,8 @@ CMD;IF EXIST #!Yoshi\#!yoshi.tp2 copy /Y WeiDU.exe SETUP-#!yoshi.exe
 ANN;Force all names to fit standards so BWP can patch them if needed
 CMD;IF EXIST 1Sylm-setup.tp2 ren 1Sylm-setup.tp2 setup-1Sylm.tp2
 CMD;IF EXIST 1Sylm-setup.exe ren 1Sylm-setup.exe setup-1Sylm.exe
-CMD;IF EXIST setup RGenie.tp2 ren setup RGenie.tp2 setup-RGenie.tp2
-CMD;IF EXIST setup RGenie.exe ren setup RGenie.exe setup-RGenie.exe
+CMD;IF EXIST "setup RGenie.tp2" ren "setup RGenie.tp2" setup-RGenie.tp2
+CMD;IF EXIST "setup RGenie.exe" ren "setup RGenie.exe" setup-RGenie.exe
 CMD;IF EXIST Setup-BWL Contest.tp2 ren Setup-BWL Contest.tp2 Setup-BWL_Contest.tp2
 CMD;IF EXIST Setup-BWL Contest.exe ren Setup-BWL Contest.exe Setup-BWL_Contest.exe
 CMD;IF EXIST setup-b!tweak.exe move .\b!tweak\setup-b!tweak.tp2 "."
