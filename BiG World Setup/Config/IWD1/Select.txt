@@ -16,8 +16,6 @@ MUC;iwd1tra;5;00;0000;
 MUC;iwd1tra;6;00;0000;
 MUC;iwd1tra;7;00;0000;
 STD;ab;0;02;1111;
-STD;ab;1;09;1111;
-STD;ab;2;09;1111;
 ANN;ab 3 does the same as iwdfixpack
 STD;ab;4;09;1111;
 STD;ab;5;09;1111;
