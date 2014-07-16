@@ -1,6 +1,9 @@
 ANN;# Conversion of polish BGMain.exe from "Saga Baldur's Gate" edition for all mods that modiffiyng BGMain.exe
 CMD;Call BGMain-BG2-PolishSagaBGConversion.bat
 ANN;Added due to patching
+
+ANN;NPC Kitpack: Fix for the missing file
+IF EXIST npckit\spl\truesword.spl COPY npckit\spl\truesword.spl npckit\spl\IKITMAZ1.spl
 ANN;Add missing setup-###.exe
 CMD;IF EXIST SETUP-NMT.tp2 copy /Y WeiDU.exe SETUP-NMT.exe
 CMD;IF EXIST SETUP-NMR-HAPPY.tp2 copy /Y WeiDU.exe SETUP-NMR-HAPPY.exe
