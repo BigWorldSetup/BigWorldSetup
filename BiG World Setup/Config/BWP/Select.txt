@@ -1,13 +1,19 @@
 ANN;# Conversion of polish BGMain.exe from "Saga Baldur's Gate" edition for all mods that modiffiyng BGMain.exe
 CMD;Call BGMain-BG2-PolishSagaBGConversion.bat
-ANN;Added due to patching
 
 ANN;NPC Kitpack: Fix for the missing file
 CMD;IF EXIST npckit\spl\truesword.spl COPY npckit\spl\truesword.spl npckit\spl\IKITMAZ1.spl
+
+ANN;Turambar Fixes and Tweaks: Fix for the "System" attribute
+CMD;IF EXIST Turambar_fixes_tweaks\Italiano\setup-osx.tra attrib -S Turambar_fixes_tweaks\Italiano\setup-osx.tra
+CMD;IF EXIST Turambar_fixes_tweaks\Russian\setup-osx.tra attrib -S Turambar_fixes_tweaks\Russian\setup-osx.tra
+
+ANN;Added due to patching
 ANN;Add missing setup-###.exe
 CMD;IF EXIST SETUP-NMT.tp2 copy /Y WeiDU.exe SETUP-NMT.exe
 CMD;IF EXIST SETUP-NMR-HAPPY.tp2 copy /Y WeiDU.exe SETUP-NMR-HAPPY.exe
 CMD;IF EXIST #!Yoshi\#!yoshi.tp2 copy /Y WeiDU.exe SETUP-#!yoshi.exe
+
 ANN;Force all names to fit standards so BWP can patch them if needed
 CMD;IF EXIST 1Sylm-setup.tp2 ren 1Sylm-setup.tp2 setup-1Sylm.tp2
 CMD;IF EXIST 1Sylm-setup.exe ren 1Sylm-setup.exe setup-1Sylm.exe
@@ -40,14 +46,17 @@ CMD;IF EXIST Setup-Jedi^&Sith.tp2 ren Setup-Jedi^&Sith.tp2 Setup-Jedi_Sith.tp2
 CMD;IF EXIST ".\stratagems" copy /Y WeiDU.exe setup-stratagems.exe
 CMD;IF EXIST bggraphics.tph move bggraphics.tph ".\bggraphics\bggraphics.tph"
 CMD;IF EXIST setup-dq.tp2 move setup-dq.tp2 ".\dq\setup-dq.tp2"
+
 ANN;Solve the issue with Cespy Audio
 CMD;IF EXIST ".\override\override" move ".\override\override\*.*" ".\override"
 CMD;IF EXIST ".\override\override" rmdir /s /q ".\override\override"
 CMD;IF EXIST ".\BiG World Installpack\BiG World Smoothpack" move ".\BiG World Installpack\BiG World Smoothpack\_modify\*.*" "."
+
 ANN;This skips the choices within the Textpack
 CMD;IF EXIST "BiG World Textpack GERMAN\override\_optional" rmdir /s /q ".\BiG World Textpack GERMAN\override\_optional"
 CMD;IF EXIST "Big World Fixpack\_aD&L" ren ".\BiG World Fixpack\_aD&L" "aD&L"
 CMD;IF EXIST "BiG World Fixpack" xcopy /Y /S /E ".\BiG World Fixpack\_BWP compatibility\*.*" ".\BiG World Fixpack"
+
 ANN;This skips the choices within the Fixpack
 CMD;IF EXIST "Big World Fixpack\BW_Herbs\_optional\Improved Animations\_copy" move ".\BiG World Fixpack\BW_Herbs\_optional\Improved Animations\_copy" ".\BiG World Fixpack\BW_Herbs\_copy"
 CMD;IF EXIST "Big World Fixpack\BW_Herbs\_optional" rmdir /s /q ".\BiG World Fixpack\BW_Herbs\_optional"
@@ -63,6 +72,7 @@ CMD;IF EXIST "BiG World Fixpack\_CtBcutImp" IF EXIST Setup-ctb.exe xcopy /Y /S /
 CMD;IF EXIST "BiG World Fixpack\_Gavin_Hotfixes" IF EXIST Setup-gavin.exe xcopy /Y /S /E ".\BiG World Fixpack\_Gavin_Hotfixes\*.*" "."
 CMD;IF EXIST "BiG World Fixpack\_iwditemfix" If EXIST Setup-iwditempack.exe xcopy /Y /S /E ".\BiG World Fixpack\_iwditemfix\*.*" "."
 CMD;IF NOT EXIST Setup-lolfixer.exe xcopy /Y /S /E ".\BiG World Fixpack\_Lolfixer\*.*" "."
+
 ANN;Workaround until German BG1NPC translation is finished - use _Textharmonisation to determine language
 CMD;IF EXIST "BiG World Textpack GERMAN\_Textharmonisation" IF EXIST Setup-bg1npc.exe MD .\bg1npc\tra\german
 CMD;IF EXIST "BiG World Textpack GERMAN\_Textharmonisation" IF EXIST Setup-bg1npc.exe copy .\bg1npc\tra\english\*.* .\bg1npc\tra\german
@@ -73,6 +83,7 @@ CMD;IF NOT EXIST BWP_Smoothpack.installed Call ".\BiG World Installpack\BiG Worl
 CMD;IF EXIST ".\BiG World Installpack\BWP_Smoothpack.installed" copy ".\BiG World Installpack\BWP_Smoothpack.installed" "."
 CMD;IF NOT EXIST ".\BiG World Fixpack\_temp\override" MD ".\BiG World Fixpack\_temp\override"
 CMD;IF EXIST tisunpack.exe copy tisunpack.exe ".\BiG World Fixpack\_temp"
+
 ANN;check for the correct pathname - essential -- rewrites the ini-path, better leave that out of BWS
 ANN;Call ".\BiG World Installpack\Ini_path.bat"
 ANN;add cheats - essential -- logging, debugging, blood and cheats are set with Au3PrepInst of BWS
@@ -83,6 +94,7 @@ ANN;change settings - optional -- settings are set with Au3PrepInst of BWS
 ANN;Call ".\BiG World Installpack\Ini_settings.bat
 ANN;update setup-###.exe -- weidu is replaced before running it during installation by BWS
 ANN;Call ".\BiG World Installpack\ReplaceWeiDU.bat"
+
 ANN;EDITING
 ANN;#0. GENERAL
 DWN;polishsagabgconversion;0;00;1111;
