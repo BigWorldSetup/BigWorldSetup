@@ -334,3 +334,5 @@ Updated: Almateria's Restoration Project 6.4
 Updated: Worldmap 10.0.1
 Fixed: Almateria's Restoration Project component names
 Changed: Almateria's Restoration Project set as Recomended also for BG2:EE
+201400718 - Updated by AL|EN
+Fixed: Almateria's Restoration Project 6.4 link
