@@ -228,6 +228,7 @@ Func _CreateList($p_Num='s'); $a=Type ('s' = setup, 'c' = chapters)
 		Else
 			ConsoleWrite('!Missing Name-definition in Mod.ini'  & @CRLF)
 			$Array=StringSplit(StringStripCR($File), @LF)
+			$Setups[0][0] = 0
 			For $a=1 to $Array[0]
 				If StringLeft($Array[$a], 1) = '[' Then
 					$Setups[0][0] = $Setups[0][0] + 1
