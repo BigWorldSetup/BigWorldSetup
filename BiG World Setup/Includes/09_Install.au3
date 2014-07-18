@@ -491,7 +491,7 @@ Func Au3Install($p_Num = 0)
 		Next
 	EndIf
 	$Counter=_FileSearch($g_GameDir&'\Override', '*')
-	If _Install_ReadWeiDU('generalized_biffing') = 0 And $Counter[0] > 10000 Then
+	If _Install_ReadWeiDU('generalized_biffing') = 0 And $Counter[0] > 5000 Then
 		_Process_SetScrollLog('|'&StringFormat(_GetTR($Message, 'L18'), $Counter[0], IniRead($g_ModIni, 'generalized_biffing', 'Down', '')), 0, -1); => sees like you have many files
 		If _Install_ReadWeiDU('widescreen') Then _Process_SetScrollLog('|'&_GetTR($Message, 'L19'), 0, -1); => sees like you have many files
 	EndIf
@@ -594,12 +594,12 @@ Func _Install_BG1Textpatch($p_Message)
 ; ---------------------------------------------------------------------------------------------
 ; install the French textpatch if needed
 ; ---------------------------------------------------------------------------------------------
-	If $g_MLang[1] = 'FR' And Not StringInStr(FileRead($g_BG1Dir&'\WeiDU.log'), @LF&'~CORRECFR\CORRECFR.TP2') And $g_BG1Dir <> '-' Then; first installation
+	If $g_MLang[1] = 'FR' And Not StringInStr(FileRead($g_BG1Dir&'\WeiDU.log'), @LF&'~correcfrbg2\correcfrbg2.TP2') And $g_BG1Dir <> '-' Then; first installation
 		GUICtrlSetData($g_UI_Static[6][2], _GetTR($p_Message, 'L4')); => install textpatch
 		_Process_ChangeDir($g_BG1Dir, 1)
-		FileCopy($g_BG2Dir&'\WeiDU\WeiDU.exe', $g_BG1Dir&'\Setup-correcfr.exe', 1)
-		_Process_Run('Setup-correcfr.exe --no-exit-pause --noautoupdate --language 0 --skip-at-view --force-install-list 0 1', 'Setup-correcfr.exe')
-		If Not StringInStr(FileRead($g_BG1Dir&'\WeiDU.log'), @LF&'~CORRECFR\CORRECFR.TP2') Then
+		FileCopy($g_BG2Dir&'\WeiDU\WeiDU.exe', $g_BG1Dir&'\Setup-correcfrbg2.exe', 1)
+		_Process_Run('Setup-correcfrbg2.exe --no-exit-pause --noautoupdate --language 0 --skip-at-view --force-install-list 0 1', 'Setup-correcfrbg2.exe')
+		If Not StringInStr(FileRead($g_BG1Dir&'\WeiDU.log'), @LF&'~correcfrbg2\correcfrbg2.TP2') Then
 			_Misc_MsgGUI(4, _GetTR($p_Message, 'T1'), _GetTR($p_Message, 'L1'), 1, _GetTR($p_Message, 'B1')); => cannot install abra
 			Exit
 		EndIf
