@@ -810,5 +810,14 @@ STD;randomiser;10300;09;0000;
 MUC;w_packmule;Init;04;0111;
 MUC;w_packmule;2;04;0111;
 MUC;w_packmule;3;04;0000;
+STD;!BG1Sounds;0;13;0000;
+STD;!BG1Sounds;1;13;0000;
+STD;!BG1Sounds;2;13;0000;
+STD;!BG1Sounds;3;13;0000;
+MUC;!BG1Sounds;Init;13;0000;
+MUC;!BG1Sounds;4;13;0000;
+MUC;!BG1Sounds;5;13;0000;
+STD;!BG1Sounds;6;13;0000;
+STD;!BG1Sounds;7;13;0000;
 STD;recoloredbuttons;2;13;0000;
 ANN;Added due to patching
