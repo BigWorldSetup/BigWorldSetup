@@ -338,3 +338,5 @@ Changed: Adjusted some dependencies.
 Fixed: BG2 Tweak Pack's components category. Names of French patches for BG1 and BG2.
 Removed: Unnecessary components of some mods.
 Updated: Restored BG1 Sounds.
+20140719 - Updated by Silent
+Updated: Adrian, Edwin Romance and Restored BG1 Sounds.
