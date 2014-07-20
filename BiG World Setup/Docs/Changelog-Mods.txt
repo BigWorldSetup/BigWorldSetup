@@ -340,3 +340,5 @@ Removed: Unnecessary components of some mods.
 Updated: Restored BG1 Sounds.
 20140719 - Updated by Silent
 Updated: Adrian, Edwin Romance and Restored BG1 Sounds.
+20140721 - Updated by AL|EN
+Updated: Worldmap
