@@ -860,7 +860,7 @@ EndFunc   ;==>Tree_SelectConvert
 ; Read some parts of the select.txt-file for Batch-installations
 ; ---------------------------------------------------------------------------------------------
 Func _Tree_SelectReadForBatch()
-	$Array=StringSplit(StringStripCR(FileRead($g_GConfDir&'\Select.txt')), @LF); go through select.txt
+	$Array = StringSplit(StringRegExpReplace(StringStripCR(FileRead($g_GConfDir&'\Select.txt')), '\x0a((|\s{1,})\x0a){1,}', @LF), @LF); go through select.txt
 	Local $Return[$Array[0]][10], $Theme=-1
 	For $a=1 to $Array[0]
 		If StringLeft($Array[$a], 5) = 'ANN;#' Then $Theme+=1; don't read values because there are not consistent (usage of 5A)
@@ -898,7 +898,7 @@ EndFunc   ;==>_Tree_SelectReadForBatch
 ; Read the select.txt-file which contains the installation-procedure
 ; ---------------------------------------------------------------------------------------------
 Func _Tree_SelectRead($p_Admin=0)
-	$Array=StringSplit(StringStripCR(FileRead($g_GConfDir&'\Select.txt')), @LF)
+	$Array = StringSplit(StringRegExpReplace(StringStripCR(FileRead($g_GConfDir&'\Select.txt')), '\x0a((|\s{1,})\x0a){1,}', @LF), @LF)
 	Local $Return[$Array[0]+1][10]
 	For $a=1 to $Array[0]
 		If StringRegExp($Array[$a], '\A(\s.*\z|\z)') Then ContinueLoop; skip emtpty lines

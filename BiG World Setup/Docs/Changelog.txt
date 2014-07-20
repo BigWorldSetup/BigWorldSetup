@@ -958,3 +958,5 @@ Fixed: The problem with the wrong answers during 1pp's "Core updates and item pa
 Added: Automatic install of Polish BG1 characters conversion if needed (thanks to dabus)
 20140712 - Updated by AL|EN
 Added: Added workaround for custom BG2 Installation
+20140720 - Updated by AL|EN
+Changed: ignore empty lines when reading select.txt (thanks to dabus).

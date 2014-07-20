@@ -121,7 +121,7 @@ Func Au3GetVal($p_Num = 0)
 			ExitLoop
 		Next
 		If StringRegExp($g_FItem, '\A\d{1,}\z') Then
-			$Array = StringSplit(StringStripCR(FileRead($g_GConfDir&'\Select.txt')), @LF)
+			$Array = StringSplit(StringRegExpReplace(StringStripCR(FileRead($g_GConfDir&'\Select.txt')), '\x0a((|\s{1,})\x0a){1,}', @LF), @LF)
 			If _IniRead($ReadSection, 'GroupInstall', 0) =  1 Then $Array = _Install_ModifyForGroupInstall($Array); always install in groups
 			$a=$g_FItem
 			While StringRegExp($Array[$a], '(?i)\A(CMD|ANN|DWN|GRP)') And $a<$Array[0]
@@ -182,7 +182,7 @@ Func _CreateList($p_Num='s'); $a=Type ('s' = setup, 'c' = chapters)
 ; loop through select.txt-array and if new setup is used...
 ; ---------------------------------------------------------------------------------------------
 		Local $Setups[1000][3], $OldSetup
-		Local $Array=StringSplit(StringStripCR(FileRead($g_GConfDir&'\Select.txt')), @LF)
+		Local $Array = StringSplit(StringRegExpReplace(StringStripCR(FileRead($g_GConfDir&'\Select.txt')), '\x0a((|\s{1,})\x0a){1,}', @LF), @LF)
 		For $a=1 to $Array[0]
 			If StringRegExp($Array[$a], '(?i)\A(CMD|ANN|GRP)') Then ContinueLoop
 			$Split=StringSplit($Array[$a], ';')
