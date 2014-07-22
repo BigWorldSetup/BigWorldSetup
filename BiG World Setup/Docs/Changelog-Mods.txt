@@ -329,10 +329,10 @@ Updated: Almateria's Restoration Project.
 20140713 - Updated by AL|EN
 Changed: Almateria's Restoration Project set as Recomended also for BG2:EE.
 Fixed: Almateria's Restoration Project component names, Fix for the fix for the Ribald's Genie * tp2 filename.
-Removed: Icewind Dale No-End Patch" due to infinite loop with IWD end boss fight.
+Removed: Icewind Dale No-End Patch due to infinite loop with IWD end boss fight.
 Updated: Almateria's Restoration Project, BP-BGT Worldmap.
 20140718 - Updated by AL|EN
-Fixed: Almateria's Restoration Project 6.4 link.
+Fixed: Almateria's Restoration Project link.
 20140718 - Updated by Silent
 Changed: Adjusted some dependencies.
 Fixed: BG2 Tweak Pack's components category. Names of French patches for BG1 and BG2.
@@ -342,3 +342,6 @@ Updated: Restored BG1 Sounds.
 Updated: Adrian, Edwin Romance and Restored BG1 Sounds.
 20140721 - Updated by AL|EN
 Updated: Worldmap
+20140722 - Updated by Silent
+Fixed: BGT Graphics Overhaul/NeJ2v691 problem with rewritable WED files.
+Updated: Edwin Romance.

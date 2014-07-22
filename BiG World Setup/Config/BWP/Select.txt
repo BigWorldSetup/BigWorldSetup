@@ -213,6 +213,7 @@ STD;TP;1;01;1111;
 STD;BGT-NPCSound;0;01;1111;
 STD;TxtMusic;0;01;1111;
 ANN;#5. BIG BG2 MODS PAST BGT
+CMD;IF EXIST Setup-NeJ2v691.exe copy /Y ".\override\ar8701.wed" ".\BiG World Fixpack\_temp\override";;;;D:bggraphics(0)
 STD;TDD;0;09;0111;
 STD;TDD;1;19;0111;
 STD;BGTNeJ2;0;01;0111;D:NEJ2(7)
@@ -224,7 +225,6 @@ STD;BGTNeJ;5;08;0111;
 STD;BGTNeJ;6;08;0111;
 STD;BGTNeJ;7;17;0111;
 CMD;IF EXIST ".\BiG World Fixpack\_temp\tisunpack.exe" copy /Y ".\BiG World Fixpack\_temp\tisunpack.exe" "*.*"
-CMD;IF EXIST ".\override\ar8701.wed" move ".\override\ar8701.wed" ".\BiG World Fixpack\_temp\override";;;;D:bggraphics(0)
 STD;NeJ2v68;0;09;0111;
 STD;NeJ2v68;1;19;0111;
 STD;NeJ2v68;3;19;0001;
