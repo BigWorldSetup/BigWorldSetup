@@ -345,3 +345,5 @@ Updated: Worldmap
 20140722 - Updated by Silent
 Fixed: BGT Graphics Overhaul/NeJ2v691 problem with rewritable WED files.
 Updated: Edwin Romance.
+20140725 - Updated by AL|EN
+Updated: Wizard Slayer Rebalancing v1.10
