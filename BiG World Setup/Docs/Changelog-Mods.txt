@@ -349,3 +349,5 @@ Updated: Edwin Romance.
 Updated: Wizard Slayer Rebalancing v1.10
 20140727 - Updated by Silent
 Fixed: Adjusted some dependencies.
+20140730 - Updated by AL|EN
+Removed: Turambar fixes & tweaks: 14 - Worldmap fixes

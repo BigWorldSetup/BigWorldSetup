@@ -2943,7 +2943,6 @@ STD;Turambar_fixes_tweaks;10;00;1111;
 STD;Turambar_fixes_tweaks;11;01;1111;
 STD;Turambar_fixes_tweaks;12;01;1111;
 STD;Turambar_fixes_tweaks;13;01;1111;
-STD;Turambar_fixes_tweaks;14;01;1111;
 STD;Turambar_fixes_tweaks;15;01;1111;
 STD;Turambar_fixes_tweaks;16;07;1111;
 STD;Turambar_fixes_tweaks;17;01;1111;
