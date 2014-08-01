@@ -351,3 +351,5 @@ Updated: Wizard Slayer Rebalancing v1.10
 Fixed: Adjusted some dependencies.
 20140730 - Updated by AL|EN
 Removed: Turambar fixes & tweaks: 14 - Worldmap fixes
+20140801 - Updated by Silent
+Updated: CoM Encounters.
