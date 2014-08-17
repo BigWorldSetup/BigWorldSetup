@@ -353,3 +353,5 @@ Fixed: Adjusted some dependencies.
 Removed: Turambar fixes & tweaks: 14 - Worldmap fixes
 20140801 - Updated by Silent
 Updated: CoM Encounters.
+20140817 - Updated by AL|EN
+Updated: Almateria's Restoration Project
