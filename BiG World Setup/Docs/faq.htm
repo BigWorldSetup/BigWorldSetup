@@ -36,6 +36,7 @@
 <li class="level1"><div class="li"><span class="li"><a href="#add_or_modify_mods" class="toc">Add or modify mods</a></span></div></li>
 <li class="level1"><div class="li"><span class="li"><a href="#manage_conflicts_and_dependencies" class="toc">Manage conflicts and dependencies</a></span></div></li>
 <li class="level1"><div class="li"><span class="li"><a href="#special_dependencies" class="toc">Special dependencies</a></span></div></li>
+<li class="level1"><div class="li"><span class="li"><a href="#special_dependencies_for_main_language_of_the_mods_translation_and_connections" class="toc">Special dependencies for single language and connections</a></span></div></li>
 <li class="level1"><div class="li"><span class="li"><a href="#managing_groups_of_similar_mods" class="toc">Managing groups of similar mods</a></span></div></li>
 <li class="level1"><div class="li"><span class="li"><a href="#suggestions_if_installation_fails" class="toc">Suggestions if installation fails</a></span></div></li>
 <li class="level1"><div class="li"><span class="li"><a href="#bws_autoit3_goes_online" class="toc">BWS/AutoIt3 goes online</a></span></div></li>
@@ -407,8 +408,37 @@ In this example, BWTextpackP is only shown when installing Russian translations.
 The second one will remove the big BG1 mods if the BGT-mod is not going to be installed.
 The version-option is for IWD-only, since the mods may need IWD, HoW or TotLM. It checks the version of IWD.exe and if it's not met, the mods are removed.
 </p>
-
+    <div class="notewarning">
+        Mods from [Purge]-section will not be removed from [Connections] even if launguage conditions are met. To be able to make connections for some mods but only for specific main language of the mods translation, please look at "Special dependencies for main language of the mods translation and connections"
+    </div>
 </div>
+    <h1><a name="special_dependencies_for_main_language_of_the_mods_translation_and_connections" id="special_dependencies_for_main_language_of_the_mods_translation_and_connections">Special dependencies for main language of the mods translation and connections</a></h1>
+    <div class="level1">
+
+        <p>
+            Sometimes you need to setup a connection for some specific fix for another mod but only for <B>main language of the mods translation</B> that is on top of "BWS Translation" section.
+            Connection for mods/fixes that require such special language-connections are added and removed by this example code:
+        </p>
+        <p>
+            16_Select-Tree.au3, _Tree_PurgeUnNeeded function
+        </p>
+<pre class="text code text" style="font-family:monospace;">
+    	If $g_MLang[1] = 'PO' Then
+		IniWrite($g_GConfDir&'\Game.ini', 'Connections', 'NTotSC Natalin fix by dradiel is requred for NTotSC but works only for Polish', 'D:NTotSC(-)&NTotSC-Natalin-fix(-)')
+		IniWrite($g_GConfDir&'\Game.ini', 'Connections', 'Secret of Bone Hill Part II fix by dradiel is requred for SoBH but works only for Polish', 'D:BoneHillv275(-)&sobh-part2-fix(-)')
+		; stuff to add if Polish
+	Else
+		IniDelete($g_GConfDir&'\Game.ini', 'Connections', 'NTotSC Natalin fix by dradiel is requred for NTotSC but works only for Polish')
+		IniDelete($g_GConfDir&'\Game.ini', 'Connections', 'Secret of Bone Hill Part II fix by dradiel is requred for SoBH but works only for Polish')
+		; stuff to remove if not Polish
+	EndIf
+</pre>
+        <p>
+            In this example, bugfix(NTotSC-Natalin-fix) will be required (connections will be added to game.ini) for another mod(NTotSC) <b>but only if this mod is selected and <b>main language of the mods translation</b> that is on top of "BWS Translation" section will be set to Polish language(PO).</b>
+        </p>
+        <p>So if you have "English" as you fist launguage and "Polish" as second, in such case because NTotSC will be installed using "English" language this connection will not be appiled and NTotSC-Natalin-fix don't show at the "Manage conflicts and dependencies" window during BWS Setup.</p>
+
+    </div>
 <!-- SECTION "Special dependencies" [12685-13504] -->
 <h1><a name="managing_groups_of_similar_mods" id="managing_groups_of_similar_mods">Managing groups of similar mods</a></h1>
 <div class="level1">
