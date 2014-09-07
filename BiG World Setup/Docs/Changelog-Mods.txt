@@ -355,3 +355,5 @@ Removed: Turambar fixes & tweaks: 14 - Worldmap fixes
 Updated: CoM Encounters.
 20140817 - Updated by AL|EN
 Updated: Almateria's Restoration Project
+20140907 - Updated by AL|EN
+Updated: Dark Horizons BGEE, TeamBG Armor Pack(PL), TeamBG Weapon Pack(PL), Deidre and Joluv(PL)
