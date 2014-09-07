@@ -356,4 +356,6 @@ Updated: CoM Encounters.
 20140817 - Updated by AL|EN
 Updated: Almateria's Restoration Project
 20140907 - Updated by AL|EN
-Updated: Dark Horizons BGEE, TeamBG Armor Pack(PL), TeamBG Weapon Pack(PL), Deidre and Joluv(PL)
+Changed: Manage special dependencies for Polish only mod-fixes
+Updated: Dark Horizons BGEE, TeamBG Armor Pack(PL), TeamBG Weapon Pack(PL), Deidre and Joluv(PL), Almateria's Restoration Project,
+Freedom's Reign & Reign of Virtue, Thrown Hammers(PL), Kindrek NPC, Item Randomiser(PL), The Undying, Yasraena NPC
