@@ -11,7 +11,7 @@ Func Au3Select($p_Num = 0)
 	If $Test[0] = 2 Then
 		$g_GConfDir = $g_ProgDir & '\Config\'&$Test[1]
 		$g_Flags[14] = $Test[2]
-	EndIf	
+	EndIf
 	__TristateTreeView_LoadStateImage($g_UI_Handle[0], $g_ProgDir & '\Pics\Icons.bmp')
 	_Misc_SetLang()
 	_Misc_SetTab(9)
@@ -46,7 +46,7 @@ Func Au3Select($p_Num = 0)
 		EndIf
 	Else
 		$WScreen=_IniRead($WScreen, 'widescreen', '')
-	EndIf	
+	EndIf
 	If $WScreen = '' Then ; widescreen
 		GUICtrlSetState($g_UI_Interact[14][5], $GUI_UNCHECKED)
 		GUICtrlSetState($g_UI_Interact[14][6], $GUI_DISABLE)
@@ -70,13 +70,13 @@ Func Au3Select($p_Num = 0)
 	GUICtrlSetState($g_UI_Button[3][6], $GUI_DISABLE); disable update-button (remove and uncomment lines below to restore it)
 	If $g_Flags[14] <> '' Then
 		_Misc_SwichGUIToInstallMethod()
-;		If _IniRead($ReadSection, 'SuppressUpdate', 0) = 0 Then 
+;		If _IniRead($ReadSection, 'SuppressUpdate', 0) = 0 Then
 ;			_Net_StartupUpdate()
 ;		ElseIf Not StringRegExp($g_Flags[14], 'BWP|BWS') Then; currently no updates for other games than BWP
 ;			GUICtrlSetState($g_UI_Button[3][6], $GUI_DISABLE)
 ;		EndIf
         _Misc_SetAvailableSelection()
-		_Misc_SetTab(2)		
+		_Misc_SetTab(2)
 		GUICtrlSetState($g_UI_Interact[1][2], $GUI_HIDE); combobox
 		GUICtrlSetState($g_UI_Static[1][2], $GUI_HIDE); language label
 		GUICtrlSetState($g_UI_Interact[1][3], $GUI_SHOW); combobox
@@ -94,14 +94,14 @@ Func Au3Select($p_Num = 0)
 		_Misc_SetTab(1)
 	EndIf
 	$s=0
-	
+
 #cs
 	For $s=1 to 5
 		_Misc_Search($g_UI_Interact[2][6], 'Spiel', $s); $Search[$s])
 		Sleep(1000)
 	Next
 #ce
-	
+
 	While 1
 ; ---------------------------------------------------------------------------------------------
 ; Update the tips for the treeviewitems.
@@ -152,7 +152,7 @@ Func Au3Select($p_Num = 0)
 				WinMove($g_UI[1], '', $WPos0[0]+$g_UI[2]+$XControlOffSet, $WPos0[1]+$g_UI[3]+$YControlOffSet)
 			EndIf
 		EndIf
-		;If $sMsg >0 Then ConsoleWrite($sMsg & @CRLF)	
+		;If $sMsg >0 Then ConsoleWrite($sMsg & @CRLF)
 		Switch $sMsg
 		Case 0; nothing happend
 			Sleep(10)
@@ -163,11 +163,14 @@ Func Au3Select($p_Num = 0)
 ; ---------------------------------------------------------------------------------------------
 #Region special events
 		Case $GUI_EVENT_CLOSE
+			If $g_Flags[24]=1 Then _Tree_Export($g_GConfDir&'\PreSelection00.ini')
+			#cs
 			$Current = GUICtrlRead($g_UI_Seperate[0][0])+1
 			If $Current = 4 Then
 				$Test=_Misc_MsgGUI(3, _GetTR($g_UI_Message, '0-T1'), _GetTR($g_UI_Message, '4-L13'), 2, _GetTR($g_UI_Message, '0-B2'), _GetTR($g_UI_Message, '0-B1')); => really want to exit?
 				If $Test=2 Then ContinueLoop
 			EndIf
+			#ce
 			Exit
 		Case $GUI_EVENT_MINIMIZE
 			GUISetState(@SW_MINIMIZE, $g_UI[0])
@@ -240,6 +243,7 @@ Func Au3Select($p_Num = 0)
 				If _Depend_ResolveGui() = 0 Then ContinueLoop
 				_Misc_SetTab(2)
 			Else
+				If $g_Flags[24]=1 Then _Tree_Export($g_GConfDir&'\PreSelection00.ini')
 				Exit
 			EndIf
 #EndRegion allways visible buttons
@@ -266,6 +270,8 @@ Func Au3Select($p_Num = 0)
 			_Misc_LS_GUI()
 		Case $g_UI_Interact[2][4]; presel combo
 			If $g_CentralArray[0][0] <> '' Then _Tree_SetPreSelected(2)
+			$g_Flags[24]=0; no need to save changes to selection anymore after some reload
+			_Selection_GetCurrentInstallType()
 		Case $g_UI_Button[2][5]; adv. selection
 			If _Tree_Populate_PreCheck() = 0 Then ContinueLoop
 			_Misc_SetTab(4)
@@ -291,7 +297,7 @@ Func Au3Select($p_Num = 0)
 			EndIf
 			_Net_Update_Link('1+2')
 		Case $g_UI_Button[3][7]; list download links
-			_Net_LinkList()	
+			_Net_LinkList()
 #EndRegion backup / tests
 ; ---------------------------------------------------------------------------------------------
 #Region advsel
@@ -341,15 +347,7 @@ Func Au3Select($p_Num = 0)
 			_Tree_Reload(1, 1)
 			_Misc_SetTab(4)
 		Case $g_UI_Menu[1][4]; Export
-			$File = FileSaveDialog(_GetTR($g_UI_Message, '4-F2'), $g_ProgDir, 'Ini files (*.ini)', 2, 'BWS-Selection.ini', $g_UI[0]); => save selection as
-			If StringRight($File, 4) <> '.ini' Then $File&='.ini'
-			If @error Then ContinueLoop
-			_Tree_GetCurrentSelection(0)
-			$Text=IniReadSection($File, 'Tra')
-			FileClose(FileOpen($File, 2))
-			If IsArray($Text) Then IniWriteSection($File, 'Tra', $Text)
-			IniWriteSection($File, 'Save', IniReadSection($g_UsrIni, 'Save'))
-			IniWriteSection($File, 'DeSave', IniReadSection($g_UsrIni, 'DeSave'))
+			_Tree_Export()
 		Case $g_UI_Menu[1][5]; Extend
 			_Tree_ShowComponents()
 		Case $g_UI_Menu[1][7]; Recommended-clicking-behaviour
@@ -383,7 +381,7 @@ Func Au3Select($p_Num = 0)
 		Case $g_UI_Menu[1][17]; selection administration
 			_Select_Gui()
 		Case $g_UI_Menu[1][18]; dependency administration
-			_Dep_Gui()			
+			_Dep_Gui()
 		Case $g_UI_Menu[1][16]; sort according to PDF
 			$g_Flags[7]=''
 			If BitAND(GUICtrlRead($g_UI_Menu[1][16]), $GUI_CHECKED) = $GUI_CHECKED Then

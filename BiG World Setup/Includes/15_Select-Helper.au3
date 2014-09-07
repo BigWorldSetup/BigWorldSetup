@@ -149,15 +149,15 @@ Func _Selection_GetCurrentInstallType()
 	$String = GUICtrlRead($g_UI_Interact[2][4])
 	$Found=0
 	For $a = 1 To $Array[0]
-		If $Array[$a] = $String Then 
+		If $Array[$a] = $String Then
 			$Found=1
 			ExitLoop; the result is the number of the compilation type
-		EndIf	
+		EndIf
 	Next
 	If $Found = 0 Then; prevent crash if language has changed
 		If $g_Flags[14] = 'BWS' Then
 			$a=1; total happiness
-		Else	
+		Else
 			$a=2; recommended
 		EndIf
 	EndIf
@@ -166,9 +166,11 @@ Func _Selection_GetCurrentInstallType()
 	If $Num<=0 Then; if custom selection set selection to tactics
 		$g_Compilation='T'
 		If StringLen($a) Then $a='0'&$a
+		IniWrite($g_UsrIni, 'Options', 'InstallType', $a)
 		Return $a
 	Else
 		$g_Compilation=$Compilation[$Num]
+		IniWrite($g_UsrIni, 'Options', 'InstallType', $Num)
 		Return $Num
 	EndIf
 EndFunc    ;==>_Selection_GetCurrentInstallType

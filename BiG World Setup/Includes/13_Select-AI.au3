@@ -7,7 +7,7 @@
 ; Debug-Sample: ConsoleWrite($g_CentralArray[$p_Num][0] & ' ' & $g_CentralArray[$p_Num][1] & ' ' & $g_CentralArray[$p_Num][2] & ' ' & $g_CentralArray[$p_Num][3] &@CRLF)
 ; important: MUC-Headlines and SUB-Selections are all counted as possible selections, so 3 possible SUBs add up +3
 ; If [0][9]=[0][10], the tree is counted as completely selected
-; Not used items from g_CentralArray: 1 - 4 - 6 - 7 - 8 - 15 
+; Not used items from g_CentralArray: 1 - 4 - 6 - 7 - 8 - 15
 ; ---------------------------------------------------------------------------------------------
 
 ; ---------------------------------------------------------------------------------------------
@@ -50,7 +50,7 @@ Func _AI_GetModState($p_Num); $a=ControlID of the treeviewitem
 EndFunc   ;==>_AI_GetModState
 
 ; ---------------------------------------------------------------------------------------------
-; Detect if component is shown or not in current selection 
+; Detect if component is shown or not in current selection
 ; ---------------------------------------------------------------------------------------------
 Func _AI_GetSelect($p_Num, $p_Type=0)
 	Local $Num=0
@@ -100,7 +100,7 @@ Func _AI_GetType()
 	Local $MUCoverride
 	For $t=$g_CentralArray[0][1] to $g_CentralArray[0][0]
 		If $g_CentralArray[$t][0] = '' Then ContinueLoop; this keeps the BWS from crashing if some items were build between the (re)builds of the selection-screen and still lock some controlIDs
-		If StringInStr($g_CentralArray[$t][11], 'F') Then 
+		If StringInStr($g_CentralArray[$t][11], 'F') Then
 			$g_CentralArray[$t][14]=0
 		ElseIf $g_CentralArray[$t][12]='' Then; these components are not selected >> use mods defaults
 			If StringInStr($g_CentralArray[$t][11], 'R') Then
@@ -115,11 +115,11 @@ Func _AI_GetType()
 				ConsoleWrite('!'&$g_CentralArray[$t][11] & ' ' & $g_CentralArray[$t][12] & @CRLF); >> this should never happen, if it does: Edit Select.txt
 			EndIf
 			If $g_CentralArray[$t][10] = 1 And $MUCoverride > $g_CentralArray[$t][14] Then $g_CentralArray[$t][14] = $MUCoverride; avoid MUC-tree to be "lower" than its root
-		Else	
+		Else
 			$String = StringSplit($g_CentralArray[$t][12], ''); RSTE
 			If $String[1]=1 Then; recommended or standard
 				$g_CentralArray[$t][14]=3
-			ElseIf $String[2]=1 Then 
+			ElseIf $String[2]=1 Then
 				$g_CentralArray[$t][14]=6
 			ElseIf $String[3]=1 Then; tactic
 				$g_CentralArray[$t][14]=9
@@ -160,6 +160,7 @@ EndFunc    ;==>_AI_IsInSubtree
 Func _AI_SetClicked($p_Num, $p_Type = 0, $p_Key=0); $a=itemnumber; $p_Type=0(identify)/True(force checked)/False(force unchecked)
 	Local $Test, $ForceAll, $OldCompilation, $Compilation[5]=[4, 'R', 'S', 'T', 'E']
 	If $p_Num < $g_CentralArray[0][1]-1 Or $p_Num > $g_CentralArray[0][0] Then Return; prevent crashes if $g_CentralArray is undefined
+	$g_Flags[24]=1
 	;_AI_Debug($p_Num); Debugging: Show selected-states of a mods components
 ; ---------------------------------------------------------------------------------------------
 ; it's the headline of a chapter
@@ -175,7 +176,7 @@ Func _AI_SetClicked($p_Num, $p_Type = 0, $p_Key=0); $a=itemnumber; $p_Type=0(ide
 	EndIf
 ; ---------------------------------------------------------------------------------------------
 ; it's a fixed item
-; ---------------------------------------------------------------------------------------------				
+; ---------------------------------------------------------------------------------------------
 	If StringInStr($g_CentralArray[$p_Num][11], 'F') Then; don't touch fixed items
 		If StringInStr($g_CentralArray[$p_Num][2], '-') Then; reset mod-icon
 			_AI_SetModStateIcon($p_Num)
@@ -185,12 +186,12 @@ Func _AI_SetClicked($p_Num, $p_Type = 0, $p_Key=0); $a=itemnumber; $p_Type=0(ide
 			Else
 				If StringInStr($g_CentralArray[$p_Num][3], '?') Then
 					_AI_SetInSUB_Enable($p_Num)
-				Else	
+				Else
 					_AI_SetInMUC_Enable($p_Num)
-				EndIf	
+				EndIf
 			EndIf
 		ElseIf StringInStr($g_CentralArray[$p_Num][2], '?') Then
-			_AI_SetSUB_Enable($p_Num)	
+			_AI_SetSUB_Enable($p_Num)
 		ElseIf $g_CentralArray[$p_Num][5] <> '' Then; reset icon
 			__TristateTreeView_SetItemState($g_UI_Handle[0], $g_CentralArray[$p_Num][5], 2+$g_CentralArray[$p_Num][14])
 		EndIf
@@ -232,7 +233,7 @@ Func _AI_SetClicked($p_Num, $p_Type = 0, $p_Key=0); $a=itemnumber; $p_Type=0(ide
 	If $g_LimitedSelection = 1 Then
 		If Not StringInStr($g_CentralArray[$p_Num][11], $g_Compilation) Then $SetState = -1
 		If _AI_GetSelect($p_Num) = 0 Then $SetState = -1; type-definitions: standard = 1, extended = 0
-		If $SetState = -1 Then; no changes to apply > reset icons 
+		If $SetState = -1 Then; no changes to apply > reset icons
 			If $g_CentralArray[$p_Num][9] = 0 Then
 				__TristateTreeView_SetItemState($g_UI_Handle[0], $g_CentralArray[$p_Num][5], 1+$g_CentralArray[$p_Num][14])
 			Else
@@ -323,7 +324,7 @@ EndFunc   ;==>_AI_SetClicked
 ; ---------------------------------------------------------------------------------------------
 ; If the number of selectable components are selected, set a diffrent color for the mods headline [Got (to be) ALWAYS CALLED!!!] ..._AI_SetMod_Disable
 ; ---------------------------------------------------------------------------------------------
-Func _AI_SetModStateIcon($p_Num, $p_First = '-'); $p_Num=TVitemID; $p_First=first state before 
+Func _AI_SetModStateIcon($p_Num, $p_First = '-'); $p_Num=TVitemID; $p_First=first state before
 	$ChapterID=_AI_GetStart($p_Num, '!')
 	If $g_CentralArray[$p_Num][10] = $g_CentralArray[$p_Num][9] Then; all selected
 		__TristateTreeView_SetItemState($g_UI_Handle[0], $g_CentralArray[$p_Num][5], 2+$g_CentralArray[$p_Num][14])
@@ -359,13 +360,13 @@ EndFunc   ;==>_AI_SetModStateIcon
 Func _AI_SetDefaults()
 	;_PrintDebug('+' & @ScriptLineNumber & ' Calling _AI_SetDefaults')
 	For $a=1 to $g_CentralArray[0][0]
-		If $g_CentralArray[$a][2] = '!' Then 
+		If $g_CentralArray[$a][2] = '!' Then
 			$g_CentralArray[$a][9] = 0; Reset theme counter
 			__TristateTreeView_SetItemState($g_UI_Handle[0], $g_CentralArray[$a][5], 1)
 			ContinueLoop
-		ElseIf $g_CentralArray[$a][2] <> '-' Then 
+		ElseIf $g_CentralArray[$a][2] <> '-' Then
 			ContinueLoop
-		EndIf	
+		EndIf
 		$g_CentralArray[$a][9] = 0 ; Reset the component counter
 		_AI_SetMod_Enable($a, 1)
 	Next
@@ -404,7 +405,7 @@ Func _AI_SetInMUC_Enable($p_Num, $p_First = 0)
 	$g_CentralArray[$p_Num][9] = 1
 	__TristateTreeView_SetItemState($g_UI_Handle[0], $g_CentralArray[$Current][5], 2+$g_CentralArray[$Current][14])
 	$g_CentralArray[$Current][9] = 1
-	_AI_SetModStateIcon($p_First, $FirstIconState); update mod state after it was possibly altered by 
+	_AI_SetModStateIcon($p_First, $FirstIconState); update mod state after it was possibly altered by
 EndFunc    ;==>_AI_SetInMUC_Enable
 
 ; ---------------------------------------------------------------------------------------------
@@ -439,7 +440,7 @@ Func _AI_SetInSUB_Enable($p_Num, $p_First=0)
 	$p_Num+=1
 	While $g_CentralArray[$p_Num][10] = 1; disable the other SUB items
 		If StringInStr($g_CentralArray[$p_Num][2], $Component) And $g_CentralArray[$p_Num][9] = 1 Then
-			__TristateTreeView_SetItemState($g_UI_Handle[0], $g_CentralArray[$p_Num][5], 1+$g_CentralArray[$p_Num][14])	
+			__TristateTreeView_SetItemState($g_UI_Handle[0], $g_CentralArray[$p_Num][5], 1+$g_CentralArray[$p_Num][14])
 			$g_CentralArray[$p_Num][9] = 0
 		EndIf
 		$p_Num+=1
@@ -667,10 +668,10 @@ EndFunc    ;==>_AI_SetSUB_Enable
 Func _AI_SwitchComp($p_Num, $p_Force=0)
 	Local $Compilation[6]=[5, 'R', 'S', 'T', 'E', 'F']
 	For $m=1 to 5
-		If $m = $p_Num Then 
+		If $m = $p_Num Then
 			GUICtrlSetState($g_UI_Menu[1][$m+6], $GUI_CHECKED)
 			If $p_Force = 1 Then $g_Compilation = $Compilation[$m]
-		Else	
+		Else
 			GUICtrlSetState($g_UI_Menu[1][$m+6], $GUI_UNCHECKED)
 		EndIf
 	Next

@@ -36,7 +36,7 @@ Func _Tree_EndSelection()
 			IniWrite($g_UsrIni, 'Current', 'widescreen', '0 0?1_'&GUICtrlRead($g_UI_Interact[14][6]) & ' 0?2_' & GUICtrlRead($g_UI_Interact[14][7]) & ' 0?3_N 0?4_N 0?5_Y')
 		Else
 			IniWrite($g_UsrIni, 'Current', 'widescreen', '0 0?1_'&GUICtrlRead($g_UI_Interact[14][6]) & ' 0?2_' & GUICtrlRead($g_UI_Interact[14][7]) & ' 0?3_Y')
-		EndIf	
+		EndIf
 	Else
 		IniDelete($g_UsrIni, 'Current', 'widescreen')
 	EndIf
@@ -44,6 +44,31 @@ Func _Tree_EndSelection()
 	DllClose($g_UDll); close the dll for detecting space
 	_Misc_SetTab(6); switch to Console-tab
 EndFunc    ;==>_Tree_EndSelection
+
+; ---------------------------------------------------------------------------------------------
+; save/export the current selection
+; ---------------------------------------------------------------------------------------------
+Func _Tree_Export($p_File='')
+	$File=$p_File
+	If $File = '' Then
+		$File = FileSaveDialog(_GetTR($g_UI_Message, '4-F2'), $g_ProgDir, 'Ini files (*.ini)', 2, 'BWS-Selection.ini', $g_UI[0]); => save selection as
+		If @error Then Return
+		If StringRight($File, 4) <> '.ini' Then $File&='.ini'
+	EndIf
+	_Tree_GetCurrentSelection(0)
+	FileClose(FileOpen($File, 2))
+	If StringInStr ($p_File, 'PreSelection00.ini') Then; adjust current date in the preselection-hints
+		For $a=1 to $g_ATrans[0]
+			$Text=IniRead($g_GConfDir&'\Mod-'&$g_ATrans[$a]&'.ini', 'Preselect', '00', '')
+			$Text=StringRegExpReplace($Text, '\x28.*\x29', @MDAY&'.'&@MON&'.'&@YEAR)
+			IniWrite($g_GConfDir&'\Mod-'&$g_ATrans[$a]&'.ini', 'Preselect', '00', $Text)
+		Next
+		IniWrite($g_UsrIni, 'Options', 'InstallType', '01'); auto-export will be No 1.
+	EndIf
+	IniWriteSection($File, 'Save', IniReadSection($g_UsrIni, 'Save'))
+	IniWriteSection($File, 'DeSave', IniReadSection($g_UsrIni, 'DeSave'))
+	$g_Flags[24]=0
+EndFunc   ;==>_Tree_Export
 
 ; ---------------------------------------------------------------------------------------------
 ; Get the list of current selected components
@@ -113,7 +138,7 @@ Func _Tree_GetCurrentSelection($p_Show = 0, $p_Write=''); $a=hide seletion-GUI
 		IniWriteSection($p_Write, 'Current', $Select)
 		IniWriteSection($p_Write, 'Save', $Select)
 		IniWriteSection($p_Write, 'DeSave', $DeSelect)
-	EndIf	
+	EndIf
 	If $p_Show = 0 Then _Misc_SetTab(4); show the advsel-tab
 EndFunc   ;==>_Tree_GetCurrentSelection
 
@@ -251,7 +276,7 @@ Func _Tree_Populate($p_Show=1)
 		Else
 			$Trans = StringSplit(IniRead($g_TRAIni, 'UI-Buildtime', 'Menu[2][2]', ''), '|'); => translations for themes
 			$Setup[0][3] = $Trans[0]
-		EndIf	
+		EndIf
 	EndIf
 	$Index=_Depend_PrepareBuildIndex($g_Connections, $Setup)
 	$g_Connections=_Depend_PrepareBuildSentences($g_Connections)
@@ -483,7 +508,7 @@ Func _Tree_Populate($p_Show=1)
 	; language-dependant stuff
 	If $g_MLang[1] <> 'GE' Then; is not available for non-German BWP-installs
 		GUICtrlSetState($g_UI_Interact[14][8], $GUI_HIDE)
-	ElseIf Not StringRegExp($g_Flags[14], 'BWS|BWP') Then; doesn't install BWP anyway 
+	ElseIf Not StringRegExp($g_Flags[14], 'BWS|BWP') Then; doesn't install BWP anyway
 		GUICtrlSetState($g_UI_Interact[14][8], $GUI_HIDE)
 	Else
 		GUICtrlSetState($g_UI_Interact[14][8], $GUI_SHOW)
@@ -598,7 +623,7 @@ Func _Tree_PurgeItem($p_Index)
 		$g_CentralArray[$g_CHTreeviewItem[$g_CentralArray[$ModID][1]]][10]-=1; decrease possible mods per chapter-counter
 		If $g_CentralArray[$g_CHTreeviewItem[$g_CentralArray[$ModID][1]]][10] = 0 Then; chapter is purged
 	;		GUICtrlDelete($g_CHTreeviewItem[$g_CentralArray[$ModID][1]])
-		Else	
+		Else
 			_AI_SetModStateIcon($g_CHTreeviewItem[$g_CentralArray[$ModID][1]]); update icon
 		EndIf
 	Else
@@ -646,12 +671,12 @@ Func _Tree_PurgeUnNeeded()
 			If $Answer = 1 Then; remove part-translation
 				IniWrite($g_ModIni, 'BG1NPC', 'Tra', $ReadSection[0])
 			Else; add if needed
-				If Not StringInStr($Trans, 'GE') Then 
+				If Not StringInStr($Trans, 'GE') Then
 					$Num=IniRead($g_GConfDir&'\WeiDU-GE.ini', 'BG1NPC', 'TRA', 3); get the translation-number
 					IniWrite($g_ModIni, 'BG1NPC', 'Tra', $Trans&',GE:'&$Num); append the translation again
-				EndIf	
+				EndIf
 			EndIf
-		EndIf	
+		EndIf
 	EndIf
 EndFunc   ;==>_Tree_PurgeUnNeeded
 
@@ -748,7 +773,7 @@ Func _Tree_Reload($p_Show=1, $p_Hint=0, $p_Ini=$g_UsrIni)
 			ConsoleWrite($m & ': '& $g_CentralArray[$m][0] & ' == ' &  $g_CentralArray[$m][2] & @CRLF)
 			ConsoleWrite(GUICtrlRead($m) & @CRLF)
 			ContinueLoop
-		EndIf	
+		EndIf
 		If $Comp = '-1' Then; mod was not selected
 			If StringRegExp($DComp, '(?i)(\A|\s)' & StringReplace($g_CentralArray[$m][2], '?', '\x3f') & '(\s|\z)') = 0 Then
 				If $g_CentralArray[$m][2] <> '+' Then
@@ -860,7 +885,7 @@ EndFunc   ;==>Tree_SelectConvert
 ; Read some parts of the select.txt-file for Batch-installations
 ; ---------------------------------------------------------------------------------------------
 Func _Tree_SelectReadForBatch()
-	$Array = StringSplit(StringRegExpReplace(StringStripCR(FileRead($g_GConfDir&'\Select.txt')), '\x0a((|\s{1,})\x0a){1,}', @LF), @LF); go through select.txt
+	$Array=StringSplit(StringStripCR(FileRead($g_GConfDir&'\Select.txt')), @LF); go through select.txt
 	Local $Return[$Array[0]][10], $Theme=-1
 	For $a=1 to $Array[0]
 		If StringLeft($Array[$a], 5) = 'ANN;#' Then $Theme+=1; don't read values because there are not consistent (usage of 5A)
@@ -898,11 +923,11 @@ EndFunc   ;==>_Tree_SelectReadForBatch
 ; Read the select.txt-file which contains the installation-procedure
 ; ---------------------------------------------------------------------------------------------
 Func _Tree_SelectRead($p_Admin=0)
-	$Array = StringSplit(StringRegExpReplace(StringStripCR(FileRead($g_GConfDir&'\Select.txt')), '\x0a((|\s{1,})\x0a){1,}', @LF), @LF)
+	$Array=StringSplit(StringStripCR(FileRead($g_GConfDir&'\Select.txt')), @LF)
 	Local $Return[$Array[0]+1][10]
 	For $a=1 to $Array[0]
 		If StringRegExp($Array[$a], '\A(\s.*\z|\z)') Then ContinueLoop; skip emtpty lines
-		If StringRegExp($Array[$a], '(?i)\A(ANN|CMD|GRP)') Then 
+		If StringRegExp($Array[$a], '(?i)\A(ANN|CMD|GRP)') Then
 			If $p_Admin=0 Then
 				ContinueLoop; skip annotations,commands,groups
 			Else
@@ -914,7 +939,7 @@ Func _Tree_SelectRead($p_Admin=0)
 ;~ 				ConsoleWrite($Array[$a] & @CRLF)
 				ContinueLoop
 			EndIf
-		EndIf	
+		EndIf
 		If $p_Admin = 0 And StringRegExp($Array[$a], '(?i);('&$g_Skip&');') Then ContinueLoop; skip mods that don't fit the selection
 		$Split=StringSplit($Array[$a], ';')
 		$Return[0][0]+=1

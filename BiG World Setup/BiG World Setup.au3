@@ -29,13 +29,13 @@ Global $g_Down[6][2]; used for updating download-progressbar
 ; New GUI-Builing
 ; ---------------------------------------------------------------------------------------------
 Global $g_UI[5], $g_UI_Static[17][20], $g_UI_Button[17][20], $g_UI_Seperate[17][10], $g_UI_Interact[17][20], $g_UI_Menu[10][50]
-Global $g_Search[5], $g_Flags[24] = [1], $g_UI_Handle[10]
+Global $g_Search[5], $g_Flags[25] = [1], $g_UI_Handle[10]
 Global $g_TRAIni = $g_ProgDir & '\Config\Translation-'&$g_ATrans[$g_ATNum]&'.ini', $g_UI_Message = IniReadSection($g_TRAIni, 'UI-Runtime')
 ; g_Flags => 1=w: continue without link checking; 2=w: update links; 3=mod language-string; 4=w: mc-disabled 5=admin-tokens short/Enable Pause-Resume
 ; 6=admin-tokens long/overwitten text by pause, 7=current tip-handle, 8=current tab is advsel, 9=window is locked, 10=Rebuild when leaving first screens/tab to go back from admin-tabs
 ; 11=back is pressed, 12=forward is pressed, 13=real exit, 14=current selected install method, 15=greet-picture is visible
 ; 16=admin-lv has focus/treeicon clicked, 17=treelabel clicked, 18=beep, 19=cmd-started, 20=w: selection-is-higer-than-your-preselection
-; 21=use old sorting format, 22=wscreen ID, 23=download-button-number/unsolved dependencies
+; 21=use old sorting format, 22=wscreen ID, 23=download-button-number/unsolved dependencies, 24=user clicked tv
 ; g_UI_Handle => 0=adv. TreeView, 1=dep. ListView, 2=mod ListView, 3= 4/5=dep admin ListViews, 6/7=comp Listviews, 8=select admin
 ; g_UI_Menu[0] => 0=, 1=used themes in advmenu, 2=number of themes in adv-menus, 3=number of themes+groups in adv-menus, 4=mod, depend and select-contextmenu, 5=, 6-9=depend-context-menu
 ; $g_UI 0=main, 1=child-window with BWP-pic, 2=width, 3=height, 4=child-window with progress-bar
@@ -121,7 +121,7 @@ Func Au3GetVal($p_Num = 0)
 			ExitLoop
 		Next
 		If StringRegExp($g_FItem, '\A\d{1,}\z') Then
-			$Array = StringSplit(StringRegExpReplace(StringStripCR(FileRead($g_GConfDir&'\Select.txt')), '\x0a((|\s{1,})\x0a){1,}', @LF), @LF)
+			$Array = StringSplit(StringStripCR(FileRead($g_GConfDir&'\Select.txt')), @LF)
 			If _IniRead($ReadSection, 'GroupInstall', 0) =  1 Then $Array = _Install_ModifyForGroupInstall($Array); always install in groups
 			$a=$g_FItem
 			While StringRegExp($Array[$a], '(?i)\A(CMD|ANN|DWN|GRP)') And $a<$Array[0]
@@ -182,7 +182,7 @@ Func _CreateList($p_Num='s'); $a=Type ('s' = setup, 'c' = chapters)
 ; loop through select.txt-array and if new setup is used...
 ; ---------------------------------------------------------------------------------------------
 		Local $Setups[1000][3], $OldSetup
-		Local $Array = StringSplit(StringRegExpReplace(StringStripCR(FileRead($g_GConfDir&'\Select.txt')), '\x0a((|\s{1,})\x0a){1,}', @LF), @LF)
+		Local $Array=StringSplit(StringStripCR(FileRead($g_GConfDir&'\Select.txt')), @LF)
 		For $a=1 to $Array[0]
 			If StringRegExp($Array[$a], '(?i)\A(CMD|ANN|GRP)') Then ContinueLoop
 			$Split=StringSplit($Array[$a], ';')
@@ -228,7 +228,6 @@ Func _CreateList($p_Num='s'); $a=Type ('s' = setup, 'c' = chapters)
 		Else
 			ConsoleWrite('!Missing Name-definition in Mod.ini'  & @CRLF)
 			$Array=StringSplit(StringStripCR($File), @LF)
-			$Setups[0][0] = 0
 			For $a=1 to $Array[0]
 				If StringLeft($Array[$a], 1) = '[' Then
 					$Setups[0][0] = $Setups[0][0] + 1

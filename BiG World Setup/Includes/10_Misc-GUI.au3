@@ -7,7 +7,6 @@ Func _Misc_Search($p_ID, $p_String, $p_Occurrence=1)
 	_GUICtrlEdit_SetSel($Handle, $iPos - 1, ($iPos + StringLen($p_String)) - 1)
 	_GUICtrlEdit_Scroll($Handle, $__EDITCONSTANT_SB_SCROLLCARET)
 EndFunc    ;==>_Misc_Search
-	
 
 ; ---------------------------------------------------------------------------------------------
 ; Displays the about-screen
@@ -452,7 +451,7 @@ Func _Misc_SelectFolder($p_Type, $p_Text)
 			If StringRegExp($File[$f], '(?i)\ABWS') = 0 Then
 				$Test = 0
 				ExitLoop
-			Else	
+			Else
 				FileMove($g_DownDir&'\'&$File[$f], $Folder&'\'&$File[$f]); move BWS-files
 			EndIf
 		Next
@@ -466,9 +465,9 @@ Func _Misc_SelectFolder($p_Type, $p_Text)
 		Else
 			GUICtrlSetData($g_UI_Interact[2][2], $Folder)
 			$g_GameDir=$Folder
-		EndIf	
+		EndIf
 		Call('_Test_CheckRequieredFiles_'&$p_Type)
-	EndIf	
+	EndIf
 EndFunc   ;==>_Misc_SelectFolder
 
 ; ---------------------------------------------------------------------------------------------
@@ -479,9 +478,9 @@ Func _Misc_SetAvailableSelection()
 	Local $UI = IniRead($g_TRAIni, 'UI-Runtime', '2-I1', '')
 	Local $PreSelect='', $Description=''
 	If $g_Flags[14]='BWS' Then; BWS-install => show preselections
-		For $n=1 to 99
+		For $n=0 to 99
 			If StringLen($n) = 1 Then $n='0'&$n
-			If Not FileExists($g_GConfDir & '\Preselection'&$n&'.ini') Then ExitLoop
+			If $n<> 0 And Not FileExists($g_GConfDir & '\Preselection'&$n&'.ini') Then ExitLoop
 			$Text=IniRead($g_GConfDir&'\Mod-'&$g_ATrans[$g_ATNum]&'.ini', 'Preselect', $n, '')
 			If $Text = '' Then ContinueLoop
 			$Description&='||'&$Text
@@ -491,13 +490,22 @@ Func _Misc_SetAvailableSelection()
 		$PreSelect=StringTrimLeft($PreSelect, 1)&'|'
 	EndIf
 	_IniWrite($g_UI_Message, '2-I1', $PreSelect&$UI, 'O'); => preselections - adjust available preselections for later
-	$Split = StringSplit(_GetTR($g_UI_Message, '2-I1'), '|'); => preselections
+	$Split = StringSplit($PreSelect&$UI, '|'); => preselections
+	$SplitD = StringSplit($UI, '|'); => defaults
 	GUICtrlSetData($g_UI_Interact[2][4], '')
-	If $g_Flags[14] = 'BWS' Then
-		GUICtrlSetData($g_UI_Interact[2][4], _GetTR($g_UI_Message, '2-I1'), $Split[1]); => preselections with total happyness as default
+	$InstallType=IniRead($g_UsrIni, 'Options', 'InstallType', '')
+	If $InstallType = '' Then
+		If $g_Flags[14] = 'BWS' Then
+			$InstallType=$Split[1]; => preselections with total happyness as default
+		Else
+			$InstallType=$Split[2]; => preselections with recommended as default
+		EndIf
+	ElseIf StringLen($InstallType) = 1 Then
+		$InstallType=$SplitD[$InstallType]
 	Else
-		GUICtrlSetData($g_UI_Interact[2][4], _GetTR($g_UI_Message, '2-I1'), $Split[2]); => preselections with recommended as default
-	EndIf	
+		$InstallType=$Split[$InstallType]
+	EndIf
+	GUICtrlSetData($g_UI_Interact[2][4], _GetTR($g_UI_Message, '2-I1'), $InstallType); => preselections with total happyness as default
 	GUICtrlSetData($g_UI_Interact[2][6]	, StringReplace(StringFormat($Message, $Description), '|', @CRLF)); => folder/preselection-help
 EndFunc   ;==>_Misc_SetAvailableSelection
 
@@ -668,7 +676,7 @@ Func _Misc_SetTab($p_Tab)
 		$g_Flags[8]=1
 		GUIRegisterMsg($WM_NOTIFY, '__TristateTreeView_WM_Notify')
 	Else
-		$g_Flags[8]=0		
+		$g_Flags[8]=0
 		If $p_Tab = 10 Then GUIRegisterMsg($WM_NOTIFY, '_Depend_WM_Notify'); solve dependencies
 		If $p_Tab = 11 Then GUIRegisterMsg($WM_NOTIFY, '_Admin_Mod_WM_Notify'); admin mods
 		If $p_Tab = 12 Then GUIRegisterMsg($WM_NOTIFY, '_Tra_WM_Notify'); admin component-translations
@@ -701,7 +709,7 @@ Func _Misc_SetWelcomeScreen($p_String)
 	$State=BitAND(GUICtrlGetState($g_UI_Interact[1][2]), $GUI_HIDE)
 	If $p_String = '+' Then
 		If $State Then; jump from install selection to folder selection
-			$Method = GUICtrlRead($g_UI_Interact[1][3]); look if install-method changed			
+			$Method = GUICtrlRead($g_UI_Interact[1][3]); look if install-method changed
 			For $g = 1 to $g_GameList[0][0]
 				If $Method = $g_GameList[$g][2] Then
 					If $g_Flags[14] <> $g_GameList[$g][1] Then
@@ -718,7 +726,7 @@ Func _Misc_SetWelcomeScreen($p_String)
 ;			If IniRead($g_UsrIni, 'Options', 'SuppressUpdate', 0) = 0 Then
 ;				$State=BitAND(GUICtrlGetState($g_UI_Button[3][6]), $GUI_ENABLE)
 ;				If $State Then _Net_StartupUpdate(); update was not done... ask again
-;			EndIf	
+;			EndIf
 			If $g_Flags[10] > 0 Then
 				If $g_Skip <> '' Then _Misc_ReBuildTreeView()
 				$g_Flags[10] = 0
@@ -741,12 +749,12 @@ Func _Misc_SetWelcomeScreen($p_String)
 			GUICtrlSetData($g_UI_Interact[1][1], StringReplace(IniRead($g_GConfDir&'\Translation-'&$g_ATrans[$g_ATNum]&'.ini', 'UI-RunTime', '1-L2', ''), '|', @CRLF)); => questionary (did you have installed...)
 			_Misc_SetTab(1)
 		ElseIf $State Then; jump from install selection to welcome
-			$Method = GUICtrlRead($g_UI_Interact[1][3]); look if install-method changed			
+			$Method = GUICtrlRead($g_UI_Interact[1][3]); look if install-method changed
 			For $g = 1 to $g_GameList[0][0]
 				If $Method = $g_GameList[$g][2] Then
 					If $g_Flags[14] <> $g_GameList[$g][1] Then $g_GConfDir = $g_ProgDir & '\Config\'&$g_GameList[$g][0]
 				EndIf
-			Next	
+			Next
 			GUICtrlSetData($g_UI_Static[1][1], StringReplace(IniRead($g_TRAIni, 'UI-Buildtime', 'Static[1][1]', ''), '|', @CRLF)); => important notes
 			GUICtrlSetData($g_UI_Interact[1][1], StringReplace(IniRead($g_TRAIni, 'UI-Buildtime', 'Interact[1][1]', ''), '|', @CRLF)); => questionary (did you have installed...)
 			GUICtrlSetState($g_UI_Interact[1][2], $GUI_SHOW); combobox
@@ -852,11 +860,7 @@ Func _Misc_SwichLang()
 		$g_UI_Message = IniReadSection($g_TRAIni, 'UI-Runtime')
 		$g_Flags[10] = 1
 		_Misc_SetLang()
-		If $g_Flags[14] = 'BWS' Then
-			_Misc_SetAvailableSelection(); show preselection-descriptions
-		Else; do a bwp/batch install
-			_Misc_SetAvailableSelection(); don't show them
-		EndIf
+		_Misc_SetAvailableSelection(); show preselection-descriptions
 	EndIf
 EndFunc    ;==>_Misc_SwichLang
 
