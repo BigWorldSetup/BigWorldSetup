@@ -678,6 +678,15 @@ Func _Tree_PurgeUnNeeded()
 			EndIf
 		EndIf
 	EndIf
+	If $g_MLang[1] = 'PO' Then
+		IniWrite($g_GConfDir&'\Game.ini', 'Connections', 'NTotSC Natalin fix by dradiel is requred for NTotSC but works only for Polish', 'D:NTotSC(-)&NTotSC-Natalin-fix(-)')
+		IniWrite($g_GConfDir&'\Game.ini', 'Connections', 'Secret of Bone Hill Part II fix by dradiel is requred for SoBH but works only for Polish', 'D:BoneHillv275(-)&sobh-part2-fix(-)')
+		; stuff to add if Polish
+	Else
+		IniDelete($g_GConfDir&'\Game.ini', 'Connections', 'NTotSC Natalin fix by dradiel is requred for NTotSC but works only for Polish')
+		IniDelete($g_GConfDir&'\Game.ini', 'Connections', 'Secret of Bone Hill Part II fix by dradiel is requred for SoBH but works only for Polish')
+		; stuff to remove if not Polish
+	EndIf
 EndFunc   ;==>_Tree_PurgeUnNeeded
 
 ; ---------------------------------------------------------------------------------------------
