@@ -74,22 +74,22 @@ Func Au3BuildGUI($p_Num = 0)
 	GUICtrlSetFont(-1, 8, 800, 0, 'MS Sans Serif')
 	$g_UI_Static[2][1] =  GUICtrlCreateLabel('', 30, 80, 370, 15); BG1 if BWS/BWP
 	$g_UI_Interact[2][1] = GUICtrlCreateInput('', 30, 95, 300, 20)
-	$g_UI_Button[2][1] = GUICtrlCreateButton('...', 350, 95, 50, 20, 0)
+	$g_UI_Button[2][1] = GUICtrlCreateButton(_GetTR($g_UI_Message, '0-B6'), 350, 95, 50, 20, 0)
 	$g_UI_Static[2][2] =  GUICtrlCreateLabel('', 30, 135, 370, 15); BG2/IWD1/IWD2/PST/BGEE/BG2EE
 	$g_UI_Interact[2][2] = GUICtrlCreateInput('', 30, 150, 300, 20)
-	$g_UI_Button[2][2] = GUICtrlCreateButton('...', 350, 150, 50, 20, 0)
+	$g_UI_Button[2][2] = GUICtrlCreateButton(_GetTR($g_UI_Message, '0-B6') , 350, 150, 50, 20, 0)
 	$g_UI_Static[2][3] = GUICtrlCreateLabel('', 30, 190, 370, 15); download
 	$g_UI_Interact[2][3] = GUICtrlCreateInput($g_DownDir, 30, 205, 300, 20)
-	$g_UI_Button[2][3] = GUICtrlCreateButton('...', 350, 205, 50, 20, 0)
+	$g_UI_Button[2][3] = GUICtrlCreateButton(_GetTR($g_UI_Message, '0-B6'), 350, 205, 50, 20, 0)
 	GUICtrlCreateGroup("", -99, -99, 1, 1)
 	$g_UI_Seperate[2][2] = GUICtrlCreateGroup('', 15, 270, 400, 140); selection
 	GUICtrlSetFont(-1, 8, 800, 0, 'MS Sans Serif')
 	$g_UI_Static[2][5] = GUICtrlCreateLabel('', 30, 290, 370, 15); language
 	$g_UI_Interact[2][5] = GUICtrlCreateInput('', 30, 305, 300, 20)
-	$g_UI_Button[2][4] = GUICtrlCreateButton('...', 350, 305, 50, 20, 0)
+	$g_UI_Button[2][4] = GUICtrlCreateButton(_GetTR($g_UI_Message, '0-B6'), 350, 305, 50, 20, 0)
 	$g_UI_Static[2][4] = GUICtrlCreateLabel('', 30, 345, 370, 15); preselection
 	$g_UI_Interact[2][4] = GUICtrlCreateCombo('', 30, 360, 300, 20)
-	$g_UI_Button[2][5] = GUICtrlCreateButton('...', 350, 360, 50, 20, 0); open mod/componentselection
+	$g_UI_Button[2][5] = GUICtrlCreateButton(_GetTR($g_UI_Message, '0-B7'), 29, 385, 302, 20, 0); open mod/componentselection
 	GUICtrlCreateGroup("", -99, -99, 1, 1)
 	$g_UI_Interact[2][6] = GUICtrlCreateEdit('', 430, 65, 305, 345, BitOR($SS_Left, $WS_VSCROLL, $ES_READONLY, 0x0100)); help
 	GUICtrlSetBkColor(-1, 0xFFFFFF)

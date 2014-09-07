@@ -101,7 +101,7 @@ Func Au3Net($p_Num = 0)
 ; ---------------------------------------------------------------------------------------------
 		If $g_Flags[23] <> '' Then
 			If $g_Flags[23]<0 Then; show wget-progress
-				GUICtrlSetData($g_UI_Static[6][2], _GetTR($Message, 'L4') & ' ' & $DArray[$DSlot[-$g_Flags[23]]][4] & ' ...'); => loading
+				GUICtrlSetData($g_UI_Static[6][2], _GetTR($Message, 'L4') & ' ' & $DArray[$DSlot[-$g_Flags[23]]][4] & _GetTR($g_UI_Message, '0-B6')); => loading
 				_Net_WGetShow($DArray[$DSlot[-$g_Flags[23]]][7], -$g_Flags[23])
 				ContinueLoop
 			EndIf	
