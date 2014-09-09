@@ -256,7 +256,7 @@ EndFunc   ;==>_Depend_GetActiveAddItem
 Func _Depend_GetActiveConnections($p_Show=1)
 	_PrintDebug('+' & @ScriptLineNumber & ' Calling _Depend_GetActiveConnections')
 	Local $Mod, $Comp
-	Global $g_ActiveConnections[500][4]
+	Global $g_ActiveConnections[999][4]
 	$g_ActiveConnections[0][0] = 0
 	If $p_Show=1 Then _GUICtrlListView_BeginUpdate($g_UI_Handle[1])
 	If $p_Show=1 Then _GUICtrlListView_DeleteAllItems($g_UI_Handle[1])
