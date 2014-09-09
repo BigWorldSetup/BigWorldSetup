@@ -231,6 +231,10 @@ Func Au3ExFix($p_Num)
 		FileWrite($g_LogFile, '>MSFM WeiDU Install v1.35\* .' & @CRLF)
 		_Extract_MoveMod('MSFM WeiDU Install v1.35')
 	EndIf
+	If StringRegExp($g_Flags[14], 'BWP|BWS') And FileExists($g_BG2Dir&'\Aran-Whitehand-master') Then
+		FileWrite($g_LogFile, '>Aran-Whitehand-master\* .' & @CRLF)
+		_Extract_MoveMod('Aran-Whitehand-master')
+	EndIf
 ; ==============  Fix textstring so weidu will not fail to install the mod ============
 	If StringRegExp($g_Flags[14], 'BWP|BWS') And FileExists($g_BG2Dir&'\setup-bonehillv275.exe') Then
 		$Text=FileRead($g_BG2Dir&'\bonehillv275\Language\deutsch\D\BHARRNES.TRA')
@@ -290,10 +294,11 @@ Func Au3ExFix($p_Num)
 		If FileExists($g_BG2Dir&'\setup-aurora.exe') Then DirCreate($g_BG2Dir&'\aurpatch')
 		If FileExists($g_BG2Dir&'\setup-gavin_bg2.exe') Then DirCreate($g_BG2Dir&'\gavin_bg2_bgt')
 		If FileExists($g_BG2Dir&'\setup-iwditempack.exe') Then DirCreate($g_BG2Dir&'\iwditemfix')
+		If FileExists($g_BG2Dir&'\setup-item_rev.exe') Then DirCreate($g_BG2Dir&'\ninjawakifix')
+		If FileExists($g_BG2Dir&'\setup-item_rev.exe') Then DirCreate($g_BG2Dir&'\item_rev_shatterfix')
+		If FileExists($g_BG2Dir&'\setup-tobex.exe') Then DirCreate($g_BG2Dir&'\poison_effect_supplement')
 		If FileExists($g_BG2Dir&'\Setup-R*deur.tp2') Then DirMove($g_BG2Dir&"\RÓdeur de l'ombre", $g_BG2Dir&"\Rôdeur de l'ombre")
 		If FileExists($g_BG2Dir&'\SetupP!Bhaal.tp2') Then DirMove($g_BG2Dir&'\PrÈtre de Bhaal', $g_BG2Dir&'\Prêtre de Bhaal')
-;		If FileExists($g_BG2Dir&'\setup-item_rev.exe') Then DirCreate($g_BG2Dir&'\ninjawakifix')
-		If FileExists($g_BG2Dir&'\setup-tobex.exe') Then DirCreate($g_BG2Dir&'\poison_effect_supplement')
 	ElseIf $g_Flags[14] = 'PST' Then
 		If FileExists($g_PSTDir&'\setup-pst-drawfix.exe') Then DirCreate($g_PSTDir&'\pst-drawfix_backup')
 	EndIf

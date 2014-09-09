@@ -1,4 +1,7 @@
 ANN;Added due to patching
+CMD;IF EXIST Setup-!BG1sounds.exe move .\!BG1sounds\Setup-!BG1sounds.tp2 "."
+CMD;IF EXIST Setup-!BG1sounds.exe ren Setup-!BG1sounds.exe Setup-BG1sounds.exe
+CMD;IF EXIST Setup-!BG1sounds.tp2 ren Setup-!BG1sounds.tp2 Setup-BG1sounds.tp2
 CMD;IF EXIST "BiG World Fixpack" If Not Exist "BiG World Installpack\Big World Smoothpack" mkdir "BiG World Installpack\Big World Smoothpack"
 CMD;IF EXIST "BiG World Textpack GERMAN\override\_optional" rmdir /s /q ".\BiG World Textpack GERMAN\override\_optional"
 CMD;IF EXIST "BiG World Fixpack" xcopy /Y /S /E ".\BiG World Fixpack\_resfixer_v1\*.*" "."
@@ -288,6 +291,15 @@ MUC;contain;20;13;0000;
 STD;W_3kradziej;0;09;0111;
 STD;W_3kradziej;1;09;0111;
 STD;UCFOW;0;09;0001;
+STD;BG1Sounds;0;20;0111;
+STD;BG1Sounds;1;20;0111;
+STD;BG1Sounds;2;20;0111;
+STD;BG1Sounds;3;20;0111;
+MUC;BG1Sounds;Init;20;0111;
+MUC;BG1Sounds;4;20;0111;
+MUC;BG1Sounds;5;20;0000;
+STD;BG1Sounds;6;20;0000;
+STD;BG1Sounds;7;20;0000;
 STD;crefixer;0;01;1111;
 STD;Innate_Fix;0;01;1111;
 STD;poison_effect_supplement;0;01;1111;

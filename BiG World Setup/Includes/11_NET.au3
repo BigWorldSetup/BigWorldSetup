@@ -357,7 +357,6 @@ Func Au3NetFix($p_Num = 0)
 	_Process_SwitchEdit(0, 0)
 	If FileExists($g_GameDir&'\WeiDU') And Not StringInStr(FileGetAttrib($g_GameDir&'\WeiDU'), 'D') Then FileDelete($g_GameDir&'\WeiDU'); remove WeiDU for mac/linux (if it exists)
 	If FileExists($g_DownDir&'\WeiDU.exe') Then FileCopy($g_DownDir&'\WeiDU.exe', $g_GameDir&'\WeiDU\WeiDU.exe', 9); file will be overwritten if it's a beta, since that had to be extracted later
-	If FileExists($g_DownDir&'\bggraphics.tph') Then FileCopy($g_DownDir&'\bggraphics.tph', $g_GameDir&'\bggraphics.tph', 9)
 	If FileExists($g_DownDir&'\setup-dq.tp2') Then FileCopy($g_DownDir&'\setup-dq.tp2', $g_GameDir&'\setup-dq.tp2', 9)
 	$ExtractOnlyMods=IniRead($g_GConfDir&'\Game.ini', 'Options', 'ExtractOnly', 'BWFixpack,BWTextpack,BWInstallpack,WeiDU,BeregostCF')
 	$DownloadOnlyMods=IniRead($g_GConfDir&'\Game.ini', 'Options', 'DownloadOnly', 'BG1TP,BWPDF')
@@ -1336,7 +1335,7 @@ Func _Net_WGetSize($p_URL)
 			$Tmp = StringRegExp($Allines, "(?i)Content-disposition: (.*?)" & @CRLF, 3)
 			If StringInStr($Tmp[0], '=') Then; skip false/empty declarations
 				$Tmp = StringRegExpReplace($Tmp[0], "\A[^=]*=|\x22", '')
-				$Return[1] = StringRegExpReplace($Tmp, "\AUTF-8''", ''); remove UTF-8-coding of filenames on foreign servers
+				$Return[1] = StringRegExpReplace($Return[1], '\;.*\z', ''); remove UTF-8-coding of filenames on dropbox servers
 			EndIf
 		EndIf
 		If StringInStr($Allines, 'Location:') And $Return[1] = '' Then

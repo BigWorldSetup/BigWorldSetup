@@ -642,7 +642,6 @@ Func _Install_BuildSubcmd($p_Setup, $p_Comp)
 		EndIf
 	EndIf
 	If $p_Setup = '1pp' Then
-;		$Test=IniRead($g_UsrIni, 'Current', 'item_rev', '')
 		If StringInStr($Components, '400?') And Not StringInStr($Components, '206') Then ; Remove Shields Appearance if Additional Shield Animations was not selected before.
 			$Components=StringRegExpReplace($Components, '400\x3f3_\d\s', '')
 			$Components=StringRegExpReplace($Components, '400\x3f4_\d\s', '')

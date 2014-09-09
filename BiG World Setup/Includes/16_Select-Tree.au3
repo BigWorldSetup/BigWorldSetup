@@ -845,7 +845,7 @@ Func _Tree_SelectConvert($p_Array)
 	For $t=0 to $Trans[0]-1
 		If $Theme[$t] = '' Then ContinueLoop; skip if nothing was assigned to the theme
 		$Index=StringSplit(StringTrimLeft($Theme[$t], 1), '|'); get index-numbers of the array assigned to the theme
-		Local $SameThemeMods[100][4], $Found=0; enable 100 additions
+		Local $SameThemeMods[200][4], $Found=0; enable 200 additions
 		For $i=1 to $Index[0]
 			If StringRegExp($p_Array[$Index[$i]][3], '[0123456789]') Then; look for components
 				$Found=1

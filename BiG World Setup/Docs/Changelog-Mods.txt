@@ -346,7 +346,7 @@ Updated: Worldmap
 Fixed: BGT Graphics Overhaul/NeJ2v691 problem with rewritable WED files.
 Updated: Edwin Romance.
 20140725 - Updated by AL|EN
-Updated: Wizard Slayer Rebalancing v1.10
+Updated: Wizard Slayer Rebalancing
 20140727 - Updated by Silent
 Fixed: Adjusted some dependencies.
 20140730 - Updated by AL|EN
@@ -356,6 +356,8 @@ Updated: CoM Encounters.
 20140817 - Updated by AL|EN
 Updated: Almateria's Restoration Project
 20140907 - Updated by AL|EN
-Changed: Manage special dependencies for Polish only mod-fixes
-Updated: Dark Horizons BGEE, TeamBG Armor Pack(PL), TeamBG Weapon Pack(PL), Deidre and Joluv(PL), Almateria's Restoration Project,
-Freedom's Reign & Reign of Virtue, Thrown Hammers(PL), Kindrek NPC, Item Randomiser(PL), The Undying, Yasraena NPC
+Changed: Manage special dependencies for Polish only mod-fixes.
+Updated: Almateria's Restoration Project, CoM Encounters, Dark Horizons BGEE, Deidre and Joluv in BGEE, Freedom's Reign & Reign of Virtue, Item Randomiser, Kindrek, Saerileth, TeamBG Armor Pack for BG:EE, TeamBG Weapon Pack for BG:EE, The Undying, Thrown Hammers, Tsujatha, Yasraena.
+20140909 - Updated by Silent
+Added: Aran Whitehand, Jastey's Solaufein, Multistronghold, Sarevok Wiederherstellung, TeamBG Armor Pack for BG2:EE, TeamBG Weapon Pack for BG2:EE.
+Updated: Selection fits IP 14.2.2, TP 14.2. Almateria's IWD2 Fixpack, Chantelame, Derat's Unused Kits Pack, Ding0's Quest Pack, Garrick - Tales of a Troubadour, Keeping Yoshimo, Mal des Vampirismus, Nameless Melody Inn, Oversight, Vampire Tales BG2EE.

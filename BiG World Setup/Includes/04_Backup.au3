@@ -466,8 +466,8 @@ Func _Backup_Restore($p_Tab)
 		$Files=StringSplit($BifList, '|')
 		For $f=1 to $Files[0]
 			If Not FileExists($g_BG2Dir&'\Data\' & $Files[$f]&'.bif') Then
-				_Process_SetScrollLog($Files[$f]&' '&_GetTR($Message, 'L24')); =>does not exist
 				If StringRegExp($Files[$f], 'CDCreAni|DESound') Then ContinueLoop; don't display this as an error fo potential additional files
+				_Process_SetScrollLog($Files[$f]&' '&_GetTR($Message, 'L24')); =>does not exist
 				$Error+=1
 			EndIf
 		Next

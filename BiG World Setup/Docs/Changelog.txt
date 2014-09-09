@@ -955,13 +955,11 @@ Changed: Codepage testing (thanks to dabus). [_Test_ACP]
 20140619 - Updated by Silent
 Fixed: The problem with the wrong answers during 1pp's "Core updates and item patches" installation (thanks to dabus). [_Install_BuildSubcmd]
 20140628 - Updated by AL|EN
-Added: Automatic install of Polish BG1 characters conversion if needed (thanks to dabus)
+Added: Automatic install of Polish BG1 characters conversion if needed (thanks to dabus).
 20140712 - Updated by AL|EN
-Added: Added workaround for custom BG2 Installation
+Added: Added workaround for custom BG2 Installation.
 20140720 - Updated by AL|EN
-Changed: Ignore empty lines when reading select.txt (thanks to dabus)
+Changed: Ignore empty lines when reading select.txt (thanks to dabus).
 20140907 - Updated by AL|EN
-Added: Auto-save of user configuration as "Installtype" (thanks to dabus)
-Added: Save selected preselection (thanks to dabus)
-Added: Documentation for "Special dependencies for main language of the mods translation and connections" (thanks to dabus)
-Changed: Adjustments to GUI
+Added: Auto-save of user configuration as "Installtype" (thanks to dabus). Save selected preselection (thanks to dabus). Documentation for "Special dependencies for main language of the mods translation and connections" (thanks to dabus).
+Changed: Adjustments to GUI.
