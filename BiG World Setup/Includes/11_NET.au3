@@ -1335,6 +1335,7 @@ Func _Net_WGetSize($p_URL)
 			$Tmp = StringRegExp($Allines, "(?i)Content-disposition: (.*?)" & @CRLF, 3)
 			If StringInStr($Tmp[0], '=') Then; skip false/empty declarations
 				$Tmp = StringRegExpReplace($Tmp[0], "\A[^=]*=|\x22", '')
+				$Return[1] = StringRegExpReplace($Tmp, "\AUTF-8''", ''); remove UTF-8-coding of filenames on foreign servers
 				$Return[1] = StringRegExpReplace($Return[1], '\;.*\z', ''); remove UTF-8-coding of filenames on dropbox servers
 			EndIf
 		EndIf
