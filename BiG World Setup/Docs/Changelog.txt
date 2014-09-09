@@ -963,3 +963,6 @@ Changed: Ignore empty lines when reading select.txt (thanks to dabus).
 20140907 - Updated by AL|EN
 Added: Auto-save of user configuration as "Installtype" (thanks to dabus). Save selected preselection (thanks to dabus). Documentation for "Special dependencies for main language of the mods translation and connections" (thanks to dabus).
 Changed: Adjustments to GUI.
+20140909 - Updated by Silent
+Changed: Disabled message about the impossibility to restore the backup (thanks to dabus).
+Fixed: Download from Dropbox (thanks to dabus).

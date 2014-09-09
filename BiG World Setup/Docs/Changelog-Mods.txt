@@ -341,20 +341,20 @@ Updated: Restored BG1 Sounds.
 20140719 - Updated by Silent
 Updated: Adrian, Edwin Romance and Restored BG1 Sounds.
 20140721 - Updated by AL|EN
-Updated: Worldmap
+Updated: Worldmap.
 20140722 - Updated by Silent
 Fixed: BGT Graphics Overhaul/NeJ2v691 problem with rewritable WED files.
 Updated: Edwin Romance.
 20140725 - Updated by AL|EN
-Updated: Wizard Slayer Rebalancing
+Updated: Wizard Slayer Rebalancing.
 20140727 - Updated by Silent
 Fixed: Adjusted some dependencies.
 20140730 - Updated by AL|EN
-Removed: Turambar fixes & tweaks: 14 - Worldmap fixes
+Removed: Turambar fixes & tweaks: 14 - Worldmap fixes.
 20140801 - Updated by Silent
 Updated: CoM Encounters.
 20140817 - Updated by AL|EN
-Updated: Almateria's Restoration Project
+Updated: Almateria's Restoration Project.
 20140907 - Updated by AL|EN
 Changed: Manage special dependencies for Polish only mod-fixes.
 Updated: Almateria's Restoration Project, CoM Encounters, Dark Horizons BGEE, Deidre and Joluv in BGEE, Freedom's Reign & Reign of Virtue, Item Randomiser, Kindrek, Saerileth, TeamBG Armor Pack for BG:EE, TeamBG Weapon Pack for BG:EE, The Undying, Thrown Hammers, Tsujatha, Yasraena.
