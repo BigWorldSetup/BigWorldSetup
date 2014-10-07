@@ -1,7 +1,5 @@
 ANN;# Conversion of polish BGMain.exe from "Saga Baldur's Gate" edition for all mods that modiffiyng BGMain.exe
 CMD;Call BGMain-BG2-PolishSagaBGConversion.bat
-ANN;NPC Kitpack: Fix for the missing file
-CMD;IF EXIST npckit\spl\truesword.spl COPY npckit\spl\truesword.spl npckit\spl\IKITMAZ1.spl
 ANN;Turambar Fixes and Tweaks: Fix for the "System" attribute
 CMD;IF EXIST Turambar_fixes_tweaks\Italiano\setup-osx.tra attrib -S Turambar_fixes_tweaks\Italiano\setup-osx.tra
 CMD;IF EXIST Turambar_fixes_tweaks\Russian\setup-osx.tra attrib -S Turambar_fixes_tweaks\Russian\setup-osx.tra
@@ -40,9 +38,9 @@ CMD;IF EXIST Setup-Jedi^&Sith.tp2 ren Setup-Jedi^&Sith.tp2 Setup-Jedi_Sith.tp2
 CMD;IF EXIST Setup-!BG1sounds.exe move .\!BG1sounds\Setup-!BG1sounds.tp2 "."
 CMD;IF EXIST Setup-!BG1sounds.exe ren Setup-!BG1sounds.exe Setup-BG1sounds.exe
 CMD;IF EXIST Setup-!BG1sounds.tp2 ren Setup-!BG1sounds.tp2 Setup-BG1sounds.tp2
-CMD;IF EXIST "Setup-NPC Strongholds.exe" ren "Setup-NPC Strongholds.exe" Setup-NPC_Strongholds.exe
-CMD;IF EXIST "Setup-NPC Strongholds.tp2" ren "Setup-NPC Strongholds.tp2" Setup-NPC_Strongholds.tp2
 CMD;IF EXIST setup-dq.tp2 move setup-dq.tp2 ".\dq\setup-dq.tp2"
+CMD;IF EXIST ".\vecna\setup-vecna.tp2" move ".\Vecna v23 - Text Overhaul v1.1" ".\vecna"
+CMD;IF EXIST ".\stratagems fixes\dw#licim.spl" move ".\stratagems fixes\stratagems" ".\stratagems"
 ANN;Solve the issue with Cespy Audio
 CMD;IF EXIST ".\override\override" move ".\override\override\*.*" ".\override"
 CMD;IF EXIST ".\override\override" rmdir /s /q ".\override\override"
@@ -140,19 +138,19 @@ STD;ascension;5;15;0011;
 STD;TheUndying;1;12;0111;
 STD;TheUndying;2;12;0001;
 STD;Oversight;0;15;0011;
-STD;arestorationp;0;16;0001;
-STD;arestorationp;1;16;0001;
-STD;arestorationp;2;16;0001;
-STD;arestorationp;3;16;0001;
-STD;arestorationp;4;16;0001;
-STD;arestorationp;5;16;0001;
-STD;arestorationp;6;16;0001;
-STD;arestorationp;7;16;0001;
-STD;arestorationp;8;16;0001;
-STD;arestorationp;10;16;0001;
-STD;arestorationp;11;16;0001;
-STD;arestorationp;12;16;0001;
-STD;arestorationp;13;16;0001;
+STD;arestorationp;0;16;0111;
+STD;arestorationp;1;16;0111;
+STD;arestorationp;2;16;0111;
+STD;arestorationp;3;16;0111;
+STD;arestorationp;4;16;0111;
+STD;arestorationp;5;16;0111;
+STD;arestorationp;6;16;0111;
+STD;arestorationp;7;16;0111;
+STD;arestorationp;8;16;0111;
+STD;arestorationp;10;16;0111;
+STD;arestorationp;11;16;0111;
+STD;arestorationp;12;16;0111;
+STD;arestorationp;13;16;0111;
 STD;bg2fixpack;0;01;1111;
 MUC;bg2fixpack;Init;01;1111;
 MUC;bg2fixpack;1000;01;1111;
@@ -302,6 +300,15 @@ CMD;IF EXIST ".\override\alissa8.cre" IF NOT EXIST ".\override\cadderly.cre" cop
 STD;Vault;0;03;0011;
 STD;Vault;1;03;0011;
 STD;bgqe;0;03;1111;
+STD;bgqe;1;03;1111;
+STD;bgqe;2;03;1111;
+STD;bgqe;3;03;1111;
+STD;bgqe;4;03;1111;
+STD;bgqe;5;03;1111;
+STD;bgqe;6;03;1111;
+STD;bgqe;7;03;1111;
+STD;bgqe;8;03;1111;
+STD;bgqe;9;03;1111;
 MUC;TGC1E;Init;03;1111;
 MUC;TGC1E;0;03;1111;
 MUC;TGC1E;1;03;0000;
@@ -431,6 +438,51 @@ SUB;garrick_flirt;0?1_5;05;0000;
 STD;garrick-tt;0;05;0111;
 SUB;garrick-tt;0?1_1;10;0111;
 SUB;garrick-tt;0?1_2;10;0000;
+STD;Vynd;0;04;0111;
+SUB;bg1re;0;05;0111;
+SUB;bg1re;0?0_1;05;0000;
+SUB;bg1re;0?0_2;05;0000;
+SUB;bg1re;0?0_3;05;0111;
+STD;bg1re;1;05;0111;
+STD;bg1re;2;05;0111;
+STD;bg1re;3;05;0111;
+STD;bg1re;4;05;0111;
+STD;bg1re;5;05;0111;
+STD;bg1re;6;05;0111;
+STD;bg1re;7;05;0111;
+STD;bg1re;8;05;0111;
+STD;bg1re;9;05;0111;
+STD;bg1re;10;05;0111;
+STD;bg1re;11;05;0111;
+STD;bg1re;12;05;0111;
+STD;bg1re;13;05;0111;
+STD;bg1re;14;05;0111;
+STD;bg1re;15;05;0111;
+STD;bg1re;16;05;0111;
+STD;bg1re;17;05;0111;
+STD;bg1re;18;05;0111;
+STD;bg1re;19;05;0111;
+STD;bg1re;20;05;0111;
+STD;bg1re;21;05;0111;
+STD;bg1re;22;05;0111;
+STD;bg1re;23;05;0111;
+STD;bg1re;24;05;0111;
+STD;bg1re;25;05;0111;
+STD;bg1re;26;05;0111;
+STD;bg1re;27;05;0111;
+STD;bg1re;28;05;0111;
+STD;bg1re;29;05;0111;
+STD;bg1re;30;05;0111;
+STD;bg1re;31;05;0111;
+STD;bg1re;32;05;0111;
+STD;bg1re;33;05;0111;
+STD;bg1re;34;05;0111;
+STD;bg1re;35;05;0111;
+STD;bg1re;36;05;0111;
+STD;bg1re;37;05;0111;
+STD;bg1re;38;05;0111;
+STD;bg1re;39;05;0111;
+STD;bg1re;40;05;0111;
 ANN;#10. BG1 RULES AND TWEAKS
 STD;bg1ub;0;03;1111;
 STD;bg1ub;1;03;1111;
@@ -1901,7 +1953,9 @@ STD;Divine_Remix;107;19;0111;
 STD;Divine_Remix;109;19;0111;
 STD;Divine_Remix;112;19;0111;
 STD;Divine_Remix;115;19;0111;
+CMD;IF EXIST Setup-SpellPackB6.exe IF EXIST ".\override\SPWI412.SPL" move ".\override\SPWI412.SPL" ".\BiG World Fixpack\_temp\override\SPWI412.SPL"
 STD;Divine_Remix;118;19;0111;
+CMD;IF EXIST Setup-SpellPackB6.exe IF EXIST ".\BiG World Fixpack\_temp\override\SPWI412.SPL" move ".\BiG World Fixpack\_temp\override\SPWI412.SPL" ".\override\SPWI412.SPL"
 STD;Divine_Remix;121;19;0111;
 STD;Divine_Remix;124;19;0111;
 STD;Divine_Remix;127;19;0111;
@@ -1961,7 +2015,9 @@ STD;sword_and_fist;1;16;0111;
 STD;sword_and_fist;30;19;0111;
 STD;sword_and_fist;31;19;0111;
 STD;sword_and_fist;32;19;0111;
+CMD;IF EXIST Setup-SpellPackB6.exe IF EXIST ".\override\SPPR107.SPL" move ".\override\SPPR107.SPL" ".\BiG World Fixpack\_temp\override\SPPR107.SPL"
 STD;sword_and_fist;33;19;0111;
+CMD;IF EXIST Setup-SpellPackB6.exe IF EXIST ".\BiG World Fixpack\_temp\override\SPPR107.SPL" move ".\BiG World Fixpack\_temp\override\SPPR107.SPL" ".\override\SPPR107.SPL"
 STD;sword_and_fist;34;19;0111;
 STD;RR;0;16;1111;
 STD;RR;1;16;1111;
@@ -2246,9 +2302,10 @@ STD;iwdification;10;16;0111;
 STD;iwdification;20;16;0000;
 STD;iwdification;30;16;0111;
 STD;iwdification;40;16;0111;
-STD;iwdification;50;16;0001;
+STD;iwdification;50;16;0111;
 STD;iwdification;60;16;0111;
 CMD;IF EXIST Setup-SpellPackB6.exe IF EXIST ".\override\SPPR342.SPL" move ".\override\SPPR342.SPL" ".\BiG World Fixpack\_temp\override\SPPR342.SPL"
+CMD;IF EXIST Setup-SpellPackB6.exe IF EXIST ".\override\SPWI317.SPL" move ".\override\SPWI317.SPL" ".\BiG World Fixpack\_temp\override\SPWI317.SPL"
 CMD;IF EXIST divine_remix.exe IF EXIST ".\override\SPPR342.SPL" move ".\override\SPPR342.SPL" ".\BiG World Fixpack\_temp\override\SPPR342.SPL"
 CMD;IF EXIST ".\override\SPWI414.SPL" move ".\override\SPWI414.SPL" ".\BiG World Fixpack\_temp\override\SPWI414.SPL"
 SUB;1pp;202;20;1111;
@@ -2257,6 +2314,7 @@ SUB;1pp;202?1_2;20;1111;
 SUB;1pp;202?2_1;20;1111;
 SUB;1pp;202?2_2;20;0000;
 CMD;IF EXIST Setup-SpellPackB6.exe IF EXIST ".\BiG World Fixpack\_temp\override\SPPR342.SPL" move ".\BiG World Fixpack\_temp\override\SPPR342.SPL" ".\override\SPPR342.SPL"
+CMD;IF EXIST Setup-SpellPackB6.exe IF EXIST ".\BiG World Fixpack\_temp\override\SPWI317.SPL" move ".\BiG World Fixpack\_temp\override\SPWI317.SPL" ".\override\SPWI317.SPL"
 CMD;IF EXIST divine_remix.exe IF EXIST ".\BiG World Fixpack\_temp\override\SPPR342.SPL" move ".\BiG World Fixpack\_temp\override\SPPR342.SPL" ".\override\SPPR342.SPL"
 CMD;IF EXIST ".\BiG World Fixpack\_temp\override\SPWI414.SPL" move ".\BiG World Fixpack\_temp\override\SPWI414.SPL" ".\override\SPWI414.SPL"
 STD;NSCPortraits;0;20;1111;
@@ -2551,6 +2609,7 @@ MUC;stratagems;1901;16;1111;
 STD;stratagems;1910;16;1111;
 STD;stratagems;2000;16;1111;
 STD;stratagems;2010;16;1111;
+CMD;IF EXIST ".\stratagems fixes\dw#licim.spl" move ".\stratagems fixes\dw#licim.spl" ".\override";;;;D:stratagems(2010)
 STD;stratagems;2020;16;1111;
 STD;stratagems;2030;16;1111;
 MUC;stratagems;Init;16;1111;
@@ -2628,7 +2687,7 @@ STD;stratagems;5060;16;1111;
 CMD;echo 147 RemoveSpellRES(S:RES*,O:Target) >> override/action.ids
 STD;stratagems;5900;18;1111;
 STD;stratagems;6000;18;1111;
-STD;stratagems;6010;18;1111;
+STD;stratagems;6010;18;0011;
 MUC;stratagems;Init;18;1111;
 MUC;stratagems;6020;18;0000;
 MUC;stratagems;6021;18;1100;
@@ -2751,6 +2810,8 @@ STD;multistronghold;50;16;0111;
 STD;multistronghold;60;16;0111;
 STD;multistronghold;70;16;0111;
 STD;multistronghold;80;16;0111;
+STD;NPC_Strongholds;0;16;0111;
+STD;NPC_Strongholds;1;16;0111;
 STD;NMR;0;18;0111;
 STD;NMR;1;18;0111;
 STD;NMR;2;18;0111;
@@ -2848,6 +2909,7 @@ STD;BG2_Tweaks;1050;16;0000;
 STD;BG2_Tweaks;1070;16;0000;
 STD;BG2_Tweaks;1080;16;0000;
 STD;BG2_Tweaks;1090;16;1111;
+STD;BG2_Tweaks;1101;16;0000;
 STD;BG2_Tweaks;1120;16;1111;
 STD;BG2_Tweaks;1130;16;1111;
 STD;BG2_Tweaks;1140;16;0000;
@@ -2857,11 +2919,11 @@ MUC;BG2_Tweaks;1161;16;1111;
 STD;BG2_Tweaks;1170;16;1111;
 STD;BG2_Tweaks;1180;16;1111;
 STD;BG2_Tweaks;1220;16;0000;
+STD;BG2_Tweaks;1230;16;0000;
 STD;BG2_Tweaks;2020;16;0000;
 STD;BG2_Tweaks;2030;16;0000;
 STD;BG2_Tweaks;2035;16;0000;
 STD;BG2_Tweaks;2040;16;1111;
-STD;BG2_Tweaks;2050;16;1111;
 STD;BG2_Tweaks;2060;16;0000;
 STD;BG2_Tweaks;2080;16;0000;
 MUC;BG2_Tweaks;Init;16;1111;
@@ -3026,6 +3088,30 @@ MUC;Turambar_fixes_tweaks;5010;19;0000;
 MUC;Turambar_fixes_tweaks;5011;19;0000;
 STD;Turambar_fixes_tweaks;5012;19;0000;
 STD;Turambar_fixes_tweaks;5013;19;0000;
+STD;polytweak;50;15;1111;
+STD;polytweak;60;15;1111;
+STD;polytweak;70;15;1111;
+STD;polytweak;80;15;1111;
+STD;polytweak;83;15;1111;
+STD;polytweak;85;15;1111;
+MUC;polytweak;Init;15;1111;
+MUC;polytweak;95;15;0000;
+MUC;polytweak;97;15;1111;
+STD;polytweak;100;15;1111;
+STD;polytweak;150;15;1111;
+MUC;polytweak;Init;15;1111;
+MUC;polytweak;201;15;0000;
+MUC;polytweak;202;15;1111;
+STD;polytweak;300;15;1111;
+MUC;polytweak;Init;15;1111;
+MUC;polytweak;401;15;0000;
+MUC;polytweak;402;15;1111;
+MUC;polytweak;403;15;0000;
+STD;polytweak;500;15;1111;
+STD;polytweak;600;15;1111;
+STD;polytweak;700;15;1111;
+STD;polytweak;800;15;1111;
+STD;polytweak;900;15;1111;
 STD;RezMod;0;11;0111;
 STD;RezMod;1;11;0111;
 STD;RezMod;2;11;0111;
@@ -3443,110 +3529,6 @@ MUC;level1npcs;51;16;1111;
 STD;level1npcs;55;16;1111;
 STD;level1npcs;60;16;1111;
 STD;level1npcs;100;16;1111;
-STD;level1npcs;1201;16;0000;
-STD;level1npcs;1202;16;0000;
-STD;level1npcs;1203;16;0000;
-STD;level1npcs;1204;16;0000;
-STD;level1npcs;1205;16;0000;
-STD;level1npcs;1206;16;0000;
-STD;level1npcs;1207;16;0000;
-STD;level1npcs;1208;16;0000;
-STD;level1npcs;1209;16;0000;
-STD;level1npcs;1210;16;0000;
-STD;level1npcs;1211;16;0000;
-STD;level1npcs;1212;16;0000;
-STD;level1npcs;1213;16;0000;
-STD;level1npcs;1214;16;0000;
-STD;level1npcs;1215;16;0000;
-STD;level1npcs;1216;16;0000;
-STD;level1npcs;1217;16;0000;
-STD;level1npcs;1218;16;0000;
-STD;level1npcs;1219;16;0000;
-STD;level1npcs;1220;16;0000;
-STD;level1npcs;1221;16;0000;
-STD;level1npcs;1222;16;0000;
-STD;level1npcs;1223;16;0000;
-STD;level1npcs;1224;16;0000;
-STD;level1npcs;1225;16;0000;
-STD;level1npcs;1226;16;0000;
-STD;level1npcs;1227;16;0000;
-STD;level1npcs;1228;16;0000;
-STD;level1npcs;1229;16;0000;
-STD;level1npcs;1230;16;0000;
-STD;level1npcs;1231;16;0000;
-STD;level1npcs;1232;16;0000;
-STD;level1npcs;1233;16;0000;
-STD;level1npcs;1234;16;0000;
-STD;level1npcs;1235;16;0000;
-STD;level1npcs;1236;16;0000;
-STD;level1npcs;1237;16;0000;
-STD;level1npcs;2000;16;0000;
-STD;level1npcs;2025;16;0000;
-STD;level1npcs;2050;16;0000;
-STD;level1npcs;2100;16;0000;
-STD;level1npcs;2200;16;0000;
-STD;level1npcs;2250;16;0000;
-STD;level1npcs;2300;16;0000;
-STD;level1npcs;2320;16;0000;
-STD;level1npcs;2350;16;0000;
-STD;level1npcs;2400;16;0000;
-STD;level1npcs;2500;16;0000;
-STD;level1npcs;2600;16;0000;
-STD;level1npcs;2650;16;0000;
-STD;level1npcs;2700;16;0000;
-STD;level1npcs;2750;16;0000;
-STD;level1npcs;2775;16;0000;
-STD;level1npcs;2785;16;0000;
-STD;level1npcs;2825;16;0000;
-STD;level1npcs;2850;16;0000;
-STD;level1npcs;2950;16;0000;
-STD;level1npcs;2970;16;0000;
-STD;level1npcs;2985;16;0000;
-STD;level1npcs;3000;16;0000;
-STD;level1npcs;3150;16;0000;
-STD;level1npcs;3185;16;0000;
-STD;level1npcs;3200;16;0000;
-STD;level1npcs;3400;16;0000;
-STD;level1npcs;3500;16;0000;
-STD;level1npcs;3520;16;0000;
-STD;level1npcs;3570;16;0000;
-STD;level1npcs;3600;16;0000;
-STD;level1npcs;4000;16;0000;
-STD;level1npcs;4010;16;0000;
-STD;level1npcs;4020;16;0000;
-STD;level1npcs;4030;16;0000;
-STD;level1npcs;4040;16;0000;
-STD;level1npcs;4050;16;0000;
-STD;level1npcs;4060;16;0000;
-STD;level1npcs;4070;16;0000;
-STD;level1npcs;4080;16;0000;
-STD;level1npcs;4200;16;0000;
-STD;level1npcs;4210;16;0000;
-STD;level1npcs;4220;16;0000;
-STD;level1npcs;4230;16;0000;
-STD;level1npcs;4240;16;0000;
-STD;level1npcs;4250;16;0000;
-STD;level1npcs;4260;16;0000;
-STD;level1npcs;4270;16;0000;
-STD;level1npcs;4280;16;0000;
-STD;level1npcs;4290;16;0000;
-STD;level1npcs;4500;16;0000;
-STD;level1npcs;4510;16;0000;
-STD;level1npcs;4520;16;0000;
-STD;level1npcs;4530;16;0000;
-STD;level1npcs;4540;16;0000;
-STD;level1npcs;4550;16;0000;
-STD;level1npcs;4700;16;0000;
-STD;level1npcs;4710;16;0000;
-STD;level1npcs;4720;16;0000;
-STD;level1npcs;4730;16;0000;
-STD;level1npcs;4800;16;0000;
-STD;level1npcs;4810;16;0000;
-STD;level1npcs;4820;16;0000;
-STD;level1npcs;4830;16;0000;
-STD;level1npcs;4900;16;0000;
-STD;level1npcs;4910;16;0000;
-STD;level1npcs;4920;16;0000;
 CMD;IF EXIST ".\level1npcs\backup\0\kit.ids" copy ".\level1npcs\backup\0\kit.ids" ".\override";;;;D:refinements(10)
 STD;w_psionics_unleashed;10;16;0001;
 MUC;w_psionics_unleashed;Init;16;0001;

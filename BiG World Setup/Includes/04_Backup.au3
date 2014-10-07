@@ -400,7 +400,7 @@ Func _Backup_Restore($p_Tab)
 	EndIf	
 	If StringRegExp($g_Flags[14], 'BWS|BWP') Then
 		$IsGoG=FileExists($g_BG2Dir&'\goggame.dll')
-		FileSetAttrib($g_BG2Dir&'\BiG World Clean-Up.bat', '-RAS'); remove read-only-bit
+		FileSetAttrib($g_BG2Dir&'\Clean-Up.bat', '-RAS'); remove read-only-bit
 		$DataFiles=_FileSearch($g_BG2Dir&'\Data', '*'); delete bif-files created by mods
 		For $d=1 to $DataFiles[0]
 			If Not StringRegExp($DataFiles[$d], '(?i)\A('&$BifList&').bif') Then
