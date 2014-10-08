@@ -2,7 +2,6 @@ ANN;Added due to patching
 CMD;IF EXIST Setup-!BG1sounds.exe move .\!BG1sounds\Setup-!BG1sounds.tp2 "."
 CMD;IF EXIST Setup-!BG1sounds.exe ren Setup-!BG1sounds.exe Setup-BG1sounds.exe
 CMD;IF EXIST Setup-!BG1sounds.tp2 ren Setup-!BG1sounds.tp2 Setup-BG1sounds.tp2
-CMD;IF EXIST ".\stratagems fixes\dw#licim.spl" move ".\stratagems fixes\stratagems" ".\stratagems"
 DWN;WeiDU;0;00;1111;
 DWN;eekeeper;0;00;1111;
 SUB;bg2eetp;0;00;1111;
@@ -96,16 +95,12 @@ MUC;Tashia;1;05;0000;
 MUC;Tashia;Init;05;0111;
 MUC;Tashia;2;05;0111;
 MUC;Tashia;3;05;0000;
-STD;Kivan;0;05;1111;
+STD;Kivan;100;05;1111;
 MUC;Kivan;Init;05;1111;
-MUC;Kivan;1;05;0000;
-MUC;Kivan;2;05;1111;
-MUC;Kivan;3;05;0000;
-MUC;Kivan;4;05;0000;
-MUC;Kivan;Init;05;1111;
-MUC;Kivan;5;05;0000;
-MUC;Kivan;6;05;1111;
-STD;Kivan;7;05;1111;
+MUC;Kivan;200;05;1111;
+MUC;Kivan;201;05;0000;
+MUC;Kivan;202;05;0000;
+STD;Kivan;300;05;1111;
 STD;Fade;0;05;0111;
 STD;Fade;1;05;0111;
 STD;Fade;2;05;0111;
@@ -499,7 +494,6 @@ MUC;w_packmule;3;04;0000;
 STD;stratagems;1000;09;1111;
 STD;stratagems;1910;09;1111;
 STD;stratagems;2010;09;1111;
-CMD;IF EXIST ".\stratagems fixes\dw#licim.spl" move ".\stratagems fixes\dw#licim.spl" ".\override";;;;D:stratagems(2010)
 STD;stratagems;2020;09;1111;
 STD;stratagems;2030;09;1111;
 STD;stratagems;2090;09;1111;

@@ -40,7 +40,6 @@ CMD;IF EXIST Setup-!BG1sounds.exe ren Setup-!BG1sounds.exe Setup-BG1sounds.exe
 CMD;IF EXIST Setup-!BG1sounds.tp2 ren Setup-!BG1sounds.tp2 Setup-BG1sounds.tp2
 CMD;IF EXIST setup-dq.tp2 move setup-dq.tp2 ".\dq\setup-dq.tp2"
 CMD;IF EXIST ".\vecna\setup-vecna.tp2" move ".\Vecna v23 - Text Overhaul v1.1" ".\vecna"
-CMD;IF EXIST ".\stratagems fixes\dw#licim.spl" move ".\stratagems fixes\stratagems" ".\stratagems"
 ANN;Solve the issue with Cespy Audio
 CMD;IF EXIST ".\override\override" move ".\override\override\*.*" ".\override"
 CMD;IF EXIST ".\override\override" rmdir /s /q ".\override\override"
@@ -846,16 +845,12 @@ MUC;Tashia;1;12;0000;
 MUC;Tashia;Init;12;0111;
 MUC;Tashia;2;12;0111;
 MUC;Tashia;3;12;0000;
-STD;Kivan;0;12;1111;
+STD;Kivan;100;12;1111;
 MUC;Kivan;Init;12;1111;
-MUC;Kivan;1;12;0000;
-MUC;Kivan;2;12;1111;
-MUC;Kivan;3;12;0000;
-MUC;Kivan;4;12;0000;
-MUC;Kivan;Init;12;1111;
-MUC;Kivan;5;12;0000;
-MUC;Kivan;6;12;1111;
-STD;Kivan;7;12;1111;
+MUC;Kivan;200;12;1111;
+MUC;Kivan;201;12;0000;
+MUC;Kivan;202;12;0000;
+STD;Kivan;300;12;1111;
 STD;Fade;0;12;0111;
 STD;Fade;1;12;0111;
 STD;Kido;0;12;1111;
@@ -2609,7 +2604,6 @@ MUC;stratagems;1901;16;1111;
 STD;stratagems;1910;16;1111;
 STD;stratagems;2000;16;1111;
 STD;stratagems;2010;16;1111;
-CMD;IF EXIST ".\stratagems fixes\dw#licim.spl" move ".\stratagems fixes\dw#licim.spl" ".\override";;;;D:stratagems(2010)
 STD;stratagems;2020;16;1111;
 STD;stratagems;2030;16;1111;
 MUC;stratagems;Init;16;1111;
