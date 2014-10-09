@@ -39,7 +39,7 @@ CMD;IF EXIST Setup-!BG1sounds.exe move .\!BG1sounds\Setup-!BG1sounds.tp2 "."
 CMD;IF EXIST Setup-!BG1sounds.exe ren Setup-!BG1sounds.exe Setup-BG1sounds.exe
 CMD;IF EXIST Setup-!BG1sounds.tp2 ren Setup-!BG1sounds.tp2 Setup-BG1sounds.tp2
 CMD;IF EXIST setup-dq.tp2 move setup-dq.tp2 ".\dq\setup-dq.tp2"
-CMD;IF EXIST ".\vecna\setup-vecna.tp2" move ".\Vecna v23 - Text Overhaul v1.1" ".\vecna"
+CMD;IF EXIST ".\vecna\setup-vecna.tp2" copy /Y ".\Vecna v23 - Text Overhaul v1.1\Language\English\*.*" ".\vecna\Language\English"
 ANN;Solve the issue with Cespy Audio
 CMD;IF EXIST ".\override\override" move ".\override\override\*.*" ".\override"
 CMD;IF EXIST ".\override\override" rmdir /s /q ".\override\override"
@@ -2589,6 +2589,7 @@ STD;JA#BGT_AdvPack;1;03;1111;
 STD;JA#BGT_AdvPack;2;03;1111;
 STD;JA#BGT_AdvPack;3;03;1111;
 STD;vecna;0;10;0011;
+DWN;Vecna_Text_Overhaul;0;10;0011;
 MUC;w_packmule;Init;11;0111;
 MUC;w_packmule;0;11;0111;
 MUC;w_packmule;1;11;0000;

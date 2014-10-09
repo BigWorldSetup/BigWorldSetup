@@ -366,3 +366,5 @@ Added: Baldur's Gate Romantic Encounters, Duskblade BG:EE and BG2:EE, NPC Strong
 Updated: Almateria's Restoration Project, BG1 Mini Quests and Encounters, BG2 Tweak Pack, Chantelame, Crossmod Banter Pack, Garrick's Infatuation, Jastey's Solaufein, Keeping Yoshimo, Kivan and Deheriana Companions, NPC Kitpack, Song and Silence, The IWD2 NPC Project, Widescreen Mod.
 20141008 - Updated by Silent
 Updated: Kivan and Deheriana Companions, Sarah and Stratagems Fix by Mad Mate.
+20141009 - Updated by Silent
+Updated: Vecna Text Overhaul is made of a separate option.
