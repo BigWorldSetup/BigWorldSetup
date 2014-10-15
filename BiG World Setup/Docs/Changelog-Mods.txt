@@ -368,3 +368,6 @@ Updated: Almateria's Restoration Project, BG1 Mini Quests and Encounters, BG2 Tw
 Updated: Kivan and Deheriana Companions, Sarah and Stratagems Fix by Mad Mate.
 20141009 - Updated by Silent
 Updated: Vecna Text Overhaul is made of a separate option.
+20141009 - Updated by Silent
+Fixed: Enabled options for selecting NPCs in Level 1 NPCs.
+Updated: Baldur's Gate Romantic Encounters, BG2 Tweak Pack, Ding0's Quest Pack, Stratagems Fix and Unfinished Business.
