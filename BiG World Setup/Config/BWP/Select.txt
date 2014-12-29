@@ -2104,12 +2104,6 @@ STD;Item_Pack;7;17;1111;
 STD;Item_Pack;8;17;1111;
 STD;Item_Pack;9;17;1111;
 STD;iiItemMod;1;17;0111;
-MUC;UniqueArtifacts;Init;16;0001;
-MUC;UniqueArtifacts;1;16;0000;
-MUC;UniqueArtifacts;2;16;0001;
-CMD;IF EXIST Setup-UniqueArtifacts.exe copy /Y ".\uniqueartifacts\backup\2\TASLGURK.CRE" ".\override"
-STD;cursed_items;0;16;0111;
-STD;cursed_items;10;16;0111;
 STD;item_rev;1020;16;1111;
 STD;item_rev;1030;16;1111;
 MUC;item_rev;Init;16;0011;
@@ -2150,7 +2144,12 @@ MUC;item_rev;18;16;1100;
 MUC;item_rev;19;16;0000;
 MUC;item_rev;20;16;0011;
 STD;ninjawakifix;0;16;1111;
-
+MUC;UniqueArtifacts;Init;16;0001;
+MUC;UniqueArtifacts;1;16;0000;
+MUC;UniqueArtifacts;2;16;0001;
+CMD;IF EXIST Setup-UniqueArtifacts.exe copy /Y ".\uniqueartifacts\backup\2\TASLGURK.CRE" ".\override"
+STD;cursed_items;0;16;0111;
+STD;cursed_items;10;16;0111;
 STD;freeact;10;16;1111;
 STD;freeact;50;16;1111;
 STD;Z#Misc;1;16;0001;
