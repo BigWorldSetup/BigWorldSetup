@@ -80,7 +80,7 @@ Func Au3PrepInst($p_Num = 0)
 		_Misc_MsgGUI(1, $g_ProgName, _GetTR($Message, 'L3')); => remove cds
 		_CDTray('Closed')
 	EndIf
-	If FileExists($g_DownDir&'\WeiDU.exe') Then FileDelete($g_DownDir&'\WeiDU.exe')
+;	If FileExists($g_DownDir&'\WeiDU.exe') Then FileDelete($g_DownDir&'\WeiDU.exe'); => delete the old WeiDU, so the program can download it again
 	IniWrite($g_BWSIni, 'Order', 'Au3PrepInst', 0); Skip this one if the Setup is rerun
 EndFunc   ;==>Au3PrepInst
 
