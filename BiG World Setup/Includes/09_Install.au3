@@ -529,7 +529,7 @@ Func Au3Install($p_Num = 0)
 		Else
 			FileCopy($g_BG2Dir&'\BiG World Installpack\English\*', $g_BG2Dir&'\BiG World Installpack\temp\', 1)
 		EndIf
-		FileCopy($g_BG2Dir&'\BiG World Installpack\Clean-Up.bat', $g_BG2Dir&'\', 1)
+		FileClose(FileOpen($g_BG2Dir&'\BiG World Project.installed', 1))
 	EndIf
 	GUICtrlSetData($g_UI_Static[6][2], _GetTR($Message, 'L13')); => complete
 	_Process_Gui_Delete(7, 7, 1)
