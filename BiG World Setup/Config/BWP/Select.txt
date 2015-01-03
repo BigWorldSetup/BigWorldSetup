@@ -1612,9 +1612,11 @@ MUC;BInfinitySounds;Init;20;0111;
 MUC;BInfinitySounds;5;20;0000;
 MUC;BInfinitySounds;6;20;0111;
 STD;BInfinitySounds;7;20;0111;
-STD;BInfinitySounds;8;20;0111;
-STD;BInfinitySounds;9;20;0000;
-STD;BInfinitySounds;10;20;0000;
+STD;BInfinitySounds;8;20;0000;
+STD;BInfinitySounds;9;20;0111;
+STD;BInfinitySounds;10;20;0111;
+STD;BInfinitySounds;11;20;0000;
+STD;BInfinitySounds;12;20;0000;
 ANN;These files seem to be corrupt and they prevent to install the Hypnotic Pattern component.
 CMD;IF EXIST TheUndying.exe IF EXIST ".\override\SPWI231*.BAM" move ".\override\SPWI231*.BAM" ".\BiG World Fixpack\_temp"
 GRP;Start
