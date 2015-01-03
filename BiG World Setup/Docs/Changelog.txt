@@ -929,11 +929,11 @@ Changed: Temporarily disabled auto-update links (thanks to Dabus) and disabled s
 20130917 - Updated by AL|EN
 Updated: Run BWS always as admin to avoid problems.
 20131022 - Updated by Silent
-Fixed: Changing the codepage (thanks to Dabus).
+Fixed: Changing the codepage (thanks to dabus).
 20131030 - Updated by Silent
 Changed: Selections "Total happiness", "Megamod" and "Arkenor's Adventure Picks" is recovered back.
 20131129 - Updated by Silent
-Changed: Replaces "old" WeiDUs (thanks to Dabus).
+Changed: Replaces "old" WeiDUs (thanks to dabus).
 20131203 - Updated by Silent
 Changed: Disabled auto-update links function, again.
 20131224 - Updated by dabus
@@ -969,3 +969,6 @@ Fixed: Download from Dropbox (thanks to dabus).
 20141007 - Updated by Silent
 Fixed: Link to Clean-Up.bat.
 Updated: German translation (thanks to dabus).
+20150103 - Updated by Silent
+Changed: Disabled autoreplacement old WeiDU.
+Fixed: Breach selection limit (thanks to dabus). [_GetArchiveSizes] Returned old 7zip.

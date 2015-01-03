@@ -208,22 +208,22 @@ Func Au3ExFix($p_Num)
 		EndIf	
 	EndIf
 ; ================         move files from sub-directories to main     ================
-	If StringRegExp($g_Flags[14], 'BWP|BWS') And FileExists($g_BG2Dir&'\CtBv1.13a\CtBv1.13') Then
+	If StringRegExp($g_Flags[14], 'BWP|BWS') And FileExists($g_GameDir&'\CtBv1.13a\CtBv1.13') Then
 		$TP2Exists = _Test_GetCustomTP2('CTB', '\CtBv1.13a\CtBv1.13\')
 		If $TP2Exists <> '0' Then; this is a folder
 			FileWrite($g_LogFile, '>CtBv1.13a\CtBv1.13\* .' & @CRLF)
 			_Extract_MoveMod('CtBv1.13a\CtBv1.13')
 		EndIf
 	EndIf
-	If StringRegExp($g_Flags[14], 'BWP|BWS') And FileExists($g_BG2Dir&'\InifKit') Then
+	If StringRegExp($g_Flags[14], 'BWP|BWS') And FileExists($g_GameDir&'\InifKit') Then
 		FileWrite($g_LogFile, '>InifKit\* .' & @CRLF)
 		_Extract_MoveMod('InifKit')
 	EndIf
-	If StringRegExp($g_Flags[14], 'BWP|BWS') And FileExists($g_BG2Dir&'\Keenmarker') Then
+	If StringRegExp($g_Flags[14], 'BWP|BWS') And FileExists($g_GameDir&'\Keenmarker') Then
 		FileWrite($g_LogFile, '>Keenmarker\* .' & @CRLF)
 		_Extract_MoveMod('Keenmarker')
 	EndIf
-	If StringRegExp($g_Flags[14], 'BWP|BWS') And FileExists($g_BG2Dir&'\BiG-World-Fixpack-master') Then
+	If StringRegExp($g_Flags[14], 'BWP|BWS') And FileExists($g_GameDir&'\BiG-World-Fixpack-master') Then
 		FileWrite($g_LogFile, '>BiG-World-Fixpack-master\* .' & @CRLF)
 		_Extract_MoveMod('BiG-World-Fixpack-master')
 	EndIf
@@ -231,9 +231,17 @@ Func Au3ExFix($p_Num)
 		FileWrite($g_LogFile, '>MSFM WeiDU Install v1.35\* .' & @CRLF)
 		_Extract_MoveMod('MSFM WeiDU Install v1.35')
 	EndIf
-	If StringRegExp($g_Flags[14], 'BWP|BWS') And FileExists($g_BG2Dir&'\Aran-Whitehand-master') Then
+	If StringRegExp($g_Flags[14], 'BWP|BWS|BGEE|BG2EE') And FileExists($g_GameDir&'\Aran-Whitehand-master') Then
 		FileWrite($g_LogFile, '>Aran-Whitehand-master\* .' & @CRLF)
 		_Extract_MoveMod('Aran-Whitehand-master')
+	EndIf
+	If StringRegExp($g_Flags[14], 'BWP|BWS|BGEE|BG2EE') And FileExists($g_GameDir&'\BG1NPC-21-PR_20141231') Then
+		FileWrite($g_LogFile, '>BG1NPC-21-PR_20141231\* .' & @CRLF)
+		_Extract_MoveMod('BG1NPC-21-PR_20141231')
+	EndIf
+	If StringRegExp($g_Flags[14], 'BWP|BWS|BGEE|BG2EE|IWD1|IWD2|PST') And FileExists($g_GameDir&'\Diff_Tweak') Then
+		FileWrite($g_LogFile, '>Diff_Tweak\* .' & @CRLF)
+		_Extract_MoveMod('Diff_Tweak')
 	EndIf
 ; ==============  Fix textstring so weidu will not fail to install the mod ============
 	If StringRegExp($g_Flags[14], 'BWP|BWS') And FileExists($g_BG2Dir&'\setup-bonehillv275.exe') Then
