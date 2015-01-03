@@ -594,13 +594,13 @@ Func _Install_BG1Textpatch($p_Message)
 ; ---------------------------------------------------------------------------------------------
 ; install the French textpatch if needed
 ; ---------------------------------------------------------------------------------------------
-	If $g_MLang[1] = 'FR' And Not StringInStr(FileRead($g_BG1Dir&'\WeiDU.log'), @LF&'~correcfrbg2\correcfrbg2.TP2') And $g_BG1Dir <> '-' Then; first installation
+	If $g_MLang[1] = 'FR' And Not StringInStr(FileRead($g_BG1Dir&'\WeiDU.log'), @LF&'~correcfrbg1/correcfrbg1.tp2') And $g_BG1Dir <> '-' Then; first installation
 		GUICtrlSetData($g_UI_Static[6][2], _GetTR($p_Message, 'L4')); => install textpatch
 		_Process_ChangeDir($g_BG1Dir, 1)
-		FileCopy($g_BG2Dir&'\WeiDU\WeiDU.exe', $g_BG1Dir&'\Setup-correcfrbg2.exe', 1)
-		_Process_Run('Setup-correcfrbg2.exe --no-exit-pause --noautoupdate --language 0 --skip-at-view --force-install-list 0 1', 'Setup-correcfrbg2.exe')
-		If Not StringInStr(FileRead($g_BG1Dir&'\WeiDU.log'), @LF&'~correcfrbg2\correcfrbg2.TP2') Then
-			_Misc_MsgGUI(4, _GetTR($p_Message, 'T1'), _GetTR($p_Message, 'L1'), 1, _GetTR($p_Message, 'B1')); => cannot install abra
+		FileCopy($g_BG2Dir&'\WeiDU\WeiDU.exe', $g_BG1Dir&'\Setup-correcfrbg1.exe', 1)
+		_Process_Run('Setup-correcfrbg1.exe --no-exit-pause --noautoupdate --language 0 --skip-at-view --force-install-list 0 1', 'Setup-correcfrbg1.exe')
+		If Not StringInStr(FileRead($g_BG1Dir&'\WeiDU.log'), @LF&'~correcfrbg1/correcfrbg1.tp2') Then
+			_Misc_MsgGUI(4, _GetTR($p_Message, 'T1'), _GetTR($p_Message, 'L1'), 1, _GetTR($p_Message, 'B1')); => cannot install correcfrbg
 			Exit
 		EndIf
 		_Process_ChangeDir($g_BG2Dir, 1)
