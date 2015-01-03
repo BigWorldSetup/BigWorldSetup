@@ -797,7 +797,8 @@ STD;iwditempack;11;17;0111;
 STD;iwditemfix;0;17;0111;
 STD;sigil-bd-mod;0;17;0111;
 STD;d2item;0;17;0111;
-STD;BG2eeAR;0;17;0111;
+ANN;BG2eeAR's 9-characters filename of merchant cause CTD
+ANN;BG2eeAR;0;17;0111;
 STD;BG2eeW;0;17;0111;
 ANN;#14. BG2 NPC MODS
 STD;Amber;0;12;1111;
