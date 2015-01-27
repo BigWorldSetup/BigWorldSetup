@@ -31,7 +31,7 @@ EndFunc   ;==>Au3Detect
 ; ---------------------------------------------------------------------------------------------
 Func _Test_GetGamePath($p_Game, $p_Force=0)
 	Local $Game[8][4]=[[7], ['BG1', 'BGMain', 'Baldur*', 'Config.exe'],['BG2', 'BG2Main', 'BGII*', 'BGConfig.exe'], ['IWD1', 'IDMain', 'Icewind Dale', 'IDMain.exe'], _
-	['IWD2', 'IWD2', 'Icewind Dale II', 'IWD2.exe'], ['PST', 'Torment', 'Torment', 'Torment.exe'], ['BGEE', 'BeamDog.BGEE', 'Baldur*', 'movies\mineflod.wbm'], _
+	['IWD2', 'IWD2', 'Icewind Dale II', 'IWD2.exe'], ['PST', 'Torment', 'Torment', 'Torment.exe'], ['BG1EE', 'BeamDog.BGEE', 'Baldur*', 'movies\mineflod.wbm'], _
 	['BG2EE', 'BeamDog.BG2EE', 'Baldur*', 'movies\melissan.wbm']]
 	For $g=1 to $Game[0][0]
 		If $Game[$g][0] = $p_Game Then ExitLoop
@@ -49,11 +49,11 @@ Func _Test_GetGamePath($p_Game, $p_Force=0)
 			$key = RegEnumKey("HKEY_LOCAL_MACHINE\SOFTWARE\Microsoft\Windows\CurrentVersion\Uninstall", $k)
 			If @error <> 0 then ExitLoop
 			$Name=RegRead('HKEY_LOCAL_MACHINE\SOFTWARE\Microsoft\Windows\CurrentVersion\Uninstall\'&$Key, 'DisplayName')
-			If $p_Game = 'BGEE' And $Name <> "Baldur's Gate - Enhanced Edition" Then ContinueLoop
+			If $p_Game = 'BG1EE' And $Name <> "Baldur's Gate - Enhanced Edition" Then ContinueLoop
 			If $p_Game = 'BG2EE' And $Name <> "Baldur's Gate II Enhanced Edition" Then ContinueLoop
 			$Test=RegRead('HKEY_LOCAL_MACHINE\SOFTWARE\Microsoft\Windows\CurrentVersion\Uninstall\'&$Key, 'UninstallString')
 			$Test=StringRegExpReplace($Test, '\A"|\\[^\\]*\z', '')
-			If $p_Game = 'BGEE' And FileExists($Test&'\Data\00766') Then $Test=$Test&'\Data\00766'; Maybe this works for Steam?
+			If $p_Game = 'BG1EE' And FileExists($Test&'\Data\00766') Then $Test=$Test&'\Data\00766'; Maybe this works for Steam?
 			If $p_Game = 'BG2EE' And FileExists($Test&'\Data\00783') Then $Test=$Test&'\Data\00783'; Maybe this works for Steam?
 			ExitLoop
 		Next
@@ -62,7 +62,7 @@ Func _Test_GetGamePath($p_Game, $p_Force=0)
 		$Test = StringRegExpReplace($Test, '(?i)\x5c{1,}\z', '')
 	EndIf
 	If $Test <> '' And FileExists($Test&'\'&$Game[$g][3]) Then
-	ElseIf $p_Game = 'BGEE' Then
+	ElseIf $p_Game = 'BG1EE' Then
 		$Test=''
 		$Files=_FileSearch(@ProgramFilesDir, "Baldur's Gate*Enhanced Edition")
 		If $Files[0] <> 0 Then
@@ -96,7 +96,7 @@ Func _Test_GetGamePath($p_Game, $p_Force=0)
 			If Not StringInStr(FileGetAttrib($SearchDir & '\' & $Files[$f]), 'D') Then ContinueLoop
 			If StringInStr($Files[$f], 'BiG World Clean Install') Then ContinueLoop
 			If FileExists($SearchDir & '\' & $Files[$f] & '\'&$Game[$g][3]) Then
-				If FileExists($SearchDir & '\' & $Files[$f] &'\Data\00766') Then $Files[$f]=$Files[$f] &'\Data\00766'; BGEE
+				If FileExists($SearchDir & '\' & $Files[$f] &'\Data\00766') Then $Files[$f]=$Files[$f] &'\Data\00766'; BG1EE
 				If FileExists($SearchDir & '\' & $Files[$f] &'\Data\00783') Then $Files[$f]=$Files[$f] &'\Data\00783'; BG2EE
 				Assign ('g_'&$p_Game&'Dir', $SearchDir & '\' & $Files[$f])
 				IniWrite($g_UsrIni, 'Options', $p_Game, $SearchDir & '\' & $Files[$f])
@@ -318,6 +318,13 @@ Func _Test_CheckRequieredFiles()
 		$Return = _Test_CheckRequieredFiles_BG2()
 		$Error += @error
 		If $Return = 1 Then $Error += 1
+	ElseIf $g_Flags[14] = 'BG2EE' Then; (EET)
+		$Return = _Test_CheckRequieredFiles_BG1EE()
+		$Error += @error
+		If $Return = 1 Then $Error += 1
+		$Return = _Test_CheckRequieredFiles_BG2EE()
+		$Error += @error
+		If $Return = 1 Then $Error += 1
 	Else
 		$Return = Call ('_Test_CheckRequieredFiles_'&$g_Flags[14])
 		$Error += @error
@@ -439,22 +446,27 @@ Func _Test_CheckRequieredFiles_BG2()
 EndFunc    ;==>_Test_CheckRequieredFiles_BG2
 
 ; ---------------------------------------------------------------------------------------------
-; Searches for required bgee-files and dirs...
+; Searches for required bg1ee-files and dirs...
 ; ---------------------------------------------------------------------------------------------
-Func _Test_CheckRequieredFiles_BGEE()
-	Local $Message = IniReadSection($g_TRAIni, 'TE-BGEE')
-	_PrintDebug('+' & @ScriptLineNumber & ' Calling _Test_CheckRequieredFiles_BGEE')
-	Local $Missing='', $Hint='', $Error='', $Return
+Func _Test_CheckRequieredFiles_BG1EE()
+	Local $Message = IniReadSection($g_TRAIni, 'TE-BG1EE')
+	_PrintDebug('+' & @ScriptLineNumber & ' Calling _Test_CheckRequieredFiles_BG1EE')
+	Local $Missing='', $Hint='', $Error='', $Return, $Num=2
+	If $g_Flags[14] = 'BG2EE' Then $Num=1
 	If IniRead($g_BWSIni, 'Order', 'Au3Select', 0) = 1 Then
-		$g_BGEEDir=GUICtrlRead($g_UI_Interact[2][2])
-		IniWrite($g_UsrIni, 'Options', 'BGEE', $g_BGEEDir)
+		$g_BG1EEDir=GUICtrlRead($g_UI_Interact[2][$Num])
+		IniWrite($g_UsrIni, 'Options', 'BG1EE', $g_BG1EEDir)
 	EndIf
-	If Not FileExists($g_BGEEDir) Or $g_BGEEDir = '' Then
+	If $g_BG1EEDir = '-' And $g_Flags[14] = 'BG2EE' Then
+		_Test_SetButtonColor(1, 0, 0)
+		Return SetError(0, 0, 2)
+	EndIf
+	If Not FileExists($g_BG1EEDir) Or $g_BG1EEDir = '' Then
 		_Misc_MsgGUI(4, $g_ProgName, _GetTR($Message, 'L1'), 1); => folder does not exist
-		_Test_SetButtonColor(1, 1, 1)
+		_Test_SetButtonColor($Num, 1, 1)
 		Return SetError(1, 1, 1)
 	EndIf
-	If FileExists($g_BGEEDir&'\lang\en_US') And FileExists($g_BGEEDir&'\movies\mineflod.wbm') And FileExists($g_BGEEDir&'\Baldur.exe') Then; BGEE-directory structure
+	If FileExists($g_BG1EEDir&'\lang\en_US') And FileExists($g_BG1EEDir&'\movies\mineflod.wbm') And FileExists($g_BG1EEDir&'\Baldur.exe') Then; BG1EE-directory structure
 	Else
 		$Error&=_GetTR($Message, 'L2')&@CRLF; => structure not valid
 	EndIf
@@ -467,9 +479,9 @@ Func _Test_CheckRequieredFiles_BGEE()
 	Else
 		Local $ret_Error=0, $ret_Extended=0, $Return = 2
 	EndIf
-	_Test_SetButtonColor(2, $ret_Error, $ret_Extended)
+	_Test_SetButtonColor($Num, $ret_Error, $ret_Extended)
 	Return SetError($ret_Error, $ret_Extended, $Return)
-EndFunc    ;==>_Test_CheckRequieredFiles_BGEE
+EndFunc    ;==>_Test_CheckRequieredFiles_BG1EE
 
 ; ---------------------------------------------------------------------------------------------
 ; Searches for required bg2ee-files and dirs...
@@ -484,7 +496,7 @@ Func _Test_CheckRequieredFiles_BG2EE()
 	EndIf
 	If Not FileExists($g_BG2EEDir) Or $g_BG2EEDir = '' Then
 		_Misc_MsgGUI(4, $g_ProgName, _GetTR($Message, 'L1'), 1); => folder does not exist
-		_Test_SetButtonColor(1, 1, 1)
+		_Test_SetButtonColor(2, 1, 1)
 		Return SetError(1, 1, 1)
 	EndIf
 	If FileExists($g_BG2EEDir&'\lang\en_US') And FileExists($g_BG2EEDir&'\movies\melissan.wbm') And FileExists($g_BG2EEDir&'\Baldur.exe') Then; BG2EE-directory structure
@@ -517,7 +529,7 @@ Func _Test_CheckRequieredFiles_IWD1()
 	EndIf
 	If Not FileExists($g_IWD1Dir) Or $g_IWD1Dir = '' Then
 		_Misc_MsgGUI(4, $g_ProgName, _GetTR($Message, 'L1'), 1); => folder does not exist
-		_Test_SetButtonColor(1, 1, 1)
+		_Test_SetButtonColor(2, 1, 1)
 		Return SetError(1, 1, 1)
 	EndIf
 	$Version=FileGetVersion($g_IWD1Dir&'\idmain.exe')
@@ -558,7 +570,7 @@ Func _Test_CheckRequieredFiles_IWD2()
 	EndIf
 	If Not FileExists($g_IWD2Dir) Or $g_IWD2Dir = '' Then
 		_Misc_MsgGUI(4, $g_ProgName, _GetTR($Message, 'L1'), 1); => folder does not exist
-		_Test_SetButtonColor(1, 1, 1)
+		_Test_SetButtonColor(2, 1, 1)
 		Return SetError(1, 1, 1)
 	EndIf
 	If FileGetVersion($g_IWD2Dir&'\iwd2.exe') = '2.0.1.0' Then; IWD patched
@@ -591,7 +603,7 @@ Func _Test_CheckRequieredFiles_PST()
 	EndIf
 	If Not FileExists($g_PSTDir) Or $g_PSTDir = '' Then
 		_Misc_MsgGUI(4, $g_ProgName, _GetTR($Message, 'L1'), 1); => folder does not exist
-		_Test_SetButtonColor(1, 1, 1)
+		_Test_SetButtonColor(2, 1, 1)
 		Return SetError(1, 1, 1)
 	EndIf
 		If FileGetVersion($g_PSTDir&'\torment.exe') = '1.0.0.1' Then; PST may be patched or unpatched

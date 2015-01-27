@@ -79,11 +79,7 @@ EndFunc    ;==>_FileSearchDelete
 ; ---------------------------------------------------------------------------------------------
 Func _GetArchiveSizes()
 	Local $Prefix[4] = [3, '', 'Add', $g_ATrans[$g_ATNum] & '-Add']
-	Local $Setups=$g_CurrentPackages
-	If $Setups[0][0] = 0 Then
-		Local $InstSize[1][4]
-		Return $InstSize
-	EndIf
+	Local $Setups=IniReadSection($g_UsrIni, 'Current')
 	Local $InstSize[$Setups[0][0]*3][4]
 	For $s=1 to $Setups[0][0]
 		$InstSize[0][0] += 1
@@ -109,7 +105,7 @@ Func _GetGameList()
 	Local  $GameList[100][3]=[[0]], $Game
 	$Game=_FileSearch($g_ProgDir & '\Config', '*')
 	For $g=1 to $Game[0]
-		If StringRegExp($Game[$g], '(?i)\x2e|\AGlobal\z') Then ContinueLoop
+		If StringInStr($g_ProgDir & '\Config\'&$Game[$g], '.') Then ContinueLoop
 		$Contains=StringSplit(IniRead($g_ProgDir & '\Config\'&$Game[$g]&'\Game.ini', 'Options', 'Contains', ''), '|')
 		$Description=StringSplit(IniRead($g_ProgDir & '\Config\'&$Game[$g]&'\Translation-'&$g_ATrans[$g_ATNum]&'.ini', 'UI-BuildTime', 'Interact[1][3]', ''), '|')
 		If $Contains[0] <> $Description[0] Then
@@ -135,7 +131,7 @@ EndFunc    ;==>_GetGameList
 ; Returns the "long" gamename
 ; ---------------------------------------------------------------------------------------------
 Func _GetGameName($p_Text='-')
-	Local $Return[10][2]=[[9], ['BG1', "Baldur's Gate"],['BG2', "Baldur's Gate II"],['BWP', "Baldur's Gate II"], ['BWS', "Baldur's Gate II"], ['IWD1', 'IceWind Dale'], ['IWD2', 'IceWind Dale II'], ['PST', 'PlaneScape: Torment'], ['BGEE', "Baldur's Gate - Enhanced Edition"], ['BG2EE', "Baldur's Gate II - Enhanced Edition"]]
+	Local $Return[10][2]=[[9], ['BG1', "Baldur's Gate"],['BG2', "Baldur's Gate II"],['BWP', "Baldur's Gate II"], ['BWS', "Baldur's Gate II"], ['IWD1', 'IceWind Dale'], ['IWD2', 'IceWind Dale II'], ['PST', 'PlaneScape: Torment'], ['BG1EE', "Baldur's Gate - Enhanced Edition"], ['BG2EE', "Baldur's Gate II - Enhanced Edition"]]
 	If $p_Text = '-' Then $p_Text = $g_Flags[14]
 	For $r=1 to $Return[0][0]
 		If $p_Text = $Return[$r][0] Then Return $Return[$r][1]

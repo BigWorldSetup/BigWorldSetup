@@ -56,7 +56,7 @@ Func Au3PrepInst($p_Num = 0)
 	ElseIf $g_Flags[14] = 'IWD1' Then
 		IniWrite($g_IWD1Dir & '\icewind.ini', 'Game Options', 'Cheats', '1')
 	ElseIf StringInStr($g_Flags[14], 'EE') Then
-		If $g_Flags[14]='BGEE' Then
+		If $g_Flags[14]='BG1EE' Then
 			$MyBGEE=@MyDocumentsDir&"\Baldur's Gate - Enhanced Edition"
 		Else
 			$MyBGEE=@MyDocumentsDir&"\Baldur's Gate II - Enhanced Edition"
@@ -66,7 +66,7 @@ Func Au3PrepInst($p_Num = 0)
 		If Not FileExists($MyBGEE&'\portraits') Then DirCreate($MyBGEE&'\portraits')
 		If Not FileExists($g_GameDir&'\override') Then DirCreate($g_GameDir&'\override')
 		If Not FileExists($g_GameDir&'\WeiDu.conf') Then
-			If $g_Flags[14]='BGEE' Then
+			If $g_Flags[14]='BG1EE' Then
 				$Lang=_Install_GetBGEELang(_GetTR($Message, 'L4'), 1); => choose a language BGEE
 			Else
 				$Lang=_Install_GetBGEELang(_GetTR($Message, 'L4'), 2); => choose a language BG2EE
@@ -824,7 +824,7 @@ Func _Install_CreateTP2Entry($p_Setup, $p_Text, $p_Process=1, $p_File=''); $a=tp
 EndFunc   ;==>_Install_CreateTP2Entry
 
 ; ---------------------------------------------------------------------------------------------
-; Get BGEE/BG2EE-translation-setting
+; Get BG1EE/BG2EE-translation-setting
 ; ---------------------------------------------------------------------------------------------
 Func _Install_GetBGEELang($p_String='', $p_Version=1)
 	If $p_String='' Then IniRead($g_TRAIni, 'IN-Au3PrepInst', 'L4', '')

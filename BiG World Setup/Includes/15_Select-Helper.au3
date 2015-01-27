@@ -162,7 +162,7 @@ Func _Selection_GetCurrentInstallType()
 			$a=2; recommended
 		EndIf
 	EndIf
-	$Compilation = StringSplit(IniRead($g_BWSIni, 'Options', 'Type', 'F,R,S,T,E'), ',')
+	$Compilation = StringSplit(IniRead($g_BWSIni, 'Options', 'Type', 'M,R,S,T,E'), ',')
 	If StringLen($Num[$a]) = 2 Then; if custom selection set selection to tactics
 		$g_Compilation='T'
 	Else

@@ -75,7 +75,7 @@ Func Au3BuildGUI($p_Num = 0)
 	$g_UI_Static[2][1] =  GUICtrlCreateLabel('', 30, 80, 370, 15); BG1 if BWS/BWP
 	$g_UI_Interact[2][1] = GUICtrlCreateInput('', 30, 95, 300, 20)
 	$g_UI_Button[2][1] = GUICtrlCreateButton(_GetTR($g_UI_Message, '0-B6'), 350, 95, 50, 20, 0)
-	$g_UI_Static[2][2] =  GUICtrlCreateLabel('', 30, 135, 370, 15); BG2/IWD1/IWD2/PST/BGEE/BG2EE
+	$g_UI_Static[2][2] =  GUICtrlCreateLabel('', 30, 135, 370, 15); BG2/IWD1/IWD2/PST/BG1EE/BG2EE
 	$g_UI_Interact[2][2] = GUICtrlCreateInput('', 30, 150, 300, 20)
 	$g_UI_Button[2][2] = GUICtrlCreateButton(_GetTR($g_UI_Message, '0-B6') , 350, 150, 50, 20, 0)
 	$g_UI_Static[2][3] = GUICtrlCreateLabel('', 30, 190, 370, 15); download
@@ -635,7 +635,7 @@ Func Au3BuildGUI($p_Num = 0)
 	$g_UI_Menu[6][0] = GUICtrlCreateContextMenu($g_UI_Static[12][4]); >> option-menu
 	$g_UI_Menu[6][1] = GUICtrlCreateMenuItem('1', $g_UI_Menu[6][0]); Save
 	$g_UI_Menu[6][2] = GUICtrlCreateMenuItem('2', $g_UI_Menu[6][0]); Scan
-	$g_UI_Menu[6][3] = GUICtrlCreateMenuItem('3', $g_UI_Menu[6][0]); switch to English
+	$g_UI_Menu[6][3] = GUICtrlCreateMenuItem('3', $g_UI_Menu[6][0]); switch to Englisch
 	$g_UI_Menu[6][10] = GUICtrlCreateMenuItem('10', $g_UI_Menu[6][0]); Revert
 	$g_UI_Menu[6][11] = GUICtrlCreateMenuItem('11', $g_UI_Menu[6][0]); switch edit-mode
 	GUICtrlCreateMenuItem('', $g_UI_Menu[6][0])
