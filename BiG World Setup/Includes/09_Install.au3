@@ -430,7 +430,9 @@ Func Au3Install($p_Num = 0)
 					$InstallString=$Setup[0]&' --no-exit-pause --noautoupdate --language '&StringTrimLeft($Setup[5], 3) &' --skip-at-view --quick-log --args-list ops "'&$g_BG1Dir&'" --force-install-list '&$Setup[3]&' --logapp'
 				ElseIf $Setup[2] = 'BGT-NPCSound' Then; hide the output
 					$InstallString=$Setup[0]&' --no-exit-pause --noautoupdate --language '&StringTrimLeft($Setup[5], 3) &' --skip-at-view --quick-log --force-install-list '&$Setup[3]&' --logapp 2>nul 1>nul'
-				Else
+				ElseIf $Setup[2] = 'EET' Then; add bg1ee-param
+					$InstallString=$Setup[0]&' --no-exit-pause --noautoupdate --language '&StringTrimLeft($Setup[5], 3) &' --skip-at-view --quick-log --args-list p "'&$g_BG1EEDir&'" --force-install-list '&$Setup[3]&' --logapp'
+					Else
 					$InstallString=$Setup[0]&' --no-exit-pause --noautoupdate --language '&StringTrimLeft($Setup[5], 3) &' --skip-at-view --quick-log --force-install-list '&$Setup[3]&' --logapp'
 				EndIf
 			Else
