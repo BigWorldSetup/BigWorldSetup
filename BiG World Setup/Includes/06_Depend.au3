@@ -11,6 +11,8 @@
 
 ; Not used items from g_CentralArray: 5 - 6 - 7 - 8 - 11 - 12 - 14 - 15
 
+;~ $g_Connections contains: 0: inikey (A conflicts b)- 1: inivalue (C:A(-):B(-))- 2: converted sentence (A is preffered to B)- 3: IDs(C:312:645) - 4: Warning (0/1)
+
 ; ---------------------------------------------------------------------------------------------
 ; Automatically solve the dependencies and conflicts (used before and after selection)
 ; ---------------------------------------------------------------------------------------------
@@ -149,6 +151,10 @@ Func _Depend_Contextmenu()
 	ElseIf StringRegExp($g_UI_Menu[0][7], 'D(M|O)') Then; missing dependencies
 		$MenuItem[0] = GUICtrlCreateMenuItem(StringFormat(_GetTR($Message, 'M5'), $MenuLabel), $g_UI_Menu[0][4]); => install the item
 	EndIf
+	If $g_Connections[$g_UI_Menu[0][8]][4]=1 Then; this is rather a notice/warning than a conflict
+		GUICtrlCreateMenuItem('', $g_UI_Menu[0][4])
+		$MenuItem[6] = GUICtrlCreateMenuItem(_GetTR($Message, 'M8'), $g_UI_Menu[0][4]); => ignore this problem
+	EndIf
 	__ShowContextMenu($g_UI[0], $g_UI_Menu[0][6], $g_UI_Menu[0][4])
 ; ---------------------------------------------------------------------------------------------
 ; Create another Msg-loop, since the GUI is disabled and only the menuitems should be available
@@ -188,6 +194,10 @@ Func _Depend_Contextmenu()
 		ElseIf $Msg =  $MenuItem[5] And $MenuItem[5] <> '' Then
 			_Depend_SetModState(_AI_GetStart($g_UI_Menu[0][9], '-'), 2); mod: remove conflicts > itself (local)
 			_Depend_GetActiveConnections()
+		ElseIf $Msg =  $MenuItem[6] And $MenuItem[6] <> '' Then
+			$g_Connections[$g_UI_Menu[0][8]][3]= 'W'&$g_Connections[$g_UI_Menu[0][8]][3]; make the warning disappear
+			_Depend_GetActiveConnections()
+			ExitLoop
 		ElseIf _IsPressed('01', $g_UDll) Then; react to a left mouseclick outside of the menu
 			While _IsPressed('01', $g_UDll)
 				Sleep(10)
@@ -261,7 +271,9 @@ Func _Depend_GetActiveConnections($p_Show=1)
 	If $p_Show=1 Then _GUICtrlListView_BeginUpdate($g_UI_Handle[1])
 	If $p_Show=1 Then _GUICtrlListView_DeleteAllItems($g_UI_Handle[1])
 	For $c = 1 To $g_Connections[0][0]; loop through array
-		If StringLeft ($g_Connections[$c][3], 1) = 'D' Then; dependencies first
+		If StringLeft ($g_Connections[$c][3], 1) = 'W' Then; ignore warnings
+
+		ElseIf StringLeft ($g_Connections[$c][3], 1) = 'D' Then; dependencies first
 			$String=StringTrimLeft($g_Connections[$c][3], 2)
 			If Not StringInStr($String, ':') Then; all items are needed
 				_Depend_GetActiveDependAll($String, $c, $p_Show)
@@ -287,9 +299,11 @@ Func _Depend_GetActiveDependAll($p_String, $p_ID, $p_Show)
 	$Return=_Depend_ItemGetSelected($p_String)
 	If $Return[0][1] = 0 or $Return[0][1] = $Return[0][0] Then Return; nothin selected or all selected
 	$Prefix = ''
+	$Warning = ''
+	If $g_Connections[$p_ID][4]=1 Then $Warning=' **'
 	For $r=1 to $Return[0][0]; show selected items first
 		If $Return[$r][1]=1 Then
-			If $p_Show=1 Then GUICtrlCreateListViewItem($Prefix&$g_CentralArray[$Return[$r][0]][4] & '|' & $g_CentralArray[$Return[$r][0]][3], $g_UI_Interact[10][1])
+			If $p_Show=1 Then GUICtrlCreateListViewItem($Prefix&$g_CentralArray[$Return[$r][0]][4]&$Warning & '|' & $g_CentralArray[$Return[$r][0]][3], $g_UI_Interact[10][1])
 			_Depend_GetActiveAddItem('DS', $p_ID, $Return[$r][0])
 			If $Prefix='' Then $Prefix='+ '
 		EndIf
@@ -324,9 +338,11 @@ Func _Depend_GetActiveDependAdv($p_String, $p_ID, $p_Show)
 	If $Return[0][0] = $Return[0][1] Then Return; all possible items are selected which were needed
 	If StringInStr($p_String[2], '|') And $Return[0][1] <> 0 Then Return; "|" means that one item is needed. If selected is above 0, that's ok
 	$Prefix = ''
+	$Warning = ''
+	If $g_Connections[$p_ID][4]=1 Then $Warning=' *'
 	For $t=1 to $Test[0][0]; show selected items in need first
 		If $Test[$t][1]=1 Then
-			If $p_Show=1 Then GUICtrlCreateListViewItem($Prefix&$g_CentralArray[$Test[$t][0]][4] & '|' & $g_CentralArray[$Test[$t][0]][3], $g_UI_Interact[10][1])
+			If $p_Show=1 Then GUICtrlCreateListViewItem($Prefix&$g_CentralArray[$Test[$t][0]][4]&$Warning & '|' & $g_CentralArray[$Test[$t][0]][3], $g_UI_Interact[10][1])
 			_Depend_GetActiveAddItem('DS', $p_ID, $Test[$t][0])
 			If $Prefix='' Then $Prefix='+ '
 		EndIf
@@ -375,17 +391,19 @@ Func _Depend_GetActiveConflictAdv($p_String, $p_ID, $p_Show)
 	Next
 	If $Test[0][0] <= 1 Then Return; no multiple conflicts were selected
 	Local $IsConflict = 0
+	$Warning = ''
+	If $g_Connections[$p_ID][4]=1 Then $Warning=' *'
 	For $s=1 to $p_String[0]
 		If $Test[$s][0] <> 0 Then
 			Local $Prefix = ''
 			For $r=1 to $Test[$s][0]
-				If $p_Show=1 Then GUICtrlCreateListViewItem($Prefix&$g_CentralArray[$Test[$s][$r]][4] & '|' & $g_CentralArray[$Test[$s][$r]][3], $g_UI_Interact[10][1])
+				If $p_Show=1 Then GUICtrlCreateListViewItem($Prefix&$g_CentralArray[$Test[$s][$r]][4]&$Warning & '|' & $g_CentralArray[$Test[$s][$r]][3], $g_UI_Interact[10][1])
 				_Depend_GetActiveAddItem('C', $p_ID, $Test[$s][$r], $s)
-				$FirstConflict = 1
 				$Prefix='+ '
 				If $p_Show=1 And $IsConflict = 1 Then GUICtrlSetBkColor(-1, 0xFF0000)
 			Next
 			$IsConflict = 1
+			$Warning = ''
 		EndIf
 	Next
 EndFunc    ;==>_Depend_GetActiveConflictAdv
@@ -397,12 +415,15 @@ Func _Depend_GetActiveConflictStd($p_String, $p_ID, $p_Show)
 	Local $IsConflict = 0
 	$Return=_Depend_ItemGetSelected($p_String)
 	If $Return[0][1] = 0 or $Return[0][1] = 1 Then Return
+	$Warning = ''
+	If $g_Connections[$p_ID][4]=1 Then $Warning=' *'
 	For $r=1 to $Return[0][0]
 		If $Return[$r][1]=1 Then
-			If $p_Show=1 Then GUICtrlCreateListViewItem($g_CentralArray[$Return[$r][0]][4] & '|' & $g_CentralArray[$Return[$r][0]][3], $g_UI_Interact[10][1])
+			If $p_Show=1 Then GUICtrlCreateListViewItem($g_CentralArray[$Return[$r][0]][4]&$Warning & '|' & $g_CentralArray[$Return[$r][0]][3], $g_UI_Interact[10][1])
 			_Depend_GetActiveAddItem('C', $p_ID, $Return[$r][0])
 			If $IsConflict = 0 Then
 				$IsConflict=1
+				$Warning=''
 			Else
 				If $p_Show=1 Then GUICtrlSetBkColor(-1, 0xFF0000)
 			EndIf
@@ -421,7 +442,7 @@ Func _Depend_GetUnsolved($p_Setup='', $p_Comp='')
 		$Tmp[0][0]+=1
 		$Tmp[$Tmp[0][0]][0]=$a
 		$Tmp[$Tmp[0][0]][1]=$g_CentralArray[$a][9]
-	Next	
+	Next
 ; disable the mods that are listed as faults
 	Local $Fault=IniReadSection($g_BWSIni, 'Faults')
 	If IsArray($Fault) Then
@@ -437,7 +458,7 @@ Func _Depend_GetUnsolved($p_Setup='', $p_Comp='')
 			Next
 		Next
 	EndIf
-; also disable setups component if defined	
+; also disable setups component if defined
 	If $p_Setup <> '' Then
 		For $a=$g_CentralArray[0][1] to $g_CentralArray[0][0]
 			If $p_Setup = $g_CentralArray[$a][0] And $p_Comp = $g_CentralArray[$a][2] Then _AI_SetClicked($a, 2)
@@ -482,12 +503,14 @@ Func _Depend_ItemGetConnections(ByRef $p_Array, $p_ID, $p_String, $p_Setup, $p_C
 		$Test=StringRegExp($p_Array[$r][3], '(?i)(\x3a|\x3e|\x7c|\x26)'&$p_Setup&'\x28'&$p_Comp&'\x29', 3); '\x3a|\x3e|\x7c|\x26') ; Get the :>|&
 		If IsArray($Test) Then
 			$Return&=@CRLF & $p_Array[$r][2]
+			If $p_Array[$r][4] = 1 Then $Return&=' **'
 			For $t=0 to UBound($Test)-1
 				$Sign=StringLeft($Test[$t], 1)
 				$p_Array[$r][3]=StringReplace($p_Array[$r][3], $Sign&$p_Setup&'('&$p_Comp&')', $Sign&$p_ID, 1)
 			Next
 		EndIf
 	Next
+	If StringRegExp($Return, '\x2a{2}(\z|\n)') Then $Return&=@CRLF&@CRLF&_GetTR($g_UI_Message, '4-L20')
 	Return $Return
 EndFunc   ;==>_Depend_ItemGetConnections
 
@@ -596,10 +619,10 @@ Func _Depend_ListInstallUnsolved($p_Setup, $p_Comp)
 EndFunc   ;==>_Depend_ListInstallUnsolved
 
 ; ---------------------------------------------------------------------------------------------
-; Use gchapters-array and assign the lines where the mod is mentioned in the [connections]-section
+; Use install-order and assign the lines where the mod is mentioned in the [connections]-section
 ; ---------------------------------------------------------------------------------------------
 Func _Depend_PrepareBuildIndex($p_Array, $p_Array2)
-	Local $Return[1000][3], $OldSetup
+	Local $Return[1000][4], $OldSetup
 	For $a=1 to $p_Array2[0][0]
 		If $p_Array2[$a][2] <> $OldSetup Then
 			$Return[0][0]+=1
@@ -609,7 +632,7 @@ Func _Depend_PrepareBuildIndex($p_Array, $p_Array2)
 			ContinueLoop
 		EndIf
 	Next
-	ReDim $Return[$Return[0][0] + 1][3]
+	ReDim $Return[$Return[0][0] + 1][4]
 	For $a=1 to $p_Array[0][0]; Create a shortened list of affected mods by removing components
 		$p_Array[$a][0]='|'&StringRegExpReplace(StringRegExpReplace(StringTrimLeft($p_Array[$a][1], 2), '\x28[^\x29]*\x29', ''), '\x3a|\x26|\x3e', '|')&'|'
 	Next
@@ -632,8 +655,12 @@ EndFunc   ;==>_Depend_PrepareBuildIndex
 Func _Depend_PrepareBuildSentences($p_Array)
 	Local $Message = IniReadSection($g_TRAIni, 'DP-BuildSentences')
 	Local $Array, $LastMod='', $Return = $p_Array
-	ReDim $Return[$Return[0][0]+1][4]
+	ReDim $Return[$Return[0][0]+1][5]
 	For $r=1 to $Return[0][0]
+		If StringMid($Return[$r][1], 2, 1) = 'W' Then;Strip warning character
+			$Return[$r][1]=StringLeft($Return[$r][1], 1)&StringMid($Return[$r][1], 3)
+			$Return[$r][4]=1
+		EndIf
 		If StringLeft($Return[$r][1], 1) = 'C' Then
 			$String=StringTrimLeft($Return[$r][1], 2)
 			$LastConflict=-1
@@ -654,8 +681,8 @@ Func _Depend_PrepareBuildSentences($p_Array)
 			EndIf
 		EndIf
 		$Array=StringSplit($String, '')
-		$FirstConflict=0
 		$Current=''
+		$FirstConflict=0
 		$Mod=0
 		For $a=1 to $Array[0]
 			If $Array[$a] = ':' And StringLeft($Return[$r][1], 1) = 'C' Then
@@ -977,12 +1004,16 @@ Func _Depend_WM_Notify($p_Handle, $iMsg, $iwParam, $ilParam)
 					$g_UI_Menu[0][7] = $g_ActiveConnections[$Index + 1][0]; type
 					$g_UI_Menu[0][8] = $g_ActiveConnections[$Index + 1][1]; num
 					$g_UI_Menu[0][9] = $g_ActiveConnections[$Index + 1][2]; setup
-					GUICtrlSetData($g_UI_Interact[10][3], $g_Connections[$g_UI_Menu[0][8]][0]&': '&$g_Connections[$g_UI_Menu[0][8]][2])
+					$String=$g_Connections[$g_UI_Menu[0][8]][0]&': '&$g_Connections[$g_UI_Menu[0][8]][2]
+					If $g_Connections[$g_UI_Menu[0][8]][4]=1 Then $String=_GetTR($g_UI_Message, '10-L2')&': '&$String; => notice
+					GUICtrlSetData($g_UI_Interact[10][3], $String)
 				Case $NM_CLICK ; Sent by a list-view control when the user clicks an item with the left mouse button
 					$tInfo = DllStructCreate($tagNMITEMACTIVATE, $ilParam)
 					$Index = DllStructGetData($tInfo, "Index"); get the zero-based index
 					$Index = $g_ActiveConnections[$Index + 1][1]; num
-					GUICtrlSetData($g_UI_Interact[10][3], $g_Connections[$Index][0]&': '&$g_Connections[$Index][2])
+					$String=$g_Connections[$Index][0]&': '&$g_Connections[$Index][2]
+					If $g_Connections[$Index][4]=1 Then $String=_GetTR($g_UI_Message, '10-L2')&': '&$String; => notice
+					GUICtrlSetData($g_UI_Interact[10][3], $String)
 				Case $LVN_KEYDOWN ; A key has been pressed
 					Local $Diff = '-'
 					$tInfo = DllStructCreate($tagNMLVKEYDOWN, $ilParam)
@@ -1004,7 +1035,9 @@ Func _Depend_WM_Notify($p_Handle, $iMsg, $iwParam, $ilParam)
 					If $Index = '' Then Return $GUI_RUNDEFMSG; nothing selected
 					If $Index >  $g_ActiveConnections[0][0] Then Return $GUI_RUNDEFMSG; down @ last item = no update
 					$Index = $g_ActiveConnections[$Index][1]; num
-					GUICtrlSetData($g_UI_Interact[10][3], $g_Connections[$Index][0]&': '&$g_Connections[$Index][2])
+					$String=$g_Connections[$Index][0]&': '&$g_Connections[$Index][2]
+					If $g_Connections[$Index][4]=1 Then $String=_GetTR($g_UI_Message, '10-L2')&': '& $String; => notice
+					GUICtrlSetData($g_UI_Interact[10][3], $String)
 			EndSwitch
 	EndSwitch
 	Return $GUI_RUNDEFMSG
