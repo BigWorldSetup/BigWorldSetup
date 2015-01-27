@@ -220,14 +220,12 @@ EndFunc   ;==>_Misc_LS_MoveItem
 ; ---------------------------------------------------------------------------------------------
 Func _Misc_LS_Verify()
 	_PrintDebug('+' & @ScriptLineNumber & ' Calling _Misc_LS_Verify')
-	Local $BGTInstallable=0, $Error='', $Reset=0, $Tra, $Valid=0
+	Local $BGTInstallable=0, $Error='', $Reset=0, $Valid=0
 	$Current = GUICtrlRead($g_UI_Seperate[0][0])+1; avoid loops for updates during info-screen later
 	$LArray=StringSplit(_GetTR($g_UI_Message, '15-I1'), '|'); => long available translations for the mods
 	$MArray=StringSplit(GUICtrlRead($g_UI_Interact[2][5]), ' ')
 	$SArray=StringSplit(_GetTR($g_UI_Message, '15-L1'), '|'); => short available translations for the mods
-	If StringRegExp($g_Flags[14], 'BWP|BWS') Then $Tra=IniRead($g_ModIni, 'BGT', 'Tra', '')
-	If $g_Flags[14]= 'BG2EE' Then $Tra=IniRead($g_ModIni, 'EET', 'Tra', ''); BG2EE uses EET for merging games
-	If $Current = 15 Then; lang-tab
+	If $Current = 15 Then
 		$Selected = ControlListView($g_Ui[0], '', $g_UI_Interact[15][2], 'GetItemCount')
 		If $Selected = 0 Then $Error='|'&_GetTR($g_UI_Message, '2-L1'); => select a translation
 		$Return=''
@@ -236,7 +234,7 @@ Func _Misc_LS_Verify()
 			$Text=StringTrimRight(GUICtrlRead($ID),1)
 			For $l=1 to $LArray[0]
 				If $Text = $LArray[$l] Then
-					If StringInStr($Tra, $SArray[$l]) Then $BGTInstallable=1
+					If StringInStr(IniRead($g_ModIni, 'BGT', 'Tra', ''), $SArray[$l]) Then $BGTInstallable=1
 					$Return&=' '&$SArray[$l]
 					ExitLoop
 				EndIf
@@ -249,7 +247,7 @@ Func _Misc_LS_Verify()
 		For $ID= $Last to $First Step -1
 			GUICtrlDelete($ID); delete all GuiListViewItems so _Tree_Reload works as expected
 		Next
-	Else; folder-tab
+	Else
 		$Selected=GUICtrlRead($g_UI_Interact[2][5])
 		If $g_Flags[3] <> $Selected Then $Reset=1; changes have been made
 		If $Selected = '' Then $Error = _GetTR($g_UI_Message, '2-L1'); => select a translation
@@ -257,7 +255,7 @@ Func _Misc_LS_Verify()
 			For $s=1 to $SArray[0]
 				If $MArray[$m] = $SArray[$s] Then
 					If Not FileExists($g_GConfDir&'\WeiDU-'&$SArray[$s]&'.ini') Then ContinueLoop
-					If StringInStr($Tra, $MArray[$m]) Then $BGTInstallable=1
+					If StringInStr(IniRead($g_ModIni, 'BGT', 'Tra', ''), $MArray[$m]) Then $BGTInstallable=1
 					$Valid+=1
 					ExitLoop
 				EndIf
@@ -266,7 +264,7 @@ Func _Misc_LS_Verify()
 		If $Valid <> $MArray[0] Then $Error = '|'&_GetTR($g_UI_Message, '2-L1'); => select a translation
 		$g_Flags[3]=$Selected
 	EndIf
-	If $BGTInstallable = 0 And GUICtrlRead($g_UI_Interact[2][1]) <> '-' Then $Error &= '||'&IniRead($g_GConfDir&'\Translation-'&$g_ATrans[$g_ATNum]&'.ini', 'UI-RunTime', '2-L4', ''); => BGT/EET not installable
+	If $BGTInstallable = 0 And GUICtrlRead($g_UI_Interact[2][1]) <> '-' Then $Error &= '||'&_GetTR($g_UI_Message, '2-L4'); => BGT not installable
 	If $Error <> '' Then
 		If $Current = 2 Then $Error &= '||'&_GetTR($g_UI_Message, '2-L5'); => start assistent
 		_Misc_MsgGUI(4, _GetTR($g_UI_Message, '0-T1'), $Error); => warning
@@ -419,7 +417,11 @@ Func _Misc_ReBuildTreeView($p_Save=0)
 	$Pos=ControlGetPos($g_UI[0], '', $g_UI_Interact[4][1])
 	_GUICtrlListView_DeleteAllItems($g_UI_Handle[1]); delete dependencies
 	_Selection_GetCurrentInstallType()
-	_Misc_SetAvailableSelection()
+	If $g_Flags[14] = 'BWS' Then
+		_Misc_SetAvailableSelection(); show preselection-descriptions
+	Else; do a bwp/batch install
+		_Misc_SetAvailableSelection(); don't show them
+	EndIf
 	_Tree_Populate(1+$p_Save); rebuild Arrays, GUI and so on
 	_Depend_GetActiveConnections()
 	$g_Flags[23]=$g_ActiveConnections[0][0]
@@ -439,7 +441,7 @@ Func _Misc_SelectFolder($p_Type, $p_Text)
 	If Not FileExists($Folder) Then $Folder = $g_BaseDir
 	$Folder = FileSelectFolder($p_Text, '', 2, $Folder & '\', $g_UI[0]); => select folder
 	If $Folder = '' Then Return
-	If $p_Type = 'BG1EE' And FileExists($Folder&'\Data\00766') Then $Folder=$Folder&'\Data\00766'; get BG1EE Beamdog-subfolder
+	If $p_Type = 'BGEE' And FileExists($Folder&'\Data\00766') Then $Folder=$Folder&'\Data\00766'; get BGEE Beamdog-subfolder
 	If $p_Type = 'BG2EE' And FileExists($Folder&'\Data\00783') Then $Folder=$Folder&'\Data\00783'; get BG2EE Beamdog-subfolder
 	Assign('g_'&$p_Type&'Dir', $Folder)
 	If $p_Type='Down' Then
@@ -458,7 +460,7 @@ Func _Misc_SelectFolder($p_Type, $p_Text)
 		GUICtrlSetData($g_UI_Interact[2][3], $Folder)
 	Else
 		IniWrite($g_UsrIni, 'Options', $p_Type, $Folder)
-		If $p_Type='BG1' Or ($p_Type='BG1EE' and $g_Flags[14]='BG2EE') Then
+		If $p_Type='BG1' Then
 			GUICtrlSetData($g_UI_Interact[2][1], $Folder)
 		Else
 			GUICtrlSetData($g_UI_Interact[2][2], $Folder)
@@ -508,10 +510,8 @@ Func _Misc_SetAvailableSelection()
 			$InstallType=$Split[2]; => preselections with recommended as default
 		EndIf
 	ElseIf StringLen($InstallType) = 1 Then
-		If $InstallType>UBound($SplitD)-1 Then $InstallType=1
 		$InstallType=$SplitD[$InstallType]
 	Else
-		If $InstallType>UBound($Split)-1 Then $InstallType=1
 		$InstallType=$Split[$InstallType]
 	EndIf
 	GUICtrlSetData($g_UI_Interact[2][4], _GetTR($g_UI_Message, '2-I1'), $InstallType); => preselections with total happyness as default
@@ -788,37 +788,27 @@ Func _Misc_SwichGUIToInstallMethod()
 	Next
 	$g_GConfDir = $g_ProgDir & '\Config\'&$g_GameList[$g][0]
 	GUICtrlSetData($g_UI_Interact[1][3], $g_GameList[$g][2])
-	If StringRegExp($g_Flags[14], 'BWS|BWP|BG2EE') Then
+	If StringRegExp($g_Flags[14], 'BWS|BWP') Then
 		GUICtrlSetState($g_UI_Static[2][1], $GUI_SHOW)
 		GUICtrlSetState($g_UI_Interact[2][1], $GUI_SHOW)
 		GUICtrlSetState($g_UI_Button[2][1], $GUI_SHOW)
-		GUICtrlSetPos($g_UI_Static[2][2], 30, 135, 370, 15); BG2/IWD1/IWD2/PST/BG1EE
+		GUICtrlSetPos($g_UI_Static[2][2], 30, 135, 370, 15); BG2/IWD1/IWD2/PST/BGEE
 		GUICtrlSetPos($g_UI_Interact[2][2], 30, 150, 300, 20)
 		GUICtrlSetPos($g_UI_Button[2][2], 350, 150, 50, 20)
 		GUICtrlSetPos($g_UI_Static[2][3], 30, 190, 370, 15); download
 		GUICtrlSetPos($g_UI_Interact[2][3], 30, 205, 300, 20)
 		GUICtrlSetPos($g_UI_Button[2][3], 350, 205, 50, 20)
-		If $g_Flags[14] = 'BG2EE' Then
-			_Test_GetGamePath('BG1EE')
-			_Test_GetGamePath('BG2EE')
-			$g_GameDir = $g_BG2EEDir
-			GUICtrlSetData($g_UI_Static[2][1], "Baldur's Gate - Enhanced Edition")
-			GUICtrlSetData($g_UI_Interact[2][1], $g_BG1EEDir)
-			GUICtrlSetData($g_UI_Interact[2][2], $g_BG2EEDir)
-		Else
-			_Test_GetGamePath('BG1')
-			_Test_GetGamePath('BG2')
-			$g_GameDir = $g_BG2Dir
-			GUICtrlSetData($g_UI_Static[2][1], "Baldur's Gate")
-			GUICtrlSetData($g_UI_Interact[2][1], $g_BG1Dir)
-			GUICtrlSetData($g_UI_Interact[2][2], $g_BG2Dir)
-		EndIf
+		_Test_GetGamePath('BG1')
+		_Test_GetGamePath('BG2')
+		$g_GameDir = $g_BG2Dir
+		GUICtrlSetData($g_UI_Interact[2][1], $g_BG1Dir)
+		GUICtrlSetData($g_UI_Interact[2][2], $g_BG2Dir)
 		If $g_Flags[14] = 'BWP' Then
 			$g_Flags[21] = 1; sort components according to PDF
 			$State=$GUI_DISABLE
 			GUICtrlSetState($g_UI_Menu[1][16], $GUI_CHECKED)
 			GUICtrlSetState($g_UI_Interact[14][8], $GUI_UNCHECKED); will be asked by batch
-		Else;If StringRegExp($g_Flags[14], 'BWS|BG2EE)' Then
+		Else;If $g_Flags[14] = 'BWS' Then
 			$g_Flags[21]=0; sort by theme
 			GUICtrlSetState($g_UI_Menu[1][16], $GUI_UNCHECKED)
 		EndIf
@@ -853,7 +843,7 @@ Func _Misc_SwichGUIToInstallMethod()
 	GUICtrlSetState($g_UI_Interact[14][7], $State); desktopheight
 	GUICtrlSetState($g_UI_Interact[14][8], $State); install additional textpatch
 	If StringInStr($g_Flags[14], 'EE') Then
-		$State = $GUI_HIDE; BG1EE/BG2EE doesn't need widescreen for bigger resolutions
+		$State = $GUI_HIDE; BGEE/BG2EE doesn't need widescreen for bigger resolutions
 	Else
 		$State = $GUI_SHOW
 	EndIf
@@ -887,7 +877,7 @@ EndFunc    ;==>_Misc_SwichLang
 ; Enable or disable Widescreen checkbox if mod is deselected and vice versa
 ; ---------------------------------------------------------------------------------------------
 Func _Misc_SwitchWideScreen($p_ID, $p_State=-1)
-	If StringInStr($g_Flags[14], 'EE') Then Return; Widescreen already built into BG1EE/BG2EE
+	If StringInStr($g_Flags[14], 'EE') Then Return; Widescreen already built into BGEE/BG2EE
 	If $p_State = -1 Then
 		If GUICtrlRead($g_UI_Interact[14][5]) = $GUI_CHECKED Then
 			$p_State = 1

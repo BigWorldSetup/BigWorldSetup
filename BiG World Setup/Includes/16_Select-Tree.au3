@@ -104,15 +104,8 @@ Func _Tree_GetCurrentSelection($p_Show = 0, $p_Write=''); $a=hide seletion-GUI
 	$DeSelect[0][0] = 0
 	If $p_Show = 0 Then _Misc_ProgressGUI(_GetTR($g_UI_Message, '4-T2'), _GetTR($g_UI_Message, '4-L4')); => write entries
 	IniDelete($g_UsrIni, 'Current'); delete old selections
-	If $g_Flags = 'BG2EE' Then
-		IniWrite($g_UsrIni, 'Options', 'BG1EE', StringRegExpReplace(GUICtrlRead($g_UI_Interact[2][1]), '\x5c{1,}\z', ''))
-		IniWrite($g_UsrIni, 'Options', 'BG2EE', StringRegExpReplace(GUICtrlRead($g_UI_Interact[2][2]), '\x5c{1,}\z', ''))
-	ElseIf StringRegExp($g_Flags, 'BWP|BWS') Then
-		IniWrite($g_UsrIni, 'Options', 'BG1', StringRegExpReplace(GUICtrlRead($g_UI_Interact[2][1]), '\x5c{1,}\z', ''))
-		IniWrite($g_UsrIni, 'Options', 'BG2', StringRegExpReplace(GUICtrlRead($g_UI_Interact[2][2]), '\x5c{1,}\z', ''))
-	Else
-		IniWrite($g_UsrIni, 'Options', 'BG2', StringRegExpReplace(GUICtrlRead($g_UI_Interact[2][2]), '\x5c{1,}\z', ''))
-	EndIf
+	IniWrite($g_UsrIni, 'Options', 'BG1', StringRegExpReplace(GUICtrlRead($g_UI_Interact[2][1]), '\x5c{1,}\z', ''))
+	IniWrite($g_UsrIni, 'Options', 'BG2', StringRegExpReplace(GUICtrlRead($g_UI_Interact[2][2]), '\x5c{1,}\z', ''))
 	IniWrite($g_UsrIni, 'Options', 'Download', StringRegExpReplace(GUICtrlRead($g_UI_Interact[2][3]), '\x5c{1,}\z', ''))
 	Local $Comp = '', $DComp = ''
 	$Setup = $g_CentralArray[$g_CentralArray[0][1]][0]
@@ -330,6 +323,9 @@ Func _Tree_Populate($p_Show=1)
 				ContinueLoop
 			EndIf
 			If $g_CHTreeviewItem[$Setup[$s][8]] = '' Then; if current tree does not exist, create it
+
+				ConsoleWrite($Setup[$s][8]+3 & ' ' & $Setup[$s][0] & ' ' & $Setup[$s][2] &@CRLF)
+
 				If $g_Flags[21]=0 Then; new theme-based-sorting
 					$g_CHTreeviewItem[$Setup[$s][8]] = GUICtrlCreateTreeViewItem($g_Tags[$Setup[$s][8]+3][1], $g_UI_Interact[4][1]); create a treeviewitem (gui-element) for the chapter itself (headline)
 				Else
@@ -511,7 +507,7 @@ Func _Tree_Populate($p_Show=1)
 			EndIf
 		Next
 		If $p_Show = 1 Then _Tree_SetPreSelected(); so $p_Show=2 will do the reload later
-		If StringInStr($g_Flags[14], 'EE') Then; no widescreen for BG1EE/BG2EE needed
+		If StringInStr($g_Flags[14], 'EE') Then; no widescreen for BGEE/BG2EE needed
 		ElseIf $g_Flags[14] = 'BWP' Then; do a batch-install
 			$g_Flags[22] = _Tree_GetID('widescreen', 'BATCH')
 		Else; do a bws-install
@@ -543,18 +539,10 @@ Func _Tree_Populate_PreCheck()
 	If _Misc_LS_Verify() = 0 Then Return 0; look if language settings are ok
 ;	If _Test_ACP() = 1 Then Return 0; remove infiniy-mods if codepage may not support the mods files characters
 	If $g_CentralArray[0][0] = '' Then _Tree_Populate(1); build the tree if needed
-	If $g_Flags[14] = 'BG2EE' Then
-		If $g_BG1EEDir = '-' Then; BG2EE-only-install
-			If Not StringInStr($g_Skip, '|EET|') Then $Rebuild=1; skipped mods did not include EET -> rebuild
-		Else; EET-install
-			If StringInStr($g_Skip, '|EET|') Then $Rebuild=1; skipped mods did include EET -> rebuild
-		EndIf
-	ElseIf StringRegExp($g_Flags[14], 'BWP|BWS') Then
-		If $g_BG1Dir = '-' Then; BG2-only-install
-			If Not StringInStr($g_Skip, '|BGT|') Then $Rebuild=1; skipped mods did not include BGT -> rebuild
-		Else; BGT-install
-			If StringInStr($g_Skip, '|BGT|') Then $Rebuild=1; skipped mods did include BGT -> rebuild
-		EndIf
+	If $g_BG1Dir = '-' Then; BG2-only-install
+		If Not StringInStr($g_Skip, '|BGT|') Then $Rebuild=1; skipped mods did not include BGT -> rebuild
+	Else; BGT-install
+		If StringInStr($g_Skip, '|BGT|') Then $Rebuild=1; skipped mods did include BGT -> rebuild
 	EndIf
 	If $Rebuild Then _Misc_ReBuildTreeView()
 	Return 1
@@ -659,7 +647,6 @@ Func _Tree_PurgeUnNeeded()
 	Local $Version='-'
 	$g_Skip='BGTNeJ;0;19;0001'
 	If $g_BG1Dir = '-' Then $g_Skip&='|BGT'
-	If $g_BG1EEDir = '-' Then $g_Skip&='|EET'
 	If $g_Flags[14]='IWD1' Then $Version=StringReplace(FileGetVersion($g_IWD1Dir&'\idmain.exe'), '.', '\x2e')
 	$ReadSection=IniReadSection($g_GConfDir&'\Game.ini', 'Purge')
 	For $r=1 to $ReadSection[0][0]
