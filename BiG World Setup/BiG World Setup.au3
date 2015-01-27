@@ -104,6 +104,7 @@ Func Au3GetVal($p_Num = 0)
 		_Test_GetGamePath($g_Flags[14])
 		$g_GameDir = Eval('g_' & $g_Flags[14] & 'Dir')
 	EndIf
+	If $g_Flags[14]='BG2EE' Then _Test_GetGamePath('BG1EE'); get path for possible EET-installs
 	$g_ModIni = $g_GConfDir & '\Mod.ini'
 	$g_Setups = _CreateList('s')
 	$g_DownDir = _IniRead($ReadSection, 'Download', '')

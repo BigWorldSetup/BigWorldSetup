@@ -452,12 +452,12 @@ Func _Test_CheckRequieredFiles_BG1EE()
 	Local $Message = IniReadSection($g_TRAIni, 'TE-BG1EE')
 	_PrintDebug('+' & @ScriptLineNumber & ' Calling _Test_CheckRequieredFiles_BG1EE')
 	Local $Missing='', $Hint='', $Error='', $Return, $Num=2
-	If $g_Flags[14] = 'BG2EE' Then $Num=1
+	If $g_Flags[14] = 'BG2EE' Then $Num=1; use the upper group for the game since there are two games to select
 	If IniRead($g_BWSIni, 'Order', 'Au3Select', 0) = 1 Then
 		$g_BG1EEDir=GUICtrlRead($g_UI_Interact[2][$Num])
 		IniWrite($g_UsrIni, 'Options', 'BG1EE', $g_BG1EEDir)
 	EndIf
-	If $g_BG1EEDir = '-' And $g_Flags[14] = 'BG2EE' Then
+	If $g_BG1EEDir = '-' And $g_Flags[14] = 'BG2EE' Then; this enables modding BG2EE without EET
 		_Test_SetButtonColor(1, 0, 0)
 		Return SetError(0, 0, 2)
 	EndIf

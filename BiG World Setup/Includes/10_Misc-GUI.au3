@@ -226,7 +226,7 @@ Func _Misc_LS_Verify()
 	$MArray=StringSplit(GUICtrlRead($g_UI_Interact[2][5]), ' ')
 	$SArray=StringSplit(_GetTR($g_UI_Message, '15-L1'), '|'); => short available translations for the mods
 	If StringRegExp($g_Flags[14], 'BWP|BWS') Then $Tra=IniRead($g_ModIni, 'BGT', 'Tra', '')
-	If $g_Flags[14]= 'BG2EE' Then $Tra=IniRead($g_ModIni, 'EET', 'Tra', '')
+	If $g_Flags[14]= 'BG2EE' Then $Tra=IniRead($g_ModIni, 'EET', 'Tra', ''); BG2EE uses EET for merging games
 	If $Current = 15 Then; lang-tab
 		$Selected = ControlListView($g_Ui[0], '', $g_UI_Interact[15][2], 'GetItemCount')
 		If $Selected = 0 Then $Error='|'&_GetTR($g_UI_Message, '2-L1'); => select a translation
@@ -419,11 +419,7 @@ Func _Misc_ReBuildTreeView($p_Save=0)
 	$Pos=ControlGetPos($g_UI[0], '', $g_UI_Interact[4][1])
 	_GUICtrlListView_DeleteAllItems($g_UI_Handle[1]); delete dependencies
 	_Selection_GetCurrentInstallType()
-	If $g_Flags[14] = 'BWS' Then
-		_Misc_SetAvailableSelection(); show preselection-descriptions
-	Else; do a bwp/batch install
-		_Misc_SetAvailableSelection(); don't show them
-	EndIf
+	_Misc_SetAvailableSelection()
 	_Tree_Populate(1+$p_Save); rebuild Arrays, GUI and so on
 	_Depend_GetActiveConnections()
 	$g_Flags[23]=$g_ActiveConnections[0][0]
@@ -462,7 +458,7 @@ Func _Misc_SelectFolder($p_Type, $p_Text)
 		GUICtrlSetData($g_UI_Interact[2][3], $Folder)
 	Else
 		IniWrite($g_UsrIni, 'Options', $p_Type, $Folder)
-		If $p_Type='BG1' Or ($p_Type='BG1EE' and $g_Flags[14]='BG2EE') Then
+		If $p_Type='BG1' Or ($p_Type='BG1EE' and $g_Flags[14]='BG2EE') Then $Num=1
 			GUICtrlSetData($g_UI_Interact[2][1], $Folder)
 		Else
 			GUICtrlSetData($g_UI_Interact[2][2], $Folder)
