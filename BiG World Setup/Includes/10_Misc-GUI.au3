@@ -458,7 +458,7 @@ Func _Misc_SelectFolder($p_Type, $p_Text)
 		GUICtrlSetData($g_UI_Interact[2][3], $Folder)
 	Else
 		IniWrite($g_UsrIni, 'Options', $p_Type, $Folder)
-		If $p_Type='BG1' Or ($p_Type='BG1EE' and $g_Flags[14]='BG2EE') Then $Num=1
+		If $p_Type='BG1' Or ($p_Type='BG1EE' and $g_Flags[14]='BG2EE') Then
 			GUICtrlSetData($g_UI_Interact[2][1], $Folder)
 		Else
 			GUICtrlSetData($g_UI_Interact[2][2], $Folder)
