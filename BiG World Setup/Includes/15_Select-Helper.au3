@@ -146,6 +146,7 @@ EndFunc    ;==>_Selection_ExpertWarning
 Func _Selection_GetCurrentInstallType()
 	_PrintDebug('+' & @ScriptLineNumber & ' Calling _Selection_GetCurrentInstallType')
 	$Array = StringSplit(_GetTR($g_UI_Message, '2-I1'), '|'); => versions
+	$Num = StringSplit($g_Flags[25], '|')
 	$String = GUICtrlRead($g_UI_Interact[2][4])
 	$Found=0
 	For $a = 1 To $Array[0]
@@ -161,18 +162,15 @@ Func _Selection_GetCurrentInstallType()
 			$a=2; recommended
 		EndIf
 	EndIf
+	ConsoleWrite($a & ' ' &  $Array[$a] & ' ' & $Num[$a]&@CRLF)
 	$Compilation = StringSplit(IniRead($g_BWSIni, 'Options', 'Type', 'M,R,S,T,E'), ',')
-	$Num=$a-($Array[0]-5)
-	If $Num<=0 Then; if custom selection set selection to tactics
+	If StringLen($Num[$a]) = 2 Then; if custom selection set selection to tactics
 		$g_Compilation='T'
-		If StringLen($a) Then $a='0'&$a
-		IniWrite($g_UsrIni, 'Options', 'InstallType', $a)
-		Return $a
 	Else
-		$g_Compilation=$Compilation[$Num]
-		IniWrite($g_UsrIni, 'Options', 'InstallType', $Num)
-		Return $Num
+		$g_Compilation=$Compilation[$Num[$a]]
 	EndIf
+	IniWrite($g_UsrIni, 'Options', 'InstallType', $Num[$a])
+	Return $Num[$a]
 EndFunc    ;==>_Selection_GetCurrentInstallType
 
 ; ---------------------------------------------------------------------------------------------

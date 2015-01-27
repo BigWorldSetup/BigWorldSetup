@@ -29,13 +29,13 @@ Global $g_Down[6][2]; used for updating download-progressbar
 ; New GUI-Builing
 ; ---------------------------------------------------------------------------------------------
 Global $g_UI[5], $g_UI_Static[17][20], $g_UI_Button[17][20], $g_UI_Seperate[17][10], $g_UI_Interact[17][20], $g_UI_Menu[10][50]
-Global $g_Search[5], $g_Flags[25] = [1], $g_UI_Handle[10]
+Global $g_Search[5], $g_Flags[26] = [1], $g_UI_Handle[10]
 Global $g_TRAIni = $g_ProgDir & '\Config\Translation-'&$g_ATrans[$g_ATNum]&'.ini', $g_UI_Message = IniReadSection($g_TRAIni, 'UI-Runtime')
 ; g_Flags => 1=w: continue without link checking; 2=w: update links; 3=mod language-string; 4=w: mc-disabled 5=admin-tokens short/Enable Pause-Resume
 ; 6=admin-tokens long/overwitten text by pause, 7=current tip-handle, 8=current tab is advsel, 9=window is locked, 10=Rebuild when leaving first screens/tab to go back from admin-tabs
 ; 11=back is pressed, 12=forward is pressed, 13=real exit, 14=current selected install method, 15=greet-picture is visible
 ; 16=admin-lv has focus/treeicon clicked, 17=treelabel clicked, 18=beep, 19=cmd-started, 20=w: selection-is-higer-than-your-preselection
-; 21=use old sorting format, 22=wscreen ID, 23=download-button-number/unsolved dependencies, 24=user clicked tv
+; 21=use old sorting format, 22=wscreen ID, 23=download-button-number/unsolved dependencies, 24=user clicked tv, 25=available selection-items (as numbers)
 ; g_UI_Handle => 0=adv. TreeView, 1=dep. ListView, 2=mod ListView, 3= 4/5=dep admin ListViews, 6/7=comp Listviews, 8=select admin
 ; g_UI_Menu[0] => 0=, 1=used themes in advmenu, 2=number of themes in adv-menus, 3=number of themes+groups in adv-menus, 4=mod, depend and select-contextmenu, 5=, 6-9=depend-context-menu
 ; $g_UI 0=main, 1=child-window with BWP-pic, 2=width, 3=height, 4=child-window with progress-bar
@@ -139,6 +139,14 @@ Func Au3GetVal($p_Num = 0)
 		If $Answer = 2 Then;Continue
 			_Misc_SetLang()
 			_Tree_Populate(0)
+			$Ignores=IniReadSection($g_UsrIni, 'IgnoredConnections'); restore ignored notices
+			For $i=1 to $Ignores[0][0]
+				For $c=1 to $g_Connections[0][0]
+					If $Ignores[$i][1] <> $g_Connections[$c][1] Then ContinueLoop
+					$g_Connections[$c][3] = 'W'&$g_Connections[$c][3]
+					ExitLoop
+				Next
+			Next
 			_Tree_Reload(0)
 			If $Nextstep <> 'Au3Net' Then _Process_Gui_Create(2)
 			GUICtrlSetState($g_UI_Button[0][1], $GUI_DISABLE)

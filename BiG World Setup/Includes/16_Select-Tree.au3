@@ -7,6 +7,12 @@ Func _Tree_EndSelection()
 	If _Test_CheckBG1TP() = 1 Then IniDelete($g_UsrIni, 'Current', 'BG1TP'); Remove download for german totsc-textpatch if not required
 	If _Test_CheckTotSCFiles_BG1() = 1 Then IniDelete($g_UsrIni, 'Current', 'BG1TotSCSound'); Remove download for spanish totsc-sounds if not required
 	_ResetInstall(0); Reset the installation-order
+	Local $Ignores[$g_Connections[0][0]][2]; save ignored warnings for reloads
+	For $c=1 to $g_Connections[0][0]
+		If StringLeft($g_Connections[$c][3], 1) = 'W' Then _IniWrite($Ignores, $g_Connections[$c][0], $g_Connections[$c][1])
+	Next
+	ReDim $Ignores[$Ignores[0][0]+1][2]
+	IniWriteSection($g_UsrIni, 'IgnoredConnections', $Ignores)
 	For $l=1 to 3
 		$Current=GUICtrlRead($g_UI_Interact[14][$l])
 		$Array = StringSplit(IniRead($g_TRAIni, 'UI-Buildtime', 'Interact[14]['&$l&']', ''), '|')
@@ -41,7 +47,7 @@ Func _Tree_EndSelection()
 		IniDelete($g_UsrIni, 'Current', 'widescreen')
 	EndIf
 	IniWrite($g_BWSIni, 'Order', 'Au3Select', 0); Enable the restart of a "paused" installation
-	DllClose($g_UDll); close the dll for detecting space
+	DllClose($g_UDll); close the dll for detecting keypresses
 	_Misc_SetTab(6); switch to Console-tab
 EndFunc    ;==>_Tree_EndSelection
 
@@ -317,6 +323,9 @@ Func _Tree_Populate($p_Show=1)
 				ContinueLoop
 			EndIf
 			If $g_CHTreeviewItem[$Setup[$s][8]] = '' Then; if current tree does not exist, create it
+
+				ConsoleWrite($Setup[$s][8]+3 & ' ' & $Setup[$s][0] & ' ' & $Setup[$s][2] &@CRLF)
+
 				If $g_Flags[21]=0 Then; new theme-based-sorting
 					$g_CHTreeviewItem[$Setup[$s][8]] = GUICtrlCreateTreeViewItem($g_Tags[$Setup[$s][8]+3][1], $g_UI_Interact[4][1]); create a treeviewitem (gui-element) for the chapter itself (headline)
 				Else
