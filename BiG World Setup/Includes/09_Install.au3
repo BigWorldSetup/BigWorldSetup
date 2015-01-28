@@ -432,7 +432,7 @@ Func Au3Install($p_Num = 0)
 					$InstallString=$Setup[0]&' --no-exit-pause --noautoupdate --language '&StringTrimLeft($Setup[5], 3) &' --skip-at-view --quick-log --force-install-list '&$Setup[3]&' --logapp 2>nul 1>nul'
 				ElseIf $Setup[2] = 'EET' Then; add bg1ee-param
 					$InstallString=$Setup[0]&' --no-exit-pause --noautoupdate --language '&StringTrimLeft($Setup[5], 3) &' --skip-at-view --quick-log --args-list p "'&$g_BG1EEDir&'" --force-install-list '&$Setup[3]&' --logapp'
-					Else
+				Else
 					$InstallString=$Setup[0]&' --no-exit-pause --noautoupdate --language '&StringTrimLeft($Setup[5], 3) &' --skip-at-view --quick-log --force-install-list '&$Setup[3]&' --logapp'
 				EndIf
 			Else

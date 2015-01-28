@@ -38,7 +38,7 @@ Func _Test_GetGamePath($p_Game, $p_Force=0)
 	Next
 	If $p_Force = 0 Then
 		$Test=IniRead($g_UsrIni, 'Options', $p_Game, '')
-		If ($p_Game = 'BG1' And $Test = '-') Or ($Test <> '' And FileExists($Test&'\'&$Game[$g][3])) Then
+		If ($p_Game = 'BG1' And $Test = '-') OR ($p_Game = 'BG1EE' And $Test = '-') Or ($Test <> '' And FileExists($Test&'\'&$Game[$g][3])) Then
 			Assign ('g_'&$p_Game&'Dir', $Test)
 			Return $Test
 		EndIf

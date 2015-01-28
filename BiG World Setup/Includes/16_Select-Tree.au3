@@ -104,14 +104,14 @@ Func _Tree_GetCurrentSelection($p_Show = 0, $p_Write=''); $a=hide seletion-GUI
 	$DeSelect[0][0] = 0
 	If $p_Show = 0 Then _Misc_ProgressGUI(_GetTR($g_UI_Message, '4-T2'), _GetTR($g_UI_Message, '4-L4')); => write entries
 	IniDelete($g_UsrIni, 'Current'); delete old selections
-	If $g_Flags = 'BG2EE' Then
+	If $g_Flags[14] = 'BG2EE' Then
 		IniWrite($g_UsrIni, 'Options', 'BG1EE', StringRegExpReplace(GUICtrlRead($g_UI_Interact[2][1]), '\x5c{1,}\z', ''))
 		IniWrite($g_UsrIni, 'Options', 'BG2EE', StringRegExpReplace(GUICtrlRead($g_UI_Interact[2][2]), '\x5c{1,}\z', ''))
 	ElseIf StringRegExp($g_Flags, 'BWP|BWS') Then
 		IniWrite($g_UsrIni, 'Options', 'BG1', StringRegExpReplace(GUICtrlRead($g_UI_Interact[2][1]), '\x5c{1,}\z', ''))
 		IniWrite($g_UsrIni, 'Options', 'BG2', StringRegExpReplace(GUICtrlRead($g_UI_Interact[2][2]), '\x5c{1,}\z', ''))
 	Else
-		IniWrite($g_UsrIni, 'Options', 'BG2', StringRegExpReplace(GUICtrlRead($g_UI_Interact[2][2]), '\x5c{1,}\z', ''))
+		IniWrite($g_UsrIni, 'Options',  $g_Flags[14], StringRegExpReplace(GUICtrlRead($g_UI_Interact[2][2]), '\x5c{1,}\z', ''))
 	EndIf
 	IniWrite($g_UsrIni, 'Options', 'Download', StringRegExpReplace(GUICtrlRead($g_UI_Interact[2][3]), '\x5c{1,}\z', ''))
 	Local $Comp = '', $DComp = ''
