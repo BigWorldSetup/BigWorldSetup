@@ -802,14 +802,14 @@ Func _Misc_SwichGUIToInstallMethod()
 			_Test_GetGamePath('BG1EE')
 			_Test_GetGamePath('BG2EE')
 			$g_GameDir = $g_BG2EEDir
-			GUICtrlSetData($g_UI_Static[2][1], "Baldur's Gate - Enhanced Edition")
+			GUICtrlSetData($g_UI_Static[2][1], "Baldur's Gate: Enhanced Edition, put '-' if you want only BGII: EE")
 			GUICtrlSetData($g_UI_Interact[2][1], $g_BG1EEDir)
 			GUICtrlSetData($g_UI_Interact[2][2], $g_BG2EEDir)
 		Else
 			_Test_GetGamePath('BG1')
 			_Test_GetGamePath('BG2')
 			$g_GameDir = $g_BG2Dir
-			GUICtrlSetData($g_UI_Static[2][1], "Baldur's Gate")
+			GUICtrlSetData($g_UI_Static[2][1], "Baldur's Gate, put '-' if you want only BG2")
 			GUICtrlSetData($g_UI_Interact[2][1], $g_BG1Dir)
 			GUICtrlSetData($g_UI_Interact[2][2], $g_BG2Dir)
 		EndIf
