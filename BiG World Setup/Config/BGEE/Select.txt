@@ -15,12 +15,6 @@ GRP;Stop
 SUB;bgeegraphics;0;13;1111;
 SUB;bgeegraphics;0?1_1;13;1111;
 SUB;bgeegraphics;0?1_2;13;0000;
-SUB;bgeegraphics;0?2_1;13;1111;
-SUB;bgeegraphics;0?2_2;13;0000;
-SUB;bgeegraphics;0?3_1;13;1111;
-SUB;bgeegraphics;0?3_2;13;0000;
-SUB;bgeegraphics;0?4_1;13;0000;
-SUB;bgeegraphics;0?4_2;13;1111;
 STD;DarkHorizonsBGee;0;02;0011;
 MUC;drizztsaga;Init;02;0011;
 MUC;drizztsaga;0;02;0011;
