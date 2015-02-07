@@ -34,7 +34,6 @@ Func Au3PrepInst($p_Num = 0)
 		IniWrite($g_BG2Dir & '\baldur.ini', 'Game Options', 'Use 3d Animations', 1)
 		IniWrite($g_BG2Dir & '\baldur.ini', 'Game Options', 'Footsteps', 1)
 		IniWrite($g_BG2Dir & '\baldur.ini', 'Game Options', 'Pausing Map', 1)
-		IniWrite($g_BG2Dir & '\baldur.ini', 'Game Options', 'Low End Machine', 1)
 
 		IniWrite($g_BG2Dir & '\baldur.ini', 'Config', 'General', 1)
 		IniWrite($g_BG2Dir & '\baldur.ini', 'Config', 'Graphics', 1)
@@ -58,8 +57,10 @@ Func Au3PrepInst($p_Num = 0)
 	ElseIf StringInStr($g_Flags[14], 'EE') Then
 		If $g_Flags[14]='BG1EE' Then
 			$MyBGEE=@MyDocumentsDir&"\Baldur's Gate - Enhanced Edition"
-		Else
+		ElseIf $g_Flags[14]='BG2EE' Then
 			$MyBGEE=@MyDocumentsDir&"\Baldur's Gate II - Enhanced Edition"
+		ElseIf $g_Flags[14]='IWD1EE' Then
+			$MyBGEE=@MyDocumentsDir&"\IceWind Dale - Enhanced Edition"
 		EndIf
 		If Not FileExists($MyBGEE&'\save') Then DirCreate($MyBGEE&'\save')
 		If Not FileExists($MyBGEE&'\characters') Then DirCreate($MyBGEE&'\characters')
@@ -67,9 +68,11 @@ Func Au3PrepInst($p_Num = 0)
 		If Not FileExists($g_GameDir&'\override') Then DirCreate($g_GameDir&'\override')
 		If Not FileExists($g_GameDir&'\WeiDu.conf') Then
 			If $g_Flags[14]='BG1EE' Then
-				$Lang=_Install_GetBGEELang(_GetTR($Message, 'L4'), 1); => choose a language BGEE
-			Else
-				$Lang=_Install_GetBGEELang(_GetTR($Message, 'L4'), 2); => choose a language BG2EE
+				$Lang=_Install_GetEELang(_GetTR($Message, 'L4'), 1); => choose a language BGEE
+			ElseIf $g_Flags[14] = 'BG2EE' Then
+				$Lang=_Install_GetEELang(_GetTR($Message, 'L4'), 2); => choose a language BG2EE
+			ElseIf $g_Flags[14]='IWD1EE' Then
+				$Lang=_Install_GetEELang(_GetTR($Message, 'L4'), 3); => choose a language BG2EE
 			EndIf
 			FileWrite($g_GameDir&'\WeiDu.conf', 'lang_dir = '&$Lang)
 		EndIf
@@ -542,24 +545,14 @@ EndFunc   ;==>Au3Install
 ; show not installed mods and say goodbye
 ; ---------------------------------------------------------------------------------------------
 Func _Install_BatchRun()
-	$File=$g_BG2Dir&'\BiG World Install.bat'
-	If Not FileExists($File) Then Exit
-	$Text=FileRead($File)
-	If Not StringInStr($Text, 'cd /D "'&$g_BG2Dir&'"') Then; enable run as admin
-		$Success=FileMove($File, $g_BG2Dir&'\BiG World Install_with_UAC_problem.bat', 1)
-		If $Success = 1 Then
-			$Text='cd /D "'&$g_BG2Dir&'"'&@CRLF&$Text
-			$Handle=FileOpen($File, 2)
-			FileWrite($Handle, $Text)
-			FileClose($Handle)
-		EndIf
-	EndIf
-	If StringRegExp(@OSVersion, 'WIN_2008R2|WIN_7|WIN_2008|WIN_VISTA') = 1 And IsAdmin() = 0 Then
+	$File = @TempDir&'\BiG World Install.bat'
+	If Not FileExists($File) Then $File = $g_BG2Dir&'\BiG World Install.bat'
+	If StringRegExp(@OSVersion, 'WIN_2008R2|WIN_7|WIN_2008|WIN_VISTA') = 1 And StringInStr($g_BG2Dir, @ProgramFilesDir) And IsAdmin() = 0 Then
 		ShellExecute($File, '', $g_BG2Dir, 'runas')
 	Else
 		ShellExecute($File, '', $g_BG2Dir)
 	EndIf
-;~ 	Au3Exit()
+	Au3Exit()
 EndFunc   ;==>_Install_BatchRun
 
 ; ---------------------------------------------------------------------------------------------
@@ -631,20 +624,6 @@ Func _Install_BG1Textpatch($p_Message)
 		_Process_Run('type kpzbg1.txt|kpzbg1.exe', 'kpzbg1.exe')
 		If Not StringInStr($g_ConsoleOutput, 'Operacja sie powiodla.') Then
 			_Misc_MsgGUI(4, _GetTR($p_Message, 'T1'), _GetTR($p_Message, 'L1'), 1, _GetTR($p_Message, 'B1')); => cannot install textpatch
-			Exit
-		EndIf
-		_Process_ChangeDir($g_BG2Dir, 1)
-	EndIf
-; ---------------------------------------------------------------------------------------------
-; install the Russian textpatch if needed
-; ---------------------------------------------------------------------------------------------
-	If $g_MLang[1] = 'RU' And Not StringInStr(FileRead($g_BG1Dir&'\WeiDU.log'), @LF&'~bg1textpack/setup-bg1textpack.tp2') And $g_BG1Dir <> '-' Then; first installation
-		GUICtrlSetData($g_UI_Static[6][2], _GetTR($p_Message, 'L4')); => install textpatch
-		_Process_ChangeDir($g_BG1Dir, 1)
-		FileCopy($g_BG1Dir&'\dialog.tlk', $g_BG1Dir&'\dialogf.tlk', 1)
-		_Process_Run('setup-bg1textpack.exe --no-exit-pause --noautoupdate --language 0 --skip-at-view --force-install-list 1', 'setup-bg1textpack.exe')
-		If Not StringInStr(FileRead($g_BG1Dir&'\WeiDU.log'), @LF&'~bg1textpack/setup-bg1textpack.tp2') Then
-			_Misc_MsgGUI(4, _GetTR($p_Message, 'T1'), _GetTR($p_Message, 'L1'), 1, _GetTR($p_Message, 'B1')); => cannot install bg1textpack
 			Exit
 		EndIf
 		_Process_ChangeDir($g_BG2Dir, 1)
@@ -828,10 +807,11 @@ EndFunc   ;==>_Install_CreateTP2Entry
 ; ---------------------------------------------------------------------------------------------
 ; Get BG1EE/BG2EE-translation-setting
 ; ---------------------------------------------------------------------------------------------
-Func _Install_GetBGEELang($p_String='', $p_Version=1)
+Func _Install_GetEELang($p_String='', $p_Version=1)
 	If $p_String='' Then IniRead($g_TRAIni, 'IN-Au3PrepInst', 'L4', '')
 	Local $Lang='en_US', $MyIni=@MyDocumentsDir&"\Baldur's Gate - Enhanced Edition\Baldur.ini"
 	If $p_Version=2 Then $MyIni=@MyDocumentsDir&"\Baldur's Gate II - Enhanced Edition\Baldur.ini"
+	If $p_Version=3 Then $MyIni=@MyDocumentsDir&"\IceWind Dale - Enhanced Edition\IceWind.ini"
 	If FileExists($MyIni) Then
 		$Array=StringSplit(StringStripCR(FileRead($MyIni)), @LF)
 		For $a=1 to $Array[0]

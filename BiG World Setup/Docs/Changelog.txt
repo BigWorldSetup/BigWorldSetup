@@ -969,7 +969,9 @@ Fixed: Download from Dropbox (thanks to dabus).
 20141007 - Updated by Silent
 Fixed: Link to Clean-Up.bat.
 Updated: German translation (thanks to dabus).
-20151028
+20150128
 Added: The last selected pre-selection is saved, adjusted BWS-selections will be saved as an own preselection. Dependencies and conflicts may be configured to be ignored. Adjusted BG2EE so BG1EE may be integrated via EET (adjusted folder-selection, tests, language-check for BGT/EET, purging when EET is missing).
 Changed: Cleanup starts through BiG World Install.bat.
 Fixed: Stuff that came up with testing.
+20150129
+Added: Enable install of IWD:EE

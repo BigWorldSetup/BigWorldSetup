@@ -131,7 +131,7 @@ EndFunc    ;==>_GetGameList
 ; Returns the "long" gamename
 ; ---------------------------------------------------------------------------------------------
 Func _GetGameName($p_Text='-')
-	Local $Return[10][2]=[[9], ['BG1', "Baldur's Gate"],['BG2', "Baldur's Gate II"],['BWP', "Baldur's Gate II"], ['BWS', "Baldur's Gate II"], ['IWD1', 'Icewind Dale'], ['IWD2', 'Icewind Dale II'], ['PST', 'Planescape: Torment'], ['BG1EE', "Baldur's Gate - Enhanced Edition"], ['BG2EE', "Baldur's Gate II - Enhanced Edition"]]
+	Local $Return[11][2]=[[10], ['BG1', "Baldur's Gate"],['BG2', "Baldur's Gate II"],['BWP', "Baldur's Gate II"], ['BWS', "Baldur's Gate II"], ['IWD1', 'Icewind Dale'], ['IWD2', 'Icewind Dale II'], ['PST', 'Planescape: Torment'], ['BG1EE', "Baldur's Gate: Enhanced Edition"], ['BG2EE', "Baldur's Gate II: Enhanced Edition"], ['IWD1EE', 'Icewind Dale: Enhanced Edition']]
 	If $p_Text = '-' Then $p_Text = $g_Flags[14]
 	For $r=1 to $Return[0][0]
 		If $p_Text = $Return[$r][0] Then Return $Return[$r][1]

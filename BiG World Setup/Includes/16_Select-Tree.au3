@@ -662,17 +662,19 @@ Func _Tree_PurgeUnNeeded()
 	If $g_BG1EEDir = '-' Then $g_Skip&='|EET'
 	If $g_Flags[14]='IWD1' Then $Version=StringReplace(FileGetVersion($g_IWD1Dir&'\idmain.exe'), '.', '\x2e')
 	$ReadSection=IniReadSection($g_GConfDir&'\Game.ini', 'Purge')
-	For $r=1 to $ReadSection[0][0]
-		If StringLeft($ReadSection[$r][1], 1) = 'D' Then; look if depends are met
-			If StringRegExp($ReadSection[$r][1], ':'&$g_MLang[1]&'\z') Then ContinueLoop; only remove mods that require a certain language
-			If $g_BG1Dir <> '-' And StringRegExp($ReadSection[$r][1], '(?i)BGT\x28\x2d\x29\z') Then ContinueLoop; remove mods that require BGT
-			If $Version <> '-' And StringRegExp($ReadSection[$r][1], $Version) Then ContinueLoop; remove mods that require a certain version
-		Else; look for conflicts
-			If Not StringRegExp($ReadSection[$r][1], '\x3a'&$g_MLang[1]&'\x3a') Then ContinueLoop; remove mods only if certain language was selected
-		EndIf
-		$Line=StringRegExpReplace($ReadSection[$r][1], '(?i)\AD\x3a|\AC\x3a[[:alpha:]]{2}\x3a|\x3aBGT\x28\x2d\x29\z|\x28\x2d\x29|\x3a[[:alpha:]]{2}\z|\x3a\d[\x2e\d|\x7c]{1,}\z', ''); remove D:|C:XX:|:BGT(-)|(-)|:XX
-		$g_Skip&='|'&StringReplace(StringReplace(StringReplace($Line, '&', '|'), '(', ';('), '?', '\x3f')
-	Next
+	If IsArray($ReadSection) Then
+		For $r=1 to $ReadSection[0][0]
+			If StringLeft($ReadSection[$r][1], 1) = 'D' Then; look if depends are met
+				If StringRegExp($ReadSection[$r][1], ':'&$g_MLang[1]&'\z') Then ContinueLoop; only remove mods that require a certain language
+				If $g_BG1Dir <> '-' And StringRegExp($ReadSection[$r][1], '(?i)BGT\x28\x2d\x29\z') Then ContinueLoop; remove mods that require BGT
+				If $Version <> '-' And StringRegExp($ReadSection[$r][1], $Version) Then ContinueLoop; remove mods that require a certain version
+			Else; look for conflicts
+				If Not StringRegExp($ReadSection[$r][1], '\x3a'&$g_MLang[1]&'\x3a') Then ContinueLoop; remove mods only if certain language was selected
+			EndIf
+			$Line=StringRegExpReplace($ReadSection[$r][1], '(?i)\AD\x3a|\AC\x3a[[:alpha:]]{2}\x3a|\x3aBGT\x28\x2d\x29\z|\x28\x2d\x29|\x3a[[:alpha:]]{2}\z|\x3a\d[\x2e\d|\x7c]{1,}\z', ''); remove D:|C:XX:|:BGT(-)|(-)|:XX
+			$g_Skip&='|'&StringReplace(StringReplace(StringReplace($Line, '&', '|'), '(', ';('), '?', '\x3f')
+		Next
+	EndIf
 	If _Test_ACP() = 1 Then Exit
 	If $g_BG1Dir <> '-' And $g_MLang[0] = 2 And $g_MLang[1] = 'GE' Then; second $g_Mlang-entry is --
 		$g_Skip&='|BG1NPC|BG1NPCMusic'

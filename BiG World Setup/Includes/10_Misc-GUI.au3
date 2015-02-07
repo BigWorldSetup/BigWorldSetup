@@ -441,6 +441,7 @@ Func _Misc_SelectFolder($p_Type, $p_Text)
 	If $Folder = '' Then Return
 	If $p_Type = 'BG1EE' And FileExists($Folder & '\Data\00766') Then $Folder = $Folder & '\Data\00766'; get BG1EE Beamdog-subfolder
 	If $p_Type = 'BG2EE' And FileExists($Folder & '\Data\00783') Then $Folder = $Folder & '\Data\00783'; get BG2EE Beamdog-subfolder
+	If $p_Type = 'IWD1EE' And FileExists($Folder & '\Data\00798') Then $Folder = $Folder & '\Data\00798'; get IWD1EE Beamdog-subfolder
 	Assign('g_' & $p_Type & 'Dir', $Folder)
 	If $p_Type = 'Down' Then
 		$Test = 1
@@ -900,7 +901,7 @@ Func _Misc_SwitchWideScreen($p_ID, $p_State = -1)
 		GUICtrlSetState($g_UI_Interact[14][5], $GUI_CHECKED)
 	EndIf
 	If $p_State = 1 Then
-		If $g_Flags[14] <> 'BWP' Then; this is no a batch install
+		If $g_Flags[14] <> 'BWP' Then; this is not a batch install
 			GUICtrlSetState($g_UI_Interact[14][6], $GUI_Enable)
 			GUICtrlSetState($g_UI_Interact[14][7], $GUI_Enable)
 			If GUICtrlRead($g_UI_Interact[14][6]) = '' Then GUICtrlSetData($g_UI_Interact[14][6], @DesktopWidth)
