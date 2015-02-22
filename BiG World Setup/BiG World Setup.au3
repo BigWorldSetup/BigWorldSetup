@@ -12,7 +12,7 @@ TraySetIcon (@ScriptDir&'\Pics\BWS.ico'); sets the tray-icon
 ; files and folders
 Global $g_BaseDir = StringLeft(@ScriptDir, StringInStr(@ScriptDir, '\', 1, -1)-1), $g_GConfDir, $g_GameDir, $g_ProgName = 'BiG World Setup'
 Global $g_ProgDir = $g_BaseDir & '\BiG World Setup', $g_LogDir=$g_ProgDir&'\Logs', $g_DownDir = $g_BaseDir & '\BiG World Downloads'
-Global $g_BG1Dir, $g_BG2Dir, $g_BGEEDIR, $g_BG2EEDIR, $g_IWD1Dir, $g_IWD2Dir, $g_PSTDir, $g_RemovedDir, $g_BackupDir, $g_LogFile = $g_LogDir & '\BiG World Debug.txt'
+Global $g_BG1Dir, $g_BG2Dir, $g_BG1EEDIR, $g_BG2EEDIR, $g_IWD1Dir, $g_IWD1EEDir, $g_IWD2Dir, $g_PSTDir, $g_RemovedDir, $g_BackupDir, $g_LogFile = $g_LogDir & '\BiG World Debug.txt'
 Global $g_BWSIni = $g_ProgDir & '\Config\Setup.ini', $g_MODIni, $g_UsrIni = $g_ProgDir & '\Config\User.ini'
 ; select-gui vars
 Global $g_Compilation='R', $g_LimitedSelection = 0, $g_Tags, $g_ActiveConnections[1], $g_Groups, $g_GameList
@@ -104,6 +104,7 @@ Func Au3GetVal($p_Num = 0)
 		_Test_GetGamePath($g_Flags[14])
 		$g_GameDir = Eval('g_'&$g_Flags[14]&'Dir')
 	EndIf
+	If $g_Flags[14]='BG2EE' Then _Test_GetGamePath('BG1EE'); get path for possible EET-installs
 	$g_ModIni = $g_GConfDir & '\Mod.ini'
 	$g_Setups=_CreateList('s')
 	$g_DownDir = _IniRead($ReadSection, 'Download', '')
@@ -140,13 +141,15 @@ Func Au3GetVal($p_Num = 0)
 			_Misc_SetLang()
 			_Tree_Populate(0)
 			$Ignores=IniReadSection($g_UsrIni, 'IgnoredConnections'); restore ignored notices
-			For $i=1 to $Ignores[0][0]
-				For $c=1 to $g_Connections[0][0]
-					If $Ignores[$i][1] <> $g_Connections[$c][1] Then ContinueLoop
-					$g_Connections[$c][3] = 'W'&$g_Connections[$c][3]
-					ExitLoop
+			If IsArray($Ignores) Then
+				For $i=1 to $Ignores[0][0]
+					For $c=1 to $g_Connections[0][0]
+						If $Ignores[$i][1] <> $g_Connections[$c][1] Then ContinueLoop
+						$g_Connections[$c][3] = 'W'&$g_Connections[$c][3]
+						ExitLoop
+					Next
 				Next
-			Next
+			EndIf
 			_Tree_Reload(0)
 			If $Nextstep <> 'Au3Net' Then _Process_Gui_Create(2)
 			GUICtrlSetState($g_UI_Button[0][1], $GUI_DISABLE)

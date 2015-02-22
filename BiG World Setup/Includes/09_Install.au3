@@ -55,20 +55,24 @@ Func Au3PrepInst($p_Num = 0)
 	ElseIf $g_Flags[14] = 'IWD1' Then
 		IniWrite($g_IWD1Dir & '\icewind.ini', 'Game Options', 'Cheats', '1')
 	ElseIf StringInStr($g_Flags[14], 'EE') Then
-		If $g_Flags[14]='BGEE' Then
+		If $g_Flags[14]='BG1EE' Then
 			$MyBGEE=@MyDocumentsDir&"\Baldur's Gate - Enhanced Edition"
-		Else
+		ElseIf $g_Flags[14]='BG2EE' Then
 			$MyBGEE=@MyDocumentsDir&"\Baldur's Gate II - Enhanced Edition"
+		ElseIf $g_Flags[14]='IWD1EE' Then
+			$MyBGEE=@MyDocumentsDir&"\IceWind Dale - Enhanced Edition"
 		EndIf
 		If Not FileExists($MyBGEE&'\save') Then DirCreate($MyBGEE&'\save')
 		If Not FileExists($MyBGEE&'\characters') Then DirCreate($MyBGEE&'\characters')
 		If Not FileExists($MyBGEE&'\portraits') Then DirCreate($MyBGEE&'\portraits')
 		If Not FileExists($g_GameDir&'\override') Then DirCreate($g_GameDir&'\override')
 		If Not FileExists($g_GameDir&'\WeiDu.conf') Then
-			If $g_Flags[14]='BGEE' Then
-				$Lang=_Install_GetBGEELang(_GetTR($Message, 'L4'), 1); => choose a language BGEE
-			Else
-				$Lang=_Install_GetBGEELang(_GetTR($Message, 'L4'), 2); => choose a language BG2EE
+			If $g_Flags[14]='BG1EE' Then
+				$Lang=_Install_GetEELang(_GetTR($Message, 'L4'), 1); => choose a language BGEE
+			ElseIf $g_Flags[14] = 'BG2EE' Then
+				$Lang=_Install_GetEELang(_GetTR($Message, 'L4'), 2); => choose a language BG2EE
+			ElseIf $g_Flags[14]='IWD1EE' Then
+				$Lang=_Install_GetEELang(_GetTR($Message, 'L4'), 3); => choose a language BG2EE
 			EndIf
 			FileWrite($g_GameDir&'\WeiDu.conf', 'lang_dir = '&$Lang)
 		EndIf
@@ -429,6 +433,8 @@ Func Au3Install($p_Num = 0)
 					$InstallString=$Setup[0]&' --no-exit-pause --noautoupdate --language '&StringTrimLeft($Setup[5], 3) &' --skip-at-view --quick-log --args-list ops "'&$g_BG1Dir&'" --force-install-list '&$Setup[3]&' --logapp'
 				ElseIf $Setup[2] = 'BGT-NPCSound' Then; hide the output
 					$InstallString=$Setup[0]&' --no-exit-pause --noautoupdate --language '&StringTrimLeft($Setup[5], 3) &' --skip-at-view --quick-log --force-install-list '&$Setup[3]&' --logapp 2>nul 1>nul'
+				ElseIf $Setup[2] = 'EET' Then; add bg1ee-param
+					$InstallString=$Setup[0]&' --no-exit-pause --noautoupdate --language '&StringTrimLeft($Setup[5], 3) &' --skip-at-view --quick-log --args-list p "'&$g_BG1EEDir&'" --force-install-list '&$Setup[3]&' --logapp'
 				Else
 					$InstallString=$Setup[0]&' --no-exit-pause --noautoupdate --language '&StringTrimLeft($Setup[5], 3) &' --skip-at-view --quick-log --force-install-list '&$Setup[3]&' --logapp'
 				EndIf
@@ -799,12 +805,13 @@ Func _Install_CreateTP2Entry($p_Setup, $p_Text, $p_Process=1, $p_File=''); $a=tp
 EndFunc   ;==>_Install_CreateTP2Entry
 
 ; ---------------------------------------------------------------------------------------------
-; Get BGEE/BG2EE-translation-setting
+; Get BG1EE/BG2EE-translation-setting
 ; ---------------------------------------------------------------------------------------------
-Func _Install_GetBGEELang($p_String='', $p_Version=1)
+Func _Install_GetEELang($p_String='', $p_Version=1)
 	If $p_String='' Then IniRead($g_TRAIni, 'IN-Au3PrepInst', 'L4', '')
 	Local $Lang='en_US', $MyIni=@MyDocumentsDir&"\Baldur's Gate - Enhanced Edition\Baldur.ini"
 	If $p_Version=2 Then $MyIni=@MyDocumentsDir&"\Baldur's Gate II - Enhanced Edition\Baldur.ini"
+	If $p_Version=3 Then $MyIni=@MyDocumentsDir&"\IceWind Dale - Enhanced Edition\IceWind.ini"
 	If FileExists($MyIni) Then
 		$Array=StringSplit(StringStripCR(FileRead($MyIni)), @LF)
 		For $a=1 to $Array[0]
