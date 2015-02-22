@@ -617,7 +617,7 @@ Func _Test_CheckRequieredFiles_IWD1EE()
 		_Test_SetButtonColor(2, 1, 1)
 		Return SetError(1, 1, 1)
 	EndIf
-	If FileExists($g_IWD1EEDir&'\lang\en_US') And FileExists($g_IWD1EEDir&'\movies\avalanch.wbm') And FileExists($g_IWD1EEDir&'\IceWind.exe') Then; IWD1EE-directory structure
+	If FileExists($g_IWD1EEDir&'\lang\en_US') And FileExists($g_IWD1EEDir&'\movies\avalanch.wbm') And FileExists($g_IWD1EEDir&'\icewind.exe') Then; IWD1EE-directory structure
 	Else
 		$Error&=_GetTR($Message, 'L2')&@CRLF; => structure not valid
 	EndIf

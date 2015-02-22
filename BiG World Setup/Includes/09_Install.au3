@@ -60,7 +60,7 @@ Func Au3PrepInst($p_Num = 0)
 		ElseIf $g_Flags[14]='BG2EE' Then
 			$MyBGEE=@MyDocumentsDir&"\Baldur's Gate II - Enhanced Edition"
 		ElseIf $g_Flags[14]='IWD1EE' Then
-			$MyBGEE=@MyDocumentsDir&"\IceWind Dale - Enhanced Edition"
+			$MyBGEE=@MyDocumentsDir&"\Icewind Dale - Enhanced Edition"
 		EndIf
 		If Not FileExists($MyBGEE&'\save') Then DirCreate($MyBGEE&'\save')
 		If Not FileExists($MyBGEE&'\characters') Then DirCreate($MyBGEE&'\characters')
@@ -68,11 +68,11 @@ Func Au3PrepInst($p_Num = 0)
 		If Not FileExists($g_GameDir&'\override') Then DirCreate($g_GameDir&'\override')
 		If Not FileExists($g_GameDir&'\WeiDu.conf') Then
 			If $g_Flags[14]='BG1EE' Then
-				$Lang=_Install_GetEELang(_GetTR($Message, 'L4'), 1); => choose a language BGEE
+				$Lang=_Install_GetEELang(_GetTR($Message, 'L4'), 1); => choose a language BG1EE
 			ElseIf $g_Flags[14] = 'BG2EE' Then
 				$Lang=_Install_GetEELang(_GetTR($Message, 'L4'), 2); => choose a language BG2EE
 			ElseIf $g_Flags[14]='IWD1EE' Then
-				$Lang=_Install_GetEELang(_GetTR($Message, 'L4'), 3); => choose a language BG2EE
+				$Lang=_Install_GetEELang(_GetTR($Message, 'L4'), 3); => choose a language IWD1EE
 			EndIf
 			FileWrite($g_GameDir&'\WeiDu.conf', 'lang_dir = '&$Lang)
 		EndIf
@@ -811,7 +811,7 @@ Func _Install_GetEELang($p_String='', $p_Version=1)
 	If $p_String='' Then IniRead($g_TRAIni, 'IN-Au3PrepInst', 'L4', '')
 	Local $Lang='en_US', $MyIni=@MyDocumentsDir&"\Baldur's Gate - Enhanced Edition\Baldur.ini"
 	If $p_Version=2 Then $MyIni=@MyDocumentsDir&"\Baldur's Gate II - Enhanced Edition\Baldur.ini"
-	If $p_Version=3 Then $MyIni=@MyDocumentsDir&"\IceWind Dale - Enhanced Edition\IceWind.ini"
+	If $p_Version=3 Then $MyIni=@MyDocumentsDir&"\Icewind Dale - Enhanced Edition\Baldur.ini"
 	If FileExists($MyIni) Then
 		$Array=StringSplit(StringStripCR(FileRead($MyIni)), @LF)
 		For $a=1 to $Array[0]

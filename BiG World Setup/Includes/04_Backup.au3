@@ -178,7 +178,7 @@ Func _Backup_CreateMultiInstall()
 	Local $CSize, $Error, $Size, $Type, $MultiDir=''
 	Local $Game[9][4]=[[8], ['BG1', 'BGMain', 'Baldur', 'Baldur'],['BG2', 'BGMain', 'Baldur', 'Baldur'], ['IWD1', 'IDMain', 'Icewind', 'IDMain'], _
 	['IWD2', 'IWD2', 'IWD2', 'IWD2'], ['PST', 'Torment', 'Torment', 'Torment'], ['BG1EE', 'Baldur', 'Baldur', 'Baldur'], ['BG2EE', 'Baldur', 'Baldur', 'Baldur'], _
-	['IWD1EE', 'icewind', 'IceWind', 'icewind']]
+	['IWD1EE', 'icewind', 'Icewind', 'icewind']]
 	If StringRegExp($g_Flags[14], 'BWS|BWP') Then
 		$Type = 'BG2'
 	Else
