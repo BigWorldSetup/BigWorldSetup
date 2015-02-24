@@ -5,15 +5,15 @@
 ; ---------------------------------------------------------------------------------------------
 Func _CDTray($p_String)
 	_PrintDebug('+' & @ScriptLineNumber & ' Calling _CDTray')
-	Local $Ret = 0 
+	Local $Ret = 0
 	For $c = 65 To 90
 		If DriveGetType(Chr($c) & ':\') = 'CDROM' Then; Chr converts an ascii-code to a string, here a-z
-			If $p_String = 'Open' Then	
+			If $p_String = 'Open' Then
 				$Status=DriveStatus(Chr($c) & ':')
-				If $Status = 'Ready' Then 
+				If $Status = 'Ready' Then
 					CDTray(Chr($c) & ':', $p_String)
 					$ret=1
-				EndIf	
+				EndIf
 			Else
 				CDTray(Chr($c) & ':', $p_String)
 			EndIf
@@ -36,18 +36,18 @@ EndFunc    ;==>_FileReplace
 ; ---------------------------------------------------------------------------------------------
 Func _FileSearch($p_Dir, $p_String)
 	Local $Return[1] = [0]
-	$Search = FileFindFirstFile($p_Dir&'\'&$p_String)  
+	$Search = FileFindFirstFile($p_Dir&'\'&$p_String)
 	If $Search = -1 Then Return SetError(1, 0, $Return)
 	$Ubound=1000
 	Local $Return[$Ubound]
 	While 1
-		$File = FileFindNextFile($Search) 
+		$File = FileFindNextFile($Search)
 		If @error Then ExitLoop
 		If $File = '.' Or $File = '..' Then ContinueLoop
-        If $Ubound=$Return[0]+10 Then 
+        If $Ubound=$Return[0]+10 Then
 			$Ubound+=1000
 			ReDim $Return[$Ubound]
-		EndIf	
+		EndIf
 		$Return[0]+=1
 		$Return[$Return[0]]=$File
 	WEnd
@@ -60,16 +60,16 @@ EndFunc    ;==>_FileSearch
 ; Searches for files with a certain pattern and deletes these
 ; ---------------------------------------------------------------------------------------------
 Func _FileSearchDelete($p_Dir, $p_String, $p_Attrib='F')
-	$Search = FileFindFirstFile($p_Dir&'\'&$p_String)  
+	$Search = FileFindFirstFile($p_Dir&'\'&$p_String)
 	If $Search = -1 Then Return
 	While 1
-		$File = FileFindNextFile($Search) 
+		$File = FileFindNextFile($Search)
 		If @error Then ExitLoop
 		If $File = '.' Or $File = '..' Then ContinueLoop
         If StringInStr(FileGetAttrib($p_Dir&'\'&$File), $p_Attrib) Then
 			If $p_Attrib = 'D' Then DirRemove($p_Dir&'\'&$File, 1)
 			If $p_Attrib = 'F' Then FileDelete($p_Dir&'\'&$File)
-		EndIf	
+		EndIf
 	WEnd
 	FileClose($Search)
 EndFunc    ;==>_FileSearchDelete
@@ -108,10 +108,10 @@ Func _GetGameList()
 		If StringInStr($g_ProgDir & '\Config\'&$Game[$g], '.') Then ContinueLoop
 		$Contains=StringSplit(IniRead($g_ProgDir & '\Config\'&$Game[$g]&'\Game.ini', 'Options', 'Contains', ''), '|')
 		$Description=StringSplit(IniRead($g_ProgDir & '\Config\'&$Game[$g]&'\Translation-'&$g_ATrans[$g_ATNum]&'.ini', 'UI-BuildTime', 'Interact[1][3]', ''), '|')
-		If $Contains[0] <> $Description[0] Then 
+		If $Contains[0] <> $Description[0] Then
 			ConsoleWrite('!Faulty Game:'&$Game[$g] & @CRLF)
 			ContinueLoop
-		EndIf	
+		EndIf
 		For $c=1 to $Contains[0]
 			$GameList[0][0]+=1
 			$GameList[$GameList[0][0]][0]=$Game[$g]
@@ -131,7 +131,7 @@ EndFunc    ;==>_GetGameList
 ; Returns the "long" gamename
 ; ---------------------------------------------------------------------------------------------
 Func _GetGameName($p_Text='-')
-	Local $Return[10][2]=[[9], ['BG1', "Baldur's Gate"],['BG2', "Baldur's Gate II"],['BWP', "Baldur's Gate II"], ['BWS', "Baldur's Gate II"], ['IWD1', 'IceWind Dale'], ['IWD2', 'IceWind Dale II'], ['PST', 'PlaneScape: Torment'], ['BGEE', "Baldur's Gate - Enhanced Edition"], ['BG2EE', "Baldur's Gate II - Enhanced Edition"]]
+	Local $Return[10][2]=[[9], ['BG1', "Baldur's Gate"],['BG2', "Baldur's Gate II"],['BWP', "Baldur's Gate II"], ['BWS', "Baldur's Gate II"], ['IWD1', 'Icewind Dale'], ['IWD2', 'Icewind Dale II'], ['PST', 'Planescape: Torment'], ['BG1EE', "Baldur's Gate - Enhanced Edition"], ['BG2EE', "Baldur's Gate II - Enhanced Edition"]]
 	If $p_Text = '-' Then $p_Text = $g_Flags[14]
 	For $r=1 to $Return[0][0]
 		If $p_Text = $Return[$r][0] Then Return $Return[$r][1]
@@ -165,7 +165,7 @@ Func _GetTra($p_Setup, $p_Comp)
 		If Not IsArray($Num) Then $Num = StringRegExp($Tra, '(?i)'&$g_MLang[$m]&':\d{1,}', 3)
 	Next
 	If Not IsArray($Num) Then Return SetError(1, 0, '')
-	If StringLeft($Num[0], 2) = '--' Then 
+	If StringLeft($Num[0], 2) = '--' Then
 		If $p_Comp = 'T+' Then Return '--'
 		$Num = StringRegExp($Tra, '(?i)[^--]{2}'&StringTrimLeft($Num[0], 2), 3); return the correct token if NT-dummy was found
 		If Not IsArray($Num) Then Return SetError(1, 0, ''); prevent errors on false configuration
@@ -208,7 +208,7 @@ Func _IniDelete(ByRef $p_Handle, $p_Key)
 	If Not IsArray($p_Handle) Then
 		ConsoleWrite('! Handle not defined for '& $p_Key & @CRLF)
 		Return
-	EndIf	
+	EndIf
 	For $h = 1 To $p_Handle[0][0]
 		If $p_Handle[$h][0] = $p_Key Then
 			$p_Handle[0][0] = $p_Handle[0][0]-1
@@ -227,9 +227,9 @@ Func _IniRead($p_Handle, $p_Key, $p_Value, $p_Num=1);$p_Value=default
 	If Not IsArray($p_Handle) Then
 		ConsoleWrite('! Handle not defined for '& $p_Key & ' ' & $p_Value & @CRLF)
 		Return SetError(-1, 0, $p_Value)
-	EndIf	
+	EndIf
 	For $h = $p_Num To $p_Handle[0][0]
-		If $p_Handle[$h][0] = $p_Key Then 
+		If $p_Handle[$h][0] = $p_Key Then
 			Return SetError($h, 0, $p_Handle[$h][1])
 		EndIf
 	Next
@@ -244,13 +244,13 @@ Func _IniReadSection($p_File, $p_Key)
 	$Array=StringSplit(StringStripCR(FileRead($p_File)), @LF)
 	Local $Return[$Array[0]+1][2]
 	For $a=1 to $Array[0]
-		If StringLeft($Array[$a], 1) = '[' Then 
-			If StringInStr($Array[$a], '['&$p_Key&']') Then 
+		If StringLeft($Array[$a], 1) = '[' Then
+			If StringInStr($Array[$a], '['&$p_Key&']') Then
 				$Read=1
 				ContinueLoop
-			Else	
+			Else
 				$Read=0
-			EndIf	
+			EndIf
 		EndIf
 		If $Read = 0 Then ContinueLoop
 		If $Array[$a] = '' Then ContinueLoop
@@ -350,12 +350,12 @@ Func _StringStripCRLF($p_String, $p_Num=0)
 		$Exp=$Lead
 	ElseIf $p_Num = 2 Then
 		$Exp=$Trail
-	EndIf	
+	EndIf
 	Return StringRegExpReplace($p_String, $Exp, '')
 EndFunc    ;==>_StringStripCRLF
 
 ; ---------------------------------------------------------------------------------------------
-; Test if the string contains other characters than standard-AscII. If it does, translate to dos-codepage 
+; Test if the string contains other characters than standard-AscII. If it does, translate to dos-codepage
 ; ---------------------------------------------------------------------------------------------
 Func _StringVerifyAscII($p_String)
 	$Array = StringSplit($p_String, '')
@@ -365,7 +365,7 @@ Func _StringVerifyAscII($p_String)
 			$dosDir=StringStripWS(StringReplace(FileRead($g_ProgDir&'\dospath.txt'), @CRLF, ''), 3); yes, it's ugly, but it takes some mere 0.03-0.04 seconds - so who cares...
 			FileDelete($g_ProgDir&'\dospath.txt')
 			Return $dosDir
-		EndIf	
+		EndIf
 	Next
 	Return $p_String
 EndFunc    ;==>_StringVerifyAscII
@@ -392,7 +392,7 @@ Func _StringVerifyExtAscII($p_String)
 		$p_String = StringReplace($p_String, Chr(0xA2), Chr(0xD3))
 		$p_String = StringReplace($p_String, Chr(0xA0), Chr(0xE1))
 		Return $p_String
-	EndIf	
+	EndIf
 	; Russian replacement characters
 	$p_String = StringReplace($p_String, Chr(0xA9), Chr(0xE9))
 	$p_String = StringReplace($p_String, Chr(0xE6), Chr(0xF6))
