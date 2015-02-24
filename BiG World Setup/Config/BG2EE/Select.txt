@@ -174,7 +174,7 @@ STD;iepbanters;5;07;1111;
 STD;viconia;0;07;1111;
 STD;mazzy;0;07;1111;
 STD;yoshimo;0;07;1111;
-STD;7C#Yoshi;0;07;0111;
+STD;7C-Yoshi;0;07;0111;
 STD;EdwinRomance;0;07;0111;
 STD;EdwinRomance;1;07;0000;
 STD;EdwinRomance;2;07;0111;

@@ -1039,7 +1039,7 @@ STD;iepbanters;5;14;1111;
 STD;viconia;0;14;1111;
 STD;mazzy;0;14;1111;
 STD;yoshimo;0;14;1111;
-STD;7C#Yoshi;0;14;0111;
+STD;7C-Yoshi;0;14;0111;
 STD;YoshimoRomance;0;14;0111;
 STD;YoshimoRomance;1;14;0111;
 STD;YoshimoRomance;4;14;0111;
