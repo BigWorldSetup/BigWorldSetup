@@ -852,11 +852,11 @@ Changed: Adjusted Link-Updates to fit with new Mod.ini (which is automatically c
 Added: If you did not save your mods selection before, resolution is checked to enable/disable widescreen by default. Progress is shown for solving conflicts and dependencies after switching to a BWP versions.
 Fixed: Download-buttons don't overlap the other text any more. Altered RegExp for _Install_ReadWeiDU/Installation-check so UB X will not be mistaken for BG1UB X.
 20120413
-Fixed: Download-progress is shown on Win7 systems. Detect broken links or 0 byte-files during download. Don't wait infinitely for wgets spider-mode. Execute NSIS-packages on Win7 systems. Corrected testing if InfinityAnimation\content-folder contains files with ANSI. Only extract IA-content-packages that are selected. _Process_ChangeDir checks for original and via _StringVerifyAscII converted path. Fixed extraction-problem if BWS's path contains extended ASCII.
+Fixed: Download-progress is shown on Win7 systems. Detect broken links or 0 byte-files during download. Don't wait infinitely for wgets spider-mode. Execute NSIS-packages on Win7 systems. Corrected testing if InfinityAnimation\content-folder contains files with ANSI. Only extract IA-content-packages that are selected. _Process_ChangeDir checks for original and via _StringVerifyAscII converted path. Fixed extraction-problem if BWS's path contains extended ASCII. 
 Changed: Increased progress-updates during download to 1000 ms. Decompressed tools because Norton thinks wget is fishy. Virustotal thinks it's ok.
 Added: Fallback-option to wgets spider-mode (using inetget).
 20120422
-Fixed: Corrected "fictional" WeiDU-version-entries for BWS and WeiDU. Reload-functions for saves didn't import correctly (reporting false news). Edited conditions for GOG backup-restoration. Switching to pdf had wrong sorting.
+Fixed: Corrected "fictional" WeiDU-version-entries for BWS and WeiDU. Reload-functions for saves didn't import correctly (reporting false news). Edited conditions for GOG backup-restoration. Switching to pdf had wrong sorting. 
 Changed: Use group-install per default.
 20120620
 Updated: Rewritten the descriptions for extraction-test, click-properties, download-failures and actions to fix them. Added a note that you can restart by clicking the VBS.
@@ -891,7 +891,7 @@ Fixed: Answering questions returns lowered characters and answer now has to be a
 Removed: Since BGT does handle the missing sounds-issue since v1.15, the not used code-pieces have been removed. [_Test_CheckRequieredFiles_BG1Patch]
 20130212
 Added: Handle IWD1+II and PST. [*] Automatic detection of IWDI+II and PST-games. [Au3Detect] Testing for IWDI+II and PST-version. [_Test_CheckRequieredFiles_IWD1/IWD2/PST]. Put slidely improved/compacted folder-detection into own function. [_Test_GetGamePath] Added menus, context-menus and accelerators for better usage in mod-administration. [_Admin_ModGui], [_Tra_Gui] Use them to either open or test urls, files, sizes, tests. [_Admin_ItemOpen],[_Admin_ItemTest] Test URLs, filenames and sizes and optionally adjust values to the given result. [_Admin_ItemTest] Improved testing before saving. [_Admin_ModSave] Added editor to manage the installation-order with menus, accels, testing before saving entries and move/add/delete/edit/cut/paste entries. [_Select_*] (Re)added editor to manage dependencies with menus, accels, tests and so on. [Dep_*] Rewritten GUI creation to fit to different games. Added translations/hints for those games.
-Changed: Moved configuration-files, lots of changed variables to keep up with that. [*] Previous folder-selections are the initial directory for browsing somewhere else. [Au3Select] Redesigned the mod-administration. [_Admin_Mod*], [_Admin_Item*], [Au3BuildGUI] Don't only display the mods name but also the setups name when fetching translations (seems more convinient). Use same method to edit-items. [_Tra_Gui]
+Changed: Moved configuration-files, lots of changed variables to keep up with that. [*] Previous folder-selections are the initial directory for browsing somewhere else. [Au3Select] Redesigned the mod-administration. [_Admin_Mod*], [_Admin_Item*], [Au3BuildGUI] Don't only display the mods name but also the setups name when fetching translations (seems more convinient). Use same method to edit-items. [_Tra_Gui] 
 20130222
 Fixed: Changed names so keywords don't get translated 2 times and thus get irritating. Added IWD2-test. [Translation] Selecting a mod without read components will not crash when managing sequences. [_Select_ItemEdit] Delete old names/setups from comboboxes when reentering admin-screens. [_Admin_Populate] Entries that init a choice don't get messed up on save. [_Select_ItemEditSave] Don't crash when translation number for no-text is wrong. [_GetTra] Adjusted number of chapters so BWS does not crash on BWP-load not reloads. [_Tree_Populate] Show tips at startup. Show other tips when changing games. [Au3Select, _Misc_SetWelcomeScreen, _Misc_SetTip]
 Added: When adding or deleting mod in the screen to manage mods, those get added or removed in the comboboxes of this and the other management screens. [__Admin_ModSave/Delete] Repair IDS-entries during install of BWP-installs. Make IDS batches usable for usage without install.bat. [Au3RunFix, _Install_RepairIDS]
@@ -969,9 +969,3 @@ Fixed: Download from Dropbox (thanks to dabus).
 20141007 - Updated by Silent
 Fixed: Link to Clean-Up.bat.
 Updated: German translation (thanks to dabus).
-20150128
-Added: The last selected pre-selection is saved, adjusted BWS-selections will be saved as an own preselection. Dependencies and conflicts may be configured to be ignored. Adjusted BG2EE so BG1EE may be integrated via EET (adjusted folder-selection, tests, language-check for BGT/EET, purging when EET is missing).
-Changed: Cleanup starts through BiG World Install.bat.
-Fixed: Stuff that came up with testing.
-20150129
-Added: Enable install of IWD:EE
