@@ -40,6 +40,7 @@ STD;SirinesCall;0;03;1111;
 STD;wbgtap;1;03;0111;
 STD;karatur;0;03;1111;
 STD;Animus;0;10;0111;
+STD;thalan;0;10;0111;
 STD;BGeeAR;0;10;0111;
 STD;BGeeW;0;10;0111;
 STD;saradas_magic;0;10;0111;
