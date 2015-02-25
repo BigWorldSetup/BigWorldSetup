@@ -942,6 +942,8 @@ MUC;randomiser;10100;09;0000;
 MUC;randomiser;10200;09;0011;
 STD;randomiser;10300;09;0000;
 STD;recoloredbuttons;2;13;0000;
+STD;BG2EE_PL;0;13;1111;
+STD;BG2EE_PL;1;13;1111;
 SUB;BP-BGT-Worldmap;0;13;1111;
 SUB;BP-BGT-Worldmap;0?1_1;13;1111;
 SUB;BP-BGT-Worldmap;0?1_2;13;0000;
