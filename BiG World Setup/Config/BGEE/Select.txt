@@ -381,7 +381,7 @@ MUC;SoB;Init;09;1111;
 MUC;SoB;855;09;1111;
 MUC;SoB;856;09;0000;
 ANN;Refinements goes here for compatibility with Scales of Balance #25 
-STD;SoB;850;09;1111;
+STD;SoB;580;09;1111;
 STD;stratagems;1000;09;1111;
 STD;stratagems;1910;09;1111;
 STD;stratagems;2010;09;1111;
