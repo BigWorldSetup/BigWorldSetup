@@ -9,8 +9,6 @@ CMD;IF EXIST SETUP-NMT.tp2 copy /Y WeiDU.exe SETUP-NMT.exe
 CMD;IF EXIST SETUP-NMR-HAPPY.tp2 copy /Y WeiDU.exe SETUP-NMR-HAPPY.exe
 CMD;IF EXIST .\stratagems\setup-stratagems.tp2 copy /Y WeiDU.exe setup-stratagems.exe
 CMD;IF EXIST .\stivan\setup-stivan.tp2 copy /Y WeiDU.exe setup-stivan.exe
-CMD;IF EXIST .\7C-Yoshi\7C-Yoshi.tp2 copy /Y WeiDU.exe setup-7C-Yoshi.exe
-CMD;IF EXIST .\thalan\thalan.tp2 copy /Y WeiDU.exe setup-thalan.exe
 ANN;Force all names to fit standards so BWP can patch them if needed
 CMD;IF EXIST 1Sylm-setup.tp2 ren 1Sylm-setup.tp2 setup-1Sylm.tp2
 CMD;IF EXIST 1Sylm-setup.exe ren 1Sylm-setup.exe setup-1Sylm.exe
@@ -40,6 +38,7 @@ CMD;IF EXIST Setup-Jedi^&Sith.tp2 ren Setup-Jedi^&Sith.tp2 Setup-Jedi_Sith.tp2
 CMD;IF EXIST .\!BInfinitySounds\Setup-!BInfinitySounds.tp2 move .\!BInfinitySounds\Setup-!BInfinitySounds.tp2 "."
 CMD;IF EXIST Setup-!BInfinitySounds.exe ren Setup-!BInfinitySounds.exe Setup-BInfinitySounds.exe
 CMD;IF EXIST Setup-!BInfinitySounds.tp2 ren Setup-!BInfinitySounds.tp2 Setup-BInfinitySounds.tp2
+CMD;IF EXIST setup-dq.tp2 move setup-dq.tp2 ".\dq\setup-dq.tp2"
 CMD;IF EXIST ".\vecna\setup-vecna.tp2" copy /Y ".\Vecna v23 - Text Overhaul v1.1\Language\English\*.*" ".\vecna\Language\English"
 ANN;Solve the issue with Cespy Audio
 CMD;IF EXIST ".\override\override" move ".\override\override\*.*" ".\override"
@@ -378,9 +377,6 @@ MUC;BG1NPCMusic;Init;05;1111;
 MUC;BG1NPCMusic;0;05;1111;
 MUC;BG1NPCMusic;1;05;0000;
 MUC;BG1NPCMusic;2;05;0000;
-MUC;BG1NPCMusic;3;05;0000;
-MUC;BG1NPCMusic;4;05;0000;
-MUC;BG1NPCMusic;5;05;0000;
 STD;IndiNPC;0;04;0111;
 STD;Mur'Neth;0;04;0111;
 STD;MulgoreXaviaNPC;0;04;0111;
@@ -1080,10 +1076,10 @@ MUC;Khalid;9;14;0000;
 ANN;Not compatible with DrizztSaga v3
 ANN;STD;THEONEDRIZZT;0;14;0111;
 STD;LaValygar;0;14;1111;
-MUC;LaViconia;Init;14;0111;
-MUC;LaViconia;0;14;0111;
-MUC;LaViconia;10;14;0000;
-STD;LaViconia;50;14;0000;
+MUC;laviconia;Init;14;0111;
+MUC;laviconia;0;14;0111;
+MUC;laviconia;10;14;0000;
+STD;laviconia;50;14;0000;
 STD;yeslicknpc;0;12;1111;
 STD;sarevokfriendship;0;12;1111;
 STD;Branwen;0;14;1111;
@@ -3672,19 +3668,16 @@ CMD;IF EXIST Derats_kits.exe IF EXIST ".\BiG World Fixpack\_temp\PXW3CAME.SPL" m
 MUC;xpmod;Init;16;1111;
 MUC;xpmod;0;16;1000;
 MUC;xpmod;1;16;0111;
+MUC;xpmod;1;16;0111;
 MUC;xpmod;2;16;0000;
 MUC;xpmod;3;16;0000;
 MUC;xpmod;4;16;0000;
-MUC;xpmod;5;16;0000;
-MUC;xpmod;6;16;0000;
 MUC;xpmod;Init;16;1111;
-MUC;xpmod;15;16;1000;
-MUC;xpmod;16;16;0111;
-MUC;xpmod;17;16;0000;
-MUC;xpmod;18;16;0000;
-MUC;xpmod;19;16;0000;
-MUC;xpmod;20;16;0000;
-MUC;xpmod;21;16;0000;
+MUC;xpmod;11;16;1000;
+MUC;xpmod;12;16;0111;
+MUC;xpmod;13;16;0000;
+MUC;xpmod;14;16;0000;
+MUC;xpmod;15;16;0000;
 MUC;BP-Balancer;Init;16;1111;
 MUC;BP-Balancer;1;16;1111;
 MUC;BP-Balancer;2;16;0000;
