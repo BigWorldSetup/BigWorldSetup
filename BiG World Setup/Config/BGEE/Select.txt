@@ -676,6 +676,7 @@ MUC;BP-BGT-Worldmap;2;13;0000;
 MUC;BGEEClassicMovies;Init;13;1111;
 MUC;BGEEClassicMovies;0;13;0000;
 MUC;BGEEClassicMovies;1;13;1111;
+STD;BGEEClassicMovies;2;13;1111;
 STD;BGEE_PL;0;13;1111;
 STD;BGEE_PL;1;13;1111;
 MUC;recoloredbuttons;Init;13;1111;
