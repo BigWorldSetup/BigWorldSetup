@@ -4,13 +4,6 @@ ANN;Turambar Fixes and Tweaks: Fix for the "System" attribute
 CMD;IF EXIST Turambar_fixes_tweaks\Italiano\setup-osx.tra attrib -S Turambar_fixes_tweaks\Italiano\setup-osx.tra
 CMD;IF EXIST Turambar_fixes_tweaks\Russian\setup-osx.tra attrib -S Turambar_fixes_tweaks\Russian\setup-osx.tra
 ANN;Added due to patching
-ANN;Add missing setup-###.exe
-CMD;IF EXIST SETUP-NMT.tp2 copy /Y WeiDU.exe SETUP-NMT.exe
-CMD;IF EXIST SETUP-NMR-HAPPY.tp2 copy /Y WeiDU.exe SETUP-NMR-HAPPY.exe
-CMD;IF EXIST .\stratagems\setup-stratagems.tp2 copy /Y WeiDU.exe setup-stratagems.exe
-CMD;IF EXIST .\stivan\setup-stivan.tp2 copy /Y WeiDU.exe setup-stivan.exe
-CMD;IF EXIST .\7C-Yoshi\7C-Yoshi.tp2 copy /Y WeiDU.exe setup-7C-Yoshi.exe
-CMD;IF EXIST .\thalan\thalan.tp2 copy /Y WeiDU.exe setup-thalan.exe
 ANN;Force all names to fit standards so BWP can patch them if needed
 CMD;IF EXIST 1Sylm-setup.tp2 ren 1Sylm-setup.tp2 setup-1Sylm.tp2
 CMD;IF EXIST 1Sylm-setup.exe ren 1Sylm-setup.exe setup-1Sylm.exe
