@@ -386,3 +386,13 @@ Removed: TeamBG Armor Pack for BG2 from BWP install.
 Updated: Selection fits IP v14.3.1, TP v14.3. Almateria's Restoration Project v8.1, BG1 NPC Project v21 beta 20141231, BG1 Unfinished Business v14.0 beta 150102, Derat's Unused Kits Pack v11, Divine Remix v8 beta, EE Keeper v1.0.2.6, Garrick - Tales of a Troubadour v1.22, I Shall Never Forget v4.2, Imoen Romance v2.4, Indira NPC v12 beta2, Infinity Sounds v1.1, Jastey's Solaufein beta 150102, Keeping Yoshimo v0.94 beta, Khalid mod for BG2 v2.00, Recolored toolbar buttons v4.0, YLItems Pack Final.
 20150104 - Updated by Silent
 Fixed: BG1NPC and Imoen Romance components.
+20150225 - Updated by AL|EN
+Added: Kreso's selection. BP-BGT Worldmap for BGEE and BG2EE, BGEE Leveled Spawns, The Picture Standard for BG:EE.
+Updated: Adrian v3.1, Almateria's Restoration Project v8.1.2, Baldur's Gate Enhanced Edition Graphics Overhaul v1.3, Baldur's Gate Romantic Encounters v1.3, BG1 Mini Quests and Encounters v9.1, BG1 NPC Project v21 beta 21050115, BG1 NPC Project Music Pack v6, BG1 Unfinished Business v14.0 beta 150128, Coran's BG Extended Friendship Talks v4, Dark Horizons BGEE v2.12, Dark Horizons BGT v2.11, Ding0's Tweak Pack v22, Ding0's Experience Fixer v7, EE Keeper v1.0.2.8, Eilistraee's Song v4.0, I Shall Never Forget v4.4, Infinity Sounds v1.2, Innershade v7.2, Jastey's Solaufein beta 150122, Keeping Yoshimo, LaValygar v4.0, LaViconia v5.0, Quayle ReDone v2.0, Rogue Rebalancing v4.80, Skie BG2 NPC Redone v3.0, Sword Coast Stratagems v30, Tales of the Deep Gardens v10.1, Thalantyr Item Upgrade v4, The Undying v2.52, The White Queen v4.1, Yvette Romance v3.0.
+20150225 - Updated by Silent
+Updated: Baldur's Gate Romantic Encounters v1.3, BG1 NPC Project v21, BG1 Unfinished Business v14.0 beta 150128, Huple v1.4, Tower of Deception v4.0.0, Tyris Flare NPC v7.
+20150226 - Updated by AL|EN
+Updated: Fishing for Trouble v3.01.
+20150227 - Updated by Silent
+Removed: Unnecessary entries.
+Updated: BG:EE Classic Movies v0.05.
