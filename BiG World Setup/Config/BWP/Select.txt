@@ -302,8 +302,7 @@ CMD;IF EXIST Setup-SOA.exe copy /Y ".\BiG World Fixpack\_override\worldmap\*.*" 
 STD;SOA;0;03;1111;
 CMD;echo 99 HELPME >> override/shoutids.ids
 STD;AC_QUEST;0;03;1111;
-ANN;No Download for NMT - Nameless Melody Inn, degraded from 0111
-STD;NMT;0;03;0000;
+STD;NMT;0;03;0111;
 STD;wbgtap;1;03;0111;
 ANN;#8. BG1 STORES AND ITEMS
 STD;BW_Herbs;0;08;0111;
@@ -610,8 +609,7 @@ MUC;Innershade;6;10;1111;
 SUB;WhiteQueen;0;10;1111;
 SUB;WhiteQueen;0?1_1;10;0000;
 SUB;WhiteQueen;0?1_2;10;1111;
-ANN;No download for Rukrakia - Rukrakia NPC, degraded from 1111
-STD;Rukrakia;0;10;0000;
+STD;Rukrakia;0;10;0111;
 STD;isnf;0;10;1111;
 STD;ts25mini;0;10;0111;
 STD;ts25mini;1;10;0111;
@@ -653,11 +651,9 @@ MUC;imnesvale;Init;15;0011;
 MUC;imnesvale;0;15;0000;
 MUC;imnesvale;1;15;0011;
 MUC;imnesvale;2;15;0000;
-ANN;No download for DNT - Tomoyo and the Underground City, degraded from 0011
-STD;DNT;0;15;0000;
+STD;DNT;0;15;0011;
 STD;Arena;0;15;0011;
-ANN;No download for UoT - Umbra of TROW - Arena, degraded from 0011
-STD;UoT;0;15;0000;
+STD;UoT;0;15;0011;
 MUC;7c#sartweak;Init;16;0111;
 MUC;7c#sartweak;100;16;0100;
 MUC;7c#sartweak;101;16;0011;
@@ -759,14 +755,12 @@ STD;MYSTIGAN;0;17;0111;
 STD;LAVAIT;0;17;0111;
 STD;OLDMODSPACK;0;17;0111;
 STD;RFWIP;0;17;0111;
-ANN;No Download for HOUYI, degraded from 0111
-STD;HOUYI;0;17;0000;
-ANN;No Download for YLItems - YLItems Pack, degraded from 0111
-STD;YLItems;0;17;0000;
-STD;YLItems;1;17;0000;
-STD;YLItems;2;17;0000;
-STD;YLItems;3;17;0000;
-STD;YLItems;4;17;0000;
+STD;HOUYI;0;17;0111;
+STD;YLItems;0;17;0111;
+STD;YLItems;1;17;0111;
+STD;YLItems;2;17;0111;
+STD;YLItems;3;17;0111;
+STD;YLItems;4;17;0111;
 SUB;DragonSummon;0;17;0111;
 SUB;DragonSummon;0?1_1;17;0111;
 SUB;DragonSummon;0?1_2;17;0000;
@@ -3159,15 +3153,13 @@ STD;d0tweak;5;16;0111;
 STD;d0tweak;6;16;0111;
 STD;d0tweak;11;16;0111;
 STD;d0tweak;18;16;0111;
-ANN;No Download for NMTP - Macholy's Tweak Pack, degraded all from 0111
-STD;NMTP;0;18;0000;
-STD;NMTP;1;18;0000;
-STD;NMTP;2;18;0000;
-STD;NMTP;3;18;0000;
-STD;NMTP;4;18;0000;
-STD;NMTP;5;18;0000;
-ANN;No Download for NML - Macholy's Living-Mod, degraded from 0111
-STD;NML;0;18;0000;
+STD;NMTP;0;18;0111;
+STD;NMTP;1;18;0111;
+STD;NMTP;2;18;0111;
+STD;NMTP;3;18;0111;
+STD;NMTP;4;18;0111;
+STD;NMTP;5;18;0111;
+STD;NML;0;18;0111;
 STD;gMinion;0;18;0111;
 STD;ImprovedSummons;0;16;0011;
 STD;ImprovedSummons;1;16;0011;
