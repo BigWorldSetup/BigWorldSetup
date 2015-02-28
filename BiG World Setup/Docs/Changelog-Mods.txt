@@ -396,3 +396,7 @@ Updated: Fishing for Trouble v3.01.
 20150227 - Updated by Silent
 Removed: Unnecessary entries.
 Updated: BG:EE Classic Movies v0.05.
+20150228 - Updated by Silent
+Added: Sarevok related tweaks v1.2.
+Changed: Sylmar Battlefield and Touchstone moved to Expert.
+Updated: Mod descriptions. BG1 Unfinished Business v14.0 beta 150228.
