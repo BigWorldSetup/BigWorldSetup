@@ -55,7 +55,7 @@ Func Au3Extract($p_Num = 0)
 			$TP2Exists = _Test_GetCustomTP2($g_CurrentPackages[$e][0]); no need for folderchecks yet
 			If $TP2Exists = '0' And $Success <> '0' Then; Do some more stuff to get it done
 				$DirList = StringSplit(StringStripCR($g_ConsoleOutput), @LF)
-				For $n = $DirList[0] To 1 Step -1
+				For $n = $DirList[0] To 3 Step -1
 					If StringInStr($DirList[$n], 'Everything is Ok') Then
 						$Dir = StringRegExpReplace($DirList[$n - 2], '(?i)extracting\s*|\x5c.*', ''); stripped 7z info and everything after a potential backslash
 						$IsDir = FileGetAttrib($g_GameDir & '\' & $Dir); get the attrib of this file or directory
