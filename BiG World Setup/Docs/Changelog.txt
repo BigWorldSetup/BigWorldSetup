@@ -972,3 +972,5 @@ Updated: German translation (thanks to dabus).
 20150103 - Updated by Silent
 Changed: Disabled autoreplacement old WeiDU.
 Fixed: Breach selection limit (thanks to dabus). [_GetArchiveSizes] Returned old 7zip.
+20150302 - Updated by Silent
+Fixed: Extraction error (thanks to dabus). [_Test_GetCustomTP2]
