@@ -400,3 +400,5 @@ Updated: BG:EE Classic Movies v0.05.
 Added: Sarevok related tweaks v1.2.
 Changed: Sylmar Battlefield and Touchstone moved to Expert.
 Updated: Mod descriptions. BG1 Unfinished Business v14.0 beta 150228.
+20150302 - Updated by AL|EN
+Changed: Moved all GUI mods for easy switch
