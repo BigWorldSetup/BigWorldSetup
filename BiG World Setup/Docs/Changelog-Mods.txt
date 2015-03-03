@@ -404,5 +404,8 @@ Updated: Mod descriptions. BG1 Unfinished Business v14.0 beta 150228.
 Added: Scales of Balance v2.5.
 Changed: Moved all GUI mods for easy switch.
 20150302 - Updated by Silent
-Changed: Aran Whitehand, Big Pictures and New travel system between Baldur's Gate City areas are moved to Expert.
+Changed: Aran Whitehand, Big Pictures and New travel system between Baldur's Gate City areas moved to Expert.
 Updated: Adjusted some dependencies.
+20150303 - Updated by Silent
+Fixed: Baldur's Gate Enhanced Edition Graphics Overhaul downloading and extraction.
+Updated: Scales of Balance components and dependencies. Adjusted some dependencies.
