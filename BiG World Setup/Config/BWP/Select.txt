@@ -360,8 +360,14 @@ SUB;bg1npc;14?1_3;05;0000;
 SUB;bg1npc;14?1_4;05;0000;
 SUB;bg1npc;14?1_5;05;0000;
 STD;bg1npc;15;05;1111;
+MUC;bg1npc;Init;05;1111;
+MUC;bg1npc;17;05;1111;
+MUC;bg1npc;18;05;0000;
 STD;bg1npc;25;05;1111;
 STD;bg1npc;28;05;1111;
+MUC;bg1npc;Init;07;1111;
+MUC;bg1npc;29;05;1111;
+MUC;bg1npc;30;05;0000;
 MUC;bg1npc;Init;05;1111;
 MUC;bg1npc;31;05;1111;
 MUC;bg1npc;32;05;0000;
@@ -1710,7 +1716,7 @@ STD;SpellPackB6;2307;16;0111;
 STD;SpellPackB6;2308;16;0111;
 STD;SpellPackB6;2314;16;0111;
 STD;SpellPackB6;2315;16;0111;
-STD;SpellPackB6;2317;16;0111;
+STD;SpellPackB6;2317;16;0001;
 STD;SpellPackB6;2331;16;0111;
 STD;SpellPackB6;2401;16;0111;
 STD;SpellPackB6;2402;16;0111;
@@ -2397,7 +2403,7 @@ STD;iwdification;40;16;0111;
 STD;iwdification;50;16;0111;
 STD;iwdification;60;16;0111;
 CMD;IF EXIST Setup-SpellPackB6.exe IF EXIST ".\override\SPPR342.SPL" move ".\override\SPPR342.SPL" ".\BiG World Fixpack\_temp\override\SPPR342.SPL"
-ANN;IF EXIST Setup-SpellPackB6.exe IF EXIST ".\override\SPWI317.SPL" move ".\override\SPWI317.SPL" ".\BiG World Fixpack\_temp\override\SPWI317.SPL"
+CMD;IF EXIST ".\override\SPWI317.SPL" move ".\override\SPWI317.SPL" ".\BiG World Fixpack\_temp\override\SPWI317.SPL";;;;D:SpellPackB6(2317)
 CMD;IF EXIST divine_remix.exe IF EXIST ".\override\SPPR342.SPL" move ".\override\SPPR342.SPL" ".\BiG World Fixpack\_temp\override\SPPR342.SPL"
 CMD;IF EXIST ".\override\SPWI414.SPL" move ".\override\SPWI414.SPL" ".\BiG World Fixpack\_temp\override\SPWI414.SPL"
 SUB;1pp;202;20;1111;
@@ -2406,7 +2412,7 @@ SUB;1pp;202?1_2;20;1111;
 SUB;1pp;202?2_1;20;1111;
 SUB;1pp;202?2_2;20;0000;
 CMD;IF EXIST Setup-SpellPackB6.exe IF EXIST ".\BiG World Fixpack\_temp\override\SPPR342.SPL" move ".\BiG World Fixpack\_temp\override\SPPR342.SPL" ".\override\SPPR342.SPL"
-ANN;IF EXIST Setup-SpellPackB6.exe IF EXIST ".\BiG World Fixpack\_temp\override\SPWI317.SPL" move ".\BiG World Fixpack\_temp\override\SPWI317.SPL" ".\override\SPWI317.SPL"
+CMD;IF EXIST ".\BiG World Fixpack\_temp\override\SPWI317.SPL" move ".\BiG World Fixpack\_temp\override\SPWI317.SPL" ".\override\SPWI317.SPL";;;;D:SpellPackB6(2317)
 CMD;IF EXIST divine_remix.exe IF EXIST ".\BiG World Fixpack\_temp\override\SPPR342.SPL" move ".\BiG World Fixpack\_temp\override\SPPR342.SPL" ".\override\SPPR342.SPL"
 CMD;IF EXIST ".\BiG World Fixpack\_temp\override\SPWI414.SPL" move ".\BiG World Fixpack\_temp\override\SPWI414.SPL" ".\override\SPWI414.SPL"
 STD;NSCPortraits;0;20;1111;
