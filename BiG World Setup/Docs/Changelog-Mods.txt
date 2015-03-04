@@ -409,3 +409,7 @@ Updated: Adjusted some dependencies.
 20150303 - Updated by Silent
 Fixed: Baldur's Gate Enhanced Edition Graphics Overhaul downloading and extraction.
 Updated: Scales of Balance components and dependencies. Adjusted some dependencies.
+20150304 - Updated by Silent
+Fixed: Many minor bugs. Adjusted some dependencies.
+Removed: BP-BGT Worldmap for BGEE.
+Updated: Ascalons Breagar v7.00b 20150127, Ascalons Questpack v2.00b 20150205, BG1 NPCs at Beginning v2.2.
