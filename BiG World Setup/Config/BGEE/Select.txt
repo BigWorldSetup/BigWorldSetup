@@ -15,6 +15,7 @@ GRP;Stop
 SUB;bgeegraphics;0;13;1111;
 SUB;bgeegraphics;0?1_1;13;1111;
 SUB;bgeegraphics;0?1_2;13;0000;
+DWN;bgeegraphics_part2;0;13;1111;
 DWN;bgeegraphics_part3;0;13;1111;
 STD;DarkHorizonsBGee;0;02;0011;
 MUC;drizztsaga;Init;02;0011;
@@ -378,8 +379,9 @@ MUC;SoB;651;09;0000;
 MUC;SoB;652;09;0000;
 STD;SoB;680;09;0000;
 STD;SoB;700;09;0000;
+STD;SoB;800;09;0000;
 STD;SoB;805;09;0000;
-STD;SoB;8010;09;0000;
+STD;SoB;810;09;0000;
 MUC;SoB;Init;09;0000;
 MUC;SoB;815;09;0000;
 MUC;SoB;816;09;0000;
