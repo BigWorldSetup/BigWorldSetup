@@ -58,6 +58,7 @@ CMD;IF EXIST "BiG World Fixpack\_Gavin_Hotfixes" IF EXIST Setup-gavin.exe xcopy 
 CMD;IF EXIST "BiG World Fixpack\_iwditemfix" If EXIST Setup-iwditempack.exe xcopy /Y /S /E ".\BiG World Fixpack\_iwditemfix\*.*" "."
 CMD;IF EXIST "BiG World Fixpack\_shatterfix" If EXIST Setup-item_rev.exe xcopy /Y /S /E ".\BiG World Fixpack\_shatterfix\*.*" "."
 CMD;IF NOT EXIST Setup-lolfixer.exe xcopy /Y /S /E ".\BiG World Fixpack\_Lolfixer\*.*" "."
+CMD;IF EXIST "BiG World Textpack ENGLISH\AC_QUEST" rmdir /s /q ".\BiG World Textpack ENGLISH\AC_QUEST"
 ANN;For some foreign languages this adds English text files to the mods as a substitute to prevent that the installation failes because of missing files.
 CMD;IF EXIST "BiG World Textpack GERMAN" xcopy /Y /S /E ".\BiG World Textpack GERMAN\_English_files" ".\BiG World Textpack GERMAN"
 CMD;IF EXIST "BiG World Trimpack" IF NOT EXIST BWP_Trimpack.installed Call "BiG World Trimpack.bat"
