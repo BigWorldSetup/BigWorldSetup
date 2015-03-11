@@ -1193,6 +1193,11 @@ STD;sagaman;0;11;0111;
 STD;almaquest2;0;11;0111;
 ANN;#19. ASCENSION-RELATED MODS
 STD;res_fixer;0;01;1111;
+STD;kit_rev;0;19;0000;
+STD;kit_rev;100;16;0000;
+STD;kit_rev;110;16;0000;
+STD;kit_rev;120;16;0000;
+STD;kit_rev;130;16;0000;
 CMD;IF EXIST Setup-BP.exe copy /Y ".\BiG World Fixpack\_TheUndying_for_BP\*.*" ".\BP\SNIP";;;;D:TheUndying(1)
 CMD;IF EXIST ".\override\.itm" del ".\override\.itm"
 STD;BP;0;18;0111;
