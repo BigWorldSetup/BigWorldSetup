@@ -413,3 +413,13 @@ Updated: Scales of Balance components and dependencies. Adjusted some dependenci
 Fixed: Many minor bugs. Adjusted some dependencies.
 Removed: BP-BGT Worldmap for BGEE.
 Updated: Ascalons Breagar v7.00b 20150127, Ascalons Questpack v2.00b 20150205, BG1 NPCs at Beginning v2.2.
+20150307 - Updated by Silent
+Fixed: Adjusted dependencies.
+Updated: Gavin v9 beta 150110c, Scales of Balance v2.6.1.
+20150311 - Updated by Silent
+Added: Kit Revisions Beta 20.
+Fixed: Adjusted dependencies.
+Updated: NPC Strongholds v2, Scales of Balance v2.7.1.
+20150312 - Updated by Silent
+Added: Divine Remix for BGEE and BG2EE.
+Updated: Thalantyr Item Upgrade v4.1.
