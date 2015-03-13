@@ -423,3 +423,6 @@ Updated: NPC Strongholds v2, Scales of Balance v2.7.1.
 20150312 - Updated by Silent
 Added: Divine Remix for BGEE and BG2EE.
 Updated: Thalantyr Item Upgrade v4.1.
+20150313 - Updated by Silent
+Added: IWDification for BG2EE. Russian translation for BG and BGEE.
+Updated: Scales of Balance v2.8, The Picture Standard for BG:EE v0.6.

@@ -622,8 +622,21 @@ Func _Install_BG1Textpatch($p_Message)
 		EndIf
 		_Process_ChangeDir($g_BG2Dir, 1)
 	EndIf
+; ---------------------------------------------------------------------------------------------
+; install the Russian textpatch if needed
+; ---------------------------------------------------------------------------------------------
+	If $g_MLang[1] = 'RU' And Not StringInStr(FileRead($g_BG1Dir&'\WeiDU.log'), @LF&'~bg1textpack/bg1textpack.tp2') And $g_BG1Dir <> '-' Then; first installation
+		GUICtrlSetData($g_UI_Static[6][2], _GetTR($p_Message, 'L4')); => install textpatch
+		_Process_ChangeDir($g_BG1Dir, 1)
+		FileCopy($g_BG1Dir&'\dialog.tlk', $g_BG1Dir&'\dialogf.tlk', 1)
+		_Process_Run('Setup-bg1textpack.exe --no-exit-pause --noautoupdate --language 0 --skip-at-view --force-install-list 1', 'Setup-bg1textpack.exe')
+		If Not StringInStr(FileRead($g_BG1Dir&'\WeiDU.log'), @LF&'~bg1textpack/bg1textpack.tp2') Then
+			_Misc_MsgGUI(4, _GetTR($p_Message, 'T1'), _GetTR($p_Message, 'L1'), 1, _GetTR($p_Message, 'B1')); => cannot install correcfrbg
+			Exit
+		EndIf
+		_Process_ChangeDir($g_BG2Dir, 1)
+	EndIf
 EndFunc   ;==>_Install_BG1Textpatch
-
 ; ---------------------------------------------------------------------------------------------
 ; Get the answers to questions of a mod by it's setup-name
 ; ---------------------------------------------------------------------------------------------
