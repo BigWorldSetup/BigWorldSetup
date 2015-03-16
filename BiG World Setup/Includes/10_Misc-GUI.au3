@@ -477,25 +477,23 @@ Func _Misc_SetAvailableSelection()
 	Local $UI = IniRead($g_TRAIni, 'UI-Runtime', '2-I1', '')
 	Local $PreSelect = '', $Description = ''
 	$g_Flags[25] = ''
-	If $g_Flags[14] = 'BWS' Then; BWS-install => show preselections
-		For $n = 0 To 99
-			If StringLen($n) = 1 Then $n = '0' & $n
-			If Not FileExists($g_GConfDir & '\Preselection' & $n & '.ini') Then
-				If $n = '00' Then
-					ContinueLoop
-				Else
-					ExitLoop
-				EndIf
+	For $n = 0 To 99
+		If StringLen($n) = 1 Then $n = '0' & $n
+		If Not FileExists($g_GConfDir & '\Preselection' & $n & '.ini') Then
+			If $n = '00' Then
+				ContinueLoop
+			Else
+				ExitLoop
 			EndIf
-			$Text = IniRead($g_GConfDir & '\Mod-' & $g_ATrans[$g_ATNum] & '.ini', 'Preselect', $n, '')
-			If $Text = '' Then ContinueLoop
-			$Description &= '||' & $Text
-			$PreSelect &= '|' & StringLeft($Text, StringInStr($Text, ' - ') - 1)
-			$g_Flags[25] &= $n & '|'
-		Next
-		$Description = _GetTR($g_UI_Message, '2-L9') & '|' & StringTrimLeft($Description, 2) & '||'; => you can select gamers compilations
-		$PreSelect = StringTrimLeft($PreSelect, 1) & '|'
-	EndIf
+		EndIf
+		$Text = IniRead($g_GConfDir & '\Mod-' & $g_ATrans[$g_ATNum] & '.ini', 'Preselect', $n, '')
+		If $Text = '' Then ContinueLoop
+		$Description &= '||' & $Text
+		$PreSelect &= '|' & StringLeft($Text, StringInStr($Text, ' - ') - 1)
+		$g_Flags[25] &= $n & '|'
+	Next
+	$Description = _GetTR($g_UI_Message, '2-L9') & '|' & StringTrimLeft($Description, 2) & '||'; => you can select gamers compilations
+	If $PreSelect <> '' Then $PreSelect = StringTrimLeft($PreSelect, 1) & '|'
 	$g_Flags[25] &= '1|2|3|4|5'
 	_IniWrite($g_UI_Message, '2-I1', $PreSelect & $UI, 'O'); => preselections - adjust available preselections for later
 	$Split = StringSplit($PreSelect & $UI, '|'); => preselections
@@ -846,6 +844,7 @@ Func _Misc_SwichGUIToInstallMethod()
 	GUICtrlSetData($g_UI_Static[3][1], StringFormat(_GetSTR($Message, 'Static[3][1]'), $g_Flags[14])); => backup hint
 	GUICtrlSetData($g_UI_Interact[3][4], StringFormat(_GetSTR($Message, 'Interact[3][4]'), _GetGameName(), $g_Flags[14], $g_Flags[14])); => backup help
 	$g_ModIni = $g_GConfDir & '\Mod.ini'
+	_GetGlobalData()
 	$g_Setups = _CreateList('s')
 	If Not StringRegExp($g_Flags[14], 'BWS|BWP') Then GUICtrlSetState($g_UI_Interact[14][8], $GUI_HIDE); hide additional textpatch-option
 	GUICtrlSetState($g_UI_Interact[14][3], $State); install options

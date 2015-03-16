@@ -7,6 +7,7 @@ Func Au3Extract($p_Num = 0)
 	Local $Message = IniReadSection($g_TRAIni, 'Ex-Au3Extract')
 	_PrintDebug('+' & @ScriptLineNumber & ' Calling Au3Extract')
 	$g_LogFile = $g_LogDir & '\BiG World Extract Debug.txt'
+	$g_CurrentPackages = _GetCurrent(); items may be removed due to EET-install-exception
 	_Process_SwitchEdit(0, 1)
 	Local $Prefix[4] = [3, '', 'Add', $g_ATrans[$g_ATNum] & '-Add']
 	Local $Sizes = _GetArchiveSizes()
@@ -55,7 +56,7 @@ Func Au3Extract($p_Num = 0)
 			$TP2Exists = _Test_GetCustomTP2($g_CurrentPackages[$e][0]); no need for folderchecks yet
 			If $TP2Exists = '0' And $Success <> '0' Then; Do some more stuff to get it done
 				$DirList = StringSplit(StringStripCR($g_ConsoleOutput), @LF)
-				For $n = $DirList[0] To 1 Step -1
+				For $n = $DirList[0] To 3 Step -1
 					If StringInStr($DirList[$n], 'Everything is Ok') Then
 						$Dir = StringRegExpReplace($DirList[$n - 2], '(?i)extracting\s*|\x5c.*', ''); stripped 7z info and everything after a potential backslash
 						$IsDir = FileGetAttrib($g_GameDir & '\' & $Dir); get the attrib of this file or directory
@@ -141,6 +142,7 @@ Func Au3ExFix($p_Num)
 	Local $Message = IniReadSection($g_TRAIni, 'Ex-Au3Extract')
 	_PrintDebug('+' & @ScriptLineNumber & ' Calling Au3ExFix')
 	$g_LogFile = $g_LogDir & '\BiG World Extract Debug.txt'
+	$g_CurrentPackages = _GetCurrent(); May be needed if BWS is restartet during fixing
 	$g_Flags[0] = 1
 	_Process_SwitchEdit(0, 0)
 	GUICtrlSetData($g_UI_Interact[6][4], _GetSTR($Message, 'H1')); => help text
@@ -375,7 +377,6 @@ Func Au3ExFix($p_Num)
 			EndIf
 		Next
 	EndIf
-	$g_CurrentPackages = IniReadSection($g_UsrIni, 'Current'); reread the selected values
 	IniWrite($g_BWSIni, 'Order', 'Au3ExFix', 0); Skip this one if the Setup is rerun
 	$g_FItem = 1
 	Return
@@ -418,7 +419,6 @@ Func Au3ExTest($p_Num = 0)
 			If $Test[0][0] <> 0 Then _Depend_RemoveFromCurrent($Test); remove mods/tp2-files that cannot be installed due to dependencies
 			$Fault=IniReadSection($g_BWSIni, 'Faults'); remove mods with faults
 			_Depend_RemoveFromCurrent($Fault, 0); remove mods that could not be loaded completely
-			$g_CurrentPackages = IniReadSection($g_UsrIni, 'Current'); reread the selected values
 			_Extract_EndAu3ExTest()
 			Return
 		Else
@@ -548,7 +548,6 @@ EndFunc   ;==>_CloseNSISWeiDUs
 ; ---------------------------------------------------------------------------------------------
 Func _Extract_EndAu3ExTest()
 	_Process_SwitchEdit(0, 0)
-	$g_CurrentPackages = IniReadSection($g_UsrIni, 'Current'); reread the selected values
 	IniDelete($g_BWSIni, 'Faults')
 	IniWrite($g_BWSIni, 'Order', 'Au3ExTest', 0); Skip this one if the Setup is rerun
 	$g_FItem = 1
@@ -692,7 +691,9 @@ Func _Extract_InstallNSIS($p_Dir); $p_Dir=dir
 			FileWrite($g_LogFile, '>'& $Files[$f] & @CRLF)
 			ShellExecute($p_Dir & '\' & $Files[$f], ' /S /D='&$g_GameDir & '\NSIS'); run will not work with setups and windows7+UAC
 			While ProcessExists($Files[$f])
-				ControlClick('[Class:#32770]', '', ControlGetFocus('[Class:#32770]'))
+				ControlSend('[Class:#32770]', '', '', '{Enter}')
+				ControlSend('[Class:#32770]', '', 'Button1', '{Space}')
+				ControlSend('[Class:#32770]', '', 'Button1', '{Enter}')
 				_CloseNSISWeiDUs(); will not work on windows7+UAC since setups are running as administrator and thus actions on those windows are forbidden
 				Sleep(100)
 			WEnd

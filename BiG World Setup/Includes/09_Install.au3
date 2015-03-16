@@ -258,7 +258,8 @@ Func Au3Install($p_Num = 0)
 	Local $Message = IniReadSection($g_TRAIni, 'IN-Au3Install')
 	$g_LogFile = $g_LogDir & '\BiG World Install Debug.txt'
 	Local $Group = '-1', $CurrentMod, $Setup[10], $Type=StringRegExpReplace($g_Flags[14], '(?i)BWS|BWP', 'BG2')
-	Local $Logic = IniRead($g_UsrIni, 'Options', 'Logic3', 1), $Ref=FileGetSize($g_GameDir&'\WeiDU\WeiDU.exe')
+	Local $Logic = IniRead($g_UsrIni, 'Options', 'Logic3', 1), $Ref=FileGetSize($g_GameDir&'\WeiDU\WeiDU.exe'), $EET_Mods
+	If $g_Flags[21] <> '' Then $EET_Mods=$g_Flags[20+StringRegExpReplace($g_Flags[14],  '(?i)\ABG|EE\z', '')]
 	GUICtrlSetData($g_UI_Interact[6][4], StringFormat(_GetSTR($Message, 'H1'), $Type)); => help text
 	_Process_ChangeDir($g_GameDir, 1)
 	FileClose(FileOpen($g_GameDir&'\BWS_Dummy.nul', 2))
@@ -358,6 +359,7 @@ Func Au3Install($p_Num = 0)
 			If $CurrentMod <> $Setup[2] Then; same mod > no update
 				$Setup[5]=_GetTra($Setup[2], 'S')
 				$Setup[7]=IniRead($g_MODIni, $Setup[2], 'Name', $Setup[2]); Modname
+				If $EET_Mods <> '' And StringRegExp($EET_Mods, '(?i)(\A|\x7c)'&$Setup[2]&'(\z|\x7c)') = 0 Then ContinueLoop; this mod should not be installed now
 				If IniRead($g_UsrIni, 'Current', $Setup[2], '') = '' Then ContinueLoop; the user did not select the mod at all
 ; ---------------------------------------------------------------------------------------------
 ; ask what to do if the mod is missing
@@ -476,6 +478,16 @@ Func Au3Install($p_Num = 0)
 	_Install_CreateTP2Entry('BWS_Final', 'Make quick-logged WeiDU-entries visible'); use am unintall with a normal log to show hidden names (which used quick-log during installation)
 	_Process_Run('WeiDU.exe "Setup-BWS_Final.tp2" --no-exit-pause --game "." --language 0 --force-uninstall-list 0 --log "Setup-BWS_Final.Debug"', 'WeiDU.exe')
 	FileClose(FileOpen($g_GameDir&'\WeiDU\BWP_Backup\0\MAPPINGS.0', 9))
+	If StringInStr($g_GConfDir, 'BG2EE') And $g_Flags[14] = 'BG1EE' Then; this is the end of the BG1EE install, now install BG2EE and import BG1EE with EET
+		IniWrite($g_UsrIni,  'Options', 'AppType', 'BG2EE:BG2EE'); change $g_Flags[14] (and so the games type) to BG2EE
+		$Order=StringSplit('Au3CleanInst|Au3PrepInst|Au3NetFix|Au3Extract|Au3ExFix|Au3ExTest|Au3RunFix|Au3Install', '|'); things to do during BG2EE
+		For $o=1 to $Order[0]
+			IniWrite($g_BWSIni, 'Order', $Order[$o], 1); re-enable BG2EE-install
+		Next
+		IniWrite($g_BWSIni, 'Options', 'Start', '1')
+		$g_CurrentOrder=3; install will resume at Au3GetVal
+		Return
+	EndIf
 ; ---------------------------------------------------------------------------------------------
 ; show not installed mods and say goodbye
 ; ---------------------------------------------------------------------------------------------
@@ -545,14 +557,24 @@ EndFunc   ;==>Au3Install
 ; show not installed mods and say goodbye
 ; ---------------------------------------------------------------------------------------------
 Func _Install_BatchRun()
-	$File = @TempDir&'\BiG World Install.bat'
-	If Not FileExists($File) Then $File = $g_BG2Dir&'\BiG World Install.bat'
-	If StringRegExp(@OSVersion, 'WIN_2008R2|WIN_7|WIN_2008|WIN_VISTA') = 1 And StringInStr($g_BG2Dir, @ProgramFilesDir) And IsAdmin() = 0 Then
+	$File=$g_BG2Dir&'\BiG World Install.bat'
+	If Not FileExists($File) Then Exit
+	$Text=FileRead($File)
+	If Not StringInStr($Text, 'cd /D "'&$g_BG2Dir&'"') Then; enable run as admin
+		$Success=FileMove($File, $g_BG2Dir&'\BiG World Install_with_UAC_problem.bat', 1)
+		If $Success = 1 Then
+			$Text='cd /D "'&$g_BG2Dir&'"'&@CRLF&$Text
+			$Handle=FileOpen($File, 2)
+			FileWrite($Handle, $Text)
+			FileClose($Handle)
+		EndIf
+	EndIf
+	If StringRegExp(@OSVersion, 'WIN_2008R2|WIN_7|WIN_2008|WIN_VISTA') = 1 And IsAdmin() = 0 Then
 		ShellExecute($File, '', $g_BG2Dir, 'runas')
 	Else
 		ShellExecute($File, '', $g_BG2Dir)
 	EndIf
-	Au3Exit()
+;~ 	Au3Exit()
 EndFunc   ;==>_Install_BatchRun
 
 ; ---------------------------------------------------------------------------------------------
@@ -811,7 +833,7 @@ Func _Install_GetEELang($p_String='', $p_Version=1)
 	If $p_String='' Then IniRead($g_TRAIni, 'IN-Au3PrepInst', 'L4', '')
 	Local $Lang='en_US', $MyIni=@MyDocumentsDir&"\Baldur's Gate - Enhanced Edition\Baldur.ini"
 	If $p_Version=2 Then $MyIni=@MyDocumentsDir&"\Baldur's Gate II - Enhanced Edition\Baldur.ini"
-	If $p_Version=3 Then $MyIni=@MyDocumentsDir&"\Icewind Dale - Enhanced Edition\Baldur.ini"
+	If $p_Version=3 Then $MyIni=@MyDocumentsDir&"\IceWind Dale - Enhanced Edition\Baldur.ini"
 	If FileExists($MyIni) Then
 		$Array=StringSplit(StringStripCR(FileRead($MyIni)), @LF)
 		For $a=1 to $Array[0]

@@ -748,6 +748,45 @@ Func _Test_GetCustomTP2($p_Setup, $p_Dir='\')
 EndFunc   ;==>_Test_GetCustomTP2
 
 ; ---------------------------------------------------------------------------------------------
+; Check if EET will be use to install BG1 using the current selection, list BG1/BG2 mods
+; ---------------------------------------------------------------------------------------------
+Func _Test_Get_EET_Mods()
+	Local $BG1EE_Mods='WeiDU|eekeeper|', $BG2EE_Mods='WeiDU|eekeeper|', $EETMods, $DoBG1=0
+	$g_Flags[21]=''; will contain BG1-mods in EET -> Empty means no BG1-install
+	$g_Flags[22]=''; will contain BG2-mods in EET
+	If Not StringInStr($g_GConfDir, 'BG2EE') Then Return
+	$Current = IniReadSection($g_UsrIni, 'Current')
+	If _IniRead($Current, 'EET', '') = '' Then Return
+	$Select=StringSplit(StringStripCR(FileRead($g_GConfDir&'\Select.txt')), @LF)
+	$Purge=IniReadSection($g_GConfDir&'\Game.ini', 'Purge')
+	For $p=1 to $Purge[0][0]
+		If StringLeft($Purge[$p][1], 1) = 'D' And StringRegExp($Purge[$p][1], '(?i)EET\x28\x2d\x29\z') Then; these mods require EET
+			$EETMods&=StringRegExpReplace($Purge[$p][1], '(?i)\AD\x3a|\AC\x3a[[:alpha:]]{2}\x3a|\x3a(BGT|EET)\x28\x2d\x29\z|\x28\x2d\x29|\x3a[[:alpha:]]{2}\z|\x3a\d[\x2e\d|\x7c]{1,}\z', '')&'|'; remove D:|C:XX:|:BGT(-)|(-)|:XX
+		EndIf
+	Next
+	$EETMods=StringTrimRight($EETMods, 1)
+	For $s=1 to $Select[0]
+		If StringRegExp($Select[$s], '(?i)\A(ANN|CMD|GRP);') Then ContinueLoop
+		$Mod=StringRegExpReplace($Select[$s], '\A...;|;.*\z', '')
+		If StringRegExp($Mod, '(?i)\A('&$EETMods&')\z') Then; it's depending on EET and it's installed before EET -> this is a BG1EE-mod
+			If StringRegExp($BG1EE_Mods, '(?i)(\A|\x7c)'&$Mod&'(\z|\x7c)') = 0 Then
+				If $DoBG1=0 And _IniRead($Current, $Mod, '') <> '' Then $DoBG1=1
+				$BG1EE_Mods&=$Mod&'|'
+				ContinueLoop
+			EndIf
+		EndIf
+		If StringInStr($Select[$s], ';EET;') Then $EETMods='BG1_install_stopped'
+		If Not StringRegExp($Mod, '(?i)\A('&$BG1EE_Mods&')\z') Then; if it's not an BG1EE-mod, it should be BG2EE...
+			If (Not StringRegExp($BG2EE_Mods, '(?i)(\A|\x7c)'&$Mod&'(\z|\x7c)')) Then $BG2EE_Mods&=$Mod&'|'
+		EndIf
+	Next
+	$g_Flags[21]=StringTrimRight($BG1EE_Mods, 1)
+	$g_Flags[22]=StringTrimRight($BG2EE_Mods, 1)
+	If $DoBG1 = 0 Then $g_Flags[21]=''
+	Return $DoBG1
+EndFunc    ;==>_Test_Get_EET_Mods
+
+; ---------------------------------------------------------------------------------------------
 ; test if the folder that contains the mods data is present
 ; ---------------------------------------------------------------------------------------------
 Func _Test_GetModFolder($p_TP2)

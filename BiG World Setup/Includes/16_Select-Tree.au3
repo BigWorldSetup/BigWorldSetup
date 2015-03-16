@@ -47,6 +47,10 @@ Func _Tree_EndSelection()
 		IniDelete($g_UsrIni, 'Current', 'widescreen')
 	EndIf
 	IniWrite($g_BWSIni, 'Order', 'Au3Select', 0); Enable the restart of a "paused" installation
+	If _Test_Get_EET_Mods() = 1 Then
+		IniWrite($g_UsrIni, 'Options', 'AppType', 'BG2EE:BG1EE'); change $g_Flags[14] (and so the games type) to BG1EE
+		IniWrite($g_BWSIni, 'Order', 'Au3CleanInst', 1); enable a backup of BG1
+	EndIf
 	DllClose($g_UDll); close the dll for detecting keypresses
 	_Misc_SetTab(6); switch to Console-tab
 EndFunc    ;==>_Tree_EndSelection
@@ -329,6 +333,7 @@ Func _Tree_Populate($p_Show=1)
 				$s=$Tmp
 				ContinueLoop
 			EndIf
+			If $Setup[$s][8]+3 > $g_Tags[0][0] Then $Setup[$s][8] = 0; don't crash if tag does not fit -> move it to general
 			If $g_CHTreeviewItem[$Setup[$s][8]] = '' Then; if current tree does not exist, create it
 				If $g_Flags[21]=0 Then; new theme-based-sorting
 					$g_CHTreeviewItem[$Setup[$s][8]] = GUICtrlCreateTreeViewItem($g_Tags[$Setup[$s][8]+3][1], $g_UI_Interact[4][1]); create a treeviewitem (gui-element) for the chapter itself (headline)
@@ -667,11 +672,12 @@ Func _Tree_PurgeUnNeeded()
 			If StringLeft($ReadSection[$r][1], 1) = 'D' Then; look if depends are met
 				If StringRegExp($ReadSection[$r][1], ':'&$g_MLang[1]&'\z') Then ContinueLoop; only remove mods that require a certain language
 				If $g_BG1Dir <> '-' And StringRegExp($ReadSection[$r][1], '(?i)BGT\x28\x2d\x29\z') Then ContinueLoop; remove mods that require BGT
+				If $g_BG1EEDir <> '-' And StringRegExp($ReadSection[$r][1], '(?i)EET\x28\x2d\x29\z') Then ContinueLoop; remove mods that require EET
 				If $Version <> '-' And StringRegExp($ReadSection[$r][1], $Version) Then ContinueLoop; remove mods that require a certain version
 			Else; look for conflicts
 				If Not StringRegExp($ReadSection[$r][1], '\x3a'&$g_MLang[1]&'\x3a') Then ContinueLoop; remove mods only if certain language was selected
 			EndIf
-			$Line=StringRegExpReplace($ReadSection[$r][1], '(?i)\AD\x3a|\AC\x3a[[:alpha:]]{2}\x3a|\x3aBGT\x28\x2d\x29\z|\x28\x2d\x29|\x3a[[:alpha:]]{2}\z|\x3a\d[\x2e\d|\x7c]{1,}\z', ''); remove D:|C:XX:|:BGT(-)|(-)|:XX
+			$Line=StringRegExpReplace($ReadSection[$r][1], '(?i)\AD\x3a|\AC\x3a[[:alpha:]]{2}\x3a|\x3a(BGT|EET)\x28\x2d\x29\z|\x28\x2d\x29|\x3a[[:alpha:]]{2}\z|\x3a\d[\x2e\d|\x7c]{1,}\z', ''); remove D:|C:XX:|:BGT(-)|:EET(-)|(-)|:XX
 			$g_Skip&='|'&StringReplace(StringReplace(StringReplace($Line, '&', '|'), '(', ';('), '?', '\x3f')
 		Next
 	EndIf
