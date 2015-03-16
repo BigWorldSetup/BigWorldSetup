@@ -7,6 +7,12 @@ Func _Tree_EndSelection()
 	If _Test_CheckBG1TP() = 1 Then IniDelete($g_UsrIni, 'Current', 'BG1TP'); Remove download for german totsc-textpatch if not required
 	If _Test_CheckTotSCFiles_BG1() = 1 Then IniDelete($g_UsrIni, 'Current', 'BG1TotSCSound'); Remove download for spanish totsc-sounds if not required
 	_ResetInstall(0); Reset the installation-order
+	Local $Ignores[$g_Connections[0][0]][2]; save ignored warnings for reloads
+	For $c=1 to $g_Connections[0][0]
+		If StringLeft($g_Connections[$c][3], 1) = 'W' Then _IniWrite($Ignores, $g_Connections[$c][0], $g_Connections[$c][1])
+	Next
+	ReDim $Ignores[$Ignores[0][0]+1][2]
+	IniWriteSection($g_UsrIni, 'IgnoredConnections', $Ignores)
 	For $l=1 to 3
 		$Current=GUICtrlRead($g_UI_Interact[14][$l])
 		$Array = StringSplit(IniRead($g_TRAIni, 'UI-Buildtime', 'Interact[14]['&$l&']', ''), '|')
@@ -41,7 +47,7 @@ Func _Tree_EndSelection()
 		IniDelete($g_UsrIni, 'Current', 'widescreen')
 	EndIf
 	IniWrite($g_BWSIni, 'Order', 'Au3Select', 0); Enable the restart of a "paused" installation
-	DllClose($g_UDll); close the dll for detecting space
+	DllClose($g_UDll); close the dll for detecting keypresses
 	_Misc_SetTab(6); switch to Console-tab
 EndFunc    ;==>_Tree_EndSelection
 
@@ -98,8 +104,15 @@ Func _Tree_GetCurrentSelection($p_Show = 0, $p_Write=''); $a=hide seletion-GUI
 	$DeSelect[0][0] = 0
 	If $p_Show = 0 Then _Misc_ProgressGUI(_GetTR($g_UI_Message, '4-T2'), _GetTR($g_UI_Message, '4-L4')); => write entries
 	IniDelete($g_UsrIni, 'Current'); delete old selections
-	IniWrite($g_UsrIni, 'Options', 'BG1', StringRegExpReplace(GUICtrlRead($g_UI_Interact[2][1]), '\x5c{1,}\z', ''))
-	IniWrite($g_UsrIni, 'Options', 'BG2', StringRegExpReplace(GUICtrlRead($g_UI_Interact[2][2]), '\x5c{1,}\z', ''))
+	If $g_Flags[14] = 'BG2EE' Then
+		IniWrite($g_UsrIni, 'Options', 'BGEE', StringRegExpReplace(GUICtrlRead($g_UI_Interact[2][1]), '\x5c{1,}\z', ''))
+		IniWrite($g_UsrIni, 'Options', 'BG2EE', StringRegExpReplace(GUICtrlRead($g_UI_Interact[2][2]), '\x5c{1,}\z', ''))
+	ElseIf StringRegExp($g_Flags, 'BWP|BWS') Then
+		IniWrite($g_UsrIni, 'Options', 'BG1', StringRegExpReplace(GUICtrlRead($g_UI_Interact[2][1]), '\x5c{1,}\z', ''))
+		IniWrite($g_UsrIni, 'Options', 'BG2', StringRegExpReplace(GUICtrlRead($g_UI_Interact[2][2]), '\x5c{1,}\z', ''))
+	Else
+		IniWrite($g_UsrIni, 'Options',  $g_Flags[14], StringRegExpReplace(GUICtrlRead($g_UI_Interact[2][2]), '\x5c{1,}\z', ''))
+	EndIf
 	IniWrite($g_UsrIni, 'Options', 'Download', StringRegExpReplace(GUICtrlRead($g_UI_Interact[2][3]), '\x5c{1,}\z', ''))
 	Local $Comp = '', $DComp = ''
 	$Setup = $g_CentralArray[$g_CentralArray[0][1]][0]
@@ -316,6 +329,7 @@ Func _Tree_Populate($p_Show=1)
 				$s=$Tmp
 				ContinueLoop
 			EndIf
+			If $Setup[$s][8]+3 > $g_Tags[0][0] Then $Setup[$s][8] = 0; don't crash if tag does not fit -> move it to general
 			If $g_CHTreeviewItem[$Setup[$s][8]] = '' Then; if current tree does not exist, create it
 				If $g_Flags[21]=0 Then; new theme-based-sorting
 					$g_CHTreeviewItem[$Setup[$s][8]] = GUICtrlCreateTreeViewItem($g_Tags[$Setup[$s][8]+3][1], $g_UI_Interact[4][1]); create a treeviewitem (gui-element) for the chapter itself (headline)
@@ -530,10 +544,18 @@ Func _Tree_Populate_PreCheck()
 	If _Misc_LS_Verify() = 0 Then Return 0; look if language settings are ok
 ;	If _Test_ACP() = 1 Then Return 0; remove infiniy-mods if codepage may not support the mods files characters
 	If $g_CentralArray[0][0] = '' Then _Tree_Populate(1); build the tree if needed
-	If $g_BG1Dir = '-' Then; BG2-only-install
-		If Not StringInStr($g_Skip, '|BGT|') Then $Rebuild=1; skipped mods did not include BGT -> rebuild
-	Else; BGT-install
-		If StringInStr($g_Skip, '|BGT|') Then $Rebuild=1; skipped mods did include BGT -> rebuild
+	If $g_Flags[14] = 'BG2EE' Then
+		If $g_BGEEDir = '-' Then; BG2EE-only-install
+			If Not StringInStr($g_Skip, '|EET|') Then $Rebuild=1; skipped mods did not include EET -> rebuild
+		Else; EET-install
+			If StringInStr($g_Skip, '|EET|') Then $Rebuild=1; skipped mods did include EET -> rebuild
+		EndIf
+	ElseIf StringRegExp($g_Flags[14], 'BWP|BWS') Then
+		If $g_BG1Dir = '-' Then; BG2-only-install
+			If Not StringInStr($g_Skip, '|BGT|') Then $Rebuild=1; skipped mods did not include BGT -> rebuild
+		Else; BGT-install
+			If StringInStr($g_Skip, '|BGT|') Then $Rebuild=1; skipped mods did include BGT -> rebuild
+		EndIf
 	EndIf
 	If $Rebuild Then _Misc_ReBuildTreeView()
 	Return 1
@@ -638,19 +660,23 @@ Func _Tree_PurgeUnNeeded()
 	Local $Version='-'
 	$g_Skip='BGTNeJ;0;19;0001'
 	If $g_BG1Dir = '-' Then $g_Skip&='|BGT'
+	If $g_BGEEDir = '-' Then $g_Skip&='|EET'
 	If $g_Flags[14]='IWD1' Then $Version=StringReplace(FileGetVersion($g_IWD1Dir&'\idmain.exe'), '.', '\x2e')
 	$ReadSection=IniReadSection($g_GConfDir&'\Game.ini', 'Purge')
-	For $r=1 to $ReadSection[0][0]
-		If StringLeft($ReadSection[$r][1], 1) = 'D' Then; look if depends are met
-			If StringRegExp($ReadSection[$r][1], ':'&$g_MLang[1]&'\z') Then ContinueLoop; only remove mods that require a certain language
-			If $g_BG1Dir <> '-' And StringRegExp($ReadSection[$r][1], '(?i)BGT\x28\x2d\x29\z') Then ContinueLoop; remove mods that require BGT
-			If $Version <> '-' And StringRegExp($ReadSection[$r][1], $Version) Then ContinueLoop; remove mods that require a certain version
-		Else; look for conflicts
-			If Not StringRegExp($ReadSection[$r][1], '\x3a'&$g_MLang[1]&'\x3a') Then ContinueLoop; remove mods only if certain language was selected
-		EndIf
-		$Line=StringRegExpReplace($ReadSection[$r][1], '(?i)\AD\x3a|\AC\x3a[[:alpha:]]{2}\x3a|\x3aBGT\x28\x2d\x29\z|\x28\x2d\x29|\x3a[[:alpha:]]{2}\z|\x3a\d[\x2e\d|\x7c]{1,}\z', ''); remove D:|C:XX:|:BGT(-)|(-)|:XX
-		$g_Skip&='|'&StringReplace(StringReplace(StringReplace($Line, '&', '|'), '(', ';('), '?', '\x3f')
-	Next
+	If IsArray($ReadSection) Then
+		For $r=1 to $ReadSection[0][0]
+			If StringLeft($ReadSection[$r][1], 1) = 'D' Then; look if depends are met
+				If StringRegExp($ReadSection[$r][1], ':'&$g_MLang[1]&'\z') Then ContinueLoop; only remove mods that require a certain language
+				If $g_BG1Dir <> '-' And StringRegExp($ReadSection[$r][1], '(?i)BGT\x28\x2d\x29\z') Then ContinueLoop; remove mods that require BGT
+				If $g_BGEEDir <> '-' And StringRegExp($ReadSection[$r][1], '(?i)EET\x28\x2d\x29\z') Then ContinueLoop; remove mods that require EET
+				If $Version <> '-' And StringRegExp($ReadSection[$r][1], $Version) Then ContinueLoop; remove mods that require a certain version
+			Else; look for conflicts
+				If Not StringRegExp($ReadSection[$r][1], '\x3a'&$g_MLang[1]&'\x3a') Then ContinueLoop; remove mods only if certain language was selected
+			EndIf
+			$Line=StringRegExpReplace($ReadSection[$r][1], '(?i)\AD\x3a|\AC\x3a[[:alpha:]]{2}\x3a|\x3a(BGT|EET)\x28\x2d\x29\z|\x28\x2d\x29|\x3a[[:alpha:]]{2}\z|\x3a\d[\x2e\d|\x7c]{1,}\z', ''); remove D:|C:XX:|:BGT(-)|:EET(-)|(-)|:XX
+			$g_Skip&='|'&StringReplace(StringReplace(StringReplace($Line, '&', '|'), '(', ';('), '?', '\x3f')
+		Next
+	EndIf
 	If _Test_ACP() = 1 Then Exit
 	If $g_BG1Dir <> '-' And $g_MLang[0] = 2 And $g_MLang[1] = 'GE' Then; second $g_Mlang-entry is --
 		$g_Skip&='|BG1NPC|BG1NPCMusic'

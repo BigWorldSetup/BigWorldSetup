@@ -969,8 +969,18 @@ Fixed: Download from Dropbox (thanks to dabus).
 20141007 - Updated by Silent
 Fixed: Link to Clean-Up.bat.
 Updated: German translation (thanks to dabus).
+20140128
+Added: The last selected pre-selection is saved, adjusted BWS-selections will be saved as an own preselection. Dependencies and conflicts may be configured to be ignored. Adjusted BG2EE so BG1EE may be integrated via EET (adjusted folder-selection, tests, language-check for BGT/EET, purging when EET is missing).
+Changed: Cleanup starts through BiG World Install.bat.
+Fixed: Stuff that came up with testing.
 20150103 - Updated by Silent
 Changed: Disabled autoreplacement old WeiDU.
 Fixed: Breach selection limit (thanks to dabus). [_GetArchiveSizes] Returned old 7zip.
+201502
+Added: Install EET with BG1 mods in one go. Remove mods for BG1EE from BG2EE install and vice versa. Added IWD1EE support.
+Changed: You can have preselections (and by this reload your last change through preselect00.ini) in every game.
+Fixed: Filesize-updates during downloads should work as expected if AutoIt3 detects OS as Vista. Closing of NSIS questions should work. Removed a few useless updates of the current selections. Don't crash if the tag-number (representing NPC, BG1 NPC) is too high/does not exist in the current game -> in those cases, just put the mod into general. Fixed last selection if no preselectXX.ini is present. Fix BiG World Install.bat so it will work with "Run as Admin".
 20150302 - Updated by Silent
 Fixed: Extraction error (thanks to dabus). [_Test_GetCustomTP2]
+20150315
+Added: Copy information for WeiDU-XY.ini, Mod.ini and Mod-XY.ini from a list of small "globaly usable" files instead of having to maintain several folders with same information. [_GetGlobalData]

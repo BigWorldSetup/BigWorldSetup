@@ -141,6 +141,7 @@ Func Au3ExFix($p_Num)
 	Local $Message = IniReadSection($g_TRAIni, 'Ex-Au3Extract')
 	_PrintDebug('+' & @ScriptLineNumber & ' Calling Au3ExFix')
 	$g_LogFile = $g_LogDir & '\BiG World Extract Debug.txt'
+	$g_CurrentPackages = _GetCurrent(); May be needed if BWS is restartet during fixing
 	$g_Flags[0] = 1
 	_Process_SwitchEdit(0, 0)
 	GUICtrlSetData($g_UI_Interact[6][4], _GetSTR($Message, 'H1')); => help text
@@ -194,7 +195,7 @@ Func Au3ExFix($p_Num)
 				If FileExists($g_BG2Dir&'\infinityanimations\content\'&Chr($IATest[$i])&'*') Then; found one => codepage should be ok
 					$Found=1
 					ExitLoop
-				EndIf	
+				EndIf
 			Next
 			If $Found = 0 Then; possible codepage-error
 				$String=''
@@ -205,7 +206,7 @@ Func Au3ExFix($p_Num)
 				$Answer = _Misc_MsgGUI(3, _GetTR($g_UI_Message, '0-T1'), StringFormat(_IniRead($Message, 'L8', ''), $String, 'infinityanimations\content'), 2); => not all files were found
 				If $Answer = 1 Then Exit
 			EndIf
-		EndIf	
+		EndIf
 	EndIf
 ; ================         move files from sub-directories to main     ================
 	If StringRegExp($g_Flags[14], 'BWP|BWS') And FileExists($g_GameDir&'\CtBv1.13a\CtBv1.13') Then
@@ -234,7 +235,7 @@ Func Au3ExFix($p_Num)
 ; ==============  Fix textstring so weidu will not fail to install the mod ============
 	If StringRegExp($g_Flags[14], 'BWP|BWS') And FileExists($g_BG2Dir&'\setup-bonehillv275.exe') Then
 		$Text=FileRead($g_BG2Dir&'\bonehillv275\Language\deutsch\D\BHARRNES.TRA')
-		If StringRegExp($Text, '\r\nlassen') Then 
+		If StringRegExp($Text, '\r\nlassen') Then
 			$Text=StringReplace($Text, @CRLF&'lassen. Habt Ihr verstanden? ~ '&@CRLF, @CRLF)
 			$Text=StringReplace($Text, 'werde ich Euch kommen ', 'werde ich Euch kommen lassen. Habt Ihr verstanden? ~ ')
 			$Handle=FileOpen($g_BG2Dir&'\bonehillv275\Language\deutsch\D\BHARRNES.TRA', 2)
@@ -254,7 +255,7 @@ Func Au3ExFix($p_Num)
 			FileClose($Handle)
 		EndIf
 	EndIf
-; ==============      Fix keyword-test for _Test_GetModFolder-function     ============	
+; ==============      Fix keyword-test for _Test_GetModFolder-function     ============
 	If StringRegExp($g_Flags[14], 'BWP|BWS') And FileExists($g_BG2Dir&'\Setup-NeJ2v68.tp2') Then
 		$Text=FileRead($g_BG2Dir&'\Setup-NeJ2v68.tp2')
 		If StringRegExp($Text, '\A\t{2}') Then
@@ -276,14 +277,14 @@ Func Au3ExFix($p_Num)
 			FileWrite($g_LogFile, '>Helarine Mod\JklHel\* .' & @CRLF)
 			_Extract_MoveMod('Helarine Mod')
 			FileMove($g_BGEEDir&'\JklHel\Helarine_BGEE.tp2', $g_BGEEDir&'\JklHel\JklHel.tp2')
-		EndIf	
+		EndIf
 		If FileExists($g_BGEEDir&'\setup-bpseries.exe') Then
 			If FileExists($g_BGEEDir&'\WeiDU') And StringInStr(FileGetAttrib($g_BGEEDir&'\WeiDU'), 'D') Then IniDelete($g_BWSIni, 'Faults', 'BPSeries')
 		EndIf
 		If FileExists($g_BGEEDir&'\kitpack.tp2') Then DirCreate($g_BGEEDir&'\kitpackbackup')
 		If FileExists($g_BGEEDir&'\kitpack.tp2') Then DirCreate($g_BGEEDir&'\SBACKUP')
 	EndIf
-; ==============    create the mods folder so the tp2-test will not fail   ============		
+; ==============    create the mods folder so the tp2-test will not fail   ============
 	If StringRegExp($g_Flags[14], 'BWP|BWS|BGEE|BG2EE') And FileExists($g_GameDir&'\stratagems') Then DirCreate($g_GameDir&'\stratagems_external')
 	If StringRegExp($g_Flags[14], 'BWP|BWS|BG2EE') And FileExists($g_GameDir&'\wheels') Then DirCreate($g_GameDir&'\stratagems_external')
 	If StringRegExp($g_Flags[14], 'BWP|BWS|BG2') Then
@@ -312,7 +313,7 @@ Func Au3ExFix($p_Num)
 			If $Test <> '' Then; check for a file if package is not a weidu-mod
 				$Test=StringSplit($Test, ':')
 				If FileExists($g_GameDir&'\'&$Test[1]) Then ContinueLoop
-			EndIf	
+			EndIf
 			$Fault = IniRead($g_BWSIni, 'Faults', $g_CurrentPackages[$e][0], '')
 			If Not StringInStr($Fault, '1') Then IniWrite($g_BWSIni, 'Faults', $g_CurrentPackages[$e][0], '1'&$Fault); save the error
 		EndIf
@@ -340,7 +341,7 @@ Func Au3ExFix($p_Num)
 					$Rename = IniRead($g_MODIni, $Fault[$f][0], 'REN', ''); look for some non-standard-filenames that will be renamed later
 					If $Rename <> '' Then $TP2 = _Test_GetTP2($Rename, '\')
 				EndIf
-				If $TP2 <> '0' Then 
+				If $TP2 <> '0' Then
 					If $TP2 <> '' Then FileMove($TP2, $TP2&'.dlt', 1)
 				Else
 					$Test = _IniRead($ReadSection, 'Test', '')
@@ -360,7 +361,6 @@ Func Au3ExFix($p_Num)
 			EndIf
 		Next
 	EndIf
-	$g_CurrentPackages = IniReadSection($g_UsrIni, 'Current'); reread the selected values
 	IniWrite($g_BWSIni, 'Order', 'Au3ExFix', 0); Skip this one if the Setup is rerun
 	$g_FItem = 1
 	Return
@@ -403,7 +403,6 @@ Func Au3ExTest($p_Num = 0)
 			If $Test[0][0] <> 0 Then _Depend_RemoveFromCurrent($Test); remove mods/tp2-files that cannot be installed due to dependencies
 			$Fault=IniReadSection($g_BWSIni, 'Faults'); remove mods with faults
 			_Depend_RemoveFromCurrent($Fault, 0); remove mods that could not be loaded completely
-			$g_CurrentPackages = IniReadSection($g_UsrIni, 'Current'); reread the selected values
 			_Extract_EndAu3ExTest()
 			Return
 		Else
@@ -424,7 +423,7 @@ Func Au3ExTest($p_Num = 0)
 		$Fault=IniReadSection($g_BWSIni, 'Faults')
 		For $f=1 to $Fault[0][0]
 			$ReadSection=IniReadSection($g_MODIni, $Fault[$f][0])
-			GUICtrlSetData($g_UI_Static[6][2], _GetTR($Message, 'L2') & ' ' & _IniRead($ReadSection, 'Name', $Fault[$f][0]) & ' ...'); => checking	
+			GUICtrlSetData($g_UI_Static[6][2], _GetTR($Message, 'L2') & ' ' & _IniRead($ReadSection, 'Name', $Fault[$f][0]) & ' ...'); => checking
 			For $l=1 to StringLen($Fault[$f][1])
 				$Type=StringMid($Fault[$f][1], $l, 1)
 				If $Type = '1' Then
@@ -437,24 +436,24 @@ Func Au3ExTest($p_Num = 0)
 				$Archive = _IniRead($ReadSection, $Type, 'Manual')
 				If $Archive <> 'Manual' And FileExists($g_DownDir&'\'&$Archive) Then
 					If _Extract_TestIntegrity($Archive) = 0 Then
-						If $CRCError = 0 Then 
+						If $CRCError = 0 Then
 							_Process_SetScrollLog(_GetTR($Message, 'L12')); => following are damaged
 							$CRCError = 1
-						EndIf	
+						EndIf
 						_Process_SetScrollLog($Archive)
-					EndIf	
+					EndIf
 				EndIf
 			Next
 		Next
 		If $CRCError = 0 Then _Process_SetScrollLog(_GetTR($Message, 'L13')); => all seem alright
-		_Process_Question('p|c', _GetTR($Message, 'L15'), _GetTR($Message, 'Q5'), 2, $g_Flags[18]); => provide or skip missing files?	
+		_Process_Question('p|c', _GetTR($Message, 'L15'), _GetTR($Message, 'Q5'), 2, $g_Flags[18]); => provide or skip missing files?
 	EndIf
 	If $g_pQuestion = 'p' Then
 		$Extract=0
 		$Fault=IniReadSection($g_BWSIni, 'Faults')
 		For $f=1 to $Fault[0][0]
 			$ReadSection=IniReadSection($g_MODIni, $Fault[$f][0])
-			GUICtrlSetData($g_UI_Static[6][2], _IniRead($ReadSection, 'Name', $Fault[$f][0])); => checking	
+			GUICtrlSetData($g_UI_Static[6][2], _IniRead($ReadSection, 'Name', $Fault[$f][0])); => checking
 			_Process_SetScrollLog(_IniRead($ReadSection, 'Name', $Fault[$f][0]),0, -1); if found, save as
 			For $l=1 to StringLen($Fault[$f][1])
 				$Type=StringMid($Fault[$f][1], $l, 1)
@@ -469,7 +468,7 @@ Func Au3ExTest($p_Num = 0)
 				_Process_Question('d|e|o|a', _GetTR($Message, 'L5'), _GetTR($Message, 'Q2'), 4); => load or skip mod or skip all
 				If $g_pQuestion = 'o' Then ContinueLoop(2); skip one mod
 				If $g_pQuestion = 'a' Then ExitLoop(2); skip all mods
-				If $g_pQuestion = 'd' Then 
+				If $g_pQuestion = 'd' Then
 					$URL= _IniRead($ReadSection, StringReplace($Type, 'Save', 'Down'), '')
 					If $URL <> '' And $URL <> 'Manual' Then ShellExecute($URL); start browser
 				EndIf
@@ -533,7 +532,6 @@ EndFunc   ;==>_CloseNSISWeiDUs
 ; ---------------------------------------------------------------------------------------------
 Func _Extract_EndAu3ExTest()
 	_Process_SwitchEdit(0, 0)
-	$g_CurrentPackages = IniReadSection($g_UsrIni, 'Current'); reread the selected values
 	IniDelete($g_BWSIni, 'Faults')
 	IniWrite($g_BWSIni, 'Order', 'Au3ExTest', 0); Skip this one if the Setup is rerun
 	$g_FItem = 1
@@ -544,7 +542,7 @@ Func _Extract_EndAu3ExTest()
 		FileDelete ($g_BG2Dir & '\BWP_Fixpack.installed')
 		FileDelete ($g_BG2Dir & '\BWP_Textpack.installed')
 		FileDelete ($g_BG2Dir & '\BWP_Smoothpack.installed')
-	EndIf	
+	EndIf
 	If IniRead($g_UsrIni, 'Options', 'Logic2', 1) = 3 Then
 		_Process_SetConsoleLog(IniRead($g_TRAIni, 'Ex-Au3TestExtract', 'L10', ''))
 		_Process_Pause(); pause after extraction
@@ -630,13 +628,13 @@ Func _Extract_CheckMod($p_File, $p_Dir, $p_Setup); $a=file, $b=dir, $c=mod
 		ElseIf StringRight($p_File, 3) = 'tp2' Then; overwrite TP2-files
 			$TP2=_Test_GetTP2(StringRegExpReplace($p_File, '(?i)-{0,1}(setup)-{0,1}|\x2etp2\z', ''))
 			Local $Text='L2', $Success=0
-			If $TP2 <> '0' Then 
+			If $TP2 <> '0' Then
 				$Success=FileCopy($p_Dir&'\'&$p_File, $TP2, 1)
 				If $Success Then $Text='L1'
 			EndIf
 			_Process_SetConsoleLog($p_File& ' ' & IniRead($g_TRAIni, 'BA-FileAction', $Text, ''))
 			Return $Success
-		EndIf		
+		EndIf
 		$iSize = Round(FileGetSize($p_Dir & '\' & $p_File) / (1024 * 1024), 1)
 		If $iSize = '0.0' Then $iSize = '0.1'
 		GUICtrlSetData($g_UI_Static[6][2], _GetTR($Message, 'L1') & ' ' & $p_Setup & ' (' & $iSize & ' MB)'); => extracting
@@ -677,7 +675,9 @@ Func _Extract_InstallNSIS($p_Dir); $p_Dir=dir
 			FileWrite($g_LogFile, '>'& $Files[$f] & @CRLF)
 			ShellExecute($p_Dir & '\' & $Files[$f], ' /S /D='&$g_GameDir & '\NSIS'); run will not work with setups and windows7+UAC
 			While ProcessExists($Files[$f])
-				ControlClick('[Class:#32770]', '', ControlGetFocus('[Class:#32770]'))
+				ControlSend('[Class:#32770]', '', '', '{Enter}')
+				ControlSend('[Class:#32770]', '', 'Button1', '{Space}')
+				ControlSend('[Class:#32770]', '', 'Button1', '{Enter}')
 				_CloseNSISWeiDUs(); will not work on windows7+UAC since setups are running as administrator and thus actions on those windows are forbidden
 				Sleep(100)
 			WEnd
@@ -712,7 +712,7 @@ Func _Extract_ListMissing()
 		$ReadSection=IniReadSection($g_MODIni, $Fault[$f][0])
 		$Mod = _IniRead($ReadSection, 'Name', $Fault[$f][0])
 		If StringInStr($Fault[$f][1], '1') Then; check for TP2
-			If _Test_GetCustomTP2($Fault[$f][0]) <> '0' Then 
+			If _Test_GetCustomTP2($Fault[$f][0]) <> '0' Then
 				$Fault[$f][1]=StringRegExpReplace($Fault[$f][1], '1', '')
 			ElseIf _IniRead($ReadSection, 'Test', '') <> '' Then; check for a file if package is not a weidu-mod
 				If _Extract_TestFile(_IniRead($ReadSection, 'Test', '')) = 1 Then $Fault[$f][1]=StringRegExpReplace($Fault[$f][1], '1', '')
@@ -729,7 +729,6 @@ Func _Extract_ListMissing()
 			If $Fault[$f][0] = 'BG1TP' And FileExists($g_BG1Dir&'\setup-bg1tp.exe') Then $Fault[$f][1]=''; extracted German Textpatch
 			If $Fault[$f][0] = 'Abra' And FileExists($g_BG1Dir&'\setup-abra.exe') Then $Fault[$f][1]=''; extracted Spanish Textpatch
 			If $Fault[$f][0] = 'correcfrbg1' And FileExists($g_BG1Dir&'\setup-correcfrbg1.exe') Then $Fault[$f][1]=''; extracted French Textpatch
-			If $Fault[$f][0] = 'bg1textpack' And FileExists($g_BG1Dir&'\setup-bg1textpack.exe') Then $Fault[$f][1]=''; extracted Russian Textpatch
 		EndIf
 		If $Fault[$f][1] = '' Then
 			IniDelete($g_BWSIni, 'Faults', $Fault[$f][0]); remove the error
@@ -757,7 +756,7 @@ Func _Extract_ListMissing()
 				Local $mNum = 1, $Type = _GetTra($ReadSection, 'T') & '-AddSave', $Hint = _GetTR($Message, 'L4'); => translation
 				$Mark&=' ' & Chr(0xB2)
 			EndIf
-			If $Fault[$f][0] = 'BG1TP' Or $Fault[$f][0] = 'correcfrbg1' Or $Fault[$f][0] = 'Abra' Or $Fault[$f][0] = 'BG1TotSCSound' Or $Fault[$f][0] = 'bg1textpack' Then
+			If $Fault[$f][0] = 'BG1TP' Or $Fault[$f][0] = 'correcfrbg1' Or $Fault[$f][0] = 'Abra' Or $Fault[$f][0] = 'BG1TotSCSound' Then
 				$oNum=1
 				$Mark&=' ' & Chr(0xB3)
 			EndIf

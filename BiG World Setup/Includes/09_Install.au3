@@ -539,14 +539,24 @@ EndFunc   ;==>Au3Install
 ; show not installed mods and say goodbye
 ; ---------------------------------------------------------------------------------------------
 Func _Install_BatchRun()
-	$File = @TempDir&'\BiG World Install.bat'
-	If Not FileExists($File) Then $File = $g_BG2Dir&'\BiG World Install.bat'
-	If StringRegExp(@OSVersion, 'WIN_2008R2|WIN_7|WIN_2008|WIN_VISTA') = 1 And StringInStr($g_BG2Dir, @ProgramFilesDir) And IsAdmin() = 0 Then
+	$File=$g_BG2Dir&'\BiG World Install.bat'
+	If Not FileExists($File) Then Exit
+	$Text=FileRead($File)
+	If Not StringInStr($Text, 'cd /D "'&$g_BG2Dir&'"') Then; enable run as admin
+		$Success=FileMove($File, $g_BG2Dir&'\BiG World Install_with_UAC_problem.bat', 1)
+		If $Success = 1 Then
+			$Text='cd /D "'&$g_BG2Dir&'"'&@CRLF&$Text
+			$Handle=FileOpen($File, 2)
+			FileWrite($Handle, $Text)
+			FileClose($Handle)
+		EndIf
+	EndIf
+	If StringRegExp(@OSVersion, 'WIN_2008R2|WIN_7|WIN_2008|WIN_VISTA') = 1 And IsAdmin() = 0 Then
 		ShellExecute($File, '', $g_BG2Dir, 'runas')
 	Else
 		ShellExecute($File, '', $g_BG2Dir)
 	EndIf
-	Au3Exit()
+;~ 	Au3Exit()
 EndFunc   ;==>_Install_BatchRun
 
 ; ---------------------------------------------------------------------------------------------
@@ -637,6 +647,7 @@ Func _Install_BG1Textpatch($p_Message)
 		_Process_ChangeDir($g_BG2Dir, 1)
 	EndIf
 EndFunc   ;==>_Install_BG1Textpatch
+
 ; ---------------------------------------------------------------------------------------------
 ; Get the answers to questions of a mod by it's setup-name
 ; ---------------------------------------------------------------------------------------------

@@ -565,7 +565,7 @@ Func Au3BuildGUI($p_Num = 0)
 	GUICtrlSetState(-1, $GUI_HIDE)
 	GUICtrlSetResizing(-1, 768)
 	$g_UI_Interact[16][8] = GUICtrlCreateCheckbox('', 230, 280, 60, 20, 0x1000); to checkbox
-	GUICtrlSetState(-1, $GUI_HIDE)	
+	GUICtrlSetState(-1, $GUI_HIDE)
 	GUICtrlSetResizing(-1, 768)
 	$g_UI_Interact[16][9] = GUICtrlCreateCombo('', 300, 280, 100, 20); to comp
 	GUICtrlSetState(-1, $GUI_HIDE)
@@ -573,7 +573,7 @@ Func Au3BuildGUI($p_Num = 0)
 	$g_UI_Interact[16][10] = GUICtrlCreateInput('', 420, 280, 280, 20); install dependencies
 	GUICtrlSetState(-1, $GUI_HIDE)
 	GUICtrlSetResizing(-1, 768)
-	
+
 	GUICtrlCreateTabItem('')
 #EndRegion install-order-admin - TAB
 	GUICtrlCreateTabItem('')

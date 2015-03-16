@@ -309,7 +309,7 @@ EndFunc    ;==>_Test_CheckTotSCFiles_BG1
 ; Searches for required files and dirs...
 ; ---------------------------------------------------------------------------------------------
 Func _Test_CheckRequieredFiles()
-	_PrintDebug('+' & @ScriptLineNumber & ' Calling FileCheck')
+	_PrintDebug('+' & @ScriptLineNumber & ' Calling _Test_CheckRequieredFiles')
 	Local $Error=0
 	If StringRegExp($g_Flags[14], 'BWS|BWP') Then; (BGT)
 		$Return = _Test_CheckRequieredFiles_BG1()
@@ -336,7 +336,7 @@ EndFunc    ;==>_Test_CheckRequieredFiles
 ; ---------------------------------------------------------------------------------------------
 Func _Test_CheckRequieredFiles_BG1()
 	Local $Message = IniReadSection($g_TRAIni, 'TE-BG1')
-	_PrintDebug('+' & @ScriptLineNumber & ' Calling BG1-FileCheck')
+	_PrintDebug('+' & @ScriptLineNumber & ' Calling _Test_CheckRequieredFiles_BG1')
 	Local $Missing='', $Hint='', $Error='', $Return
 	If IniRead($g_BWSIni, 'Order', 'Au3Select', 0) = 1 Then
 		$g_BG1Dir=GUICtrlRead($g_UI_Interact[2][1])
@@ -393,7 +393,7 @@ EndFunc    ;==>_Test_CheckRequieredFiles_BG1
 ; ---------------------------------------------------------------------------------------------
 Func _Test_CheckRequieredFiles_BG2()
 	Local $Message = IniReadSection($g_TRAIni, 'TE-BG2')
-	_PrintDebug('+' & @ScriptLineNumber & ' Calling BG2-FileCheck')
+	_PrintDebug('+' & @ScriptLineNumber & ' Calling _Test_CheckRequieredFiles_BG2')
 	Local $Hint='', $Error='', $Return
 	If IniRead($g_BWSIni, 'Order', 'Au3Select', 0) = 1 Then
 		$g_BG2Dir=GUICtrlRead($g_UI_Interact[2][2])
@@ -443,7 +443,7 @@ EndFunc    ;==>_Test_CheckRequieredFiles_BG2
 ; ---------------------------------------------------------------------------------------------
 Func _Test_CheckRequieredFiles_BGEE()
 	Local $Message = IniReadSection($g_TRAIni, 'TE-BGEE')
-	_PrintDebug('+' & @ScriptLineNumber & ' Calling BGEE-FileCheck')
+	_PrintDebug('+' & @ScriptLineNumber & ' Calling _Test_CheckRequieredFiles_BGEE')
 	Local $Missing='', $Hint='', $Error='', $Return
 	If IniRead($g_BWSIni, 'Order', 'Au3Select', 0) = 1 Then
 		$g_BGEEDir=GUICtrlRead($g_UI_Interact[2][2])
@@ -476,7 +476,7 @@ EndFunc    ;==>_Test_CheckRequieredFiles_BGEE
 ; ---------------------------------------------------------------------------------------------
 Func _Test_CheckRequieredFiles_BG2EE()
 	Local $Message = IniReadSection($g_TRAIni, 'TE-BG2EE')
-	_PrintDebug('+' & @ScriptLineNumber & ' Calling BG2EE-FileCheck')
+	_PrintDebug('+' & @ScriptLineNumber & ' Calling _Test_CheckRequieredFiles_BG2EE')
 	Local $Missing='', $Hint='', $Error='', $Return
 	If IniRead($g_BWSIni, 'Order', 'Au3Select', 0) = 1 Then
 		$g_BG2EEDir=GUICtrlRead($g_UI_Interact[2][2])

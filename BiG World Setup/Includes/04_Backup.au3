@@ -3,7 +3,7 @@
 ; ---------------------------------------------------------------------------------------------
 ; Depending on the current selection or state of the installation, create a backup or restore it
 ; ---------------------------------------------------------------------------------------------
-Func Au3CleanInst($p_Num = 0, $p_Tab = 6) ;1=first timer, 2=backup, 3=restore 
+Func Au3CleanInst($p_Num = 0, $p_Tab = 6) ;1=first timer, 2=backup, 3=restore
 	Local $Message = IniReadSection($g_TRAIni, 'BA-Au3CleanInst')
 	_PrintDebug('+' & @ScriptLineNumber & ' Calling Au3CleanInst')
 	Global $g_LogFile = $g_LogDir & '\BiG World Backup Debug.txt'
@@ -18,7 +18,7 @@ Func Au3CleanInst($p_Num = 0, $p_Tab = 6) ;1=first timer, 2=backup, 3=restore
 	Local $Action = 0
 	GUICtrlSetData($g_UI_Interact[6][4], StringFormat(_GetSTR($Message, 'H1'), $Type)); => help
 	Call('_Test_CheckRequieredFiles_'&$Type)
-	If @error > 0 Then 
+	If @error > 0 Then
 		If $p_Num = 1 Then ; Exit if it's from withing a process
 			;_ResetInstall(); Enable a clean restart -- useful?
 			Exit
@@ -69,15 +69,15 @@ Func Au3CleanInst($p_Num = 0, $p_Tab = 6) ;1=first timer, 2=backup, 3=restore
 		Else
 			_Process_SetScrollLog(StringFormat(_GetTR($Message, 'L21'), _GetGameName()), 1, -1); => no backup, install from scratch
 			_Process_Gui_Delete(3, 3, 1); Return to the previous tab
-		EndIf	
+		EndIf
 	ElseIf $p_Num = 3 Then; restore check
 		_Process_Gui_Create(1, 0)
 		$Error = _Backup_Restore(3)
 		$Action = 2
 	EndIf
-; ---------------------------------------------------------------------------------------------	
+; ---------------------------------------------------------------------------------------------
 ; create a backup
-; ---------------------------------------------------------------------------------------------	
+; ---------------------------------------------------------------------------------------------
 	If $Action = 1 Then
 		If _Backup_Create($Type, $Message) = 0 Then; all ok
 			_Process_SetScrollLog(@CRLF&StringFormat(_GetTR($Message, 'L4'), $g_BackupDir), 1, -1); => backup: success. found: there
@@ -95,9 +95,9 @@ Func Au3CleanInst($p_Num = 0, $p_Tab = 6) ;1=first timer, 2=backup, 3=restore
 			_Process_Gui_Delete(3, 3, 1)
 			If $p_Num = 1 Then Exit
 		EndIf
-; ---------------------------------------------------------------------------------------------	
+; ---------------------------------------------------------------------------------------------
 ; Restore from a backup
-; ---------------------------------------------------------------------------------------------	
+; ---------------------------------------------------------------------------------------------
 	ElseIf $Action = 2 Then
 		If $Error = 0 Then; everthings ok
 			_Process_SetScrollLog(_GetTR($Message, 'L5'), 1, -1); => restore: success
@@ -185,7 +185,7 @@ Func _Backup_CreateMultiInstall()
 	EndIf
 	For $g=1 to $Game[0][0]
 		If $Game[$g][0] = $Type Then ExitLoop
-	Next	
+	Next
 	FileClose(FileOpen($g_LogFile,2))
 	$Test = _Backup_Test($Type)
 	If $Test <> 3 Then
@@ -210,7 +210,7 @@ Func _Backup_CreateMultiInstall()
 			_Process_SetScrollLog(_GetTR($Message, 'L13'), 1, -1); => contains a game
 			_Process_Question('y|n', _GetTR($Message, 'L5'), _GetTR($Message, 'Q1')); => enter yes/no
 			If $g_pQuestion = 'n' Then $Error = 1
-		EndIf	
+		EndIf
 	EndIf
 	If $Error Then; already terminated, don't ask again
 	ElseIf $Test = 1 Then; installed mods, but has a backup
@@ -234,7 +234,7 @@ Func _Backup_CreateMultiInstall()
 		_Process_SetScrollLog(_GetTR($Message, 'L9'), 1, -1); => abort
 		_Process_Gui_Delete(3, 3, 1)
 		Return
-	EndIf	
+	EndIf
 	_Process_SetScrollLog(_GetTR($Message, 'L2')); => checking files
 	DirCreate($MultiDir)
 	$Size=DirGetSize($g_GameDir)
@@ -255,7 +255,7 @@ Func _Backup_CreateMultiInstall()
 				$Test=IniRead($g_GameDir&'\'&$Game[$g][2]&'.ini', 'Alias', 'CD'&$c&':', '')
 				If $Test <> '' Then IniWrite($MultiDir&'\'&$Game[$g][2]&'.ini', 'Alias', 'CD'&$c&':', $Test)
 			Next
-		EndIf		
+		EndIf
 		If StringInStr($g_UsrIni, $g_GameDir) Then IniWrite(StringReplace($g_UsrIni, $g_GameDir, $MultiDir), 'Options', $Type, $MultiDir); write the config into the new dir
 		$g_GameDir = $MultiDir
 		Assign('g_'&$Type&'Dir', $MultiDir)
@@ -264,14 +264,14 @@ Func _Backup_CreateMultiInstall()
 		GUICtrlSetData($g_UI_Interact[6][1], 100)
 		_Process_SetScrollLog(@CRLF&_GetTR($Message, 'L4'), 1, -1); => creation: success. create a link?
 		_Process_Question('y|n', _GetTR($Message, 'L5'), _GetTR($Message, 'Q1')); => enter yes/no
-		If $g_pQuestion = 'y' Then 
+		If $g_pQuestion = 'y' Then
 			$Num=''
 			While FileExists(@DesktopDir&'\BiG World - '&$g_Flags[14]&'.lnk')
 				$Num+=1
 			WEnd
 			If StringLen($Num) > 0 Then $Num = ' ' & $Num
 			FileCreateShortcut($MultiDir&'\'&$Game[$g][1]&'.exe', @DesktopDir&'\BiG World - '&$g_Flags[14]&'.lnk', $MultiDir, '', 'BiG World Installation ('&$Type&')', $MultiDir&'\'&$Game[$g][3]&'.exe')
-		EndIf	
+		EndIf
 		_Process_SetScrollLog(_GetTR($Message, 'L10'), 1, -1); => finish
 	Else; fault
 		_Process_SetScrollLog(_GetTR($Message, 'L6'), 1, -1); => creation: fail. look at log.
@@ -285,7 +285,7 @@ EndFunc   ;==>_Backup_CreateMultiInstall
 Func _Backup_FileAction($p_File, $p_Parent, $p_Dir, $p_Num, ByRef $p_Progress, $p_CompSize, $p_Message)
 	If $p_Parent='' Then
 		$p_Parent=$p_File
-	Else	
+	Else
 		$p_Parent=$p_Parent&'\'&$p_File
 	EndIf
 	$p_Dir=$p_Dir&'\'&$p_File
@@ -308,7 +308,7 @@ Func _Backup_FileAction($p_File, $p_Parent, $p_Dir, $p_Num, ByRef $p_Progress, $
 				$Size=FileGetSize($p_Parent&'\'&$Files[$f])
 				$p_Progress+=$Size
 				$Success+=FileCopy($p_Parent&'\'&$Files[$f], $p_Dir&'\'&$Files[$f], 9)
-			EndIf	
+			EndIf
 			GUICtrlSetData($g_UI_Interact[6][1], ($p_Progress*100)/$p_CompSize)
 		Next
 		If $Success = $Files[0] Then $Success = 1
@@ -338,7 +338,7 @@ Func _Backup_FileAction($p_File, $p_Parent, $p_Dir, $p_Num, ByRef $p_Progress, $
 		If $p_Num=2 or $p_Num=3 Then _Process_SetScrollLog($p_File&' '&_GetTR($p_Message, 'L3')); =>delete: success
 		If $p_Num=4 or $p_Num=5 Then _Process_SetScrollLog($p_File&' '&_GetTR($p_Message, 'L8')); =>move: success
 		Return 0
-	Else	
+	Else
 		If $p_Num=0 or $p_Num=1 Then _Process_SetScrollLog($p_File&' '&_GetTR($p_Message, 'L2')); =>copy: fail
 		If $p_Num=2 or $p_Num=3 Then _Process_SetScrollLog($p_File&' '&_GetTR($p_Message, 'L4')); =>delete: fail
 		If $p_Num=4 or $p_Num=5 Then _Process_SetScrollLog($p_File&' '&_GetTR($p_Message, 'L9')); =>move: fail
@@ -362,7 +362,7 @@ Func _Backup_Restore($p_Tab)
 	'SFXSound|SPELAnim|Spells|Stores'
 	GUICtrlSetData($g_UI_Static[6][1], _GetTR($Message, 'L14')); =>watch progress
 	GUICtrlSetData($g_UI_Static[6][2], StringFormat(_GetTR($Message, 'L15'), $g_BackupDir)); =>backup location
-	If Not FileExists($g_BackupDir) Then 
+	If Not FileExists($g_BackupDir) Then
 		_Process_SetScrollLog(_GetTR($Message, 'L17'), 1, -1); =>no backup
 		Return -1
 	EndIf
@@ -383,21 +383,21 @@ Func _Backup_Restore($p_Tab)
 	_Process_SetScrollLog(_GetTR($Message, 'L8')&@CRLF, 1, -1); =>please wait
 ; ---------------------------------------------------------------------------------------------
 ; Delete mod-content (unpacked installation files or installed/in-game files)
-; ---------------------------------------------------------------------------------------------	
+; ---------------------------------------------------------------------------------------------
 	If FileExists($g_GameDir&'\*save') Then
 		$UniqueDir=$g_RemovedDir&'\'&@YEAR&@MON&@MDAY&'_'
 		$UniqueNum=1
 		While 1
 			If FileExists($UniqueDir&$UniqueNum) Then
 				$UniqueNum+=1
-			Else	
+			Else
 				DirCreate($UniqueDir&$UniqueNum)
 				ExitLoop
 			EndIf
 		WEnd
 		If FileExists($g_GameDir&'\save') Then $Error+=_Backup_FileAction('save', $g_GameDir, $UniqueDir&$UniqueNum, 5, $CSize, $Size, $FMessage); force saves to be moved
 		If FileExists($g_GameDir&'\mpsave') Then $Error+=_Backup_FileAction('mpsave', $g_GameDir, $UniqueDir&$UniqueNum, 5, $CSize, $Size, $FMessage)
-	EndIf	
+	EndIf
 	If StringRegExp($g_Flags[14], 'BWS|BWP') Then
 		$IsGoG=FileExists($g_BG2Dir&'\goggame.dll')
 		FileSetAttrib($g_BG2Dir&'\Clean-Up.bat', '-RAS'); remove read-only-bit
@@ -439,7 +439,7 @@ Func _Backup_Restore($p_Tab)
 			Else
 				$FileList[$FileList[0][0]][1]=0
 				$FileList[0][1]+=1; another pseudo-value
-			EndIf	
+			EndIf
 		Next
 ; ---------------------------------------------------------------------------------------------
 ; delete or move mods content
@@ -489,7 +489,7 @@ Func _Backup_Test($p_Game)
 	For $g=1 to $Game[0][0]
 		If $Game[$g][0] = $p_Game Then ExitLoop
 	Next
-	$Test= StringRegExp(FileRead(Eval('g_'&$p_Game&'Dir') & '\WeiDU.log'), @LF&'~.*#.\s#', 3) 
+	$Test= StringRegExp(FileRead(Eval('g_'&$p_Game&'Dir') & '\WeiDU.log'), @LF&'~.*#.\s#', 3)
 	If IsArray($Test) Then
 		For $t=0 to UBound($Test)-1
 			If Not StringInStr($Test[$t], 'DDRAW') Then $IsInstalled = 1
@@ -497,7 +497,7 @@ Func _Backup_Test($p_Game)
 	EndIf
 	If FileExists($g_BackupDir&'\'&$Game[$g][1]&'.exe') And $IsInstalled = 0 Then
 		Return 0
-	ElseIf FileExists($g_BackupDir&'\'&$Game[$g][1]&'.exe') And $IsInstalled = 1 Then	
+	ElseIf FileExists($g_BackupDir&'\'&$Game[$g][1]&'.exe') And $IsInstalled = 1 Then
 		Return 1
 	ElseIf Not FileExists($g_BackupDir) And $IsInstalled = 0 Then
 		Return 2

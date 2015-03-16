@@ -104,7 +104,7 @@ Func Au3Net($p_Num = 0)
 				GUICtrlSetData($g_UI_Static[6][2], _GetTR($Message, 'L4') & ' ' & $DArray[$DSlot[-$g_Flags[23]]][4] & _GetTR($g_UI_Message, '0-B6')); => loading
 				_Net_WGetShow($DArray[$DSlot[-$g_Flags[23]]][7], -$g_Flags[23])
 				ContinueLoop
-			EndIf	
+			EndIf
 			$d=StringLeft(($g_Flags[23]+1)/2, 1); the queue to work on
 			$list = ProcessList('wget.exe'); check wget-process only so we don't kill other processes
 			For $l = 1 To $list[0][0]
@@ -329,13 +329,13 @@ Func Au3Net($p_Num = 0)
 				If TimerDiff($DArray[$DSlot[$d]][10]) > 20000 Then; 20 seconds have passed since last test
 					$DArray[$DSlot[$d]][10]=TimerInit(); reset timer
 					$localSize=FileGetSize($g_DownDir&'\'&$g_Down[$d][0])
-					If $DArray[$DSlot[$d]][11] = $localSize Then 
+					If $DArray[$DSlot[$d]][11] = $localSize Then
 						GUICtrlSetColor($g_UI_Interact[5][$d+1], 0xff0000); paint the progressbar in a red color
 						GUICtrlSetColor($g_UI_Static[5][$d+2], 0xff0000)
 					Else
 						GUICtrlSetColor($g_UI_Interact[5][$d+1], Default); repaint progress-bar in case there was an error on this queue before
 						GUICtrlSetColor($g_UI_Static[5][$d+2], Default)
-					EndIf	
+					EndIf
 					$DArray[$DSlot[$d]][11]=$localSize
 				EndIf
 			Next
@@ -354,6 +354,7 @@ EndFunc   ;==>Au3Net
 Func Au3NetFix($p_Num = 0)
 	_PrintDebug('+' & @ScriptLineNumber & ' Calling Au3NetFix')
 	$g_LogFile = $g_LogDir & '\BiG World Download Debug.txt'
+	$g_CurrentPackages = _GetCurrent(); items may be removed after failed download
 	_Process_SwitchEdit(0, 0)
 	If FileExists($g_GameDir&'\WeiDU') And Not StringInStr(FileGetAttrib($g_GameDir&'\WeiDU'), 'D') Then FileDelete($g_GameDir&'\WeiDU'); remove WeiDU for mac/linux (if it exists)
 	If FileExists($g_DownDir&'\WeiDU.exe') Then FileCopy($g_DownDir&'\WeiDU.exe', $g_GameDir&'\WeiDU\WeiDU.exe', 9); file will be overwritten if it's a beta, since that had to be extracted later
@@ -368,7 +369,6 @@ Func Au3NetFix($p_Num = 0)
 		EndIf
 	Next
 	_Net_FixSHSAttachment('ASKARIA'); fix SHS-forum attachment/download
-	$g_CurrentPackages = IniReadSection($g_UsrIni, 'Current'); removed BG1...
 	$g_FItem = 1
 	IniWrite($g_BWSIni, 'Order', 'Au3NetFix', 0); Skip this one if the Setup is rerun
 	If IniRead($g_UsrIni, 'Options', 'Logic1', 1) = 3 Then
@@ -424,7 +424,6 @@ Func Au3NetTest($p_Num = 0)
 			If $Test[0][0] <> 0 Then _Depend_RemoveFromCurrent($Test); remove mods/tp2-files that cannot be installed due to dependencies
 			$Fault=IniReadSection($g_BWSIni, 'Faults')
 			_Depend_RemoveFromCurrent($Fault, 0); remove mods that could not be loaded completely
-			$g_CurrentPackages = IniReadSection($g_UsrIni, 'Current'); re-read the selected values
 			_Net_EndAu3NetTest()
 			Return
 		Else
@@ -521,7 +520,6 @@ Func Au3NetTest($p_Num = 0)
 			If $Test[0][0] <> 0 Then _Depend_RemoveFromCurrent($Test); remove mods/tp2-files that cannot be installed due to dependencies
 			$Fault=IniReadSection($g_BWSIni, 'Faults')
 			_Depend_RemoveFromCurrent($Fault, 0)
-			$g_CurrentPackages = IniReadSection($g_UsrIni, 'Current'); reread the selected values
 			_Net_EndAu3NetTest()
 			Return
 		Else
@@ -635,7 +633,6 @@ EndFunc   ;==>_Net_DownloadStop
 ; End the testing
 ; ---------------------------------------------------------------------------------------------
 Func _Net_EndAu3NetTest()
-	$g_CurrentPackages = IniReadSection($g_UsrIni, 'Current'); reread the selected values
 	IniDelete($g_BWSIni, 'Faults')
 	IniWrite($g_BWSIni, 'Order', 'Au3NetTest', 0); Skip this one if the Setup is rerun
 	$g_FItem = 1
@@ -707,18 +704,18 @@ Func _Net_LinkListUpdate($p_List)
 			$Down = _IniRead($ReadSection, $Prefix[$p]&'Down', '')
 			$Save = _IniRead($ReadSection, $Prefix[$p]&'Save', '')
 			If $Down = '' Then ContinueLoop; if no additonal stuff is found, skip forward
-			If $Down <> 'MANUAL' Then 
+			If $Down <> 'MANUAL' Then
 				$Output=StringReplace(StringReplace(StringReplace($Format, '%URL%', $Down), '%MOD%', $Mod), '|', @CRLF)
 				_Process_SetScrollLog($Output, 0)
 				FileWrite($Handle, $Output&@CRLF)
-			EndIf	
+			EndIf
 		Next
 		GUICtrlSetData($g_UI_Interact[6][1], ($l * 100) / $p_List[0][0])
 	Next
 	GUICtrlSetData($g_UI_Interact[6][1], 100)
 	FileClose($Handle)
 	$g_pQuestion = 'Need4Answer'
-EndFunc   ;==>_Net_LinkListUpdate	
+EndFunc   ;==>_Net_LinkListUpdate
 
 ; ---------------------------------------------------------------------------------------------
 ; Retrieve the fileinfo from the url
@@ -805,7 +802,7 @@ Func _Net_LinkUpdateInfo($p_URL, $p_File, $p_Setup, $p_Prefix)
 			FileWrite($g_LogFile, '= FB = NA' & @CRLF)
 			Return SetError(1, 0, $Return)
 		EndIf
-	EndIf	
+	EndIf
 	$Return[1]=StringReplace(StringReplace($Return[1], '%20', ' '), '\', ''); set correct space
 	If StringLower($Return[1]) <> StringLower($p_File) Then; name changed
 		FileWrite($g_LogFile, '> '&$Return[1]&' ')
@@ -861,7 +858,7 @@ Func _Net_ListMissing()
 			If StringRegExp($g_fLock, '(?i)(\A|\x2c)'&$Fault[$f][0]&'(\z|\x2c)') Then; if mod is fixed, mark as missing essential
 				$FNum=1
 				$Mark='*'
-			ElseIf StringRegExp(_IniRead($ReadSection, $Prefix[$Type]&'Down', ''), 'mediafire.com|clandlan.net|zippyshare.com') Then; these servers need some manual interaction	
+			ElseIf StringRegExp(_IniRead($ReadSection, $Prefix[$Type]&'Down', ''), 'mediafire.com|clandlan.net|zippyshare.com') Then; these servers need some manual interaction
 				$Host=1
 				$Mark='**'
 			Else
@@ -1044,7 +1041,7 @@ Func _Net_StartupUpdate()
 	If Not StringRegExp($g_Flags[14], 'BWP|BWS') Then; currently no updates for other games than BWP
 		GUICtrlSetState($g_UI_Button[3][6], $GUI_DISABLE)
 		Return
-	EndIf	
+	EndIf
 	$Answer = _Misc_MsgGUI(2, _GetTR($Message, 'L1'), _GetTR($Message, 'L2'), 2, _GetTR($g_UI_Message, '0-B1'), _GetTR($g_UI_Message, '0-B2')); => look for configuration-updates now?
 	If $Answer = 1 Then Return
 	_Process_SetSize(0)
@@ -1062,7 +1059,7 @@ Func _Net_StartupUpdate()
 	GUICtrlSetStyle($g_UI_Interact[6][1], $PBS_SMOOTH)
 	_Process_SetScrollLog(_GetTR($Message, 'L4'), '', -1); => check link updates
 	$Success = _Net_Update_Link(2)
-	If $Success = 0 Then 
+	If $Success = 0 Then
 		_Process_SetScrollLog(_GetTR($Message, 'L5'), '', -1); => check link updates
 		_Process_Gui_Exit(1); exit on failure
 	ElseIf $Success = 1 Then
@@ -1114,7 +1111,7 @@ Func _Net_Update_Link($p_Show = 0); Show GUI
 		If IsArray($Fetch) Then; download started
 			If $Fetch[2] < 0 Then $Fetch[2]=-$Fetch[2]
 			ProcessWaitClose($Fetch[0])
-			If FileGetSize($g_DownDir&'\'&$Fetch[1]) = $Fetch[2] Then 
+			If FileGetSize($g_DownDir&'\'&$Fetch[1]) = $Fetch[2] Then
 				$Fetch = 1
 			Else
 				$Fetch = 0
@@ -1131,7 +1128,7 @@ Func _Net_Update_Link($p_Show = 0); Show GUI
 			Return
 		ElseIf $Fetch = 2 Then; exists -- but since single updates are possible
 			If Not FileExists($UpdateIni) Then $Fetch = 1; make sure update\mod.ini exists and still look for updates
-		EndIf	
+		EndIf
 		If $Fetch = 1 Then; loaded: all update-types
 			$UpdateArchive = IniRead($g_MODIni, 'BWS-URLUpdate', 'Save', 'mod.ini.gz')
 			$Extract = _Extract_7z($g_DownDir&'\'&$UpdateArchive, $g_ProgDir & '\Update')
@@ -1234,7 +1231,7 @@ EndFunc   ;==>_Net_Update_Link
 ; Function called by AdLib that updates download-progressbars. Otherwise updates would be less frequently
 ; ---------------------------------------------------------------------------------------------
 Func _Net_Update_Progress()
-	$DoUpdate=StringRegExp(@OSVersion, 'WIN_2008R2|WIN_7|WIN_2008')
+	$DoUpdate=StringRegExp(@OSVersion, 'WIN_VISTA|WIN_7|WIN_2008|WIN_2008R2')
 	For $d=1 to 5
 		If $g_Down[$d][0] <> '' Then
 			If $DoUpdate Then FileRead($g_DownDir&'\'&$g_Down[$d][0], 1); files are not updated on windows 7. Use this as a workaround.
@@ -1282,7 +1279,7 @@ Func _Net_WGetShow($p_PID, $p_Num)
 			For $s=1 to 3
 				If BitAND($State[$s], $GUI_ENABLE) Then GUICtrlSetState($g_UI_Button[0][$s], $GUI_ENABLE)
 			Next
-			$g_STDStream=$State[0]; reset PID 
+			$g_STDStream=$State[0]; reset PID
 			GUICtrlSetData($g_UI_Button[0][3],  IniRead($g_TRAIni, 'UI-Buildtime', 'Button[0][3]', 'Exit'))
 			GUICtrlSetState($g_UI_Seperate[5][0], $GUI_SHOW)
 			ExitLoop
@@ -1312,7 +1309,7 @@ Func _Net_WGetSize($p_URL)
 		If $Return[2] <> 0 Then $Return[0] = 2; mark as fallback-check
 		If StringLeft($p_URL, 3) = 'ftp' Then $Return[3]=1
 		Return $Return
-	EndIf	
+	EndIf
 	$Allines=StdoutRead($PID)
 	$Allines&=StderrRead($PID)
 	;ConsoleWrite($Allines & @CRLF&@CRLF); remove for debugging
