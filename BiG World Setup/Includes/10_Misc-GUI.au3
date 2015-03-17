@@ -439,7 +439,7 @@ Func _Misc_SelectFolder($p_Type, $p_Text)
 	If Not FileExists($Folder) Then $Folder = $g_BaseDir
 	$Folder = FileSelectFolder($p_Text, '', 2, $Folder & '\', $g_UI[0]); => select folder
 	If $Folder = '' Then Return
-	If $p_Type = 'BG1EE' And FileExists($Folder & '\Data\00766') Then $Folder = $Folder & '\Data\00766'; get BG1EE Beamdog-subfolder
+	If $p_Type = 'BGEE' And FileExists($Folder & '\Data\00766') Then $Folder = $Folder & '\Data\00766'; get BGEE Beamdog-subfolder
 	If $p_Type = 'BG2EE' And FileExists($Folder & '\Data\00783') Then $Folder = $Folder & '\Data\00783'; get BG2EE Beamdog-subfolder
 	If $p_Type = 'IWD1EE' And FileExists($Folder & '\Data\00798') Then $Folder = $Folder & '\Data\00798'; get IWD1EE Beamdog-subfolder
 	Assign('g_' & $p_Type & 'Dir', $Folder)
@@ -459,7 +459,7 @@ Func _Misc_SelectFolder($p_Type, $p_Text)
 		GUICtrlSetData($g_UI_Interact[2][3], $Folder)
 	Else
 		IniWrite($g_UsrIni, 'Options', $p_Type, $Folder)
-		If $p_Type = 'BG1' Or ($p_Type = 'BG1EE' And $g_Flags[14] = 'BG2EE') Then
+		If $p_Type = 'BG1' Or ($p_Type = 'BGEE' And $g_Flags[14] = 'BG2EE') Then
 			GUICtrlSetData($g_UI_Interact[2][1], $Folder)
 		Else
 			GUICtrlSetData($g_UI_Interact[2][2], $Folder)
@@ -791,18 +791,18 @@ Func _Misc_SwichGUIToInstallMethod()
 		GUICtrlSetState($g_UI_Static[2][1], $GUI_SHOW)
 		GUICtrlSetState($g_UI_Interact[2][1], $GUI_SHOW)
 		GUICtrlSetState($g_UI_Button[2][1], $GUI_SHOW)
-		GUICtrlSetPos($g_UI_Static[2][2], 30, 135, 370, 15); BG2/IWD1/IWD2/PST/BG1EE
+		GUICtrlSetPos($g_UI_Static[2][2], 30, 135, 370, 15); BG2/IWD1/IWD2/PST/BGEE
 		GUICtrlSetPos($g_UI_Interact[2][2], 30, 150, 300, 20)
 		GUICtrlSetPos($g_UI_Button[2][2], 350, 150, 50, 20)
 		GUICtrlSetPos($g_UI_Static[2][3], 30, 190, 370, 15); download
 		GUICtrlSetPos($g_UI_Interact[2][3], 30, 205, 300, 20)
 		GUICtrlSetPos($g_UI_Button[2][3], 350, 205, 50, 20)
 		If $g_Flags[14] = 'BG2EE' Then
-			_Test_GetGamePath('BG1EE')
+			_Test_GetGamePath('BGEE')
 			_Test_GetGamePath('BG2EE')
 			$g_GameDir = $g_BG2EEDir
 			GUICtrlSetData($g_UI_Static[2][1], "Baldur's Gate: Enhanced Edition, put '-' if you want only BGII: EE")
-			GUICtrlSetData($g_UI_Interact[2][1], $g_BG1EEDir)
+			GUICtrlSetData($g_UI_Interact[2][1], $g_BGEEDir)
 			GUICtrlSetData($g_UI_Interact[2][2], $g_BG2EEDir)
 		Else
 			_Test_GetGamePath('BG1')
@@ -853,7 +853,7 @@ Func _Misc_SwichGUIToInstallMethod()
 	GUICtrlSetState($g_UI_Interact[14][7], $State); desktopheight
 	GUICtrlSetState($g_UI_Interact[14][8], $State); install additional textpatch
 	If StringInStr($g_Flags[14], 'EE') Then
-		$State = $GUI_HIDE; BG1EE/BG2EE doesn't need widescreen for bigger resolutions
+		$State = $GUI_HIDE; BGEE/BG2EE doesn't need widescreen for bigger resolutions
 	Else
 		$State = $GUI_SHOW
 	EndIf
@@ -887,7 +887,7 @@ EndFunc   ;==>_Misc_SwichLang
 ; Enable or disable Widescreen checkbox if mod is deselected and vice versa
 ; ---------------------------------------------------------------------------------------------
 Func _Misc_SwitchWideScreen($p_ID, $p_State = -1)
-	If StringInStr($g_Flags[14], 'EE') Then Return; Widescreen already built into BG1EE/BG2EE
+	If StringInStr($g_Flags[14], 'EE') Then Return; Widescreen already built into BGEE/BG2EE
 	If $p_State = -1 Then
 		If GUICtrlRead($g_UI_Interact[14][5]) = $GUI_CHECKED Then
 			$p_State = 1
