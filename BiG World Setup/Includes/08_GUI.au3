@@ -635,7 +635,7 @@ Func Au3BuildGUI($p_Num = 0)
 	$g_UI_Menu[6][0] = GUICtrlCreateContextMenu($g_UI_Static[12][4]); >> option-menu
 	$g_UI_Menu[6][1] = GUICtrlCreateMenuItem('1', $g_UI_Menu[6][0]); Save
 	$g_UI_Menu[6][2] = GUICtrlCreateMenuItem('2', $g_UI_Menu[6][0]); Scan
-	$g_UI_Menu[6][3] = GUICtrlCreateMenuItem('3', $g_UI_Menu[6][0]); switch to Englisch	
+	$g_UI_Menu[6][3] = GUICtrlCreateMenuItem('3', $g_UI_Menu[6][0]); switch to English
 	$g_UI_Menu[6][10] = GUICtrlCreateMenuItem('10', $g_UI_Menu[6][0]); Revert
 	$g_UI_Menu[6][11] = GUICtrlCreateMenuItem('11', $g_UI_Menu[6][0]); switch edit-mode
 	GUICtrlCreateMenuItem('', $g_UI_Menu[6][0])
