@@ -328,6 +328,7 @@ Func Au3ExFix($p_Num)
 			If $Fault[$f][0] = 'BG1TP' Then ContinueLoop; German bg1-addons
 			If $Fault[$f][0] = 'Abra' Or $Fault[$f][0] = 'BG1TotSCSound' Then ContinueLoop; Spanish bg1-addons
 			If $Fault[$f][0] = 'correcfrbg1' Then ContinueLoop; French bg1-addon
+			If $Fault[$f][0] = 'bg1textpack' Then ContinueLoop; Russian bg1-addon
 			If $g_Flags[0] = 0 Then; the exit button was pressed
 				Exit
 			EndIf

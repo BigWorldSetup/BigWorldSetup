@@ -225,8 +225,6 @@ Func _Misc_LS_Verify()
 	$LArray = StringSplit(_GetTR($g_UI_Message, '15-I1'), '|'); => long available translations for the mods
 	$MArray = StringSplit(GUICtrlRead($g_UI_Interact[2][5]), ' ')
 	$SArray = StringSplit(_GetTR($g_UI_Message, '15-L1'), '|'); => short available translations for the mods
-	If StringRegExp($g_Flags[14], 'BWP|BWS') Then $Tra = IniRead($g_ModIni, 'BGT', 'Tra', '')
-	If $g_Flags[14] = 'BG2EE' Then $Tra = IniRead($g_ModIni, 'EET', 'Tra', ''); BG2EE uses EET for merging games
 	If $Current = 15 Then; lang-tab
 		$Selected = ControlListView($g_Ui[0], '', $g_UI_Interact[15][2], 'GetItemCount')
 		If $Selected = 0 Then $Error = '|' & _GetTR($g_UI_Message, '2-L1'); => select a translation
@@ -236,8 +234,8 @@ Func _Misc_LS_Verify()
 			$Text = StringTrimRight(GUICtrlRead($ID), 1)
 			For $l = 1 To $LArray[0]
 				If $Text = $LArray[$l] Then
-					If StringInStr($Tra, $SArray[$l]) Then $BGTInstallable = 1
-					$Return &= ' ' & $SArray[$l]
+					If StringInStr(IniRead($g_ModIni, 'BGT', 'Tra', ''), $SArray[$l]) Then $BGTInstallable=1
+					$Return&=' '&$SArray[$l]
 					ExitLoop
 				EndIf
 			Next
@@ -256,9 +254,9 @@ Func _Misc_LS_Verify()
 		For $m = 1 To $MArray[0]
 			For $s = 1 To $SArray[0]
 				If $MArray[$m] = $SArray[$s] Then
-					If Not FileExists($g_GConfDir & '\WeiDU-' & $SArray[$s] & '.ini') Then ContinueLoop
-					If StringInStr($Tra, $MArray[$m]) Then $BGTInstallable = 1
-					$Valid += 1
+					If Not FileExists($g_GConfDir&'\WeiDU-'&$SArray[$s]&'.ini') Then ContinueLoop
+					If StringInStr(IniRead($g_ModIni, 'BGT', 'Tra', ''), $MArray[$m]) Then $BGTInstallable=1
+					$Valid+=1
 					ExitLoop
 				EndIf
 			Next
@@ -266,7 +264,7 @@ Func _Misc_LS_Verify()
 		If $Valid <> $MArray[0] Then $Error = '|' & _GetTR($g_UI_Message, '2-L1'); => select a translation
 		$g_Flags[3] = $Selected
 	EndIf
-	If $BGTInstallable = 0 And GUICtrlRead($g_UI_Interact[2][1]) <> '-' Then $Error &= '||' & IniRead($g_GConfDir & '\Translation-' & $g_ATrans[$g_ATNum] & '.ini', 'UI-RunTime', '2-L4', ''); => BGT/EET not installable
+	If $BGTInstallable = 0 And GUICtrlRead($g_UI_Interact[2][1]) <> '-' Then $Error &= '||'&_GetTR($g_UI_Message, '2-L4'); => BGT not installable
 	If $Error <> '' Then
 		If $Current = 2 Then $Error &= '||' & _GetTR($g_UI_Message, '2-L5'); => start assistent
 		_Misc_MsgGUI(4, _GetTR($g_UI_Message, '0-T1'), $Error); => warning
@@ -441,7 +439,6 @@ Func _Misc_SelectFolder($p_Type, $p_Text)
 	If $Folder = '' Then Return
 	If $p_Type = 'BGEE' And FileExists($Folder & '\Data\00766') Then $Folder = $Folder & '\Data\00766'; get BGEE Beamdog-subfolder
 	If $p_Type = 'BG2EE' And FileExists($Folder & '\Data\00783') Then $Folder = $Folder & '\Data\00783'; get BG2EE Beamdog-subfolder
-	If $p_Type = 'IWD1EE' And FileExists($Folder & '\Data\00798') Then $Folder = $Folder & '\Data\00798'; get IWD1EE Beamdog-subfolder
 	Assign('g_' & $p_Type & 'Dir', $Folder)
 	If $p_Type = 'Down' Then
 		$Test = 1
@@ -787,7 +784,7 @@ Func _Misc_SwichGUIToInstallMethod()
 	Next
 	$g_GConfDir = $g_ProgDir & '\Config\' & $g_GameList[$g][0]
 	GUICtrlSetData($g_UI_Interact[1][3], $g_GameList[$g][2])
-	If StringRegExp($g_Flags[14], 'BWS|BWP|BG2EE') Then
+	If StringRegExp($g_Flags[14], 'BWS|BWP') Then
 		GUICtrlSetState($g_UI_Static[2][1], $GUI_SHOW)
 		GUICtrlSetState($g_UI_Interact[2][1], $GUI_SHOW)
 		GUICtrlSetState($g_UI_Button[2][1], $GUI_SHOW)
@@ -797,28 +794,18 @@ Func _Misc_SwichGUIToInstallMethod()
 		GUICtrlSetPos($g_UI_Static[2][3], 30, 190, 370, 15); download
 		GUICtrlSetPos($g_UI_Interact[2][3], 30, 205, 300, 20)
 		GUICtrlSetPos($g_UI_Button[2][3], 350, 205, 50, 20)
-		If $g_Flags[14] = 'BG2EE' Then
-			_Test_GetGamePath('BGEE')
-			_Test_GetGamePath('BG2EE')
-			$g_GameDir = $g_BG2EEDir
-			GUICtrlSetData($g_UI_Static[2][1], "Baldur's Gate: Enhanced Edition, put '-' if you want only BGII: EE")
-			GUICtrlSetData($g_UI_Interact[2][1], $g_BGEEDir)
-			GUICtrlSetData($g_UI_Interact[2][2], $g_BG2EEDir)
-		Else
 			_Test_GetGamePath('BG1')
 			_Test_GetGamePath('BG2')
 			$g_GameDir = $g_BG2Dir
-			GUICtrlSetData($g_UI_Static[2][1], "Baldur's Gate, put '-' if you want only BG2")
 			GUICtrlSetData($g_UI_Interact[2][1], $g_BG1Dir)
 			GUICtrlSetData($g_UI_Interact[2][2], $g_BG2Dir)
-		EndIf
 		If $g_Flags[14] = 'BWP' Then
 			$g_Flags[21] = 1; sort components according to PDF
-			$State = $GUI_DISABLE
+			$State=$GUI_DISABLE
 			GUICtrlSetState($g_UI_Menu[1][16], $GUI_CHECKED)
 			GUICtrlSetState($g_UI_Interact[14][8], $GUI_UNCHECKED); will be asked by batch
-		Else;If StringRegExp($g_Flags[14], 'BWS|BG2EE)' Then
-			$g_Flags[21] = 0; sort by theme
+		Else;If $g_Flags[14] = 'BWS' Then
+			$g_Flags[21]=0; sort by theme
 			GUICtrlSetState($g_UI_Menu[1][16], $GUI_UNCHECKED)
 		EndIf
 	Else; hide BG1-folder and adjust positions of GUI-controls
