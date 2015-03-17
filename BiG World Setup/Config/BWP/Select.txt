@@ -198,7 +198,7 @@ CMD;copy /Y ".\RoTerror\anim\Yeti\*.bam" ".\override";;;;D:SOS(0)&ROT(0)
 CMD;copy /Y ".\RoTerror\anim\Yeti\*.bam" ".\override";;;;D:CTB(0)&ROT(0)
 ANN;#4. BGT
 STD;BGT;0;09;1111;
-DWN;bg1textpack;3;01;1111;
+ANN;DWN;bg1textpack;3;01;1111;
 MUC;BGTMusic;Init;20;1111;
 MUC;BGTMusic;0;20;0000;
 MUC;BGTMusic;1;20;0000;
