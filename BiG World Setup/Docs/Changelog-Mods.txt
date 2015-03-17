@@ -426,3 +426,7 @@ Updated: Thalantyr Item Upgrade v4.1.
 20150313 - Updated by Silent
 Added: IWDification for BG2EE. Russian translation for BG and BGEE.
 Updated: Scales of Balance v2.8, The Picture Standard for BG:EE v0.6.
+20150317 - Updated by Silent
+Added: Garrick - Tales of a Troubadour for BGEE.
+Fixed: Adjusted dependencies.
+Updated: BGT NPC Portraits v2.9, Garrick - Tales of a Troubadour v1.23, Gavin v9 beta 150317, Scales of Balance v2.8.1.

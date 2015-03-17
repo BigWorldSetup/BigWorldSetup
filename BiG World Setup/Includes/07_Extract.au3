@@ -801,13 +801,13 @@ Func _Extract_MissingBG1()
 		_Extract_CaseRemove('Abra', $g_BG1Dir)
 		If StringInStr(FileRead($g_BG1Dir&'\Weidu.log'), @LF&'~setup-abra.tp2') Then IniDelete($g_BWSIni, 'Faults', 'Abra')
 	EndIf
-	If Not StringInStr(FileRead($g_BG1Dir&'\Weidu.log'), @LF&'~setup-correcfrbg1.tp2') And $g_MLang[1] = 'FR' Then; this one is the only (French) weidu that is extracted into the bg1-folder
+	If Not StringInStr(FileRead($g_BG1Dir&'\Weidu.log'), @LF&'~correcfrbg1/correcfrbg1.tp2') And $g_MLang[1] = 'FR' Then; this one is the only (French) weidu that is extracted into the bg1-folder
 		_Extract_CaseRemove('correcfrbg1', $g_BG1Dir)
-		If StringInStr(FileRead($g_BG1Dir&'\Weidu.log'), @LF&'~setup-correcfrbg1.tp2') Then IniDelete($g_BWSIni, 'Faults', 'correcfrbg1')
+		If StringInStr(FileRead($g_BG1Dir&'\Weidu.log'), @LF&'~correcfrbg1/correcfrbg1.tp2') Then IniDelete($g_BWSIni, 'Faults', 'correcfrbg1')
 	EndIf
-	If Not StringInStr(FileRead($g_BG1Dir&'\Weidu.log'), @LF&'~setup-bg1textpack.tp2') And $g_MLang[1] = 'FR' Then; this one is the only (Russian) weidu that is extracted into the bg1-folder
+	If Not StringInStr(FileRead($g_BG1Dir&'\Weidu.log'), @LF&'~bg1textpack/setup-bg1textpack.tp2') And $g_MLang[1] = 'RU' Then; this one is the only (Russian) weidu that is extracted into the bg1-folder
 		_Extract_CaseRemove('bg1textpack', $g_BG1Dir)
-		If StringInStr(FileRead($g_BG1Dir&'\Weidu.log'), @LF&'~setup-bg1textpack.tp2') Then IniDelete($g_BWSIni, 'Faults', 'bg1textpack')
+		If StringInStr(FileRead($g_BG1Dir&'\Weidu.log'), @LF&'~bg1textpack/setup-bg1textpack.tp2') Then IniDelete($g_BWSIni, 'Faults', 'bg1textpack')
 	EndIf
 EndFunc    ;==>_Extract_MissingBG1
 
