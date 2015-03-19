@@ -1,6 +1,7 @@
 ANN;Added due to patching
 DWN;WeiDU;0;00;1111;
 DWN;eekeeper;0;00;1111;
+STD;EET;0;00;1111;
 SUB;bg2eetp;0;00;1111;
 SUB;bg2eetp;0?1_1;00;1111;
 SUB;bg2eetp;0?1_2;00;1111;
