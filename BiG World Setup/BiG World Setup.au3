@@ -264,6 +264,10 @@ EndFunc   ;==>_CreateList
 ; ---------------------------------------------------------------------------------------------
 Func _GetCurrent()
 	$Current = IniReadSection($g_UsrIni, 'Current')
+	If @error Then
+	Local $Current[1][2]
+	$Current[0][0] = 0
+	EndIf
 	If $g_Flags[21] = '' Then Return $Current; BWS will not install BG1EE-mods and EET
 	$Num = StringRegExpReplace($g_Flags[14], '(?i)\ABG|EE\z', '')
 	Local $Return[$Current[0][0] + 1][2]
