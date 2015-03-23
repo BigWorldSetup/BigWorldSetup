@@ -105,7 +105,7 @@ Func _GetGameList()
 	Local  $GameList[100][3]=[[0]], $Game
 	$Game=_FileSearch($g_ProgDir & '\Config', '*')
 	For $g=1 to $Game[0]
-		If StringInStr($g_ProgDir & '\Config\'&$Game[$g], '.') Then ContinueLoop
+		If StringRegExp($Game[$g], '(?i)\x2e|\AGlobal\z') Then ContinueLoop
 		$Contains=StringSplit(IniRead($g_ProgDir & '\Config\'&$Game[$g]&'\Game.ini', 'Options', 'Contains', ''), '|')
 		$Description=StringSplit(IniRead($g_ProgDir & '\Config\'&$Game[$g]&'\Translation-'&$g_ATrans[$g_ATNum]&'.ini', 'UI-BuildTime', 'Interact[1][3]', ''), '|')
 		If $Contains[0] <> $Description[0] Then
