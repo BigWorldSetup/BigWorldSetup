@@ -80,6 +80,10 @@ EndFunc    ;==>_FileSearchDelete
 Func _GetArchiveSizes()
 	Local $Prefix[4] = [3, '', 'Add', $g_ATrans[$g_ATNum] & '-Add']
 	Local $Setups=$g_CurrentPackages
+	If $Setups[0][0] = 0 Then
+		Local $InstSize[1][4]
+		Return $InstSize
+	EndIf
 	Local $InstSize[$Setups[0][0]*3][4]
 	For $s=1 to $Setups[0][0]
 		$InstSize[0][0] += 1
