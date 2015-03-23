@@ -244,9 +244,11 @@ Func _Misc_LS_Verify()
 		$g_Flags[3] = StringTrimLeft($Return, 1)
 		$Last = _GUICtrlListView_GetItemParam($g_UI_Interact[15][2], $Selected - 1)
 		$First = _GUICtrlListView_GetItemParam($g_UI_Interact[15][1], 0)
-		For $ID = $Last To $First Step -1
+		If $BGTInstallable = 1 Then
+			For $ID = $Last To $First Step -1
 			GUICtrlDelete($ID); delete all GuiListViewItems so _Tree_Reload works as expected
-		Next
+			Next
+		EndIf
 	Else; folder-tab
 		$Selected = GUICtrlRead($g_UI_Interact[2][5])
 		If $g_Flags[3] <> $Selected Then $Reset = 1; changes have been made
