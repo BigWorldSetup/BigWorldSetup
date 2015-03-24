@@ -729,6 +729,7 @@ Func _Extract_ListMissing()
 			If $Fault[$f][0] = 'BG1TP' And FileExists($g_BG1Dir&'\setup-bg1tp.exe') Then $Fault[$f][1]=''; extracted German Textpatch
 			If $Fault[$f][0] = 'Abra' And FileExists($g_BG1Dir&'\setup-abra.exe') Then $Fault[$f][1]=''; extracted Spanish Textpatch
 			If $Fault[$f][0] = 'correcfrbg1' And FileExists($g_BG1Dir&'\setup-correcfrbg1.exe') Then $Fault[$f][1]=''; extracted French Textpatch
+			If $Fault[$f][0] = 'bg1textpack' And FileExists($g_BG1Dir&'\setup-bg1textpack.exe') Then $Fault[$f][1]=''; extracted Russian Textpatch
 		EndIf
 		If $Fault[$f][1] = '' Then
 			IniDelete($g_BWSIni, 'Faults', $Fault[$f][0]); remove the error
@@ -756,7 +757,7 @@ Func _Extract_ListMissing()
 				Local $mNum = 1, $Type = _GetTra($ReadSection, 'T') & '-AddSave', $Hint = _GetTR($Message, 'L4'); => translation
 				$Mark&=' ' & Chr(0xB2)
 			EndIf
-			If $Fault[$f][0] = 'BG1TP' Or $Fault[$f][0] = 'correcfrbg1' Or $Fault[$f][0] = 'Abra' Or $Fault[$f][0] = 'BG1TotSCSound' Then
+			If $Fault[$f][0] = 'BG1TP' Or $Fault[$f][0] = 'correcfrbg1' Or $Fault[$f][0] = 'Abra' Or $Fault[$f][0] = 'BG1TotSCSound' Or $Fault[$f][0] = 'bg1textpack' Then
 				$oNum=1
 				$Mark&=' ' & Chr(0xB3)
 			EndIf

@@ -58,6 +58,7 @@ CMD;IF EXIST "BiG World Fixpack\_Gavin_Hotfixes" IF EXIST Setup-gavin.exe xcopy 
 CMD;IF EXIST "BiG World Fixpack\_iwditemfix" If EXIST Setup-iwditempack.exe xcopy /Y /S /E ".\BiG World Fixpack\_iwditemfix\*.*" "."
 CMD;IF EXIST "BiG World Fixpack\_shatterfix" If EXIST Setup-item_rev.exe xcopy /Y /S /E ".\BiG World Fixpack\_shatterfix\*.*" "."
 CMD;IF NOT EXIST Setup-lolfixer.exe xcopy /Y /S /E ".\BiG World Fixpack\_Lolfixer\*.*" "."
+CMD;IF EXIST "BiG World Textpack GERMAN\gavin" rmdir /s /q ".\BiG World Textpack GERMAN\gavin"
 ANN;For some foreign languages this adds English text files to the mods as a substitute to prevent that the installation failes because of missing files.
 CMD;IF EXIST "BiG World Textpack GERMAN" xcopy /Y /S /E ".\BiG World Textpack GERMAN\_English_files" ".\BiG World Textpack GERMAN"
 CMD;IF EXIST "BiG World Trimpack" IF NOT EXIST BWP_Trimpack.installed Call "BiG World Trimpack.bat"
@@ -92,6 +93,7 @@ DWN;BG1TP;0;01;1111;
 DWN;correcfrbg1;0;01;1111;
 DWN;Abra;0;01;1111;
 DWN;Abra;1;01;1111;
+DWN;bg1textpack;1;01;1111;
 ANN;#1. CORRECTIONS AND IMPROVEMENTS
 STD;TP;0;01;1111;
 STD;correcfrbg2;0;01;1111;
@@ -411,7 +413,10 @@ MUC;gavin;6;04;0000;
 MUC;gavin;7;04;0000;
 MUC;gavin;8;04;0000;
 MUC;gavin;9;04;0000;
-STD;gavin;10;04;1111;
+MUC;gavin;10;04;0000;
+MUC;gavin;11;04;0000;
+MUC;gavin;12;04;0000;
+STD;gavin;13;04;1111;
 STD;Huple_NPC;0;04;0111;
 STD;Huple_NPC;1;04;0111;
 STD;ChaosKnight;0;19;0011;
@@ -850,12 +855,6 @@ MUC;Tashia;1;12;0000;
 MUC;Tashia;Init;12;0111;
 MUC;Tashia;2;12;0111;
 MUC;Tashia;3;12;0000;
-STD;Kivan;100;12;1111;
-MUC;Kivan;Init;12;1111;
-MUC;Kivan;200;12;1111;
-MUC;Kivan;201;12;0000;
-MUC;Kivan;202;12;0000;
-STD;Kivan;300;12;1111;
 STD;Fade;0;12;0111;
 STD;Fade;1;12;0111;
 STD;Kido;0;12;1111;
@@ -915,9 +914,7 @@ STD;ninde;0;12;0111;
 STD;xulaye;0;12;0111;
 STD;xulaye;1;12;0111;
 STD;xulaye;2;12;0111;
-STD;haldamir;0;12;1111;
 STD;AVIM;0;12;0111;
-STD;Saerileth;0;12;0111;
 STD;Skie;0;12;0111;
 STD;worgas;0;12;0111;
 STD;worgas;1;12;0111;
@@ -944,7 +941,8 @@ MUC;gavin_bg2;7;12;0000;
 MUC;gavin_bg2;8;12;0000;
 MUC;gavin_bg2;9;12;0000;
 MUC;gavin_bg2;10;12;0000;
-STD;gavin_kickout_hotfix;0;01;1111;
+ANN:Version 9 does not need the Kickout-Hotfix (it is already included)
+ANN;gavin_kickout_hotfix;0;01;1111;
 STD;gavin_bg2_bgt;0;01;1111;
 STD;darian;0;12;0111;
 MUC;darian;Init;12;0000;
@@ -1194,6 +1192,11 @@ STD;Zalnoya;1;11;0111;
 STD;Swylif;0;12;0111;
 STD;sagaman;0;11;0111;
 STD;almaquest2;0;11;0111;
+STD;kit_rev;0;19;0000;
+STD;kit_rev;100;16;0000;
+STD;kit_rev;110;16;0000;
+STD;kit_rev;120;16;0000;
+STD;kit_rev;130;16;0000;
 ANN;#19. ASCENSION-RELATED MODS
 STD;res_fixer;0;01;1111;
 CMD;IF EXIST Setup-BP.exe copy /Y ".\BiG World Fixpack\_TheUndying_for_BP\*.*" ".\BP\SNIP";;;;D:TheUndying(1)
@@ -1449,6 +1452,14 @@ STD;RE;50;14;0111;
 STD;RE;51;14;0111;
 STD;RE;52;14;0111;
 STD;RE;53;14;0111;
+STD;Kivan;100;12;1111;
+MUC;Kivan;Init;12;1111;
+MUC;Kivan;200;12;1111;
+MUC;Kivan;201;12;0000;
+MUC;Kivan;202;12;0000;
+STD;Kivan;300;12;1111;
+STD;haldamir;0;12;1111;
+STD;Saerileth;0;12;0111;
 STD;haerdalisromance;0;14;0111;
 STD;nephele;0;12;0111;
 STD;nephele;1;12;0111;
@@ -3448,6 +3459,7 @@ STD;tb#tweaks;3000;16;0000;
 MUC;tb#tweaks;Init;16;0000;
 MUC;tb#tweaks;3500;16;0000;
 MUC;tb#tweaks;3550;16;0000;
+MUC;tb#tweaks;3600;16;0000;
 STD;tb#tweaks;4000;16;0001;
 STD;tb#tweaks;4500;16;0001;
 STD;tb#tweaks;5000;16;0001;
