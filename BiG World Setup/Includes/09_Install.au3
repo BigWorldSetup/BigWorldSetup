@@ -34,6 +34,7 @@ Func Au3PrepInst($p_Num = 0)
 		IniWrite($g_BG2Dir & '\baldur.ini', 'Game Options', 'Use 3d Animations', 1)
 		IniWrite($g_BG2Dir & '\baldur.ini', 'Game Options', 'Footsteps', 1)
 		IniWrite($g_BG2Dir & '\baldur.ini', 'Game Options', 'Pausing Map', 1)
+		IniWrite($g_BG2Dir & '\baldur.ini', 'Game Options', 'Low End Machine', 1)
 
 		IniWrite($g_BG2Dir & '\baldur.ini', 'Config', 'General', 1)
 		IniWrite($g_BG2Dir & '\baldur.ini', 'Config', 'Graphics', 1)

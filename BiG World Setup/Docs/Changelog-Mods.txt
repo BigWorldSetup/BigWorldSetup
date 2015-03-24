@@ -430,3 +430,7 @@ Updated: Scales of Balance v2.8, The Picture Standard for BG:EE v0.6.
 Added: Garrick - Tales of a Troubadour for BGEE.
 Fixed: Adjusted dependencies.
 Updated: BGT NPC Portraits v2.9, Garrick - Tales of a Troubadour v1.23, Gavin v9 beta 150317, Scales of Balance v2.8.1.
+20150324 - Updated by Silent
+Added: Mortis Mini Mod v2.32, Smiling Imp Cross Banter Mod.
+Fixed: Adjusted dependencies.
+Updated: Selection fits IP 15, TP 15. BG1 NPC Project v21_20150320, BG1 Unfinished Business v14.0 beta 150320, Scales of Balance v2.8.3.
