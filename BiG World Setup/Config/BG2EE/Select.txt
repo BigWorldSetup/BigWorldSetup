@@ -1,4 +1,5 @@
 ANN;Added due to patching
+STD;EET;0;00;1111;
 DWN;WeiDU;0;00;1111;
 DWN;eekeeper;0;00;1111;
 STD;EET;0;00;1111;
