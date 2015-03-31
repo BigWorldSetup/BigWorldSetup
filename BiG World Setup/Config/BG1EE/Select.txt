@@ -1,6 +1,9 @@
 ANN;Added due to patching
 DWN;WeiDU;0;00;1111;
 DWN;eekeeper;0;00;1111;
+DWN;BGEE-Polish;0;00;1111;
+STD;BGEE_PL;0;0;1111;
+STD;BGEE_PL;1;0;1111;
 STD;bgeetextpack;0;01;1111;
 STD;bgeetextpack;1;01;1111;
 SUB;bgeegraphics;0;13;1111;
@@ -837,8 +840,6 @@ MUC;BGEEClassicMovies;Init;13;1111;
 MUC;BGEEClassicMovies;0;13;0000;
 MUC;BGEEClassicMovies;1;13;1111;
 STD;BGEEClassicMovies;2;13;1111;
-STD;BGEE_PL;0;13;1111;
-STD;BGEE_PL;1;13;1111;
 MUC;recoloredbuttons;Init;13;0111;
 MUC;recoloredbuttons;0;13;0111;
 MUC;recoloredbuttons;1;13;0000;
