@@ -389,6 +389,7 @@ STD;Derats_kits;5;12;0111;
 STD;Derats_kits;6;12;0111;
 STD;Derats_kits;7;12;0000;
 STD;Derats_kits;8;12;0000;
+STD;A7#ImprovedArcher;0;12;0111;
 STD;WSR;100;09;1111;
 STD;SoB;100;09;0111;
 STD;SoB;200;09;0111;

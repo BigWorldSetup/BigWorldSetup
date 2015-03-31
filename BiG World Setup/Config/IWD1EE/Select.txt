@@ -12,4 +12,6 @@ MUC;iwdnpc;Init;05;1111;
 MUC;iwdnpc;6;05;0000;
 MUC;iwdnpc;7;05;1111;
 MUC;iwdnpc;8;05;0000;
+STD;A7#ImprovedArcher;0;12;0111;
+STD;A7#ImprovedArcher;100;12;0111;
 ANN;Added due to patching
