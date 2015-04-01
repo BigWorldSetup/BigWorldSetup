@@ -1,5 +1,5 @@
 ANN;Add missing female dialog for russians
-CMD;IF EXIST Setup-iwd1tra.tp2 copy /Y dialog.tlk dialogf.tlk
+CMD;IF EXIST Setup-iwd1tra.tp2 copy dialog.tlk dialogf.tlk
 ANN;Added due to patching
 DWN;Textpack;0;00;1111;
 DWN;WeiDU;0;00;1111;

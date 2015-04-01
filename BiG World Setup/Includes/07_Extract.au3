@@ -233,22 +233,6 @@ Func Au3ExFix($p_Num)
 		FileWrite($g_LogFile, '>MSFM WeiDU Install v1.35\* .' & @CRLF)
 		_Extract_MoveMod('MSFM WeiDU Install v1.35')
 	EndIf
-	If StringRegExp($g_Flags[14], 'BWP|BWS|BG1EE|BG2EE') And FileExists($g_GameDir&'\Aran-Whitehand-master') Then
-		FileWrite($g_LogFile, '>Aran-Whitehand-master\* .' & @CRLF)
-		_Extract_MoveMod('Aran-Whitehand-master')
-	EndIf
-	If StringRegExp($g_Flags[14], 'BWP|BWS|BG1EE|BG2EE') And FileExists($g_GameDir&'\BG1NPC-21-PR_20141231') Then
-		FileWrite($g_LogFile, '>BG1NPC-21-PR_20141231\* .' & @CRLF)
-		_Extract_MoveMod('BG1NPC-21-PR_20141231')
-	EndIf
-	If StringRegExp($g_Flags[14], 'BWP|BWS|BG1EE|BG2EE|IWD1|IWD2|PST') And FileExists($g_GameDir&'\Diff_Tweak') Then
-		FileWrite($g_LogFile, '>Diff_Tweak\* .' & @CRLF)
-		_Extract_MoveMod('Diff_Tweak')
-	EndIf
-	If StringRegExp($g_Flags[14], 'BWP|BWS|BG1EE') And FileExists($g_GameDir&'\bg1ub-14.0_beta_150102') Then
-		FileWrite($g_LogFile, '>bg1ub-14.0_beta_150102\* .' & @CRLF)
-		_Extract_MoveMod('bg1ub-14.0_beta_150102')
-	EndIf
 ; ==============  Fix textstring so weidu will not fail to install the mod ============
 	If StringRegExp($g_Flags[14], 'BWP|BWS') And FileExists($g_BG2Dir&'\setup-bonehillv275.exe') Then
 		$Text=FileRead($g_BG2Dir&'\bonehillv275\Language\deutsch\D\BHARRNES.TRA')

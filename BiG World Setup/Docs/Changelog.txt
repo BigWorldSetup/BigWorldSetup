@@ -925,15 +925,15 @@ Fixed: Copy PST-files to HDD works as expected. [_Test_CheckRequieredFiles_PST]
 Fixed: DDrawFix-detection. [_Backup_Test]
 Updated: Expanded documentation. [docs\faq.htm]
 20130916 - Updated by Silent
-Changed: Temporarily disabled auto-update links (thanks to Dabus) and disabled selections "Total happiness", "Megamod" and "Arkenor's Adventure Picks".
+Changed: Temporarily disabled auto-update links (thanks to dabus) and disabled selections "Total happiness", "Megamod" and "Arkenor's Adventure Picks".
 20130917 - Updated by AL|EN
 Updated: Run BWS always as admin to avoid problems.
 20131022 - Updated by Silent
-Fixed: Changing the codepage (thanks to Dabus).
+Fixed: Changing the codepage (thanks to dabus).
 20131030 - Updated by Silent
 Changed: Selections "Total happiness", "Megamod" and "Arkenor's Adventure Picks" is recovered back.
 20131129 - Updated by Silent
-Changed: Replaces "old" WeiDUs (thanks to Dabus).
+Changed: Replaces "old" WeiDUs (thanks to dabus).
 20131203 - Updated by Silent
 Changed: Disabled auto-update links function, again.
 20131224 - Updated by dabus
@@ -973,7 +973,10 @@ Updated: German translation (thanks to dabus).
 Added: The last selected pre-selection is saved, adjusted BWS-selections will be saved as an own preselection. Dependencies and conflicts may be configured to be ignored. Adjusted BG2EE so BG1EE may be integrated via EET (adjusted folder-selection, tests, language-check for BGT/EET, purging when EET is missing).
 Changed: Cleanup starts through BiG World Install.bat.
 Fixed: Stuff that came up with testing.
-201502
+20150103 - Updated by Silent
+Changed: Disabled autoreplacement old WeiDU.
+Fixed: Breach selection limit (thanks to dabus). [_GetArchiveSizes] Returned old 7zip.
+20150222
 Added: Install EET with BG1 mods in one go. Remove mods for BG1EE from BG2EE install and vice versa. Added IWD1EE support.
 Changed: You can have preselections (and by this reload your last change through preselect00.ini) in every game.
 Fixed: Filesize-updates during downloads should work as expected if AutoIt3 detects OS as Vista. Closing of NSIS questions should work. Removed a few useless updates of the current selections. Don't crash if the tag-number (representing NPC, BG1 NPC) is too high/does not exist in the current game -> in those cases, just put the mod into general. Fixed last selection if no preselectXX.ini is present. Fix BiG World Install.bat so it will work with "Run as Admin".
