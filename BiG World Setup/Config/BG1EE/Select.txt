@@ -34,7 +34,6 @@ STD;thalan;0;10;0111;
 STD;BGeeAR;0;10;0111;
 STD;BGeeW;0;10;0111;
 STD;Animus;0;10;0111;
-STD;saradas_magic_2;0;10;0111;
 STD;ConvinientAmmunition;0;10;0111;
 STD;WandCase;0;10;0111;
 STD;wmart;0;10;0011;
