@@ -365,7 +365,7 @@ MUC;bg1npc;17;05;1111;
 MUC;bg1npc;18;05;0000;
 STD;bg1npc;25;05;1111;
 STD;bg1npc;28;05;1111;
-MUC;bg1npc;Init;07;1111;
+MUC;bg1npc;Init;05;1111;
 MUC;bg1npc;29;05;1111;
 MUC;bg1npc;30;05;0000;
 MUC;bg1npc;Init;05;1111;
