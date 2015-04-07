@@ -1283,7 +1283,7 @@ Func _Net_WGetShow($p_PID, $p_Num)
 			GUICtrlSetState($g_UI_Seperate[5][0], $GUI_SHOW)
 			ExitLoop
 		EndIf
-		$DoUpdate=StringRegExp(@OSVersion, 'WIN_2008R2|WIN_7|WIN_2008')
+		$DoUpdate=StringRegExp(@OSVersion, 'WIN_VISTA|WIN_7|WIN_2008|WIN_2008R2')
 		If $DoUpdate Then FileRead($g_DownDir&'\'&$g_Down[$p_Num][0], 1); files are not updated on windows 7. Use this as a workaround.
 		$localSize=FileGetSize($g_DownDir&'\'&$g_Down[$p_Num][0])
 		GUICtrlSetData($g_UI_Interact[6][1], $localSize*100/$g_Down[$p_Num][1])
