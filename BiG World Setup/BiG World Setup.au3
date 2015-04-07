@@ -289,7 +289,7 @@ Func _GetGlobalData($p_Game='')
 If $p_Game <> '' Then; Enable testing of this function or use defaults...
 		$g_GConfDir=$g_ProgDir&'\Config\'&$p_Game
 	Else
-		$p_Game=$g_Flags[14]
+		$p_Game=StringRegExpReplace($g_GConfDir, '\A.*\\', '')
 	EndIf
 	Local $LastMod, $Mods='|', $Lang=StringSplit('EN|GE|RU', '|'), $LCodes[13]=[12, 'GE','EN','FR','PO','RU','IT','SP','CZ','KO','CH','JP','PR']
 	Local $Edit, $GameLen=StringLen($p_Game), $GameToken=''; 'BCIP'
