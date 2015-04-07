@@ -286,6 +286,11 @@ EndFunc   ;==>_GetCurrent
 ; Gather all the information from single small mod-files and write them into the bigger ini-files
 ; ---------------------------------------------------------------------------------------------
 Func _GetGlobalData($p_Game='')
+If $p_Game <> '' Then; Enable testing of this function or use defaults...
+		$g_GConfDir=$g_ProgDir&'\Config\'&$p_Game
+	Else
+		$p_Game=$g_Flags[14]
+	EndIf
 	Local $LastMod, $Mods='|', $Lang=StringSplit('EN|GE|RU', '|'), $LCodes[13]=[12, 'GE','EN','FR','PO','RU','IT','SP','CZ','KO','CH','JP','PR']
 	Local $Edit, $GameLen=StringLen($p_Game), $GameToken=''; 'BCIP'
 	If $p_Game <> '' Then; Enable testing of this function or use defaults...
@@ -348,7 +353,7 @@ Func _GetGlobalData($p_Game='')
 						$Desc=StringRegExpReplace($Text[$t], '\A[^=]*=', '')
 						If @extended Then
 							If StringRegExp($Text[$t], '\A[^=]*_') Then; exception found
-								If StringLeft($Text[$t], $GameLen) = $p_Game Then; fitting for this game
+								If StringLeft($Text[$t], $GameLen+1) = $p_Game&'_' Then; fitting for this game
 									$Split=StringInStr($Text[$t], '=')
 									$Key=StringMid($Text[$t], $GameLen+2, $Split-$GameLen-2)
 									If $Desc='' Then $Desc=' '
