@@ -194,6 +194,7 @@ SUB;garrick-tt;0?1_1;13;0111;
 SUB;garrick-tt;0?1_2;13;0000;
 STD;TenyaThermidor;0;05;0111;
 STD;Vynd;0;05;0111;
+STD;saradas_magic;0;05;0111;
 SUB;bg1re;0;07;0111;
 SUB;bg1re;0?0_1;07;0000;
 SUB;bg1re;0?0_2;07;0000;
