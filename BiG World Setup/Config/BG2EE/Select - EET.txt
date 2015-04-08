@@ -11,7 +11,7 @@ DWN;bgeegraphics_part2;0;13;1111;
 DWN;bgeegraphics_part3;0;13;1111;
 STD;DarkHorizonsBGee;0;02;0011;
 MUC;drizztsaga;Init;02;0011;
-MUC;drizztsaga;0;02;0011;
+MUC;drizztsaga;1;02;0011;
 STD;drizztsaga;2;02;0011;
 STD;drizztsaga;3;02;0011;
 STD;bgqe;0;03;1111;
