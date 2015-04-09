@@ -863,6 +863,7 @@ STD;BGEEClassicMovies;2;13;1111;
 MUC;recoloredbuttons;Init;13;0111;
 MUC;recoloredbuttons;0;13;0111;
 MUC;recoloredbuttons;1;13;0000;
+DWN;BG1EEGUISwitch;0;13;0111;
 DWN;BG1EEGUITweaks;0;13;0111;
 DWN;BG1EEGUITweaksB;0;13;0111;
 DWN;BG1EEGUITweaksWE;0;13;0111;
