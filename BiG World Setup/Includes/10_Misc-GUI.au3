@@ -225,7 +225,7 @@ Func _Misc_LS_Verify()
 	$LArray = StringSplit(_GetTR($g_UI_Message, '15-I1'), '|'); => long available translations for the mods
 	$MArray = StringSplit(GUICtrlRead($g_UI_Interact[2][5]), ' ')
 	$SArray = StringSplit(_GetTR($g_UI_Message, '15-L1'), '|'); => short available translations for the mods
-	If StringRegExp($g_Flags[14], 'BWP|BWS') Then $Tra = IniRead($g_ModIni, 'BGT', 'Tra', '')
+	If StringRegExp($g_Flags[14], 'BWS|BWP') Then $Tra = IniRead($g_ModIni, 'BGT', 'Tra', '')
 	If $g_Flags[14] = 'BG2EE' Then $Tra = IniRead($g_ModIni, 'EET', 'Tra', ''); BG2EE uses EET for merging games
 	If $Current = 15 Then; lang-tab
 		$Selected = ControlListView($g_Ui[0], '', $g_UI_Interact[15][2], 'GetItemCount')
