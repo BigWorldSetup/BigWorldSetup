@@ -225,7 +225,7 @@ Func _Misc_LS_Verify()
 	$LArray = StringSplit(_GetTR($g_UI_Message, '15-I1'), '|'); => long available translations for the mods
 	$MArray = StringSplit(GUICtrlRead($g_UI_Interact[2][5]), ' ')
 	$SArray = StringSplit(_GetTR($g_UI_Message, '15-L1'), '|'); => short available translations for the mods
-	If StringRegExp($g_Flags[14], 'BWP|BWS') Then $Tra = IniRead($g_ModIni, 'BGT', 'Tra', '')
+	If StringRegExp($g_Flags[14], 'BWS|BWP') Then $Tra = IniRead($g_ModIni, 'BGT', 'Tra', '')
 	If $g_Flags[14] = 'BG2EE' Then $Tra = IniRead($g_ModIni, 'EET', 'Tra', ''); BG2EE uses EET for merging games
 	If $Current = 15 Then; lang-tab
 		$Selected = ControlListView($g_Ui[0], '', $g_UI_Interact[15][2], 'GetItemCount')
@@ -789,7 +789,7 @@ Func _Misc_SwichGUIToInstallMethod()
 	Next
 	$g_GConfDir = $g_ProgDir & '\Config\' & $g_GameList[$g][0]
 	GUICtrlSetData($g_UI_Interact[1][3], $g_GameList[$g][2])
-	If StringRegExp($g_Flags[14], 'BWP|BWS|BG2EE') Then
+	If StringRegExp($g_Flags[14], 'BWS|BWP|BG2EE') Then
 		GUICtrlSetState($g_UI_Static[2][1], $GUI_SHOW)
 		GUICtrlSetState($g_UI_Interact[2][1], $GUI_SHOW)
 		GUICtrlSetState($g_UI_Button[2][1], $GUI_SHOW)
@@ -853,7 +853,7 @@ Func _Misc_SwichGUIToInstallMethod()
 	$g_ModIni = $g_GConfDir & '\Mod.ini'
 	_GetGlobalData()
 	$g_Setups = _CreateList('s')
-	If Not StringRegExp($g_Flags[14], 'BWP|BWS') Then GUICtrlSetState($g_UI_Interact[14][8], $GUI_HIDE); hide additional textpatch-option
+	If Not StringRegExp($g_Flags[14], 'BWS|BWP') Then GUICtrlSetState($g_UI_Interact[14][8], $GUI_HIDE); hide additional textpatch-option
 	GUICtrlSetState($g_UI_Interact[14][3], $State); install options
 	GUICtrlSetState($g_UI_Interact[14][4], $State); install in groups
 	GUICtrlSetState($g_UI_Interact[14][6], $State); desktopwidth
