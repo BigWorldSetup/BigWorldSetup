@@ -263,7 +263,7 @@ Func _Process_Read(ByRef $p_Answer); $p_Answer=Array with questions from weidu/b
 		$OutputArray = StringSplit(StringStripCR($g_ConsoleOutput), @LF)
 		$g_ConsoleOutput=''
 		For $o = $OutputArray[0] To 1 Step -1
-			If StringRegExp($OutputArray[$o], '(?i)Tiles processed|% decoded|%]|\A(Tile|Pos:|\s?Oggdec|\sEncoder|\sSerial|\sBitstream|\sScale|\sDecoded|\sEncoded)\s') Then ContinueLoop; cmd itself
+			If StringRegExp($OutputArray[$o], '(?i)\sTime\s\x3d\s|Tiles processed|% decoded|%]|\A(Tile|Pos:|\s?Oggdec|\sEncoder|\sSerial|\sBitstream|\sScale|\sDecoded|\sEncoded)\s') Then ContinueLoop; cmd itself
 			If $LastLine = '' And $OutputArray[$o] = '' Then ContinueLoop
 			$FilteredLines+=1
 			$LastLine=$OutputArray[$o]
