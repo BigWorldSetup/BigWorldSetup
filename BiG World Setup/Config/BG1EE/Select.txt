@@ -384,16 +384,6 @@ STD;RR;3;09;1111;
 STD;RR;4;09;1111;
 STD;RR;6;09;1111;
 STD;RR;7;09;1111;
-STD;Derats_kits;0;12;0111;
-STD;Derats_kits;1;12;0111;
-STD;Derats_kits;2;12;0111;
-STD;Derats_kits;3;12;0111;
-STD;Derats_kits;4;12;0111;
-STD;Derats_kits;5;12;0111;
-STD;Derats_kits;6;12;0111;
-STD;Derats_kits;7;12;0000;
-STD;Derats_kits;8;12;0000;
-STD;A7#ImprovedArcher;0;12;0111;
 STD;WSR;100;09;1111;
 STD;SoB;100;09;0111;
 STD;SoB;200;09;0111;
@@ -459,6 +449,18 @@ MUC;SoB;872;12;0000;
 ANN;Refinements goes here for compatibility with Scales of Balance #25 
 STD;SoB;580;09;0111;
 STD;SoB;650;09;0111;
+STD;Derats_kits;0;12;0111;
+STD;Derats_kits;1;12;0111;
+STD;Derats_kits;2;12;0111;
+STD;Derats_kits;3;12;0111;
+STD;Derats_kits;4;12;0111;
+STD;Derats_kits;7;12;0000;
+STD;Derats_kits;8;12;0000;
+CMD;IF EXIST Derats_kits.exe echo 0x4145 pxSORCELERERB >> ./override/kit.ids
+CMD;IF EXIST Derats_kits.exe echo 0x4146 pxSORCELERERD >> ./override/kit.ids
+STD;Derats_kits;5;12;0111;
+STD;Derats_kits;6;12;0111;
+STD;A7#ImprovedArcher;0;12;0111;
 STD;stratagems;1000;09;1111;
 STD;stratagems;1910;09;1111;
 STD;stratagems;2010;09;1111;

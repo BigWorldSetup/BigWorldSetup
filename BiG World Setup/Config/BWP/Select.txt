@@ -2551,6 +2551,8 @@ CMD;IF EXIST Derats_kits.exe echo 0x4145 pxSORCELERERB >> ./override/kit.ids
 CMD;IF EXIST Derats_kits.exe echo 0x4146 pxSORCELERERD >> ./override/kit.ids
 STD;Derats_kits;5;19;0111;
 STD;Derats_kits;6;19;0111;
+STD;A7#ImprovedArcher;0;19;0111;
+STD;A7#ImprovedArcher;100;17;0111;
 STD;spell_rev;60;16;1111;
 STD;stratagems;1000;16;1111;
 MUC;stratagems;Init;16;1111;
