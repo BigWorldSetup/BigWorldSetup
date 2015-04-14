@@ -280,7 +280,7 @@ MUC;drizztsaga;Init;02;0011;
 MUC;drizztsaga;0;02;0000;
 MUC;drizztsaga;1;02;0011;
 STD;drizztsaga;3;02;0011;
-CMD;echo.>> Worldmap/map_mods_links.tbl
+CMD;IF EXIST sutup-drizztsaga.exe echo.>> Worldmap/map_mods_links.tbl
 ANN;#7. BG1 QUEST MODS
 CMD;IF EXIST Setup-Vault.exe IF EXIST ".\override\alissa8.cre" IF NOT EXIST ".\override\cadder2.cre" copy /Y ".\RoTerror\CRE\nostring\cadder2.cre" ".\override"
 CMD;IF EXIST Setup-Vault.exe IF EXIST ".\override\alissa8.cre" IF NOT EXIST ".\override\cadder3.cre" copy /Y ".\RoTerror\CRE\nostring\cadder3.cre" ".\override"
@@ -1481,7 +1481,9 @@ MUC;d0questpack;Init;18;0111;
 MUC;d0questpack;1;18;0111;
 MUC;d0questpack;2;18;0000;
 MUC;d0questpack;3;18;0000;
-STD;d0questpack;4;10;0111;
+MUC;d0questpack;Init;10;0111;
+MUC;d0questpack;4;10;0111;
+MUC;d0questpack;401;10;0000;
 STD;d0questpack;5;10;0001;
 STD;d0questpack;6;10;0111;
 STD;d0questpack;7;10;0111;
@@ -1729,7 +1731,7 @@ STD;BInfinitySounds;10;20;0111;
 STD;BInfinitySounds;11;20;0000;
 STD;BInfinitySounds;12;20;0000;
 ANN;These files seem to be corrupt and they prevent to install the Hypnotic Pattern component.
-CMD;IF EXIST TheUndying.exe IF EXIST ".\override\SPWI231*.BAM" move ".\override\SPWI231*.BAM" ".\BWP_workspace\override"
+CMD;IF EXIST Sutup-TheUndying.exe IF EXIST ".\override\SPWI231*.BAM" move ".\override\SPWI231*.BAM" ".\BWP_workspace\override"
 GRP;Start
 STD;SpellPackB6;1105;16;0111;
 STD;SpellPackB6;1106;16;0111;
@@ -1867,7 +1869,7 @@ STD;SpellPackB6;2912;16;0111;
 STD;SpellPackB6;2913;16;0111;
 STD;SpellPackB6;2915;16;0111;
 GRP;Stop
-CMD;IF EXIST TheUndying.exe IF EXIST ".\BWP_workspace\override\SPWI231*.BAM" move ".\BWP_workspace\override\SPWI231*.BAM" ".\override"
+CMD;IF EXIST Setup-TheUndying.exe IF EXIST ".\BWP_workspace\override\SPWI231*.BAM" move ".\BWP_workspace\override\SPWI231*.BAM" ".\override"
 STD;Spell50;0;16;0001;
 STD;Spell50;1;16;0001;
 STD;Spell50;2;16;0001;

@@ -1,4 +1,5 @@
 ANN;Added due to patching
+CMD;IF NOT EXIST ".\BWS_workspace\override" MD ".\BWS_workspace\override"
 DWN;WeiDU;0;00;1111;
 DWN;eekeeper;0;00;1111;
 STD;BGEE_PL;0;0;1111;
@@ -9,11 +10,14 @@ SUB;bgeegraphics;0?1_1;13;1111;
 SUB;bgeegraphics;0?1_2;13;0000;
 DWN;bgeegraphics_part2;0;13;1111;
 DWN;bgeegraphics_part3;0;13;1111;
+ANN;Removing corrupted .wed
+CMD;IF EXIST sutup-bgeegraphics.exe IF EXIST ".\override\ar4300.wed" move ".\override\ar4300.wed" ".\BWS_workspace\override"
 STD;DarkHorizonsBGee;0;02;0011;
 MUC;drizztsaga;Init;02;0011;
 MUC;drizztsaga;1;02;0011;
 STD;drizztsaga;2;02;0011;
 STD;drizztsaga;3;02;0011;
+CMD;IF EXIST sutup-drizztsaga.exe echo.>> Worldmap/map_mods_links.tbl
 STD;bgqe;0;03;1111;
 STD;bgqe;1;03;1111;
 STD;bgqe;2;03;1111;
@@ -718,7 +722,9 @@ MUC;d0questpack;Init;11;0111;
 MUC;d0questpack;1;11;0111;
 MUC;d0questpack;2;11;0000;
 MUC;d0questpack;3;11;0000;
-STD;d0questpack;4;03;0111;
+MUC;d0questpack;Init;03;0111;
+MUC;d0questpack;4;03;0111;
+MUC;d0questpack;401;03;0111;
 STD;d0questpack;5;03;0001;
 STD;d0questpack;6;03;0111;
 STD;d0questpack;7;03;0111;
@@ -838,7 +844,9 @@ STD;SoB;210;09;0111;
 STD;SoB;220;09;0111;
 STD;SoB;230;09;0111;
 STD;SoB;240;09;0111;
+CMD;IF EXIST ".\override\C#AJAN16.CRE" move ".\override\C#AJAN16.CRE" ".\BWS_workspace\override"
 STD;SoB;250;09;0111;
+CMD;IF EXIST ".\BWS_workspace\override\C#AJAN16.CRE" move ".\BWS_workspace\override\C#AJAN16.CRE" ".\override"
 STD;SoB;300;09;0111;
 STD;SoB;310;09;0000;
 STD;SoB;320;12;0111;
@@ -1065,6 +1073,9 @@ MUC;BP;Init;11;0001;
 MUC;BP;440;11;0001;
 MUC;BP;450;11;0000;
 MUC;BP;460;11;0000;
+CMD;IF EXIST ".\override\DUEARC02.CRE" copy /Y ".\override\DUEARC01.CRE" ".\override\DUEARC02.CRE"
+CMD;IF EXIST ".\override\DUEARC03.CRE" copy /Y ".\override\DUEARC01.CRE" ".\override\DUEARC03.CRE"
+CMD;IF EXIST ".\override\DUEARC04.CRE" copy /Y ".\override\DUEARC01.CRE" ".\override\DUEARC04.CRE"
 STD;BP;475;11;0001;
 STD;BP;500;11;0001;
 STD;BP;525;11;0001;

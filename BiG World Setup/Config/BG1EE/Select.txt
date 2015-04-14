@@ -1,4 +1,5 @@
 ANN;Added due to patching
+CMD;IF NOT EXIST ".\BWS_workspace\override" MD ".\BWS_workspace\override"
 DWN;WeiDU;0;00;1111;
 DWN;eekeeper;0;00;1111;
 DWN;BGEE-Polish;0;00;1111;
@@ -11,12 +12,15 @@ SUB;bgeegraphics;0?1_1;13;1111;
 SUB;bgeegraphics;0?1_2;13;0000;
 DWN;bgeegraphics_part2;0;13;1111;
 DWN;bgeegraphics_part3;0;13;1111;
+ANN;Removing corrupted .wed
+CMD;IF EXIST sutup-bgeegraphics.exe IF EXIST ".\override\ar4300.wed" move ".\override\ar4300.wed" ".\BWS_workspace\override"
 STD;DarkHorizonsBGee;0;02;0011;
 STD;dsotscBGEE;5;02;0111;
 MUC;drizztsaga;Init;02;0011;
 MUC;drizztsaga;0;02;0011;
 STD;drizztsaga;2;02;0011;
 STD;drizztsaga;3;02;0011;
+CMD;IF EXIST sutup-drizztsaga.exe echo.>> Worldmap/map_mods_links.tbl
 STD;bgqe;0;03;1111;
 STD;bgqe;1;03;1111;
 STD;bgqe;2;03;1111;
@@ -835,10 +839,12 @@ MUC;DiffTweak;39;09;0000;
 MUC;DiffTweak;40;09;0000;
 MUC;DiffTweak;41;09;0000;
 STD;DiffTweak;42;09;0000;
+CMD;IF EXIST Derats_kits.exe IF EXIST ".\override\PXW3CAME.SPL" move ".\override\PXW3CAME.SPL" ".\BWS_workspace\override"
 STD;w_psionics_unleashed;10;12;0001;
 MUC;w_psionics_unleashed;Init;12;0001;
 MUC;w_psionics_unleashed;61;12;0001;
 MUC;w_psionics_unleashed;62;12;0000;
+CMD;IF EXIST Derats_kits.exe IF EXIST ".\BWS_workspace\override\PXW3CAME.SPL" move ".\BWS_workspace\override\PXW3CAME.SPL" ".\override"
 SUB;generalized_biffing;0;00;1111;
 SUB;generalized_biffing;0?1_0;00;0000;
 SUB;generalized_biffing;0?1_1;00;1111;
