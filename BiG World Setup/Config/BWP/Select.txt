@@ -2225,6 +2225,18 @@ STD;Haiass;0;13;0111;
 MUC;Haiass;Init;13;0111;
 MUC;Haiass;10;13;0111;
 MUC;Haiass;15;13;0000;
+MUC;DjinniCompanion;Init;12;0111;
+MUC;DjinniCompanion;0;12;0111;
+MUC;DjinniCompanion;1;12;0000;
+MUC;DjinniCompanion;Init;12;0000;
+MUC;DjinniCompanion;101;12;0000;
+MUC;DjinniCompanion;102;12;0000;
+MUC;DjinniCompanion;103;12;0000;
+MUC;DjinniCompanion;104;12;0000;
+MUC;DjinniCompanion;105;12;0000;
+STD;DjinniCompanion;200;12;0000;
+STD;DjinniCompanion;300;12;0111;
+STD;DjinniCompanion;900;12;0111;
 ANN;#24. HLA-TABLES CHANGING MODS
 STD;ashesofembers;5;19;0001;
 STD;ashesofembers;6;19;0001;
