@@ -298,7 +298,10 @@ If $p_Game <> '' Then; Enable testing of this function or use defaults...
 	Else
 		$p_Game=$g_Flags[14]
 	EndIf
-	If FileExists($g_GConfDir&'\Mod.ini') Then Return
+	If FileExists($g_GConfDir&'\Mod.ini') Then
+		FileDelete($g_GConfDir&'\Mod*.ini')
+		FileDelete($g_GConfDir&'\WeiDu*.ini')
+	EndIf
 	$Current = GUICtrlRead($g_UI_Seperate[0][0])+1
 	_Misc_ProgressGUI(_GetTR($g_UI_Message, '0-T2'), _GetTR($g_UI_Message, '0-L2')); => building dependencies-table
 	GUISwitch($g_UI[0])
@@ -400,6 +403,17 @@ If $p_Game <> '' Then; Enable testing of this function or use defaults...
 		Else
 			IniWrite($g_GConfDir&'\'&$Split[1]&'.ini', $Split[2], $Split[3], $Split[4])
 		EndIf
+	Next
+	; Preselections
+	Local $Array[3]=[2, 'Global', $p_Game]
+	For $a=1 to $Array[0]
+		$ReadSection=IniReadSection($g_ProgDir&'\Config\Preselect.ini', $Array[$a])
+		If @error Then ContinueLoop
+		For $r=1 to $ReadSection[0][0]
+			For $l=1 to $Lang[0]
+				If StringRight($ReadSection[$r][0], 2) = $Lang[$l] Then IniWrite($g_GConfDir&'\Mod-'&$Lang[$l]&'.ini', 'Preselect', StringLeft($ReadSection[$r][0], 2), $ReadSection[$r][1])
+			Next
+		Next
 	Next
 	_Misc_SetTab($Current)
 EndFunc    ;==>_GetGlobalData
