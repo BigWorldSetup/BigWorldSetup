@@ -470,4 +470,4 @@ Added: Afaaq, the Djinni Companion v1.0.
 Fixed: Adjusted dependencies.
 Updated: BP-BGT Worldmap v10.1, Faren v2.3.
 20150430 - Updated by Silent
-Updated: Fishing for Trouble v3.0, Scales of Balance v2.9.1.
+Updated: Afaaq, the Djinni Companion v1.1, Fishing for Trouble v3.0, Scales of Balance v2.9.1.
