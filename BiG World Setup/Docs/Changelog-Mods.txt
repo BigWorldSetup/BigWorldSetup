@@ -413,3 +413,61 @@ Updated: Scales of Balance components and dependencies. Adjusted some dependenci
 Fixed: Many minor bugs. Adjusted some dependencies.
 Removed: BP-BGT Worldmap for BGEE.
 Updated: Ascalons Breagar v7.00b 20150127, Ascalons Questpack v2.00b 20150205, BG1 NPCs at Beginning v2.2.
+20150307 - Updated by Silent
+Fixed: Adjusted dependencies.
+Updated: Gavin v9 beta 150110c, Scales of Balance v2.6.1.
+20150311 - Updated by Silent
+Added: Kit Revisions Beta 20.
+Fixed: Adjusted dependencies.
+Updated: NPC Strongholds v2, Scales of Balance v2.7.1.
+20150312 - Updated by Silent
+Added: Divine Remix for BGEE and BG2EE.
+Updated: Thalantyr Item Upgrade v4.1.
+20150313 - Updated by Silent
+Added: IWDification for BG2EE. Russian translation for BG and BGEE.
+Updated: Scales of Balance v2.8, The Picture Standard for BG:EE v0.6.
+20150317 - Updated by Silent
+Added: Garrick - Tales of a Troubadour for BGEE.
+Fixed: Adjusted dependencies.
+Updated: BGT NPC Portraits v2.9, Garrick - Tales of a Troubadour v1.23, Gavin v9 beta 150317, Scales of Balance v2.8.1.
+20150324 - Updated by Silent
+Added: Mortis Mini Mod v2.32, Smiling Imp Cross Banter Mod.
+Fixed: Adjusted dependencies.
+Updated: Selection fits IP 15, TP 15. BG1 NPC Project v21_20150320, BG1 Unfinished Business v14.0 beta 150320, Scales of Balance v2.8.3.
+20150327 - Updated by AL|EN
+Added: Item Randomizer and Ding0 Experience Fixer to EE games.
+Fixed: Component categories. Adjusted dependencies.
+20150401 - Updated by AL|EN
+Added: Improved Archer Kit and Lighting Pack. Polish language localizations for EE.
+Fixed: Divine Remix language selection.
+20150403 - Updated by AL|EN
+Added: DSotSC to BGEE.
+Fixed: Component names.
+20150408 - Updated by AL|EN
+Added: BGEE and BG2EE GUI Tweaks.
+Fixed: Adjusted dependencies.
+Updated: Ajantis NPC for BG2 v12, Polish language localizations for EE.
+20150408 - Updated by Silent
+Added: Sandrah NPC and Return to Faerun.
+Fixed: Adjusted dependencies.
+Updated: Scales of Balance v2.8.7a, The Picture Standard for BG:EE v0.6.1.
+20150409 - Updated by AL|EN
+Fixed: Component names.
+Updated: Thalantyr Item Upgrade v4.1a, Yasraena v16.
+20150409 - Updated by Silent
+Fixed: Corrupted Russian text.
+20150414 - Updated by AL|EN
+Updated: Scales of Balance v2.8.8, Thalantyr Item Upgrade v4.2, The Undying v2.53.
+20150414 - Updated by Silent
+Changed: Installation order for BGEE and BG2EE.
+20150415 - Updated by Silent
+Fixed: NTotSC language selection. Adjusted dependencies.
+20150419 - Updated by Silent
+Fixed: Adjusted dependencies.
+Updated: BiG World Installpack v15.0.2, Jastey's Solaufein beta 150418, Sandrah NPC v1.03 beta.
+20150426 - Updated by Silent
+Added: Afaaq, the Djinni Companion v1.0.
+Fixed: Adjusted dependencies.
+Updated: BP-BGT Worldmap v10.1, Faren v2.3.
+20150430 - Updated by Silent
+Updated: Fishing for Trouble v3.0, Scales of Balance v2.9.1.

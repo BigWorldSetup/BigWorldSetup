@@ -984,3 +984,9 @@ Fixed: Filesize-updates during downloads should work as expected if AutoIt3 dete
 Fixed: Extraction error (thanks to dabus). [_Test_GetCustomTP2]
 20150315
 Added: Copy information for WeiDU-XY.ini, Mod.ini and Mod-XY.ini from a list of small "globaly usable" files instead of having to maintain several folders with same information. [_GetGlobalData]
+20150408 - Updated by AL|EN
+Updated: Documentation.
+20150408 - Updated by Silent
+Fixed: GitHub extraction error (thanks to dabus). [_Process_Read]
+20150427 - Updated by AL|EN
+Returned: Preselections (thanks to dabus).
