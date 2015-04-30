@@ -1331,7 +1331,6 @@ STD;randomiser;540;09;0000;
 STD;randomiser;560;09;0000;
 STD;randomiser;570;09;0000;
 SUB;randomiser;1100;09;0000;
-SUB;randomiser;1100;09;0000;
 SUB;randomiser;1100?1_y;09;0000;
 SUB;randomiser;1100?1_n;09;0000;
 SUB;randomiser;1200;09;0000;

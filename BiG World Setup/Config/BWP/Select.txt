@@ -2504,7 +2504,9 @@ MUC;SoB;826;19;0000;
 STD;SoB;830;19;0000;
 STD;SoB;835;19;0000;
 STD;SoB;840;19;0000;
-STD;SoB;845;19;0000;
+MUC;SoB;Init;19;0000;
+MUC;SoB;845;19;0000;
+MUC;SoB;846;19;0000;
 STD;SoB;850;19;0000;
 STD;SoB;855;19;0000;
 STD;SoB;860;19;0000;
@@ -2651,8 +2653,10 @@ STD;stratagems;5050;16;1111;
 STD;stratagems;5060;16;1111;
 CMD;echo 147 RemoveSpellRES(S:RES*,O:Target) >> override/action.ids
 STD;stratagems;5900;18;1111;
-CMD;IF EXIST NeJ2v691.exe IF NOT EXIST .\override\SPIN506.SPL copy /Y ".\BiG World Fixpack\NeJ\_copy\misc\SPIN506.SPL" ".\override"
-CMD;IF EXIST NeJ2v68.exe IF NOT EXIST .\override\SPIN506.SPL copy /Y ".\BiG World Fixpack\NeJ\_copy\misc\SPIN506.SPL" ".\override"
+CMD;IF EXIST Setup-NeJ2v691.exe IF NOT EXIST .\override\SPIN506.SPL copy /Y ".\BiG World Fixpack\NeJ\_copy\misc\SPIN506.SPL" ".\override"
+CMD;IF EXIST Setup-NeJ2v68.exe IF NOT EXIST .\override\SPIN506.SPL copy /Y ".\BiG World Fixpack\NeJ\_copy\misc\SPIN506.SPL" ".\override"
+CMD;IF EXIST Setup-DSotSC.exe IF EXIST ".\override\orc03.cre" move ".\override\orc03.cre" ".\BWP_workspace\override"
+CMD;IF EXIST Setup-DSotSC.exe IF EXIST ".\override\orc04.cre" move ".\override\orc04.cre" ".\BWP_workspace\override"
 STD;stratagems;6000;18;1111;
 STD;stratagems;6010;18;0011;
 MUC;stratagems;Init;18;1111;
@@ -2673,6 +2677,8 @@ MUC;stratagems;6041;18;0011;
 MUC;stratagems;6042;18;1100;
 MUC;stratagems;6043;18;0000;
 MUC;stratagems;6044;18;0000;
+CMD;IF EXIST Setup-DSotSC.exe IF EXIST ".\BWP_workspace\override\orc03.cre" move ".\BWP_workspace\override\orc03.cre" ".\override"
+CMD;IF EXIST Setup-DSotSC.exe IF EXIST ".\BWP_workspace\override\orc04.cre" move ".\BWP_workspace\override\orc04.cre" ".\override"
 MUC;stratagems;Init;18;1111;
 MUC;stratagems;6100;18;0000;
 MUC;stratagems;6101;18;1111;
