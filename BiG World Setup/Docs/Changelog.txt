@@ -990,3 +990,5 @@ Updated: Documentation.
 Fixed: GitHub extraction error (thanks to dabus). [_Process_Read]
 20150427 - Updated by AL|EN
 Returned: Preselections (thanks to dabus).
+20150505 - Updated by Silent
+Updated: Reading ini-sections (thanks to dabus). [_IniReadSection]
