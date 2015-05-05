@@ -243,31 +243,25 @@ EndFunc   ;==>_IniRead
 ; ---------------------------------------------------------------------------------------------
 ; Read a section that's too big for std-ini-function
 ; ---------------------------------------------------------------------------------------------
-Func _IniReadSection($p_File, $p_Key)
-	Local $Read
-	$Array=StringSplit(StringStripCR(FileRead($p_File)), @LF)
-	Local $Return[$Array[0]+1][2]
-	For $a=1 to $Array[0]
-		If StringLeft($Array[$a], 1) = '[' Then
-			If StringInStr($Array[$a], '['&$p_Key&']') Then
-				$Read=1
-				ContinueLoop
-			Else
-				$Read=0
-			EndIf
-		EndIf
-		If $Read = 0 Then ContinueLoop
-		If $Array[$a] = '' Then ContinueLoop
-		;ConsoleWrite($Array[$a]&@CRLF)
-		$Num=StringInStr($Array[$a], '=')
+Func _IniReadSection($p_File, $p_Section, $p_Sort=0)
+	$Text=@LF&StringStripCR(FileRead($p_File))&@LF&'['
+	; Search for: linefeed,possible whitespace,[,section,],possible whitespace,linefeed,something,linefeed,possible whitespace,[
+	Local $ReadSection=StringRegExp($Text, '(?is)\n\s{0,}\x5b'&$p_Section&'\x5d\s{0,}\n.*?\n\s{0,}\x5b', 1)
+	If @error Then Return SetError(@error); nothing found => error out
+	$ReadSection=StringSplit($ReadSection[0], @LF)
+	Local $Return[$ReadSection[0]][2]
+	For $r=1 to $ReadSection[0]
+		$Num=StringInStr($ReadSection[$r], '=')
+		If $Num=0 Then ContinueLoop; skip lines that don't contain a = (ini-files delimiter)
+		If StringRegExp($ReadSection[$r], '\A\s{0,};') Then ContinueLoop; skip comments
 		$Return[0][0]+=1
-		$Return[$Return[0][0]][0]=StringLower(StringLeft($Array[$a], $Num-1))
-		$Return[$Return[0][0]][1]=StringTrimLeft($Array[$a], $Num)
+		$Return[$Return[0][0]][0]=StringStripWS(StringLeft($ReadSection[$r], $Num-1), 3)
+		$Return[$Return[0][0]][1]=StringStripWS(StringMid($ReadSection[$r], $Num+1), 3)
 	Next
 	ReDim $Return[$Return[0][0]+1][2]
-	_ArraySort($Return, 0, 1)
+	If $p_Sort Then _ArraySort($Return, 0, 1)
 	Return $Return
-EndFunc   ;==>_IniReadSection
+EndFunc
 
 ; ---------------------------------------------------------------------------------------------
 ; Write items to an IniWriteSection(able)-array

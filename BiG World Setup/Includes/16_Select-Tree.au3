@@ -282,7 +282,7 @@ Func _Tree_Populate($p_Show=1)
 	For $g = 1 To $g_Groups[0][0]
 		$g_Groups[$g][1]=StringReplace($g_Groups[$g][1], '&', '|')
 	Next
-	$g_Connections=IniReadSection($g_GConfDir&'\Game.ini', 'Connections')
+	$g_Connections=_IniReadSection($g_GConfDir&'\Game.ini', 'Connections')
 	If $g_Flags[14] = 'BWP' Then
 		$Setup=_Tree_SelectReadForBatch()
 		_Depend_TrimBWSConnections(); remove connections for BWS-installs (which contain component-numbers)
@@ -306,7 +306,7 @@ Func _Tree_Populate($p_Show=1)
 	ReDim $Setup[$Setup[0][0] + 2][10]
 	ReDim $g_TreeviewItem[$Setup[0][1] + 1][250]; if the BWS goes kaboom, adjust this numbers...
 	ReDim $g_CHTreeviewItem[$Setup[0][3]+1]
-	$ATMod=_IniReadSection($g_GConfDir&'\Mod-'&$g_ATrans[$g_ATNum]&'.ini', 'Description')
+	$ATMod=_IniReadSection($g_GConfDir&'\Mod-'&$g_ATrans[$g_ATNum]&'.ini', 'Description', 1)
 	$ATIdx=_IniCreateIndex($ATMod)
 	$Setup[0][8]=-1
 	_Tree_GetTags()

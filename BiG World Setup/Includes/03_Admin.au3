@@ -79,11 +79,11 @@ EndFunc    ;==>_Admin_ContextMenu
 ; Delete selected LVitems
 ; ---------------------------------------------------------------------------------------------
 Func _Admin_ItemDelete()
-	If $g_Flags[16]=0 Then 
+	If $g_Flags[16]=0 Then
 		$Act=ControlGetHandle($g_UI[0], '', ControlGetFocus($g_UI[0]))
 		If _WinAPI_GetClassName($Act) = 'Edit' Then ControlSend($g_UI[0], '', $Act, '{BACKSPACE}'); mark text if markable
 		Return; LV is not focused
-	EndIf	
+	EndIf
 	$List=StringSplit(ControlListView($g_UI[0], '', $g_UI_Interact[11][4], 'GetSelected', 1), '|')
 	For $l=$List[0] to 1 Step -1
 		GUICtrlDelete(_GUICtrlListView_GetItemParam($g_UI_Interact[11][4], $List[$l]))
@@ -110,7 +110,7 @@ Func _Admin_ItemEdit($p_New=0)
 		$State=BitAND(GUICtrlGetState($g_UI_Button[12][1]), $GUI_HIDE)
 		If $State Then
 			Local $Offset[5]=[4, 30, 90, 230, 705]
-		Else	
+		Else
 			$Pos=ControlGetPos($g_UI[0], '', $g_UI_Interact[12][2]); position of the LV
 			Local $Offset[5]=[4, $Pos[0], 90, $Pos[0]+45, $Pos[0]+$Pos[2]-30]
 			Local $Width[4]=[3, 40, 255, 30]; 400, 445, 705
@@ -160,8 +160,8 @@ Func _Admin_ItemEdit($p_New=0)
 				Else
 					If $p_New = 1 Then; new
 						$Test=GUICtrlCreateListViewItem($Text[1]&'|'&$Text[2], $LV)
-					Else				
-						GUICtrlSetData($ID, $Text[1]&'|'&$Text[2])						
+					Else
+						GUICtrlSetData($ID, $Text[1]&'|'&$Text[2])
 					EndIf
 				EndIf
 				ExitLoop
@@ -306,7 +306,7 @@ Func _Admin_ItemTest($p_ID, $p_Lang, $p_Message)
 		If $File[0] = 1 Then
 			_Misc_MsgGUI(3, _GetTR($p_Message, 'L12'), _GetTR($p_Message, 'L9')); => Test: file not found
 			Return
-		EndIf	
+		EndIf
 		$Return=$Text&'|'&$File[1]&'|'&$File[2]&'||'
 		If Not FileExists($g_GameDir&'\'&$File[1]) Then
 			_Misc_MsgGUI(3, _GetTR($p_Message, 'L12'), $Return&_GetTR($p_Message, 'L14')); => Test: file not found
@@ -396,7 +396,7 @@ Func _Admin_ModDelete($p_Message, $p_Setup='', $p_Tra='')
 		For $t=1 to $Token[0]
 			IniDelete($g_GConfDir&'\WeiDU-'&StringLeft($Token[$t], 2)&'.ini', $Setup)
 		Next
-	EndIf	
+	EndIf
 	_ArrayDelete($g_Setups, _Admin_ModGetIndex($Setup)); now delete the entry from the combo-boxes
 	$g_Setups[0][0]-=1
 	_Admin_Populate(11, $p_Message)
@@ -573,12 +573,12 @@ Func _Admin_ModGui($p_Mod = '')
 				GUICtrlSetState($g_UI_Interact[11][7], $GUI_FOCUS)
 			Case $Accel[4]; !d debug
 				For $r=1 to $Desc[0][0]
-					ConsoleWrite($Desc[$r][0]& ' ==> ' & $Desc[$r][1] & @CRLF)	
+					ConsoleWrite($Desc[$r][0]& ' ==> ' & $Desc[$r][1] & @CRLF)
 				Next
 				For $r=1 to $ReadSection[0][0]
-					ConsoleWrite($ReadSection[$r][0]& ' ==> ' & $ReadSection[$r][1] & @CRLF)	
+					ConsoleWrite($ReadSection[$r][0]& ' ==> ' & $ReadSection[$r][1] & @CRLF)
 				Next
-				
+
 			Case $g_UI_Static[11][1]
 				__ShowContextMenu($g_UI[0], $g_UI_Static[11][1], $g_UI_Menu[5][0])
 			Case $g_UI_Static[11][5]; change language backwards
@@ -652,9 +652,9 @@ Func _Admin_ModGui($p_Mod = '')
 		If $Setup = _GetTR($Message, 'C1') Then $Setup=''; => select mod
 		If $Switch = 12 Then
 			_Tra_Gui($Setup)
-		ElseIf $Switch = 13 Then	
+		ElseIf $Switch = 13 Then
 			_Dep_Gui()
-		ElseIf $Switch = 16 Then	
+		ElseIf $Switch = 16 Then
 			_Select_Gui()
 		EndIf
 	Else
@@ -668,7 +668,7 @@ EndFunc   ;==>_Admin_ModGui
 ; ---------------------------------------------------------------------------------------------
 Func _Admin_ModSave($p_ReadSection, $p_Desc, $p_Lang, $p_Message, $p_peek=0)
 	Local $Change[2], $Skip='(?)Desc|Setup', $Error, $Other, $Output, $Token, $Test[5]
-	If Not IsArray($p_ReadSection) Then 
+	If Not IsArray($p_ReadSection) Then
 		If $p_Peek = 1 Then
 			Return 1; there was no previous selected mod
 		Else
@@ -768,7 +768,7 @@ Func _Admin_ModSave($p_ReadSection, $p_Desc, $p_Lang, $p_Message, $p_peek=0)
 		EndIf
 	EndIf
 ; =================== save values ===========================
-	If $Test[2] <> '' Then 
+	If $Test[2] <> '' Then
 		_Admin_ModDelete($p_Message, $Test[1], '-'); renameing was verified
 		$Token=StringSplit(_IniRead($p_ReadSection, 'Tra', ''), ',')
 		For $t=1 to $Token[0]
@@ -779,7 +779,7 @@ Func _Admin_ModSave($p_ReadSection, $p_Desc, $p_Lang, $p_Message, $p_peek=0)
 		For $a=1 to $g_ATrans[0]
 			$Change[1]&='|'&$a
 		Next
-	EndIf	
+	EndIf
 	If $Change[0] <> '' Then
 		$ToDo=StringSplit(StringTrimLeft($Change[0], 1), '|')
 		For $t=1 to $ToDo[0]
@@ -801,7 +801,7 @@ Func _Admin_ModSave($p_ReadSection, $p_Desc, $p_Lang, $p_Message, $p_peek=0)
 	If $Test[2] <> '' Then; if renaming was done, _Admin_ModDelete re-populated the entries and dropped the current settings
 		GUICtrlSetData($g_UI_Interact[11][1], _IniRead($ReadSection, 'Name', $Setup))
 		GUICtrlSetData($g_UI_Interact[11][7], $Setup)
-	EndIf	
+	EndIf
 	$g_Setups[0][0]+=1
 	ReDim $g_Setups[$g_Setups[0][0]+1][3]
 	$g_Setups[$g_Setups[0][0]][0]=$Setup
@@ -882,10 +882,10 @@ Func _Admin_Populate($p_Tab, $p_Message)
 		GUICtrlSetData($g_UI_Interact[12][3], $Setups, _GetTR($p_Message, 'C1')); =>Select the mod
 	ElseIf $p_Tab = 13 Then
 		GUICtrlSetData($g_UI_Interact[13][6], $Mods, _GetTR($p_Message, 'C1')); =>Select the mod
-		GUICtrlSetData($g_UI_Interact[13][7], $Setups, _GetTR($p_Message, 'C1')); =>Select the mod	
+		GUICtrlSetData($g_UI_Interact[13][7], $Setups, _GetTR($p_Message, 'C1')); =>Select the mod
 	ElseIf $p_Tab = 16 Then
 		GUICtrlSetData($g_UI_Interact[16][1], $Mods, _GetTR($p_Message, 'C1')); =>Select the mod
-		GUICtrlSetData($g_UI_Interact[16][4], $Setups, _GetTR($p_Message, 'C1')); =>Select the mod 
+		GUICtrlSetData($g_UI_Interact[16][4], $Setups, _GetTR($p_Message, 'C1')); =>Select the mod
 	EndIf
 	Return 0
 EndFunc   ;==>_Admin_Populate
@@ -904,7 +904,7 @@ Func _Dep_Compact($p_Array, $p_Type, $p_Delimiter, $p_Compact=1)
 					$p_Array[$b][0]=''
 				EndIf
 			Next
-		EndIf	
+		EndIf
 		$Return&=$p_Delimiter&$p_Array[$a][0]&'('&$p_Array[$a][1]&')'
 	Next
 	Return StringTrimLeft($Return, 1)
@@ -920,7 +920,7 @@ Func _Dep_ContextMenu($p_Message, $p_Num)
 	If $Text[0]=1 Then
 		If $p_Num=3 Then Return
 		$ID=GUICtrlCreateDummy()
-	EndIf	
+	EndIf
 	$MenuLabel=$Text[1]
 	GUISetState(@SW_DISABLE); disable the GUI itself while selection is pending to avoid unwanted treeview-changes
 	$g_UI_Menu[0][4] = GUICtrlCreateContextMenu($ID); create a context-menu on the clicked item
@@ -946,7 +946,7 @@ Func _Dep_ContextMenu($p_Message, $p_Num)
 			$Msg = GUIGetMsg()
 			Switch $Msg
 			Case $MenuItem[1]; new entry
-				$Return=1					
+				$Return=1
 			Case $MenuItem[2]; edit entry
 				$Return=2
 			Case $MenuItem[3]; delete entry
@@ -954,7 +954,7 @@ Func _Dep_ContextMenu($p_Message, $p_Num)
 			Case $MenuItem[4]; up
 				$Return=4
 			Case $MenuItem[5]; down
-				$Return=5				
+				$Return=5
 			Case Else
 				If $Return Then ExitLoop
 				If _IsPressed('01', $g_UDll) Then; react to a left mouseclick outside of the menu
@@ -1077,9 +1077,9 @@ Func _Dep_Gui($p_Mod='-')
 			_Admin_ModGui()
 		ElseIf $Switch = 12 Then
 			_Tra_Gui()
-		ElseIf $Switch = 16 Then	
+		ElseIf $Switch = 16 Then
 			_Select_Gui()
-		EndIf	
+		EndIf
 	Else
 		_Misc_SetTab($g_Flags[10])
 		$g_Flags[10]=0
@@ -1127,7 +1127,7 @@ Func _Dep_ItemCopyDep($p_Message)
 			$Color = 0xFF0000; conflict
 			$String&='|C'
 			If $Num[1]<>'' Then $Error&='27'
-		Else	
+		Else
 			$Type=_Dep_ItemGetSel(1, $p_Message)
 			If $Type = '' Then $Error&='28'
 			If $Type = 1 And $Num[0] <> '' Then $Error&='29'
@@ -1140,19 +1140,19 @@ Func _Dep_ItemCopyDep($p_Message)
 			$String&='|D'
 			If $Num[2]<>'' Then $Error&='27'
 			If $Type = 'D:' And $Num[1]<>'' Then $Error&='29'
-		Else	
+		Else
 			$Color = 0xFF0000; conflict
 			$String&='|C'
 			If $Type = 'C:' And $Num[2]<>'' Then $Error&='29'
 			If $Num[1]<>'' Then $Error&='27'
-		EndIf	
+		EndIf
 	EndIf
 	If $Error Then
 		GUICtrlSetData($g_UI_Static[13][4], StringRegExpReplace(_GetTR($p_Message, 'L'&StringLeft($Error, 2)), '\x3a\x7c.*\z', '')); => get translations
 		If StringInStr($Error, 'X') Then Return
 	Else
 		GUICtrlSetData($g_UI_Static[13][4], '')
-	EndIf	
+	EndIf
 	GUICtrlCreateListViewItem($String, $g_UI_Interact[13][3])
 	If $Color Then GUICtrlSetBkColor(-1, $Color)
 EndFunc   ;==>_Dep_ItemCopyDep
@@ -1226,7 +1226,7 @@ Func _Dep_ItemEdit($p_New, $p_Message)
 				EndIf
 				GUICtrlSetData($g_UI_Static[13][4], $String)
 			Case $g_UI_Interact[13][6]; another modname was selected
-				$s=_Dep_ItemSetMod(6, $ReadSection, $p_Message)	
+				$s=_Dep_ItemSetMod(6, $ReadSection, $p_Message)
 			Case $g_UI_Interact[13][7]; another setup was selected
 				$s=_Dep_ItemSetMod(7, $ReadSection, $p_Message)
 			Case $g_UI_Interact[13][8]; comp-number
@@ -1283,7 +1283,7 @@ Func _Dep_ItemGetSel($p_Num, $p_Message)
 				Return 'C>'
 			Case 6
 				Return 'C:'
-			Case 7	
+			Case 7
 				Return 'C|'
 		EndSwitch
 	EndIf
@@ -1354,7 +1354,7 @@ Func _Dep_ItemSave($p_Message, $p_Num)
 		GUICtrlCreateListViewItem($Desc&'|'&$Text[1][2]&'|'&$g_Connections[0][0], $g_UI_Interact[13][1])
 	Else
 		GUICtrlSetData($p_Num[1], $Desc&'|'&$Text[1][2]&'|'&$p_Num[2])
-	EndIf	
+	EndIf
 	$g_Connections[$p_Num[2]][0]=$Desc
 	$g_Connections[$p_Num[2]][1]=$String
 	$g_Connections[$p_Num[2]][2]=$Text[1][2]
@@ -1372,7 +1372,7 @@ Func _Dep_ItemSetComp($p_Index, ByRef $p_ReadSection, $p_Message)
 	If GUICtrlRead($g_UI_Interact[13][7]) <> $Text[1] Then
 		GUICtrlSetData($g_UI_Interact[13][7], $Text[1])
 		_Dep_ItemSetMod(7, $p_ReadSection, $p_Message)
-	EndIf	
+	EndIf
 	GUICtrlSetData($g_UI_Interact[13][8], $Text[2])
 	GUICtrlSetData($g_UI_Interact[13][9], $Text[3])
 	If $Text[4]='' Then
@@ -1467,7 +1467,7 @@ Func _Dep_ItemSetDepItem($p_Text1, $p_Text2, $p_Conn, $p_Desc)
 				$String&=$p_Conn
 			EndIf
 			GUICtrlCreateListViewItem($String, $g_UI_Interact[13][3])
-			If $Color Then GUICtrlSetBkColor(-1, $Color) 
+			If $Color Then GUICtrlSetBkColor(-1, $Color)
 		Next
 	Next
 EndFunc   ;==>_Dep_ItemSetDepItem
@@ -1539,12 +1539,12 @@ Func _Dep_Populate()
 	WinActivate($g_UI[0])
 	_GUICtrlListView_BeginUpdate($g_UI_Handle[4])
 	_GUICtrlListView_DeleteAllItems($g_UI_Handle[4]); delete previous entries
-	$g_Connections=_Depend_PrepareToUseID(_Depend_PrepareBuildSentences(IniReadSection($g_GConfDir&'\Game.ini', 'Connections')))
+	$g_Connections=_Depend_PrepareToUseID(_Depend_PrepareBuildSentences(_IniReadSection($g_GConfDir&'\Game.ini', 'Connections')))
 	For $c=1 to $g_Connections[0][0]
 		GUICtrlSetData($g_UI_Interact[0][1], $c*100/$g_Connections[0][0]); set the progress
-		If _MathCheckDiv($c, 10) = 2 Then 
+		If _MathCheckDiv($c, 10) = 2 Then
 			GUICtrlSetData($g_UI_Static[0][4], Round($c *100 / $g_Connections[0][0], 0) & ' %')
-		EndIf	
+		EndIf
 		GUICtrlCreateListViewItem($g_Connections[$c][0]&'|'&$g_Connections[$c][2]&'|'&$c, $g_UI_Interact[13][1])
 	Next
 	_GUICtrlListView_EndUpdate($g_UI_Handle[4])
@@ -1643,7 +1643,7 @@ Func _Select_ContextMenu($p_ReadSection, $p_Message, $p_Theme, $p_Lang)
 			$Msg = GUIGetMsg()
 			Switch $Msg
 			Case $MenuItem[1]; new entry
-				$Return=1					
+				$Return=1
 			Case $MenuItem[2]; edit entry
 				$Return=2
 			Case $MenuItem[3]; cut entry
@@ -1677,7 +1677,7 @@ Func _Select_ContextMenu($p_ReadSection, $p_Message, $p_Theme, $p_Lang)
 				If $Text[0]=1 Then GUICtrlDelete($ID); delete the dummy-control
 				_Select_ItemEdit(1, $p_ReadSection, $p_Theme, $p_Message)
 			Case 2
-				_Select_ItemEdit(0, $p_ReadSection, $p_Theme, $p_Message)	
+				_Select_ItemEdit(0, $p_ReadSection, $p_Theme, $p_Message)
 			Case 3
 				_Select_ItemCut()
 			Case 4
@@ -1844,7 +1844,7 @@ Func _Select_ItemEdit($p_New, $p_ReadSection, $p_Theme, $p_Message)
 	Local $Message = IniReadSection($g_TRAIni, 'Admin')
 	$Trans=StringSplit(_GetTR($Message, 'I2'), '|'); => token as word
 	Local $Lang[9][2]=[[8], ['ANN', $Trans[1]], ['CMD', $Trans[2]], ['DWN', $Trans[3]], ['STD', $Trans[4]], ['MUC', $Trans[5]], ['SUB', $Trans[6]], ['GRP', $Trans[7]], ['Init', $Trans[8]]]
-	If Not IsArray($p_ReadSection) Then Dim $p_ReadSection[1][2]=[[0]] 
+	If Not IsArray($p_ReadSection) Then Dim $p_ReadSection[1][2]=[[0]]
 	$Index=Number(ControlListView($g_UI[0], '', $g_UI_Interact[16][3], 'GetSelected'))
 	If $Index=0 Then ControlListView($g_UI[0], '', $g_UI_Interact[16][3], 'Select', 0)
 	$ID=GUICtrlRead($g_UI_Interact[16][3])
@@ -1875,13 +1875,13 @@ Func _Select_ItemEdit($p_New, $p_ReadSection, $p_Theme, $p_Message)
 				If @error Then
 					GUICtrlSetData($g_UI_Interact[16][1], $g_Setups[_Admin_ModGetIndex(GUICtrlRead($g_UI_Interact[16][4]))][1])
 					_Misc_MsgGUI(3, _GetTR($g_UI_Message, '0-T1'), _GetTR($p_Message, 'L38')); => No components added yet
-				EndIf	
+				EndIf
 			Case $g_UI_Interact[16][4]; setup
 				$p_ReadSection=_Select_ItemEditSetMod(GUICtrlRead($g_UI_Interact[16][4]), 0, $p_ReadSection, $p_Theme, $Lang)
 				If @error Then
 					GUICtrlSetData($g_UI_Interact[16][4], $g_Setups[_Admin_ModGetIndex(GUICtrlRead($g_UI_Interact[16][1]), 1)][0])
 					_Misc_MsgGUI(3, _GetTR($g_UI_Message, '0-T1'), _GetTR($p_Message, 'L38')); => No components added yet
-				EndIf	
+				EndIf
 			Case $g_UI_Interact[16][5]; compnumber
 				$Num=GUICtrlRead($g_UI_Interact[16][5])
 				GUICtrlSetData($g_UI_Interact[16][6], _IniRead($p_ReadSection, '@'&$Num, $Num))
@@ -1892,7 +1892,7 @@ Func _Select_ItemEdit($p_New, $p_ReadSection, $p_Theme, $p_Message)
 						GUICtrlSetData($g_UI_Interact[16][5], StringTrimLeft($p_ReadSection[$r][0], 1))
 						ExitLoop
 					EndIf
-				Next	
+				Next
 			Case $g_UI_Interact[16][7]; linetype
 				_Select_ItemEditSetState(_Select_ItemTranslate(GUICtrlRead($g_UI_Interact[16][7]), $Lang, 2), $p_New)
 			Case $g_UI_Interact[16][8]; to comp checkbox
@@ -1925,7 +1925,7 @@ Func _Select_ItemEditSave($p_Message, $p_ReadSection, $p_Theme, $p_Array)
 	For $b=1 to 4
 		$Return[3]&=StringReplace(GUICtrlRead($g_UI_Button[16][$b]), '4', '0')
 	Next
-; ================  now do checks  =========================	
+; ================  now do checks  =========================
 	$Trans=StringSplit(_GetTR($p_Message, 'I2'), '|'); => token as word
 	Local $Lang[9][2]=[[8], ['ANN', $Trans[1]], ['CMD', $Trans[2]], ['DWN', $Trans[3]], ['STD', $Trans[4]], ['MUC', $Trans[5]], ['SUB', $Trans[6]], ['GRP', $Trans[7]], ['Init', $Trans[8]]]
 	$Return[5]=_Select_ItemTranslate($Return[5], $Lang, 2)
@@ -1940,7 +1940,7 @@ Func _Select_ItemEditSave($p_Message, $p_ReadSection, $p_Theme, $p_Array)
 				If StringRegExp($p_ReadSection[$r][0], $Return[5]&'\x3f') Then
 					$Test[3]=1
 					ExitLoop
-				EndIf	
+				EndIf
 			Next
 			If $Test[3]=0 Then $Error&='|25'
 		EndIf
@@ -1949,11 +1949,11 @@ Func _Select_ItemEditSave($p_Message, $p_ReadSection, $p_Theme, $p_Array)
 		$String='|'&$Return[7]&'||'&$Return[6]&'||||'; no check, just some words
 	ElseIf $Return[7] = 'CMD' Then
 		$String='|'&$Return[7]&'||'&$Return[6]
-		If StringRegExp($Return[10], '\A(\s|)\z') = 0 Then 
+		If StringRegExp($Return[10], '\A(\s|)\z') = 0 Then
 			$String&='|||'&$Return[10]
 			$Test[1]=1; check dependencies later
 		Else
-			$String&='||||'			
+			$String&='||||'
 		EndIf
 	ElseIf $Return[7] = 'GRP' Then
 		$String='|'&$Return[7]&'||'&$Return[6]&'||||'
@@ -1981,7 +1981,7 @@ Func _Select_ItemEditSave($p_Message, $p_ReadSection, $p_Theme, $p_Array)
 			Else
 				$Error&='|22'
 			EndIf
-		EndIf	
+		EndIf
 		If GUICtrlRead($g_UI_Interact[16][8])=1 Then; check additional components
 			$Desc=_IniRead($p_ReadSection, '@'&$Return[9], ''); check component
 			If $Desc = '' Then  $Error&='|23'
@@ -1998,7 +1998,7 @@ Func _Select_ItemEditSave($p_Message, $p_ReadSection, $p_Theme, $p_Array)
 			$String=StringTrimLeft($String, 1)
 		Else
 			$String=$Return[4]&'|'&_Select_ItemTranslate($Return[7], $Lang)&'|'&_Select_ItemTranslate($Return[5], $Lang)&'|'&$Return[6]&'|'&$Return[3]&'|'&$Return[2]&'|'&$Return[11]&'|'&$Return[10]
-		EndIf	
+		EndIf
 	EndIf
 	If $Test[1]=1 Then; dependency-checking
 		If StringRegExp($Return[10], '\A(?i)(D|C)\x3a') = 0 Then $Error&='|18'
@@ -2116,15 +2116,15 @@ Func _Select_ItemEditSetState($p_Type, $p_New)
 		Local $State[11]=[10, 0, 0, 0, 0, 1, 1, 1, $p_New, 0, 0]; 6/7=linetype + comp desc
 	EndIf
 	For $s=1 to $State[0]
-		If $State[$s]=1 Then	
+		If $State[$s]=1 Then
 			$State[$s]=$GUI_ENABLE
 		Else
 			$State[$s]=$GUI_DISABLE
-		EndIf	
+		EndIf
 		If $s=3 Then
 			For $b=1 to 4
 				GUICtrlSetState($g_UI_Button[16][$b], $State[$s])
-			Next	
+			Next
 		Else
 			GUICtrlSetState($g_UI_Interact[16][$s], $State[$s])
 		EndIf
@@ -2148,7 +2148,7 @@ Func _Select_ItemEditSwitch($p_New, $p_String, $p_Index)
 			$iPos = _GUICtrlListView_GetSubItemRect($g_UI_Interact[16][3], $p_Index, 1)
 		EndIf
 		If $iPos[1] < 30 Then $iPos[1]=30
-		If $iPos[1] > 230 Then $iPos[1]=230	
+		If $iPos[1] > 230 Then $iPos[1]=230
 		Local $State1=$GUI_HIDE, $State2=$GUI_DISABLE, $State3=$GUI_SHOW
 		GUICtrlSetPos($g_UI_Interact[16][1], 30, 60+$iPos[1], 370, 20); mod
 		GUICtrlSetPos($g_UI_Interact[16][2], 420, 60+$iPos[1], 180, 20); theme
@@ -2180,7 +2180,7 @@ Func _Select_ItemEditSwitch($p_New, $p_String, $p_Index)
 	GUICtrlSetPos($g_UI_Interact[16][8], 230, 120+$iPos[1]); activate to compnumber
 	GUICtrlSetPos($g_UI_Interact[16][9], 300, 120+$iPos[1]); to compnumber
 	GUICtrlSetPos($g_UI_Interact[16][10], 420, 120+$iPos[1]); install dependency
-; =================  dis/enable ctrls  =====================	
+; =================  dis/enable ctrls  =====================
 	GUICtrlSetState($g_UI_Interact[16][8], $GUI_UNCHECKED)
 	For $i=1 to 3
 		GUICtrlSetState($g_UI_Static[16][$i], $State1)
@@ -2203,25 +2203,25 @@ Func _Select_ItemPaste($p_New=0)
 	$Num=StringSplit($g_Clip, @LF)
 	For $n=1 to $Num[0]
 		GUICtrlCreateListViewItem('', $g_UI_Interact[16][3]); add new item
-	Next	
+	Next
 	$End=ControlListView($g_UI[0], '', $g_UI_Interact[16][3], 'GetItemCount')-1
 	If $p_New = 1 And $End = $Start + $Num[0] Then; this is a new created item, no copy and paste
 		$Append=1; append the items rather then putting them in between
 		$Start+=1; choose new item
-	EndIf	
+	EndIf
 	If Not $Append Then
 		For $i=$End to $Start Step -1; replace items
 			GUICtrlSetData(_GUICtrlListView_GetItemParam($g_UI_Interact[16][3], $i), GUICtrlRead(_GUICtrlListView_GetItemParam($g_UI_Interact[16][3], $i-$Num[0])))
 		Next
-	EndIf	
+	EndIf
 	For $n=1 To $Num[0]
 		GUICtrlSetData(_GUICtrlListView_GetItemParam($g_UI_Interact[16][3], $Start+$n-1), $Num[$n])
 	Next
-	If $Append Then 
+	If $Append Then
 		_GUICtrlListView_EnsureVisible($g_UI_Interact[16][3], $End)
 		ControlListView($g_UI[0], '', $g_UI_Interact[16][3], 'SelectClear')
 		ControlListView($g_UI[0], '', $g_UI_Interact[16][3], 'Select', $End)
-	EndIf	
+	EndIf
 EndFunc   ;==>_Select_ItemPaste
 
 ; ---------------------------------------------------------------------------------------------
@@ -2253,9 +2253,9 @@ EndFunc   ;==>_Select_ItemSetMod
 Func _Select_ItemSwitch($p_String, $p_ID)
 	$Index=ControlListView($g_UI[0], '', $p_ID, 'GetSelected')
 	If $p_String = 'up' Then
-		If $Index=0 Then Return; stop if item is on top 
+		If $Index=0 Then Return; stop if item is on top
 		Local $ID1=$Index-1, $ID2=$Index, $ID=$ID1
-	Else	
+	Else
 		$End=ControlListView($g_UI[0], '', $p_ID, 'GetItemCount')
 		If $Index=$End Then Return; stop if item is bottom
 		Local $ID1=$Index, $ID2=$Index+1, $ID=$ID2
@@ -2298,7 +2298,7 @@ Func _Select_Populate($p_Lang)
 	$g_MLang = $g_Flags[3]&' --'
 	For $l=1 to $MLang[0]
 		If Not StringInStr($g_MLang, $MLang[$l]) Then $g_MLang&=' '&$MLang[$l]
-	Next	
+	Next
 	$g_MLang = StringSplit($g_MLang, ' '); reset the array with the selected languages. -- is added for mods with no text = suitable for all languages
 	; 0=linetype, 1=unused, 2=setup, 3=component, 4=defaults, 5=translation, 6=component requirements, 7=componentname, 8=theme
 	$Compnote = _GetTR($g_UI_Message, '4-L1'); => in the future you will be able to select components
@@ -2310,9 +2310,9 @@ Func _Select_Populate($p_Lang)
 		If StringRegExp($Setup[$s][0], '(?i)\A(ANN|CMD|GRP)\z') =0  And $Setup[$s][2] <> $Setup[$s-1][2] Then
 			$cs+=1
 			GUICtrlSetData($g_UI_Interact[0][1], $cs*100/$Setup[0][1]); set the progress
-			If _MathCheckDiv($cs, 10) = 2 Then 
+			If _MathCheckDiv($cs, 10) = 2 Then
 				GUICtrlSetData($g_UI_Static[0][4], Round($cs *100 / $Setup[0][1], 0) & ' %')
-			EndIf	
+			EndIf
 			$ReadSection = IniReadSection($g_ModIni, $Setup[$s][2])
 			$NotFixedItems = _IniRead($ReadSection, 'NotFixed', '') ; see if there are not fixed items (among the fixed)
 			$Setup[$s][5] = _GetTra($ReadSection, 'T')
@@ -2322,14 +2322,14 @@ Func _Select_Populate($p_Lang)
 				$ReadSection=IniReadSection($g_GConfDir&'\WeiDU-'&$Setup[$s][5]&'.ini', $Setup[$s][2])
 			EndIf
 		EndIf
-		If $Setup[$s][4] <> '' Then; type is defined, so it's a download or a component 
+		If $Setup[$s][4] <> '' Then; type is defined, so it's a download or a component
 			If $Setup[$s][5] = '' Then $Setup[$s][5]=$Setup[$s-1][5]
 			If $Setup[$s][3] = 'Init' Then
 				$Setup[$s][7]=StringRegExpReplace(_IniRead($ReadSection, '@'&$Setup[$s+1][3], ''), '\s?->.*\z', '')
-			Else	
+			Else
 				$Setup[$s][7]=_IniRead($ReadSection, '@' & $Setup[$s][3], $Compnote)
 			EndIf
-		EndIf	
+		EndIf
 		$String=$Setup[$s][2]&'|'&_Select_ItemTranslate($Setup[$s][0], $p_Lang)&'|'&StringReplace($Setup[$s][3], $p_Lang[8][0], $p_Lang[8][1])&'|'&$Setup[$s][7]&'|'&$Setup[$s][4]&'|'&$Setup[$s][8]&'|'&$Setup[$s][5]&'|'&$Setup[$s][6]
 		GUICtrlCreateListViewItem(StringRegExpReplace(StringRegExpReplace(StringReplace(StringReplace($String, '||', '| |'), '||', '| |'), '\A\x7c', ' |'), '\x7c\z', '| '), $g_UI_Interact[16][3])
 	Next
@@ -2358,9 +2358,9 @@ Func _Select_Save($p_Lang)
 		EndIf
 		If $i<> $End Then
 			FileWriteLine($Handle, $String)
-		Else	
+		Else
 			FileWrite($Handle, $String)
-		EndIf	
+		EndIf
 	Next
 	FileClose($Handle)
 	GUICtrlSetState($g_UI_Static[16][5], $GUI_SHOW)
@@ -2417,7 +2417,7 @@ Func _Select_SearchSwitch()
 	GUICtrlSetState($g_UI_Interact[16][2], $State2)
 	For $b=1 to 4
 		GUICtrlSetState($g_UI_Button[16][$b], $State2)
-	Next	
+	Next
 EndFunc   ;==>_Select_SearchSwitch
 
 ; ---------------------------------------------------------------------------------------------
@@ -2437,7 +2437,7 @@ Func _Select_WM_Notify($hWnd, $iMsg, $iwParam, $ilParam)
                     $tInfo = DllStructCreate($tagNMLVKEYDOWN, $ilParam)
 					$Key=DllStructGetData($tInfo, "VKey")
 					If $Key='22020136' Or $Key='21495846' Then $g_Flags[16]=3; down or up key
-				Case $NM_CLICK 
+				Case $NM_CLICK
 					$g_Flags[16]=3
 				Case $NM_DBLCLK ; Sent by a list-view control when the user double-clicks an item with the left mouse button
 					$g_Flags[16]=4
@@ -2457,15 +2457,15 @@ EndFunc   ;==>_Select_WM_Notify
 ; ---------------------------------------------------------------------------------------------
 Func _Tra_ContextMenu($p_Message)
 	Local $MenuItem[4]=[3, 'a', 'b', 'c'], $Return
-	If $g_Flags[16]=4 Then 
+	If $g_Flags[16]=4 Then
 		$ID = GUICtrlRead($g_UI_Interact[12][2])
-	Else	
+	Else
 		$ID = GUICtrlRead($g_UI_Interact[12][1])
-	EndIf	
+	EndIf
 	$Text=StringSplit(GUICtrlRead($ID), '|')
 	If $Text[0]=1 Then
 		$ID=GUICtrlCreateDummy()
-	EndIf	
+	EndIf
 	$MenuLabel=$Text[1]
 	GUISetState(@SW_DISABLE); disable the GUI itself while selection is pending to avoid unwanted treeview-changes
 	$g_UI_Menu[0][4] = GUICtrlCreateContextMenu($ID); create a context-menu on the clicked item
@@ -2520,17 +2520,17 @@ Func _Tra_ContextMenu($p_Message)
 				If $Text[0]=1 Then GUICtrlDelete($ID); delete the dummy-control
 				If $g_Flags[16]=3 Then; left LV is focused
 					_Tra_ItemCopy()
-				Else	
+				Else
 					_Admin_ItemEdit($Text[0])
-				EndIf	
+				EndIf
 			Case 2
 				_Tra_ItemDelete()
 			Case 3
 				If $g_Flags[16]=3 Then; left LV is focused
 					ControlListView($g_UI[0], '', $g_UI_Interact[12][1], 'SelectAll')
-				Else	
+				Else
 					ControlListView($g_UI[0], '', $g_UI_Interact[12][2], 'SelectAll')
-				EndIf	
+				EndIf
 		EndSwitch
 EndFunc    ;==>_Tra_ContextMenu
 
@@ -2645,7 +2645,7 @@ Func _Tra_Gui($p_Mod='')
 				_Admin_ItemEdit(0)
 			Case $g_UI_Menu[6][7]; delete entry
 				_Tra_ItemDelete()
-			Case $g_UI_Menu[6][8]; select all	
+			Case $g_UI_Menu[6][8]; select all
 				ControlListView($g_UI[0], '', $g_UI_Interact[12][1], 'SelectAll')
 			Case $g_UI_Menu[6][9]; new entry
 				_Admin_ItemEdit(1)
@@ -2659,7 +2659,7 @@ Func _Tra_Gui($p_Mod='')
 			Case $g_UI_Menu[6][14]; administrate selection
 				$Switch=16
 				ExitLoop
-			Case $g_UI_Menu[6][15]; administrate dependencies	
+			Case $g_UI_Menu[6][15]; administrate dependencies
 				$Switch=13
 				ExitLoop
 			Case $Accel[1]; !{Down} next translation
@@ -2690,15 +2690,15 @@ Func _Tra_Gui($p_Mod='')
 	If $Switch Then
 		If $Switch = 11 Then
 			_Admin_ModGui($Mod)
-		ElseIf $Switch = 13 Then	
+		ElseIf $Switch = 13 Then
 			_Dep_Gui()
-		ElseIf $Switch = 16 Then	
+		ElseIf $Switch = 16 Then
 			_Select_Gui()
 		EndIf
 	Else
 		_Misc_SetTab($g_Flags[10])
 		$g_Flags[10]=0
-	EndIf	
+	EndIf
 EndFunc    ;==>_Tra_Gui
 
 ; ---------------------------------------------------------------------------------------------
@@ -2930,7 +2930,7 @@ Func _Tra_ModListComponents($p_List, $p_Array)
 			GUICtrlSetState($g_UI_Interact[12][1], $GUI_SHOW)
 			$p_List = $g_UI_Interact[12][1]
 		Else
-			
+
 			$g_UI_Interact[12][2] = GUICtrlCreateListView(IniRead($g_TRAIni, 'UI-Buildtime', 'Interact[12][2]', ''), 400, 90, 335, 290, $LVS_REPORT+$LVS_SORTASCENDING+$LVS_NOSORTHEADER, $LVS_EX_GRIDLINES + $LVS_EX_FULLROWSELECT + $LVS_EX_INFOTIP + $WS_Ex_Clientedge)
 			GUICtrlSetResizing(-1, 100)
 			$g_UI_Handle[7] = GUICtrlGetHandle($g_UI_Interact[12][2])
