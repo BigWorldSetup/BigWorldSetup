@@ -33,6 +33,10 @@ CMD;IF EXIST Setup-Jedi^&Sith.tp2 ren Setup-Jedi^&Sith.tp2 Setup-Jedi_Sith.tp2
 CMD;IF EXIST .\!BInfinitySounds\Setup-!BInfinitySounds.tp2 move .\!BInfinitySounds\Setup-!BInfinitySounds.tp2 "."
 CMD;IF EXIST Setup-!BInfinitySounds.exe ren Setup-!BInfinitySounds.exe Setup-BInfinitySounds.exe
 CMD;IF EXIST Setup-!BInfinitySounds.tp2 ren Setup-!BInfinitySounds.tp2 Setup-BInfinitySounds.tp2
+CMD;IF EXIST SandrahNPC-setup.exe ren SandrahNPC-setup.exe Setup-SandrahNPC.exe
+CMD;IF EXIST SandrahNPC-setup.tp2 ren SandrahNPC-setup.tp2 Setup-SandrahNPC.tp2
+CMD;IF EXIST SandrahRtF-setup.exe ren SandrahRtF-setup.exe Setup-SandrahRtF.exe
+CMD;IF EXIST SandrahRtF-setup.tp2 ren SandrahRtF-setup.tp2 Setup-SandrahRtF.tp2
 CMD;IF EXIST ".\vecna\setup-vecna.tp2" copy /Y ".\Vecna v23 - Text Overhaul v1.1\Language\English\*.*" ".\vecna\Language\English"
 ANN;Solve the issue with Cespy Audio
 CMD;IF EXIST ".\override\override" move ".\override\override\*.*" ".\override"
