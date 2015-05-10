@@ -466,10 +466,17 @@ Fixed: NTotSC language selection. Adjusted dependencies.
 Fixed: Adjusted dependencies.
 Updated: BiG World Installpack v15.0.2, Jastey's Solaufein beta 150418, Sandrah NPC v1.03 beta.
 20150426 - Updated by Silent
-Added: Afaaq, the Djinni Companion v1.0.
+Added: Afaaq the Djinni Companion v1.0.
 Fixed: Adjusted dependencies.
 Updated: BP-BGT Worldmap v10.1, Faren v2.3.
 20150430 - Updated by Silent
-Updated: Afaaq, the Djinni Companion v1.1, Fishing for Trouble v3.0, Scales of Balance v2.9.1.
+Updated: Afaaq the Djinni Companion v1.1, Fishing for Trouble v3.0, Scales of Balance v2.9.1.
 20150505 - Updated by Silent
 Fixed: Adjusted dependencies. Proper Sandrah setup-filename.
+20150506 - Updated by Silent
+Changed: Installation order for BWP.
+Fixed: Adjusted dependencies.
+20150510 - Updated by Silent
+Changed: Installation order for BWP.
+Fixed: Adjusted dependencies.
+Updated: Afaaq the Djinni Companion v1.2.

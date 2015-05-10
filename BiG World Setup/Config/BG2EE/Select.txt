@@ -11,13 +11,13 @@ SUB;bgeegraphics;0?1_2;13;0000;
 DWN;bgeegraphics_part2;0;13;1111;
 DWN;bgeegraphics_part3;0;13;1111;
 ANN;Removing corrupted .wed
-CMD;IF EXIST sutup-bgeegraphics.exe IF EXIST ".\override\ar4300.wed" move ".\override\ar4300.wed" ".\BWS_workspace\override"
+CMD;IF EXIST setup-bgeegraphics.exe IF EXIST ".\override\ar4300.wed" move ".\override\ar4300.wed" ".\BWS_workspace\override"
 STD;DarkHorizonsBGee;0;02;0011;
 MUC;drizztsaga;Init;02;0011;
 MUC;drizztsaga;1;02;0011;
 STD;drizztsaga;2;02;0011;
 STD;drizztsaga;3;02;0011;
-CMD;IF EXIST sutup-drizztsaga.exe echo.>> Worldmap/map_mods_links.tbl
+CMD;IF EXIST setup-drizztsaga.exe echo.>> Worldmap/map_mods_links.tbl
 STD;bgqe;0;03;1111;
 STD;bgqe;1;03;1111;
 STD;bgqe;2;03;1111;
@@ -395,39 +395,9 @@ MUC;adrian;2;05;0000;
 STD;arath;0;05;0111;
 STD;dace;0;05;0111;
 STD;dace;1;05;0000;
-ANN;aranw moved to Expert because of the need to manually install
-SUB;aranw;0;05;0001;
-SUB;aranw;0?1_1;05;0001;
-SUB;aranw;0?1_2;05;0000;
-MUC;aranw;Init;05;0001;
-STD;aranw;1;05;0001;
-SUB;aranw;1?1_1;05;0001;
-SUB;aranw;1?1_2;05;0000;
-SUB;aranw;1?1_3;05;0000;
-ANN;MUC;aranw;2;05;0000;
-ANN;MUC;aranw;3;05;0000;
-ANN;MUC;aranw;4;05;0000;
-MUC;aranw;Init;05;0001;
-MUC;aranw;5;05;0001;
-MUC;aranw;6;05;0000;
-MUC;aranw;7;05;0000;
-MUC;aranw;8;05;0000;
-MUC;aranw;9;05;0000;
-SUB;aranw;10;05;0001;
-SUB;aranw;10?1_1;05;0001;
-SUB;aranw;10?1_2;05;0000;
-SUB;aranw;10?1_3;05;0000;
-SUB;aranw;10?1_4;05;0000;
-SUB;aranw;10?1_5;05;0000;
-SUB;aranw;10?1_6;05;0000;
-SUB;aranw;10?1_7;05;0000;
-SUB;aranw;10?1_8;05;0000;
-SUB;aranw;10?1_9;05;0000;
-SUB;aranw;10?1_10;05;0000;
-SUB;aranw;10?1_11;05;0000;
-SUB;aranw;10?1_12;05;0000;
-SUB;aranw;10?1_13;05;0000;
-SUB;aranw;10?1_14;05;0000;
+ANN;For some reason Aran Whitehand should be installed manually.
+DWN;aranw;0;12;0111;
+CMD;IF EXIST setup-aranw.exe Call setup-aranw.exe
 STD;c#solaufein;0;05;0111;
 STD;Isra_bg2;0;05;1111;
 STD;TheUndying;0;05;0111;
@@ -889,8 +859,8 @@ STD;Derats_kits;3;12;0111;
 STD;Derats_kits;4;12;0111;
 STD;Derats_kits;7;12;0000;
 STD;Derats_kits;8;12;0000;
-CMD;IF EXIST Derats_kits.exe echo 0x4145 pxSORCELERERB >> ./override/kit.ids
-CMD;IF EXIST Derats_kits.exe echo 0x4146 pxSORCELERERD >> ./override/kit.ids
+CMD;IF EXIST Setup-Derats_kits.exe echo 0x4145 pxSORCELERERB >> ./override/kit.ids
+CMD;IF EXIST Setup-Derats_kits.exe echo 0x4146 pxSORCELERERD >> ./override/kit.ids
 STD;Derats_kits;5;12;0111;
 STD;Derats_kits;6;12;0111;
 STD;A7#ImprovedArcher;0;12;0111;
@@ -1298,13 +1268,13 @@ STD;aTweaks;270;09;1111;
 STD;aTweaks;220;09;1111;
 STD;aTweaks;230;09;1111;
 STD;aTweaks;239;09;1111;
-CMD;IF EXIST Setup-ajantisbg2.exe IF EXIST ".\override\C#AJCUD1.bcs" move ".\override\C#AJCUD1.bcs" ".\BiG World Fixpack\_temp\override"
+CMD;IF EXIST Setup-ajantisbg2.exe IF EXIST ".\override\C#AJCUD1.bcs" move ".\override\C#AJCUD1.bcs" ".\BWS_workspace\override"
 MUC;aTweaks;Init;09;1111;
 MUC;aTweaks;300;09;0000;
 MUC;aTweaks;322;09;0000;
 MUC;aTweaks;323;09;0000;
 MUC;aTweaks;324;09;1111;
-CMD;IF EXIST Setup-ajantisbg2.exe IF EXIST ".\BiG World Fixpack\_temp\override\C#AJCUD1.bcs" move ".\BiG World Fixpack\_temp\override\C#AJCUD1.bcs" ".\override"
+CMD;IF EXIST Setup-ajantisbg2.exe IF EXIST ".\BWS_workspace\override\C#AJCUD1.bcs" move ".\BWS_workspace\override\C#AJCUD1.bcs" ".\override"
 STD;aTweaks;301;09;1111;
 STD;aTweaks;302;09;1111;
 STD;aTweaks;310;09;1111;
@@ -1348,6 +1318,22 @@ MUC;randomiser;Init;09;0011;
 MUC;randomiser;10100;09;0000;
 MUC;randomiser;10200;09;0011;
 STD;randomiser;10300;09;0000;
+MUC;xpmod;Init;09;1111;
+MUC;xpmod;0;09;1000;
+MUC;xpmod;1;09;0111;
+MUC;xpmod;2;09;0000;
+MUC;xpmod;3;09;0000;
+MUC;xpmod;4;09;0000;
+MUC;xpmod;5;09;0000;
+MUC;xpmod;6;09;0000;
+MUC;xpmod;Init;09;1111;
+MUC;xpmod;15;09;1000;
+MUC;xpmod;16;09;0111;
+MUC;xpmod;17;09;0000;
+MUC;xpmod;18;09;0000;
+MUC;xpmod;19;09;0000;
+MUC;xpmod;20;09;0000;
+MUC;xpmod;21;09;0000;
 SUB;BP-BGT-Worldmap;0;13;1111;
 SUB;BP-BGT-Worldmap;0?1_1;13;1111;
 SUB;BP-BGT-Worldmap;0?1_2;13;0000;
@@ -1381,20 +1367,4 @@ STD;LightingPack;17;13;0000;
 STD;LightingPack;18;13;0000;
 STD;LightingPack;19;13;0000;
 STD;LightingPack;20;13;0000;
-MUC;xpmod;Init;09;1111;
-MUC;xpmod;0;09;1000;
-MUC;xpmod;1;09;0111;
-MUC;xpmod;2;09;0000;
-MUC;xpmod;3;09;0000;
-MUC;xpmod;4;09;0000;
-MUC;xpmod;5;09;0000;
-MUC;xpmod;6;09;0000;
-MUC;xpmod;Init;09;1111;
-MUC;xpmod;15;09;1000;
-MUC;xpmod;16;09;0111;
-MUC;xpmod;17;09;0000;
-MUC;xpmod;18;09;0000;
-MUC;xpmod;19;09;0000;
-MUC;xpmod;20;09;0000;
-MUC;xpmod;21;09;0000;
 ANN;Added due to patching

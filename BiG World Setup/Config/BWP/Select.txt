@@ -284,7 +284,7 @@ MUC;drizztsaga;Init;02;0011;
 MUC;drizztsaga;0;02;0000;
 MUC;drizztsaga;1;02;0011;
 STD;drizztsaga;3;02;0011;
-CMD;IF EXIST sutup-drizztsaga.exe echo.>> Worldmap/map_mods_links.tbl
+CMD;IF EXIST setup-drizztsaga.exe echo.>> Worldmap/map_mods_links.tbl
 ANN;#7. BG1 QUEST MODS
 CMD;IF EXIST Setup-Vault.exe IF EXIST ".\override\alissa8.cre" IF NOT EXIST ".\override\cadder2.cre" copy /Y ".\RoTerror\CRE\nostring\cadder2.cre" ".\override"
 CMD;IF EXIST Setup-Vault.exe IF EXIST ".\override\alissa8.cre" IF NOT EXIST ".\override\cadder3.cre" copy /Y ".\RoTerror\CRE\nostring\cadder3.cre" ".\override"
@@ -402,7 +402,7 @@ SUB;ACBre;0?1_4;04;0000;
 SUB;ACBre;0?1_5;04;0000;
 SUB;ACBre;0?2_1;04;0111;
 SUB;ACBre;0?2_2;04;0000;
-CMD;IF EXIST "BiG World Textpack GERMAN" IF EXIST Setup-FinchNPC.exe del ".\finch\audio\IMOEN28.WAV"
+CMD;IF EXIST ".\BiG World Textpack GERMAN" IF EXIST Setup-FinchNPC.exe del ".\finch\audio\IMOEN28.WAV"
 STD;FinchNPC;0;04;1111;
 STD;gavin;0;04;1111;
 SUB;gavin;1;04;1111;
@@ -578,8 +578,7 @@ STD;BGTTweak;2500;07;1111;
 STD;BGTTweak;2600;07;1111;
 STD;BGTTweak;2700;07;1111;
 STD;BGTTweak;2800;07;1111;
-ANN;BG_Travel moved to Expert because of uncompatibility with latest WeiDU
-STD;BG_Travel;0;07;0001;
+STD;BG_Travel;0;07;0111;
 ANN;#11. BG2 QUEST MODS
 STD;ToA;1;10;0111;
 STD;ToA;10;10;0111;
@@ -946,7 +945,7 @@ MUC;gavin_bg2;7;12;0000;
 MUC;gavin_bg2;8;12;0000;
 MUC;gavin_bg2;9;12;0000;
 MUC;gavin_bg2;10;12;0000;
-ANN:Version 9 does not need the Kickout-Hotfix (it is already included)
+ANN;Version 9 does not need the Kickout-Hotfix (it is already included).
 ANN;gavin_kickout_hotfix;0;01;1111;
 STD;gavin_bg2_bgt;0;01;1111;
 STD;darian;0;12;0111;
@@ -972,39 +971,9 @@ STD;dace;1;12;0000;
 STD;Gahesh;0;12;0111;
 STD;Lena;1;12;0111;
 STD;Lena;2;12;0000;
-ANN;aranw moved to Expert because of the need to manually install
-SUB;aranw;0;12;0001;
-SUB;aranw;0?1_1;12;0001;
-SUB;aranw;0?1_2;12;0000;
-MUC;aranw;Init;12;0001;
-MUC;aranw;1;12;0001;
-ANN;SUB;aranw;1?1_1;12;0111;
-ANN;SUB;aranw;1?1_2;12;0000;
-ANN;SUB;aranw;1?1_3;12;0000;
-MUC;aranw;2;12;0000;
-MUC;aranw;3;12;0000;
-MUC;aranw;4;12;0000;
-MUC;aranw;Init;12;0001;
-MUC;aranw;5;12;0001;
-MUC;aranw;6;12;0000;
-MUC;aranw;7;12;0000;
-MUC;aranw;8;12;0000;
-MUC;aranw;9;12;0000;
-STD;aranw;10;12;0001;
-ANN;SUB;aranw;10?1_1;12;0111;
-ANN;SUB;aranw;10?1_2;12;0000;
-ANN;SUB;aranw;10?1_3;12;0000;
-ANN;SUB;aranw;10?1_4;12;0000;
-ANN;SUB;aranw;10?1_5;12;0000;
-ANN;SUB;aranw;10?1_6;12;0000;
-ANN;SUB;aranw;10?1_7;12;0000;
-ANN;SUB;aranw;10?1_8;12;0000;
-ANN;SUB;aranw;10?1_9;12;0000;
-ANN;SUB;aranw;10?1_10;12;0000;
-ANN;SUB;aranw;10?1_11;12;0000;
-ANN;SUB;aranw;10?1_12;12;0000;
-ANN;SUB;aranw;10?1_13;12;0000;
-ANN;SUB;aranw;10?1_14;12;0000;
+ANN;For some reason Aran Whitehand should be installed manually.
+DWN;aranw;0;12;0111;
+CMD;IF EXIST setup-aranw.exe Call setup-aranw.exe
 STD;c#solaufein;0;12;0111;
 STD;Isra_bg2;0;12;0111;
 STD;TheUndying;0;12;0111;
@@ -1581,6 +1550,7 @@ MUC;Stivan;0;12;0111;
 MUC;Stivan;1;12;0000;
 STD;alternatives;0;10;1111;
 STD;G3Anniversary;0;11;0111;
+CMD;IF EXIST Setup-G3Anniversary.exe echo.>> Worldmap/map_mods_links.tbl
 STD;sarevokromance;0;14;0111;
 STD;CrossmodBG2;0;14;1111;
 STD;CrossmodBG2;1;14;1111;
@@ -1735,7 +1705,7 @@ STD;BInfinitySounds;10;20;0111;
 STD;BInfinitySounds;11;20;0000;
 STD;BInfinitySounds;12;20;0000;
 ANN;These files seem to be corrupt and they prevent to install the Hypnotic Pattern component.
-CMD;IF EXIST Sutup-TheUndying.exe IF EXIST ".\override\SPWI231*.BAM" move ".\override\SPWI231*.BAM" ".\BWP_workspace\override"
+CMD;IF EXIST Setup-TheUndying.exe IF EXIST ".\override\SPWI231*.BAM" move ".\override\SPWI231*.BAM" ".\BWP_workspace\override"
 GRP;Start
 STD;SpellPackB6;1105;16;0111;
 STD;SpellPackB6;1106;16;0111;
@@ -2206,6 +2176,18 @@ DWN;IAContent14;0;20;1111;
 STD;Bear_Animations_D2;0;20;1111;
 STD;c#solaufein;1;20;0111;
 STD;c#solaufein;2;20;0111;
+MUC;DjinniCompanion;Init;12;0111;
+MUC;DjinniCompanion;0;12;0111;
+MUC;DjinniCompanion;1;12;0000;
+MUC;DjinniCompanion;Init;12;0000;
+MUC;DjinniCompanion;101;12;0000;
+MUC;DjinniCompanion;102;12;0000;
+MUC;DjinniCompanion;103;12;0000;
+MUC;DjinniCompanion;104;12;0000;
+MUC;DjinniCompanion;105;12;0000;
+STD;DjinniCompanion;200;12;0000;
+STD;DjinniCompanion;300;12;0111;
+STD;DjinniCompanion;900;12;0111;
 STD;iwdification;10;16;0111;
 STD;iwdification;20;16;0000;
 STD;iwdification;30;16;0111;
@@ -2220,27 +2202,40 @@ STD;aurora;0;12;1111;
 MUC;aurora;Init;12;1111;
 MUC;aurora;10;12;1111;
 MUC;aurora;20;12;0000;
-STD;vecna;0;10;0011;
-DWN;Vecna_Text_Overhaul;0;10;0011;
-MUC;w_packmule;Init;11;0111;
-MUC;w_packmule;0;11;0111;
-MUC;w_packmule;1;11;0000;
 STD;Haiass;0;13;0111;
 MUC;Haiass;Init;13;0111;
 MUC;Haiass;10;13;0111;
 MUC;Haiass;15;13;0000;
-MUC;DjinniCompanion;Init;12;0111;
-MUC;DjinniCompanion;0;12;0111;
-MUC;DjinniCompanion;1;12;0000;
-MUC;DjinniCompanion;Init;12;0000;
-MUC;DjinniCompanion;101;12;0000;
-MUC;DjinniCompanion;102;12;0000;
-MUC;DjinniCompanion;103;12;0000;
-MUC;DjinniCompanion;104;12;0000;
-MUC;DjinniCompanion;105;12;0000;
-STD;DjinniCompanion;200;12;0000;
-STD;DjinniCompanion;300;12;0111;
-STD;DjinniCompanion;900;12;0111;
+STD;vecna;0;10;0011;
+DWN;Vecna_Text_Overhaul;0;10;0011;
+CMD;IF EXIST Setup-SandrahNPC.exe IF NOT EXIST Setup-SOA.exe copy /Y ".\BiG World Fixpack\_override\worldmap\*.*" ".\override"
+STD;SandrahNPC;0;12;0000;
+STD;SandrahNPC;1;12;0000;
+STD;SandrahNPC;2;12;0000;
+STD;SandrahNPC;3;12;0000;
+STD;SandrahNPC;4;12;0000;
+STD;SandrahNPC;5;12;0000;
+STD;SandrahNPC;6;12;0000;
+STD;SandrahNPC;7;12;0000;
+STD;SandrahNPC;8;12;0000;
+STD;SandrahNPC;9;12;0000;
+STD;SandrahNPC;10;12;0000;
+STD;SandrahNPC;11;12;0000;
+STD;SandrahNPC;12;12;0000;
+STD;SandrahNPC;13;12;0000;
+STD;SandrahNPC;14;12;0000;
+STD;SandrahNPC;15;12;0000;
+STD;SandrahRtF;0;09;0000;
+STD;SandrahRtF;1;09;0000;
+STD;SandrahRtF;2;09;0000;
+STD;SandrahRtF;3;09;0000;
+STD;SandrahRtF;4;09;0000;
+STD;SandrahRtF;5;09;0000;
+STD;SandrahRtF;6;09;0000;
+STD;SandrahRtF;7;09;0000;
+MUC;w_packmule;Init;11;0111;
+MUC;w_packmule;0;11;0111;
+MUC;w_packmule;1;11;0000;
 ANN;#24. HLA-TABLES CHANGING MODS
 STD;ashesofembers;5;19;0001;
 STD;ashesofembers;6;19;0001;
@@ -2272,9 +2267,7 @@ STD;Divine_Remix;107;19;0111;
 STD;Divine_Remix;109;19;0111;
 STD;Divine_Remix;112;19;0111;
 STD;Divine_Remix;115;19;0111;
-ANN;IF EXIST Setup-SpellPackB6.exe IF EXIST ".\override\SPWI412.SPL" move ".\override\SPWI412.SPL" ".\BWP_workspace\override"
 STD;Divine_Remix;118;19;0111;
-ANN;IF EXIST Setup-SpellPackB6.exe IF EXIST ".\BWP_workspace\override\SPWI412.SPL" move ".\BWP_workspace\override\SPWI412.SPL" ".\override"
 STD;Divine_Remix;121;19;0111;
 STD;Divine_Remix;124;19;0111;
 STD;Divine_Remix;127;19;0111;
@@ -2347,7 +2340,7 @@ STD;RR;7;16;1111;
 STD;RR;8;16;1111;
 CMD;IF EXIST Setup-SpellPackB6.exe IF EXIST ".\override\SPPR342.SPL" move ".\override\SPPR342.SPL" ".\BWP_workspace\override"
 CMD;IF EXIST ".\override\SPWI317.SPL" move ".\override\SPWI317.SPL" ".\BWP_workspace\override";;;;D:SpellPackB6(2317)
-CMD;IF EXIST divine_remix.exe IF EXIST ".\override\SPPR342.SPL" move ".\override\SPPR342.SPL" ".\BWP_workspace\override"
+CMD;IF EXIST setup-divine_remix.exe IF EXIST ".\override\SPPR342.SPL" move ".\override\SPPR342.SPL" ".\BWP_workspace\override"
 CMD;IF EXIST ".\override\SPWI414.SPL" move ".\override\SPWI414.SPL" ".\BWP_workspace\override"
 SUB;1pp;202;20;1111;
 SUB;1pp;202?1_1;20;0000;
@@ -2356,7 +2349,7 @@ SUB;1pp;202?2_1;20;1111;
 SUB;1pp;202?2_2;20;0000;
 CMD;IF EXIST Setup-SpellPackB6.exe IF EXIST ".\BWP_workspace\override\SPPR342.SPL" move ".\BWP_workspace\override\SPPR342.SPL" ".\override"
 CMD;IF EXIST ".\BWP_workspace\override\SPWI317.SPL" move ".\BWP_workspace\override\SPWI317.SPL" ".\override";;;;D:SpellPackB6(2317)
-CMD;IF EXIST divine_remix.exe IF EXIST ".\BWP_workspace\override\SPPR342.SPL" move ".\BWP_workspace\override\SPPR342.SPL" ".\override"
+CMD;IF EXIST setup-divine_remix.exe IF EXIST ".\BWP_workspace\override\SPPR342.SPL" move ".\BWP_workspace\override\SPPR342.SPL" ".\override"
 CMD;IF EXIST ".\BWP_workspace\override\SPWI414.SPL" move ".\BWP_workspace\override\SPWI414.SPL" ".\override"
 STD;ashesofembers;0;16;0001;
 STD;ashesofembers;2;16;0001;
@@ -2395,9 +2388,9 @@ STD;Item_Pack;6;17;1111;
 STD;Item_Pack;7;17;1111;
 STD;Item_Pack;8;17;1111;
 STD;Item_Pack;9;17;1111;
-CMD;IF EXIST DungeonBeGone.exe IF EXIST ".\override\FWJASSY.CRE" move ".\override\FWJASSY.CRE" ".\BWP_workspace\override"
+CMD;IF EXIST Setup-DungeonBeGone.exe IF EXIST ".\override\FWJASSY.CRE" move ".\override\FWJASSY.CRE" ".\BWP_workspace\override"
 STD;iiItemMod;1;17;0111;
-CMD;IF EXIST DungeonBeGone.exe IF EXIST ".\BWP_workspace\override\FWJASSY.CRE" move ".\BWP_workspace\override\FWJASSY.CRE" ".\override"
+CMD;IF EXIST Setup-DungeonBeGone.exe IF EXIST ".\BWP_workspace\override\FWJASSY.CRE" move ".\BWP_workspace\override\FWJASSY.CRE" ".\override"
 MUC;item_rev;Init;16;0011;
 MUC;item_rev;2;16;0000;
 MUC;item_rev;3;16;0011;
@@ -2567,8 +2560,8 @@ STD;Derats_kits;3;19;0111;
 STD;Derats_kits;4;19;0111;
 STD;Derats_kits;7;19;0111;
 STD;Derats_kits;8;19;0111;
-CMD;IF EXIST Derats_kits.exe echo 0x4145 pxSORCELERERB >> ./override/kit.ids
-CMD;IF EXIST Derats_kits.exe echo 0x4146 pxSORCELERERD >> ./override/kit.ids
+CMD;IF EXIST Setup-Derats_kits.exe echo 0x4145 pxSORCELERERB >> ./override/kit.ids
+CMD;IF EXIST Setup-Derats_kits.exe echo 0x4146 pxSORCELERERD >> ./override/kit.ids
 STD;Derats_kits;5;19;0111;
 STD;Derats_kits;6;19;0111;
 STD;A7#ImprovedArcher;0;19;0111;
@@ -3310,7 +3303,7 @@ STD;tb#tweaks;300;16;0111;
 MUC;tb#tweaks;Init;16;0111;
 MUC;tb#tweaks;1200;16;0000;
 MUC;tb#tweaks;1250;16;0111;
-MUC;tb#tweaks;Init;16;0000;
+MUC;tb#tweaks;Init;16;0011;
 MUC;tb#tweaks;2000;16;0000;
 MUC;tb#tweaks;2050;16;0011;
 MUC;tb#tweaks;Init;16;0000;
@@ -3355,12 +3348,14 @@ MUC;tb#tweaks;9120;16;0000;
 MUC;tb#tweaks;9130;16;0000;
 MUC;tb#tweaks;9140;16;0000;
 MUC;tb#tweaks;9150;16;0001;
+CMD;IF EXIST Setup-SandrahNPC.exe IF EXIST ".\override\CVPRO11.SPL" move ".\override\CVPRO11.SPL" ".\BWP_workspace\override"
 STD;P5Tweaks;10;16;1111;
 STD;P5Tweaks;20;16;1111;
 STD;P5Tweaks;30;16;1111;
 STD;P5Tweaks;40;16;1111;
 STD;P5Tweaks;50;16;1111;
 STD;P5Tweaks;60;16;1111;
+CMD;IF EXIST Setup-SandrahNPC.exe IF EXIST ".\BWP_workspace\override\CVPRO11.SPL" move ".\BWP_workspace\override\CVPRO11.SPL" ".\override"
 STD;trap_rev;0;16;0111;
 MUC;contain;Init;20;1111;
 MUC;contain;10;20;1111;
@@ -3372,9 +3367,9 @@ STD;celestiales;2;20;0111;
 ANN;#26. CLOSER INSTALLATION
 ANN;ii-Mods are SUBs, but too complicated to code. So the installation will just stall here.
 ANN;Since it would change the play to some Elder scrolls-system, they are degraded from 0111.
-CMD;IF EXIST Derats_kits.exe IF EXIST ".\override\PXW3CAME.SPL" move ".\override\PXW3CAME.SPL" ".\BWP_workspace\override"
+CMD;IF EXIST Setup-Derats_kits.exe IF EXIST ".\override\PXW3CAME.SPL" move ".\override\PXW3CAME.SPL" ".\BWP_workspace\override"
 STD;iiSpellSystemAdjustments;0;16;0000;
-CMD;IF EXIST Derats_kits.exe IF EXIST ".\BWP_workspace\override\PXW3CAME.SPL" move ".\BWP_workspace\override\PXW3CAME.SPL" ".\override"
+CMD;IF EXIST Setup-Derats_kits.exe IF EXIST ".\BWP_workspace\override\PXW3CAME.SPL" move ".\BWP_workspace\override\PXW3CAME.SPL" ".\override"
 STD;iiSpellSystemAdjustments;1;16;0000;
 STD;iiSpellSystemAdjustments;2;16;0000;
 STD;iiSpellSystemAdjustments;3;16;0000;
@@ -3445,30 +3440,6 @@ STD;tobaurora;0;12;0111;
 SUB;tobaurora;1;12;0000;
 SUB;tobaurora;1?1_1;12;0000;
 SUB;tobaurora;1?1_2;12;0000;
-STD;SandrahNPC;0;12;0000;
-STD;SandrahNPC;1;12;0000;
-STD;SandrahNPC;2;12;0000;
-STD;SandrahNPC;3;12;0000;
-STD;SandrahNPC;4;12;0000;
-STD;SandrahNPC;5;12;0000;
-STD;SandrahNPC;6;12;0000;
-STD;SandrahNPC;7;12;0000;
-STD;SandrahNPC;8;12;0000;
-STD;SandrahNPC;9;12;0000;
-STD;SandrahNPC;10;12;0000;
-STD;SandrahNPC;11;12;0000;
-STD;SandrahNPC;12;12;0000;
-STD;SandrahNPC;13;12;0000;
-STD;SandrahNPC;14;12;0000;
-STD;SandrahNPC;15;12;0000;
-STD;SandrahRtF;0;09;0000;
-STD;SandrahRtF;1;09;0000;
-STD;SandrahRtF;2;09;0000;
-STD;SandrahRtF;3;09;0000;
-STD;SandrahRtF;4;09;0000;
-STD;SandrahRtF;5;09;0000;
-STD;SandrahRtF;6;09;0000;
-STD;SandrahRtF;7;09;0000;
 STD;HardTimes;0;07;0011;
 STD;HardTimes;1;06;0011;
 STD;polytweak;50;15;1111;
@@ -3630,13 +3601,13 @@ STD;level1npcs;4900;16;0000;
 STD;level1npcs;4910;16;0000;
 STD;level1npcs;4920;16;0000;
 CMD;IF EXIST ".\level1npcs\backup\0\kit.ids" copy ".\level1npcs\backup\0\kit.ids" ".\override";;;;D:refinements(10)
-CMD;IF EXIST w_psionics_unleashed.exe Call ".\BiG World Installpack\edit_string_w_psionics.bat
-CMD;IF EXIST Derats_kits.exe IF EXIST ".\override\PXW3CAME.SPL" move ".\override\PXW3CAME.SPL" ".\BWP_workspace\override"
+CMD;IF EXIST setup-w_psionics_unleashed.exe Call ".\BiG World Installpack\edit_string_w_psionics.bat
+CMD;IF EXIST Setup-Derats_kits.exe IF EXIST ".\override\PXW3CAME.SPL" move ".\override\PXW3CAME.SPL" ".\BWP_workspace\override"
 STD;w_psionics_unleashed;10;16;0111;
 MUC;w_psionics_unleashed;Init;16;0111;
 MUC;w_psionics_unleashed;61;16;0111;
 MUC;w_psionics_unleashed;62;16;0000;
-CMD;IF EXIST Derats_kits.exe IF EXIST ".\BWP_workspace\override\PXW3CAME.SPL" move ".\BWP_workspace\override\PXW3CAME.SPL" ".\override"
+CMD;IF EXIST Setup-Derats_kits.exe IF EXIST ".\BWP_workspace\override\PXW3CAME.SPL" move ".\BWP_workspace\override\PXW3CAME.SPL" ".\override"
 MUC;xpmod;Init;16;1111;
 MUC;xpmod;0;16;1000;
 MUC;xpmod;1;16;0111;
@@ -3949,7 +3920,6 @@ STD;PaintBG;44;20;0000;
 STD;PaintBG;45;20;0000;
 STD;PaintBG;46;20;0000;
 STD;PaintBG;47;20;0000;
-STD;PaintBG;48;20;0000;
 MUC;PaintBG;Init;20;0000;
 MUC;PaintBG;48;20;0000;
 MUC;PaintBG;49;20;0000;
@@ -4046,7 +4016,7 @@ STD;korekta_przedmiotow;0;01;1111;
 SUB;generalized_biffing;0;00;1111;
 SUB;generalized_biffing;0?1_0;00;0000;
 SUB;generalized_biffing;0?1_1;00;1111;
-MUC;GUI;Init;20;0000;
+MUC;GUI;Init;20;1111;
 MUC;GUI;0;20;0000;
 MUC;GUI;1;20;0000;
 MUC;GUI;2;20;0000;
@@ -4068,6 +4038,7 @@ MUC;W_GUI;12;20;0000;
 MUC;W_GUI;13;20;0000;
 MUC;W_GUI;14;20;0000;
 MUC;W_GUI;15;20;0000;
-SUB;widescreen;0;20;1111;
+MUC;widescreen;Init;20;1111;
+MUC;widescreen;0;20;1111;
 DWN;multiinstalltool;0;00;0000;
 ANN;Added due to patching

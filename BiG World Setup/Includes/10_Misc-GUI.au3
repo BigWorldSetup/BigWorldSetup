@@ -513,6 +513,7 @@ Func _Misc_SetAvailableSelection()
 		$InstallType = $SplitD[$InstallType]
 	Else
 		If $InstallType > UBound($Split) - 1 Then $InstallType = 1
+		If FileExists($g_GConfDir & '\Preselection00.ini') Then $InstallType +=1
 		$InstallType = $Split[$InstallType]
 	EndIf
 	GUICtrlSetData($g_UI_Interact[2][4], _GetTR($g_UI_Message, '2-I1'), $InstallType); => preselections with total happyness as default
