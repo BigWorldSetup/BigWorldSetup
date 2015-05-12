@@ -4038,7 +4038,6 @@ MUC;W_GUI;12;20;0000;
 MUC;W_GUI;13;20;0000;
 MUC;W_GUI;14;20;0000;
 MUC;W_GUI;15;20;0000;
-MUC;widescreen;Init;20;1111;
-MUC;widescreen;0;20;1111;
+SUB;widescreen;0;20;1111;
 DWN;multiinstalltool;0;00;0000;
 ANN;Added due to patching
