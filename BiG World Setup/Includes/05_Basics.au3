@@ -244,6 +244,7 @@ EndFunc   ;==>_IniRead
 ; Read a section that's too big for std-ini-function
 ; ---------------------------------------------------------------------------------------------
 Func _IniReadSection($p_File, $p_Section, $p_Sort=0)
+	Local $r, $Num, $ReadSection, $Return, $Text
 	$Text=@LF&StringStripCR(FileRead($p_File))&@LF&'['
 	; Search for: linefeed,possible whitespace,[,section,],possible whitespace,linefeed,something,linefeed,possible whitespace,[
 	Local $ReadSection=StringRegExp($Text, '(?is)\n\s{0,}\x5b'&$p_Section&'\x5d\s{0,}\n.*?\n\s{0,}\x5b', 1)
@@ -256,6 +257,7 @@ Func _IniReadSection($p_File, $p_Section, $p_Sort=0)
 		If StringRegExp($ReadSection[$r], '\A\s{0,};') Then ContinueLoop; skip comments
 		$Return[0][0]+=1
 		$Return[$Return[0][0]][0]=StringStripWS(StringLeft($ReadSection[$r], $Num-1), 3)
+		If $p_Sort Then $Return[$Return[0][0]][0]=StringLower($Return[$Return[0][0]][0])
 		$Return[$Return[0][0]][1]=StringStripWS(StringMid($ReadSection[$r], $Num+1), 3)
 	Next
 	ReDim $Return[$Return[0][0]+1][2]
