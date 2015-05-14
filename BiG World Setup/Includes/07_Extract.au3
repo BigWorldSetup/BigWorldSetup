@@ -329,6 +329,7 @@ Func Au3ExFix($p_Num)
 			If $Fault[$f][0] = 'BG1TP' Then ContinueLoop; German bg1-addons
 			If $Fault[$f][0] = 'Abra' Or $Fault[$f][0] = 'BG1TotSCSound' Then ContinueLoop; Spanish bg1-addons
 			If $Fault[$f][0] = 'correcfrbg1' Then ContinueLoop; French bg1-addon
+			If $Fault[$f][0] = 'bg1textpack' Then ContinueLoop; Russian bg1-addon
 			If $g_Flags[0] = 0 Then; the exit button was pressed
 				Exit
 			EndIf
@@ -729,6 +730,7 @@ Func _Extract_ListMissing()
 			If $Fault[$f][0] = 'BG1TP' And FileExists($g_BG1Dir&'\setup-bg1tp.exe') Then $Fault[$f][1]=''; extracted German Textpatch
 			If $Fault[$f][0] = 'Abra' And FileExists($g_BG1Dir&'\setup-abra.exe') Then $Fault[$f][1]=''; extracted Spanish Textpatch
 			If $Fault[$f][0] = 'correcfrbg1' And FileExists($g_BG1Dir&'\setup-correcfrbg1.exe') Then $Fault[$f][1]=''; extracted French Textpatch
+			If $Fault[$f][0] = 'bg1textpack' And FileExists($g_BG1Dir&'\setup-bg1textpack.exe') Then $Fault[$f][1]=''; extracted Russian Textpatch
 		EndIf
 		If $Fault[$f][1] = '' Then
 			IniDelete($g_BWSIni, 'Faults', $Fault[$f][0]); remove the error
@@ -756,7 +758,7 @@ Func _Extract_ListMissing()
 				Local $mNum = 1, $Type = _GetTra($ReadSection, 'T') & '-AddSave', $Hint = _GetTR($Message, 'L4'); => translation
 				$Mark&=' ' & Chr(0xB2)
 			EndIf
-			If $Fault[$f][0] = 'BG1TP' Or $Fault[$f][0] = 'correcfrbg1' Or $Fault[$f][0] = 'Abra' Or $Fault[$f][0] = 'BG1TotSCSound' Then
+			If $Fault[$f][0] = 'BG1TP' Or $Fault[$f][0] = 'correcfrbg1' Or $Fault[$f][0] = 'Abra' Or $Fault[$f][0] = 'BG1TotSCSound' Or $Fault[$f][0] = 'bg1textpack' Then
 				$oNum=1
 				$Mark&=' ' & Chr(0xB3)
 			EndIf
@@ -800,9 +802,13 @@ Func _Extract_MissingBG1()
 		_Extract_CaseRemove('Abra', $g_BG1Dir)
 		If StringInStr(FileRead($g_BG1Dir&'\Weidu.log'), @LF&'~setup-abra.tp2') Then IniDelete($g_BWSIni, 'Faults', 'Abra')
 	EndIf
-	If Not StringInStr(FileRead($g_BG1Dir&'\Weidu.log'), @LF&'~setup-correcfrbg1.tp2') And $g_MLang[1] = 'FR' Then; this one is the only (French) weidu that is extracted into the bg1-folder
+	If Not StringInStr(FileRead($g_BG1Dir&'\Weidu.log'), @LF&'~correcfrbg1/correcfrbg1.tp2') And $g_MLang[1] = 'FR' Then; this one is the only (French) weidu that is extracted into the bg1-folder
 		_Extract_CaseRemove('correcfrbg1', $g_BG1Dir)
-		If StringInStr(FileRead($g_BG1Dir&'\Weidu.log'), @LF&'~setup-correcfrbg1.tp2') Then IniDelete($g_BWSIni, 'Faults', 'correcfrbg1')
+		If StringInStr(FileRead($g_BG1Dir&'\Weidu.log'), @LF&'~correcfrbg1/correcfrbg1.tp2') Then IniDelete($g_BWSIni, 'Faults', 'correcfrbg1')
+	EndIf
+	If Not StringInStr(FileRead($g_BG1Dir&'\Weidu.log'), @LF&'~bg1textpack/setup-bg1textpack.tp2') And $g_MLang[1] = 'RU' Then; this one is the only (Russian) weidu that is extracted into the bg1-folder
+		_Extract_CaseRemove('bg1textpack', $g_BG1Dir)
+		If StringInStr(FileRead($g_BG1Dir&'\Weidu.log'), @LF&'~bg1textpack/setup-bg1textpack.tp2') Then IniDelete($g_BWSIni, 'Faults', 'bg1textpack')
 	EndIf
 EndFunc    ;==>_Extract_MissingBG1
 
