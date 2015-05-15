@@ -38,6 +38,7 @@ CMD;IF EXIST SandrahNPC-setup.tp2 ren SandrahNPC-setup.tp2 Setup-SandrahNPC.tp2
 CMD;IF EXIST SandrahRtF-setup.exe ren SandrahRtF-setup.exe Setup-SandrahRtF.exe
 CMD;IF EXIST SandrahRtF-setup.tp2 ren SandrahRtF-setup.tp2 Setup-SandrahRtF.tp2
 CMD;IF EXIST ".\vecna\setup-vecna.tp2" copy /Y ".\Vecna v23 - Text Overhaul v1.1\Language\English\*.*" ".\vecna\Language\English"
+CMD;IF EXIST .\acm_upsample.exe move .\acm_upsample.exe .\1pp_hq_music_BGT\convert
 ANN;Solve the issue with Cespy Audio
 CMD;IF EXIST ".\override\override" move ".\override\override\*.*" ".\override"
 CMD;IF EXIST ".\override\override" rmdir /s /q ".\override\override"
@@ -4008,8 +4009,8 @@ MUC;BP-BGT-Worldmap;2;20;0000;
 STD;BG2_Tweaks;3220;16;0111;
 STD;mapnames;0;20;1111;
 STD;mapnames;25;20;1111;
-MUC;1pp_hq_music_BGT;Init;20;0000;
-MUC;1pp_hq_music_BGT;0;20;0000;
+MUC;1pp_hq_music_BGT;Init;20;0001;
+MUC;1pp_hq_music_BGT;0;20;0001;
 MUC;1pp_hq_music_BGT;1;20;0000;
 MUC;1pp_hq_music_BGT;Init;20;0000;
 MUC;1pp_hq_music_BGT;2;20;0000;

@@ -480,3 +480,10 @@ Fixed: Adjusted dependencies.
 Changed: Installation order for BWP.
 Fixed: Adjusted dependencies.
 Updated: Afaaq the Djinni Companion v1.2.
+20150512 - Updated by Silent
+Fixed: Aurora dependency. Stupid error with Widescreen.
+Updated: Item Randomiser components selection. Dungeon Crawl v9, Infinity Sounds v1.3.
+20150515 - Updated by Silent
+Added: One Pixel Productions High Quality Music for BGT Addon.
+Fixed: Adjusted dependencies.
+Updated: Sandrah NPC v1.04 beta.
