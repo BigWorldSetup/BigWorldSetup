@@ -2224,7 +2224,9 @@ MUC;Haiass;15;13;0000;
 STD;vecna;0;10;0011;
 DWN;Vecna_Text_Overhaul;0;10;0011;
 CMD;IF EXIST Setup-SandrahNPC.exe IF NOT EXIST Setup-SOA.exe copy /Y ".\BiG World Fixpack\_override\worldmap\*.*" ".\override"
-STD;SandrahNPC;0;12;0000;
+SUB;SandrahNPC;0;12;0000;
+SUB;SandrahNPC;0?0_1;12;0000;
+SUB;SandrahNPC;0?0_2;12;0000;
 STD;SandrahNPC;1;12;0000;
 STD;SandrahNPC;2;12;0000;
 STD;SandrahNPC;3;12;0000;
