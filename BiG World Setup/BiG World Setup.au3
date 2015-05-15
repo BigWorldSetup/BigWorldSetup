@@ -299,6 +299,7 @@ If $p_Game <> '' Then; Enable testing of this function or use defaults...
 		$p_Game=$g_Flags[14]
 	EndIf
 	If FileExists($g_GConfDir&'\Mod.ini') Then
+		If IniRead($g_UsrIni, 'Options', 'RecreateFromGlobal', 1) = 0 Then Return; Stick with the current config to optionally speed up local client development/testing
 		FileDelete($g_GConfDir&'\Mod*.ini')
 		FileDelete($g_GConfDir&'\WeiDu*.ini')
 	EndIf

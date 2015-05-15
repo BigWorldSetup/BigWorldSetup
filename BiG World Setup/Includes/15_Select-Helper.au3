@@ -4,7 +4,7 @@
 ; Add a pause to the $g_CentralArray[$p_Num][15] or jump to the next component
 ; ---------------------------------------------------------------------------------------------
 Func _Selection_ContextMenu()
-	Local $FirstModItem, $NextModItem, $MenuItem[5]
+	Local $FirstModItem, $NextModItem, $MenuItem[6]
 	$p_Num = GUICtrlRead($g_UI_Interact[4][1])
 	If $p_Num >= $g_CentralArray[0][1] And $p_Num <= $g_CentralArray[0][0] Then; prevent crashes if $g_CentralArray is undefined
 		GUISetState(@SW_DISABLE); disable the GUI itself while selection is pending to avoid unwanted treeview-changes
@@ -58,6 +58,14 @@ Func _Selection_ContextMenu()
 			GUICtrlCreateMenuItem('', $g_UI_Menu[0][4]); separator
 			$MenuItem[3] = GUICtrlCreateMenuItem(_GetTR($g_UI_Message, '4-L12'), $g_UI_Menu[0][4]); => jump to next part of mod
 		EndIf
+		If StringInStr($g_CentralArray[$p_Num][2], '?') Then
+			$Pos=StringInStr($g_CentralArray[$p_Num][2], '_', 0, -1)
+			$Definition=IniRead($g_GConfDir&'\Game.ini', 'Edit', $g_CentralArray[$p_Num][0]&';'&StringLeft($g_CentralArray[$p_Num][2], $Pos-1), '')
+			If $Definition <> '' Then
+				GUICtrlCreateMenuItem('', $g_UI_Menu[0][4]); separator
+				$MenuItem[5] = GUICtrlCreateMenuItem(StringReplace(_GetTR($g_UI_Message, '4-L2'), '...', ''), $g_UI_Menu[0][4]); => edit value
+			EndIf
+		EndIf
 		__ShowContextMenu($g_UI[0], $p_Num, $g_UI_Menu[0][4])
 ; ---------------------------------------------------------------------------------------------
 ; Create another Msg-loop, since the GUI is disabled and only the menuitems should be available
@@ -99,6 +107,18 @@ Func _Selection_ContextMenu()
 						_GUICtrlTreeView_Expand($g_UI_Handle[0], $p_Num, False)
 					Else
 						_GUICtrlTreeView_Expand($g_UI_Handle[0], $p_Num, True)
+					EndIf
+				EndIf
+				ExitLoop
+			Case $MenuItem[5]; set value
+				$Return=InputBox($g_ProgName, _GetTR($g_UI_Message, '4-L2'), StringMid($g_CentralArray[$p_Num][2], $Pos+1), '', -1, -1, Default, Default, 0, $g_UI[0])
+				If $Return <> '' Then
+					If StringRegExp($Return, '\A'&$Definition&'\z') = 1 Then
+						$g_CentralArray[$p_Num][2]=StringLeft($g_CentralArray[$p_Num][2], $Pos)&$Return
+						GUICtrlSetData($p_Num, _GetTR($g_UI_Message, '4-L21')&' '&$Return)
+					Else
+						GUISetState(@SW_ENABLE); enable the GUI again
+						_Misc_MsgGUI(4, _GetTR($g_UI_Message, '4-L2'), _GetTR($g_UI_Message, '4-L22')&@CRLF&@CRLF&$Definition)
 					EndIf
 				EndIf
 				ExitLoop
