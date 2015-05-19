@@ -263,7 +263,7 @@ Func _IniReadSection($p_File, $p_Section, $p_Sort=0)
 	ReDim $Return[$Return[0][0]+1][2]
 	If $p_Sort Then _ArraySort($Return, 0, 1)
 	Return $Return
-EndFunc
+EndFunc    ;==>_IniReadSection
 
 ; ---------------------------------------------------------------------------------------------
 ; Write items to an IniWriteSection(able)-array
