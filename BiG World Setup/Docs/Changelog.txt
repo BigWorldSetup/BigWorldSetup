@@ -992,3 +992,10 @@ Fixed: GitHub extraction error (thanks to dabus). [_Process_Read]
 Returned: Preselections (thanks to dabus).
 20150505 - Updated by Silent
 Updated: Reading ini-sections (thanks to dabus). [_IniReadSection]
+20150524 - Updated by AL|EN, Silent and dabus
+Added: Gobal ini configuration files for all mods
+Added: Ability to install Enhanced Edition Trilogy (EET)
+Added: remove all Mod*.ini and weidu-*.ini files every time when you run BWS
+Added: ability to edit subcomponents
+Added: load BWS without rebuilding configuration files
+Updated: speedup tree creation process
