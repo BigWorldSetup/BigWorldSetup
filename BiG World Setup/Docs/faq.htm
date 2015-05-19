@@ -29,6 +29,7 @@
 <div id="toc__inside">
 
 <ul class="toc">
+<li class="level1"><div class="li"><span class="li"><a href="#set_editable_components" class="toc">Remove fixed content</a></span></div></li>
 <li class="level1"><div class="li"><span class="li"><a href="#remove_fixed_content" class="toc">Remove fixed content</a></span></div></li>
 <li class="level1"><div class="li"><span class="li"><a href="#skip_download_or_extraction" class="toc">Skip download or extraction</a></span></div></li>
 <li class="level1"><div class="li"><span class="li"><a href="#i_miss_component_x_for_mod_y" class="toc">I miss component X for mod Y</a></span></div></li>
@@ -53,7 +54,27 @@
 </div>
 <!-- TOC END -->
 
+<h1><a name="set_editable_components" id="set_editable_components">Set editable components</a></h1>
+<div class="level1">
 
+<p>
+Open the BiG World Setup\Config\[GAME]\Game.ini
+</p>
+<pre class="ini code ini" style="font-family:monospace;">
+[Edit]
+animalcompanions;0?2=\D*
+</pre>
+<p>
+animalcompanions - mod name
+</p>
+<p>
+0?2 - component from BiG World Setup\Config\[GAME]\select.txt
+</p>
+\D* - au3 pattern, only letters for this case
+</p>
+<img alt="" src="files/faq01.png">
+</div>
+<!-- SECTION "Set editable components" [1-1604] -->
 
 <h1><a name="remove_fixed_content" id="remove_fixed_content">Remove fixed content</a></h1>
 <div class="level1">
