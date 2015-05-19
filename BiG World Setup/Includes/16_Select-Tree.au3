@@ -313,6 +313,7 @@ Func _Tree_Populate($p_Show=1)
 	$g_UI_Menu[0][1]='|'
 	$Compnote = _GetTR($g_UI_Message, '4-L1'); => in the future you will be able to select components
 	$ConnNote = IniRead($g_TRAIni, 'DP-BuildSentences', 'L9', ''); => dependencies and conflicts
+	$EditSubs = IniReadSection($g_GConfDir&'\Game.ini', 'Edit')
 	_GUICtrlTreeView_BeginUpdate($g_UI_Handle[0])
 	For $s = 1 To $Setup[0][0]; loop through the elements of the array (contains the chapters)
 		If $Setup[$s][2] <> $Setup[$s-1][2] Then
@@ -416,7 +417,14 @@ Func _Tree_Populate($p_Show=1)
 			While StringInStr($Setup[$s-$n][3], '?')
 				$n += 1
 			WEnd
-			$g_TreeviewItem[$cs][$cc] = GUICtrlCreateTreeViewItem($Dsc, $g_TreeviewItem[$cs][$cc - $n]); create a "sub-"treeviewitem (gui-element) for the component
+			$Pos=StringInStr($Setup[$s][3], '_', 0, -1)
+			$Definition=_IniRead($EditSubs, $Setup[$s][2]&';'&StringLeft($Setup[$s][3], $Pos-1), '')
+			If $Definition <> '' Then
+				$SubPrefix=_GetTR($g_UI_Message, '4-L23')&' '; => Suggested answer:
+			Else
+				$SubPrefix=''
+			EndIf
+			$g_TreeviewItem[$cs][$cc] = GUICtrlCreateTreeViewItem($SubPrefix&$Dsc, $g_TreeviewItem[$cs][$cc - $n]); create a "sub-"treeviewitem (gui-element) for the component
 			If $g_CentralArray[$g_TreeviewItem[$cs][$cc - $n]][10] = 0 Then; this was markes a a normal component before
 				$g_CentralArray[$g_TreeviewItem[$cs][$cc - $n]][10] = 2; this item has it's own subtree now
 				$t = $s-$n+1
