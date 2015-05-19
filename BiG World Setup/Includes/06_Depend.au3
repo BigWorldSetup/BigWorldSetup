@@ -621,30 +621,54 @@ EndFunc   ;==>_Depend_ListInstallUnsolved
 ; ---------------------------------------------------------------------------------------------
 ; Use install-order and assign the lines where the mod is mentioned in the [connections]-section
 ; ---------------------------------------------------------------------------------------------
-Func _Depend_PrepareBuildIndex($p_Array, $p_Array2)
+Func _Depend_PrepareBuildIndex($p_Array, $p_Select)
 	Local $Return[1000][4], $OldSetup
-	For $a=1 to $p_Array2[0][0]
-		If $p_Array2[$a][2] <> $OldSetup Then
+	For $a=1 to $p_Select[0][0]
+		If $p_Select[$a][2] <> $OldSetup Then
 			$Return[0][0]+=1
-			$Return[$Return[0][0]][1]=$p_Array2[$a][2]; setup
-			$OldSetup = $p_Array2[$a][2]
+			$Return[$Return[0][0]][1]=$p_Select[$a][2]; setup
+			$OldSetup = $p_Select[$a][2]
 		Else
 			ContinueLoop
 		EndIf
 	Next
-	ReDim $Return[$Return[0][0] + 1][4]
+	Local $Setups=$g_Setups
+	$Index=_IniCreateIndex($Setups)
+	ReDim $Return[$Return[0][0]+1][4]
 	For $a=1 to $p_Array[0][0]; Create a shortened list of affected mods by removing components
-		$p_Array[$a][0]='|'&StringRegExpReplace(StringRegExpReplace(StringTrimLeft($p_Array[$a][1], 2), '\x28[^\x29]*\x29', ''), '\x3a|\x26|\x3e', '|')&'|'
+		$p_Array[$a][0]='|'&StringRegExpReplace(StringRegExpReplace(StringRegExpReplace($p_Array[$a][1], '\A.+?\x3a', ''), '\x28[^\x29]*\x29', ''), '\x3a|\x26|\x3e', '|')&'|' ; 28/29=(), :|&|>
+		$Test=StringRegExp($p_Array[$a][0], '\x7c', 3)
+		$p_Array[$a][1]=UBound($Test)-1
 	Next
+	For $a=1 to $p_Array[0][0]; Create a shortened list of affected mods by removing components
+		$Mods=StringSplit($p_Array[$a][0], '|')
+		For $m=1 to $Mods[0]
+			If $Mods[$m]='' Then ContinueLoop
+			$StartIdx=$Index[Asc(StringLower(StringLeft($Mods[$m], 1)))]
+			$Found=0
+			For $s=$StartIdx To $Setups[0][0]
+				If $Setups[$s][0] = $Mods[$m] Then
+					$Setups[$s][2]&='|'&$a
+					$Found=1
+					ExitLoop
+				EndIf
+			Next
+			If $Found=0 Then ConsoleWrite('!'&$Mods[$m]&@CRLF)
+		Next
+		If StringInStr($p_Array[$a][0], '||') Then ConsoleWrite('!'&$p_Array[$a][0]& ' == ' & $p_Array[$a][1] &@CRLF)
+	Next
+	; goal is to identify connections (or better their index number) that may be connected to a mod into $Return[$r][2]
 	For $r=1 to $Return[0][0]
 		GUICtrlSetData($g_UI_Interact[9][1], 20*$r/$Return[0][0]); set the progress
 		If _MathCheckDiv($r, 10) = 2 Then GUICtrlSetData($g_UI_Static[9][2], Round(20*$r/$Return[0][0], 0) & ' %')
 		$Lines=''
-		For $a=1 to $p_Array[0][0]
-			If StringInStr($p_Array[$a][0], '|'&$Return[$r][1]&'|') Then $Lines&='|'&$a; list the place(s) where mods are mentioned in the array
+		$StartIdx=$Index[Asc(StringLower(StringLeft($Return[$r][1], 1)))]
+		For $s=$StartIdx To $Setups[0][0]
+			If $Setups[$s][0] = $Return[$r][1] Then
+				$Return[$r][2]=StringRegExpReplace($Setups[$s][2], '\A\x7c', '')
+				ExitLoop
+			EndIf
 		Next
-		If $Lines <> '' Then $Lines=StringTrimLeft($Lines, 1)
-		$Return[$r][2]=$Lines
 	Next
 	Return $Return
 EndFunc   ;==>_Depend_PrepareBuildIndex
