@@ -63,7 +63,7 @@ Func _Selection_ContextMenu()
 			$Definition=IniRead($g_GConfDir&'\Game.ini', 'Edit', $g_CentralArray[$p_Num][0]&';'&StringLeft($g_CentralArray[$p_Num][2], $Pos-1), '')
 			If $Definition <> '' Then
 				GUICtrlCreateMenuItem('', $g_UI_Menu[0][4]); separator
-				$MenuItem[5] = GUICtrlCreateMenuItem(StringReplace(_GetTR($g_UI_Message, '4-L2'), '...', ''), $g_UI_Menu[0][4]); => edit value
+				$MenuItem[5] = GUICtrlCreateMenuItem(_GetTR($g_UI_Message, '4-L24'), $g_UI_Menu[0][4]); => edit value
 			EndIf
 		EndIf
 		__ShowContextMenu($g_UI[0], $p_Num, $g_UI_Menu[0][4])
