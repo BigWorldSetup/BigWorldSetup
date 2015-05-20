@@ -1,1 +1,5 @@
-* text eol=crlf
+*.au3 text eol=crlf
+*.ini text eol=crlf
+*.vbs text eol=crlf
+*.txt text eol=crlf
+*.html text eol=crlf
