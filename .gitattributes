@@ -2,6 +2,7 @@
 *.ini text eol=crlf
 *.vbs text eol=crlf
 *.txt text eol=crlf
+*.htm text eol=crlf
 *.html text eol=crlf
 *.gitignore text eol=crlf
 *.gitattributes text eol=crlf
