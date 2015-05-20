@@ -234,7 +234,7 @@ Func _CreateList($p_Num = 's'); $a=Type ('s' = setup, 'c' = chapters)
 		$Array = StringRegExp($File, '(?i)\nName=.*\n', 3)
 		If UBound($Array) = $SectionNames[0] Then
 			For $a = 0 To UBound($Array) - 1
-				$Setups[$a + 1][0] = $SectionNames[$a + 1]
+				$Setups[$a + 1][0] = StringLower($SectionNames[$a + 1])
 				$Setups[$a + 1][1] = StringStripWS(StringTrimRight(StringTrimLeft($Array[$a], 6), 2), 2)
 			Next
 		Else
@@ -243,7 +243,7 @@ Func _CreateList($p_Num = 's'); $a=Type ('s' = setup, 'c' = chapters)
 			For $a = 1 To $Array[0]
 				If StringLeft($Array[$a], 1) = '[' Then
 					$Setups[0][0] = $Setups[0][0] + 1
-					$Setups[$Setups[0][0]][0] = $SectionNames[$Setups[0][0]]
+					$Setups[$Setups[0][0]][0] = StringLower($SectionNames[$Setups[0][0]])
 					For $a = $a To $Array[0]
 						If StringLeft($Array[$a], 5) = 'Name=' Then
 							$Setups[$Setups[0][0]][1] = StringStripWS(StringTrimLeft($Array[$a], 5), 2)
