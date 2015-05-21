@@ -444,6 +444,7 @@ STD;Quayle;0;05;0111;
 STD;DungeonBeGone;0;09;0001;
 STD;Teleport;0;10;0111;
 STD;Teleport;1;10;0111;
+STD;slandor;0;04;1111;
 STD;arestorationp;0;09;0111;
 STD;arestorationp;1;09;0111;
 STD;arestorationp;2;09;0111;
