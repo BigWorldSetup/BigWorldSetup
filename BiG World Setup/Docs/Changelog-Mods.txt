@@ -487,3 +487,11 @@ Updated: Item Randomiser components selection. Dungeon Crawl v9, Infinity Sounds
 Added: One Pixel Productions High Quality Music for BGT Addon.
 Fixed: Adjusted dependencies.
 Updated: Sandrah NPC v1.04 beta.
+20150421 - Updated by AL|EN
+Updated: Coran's BG Extended Friendship Talks v4, Unfinished Business v26 beta 2.
+20150521 - Updated by Silent
+Added: "Edit entry" to Item Randomizer for all games. The Minotaur and Lilacor to BG2EE.
+Fixed: Adjusted dependencies. Returned back RE with Kivan and Saerileth incompatibility.
+20150523 - Updated by Silent
+Added: Ding0's Tweak Pack full component list.
+Updated: Scales of Balance v3.0.
