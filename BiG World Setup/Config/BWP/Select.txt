@@ -37,6 +37,7 @@ CMD;IF EXIST SandrahNPC-setup.exe ren SandrahNPC-setup.exe Setup-SandrahNPC.exe
 CMD;IF EXIST SandrahNPC-setup.tp2 ren SandrahNPC-setup.tp2 Setup-SandrahNPC.tp2
 CMD;IF EXIST SandrahRtF-setup.exe ren SandrahRtF-setup.exe Setup-SandrahRtF.exe
 CMD;IF EXIST SandrahRtF-setup.tp2 ren SandrahRtF-setup.tp2 Setup-SandrahRtF.tp2
+CMD;IF EXIST setup-sob.exe ren setup-sob.exe setup-scales_of_balance.exe
 CMD;IF EXIST ".\vecna\setup-vecna.tp2" copy /Y ".\Vecna v23 - Text Overhaul v1.1\Language\English\*.*" ".\vecna\Language\English"
 CMD;IF EXIST .\acm_upsample.exe move .\acm_upsample.exe .\1pp_hq_music_BGT\convert
 ANN;Solve the issue with Cespy Audio
@@ -2465,77 +2466,75 @@ ANN;#25. MAJOR TWEAKS
 CMD;IF EXIST ".\override\XXX009.ITM" move ".\override\XXX009.ITM" ".\BWP_workspace\override"
 STD;WSR;100;16;1111;
 CMD;IF EXIST ".\BWP_workspace\override\XXX009.ITM" move ".\BWP_workspace\override\XXX009.ITM" ".\override"
-STD;SoB;100;16;0111;
-STD;SoB;200;16;0111;
-STD;SoB;210;16;0111;
-STD;SoB;220;16;0111;
-STD;SoB;230;16;0111;
-ANN;SoB;240;16;0000;EE only
+STD;scales_of_balance;100;16;0111;
+STD;scales_of_balance;200;16;0111;
+STD;scales_of_balance;210;16;0111;
+STD;scales_of_balance;220;16;0111;
+STD;scales_of_balance;230;16;0111;
 CMD;IF EXIST ".\override\C#AJAN16.CRE" move ".\override\C#AJAN16.CRE" ".\BWP_workspace\override"
-STD;SoB;250;16;0111;
+STD;scales_of_balance;250;16;0111;
 CMD;IF EXIST ".\BWP_workspace\override\C#AJAN16.CRE" move ".\BWP_workspace\override\C#AJAN16.CRE" ".\override"
-STD;SoB;300;16;0111;
-STD;SoB;310;16;0000;
-STD;SoB;320;19;0111;
-STD;SoB;350;19;0111;
-STD;SoB;355;19;0111;
-STD;SoB;400;16;0111;
-STD;SoB;410;19;0111;
-STD;SoB;450;19;0111;
-STD;SoB;455;19;0111;
-STD;SoB;460;19;0111;
-STD;SoB;465;19;0111;
-STD;SoB;500;16;0111;
-STD;SoB;510;19;0111;
-STD;SoB;512;19;0111;
-STD;SoB;520;19;0111;
-STD;SoB;526;19;0111;
-STD;SoB;530;19;0111;
-STD;SoB;532;19;0111;
-STD;SoB;540;19;0111;
-STD;SoB;586;19;0111;
-STD;SoB;600;16;0000;
-MUC;SoB;Init;16;0000;
-MUC;SoB;601;16;0000;
-MUC;SoB;602;16;0000;
-MUC;SoB;Init;16;0000;
-MUC;SoB;651;16;0000;
-MUC;SoB;652;16;0000;
-STD;SoB;700;16;0111;
-STD;SoB;800;19;0000;
-STD;SoB;805;19;0000;
-MUC;SoB;Init;19;0000;
-MUC;SoB;810;19;0000;
-MUC;SoB;811;19;0000;
-MUC;SoB;Init;19;0000;
-MUC;SoB;815;19;0000;
-MUC;SoB;816;19;0000;
-MUC;SoB;Init;19;0000;
-MUC;SoB;820;19;0000;
-MUC;SoB;821;19;0000;
-MUC;SoB;Init;19;0000;
-MUC;SoB;825;19;0000;
-MUC;SoB;826;19;0000;
-STD;SoB;830;19;0000;
-STD;SoB;835;19;0000;
-STD;SoB;840;19;0000;
-MUC;SoB;Init;19;0000;
-MUC;SoB;845;19;0000;
-MUC;SoB;846;19;0000;
-STD;SoB;850;19;0000;
-STD;SoB;855;19;0000;
-STD;SoB;860;19;0000;
-STD;SoB;865;19;0000;
-MUC;SoB;Init;19;0000;
-MUC;SoB;870;19;0000;
-MUC;SoB;871;19;0000;
-MUC;SoB;872;19;0000;
-STD;SoB;875;19;0000;
-STD;SoB;880;19;0000;
-STD;SoB;885;19;0000;
-STD;SoB;890;19;0000;
-STD;SoB;895;19;0000;
-STD;SoB;900;19;0000;
+ANN;scales_of_balance;270;16;0000;EE only
+STD;scales_of_balance;300;16;0111;
+STD;scales_of_balance;320;19;0111;
+STD;scales_of_balance;350;19;0111;
+STD;scales_of_balance;400;16;0111;
+STD;scales_of_balance;410;19;0111;
+STD;scales_of_balance;450;19;0111;
+STD;scales_of_balance;455;19;0111;
+STD;scales_of_balance;460;19;0111;
+STD;scales_of_balance;465;19;0111;
+STD;scales_of_balance;500;16;0111;
+STD;scales_of_balance;510;19;0111;
+STD;scales_of_balance;512;19;0111;
+STD;scales_of_balance;520;19;0111;
+STD;scales_of_balance;526;19;0111;
+STD;scales_of_balance;530;19;0111;
+STD;scales_of_balance;532;19;0111;
+STD;scales_of_balance;540;19;0111;
+STD;scales_of_balance;586;19;0111;
+STD;scales_of_balance;588;19;0111;
+STD;scales_of_balance;600;16;0111;
+STD;scales_of_balance;690;16;0111;
+STD;scales_of_balance;700;16;0111;
+STD;scales_of_balance;800;19;0000;
+STD;scales_of_balance;805;19;0000;
+MUC;scales_of_balance;Init;19;0000;
+MUC;scales_of_balance;810;19;0000;
+MUC;scales_of_balance;811;19;0000;
+MUC;scales_of_balance;Init;19;0000;
+MUC;scales_of_balance;815;19;0000;
+MUC;scales_of_balance;816;19;0000;
+MUC;scales_of_balance;Init;19;0000;
+MUC;scales_of_balance;820;19;0000;
+MUC;scales_of_balance;821;19;0000;
+MUC;scales_of_balance;Init;19;0000;
+MUC;scales_of_balance;825;19;0000;
+MUC;scales_of_balance;826;19;0000;
+STD;scales_of_balance;830;19;0000;
+STD;scales_of_balance;835;19;0000;
+STD;scales_of_balance;840;19;0000;
+MUC;scales_of_balance;Init;19;0000;
+MUC;scales_of_balance;845;19;0000;
+MUC;scales_of_balance;846;19;0000;
+STD;scales_of_balance;850;19;0000;
+STD;scales_of_balance;855;19;0000;
+STD;scales_of_balance;860;19;0000;
+STD;scales_of_balance;865;19;0000;
+MUC;scales_of_balance;Init;19;0000;
+MUC;scales_of_balance;870;19;0000;
+MUC;scales_of_balance;871;19;0000;
+MUC;scales_of_balance;872;19;0000;
+STD;scales_of_balance;875;19;0000;
+MUC;scales_of_balance;Init;19;0000;
+MUC;scales_of_balance;880;19;0000;
+MUC;scales_of_balance;881;19;0000;
+MUC;scales_of_balance;Init;19;0000;
+MUC;scales_of_balance;885;19;0000;
+MUC;scales_of_balance;886;19;0000;
+STD;scales_of_balance;890;19;0000;
+STD;scales_of_balance;895;19;0000;
+STD;scales_of_balance;900;19;0000;
 CMD;type B#BLADEstring.txt >> ./override/kit.ids;;;;D:RevisedBattles(24)
 STD;refinements;10;16;1111;
 MUC;refinements;Init;16;1111;
@@ -2543,8 +2542,7 @@ MUC;refinements;30;16;1111;
 MUC;refinements;31;16;0000;
 STD;refinements;40;16;1111;
 STD;refinements;50;19;0111;
-STD;SoB;580;16;0111;
-STD;SoB;650;16;0111;
+STD;scales_of_balance;580;16;0111;
 STD;DruidicSorcererKit;0;19;0111;
 STD;DruidicSorcererKit;1;19;0111;
 STD;DruidSor;0;19;0111;
