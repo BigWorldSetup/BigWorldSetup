@@ -495,3 +495,6 @@ Fixed: Adjusted dependencies. Returned back RE with Kivan and Saerileth incompat
 20150523 - Updated by Silent
 Added: Ding0's Tweak Pack full component list.
 Updated: Scales of Balance v3.0.
+20150524 - Updated by Silent
+Fixed: Adjusted dependencies.
+Updated: Afaaq the Djinni Companion v1.3.
