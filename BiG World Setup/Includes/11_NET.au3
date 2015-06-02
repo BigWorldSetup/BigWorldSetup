@@ -1050,7 +1050,7 @@ Func _Net_StartupUpdate()
 	GUICtrlSendMsg($g_UI_Interact[6][1], $PBM_SETMARQUEE, True, 50); final parameter is update time in ms
 	_Process_SetScrollLog(_GetTR($Message, 'L3'), '', -1); => wait for inet
 	While 1
-		$Ping = Ping('194.25.0.60', 1000); test if computer is online -- ip is a tcom-dns-server
+		$Ping = Ping('www.bitbucket.org', 1000); test if computer is online -- ip is a tcom-dns-server
 		If $Ping <> 0 Then ExitLoop
 		If $g_Flags[13] = 1 Then Exit
 	WEnd
@@ -1066,6 +1066,93 @@ Func _Net_StartupUpdate()
 	EndIf
 	AutoItSetOption('GUIOnEventMode', 0); exit event mode
 EndFunc   ;==>_Net_StartupUpdate
+
+; ---------------------------------------------------------------------------------------------
+; Fetches the BWS master commits-site and returns a string of new updates by comparing the availe git-hashes to the local one stored in BiG World Setup Version.txt
+; ---------------------------------------------------------------------------------------------
+Func _Net_BWS_UpdateInfo($p_Force=0)
+	_PrintDebug('+' & @ScriptLineNumber & ' Calling _Net_BWS_UpdateInfo')
+	Local $Message = IniReadSection($g_TRAIni, 'Nt-SelfUpdate')
+	Local $Update=IniRead($g_UsrIni, 'Options', 'UpdateMethod', '-1')
+	Local $Changes, $Current, $File=$g_DownDir&'\BWS_Commits.html'
+	If $p_Force = 1 Then
+		$Update=2; enforce update
+		$Current = GUICtrlRead($g_UI_Seperate[0][0])+1
+		_Process_SetSize(0)
+		_Process_Gui_Create(1, 0)
+		_Process_EnableBackButtonOnly()
+		GUICtrlSetStyle($g_UI_Interact[6][1], $PBS_MARQUEE)
+		GUICtrlSendMsg($g_UI_Interact[6][1], $PBM_SETMARQUEE, True, 50); final parameter is update time in ms
+		_Process_SetScrollLog(_GetTR($Message, 'L3'), '', -1); => wait for inet
+		While 1
+			$Ping = Ping('www.bitbucket.org', 1000); test if computer is online -- ip is a tcom-dns-server
+			If $Ping <> 0 Then ExitLoop
+			If $g_Flags[13] = 1 Then Exit
+		WEnd
+		GUICtrlSendMsg($g_UI_Interact[6][1], $PBM_SETMARQUEE, False, 50)
+		GUICtrlSetStyle($g_UI_Interact[6][1], $PBS_SMOOTH)
+		_Process_SetScrollLog(_GetTR($Message, 'L1'), '', -1); => check program updates
+		GUICtrlSetData($g_UI_Interact[6][1], 0)
+	Else
+		If $Update=0 Then Return
+		If $g_Flags[26]=1 Then Return; Update was already executed/shown
+		GUICtrlSetStyle($g_UI_Interact[9][1], $PBS_MARQUEE)
+		GUICtrlSendMsg($g_UI_Interact[9][1], $PBM_SETMARQUEE, True, 50); final parameter is update time in ms
+		_Misc_ProgressGUI(_GetTR($Message, 'L1'), _GetTR($Message, 'L3')); => search update
+		GUICtrlSetData($g_UI_Static[9][2], '')
+		$Ping = Ping('www.bitbucket.org', 1000); test if computer is online
+		GUICtrlSendMsg($g_UI_Interact[9][1], $PBM_SETMARQUEE, False, 50)
+		GUICtrlSetStyle($g_UI_Interact[9][1], $PBS_SMOOTH)
+		If $Ping = 0 Then Return; not connected to the net
+	EndIf
+	$Local=StringRegExpReplace(FileRead($g_BaseDir&'\BiG World Setup Version.txt'), '(\r|\n|\s)*', '')
+	$Fetch=InetGet('https://bitbucket.org/BigWorldSetup/bigworldsetup/commits/branch/master', $File); get available remote/online hash from commits page
+	If $Fetch = 0 Then Return
+	$Body=FileRead($File)
+	FileDelete($File)
+	$g_Flags[26]=1; no more checking
+	$Body=StringRegExpReplace($Body, '\A.*pjax">', ''); strip to sync hash and commit-arrays
+	$Hash=StringRegExp($Body, '(?is)at=master[^\x2f]++\x2f', 3)
+	If IsArray($Hash) = 0 Then Return; not able to parse file
+	$Remote=StringTrimRight(StringMid($Hash[0], StringInStr($Hash[0], '>')+1), 2)
+	If $Local = $Remote Then Return; exit if no changes were found
+	$Changes&='Update '&$Local & ' -> ' & $Remote & @CRLF&@CRLF
+	$Commits=StringRegExp($Body, '(?is)<div title="[^"]*"', 3)
+	If IsArray($Commits) Then
+		For $h=0 to UBound($Hash)-1
+			$Hash[$h]=StringTrimRight(StringMid($Hash[$h], StringInStr($Hash[$h], '>')+1), 2)
+			If $Hash[$h]=$Local Then ExitLoop
+			$Commits[$h]=StringRegExpReplace($Commits[$h], '\A[^"]*"|"\z', '')
+			$Extra=StringRegExp($Commits[$h], '&#\d{1,3};', 3); replace htmls special characters
+			If IsArray($Extra) Then
+				For $e=0 to UBound($Extra)-1
+					$Commits[$h]=StringReplace($Commits[$h], $Extra[$e], Chr(StringRegExpReplace($Extra[$e], '\A..|.\z', '')))
+				Next
+			EndIf
+			$Changes&=$Commits[$h]&@CRLF
+		Next
+	EndIf
+	If $Changes = '' Then Return; security blanket if parsing failed or no changes were found
+; ---------------------------------------------------------------------------------------------
+; Updates are available. Check what to do now
+; ---------------------------------------------------------------------------------------------
+	If $Update = '-1' Then
+		$Update = _Misc_MsgGUI(2, _GetTR($Message, 'L5'), _GetTR($Message, 'L2')&'||'&_GetTR($Message, 'L4'), 2, _GetTR($g_UI_Message, '0-B1'), _GetTR($g_UI_Message, '0-B2')); => update available. how to proceed in the future?
+		IniWrite($g_UsrIni, 'Options', 'UpdateMethod', $Update)
+	EndIf
+
+	If $Update = 2 Then
+		_Process_SetScrollLog($Changes)
+		ConsoleWrite('Call Update'&@CRLF)
+;~ 		_Net_BWS_Update()
+		If $p_Force Then _Process_Gui_Delete(3, 3, 1)
+	Else
+		MsgBox(0, $Remote, $Changes)
+		GUICtrlSetState($g_UI_Static[0][6], $GUI_SHOW)
+		GUICtrlSetTip($g_UI_Static[0][6], _GetTR($Message, 'L2'))
+		ConsoleWrite('Set Icon'&@CRLF)
+	EndIf
+EndFunc   ;==>_Net_BWS_UpdateInfo
 
 ; ---------------------------------------------------------------------------------------------
 ; Updates the names, homepages and links via build package at http://baldurs-gate.eu/bws/mod.ini.gz
@@ -1091,7 +1178,7 @@ Func _Net_Update_Link($p_Show = 0); Show GUI
 		GUICtrlSetData($g_UI_Static[6][2], _GetTR($Message, 'L2')); => loading data
 		FileClose(FileOpen($g_LogFile, 2))
 		For $p=1 to 3
-			$Ping = Ping('194.25.0.60', 1000); test if computer is online -- ip is a tcom-dns-server
+			$Ping = Ping('www.bitbucket.org', 1000); test if computer is online -- ip is a tcom-dns-server
 			If $Ping <> 0 Then ExitLoop
 		Next
 		If $Ping = 0 Then
