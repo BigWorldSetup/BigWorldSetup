@@ -297,13 +297,13 @@ Func _Misc_MsgGUI($p_Icon, $p_Title, $p_Text, $p_Button = 1, $p_Text1 = '', $p_T
 	; Display different icons
 	; ---------------------------------------------------------------------------------------------
 	If $p_Icon = 1 Then
-		GUICtrlSetImage($g_UI_Static[8][1], $g_ProgDir & "\Pics\Info.ico")
+		GUICtrlSetImage($g_UI_Static[8][1], @ScriptDir & "\Pics\Info.ico")
 	ElseIf $p_Icon = 2 Then
-		GUICtrlSetImage($g_UI_Static[8][1], $g_ProgDir & "\Pics\Question.ico")
+		GUICtrlSetImage($g_UI_Static[8][1], @ScriptDir & "\Pics\Question.ico")
 	ElseIf $p_Icon = 3 Then
-		GUICtrlSetImage($g_UI_Static[8][1], $g_ProgDir & "\Pics\Warning.ico")
+		GUICtrlSetImage($g_UI_Static[8][1], @ScriptDir & "\Pics\Warning.ico")
 	ElseIf $p_Icon = 4 Then
-		GUICtrlSetImage($g_UI_Static[8][1], $g_ProgDir & "\Pics\Error.ico")
+		GUICtrlSetImage($g_UI_Static[8][1], @ScriptDir & "\Pics\Error.ico")
 	EndIf
 	; ---------------------------------------------------------------------------------------------
 	; Position the icon and buttons
@@ -734,14 +734,10 @@ Func _Misc_SetWelcomeScreen($p_String)
 					EndIf
 				EndIf
 			Next
-			_Net_BWS_UpdateInfo()
-#cs		Disabled Update via build package at http://baldurs-gate.eu/bws/mod.ini.gz
-			Update via build package at http://baldurs-gate.eu/bws/mod.ini.gz
-			If IniRead($g_UsrIni, 'Options', 'SuppressUpdate', 0) = 0 Then
-				$State=BitAND(GUICtrlGetState($g_UI_Button[3][6]), $GUI_ENABLE)
-				If $State Then _Net_StartupUpdate(); update was not done... ask again
-			EndIf
-#ce
+			;			If IniRead($g_UsrIni, 'Options', 'SuppressUpdate', 0) = 0 Then
+			;				$State=BitAND(GUICtrlGetState($g_UI_Button[3][6]), $GUI_ENABLE)
+			;				If $State Then _Net_StartupUpdate(); update was not done... ask again
+			;			EndIf
 			If $g_Flags[10] > 0 Then
 				If $g_Skip <> '' Then _Misc_ReBuildTreeView()
 				$g_Flags[10] = 0

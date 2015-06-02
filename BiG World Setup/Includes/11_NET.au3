@@ -1031,7 +1031,7 @@ Func _Net_SingleLinkUpdate($p_Setup, $p_Update = 0 )
 EndFunc   ;==>_Net_SingleLinkUpdate
 
 ; ---------------------------------------------------------------------------------------------
-; Fetches an update-packages, extracts it, installs the files and creates backups of the old ones via build package at http://baldurs-gate.eu/bws/mod.ini.gz
+; Fetches an update-packages, extracts it, installs the files and creates backups of the old ones
 ; ---------------------------------------------------------------------------------------------
 Func _Net_StartupUpdate()
 	_PrintDebug('+' & @ScriptLineNumber & ' Calling _Net_StartupUpdate')
