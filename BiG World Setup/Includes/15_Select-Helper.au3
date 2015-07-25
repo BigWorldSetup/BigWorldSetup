@@ -4,7 +4,7 @@
 ; Add a pause to the $g_CentralArray[$p_Num][15] or jump to the next component
 ; ---------------------------------------------------------------------------------------------
 Func _Selection_ContextMenu()
-	Local $FirstModItem, $NextModItem, $MenuItem[6]
+	Local $FirstModItem, $NextModItem, $MenuItem[7]
 	$p_Num = GUICtrlRead($g_UI_Interact[4][1])
 	If $p_Num >= $g_CentralArray[0][1] And $p_Num <= $g_CentralArray[0][0] Then; prevent crashes if $g_CentralArray is undefined
 		GUISetState(@SW_DISABLE); disable the GUI itself while selection is pending to avoid unwanted treeview-changes
@@ -43,6 +43,7 @@ Func _Selection_ContextMenu()
 		EndIf
 		GUICtrlCreateMenuItem('', $g_UI_Menu[0][4]); separator
 		$MenuItem[0] = GUICtrlCreateMenuItem(_GetTR($g_UI_Message, '4-L6'), $g_UI_Menu[0][4]); => visit homepage
+		$MenuItem[6] = GUICtrlCreateMenuItem(_GetTR($g_UI_Message, '4-L25'), $g_UI_Menu[0][4]); => Download Manually
 		GUICtrlCreateMenuItem('', $g_UI_Menu[0][4]); separator
 		If $g_CentralArray[$p_Num][2] <> '-' Then ; hide or expand the components
 			$MenuItem[4] = GUICtrlCreateMenuItem(_GetTR($g_UI_Message, '4-M1'), $g_UI_Menu[0][4]); => hide components
@@ -121,6 +122,9 @@ Func _Selection_ContextMenu()
 						_Misc_MsgGUI(4, _GetTR($g_UI_Message, '4-L2'), _GetTR($g_UI_Message, '4-L22')&@CRLF&@CRLF&$Definition)
 					EndIf
 				EndIf
+				ExitLoop
+			Case $MenuItem[6]; Download Manually
+				_Selection_Download_Manually()
 				ExitLoop
 			Case Else
 				If _IsPressed('01', $g_UDll) Then; react to a left mouseclick outside of the menu
@@ -203,6 +207,17 @@ Func _Selection_OpenPage($p_String='Link')
 		ShellExecute($HP); open the homepage if it is nursed
 	EndIf
 EndFunc    ;==>_Selection_OpenHomePage
+
+; ---------------------------------------------------------------------------------------------
+; Visit the download link of the currently selected mod
+; ---------------------------------------------------------------------------------------------
+Func _Selection_Download_Manually($p_String='Down')
+	$i = GUICtrlRead($g_UI_Interact[4][1]); get the current selection
+	$Down=IniRead($g_ModIni, $g_CentralArray[$i][0], $p_String, '')
+	If $Down <> '' Then		
+		ShellExecute($Down); Open download link in default browser.
+	EndIf
+EndFunc    ;==>_Selection_Download_Manually
 
 ; ---------------------------------------------------------------------------------------------
 ; Convert the WeiDU.log into a two-dimensional array
