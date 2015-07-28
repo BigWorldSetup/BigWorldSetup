@@ -498,3 +498,12 @@ Updated: Scales of Balance v3.0.
 20150524 - Updated by Silent
 Fixed: Adjusted dependencies.
 Updated: Afaaq the Djinni Companion v1.3.
+20150725 - Updated by Lollorian
+Updated: Afaaq the Djinni Companion v1.4, Ajantis NPC for BG2 v13, Almateria's Restoration Project v2.8.1, Alternatives v11, Aran Whitehand beta 4 30.6.2015, Ascalons Questpack v2.00b 150711, BG1 Mini Quests and Encounters v10, BG1 NPC Project v22, BG1 Unfinished Business v14.0 beta 150720, BGT NPC Portraits v3.0, Crossmod Banter Pack v15b 07232015, Faren v3, Haldamir v3, Romantic Encounters v9, Scales of Balance v3.2, TeamBG Armor Pack for BG2 v1.02, The Stone of Askavar v1.9.
+20150726 - Updated by Lollorian
+Updated: aTweaks v4.41, Warsling Sniper Kit for Fighters v2.0.
+20150728 - Updated by Lollorian
+Updated: Crossmod Banter Pack v15.
+20150728 - Updated by Silent
+Added: A Frosty Journey: The IWDEE Kitpack v2.7, Area Patcher ALPHA 4, Ascension script fix v1.1, Fixed Tanar'ri and Wyvern v2, Foundling: Between the Shades beta 1, House Rules for IWDEE v1.1, L'ogre et le gnome v2, Minor NPC Portraits for IWDEE v1.4, No Restrictions v1, Runescarred Berserker v1.0, Tome and Blood v0.5 beta, Warlock v1.0, WTP Familiars v1.4.
+Updated: BWP selection fits IP 15.3, TP 15.1. IWD1EE selection. Full Plate and Packing Steel v2.2, More Style for Mages v1.42, NPC Strongholds v5, Oversight v15, Return to Faerun v1.06 beta, Sandrah NPC v1.06 beta, Warsling Sniper Kit for Fighters v2.1.
