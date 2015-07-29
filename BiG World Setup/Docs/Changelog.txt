@@ -996,3 +996,5 @@ Updated: Reading ini-sections (thanks to dabus). [_IniReadSection]
 Added: Gobal ini configuration files for all mods. Ability to install Enhanced Edition Trilogy (EET). Removing all Mod*.ini and weidu-*.ini files every time when you run BWS. Ability to edit subcomponents. Load BWS without rebuilding configuration files.
 Fixed: Normalize all the line endings.
 Updated: Documentation. Speedup tree creation process.
+20150725 - Updated by Tzarnal
+Added: Added context menu option to visit a mods download link manually from the Selection screen. [_Selection_Download_Manually]

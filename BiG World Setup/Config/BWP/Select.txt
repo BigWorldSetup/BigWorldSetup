@@ -37,7 +37,6 @@ CMD;IF EXIST SandrahNPC-setup.exe ren SandrahNPC-setup.exe Setup-SandrahNPC.exe
 CMD;IF EXIST SandrahNPC-setup.tp2 ren SandrahNPC-setup.tp2 Setup-SandrahNPC.tp2
 CMD;IF EXIST SandrahRtF-setup.exe ren SandrahRtF-setup.exe Setup-SandrahRtF.exe
 CMD;IF EXIST SandrahRtF-setup.tp2 ren SandrahRtF-setup.tp2 Setup-SandrahRtF.tp2
-CMD;IF EXIST setup-sob.exe ren setup-sob.exe setup-scales_of_balance.exe
 CMD;IF EXIST ".\vecna\setup-vecna.tp2" copy /Y ".\Vecna v23 - Text Overhaul v1.1\Language\English\*.*" ".\vecna\Language\English"
 CMD;IF EXIST .\acm_upsample.exe move .\acm_upsample.exe .\1pp_hq_music_BGT\convert
 ANN;Solve the issue with Cespy Audio
@@ -55,7 +54,7 @@ CMD;IF EXIST "Big World Fixpack\BW_Herbs_BG2\_optional\Improved Animations\_copy
 CMD;IF EXIST "Big World Fixpack\BW_Herbs_BG2\_optional" rmdir /s /q ".\BiG World Fixpack\BW_Herbs_BG2\_optional"
 CMD;IF EXIST "BiG World Fixpack" xcopy /Y /S /E ".\BiG World Fixpack\_resfixer_v1\*.*" "."
 CMD;IF EXIST "BiG World Fixpack" xcopy /Y /S /E ".\BiG World Fixpack\_crefixer_v2\*.*" "."
-CMD;IF EXIST "BiG World Fixpack" xcopy /Y /S /E ".\BiG World Fixpack\_poison_effect_supplement\*.*" "."
+ANN;IF EXIST "BiG World Fixpack" xcopy /Y /S /E ".\BiG World Fixpack\_poison_effect_supplement\*.*" "."
 CMD;IF EXIST "BiG World Fixpack" xcopy /Y /S /E ".\BiG World Fixpack\_ninjawakifix\*.*" "."
 CMD;IF EXIST "BiG World Fixpack" xcopy /Y /S /E ".\BiG World Fixpack\_Innate_Fix\*.*" "."
 CMD;IF EXIST "BiG World Fixpack\_AuroraPatch" IF EXIST Setup-aurora.exe xcopy /Y /S /E ".\BiG World Fixpack\_AuroraPatch\*.*" "."
@@ -64,6 +63,7 @@ CMD;IF EXIST "BiG World Fixpack\_Gavin_Hotfixes" IF EXIST Setup-gavin.exe xcopy 
 CMD;IF EXIST "BiG World Fixpack\_iwditemfix" If EXIST Setup-iwditempack.exe xcopy /Y /S /E ".\BiG World Fixpack\_iwditemfix\*.*" "."
 CMD;IF EXIST "BiG World Fixpack\_shatterfix" If EXIST Setup-item_rev.exe xcopy /Y /S /E ".\BiG World Fixpack\_shatterfix\*.*" "."
 CMD;IF NOT EXIST Setup-lolfixer.exe xcopy /Y /S /E ".\BiG World Fixpack\_Lolfixer\*.*" "."
+CMD;IF EXIST "BiG World Fixpack" xcopy /Y /S /E ".\BiG World Fixpack\_Area_Patcher\*.*" "."
 CMD;IF NOT EXIST ".\BWP_workspace\override" MD ".\BWP_workspace\override"
 CMD;IF EXIST tisunpack.exe copy tisunpack.exe ".\BWP_workspace\override"
 CMD;IF EXIST "BiG World Fixpack" copy /Y ".\BiG World Fixpack\_IDS_ref\*.IDS" ".\override"
@@ -136,6 +136,7 @@ STD;ascension;2;15;0011;
 STD;ascension;3;15;0011;
 STD;ascension;4;15;0011;
 STD;ascension;5;15;0011;
+STD;astscriptpatcher;0;15;1111;
 STD;TheUndying;1;15;0001;
 STD;Oversight;0;15;0011;
 STD;bg2fixpack;0;01;1111;
@@ -304,12 +305,14 @@ STD;bgqe;6;03;1111;
 STD;bgqe;7;03;1111;
 STD;bgqe;8;03;1111;
 STD;bgqe;9;03;1111;
+STD;bgqe;10;03;1111;
 MUC;TGC1E;Init;03;1111;
 MUC;TGC1E;0;03;1111;
 MUC;TGC1E;1;03;0000;
 STD;SirinesCall;0;03;1111;
-CMD;IF EXIST Setup-SOA.exe copy /Y ".\BiG World Fixpack\_override\worldmap\*.*" ".\override"
-STD;SOA;0;03;1111;
+MUC;soa;Init;03;1111;
+MUC;soa;0;03;1111;
+MUC;soa;1;03;1111;
 CMD;echo 99 HELPME >> override/shoutids.ids
 STD;AC_QUEST;0;03;1111;
 STD;NMT;0;03;0111;
@@ -324,6 +327,7 @@ STD;LostItems;4;08;0000;
 STD;BGeeAR;0;08;0111;
 STD;BGeeW;0;08;0111;
 STD;Animus;0;08;0111;
+STD;wmart;0;08;0111;
 ANN;#9. BG1 NPC MODS
 STD;bg1npc;0;05;1111;
 STD;bg1npc;1;05;1111;
@@ -521,6 +525,7 @@ STD;bg1ub;28;07;1111;
 STD;bg1ub;29;07;1111;
 STD;bg1ub;30;07;1111;
 STD;bg1ub;31;07;1111;
+STD;bg1ub;32;07;1111;
 STD;BGSpawn;0;06;0111;
 SUB;BGSpawn;1;06;0111;
 SUB;BGSpawn;1?1_1;06;0000;
@@ -764,7 +769,7 @@ STD;KonTwk;14;17;0111;
 STD;KonTwk;15;17;0111;
 STD;bolsa;0;17;0111;
 STD;Charli;0;17;0111;
-STD;DARRON;0;17;0111;
+STD;Darron;0;17;0111;
 STD;nanstein;0;17;0111;
 STD;Mhoram;0;12;0111;
 STD;Vendedor_DLAN;0;17;0111;
@@ -772,17 +777,17 @@ STD;Vendedor_DLAN;1;17;0111;
 STD;Recarga;0;17;0111;
 STD;Alchemy;0;17;0111;
 STD;SPSTUFF;4;17;0111;
-STD;MERSKSTORE;0;17;0111;
-STD;MYSTIGAN;0;17;0111;
-STD;LAVAIT;0;17;0111;
-STD;OLDMODSPACK;0;17;0111;
+STD;MerskStore;0;17;0111;
+STD;Mystigan;0;17;0111;
+STD;LavaIt;0;17;0111;
+STD;OldModsPack;0;17;0111;
 STD;RFWIP;0;17;0111;
-STD;HOUYI;0;17;0111;
+STD;Houyi;0;17;0111;
 STD;YLItems;0;17;0111;
 STD;YLItems;1;17;0111;
-STD;YLItems;2;17;0111;
-STD;YLItems;3;17;0111;
-STD;YLItems;4;17;0111;
+STD;YLItems;2;17;0000;
+STD;YLItems;3;17;0000;
+STD;YLItems;4;17;0000;
 SUB;DragonSummon;0;17;0111;
 SUB;DragonSummon;0?1_1;17;0111;
 SUB;DragonSummon;0?1_2;17;0000;
@@ -853,8 +858,6 @@ SUB;ajantisportraitpack;0?1_14;20;0000;
 SUB;ajantisportraitpack;0?1_15;20;0000;
 SUB;ajantisportraitpack;0?1_16;20;0000;
 SUB;ajantisportraitpack;0?1_17;20;0000;
-SUB;ajantisportraitpack;0?1_18;20;0000;
-SUB;ajantisportraitpack;0?1_19;20;0000;
 MUC;Tashia;Init;12;0111;
 MUC;Tashia;0;12;0111;
 MUC;Tashia;1;12;0000;
@@ -955,8 +958,6 @@ MUC;gavin_bg2;7;12;0000;
 MUC;gavin_bg2;8;12;0000;
 MUC;gavin_bg2;9;12;0000;
 MUC;gavin_bg2;10;12;0000;
-ANN;Version 9 does not need the Kickout-Hotfix (it is already included).
-ANN;gavin_kickout_hotfix;0;01;1111;
 STD;gavin_bg2_bgt;0;01;1111;
 STD;darian;0;12;0111;
 MUC;darian;Init;12;0000;
@@ -981,13 +982,99 @@ STD;dace;1;12;0000;
 STD;Gahesh;0;12;0111;
 STD;Lena;1;12;0111;
 STD;Lena;2;12;0000;
-ANN;For some reason Aran Whitehand should be installed manually.
-DWN;aranw;0;12;0111;
-CMD;IF EXIST setup-aranw.exe Call setup-aranw.exe
+SUB;aranw;0;12;0111;
+SUB;aranw;0?1_1;12;0000;
+SUB;aranw;0?1_2;12;0111;
+SUB;aranw;0?2_1;12;0111;
+SUB;aranw;0?2_2;12;0000;
+SUB;aranw;0?2_3;12;0000;
+SUB;aranw;0?2_4;12;0000;
+SUB;aranw;0?2_5;12;0000;
+SUB;aranw;0?2_6;12;0000;
+SUB;aranw;1;12;0000;
+SUB;aranw;1?1_1;12;0000;
+SUB;aranw;1?1_2;12;0000;
+SUB;aranw;1?1_3;12;0000;
+SUB;aranw;2;12;0111;
+SUB;aranw;2?1_1;12;0111;
+SUB;aranw;2?1_2;12;0000;
+SUB;aranw;2?1_3;12;0000;
+SUB;aranw;3;12;0000;
+SUB;aranw;4;12;0000;
+SUB;aranw;5;12;0111;
+SUB;aranw;6;12;0000;
+SUB;aranw;6?1_1;12;0000;
+SUB;aranw;6?1_2;12;0000;
+SUB;aranw;6?1_3;12;0000;
+SUB;aranw;6?2_1;12;0000;
+SUB;aranw;6?2_2;12;0000;
+SUB;aranw;6?2_3;12;0000;
+SUB;aranw;6?3_1;12;0000;
+SUB;aranw;6?3_2;12;0000;
+SUB;aranw;6?3_3;12;0000;
+SUB;aranw;6?3_4;12;0000;
+SUB;aranw;6?3_5;12;0000;
+SUB;aranw;7;12;0000;
+SUB;aranw;7?1_1;12;0000;
+SUB;aranw;7?1_2;12;0000;
+SUB;aranw;7?1_3;12;0000;
+SUB;aranw;7?2_1;12;0000;
+SUB;aranw;7?2_2;12;0000;
+SUB;aranw;7?2_3;12;0000;
+SUB;aranw;7?2_4;12;0000;
+SUB;aranw;7?3_1;12;0000;
+SUB;aranw;7?3_2;12;0000;
+SUB;aranw;7?3_3;12;0000;
+SUB;aranw;7?3_4;12;0000;
+SUB;aranw;8;12;0000;
+SUB;aranw;8?1_1;12;0000;
+SUB;aranw;8?1_2;12;0000;
+SUB;aranw;8?1_3;12;0000;
+SUB;aranw;8?2_1;12;0000;
+SUB;aranw;8?2_2;12;0000;
+SUB;aranw;8?2_3;12;0000;
+SUB;aranw;8?2_4;12;0000;
+SUB;aranw;8?2_5;12;0000;
+SUB;aranw;8?2_6;12;0000;
+SUB;aranw;8?3_1;12;0000;
+SUB;aranw;8?3_2;12;0000;
+SUB;aranw;8?3_3;12;0000;
+SUB;aranw;8?3_4;12;0000;
+SUB;aranw;9;12;0000;
+SUB;aranw;9?1_1;12;0000;
+SUB;aranw;9?1_2;12;0000;
+SUB;aranw;9?1_3;12;0000;
+SUB;aranw;9?2_1;12;0000;
+SUB;aranw;9?2_2;12;0000;
+SUB;aranw;9?2_3;12;0000;
+SUB;aranw;9?2_4;12;0000;
+SUB;aranw;9?2_5;12;0000;
+SUB;aranw;9?3_1;12;0000;
+SUB;aranw;9?3_2;12;0000;
+SUB;aranw;9?3_3;12;0000;
+SUB;aranw;9?3_4;12;0000;
+SUB;aranw;10;12;0111;
+SUB;aranw;10?1_1;12;0111;
+SUB;aranw;10?1_2;12;0000;
+SUB;aranw;10?1_3;12;0000;
+SUB;aranw;10?1_4;12;0000;
+SUB;aranw;10?1_5;12;0000;
+SUB;aranw;10?1_6;12;0000;
+SUB;aranw;10?1_7;12;0000;
+SUB;aranw;10?1_8;12;0000;
+SUB;aranw;10?1_9;12;0000;
+SUB;aranw;10?1_10;12;0000;
+SUB;aranw;10?1_11;12;0000;
+SUB;aranw;10?1_12;12;0000;
+SUB;aranw;10?1_13;12;0000;
+SUB;aranw;10?1_14;12;0000;
 STD;c#solaufein;0;12;0111;
 STD;Isra_bg2;0;12;0111;
 STD;TheUndying;0;12;0111;
 STD;Neh'taniel;0;12;0111;
+SUB;foundling;0;12;0111;
+SUB;foundling;0?1_1;12;0111;
+SUB;foundling;0?1_2;12;0000;
 ANN;#15. BG2 ONE-DAY NPCS
 STD;alassa;0;13;0111;
 STD;allison;0;13;0111;
@@ -1086,7 +1173,8 @@ STD;Azure;0;12;0001;
 STD;Azure;1;12;0001;
 STD;frennedan;0;12;0111;
 STD;POB;0;12;0111;
-STD;BranwenNPC;0;12;0111;
+ANN;No links anymore
+ANN;BranwenNPC;0;12;0111;
 STD;MawgulNPC;0;12;0111;
 STD;Uldar;0;12;0111;
 STD;Rose;0;12;0111;
@@ -1169,6 +1257,7 @@ STD;Zalnoya;0;11;0111;
 STD;Zalnoya;1;11;0111;
 STD;Swylif;0;12;0111;
 STD;sagaman;0;11;0111;
+STD;derats_ogre;0;11;0111;
 STD;almaquest2;0;11;0111;
 STD;arestorationp;0;16;0111;
 STD;arestorationp;1;16;0111;
@@ -1365,6 +1454,7 @@ STD;RE;50;14;0111;
 STD;RE;51;14;0111;
 STD;RE;52;14;0111;
 STD;RE;53;14;0111;
+STD;RE;54;14;0111;
 STD;haerdalisromance;0;14;0111;
 STD;nephele;0;12;0111;
 STD;nephele;1;12;0111;
@@ -1396,6 +1486,19 @@ STD;Faren;21;12;0111;
 STD;Faren;22;12;0111;
 STD;Faren;23;12;0111;
 STD;Faren;24;12;0111;
+STD;Faren;25;12;0111;
+STD;Faren;26;12;0111;
+STD;Faren;27;12;0111;
+STD;Faren;28;12;0111;
+STD;Faren;29;12;0111;
+STD;Faren;30;12;0111;
+STD;Faren;31;12;0111;
+STD;Faren;32;12;0111;
+STD;Faren;33;12;0111;
+STD;Faren;34;12;0111;
+STD;Faren;35;12;0111;
+STD;Faren;36;12;0111;
+STD;Faren;37;12;0111;
 STD;RevisedBattles;0;15;0011;
 STD;RevisedBattles;1;15;0011;
 STD;RevisedBattles;2;15;0011;
@@ -1871,6 +1974,7 @@ STD;WildMage;3;16;0111;
 STD;WildMage;4;16;0111;
 STD;Teleport;0;16;0111;
 STD;Teleport;1;16;0111;
+STD;wtpfamiliars;0;16;1111;
 STD;DrizztIsNotStupid;0;07;0111;
 STD;nogameover;100;16;0111;
 STD;DungeonBeGone;0;16;0001;
@@ -1996,6 +2100,14 @@ STD;HideKt;10;19;0111;
 STD;HideKt;11;19;0111;
 STD;HideKt;12;19;0111;
 STD;HideKt;13;19;0111;
+STD;Kitpack6;1;19;0111;
+STD;Kitpack6;2;19;0111;
+STD;Kitpack6;3;19;0111;
+STD;Kitpack6;4;19;0111;
+STD;Kitpack6;5;19;0111;
+STD;Kitpack6;6;19;0111;
+STD;Kitpack6;7;19;0111;
+STD;Kitpack6;8;19;0111;
 STD;Vagrant;0;19;0111;
 STD;Vagrant;1;19;0111;
 STD;Vagrant;2;19;0111;
@@ -2035,6 +2147,9 @@ STD;zulu;0;19;0111;
 STD;SilverFur;0;19;0111;
 STD;PBhaal;0;19;0111;
 STD;HeartwarderKit;0;19;0111;
+STD;DruidicSorcererKit;0;19;0111;
+STD;DruidicSorcererKit;1;19;0111;
+STD;DruidSor;0;19;0111;
 STD;elven_pack;0;19;0111;
 STD;morituri;0;19;0111;
 STD;RetaliatorKit;0;19;0111;
@@ -2190,21 +2305,11 @@ DWN;IAContent11;0;20;1111;
 DWN;IAContent12;0;20;1111;
 DWN;IAContent13;0;20;1111;
 DWN;IAContent14;0;20;1111;
+STD;mwyvmtan;10;20;1111;
+STD;mwyvmtan;20;20;1111;
 STD;Bear_Animations_D2;0;20;1111;
 STD;c#solaufein;1;20;0111;
 STD;c#solaufein;2;20;0111;
-MUC;DjinniCompanion;Init;12;0111;
-MUC;DjinniCompanion;0;12;0111;
-MUC;DjinniCompanion;1;12;0000;
-MUC;DjinniCompanion;Init;12;0000;
-MUC;DjinniCompanion;101;12;0000;
-MUC;DjinniCompanion;102;12;0000;
-MUC;DjinniCompanion;103;12;0000;
-MUC;DjinniCompanion;104;12;0000;
-MUC;DjinniCompanion;105;12;0000;
-STD;DjinniCompanion;200;12;0000;
-STD;DjinniCompanion;300;12;0111;
-STD;DjinniCompanion;900;12;0111;
 STD;iwdification;10;16;0111;
 STD;iwdification;20;16;0000;
 STD;iwdification;30;16;0111;
@@ -2223,38 +2328,66 @@ STD;Haiass;0;13;0111;
 MUC;Haiass;Init;13;0111;
 MUC;Haiass;10;13;0111;
 MUC;Haiass;15;13;0000;
+CMD;IF EXIST Setup-SandrahNPC.exe copy /Y ".\BiG World Fixpack\_override\worldmap\*.*" ".\override"
+CMD;echo 109 CLERIC_HALLOW >> override/stats.ids
+CMD;echo 162 WIZARD_SPELL_TURNING >> override/stats.ids
+CMD;echo 164 WIZARD_SPELL_TRAP >> override/stats.ids
+CMD;echo 177 WIZARD_SPELL_SHIELD >> override/stats.ids
+CMD;echo 3201 INNATE_NEUTRALIZE_POISON >> override/spell.ids
+CMD;echo 4732 HELM_TRUE_SIGHT >> override/spell.ids
+CMD;echo 0xE800 ORC_MELEE1 >> override/Animate.IDS
+CMD;echo 0xE840 ORC_SHAMAN >> override/Animate.IDS
+CMD;echo 201 NEEDS_BREACH >> override/Specific.IDS
+CMD;echo 0x8010202D STATE_DISABLED >> override/State.ids
+CMD;echo 0x00000029 STATE_IMMOBILE >> override/State.ids
+CMD;echo 3600 SHROM_TIMER >> override/gtimes.ids
+SUB;SandrahNPC;0;12;0111;
+SUB;SandrahNPC;0?0_1;12;0111;
+SUB;SandrahNPC;0?0_2;12;0000;
+SUB;SandrahNPC;0?1_1;12;0111;
+SUB;SandrahNPC;0?1_2;12;0000;
+SUB;SandrahNPC;0?2_1;12;0111;
+SUB;SandrahNPC;0?2_2;12;0000;
+STD;SandrahNPC;1;12;0111;
+STD;SandrahNPC;2;12;0111;
+STD;SandrahNPC;3;12;0111;
+STD;SandrahNPC;4;12;0111;
+STD;SandrahNPC;5;12;0111;
+STD;SandrahNPC;6;12;0111;
+STD;SandrahNPC;7;12;0111;
+STD;SandrahNPC;8;12;0111;
+STD;SandrahNPC;9;12;0111;
+STD;SandrahNPC;10;12;0111;
+STD;SandrahNPC;11;12;0111;
+STD;SandrahNPC;12;12;0111;
+STD;SandrahNPC;13;12;0111;
+STD;SandrahNPC;14;12;0111;
+STD;SandrahNPC;15;12;0111;
+STD;SandrahRtF;0;09;0111;
+STD;SandrahRtF;1;09;0111;
+STD;SandrahRtF;2;09;0111;
+STD;SandrahRtF;3;09;0111;
+STD;SandrahRtF;4;09;0111;
+STD;SandrahRtF;5;09;0111;
+STD;SandrahRtF;6;09;0111;
+STD;SandrahRtF;7;09;0111;
 STD;vecna;0;10;0011;
 DWN;Vecna_Text_Overhaul;0;10;0011;
-CMD;IF EXIST Setup-SandrahNPC.exe IF NOT EXIST Setup-SOA.exe copy /Y ".\BiG World Fixpack\_override\worldmap\*.*" ".\override"
-SUB;SandrahNPC;0;12;0000;
-SUB;SandrahNPC;0?0_1;12;0000;
-SUB;SandrahNPC;0?0_2;12;0000;
-STD;SandrahNPC;1;12;0000;
-STD;SandrahNPC;2;12;0000;
-STD;SandrahNPC;3;12;0000;
-STD;SandrahNPC;4;12;0000;
-STD;SandrahNPC;5;12;0000;
-STD;SandrahNPC;6;12;0000;
-STD;SandrahNPC;7;12;0000;
-STD;SandrahNPC;8;12;0000;
-STD;SandrahNPC;9;12;0000;
-STD;SandrahNPC;10;12;0000;
-STD;SandrahNPC;11;12;0000;
-STD;SandrahNPC;12;12;0000;
-STD;SandrahNPC;13;12;0000;
-STD;SandrahNPC;14;12;0000;
-STD;SandrahNPC;15;12;0000;
-STD;SandrahRtF;0;09;0000;
-STD;SandrahRtF;1;09;0000;
-STD;SandrahRtF;2;09;0000;
-STD;SandrahRtF;3;09;0000;
-STD;SandrahRtF;4;09;0000;
-STD;SandrahRtF;5;09;0000;
-STD;SandrahRtF;6;09;0000;
-STD;SandrahRtF;7;09;0000;
 MUC;w_packmule;Init;11;0111;
 MUC;w_packmule;0;11;0111;
 MUC;w_packmule;1;11;0000;
+MUC;DjinniCompanion;Init;12;0111;
+MUC;DjinniCompanion;0;12;0111;
+MUC;DjinniCompanion;1;12;0000;
+MUC;DjinniCompanion;Init;12;0000;
+MUC;DjinniCompanion;101;12;0000;
+MUC;DjinniCompanion;102;12;0000;
+MUC;DjinniCompanion;103;12;0000;
+MUC;DjinniCompanion;104;12;0000;
+MUC;DjinniCompanion;105;12;0000;
+STD;DjinniCompanion;200;12;0000;
+STD;DjinniCompanion;300;12;0111;
+STD;DjinniCompanion;900;12;0111;
 ANN;#24. HLA-TABLES CHANGING MODS
 STD;ashesofembers;5;19;0001;
 STD;ashesofembers;6;19;0001;
@@ -2271,7 +2404,7 @@ STD;Oversight;5;19;0001;
 STD;Oversight;6;16;0001;
 STD;Oversight;7;19;0001;
 STD;Oversight;8;19;0001;
-STD;Oversight;9;17;0001;
+STD;Oversight;9;17;0000;
 MUC;LaViconia;Init;14;0111;
 MUC;LaViconia;0;14;0111;
 MUC;LaViconia;10;14;0000;
@@ -2346,9 +2479,9 @@ STD;sword_and_fist;1;16;0111;
 STD;sword_and_fist;30;19;0111;
 STD;sword_and_fist;31;19;0111;
 STD;sword_and_fist;32;19;0111;
-CMD;IF EXIST Setup-SpellPackB6.exe IF EXIST ".\override\SPPR107.SPL" move ".\override\SPPR107.SPL" ".\BWP_workspace\override"
+CMD;IF EXIST Setup-Spell_Rev.exe IF EXIST ".\override\SPPR107.SPL" move ".\override\SPPR107.SPL" ".\BWP_workspace\override"
 STD;sword_and_fist;33;19;0111;
-CMD;IF EXIST Setup-SpellPackB6.exe IF EXIST ".\BWP_workspace\override\SPPR107.SPL" move ".\BWP_workspace\override\SPPR107.SPL" ".\override"
+CMD;IF EXIST Setup-Spell_Rev.exe IF EXIST ".\BWP_workspace\override\SPPR107.SPL" move ".\BWP_workspace\override\SPPR107.SPL" ".\override"
 STD;sword_and_fist;34;19;0111;
 STD;RR;0;16;1111;
 STD;RR;1;16;1111;
@@ -2358,7 +2491,7 @@ STD;RR;6;16;1111;
 STD;RR;7;16;1111;
 STD;RR;8;16;1111;
 CMD;IF EXIST Setup-SpellPackB6.exe IF EXIST ".\override\SPPR342.SPL" move ".\override\SPPR342.SPL" ".\BWP_workspace\override"
-CMD;IF EXIST ".\override\SPWI317.SPL" move ".\override\SPWI317.SPL" ".\BWP_workspace\override";;;;D:SpellPackB6(2317)
+CMD;IF EXIST Setup-SpellPackB6.exe IF EXIST ".\override\SPWI317.SPL" move ".\override\SPWI317.SPL" ".\BWP_workspace\override"
 CMD;IF EXIST setup-divine_remix.exe IF EXIST ".\override\SPPR342.SPL" move ".\override\SPPR342.SPL" ".\BWP_workspace\override"
 CMD;IF EXIST ".\override\SPWI414.SPL" move ".\override\SPWI414.SPL" ".\BWP_workspace\override"
 SUB;1pp;202;20;1111;
@@ -2367,7 +2500,7 @@ SUB;1pp;202?1_2;20;1111;
 SUB;1pp;202?2_1;20;1111;
 SUB;1pp;202?2_2;20;0000;
 CMD;IF EXIST Setup-SpellPackB6.exe IF EXIST ".\BWP_workspace\override\SPPR342.SPL" move ".\BWP_workspace\override\SPPR342.SPL" ".\override"
-CMD;IF EXIST ".\BWP_workspace\override\SPWI317.SPL" move ".\BWP_workspace\override\SPWI317.SPL" ".\override";;;;D:SpellPackB6(2317)
+CMD;IF EXIST Setup-SpellPackB6.exe IF EXIST ".\BWP_workspace\override\SPWI317.SPL" move ".\BWP_workspace\override\SPWI317.SPL" ".\override"
 CMD;IF EXIST setup-divine_remix.exe IF EXIST ".\BWP_workspace\override\SPPR342.SPL" move ".\BWP_workspace\override\SPPR342.SPL" ".\override"
 CMD;IF EXIST ".\BWP_workspace\override\SPWI414.SPL" move ".\BWP_workspace\override\SPWI414.SPL" ".\override"
 STD;ashesofembers;0;16;0001;
@@ -2450,6 +2583,7 @@ MUC;item_rev;18;16;1100;
 MUC;item_rev;19;16;0000;
 MUC;item_rev;20;16;0011;
 STD;ninjawakifix;0;16;1111;
+CMD;echo 1413 CLERIC_NEGATIVE_PLANE_PROTECTION >> override/spell.ids
 MUC;UniqueArtifacts;Init;16;0001;
 MUC;UniqueArtifacts;1;16;0000;
 MUC;UniqueArtifacts;2;16;0001;
@@ -2463,10 +2597,185 @@ STD;Z#Misc;17;16;0001;
 STD;Z#Misc;18;16;0001;
 STD;Z#Misc;19;16;0001;
 ANN;#25. MAJOR TWEAKS
-CMD;IF EXIST ".\override\XXX009.ITM" move ".\override\XXX009.ITM" ".\BWP_workspace\override"
 STD;WSR;100;16;1111;
-CMD;IF EXIST ".\BWP_workspace\override\XXX009.ITM" move ".\BWP_workspace\override\XXX009.ITM" ".\override"
+STD;BGTTweak;1800;07;0111;
+STD;BGTTweak;1801;07;0111;
+STD;BGTTweak;1802;07;0111;
+STD;BGTTweak;1803;07;0111;
+STD;BGTTweak;1804;07;0111;
+STD;BGTTweak;1805;07;0111;
+STD;BGTTweak;1806;07;0111;
+STD;BGTTweak;1807;07;0111;
+STD;BGTTweak;1808;07;0111;
+STD;BGTTweak;1809;07;0111;
+STD;BGTTweak;1810;07;0111;
+STD;BGTTweak;1811;07;0111;
+STD;BGTTweak;1812;07;0111;
+STD;BGTTweak;1813;07;0111;
+STD;BGTTweak;1814;07;0111;
+STD;BGTTweak;1815;07;0111;
+STD;BGTTweak;1900;07;1111;
+STD;BG2_Tweaks;10;16;0000;
+STD;BG2_Tweaks;20;16;0000;
+STD;BG2_Tweaks;30;16;0000;
+STD;BG2_Tweaks;40;16;0000;
+STD;BG2_Tweaks;50;16;0000;
+STD;BG2_Tweaks;60;16;1111;
+STD;BG2_Tweaks;70;16;1111;
+STD;BG2_Tweaks;80;16;0000;
+STD;BG2_Tweaks;90;16;0000;
+STD;BG2_Tweaks;100;16;0000;
+STD;BG2_Tweaks;110;16;1111;
+STD;BG2_Tweaks;120;16;0000;
+STD;BG2_Tweaks;130;16;1111;
+STD;BG2_Tweaks;140;16;1111;
+STD;BG2_Tweaks;1010;16;1111;
+STD;BG2_Tweaks;1020;16;1111;
+STD;BG2_Tweaks;1030;16;0000;
+MUC;BG2_Tweaks;Init;16;0111;
+MUC;BG2_Tweaks;1035;16;0111;
+MUC;BG2_Tweaks;1036;16;0000;
+STD;BG2_Tweaks;1040;16;1111;
+STD;BG2_Tweaks;1050;16;0000;
+STD;BG2_Tweaks;1070;16;0000;
+STD;BG2_Tweaks;1080;16;0000;
+STD;BG2_Tweaks;1090;16;1111;
+STD;BG2_Tweaks;1101;16;0000;
+STD;BG2_Tweaks;1120;16;1111;
+STD;BG2_Tweaks;1130;16;1111;
+STD;BG2_Tweaks;1140;16;0000;
+MUC;BG2_Tweaks;Init;16;1111;
+MUC;BG2_Tweaks;1160;16;0000;
+MUC;BG2_Tweaks;1161;16;1111;
+STD;BG2_Tweaks;1170;16;1111;
+STD;BG2_Tweaks;1180;16;1111;
+STD;BG2_Tweaks;1220;16;0000;
+STD;BG2_Tweaks;1230;16;0000;
+STD;BG2_Tweaks;2020;16;0000;
+STD;BG2_Tweaks;2030;16;0000;
+STD;BG2_Tweaks;2035;16;0000;
+STD;BG2_Tweaks;2040;16;1111;
+STD;BG2_Tweaks;2060;16;0000;
+STD;BG2_Tweaks;2080;16;0000;
+MUC;BG2_Tweaks;Init;16;1111;
+MUC;BG2_Tweaks;2090;16;1111;
+MUC;BG2_Tweaks;2091;16;0000;
+MUC;BG2_Tweaks;2092;16;0000;
+STD;BG2_Tweaks;2100;16;0000;
+STD;BG2_Tweaks;2120;16;0000;
+STD;BG2_Tweaks;2140;16;0000;
+MUC;BG2_Tweaks;Init;16;0000;
+MUC;BG2_Tweaks;2150;16;0000;
+MUC;BG2_Tweaks;2151;16;0000;
+MUC;BG2_Tweaks;Init;16;0000;
+MUC;BG2_Tweaks;2160;16;0000;
+MUC;BG2_Tweaks;2161;16;0000;
+MUC;BG2_Tweaks;2162;16;0000;
+STD;BG2_Tweaks;2170;16;0000;
+MUC;BG2_Tweaks;Init;16;1111;
+MUC;BG2_Tweaks;2190;16;0000;
+MUC;BG2_Tweaks;2191;16;0000;
+MUC;BG2_Tweaks;2192;16;1111;
+STD;BG2_Tweaks;2200;16;0001;
+STD;BG2_Tweaks;2210;16;0111;
+STD;BG2_Tweaks;2240;16;1111;
+STD;BG2_Tweaks;2250;16;1111;
+MUC;BG2_Tweaks;Init;16;1111;
+MUC;BG2_Tweaks;2260;16;1111;
+MUC;BG2_Tweaks;2261;16;0000;
+MUC;BG2_Tweaks;Init;16;1111;
+MUC;BG2_Tweaks;2270;16;1111;
+MUC;BG2_Tweaks;2271;16;0000;
+MUC;BG2_Tweaks;Init;16;1111;
+MUC;BG2_Tweaks;2280;16;1111;
+MUC;BG2_Tweaks;2281;16;0000;
+MUC;BG2_Tweaks;Init;16;1111;
+MUC;BG2_Tweaks;2290;16;1111;
+MUC;BG2_Tweaks;2291;16;0000;
+MUC;BG2_Tweaks;2292;16;0000;
+MUC;BG2_Tweaks;2293;16;0000;
+MUC;BG2_Tweaks;2294;16;0000;
+MUC;BG2_Tweaks;2295;16;0000;
+MUC;BG2_Tweaks;2296;16;0000;
+STD;BG2_Tweaks;2300;16;1111;
+STD;BG2_Tweaks;2320;16;1111;
+STD;BG2_Tweaks;2330;16;1111;
+STD;BG2_Tweaks;2340;16;1111;
+MUC;BG2_Tweaks;Init;16;0000;
+MUC;BG2_Tweaks;3000;16;0000;
+MUC;BG2_Tweaks;3001;16;0000;
+MUC;BG2_Tweaks;Init;16;0000;
+MUC;BG2_Tweaks;3010;16;0000;
+MUC;BG2_Tweaks;3011;16;0000;
+MUC;BG2_Tweaks;3012;16;0000;
+STD;BG2_Tweaks;3020;16;0000;
+MUC;BG2_Tweaks;Init;16;0000;
+MUC;BG2_Tweaks;3030;16;0000;
+MUC;BG2_Tweaks;3031;16;0000;
+STD;BG2_Tweaks;3040;16;0000;
+STD;BG2_Tweaks;3050;16;1111;
+STD;BG2_Tweaks;3060;16;1111;
+MUC;BG2_Tweaks;Init;16;0000;
+MUC;BG2_Tweaks;3070;16;0000;
+MUC;BG2_Tweaks;3071;16;0000;
+MUC;BG2_Tweaks;3072;16;0000;
+MUC;BG2_Tweaks;3073;16;0000;
+STD;BG2_Tweaks;3080;16;0000;
+STD;BG2_Tweaks;3090;16;0000;
+STD;BG2_Tweaks;3100;16;0000;
+STD;BG2_Tweaks;3110;16;0000;
+MUC;BG2_Tweaks;Init;16;1111;
+MUC;BG2_Tweaks;3120;16;0000;
+MUC;BG2_Tweaks;3121;16;1111;
+MUC;BG2_Tweaks;3122;16;0000;
+STD;BG2_Tweaks;3123;16;0000;
+STD;BG2_Tweaks;3124;16;0000;
+STD;BG2_Tweaks;3125;16;1111;
+STD;BG2_Tweaks;3130;16;0000;
+MUC;BG2_Tweaks;Init;16;0000;
+MUC;BG2_Tweaks;3140;16;0000;
+MUC;BG2_Tweaks;3141;16;0000;
+STD;BG2_Tweaks;3150;16;0000;
+STD;BG2_Tweaks;3160;16;0000;
+STD;BG2_Tweaks;3170;16;0000;
+SUB;BG2_Tweaks;3183;16;1111;
+SUB;BG2_Tweaks;3183?1_a;16;0111;
+SUB;BG2_Tweaks;3183?1_b;16;1000;
+SUB;BG2_Tweaks;3183?2_a;16;0111;
+SUB;BG2_Tweaks;3183?2_b;16;1000;
+SUB;BG2_Tweaks;3183?3_a;16;0111;
+SUB;BG2_Tweaks;3183?3_b;16;1000;
+SUB;BG2_Tweaks;3183?4_a;16;0111;
+SUB;BG2_Tweaks;3183?4_b;16;1000;
+SUB;BG2_Tweaks;3183?5_a;16;0000;
+SUB;BG2_Tweaks;3183?5_b;16;1111;
+SUB;BG2_Tweaks;3183?6_a;16;1111;
+STD;BG2_Tweaks;3190;16;0000;
+STD;BG2_Tweaks;3200;16;0000;
+STD;BG2_Tweaks;3210;16;0000;
+STD;BG2_Tweaks;4000;16;1111;
+STD;BG2_Tweaks;4010;16;1111;
+STD;BG2_Tweaks;4020;16;0000;
+MUC;BG2_Tweaks;Init;16;1111;
+MUC;BG2_Tweaks;4030;16;0000;
+MUC;BG2_Tweaks;4031;16;1111;
+MUC;BG2_Tweaks;Init;16;1111;
+MUC;BG2_Tweaks;4040;16;0000;
+MUC;BG2_Tweaks;4041;16;1111;
+STD;BG2_Tweaks;4050;16;1111;
+MUC;BG2_Tweaks;Init;16;1111;
+MUC;BG2_Tweaks;4060;16;0000;
+MUC;BG2_Tweaks;4061;16;1111;
+MUC;BG2_Tweaks;Init;16;1111;
+MUC;BG2_Tweaks;4070;16;0000;
+MUC;BG2_Tweaks;4071;16;1111;
+STD;BG2_Tweaks;4080;16;0000;
+STD;BG2_Tweaks;4090;16;0000;
+STD;BG2_Tweaks;4100;16;1111;
+STD;BG2_Tweaks;4110;16;1111;
+CMD;IF EXIST ".\override\XXX009.ITM" move ".\override\XXX009.ITM" ".\BWP_workspace\override"
 STD;scales_of_balance;100;16;0111;
+CMD;IF EXIST ".\BWP_workspace\override\XXX009.ITM" move ".\BWP_workspace\override\XXX009.ITM" ".\override"
 STD;scales_of_balance;200;16;0111;
 STD;scales_of_balance;210;16;0111;
 STD;scales_of_balance;220;16;0111;
@@ -2474,7 +2783,6 @@ STD;scales_of_balance;230;16;0111;
 CMD;IF EXIST ".\override\C#AJAN16.CRE" move ".\override\C#AJAN16.CRE" ".\BWP_workspace\override"
 STD;scales_of_balance;250;16;0111;
 CMD;IF EXIST ".\BWP_workspace\override\C#AJAN16.CRE" move ".\BWP_workspace\override\C#AJAN16.CRE" ".\override"
-ANN;scales_of_balance;270;16;0000;EE only
 STD;scales_of_balance;300;16;0111;
 STD;scales_of_balance;320;19;0111;
 STD;scales_of_balance;350;19;0111;
@@ -2495,6 +2803,7 @@ STD;scales_of_balance;540;19;0111;
 STD;scales_of_balance;586;19;0111;
 STD;scales_of_balance;588;19;0111;
 STD;scales_of_balance;600;16;0111;
+STD;scales_of_balance;680;16;0000;
 STD;scales_of_balance;690;16;0111;
 STD;scales_of_balance;700;16;0111;
 STD;scales_of_balance;800;19;0000;
@@ -2543,9 +2852,6 @@ MUC;refinements;31;16;0000;
 STD;refinements;40;16;1111;
 STD;refinements;50;19;0111;
 STD;scales_of_balance;580;16;0111;
-STD;DruidicSorcererKit;0;19;0111;
-STD;DruidicSorcererKit;1;19;0111;
-STD;DruidSor;0;19;0111;
 STD;RPG-KP;0;19;0111;
 STD;RPG-KP;1;19;0000;
 STD;RPG-KP;2;19;0111;
@@ -2561,25 +2867,15 @@ STD;RPG-KP;11;19;0111;
 STD;RPG-KP;12;19;0000;
 STD;RPG-KP;13;19;0111;
 STD;Kitpack6;0;19;0111;
-STD;Kitpack6;1;19;0111;
-STD;Kitpack6;2;19;0111;
-STD;Kitpack6;3;19;0111;
-STD;Kitpack6;4;19;0111;
-STD;Kitpack6;5;19;0111;
-STD;Kitpack6;6;19;0111;
-STD;Kitpack6;7;19;0111;
-STD;Kitpack6;8;19;0111;
 STD;Derats_kits;0;19;0111;
 STD;Derats_kits;1;19;0111;
 STD;Derats_kits;2;19;0111;
 STD;Derats_kits;3;19;0111;
 STD;Derats_kits;4;19;0111;
-STD;Derats_kits;7;19;0111;
-STD;Derats_kits;8;19;0111;
-CMD;IF EXIST Setup-Derats_kits.exe echo 0x4145 pxSORCELERERB >> ./override/kit.ids
-CMD;IF EXIST Setup-Derats_kits.exe echo 0x4146 pxSORCELERERD >> ./override/kit.ids
 STD;Derats_kits;5;19;0111;
 STD;Derats_kits;6;19;0111;
+STD;Derats_kits;7;19;0111;
+STD;Derats_kits;8;19;0111;
 STD;A7#ImprovedArcher;0;19;0111;
 STD;A7#ImprovedArcher;100;17;0111;
 STD;spell_rev;60;16;1111;
@@ -2664,7 +2960,6 @@ STD;stratagems;5020;16;1111;
 STD;stratagems;5030;16;1111;
 STD;stratagems;5050;16;1111;
 STD;stratagems;5060;16;1111;
-CMD;echo 147 RemoveSpellRES(S:RES*,O:Target) >> override/action.ids
 STD;stratagems;5900;18;1111;
 CMD;IF EXIST Setup-NeJ2v691.exe IF NOT EXIST .\override\SPIN506.SPL copy /Y ".\BiG World Fixpack\NeJ\_copy\misc\SPIN506.SPL" ".\override"
 CMD;IF EXIST Setup-NeJ2v68.exe IF NOT EXIST .\override\SPIN506.SPL copy /Y ".\BiG World Fixpack\NeJ\_copy\misc\SPIN506.SPL" ".\override"
@@ -2852,181 +3147,6 @@ STD;BP;925;18;0001;
 STD;BP;150;18;0001;
 STD;BP;175;18;0001;
 STD;BP;1000;15;0001;
-STD;BGTTweak;1800;07;0111;
-STD;BGTTweak;1801;07;0111;
-STD;BGTTweak;1802;07;0111;
-STD;BGTTweak;1803;07;0111;
-STD;BGTTweak;1804;07;0111;
-STD;BGTTweak;1805;07;0111;
-STD;BGTTweak;1806;07;0111;
-STD;BGTTweak;1807;07;0111;
-STD;BGTTweak;1808;07;0111;
-STD;BGTTweak;1809;07;0111;
-STD;BGTTweak;1810;07;0111;
-STD;BGTTweak;1811;07;0111;
-STD;BGTTweak;1812;07;0111;
-STD;BGTTweak;1813;07;0111;
-STD;BGTTweak;1814;07;0111;
-STD;BGTTweak;1815;07;0111;
-STD;BGTTweak;1900;07;1111;
-STD;BG2_Tweaks;10;16;0000;
-STD;BG2_Tweaks;20;16;0000;
-STD;BG2_Tweaks;30;16;0000;
-STD;BG2_Tweaks;40;16;0000;
-STD;BG2_Tweaks;50;16;0000;
-STD;BG2_Tweaks;60;16;1111;
-STD;BG2_Tweaks;70;16;1111;
-STD;BG2_Tweaks;80;16;0000;
-STD;BG2_Tweaks;90;16;0000;
-STD;BG2_Tweaks;100;16;0000;
-STD;BG2_Tweaks;110;16;1111;
-STD;BG2_Tweaks;120;16;0000;
-STD;BG2_Tweaks;130;16;1111;
-STD;BG2_Tweaks;140;16;1111;
-STD;BG2_Tweaks;1010;16;1111;
-STD;BG2_Tweaks;1020;16;1111;
-STD;BG2_Tweaks;1030;16;0000;
-MUC;BG2_Tweaks;Init;16;0111;
-MUC;BG2_Tweaks;1035;16;0111;
-MUC;BG2_Tweaks;1036;16;0000;
-STD;BG2_Tweaks;1040;16;1111;
-STD;BG2_Tweaks;1050;16;0000;
-STD;BG2_Tweaks;1070;16;0000;
-STD;BG2_Tweaks;1080;16;0000;
-STD;BG2_Tweaks;1090;16;1111;
-STD;BG2_Tweaks;1101;16;0000;
-STD;BG2_Tweaks;1120;16;1111;
-STD;BG2_Tweaks;1130;16;1111;
-STD;BG2_Tweaks;1140;16;0000;
-MUC;BG2_Tweaks;Init;16;1111;
-MUC;BG2_Tweaks;1160;16;0000;
-MUC;BG2_Tweaks;1161;16;1111;
-STD;BG2_Tweaks;1170;16;1111;
-STD;BG2_Tweaks;1180;16;1111;
-STD;BG2_Tweaks;1220;16;0000;
-STD;BG2_Tweaks;1230;16;0000;
-STD;BG2_Tweaks;2020;16;0000;
-STD;BG2_Tweaks;2030;16;0000;
-STD;BG2_Tweaks;2035;16;0000;
-STD;BG2_Tweaks;2040;16;1111;
-STD;BG2_Tweaks;2060;16;0000;
-STD;BG2_Tweaks;2080;16;0000;
-MUC;BG2_Tweaks;Init;16;1111;
-MUC;BG2_Tweaks;2090;16;1111;
-MUC;BG2_Tweaks;2091;16;0000;
-MUC;BG2_Tweaks;2092;16;0000;
-STD;BG2_Tweaks;2100;16;0000;
-STD;BG2_Tweaks;2120;16;0000;
-STD;BG2_Tweaks;2140;16;0000;
-MUC;BG2_Tweaks;Init;16;0000;
-MUC;BG2_Tweaks;2150;16;0000;
-MUC;BG2_Tweaks;2151;16;0000;
-MUC;BG2_Tweaks;Init;16;0000;
-MUC;BG2_Tweaks;2160;16;0000;
-MUC;BG2_Tweaks;2161;16;0000;
-MUC;BG2_Tweaks;2162;16;0000;
-STD;BG2_Tweaks;2170;16;0000;
-MUC;BG2_Tweaks;Init;16;1111;
-MUC;BG2_Tweaks;2190;16;0000;
-MUC;BG2_Tweaks;2191;16;0000;
-MUC;BG2_Tweaks;2192;16;1111;
-STD;BG2_Tweaks;2200;16;0001;
-STD;BG2_Tweaks;2210;16;0111;
-STD;BG2_Tweaks;2240;16;1111;
-STD;BG2_Tweaks;2250;16;1111;
-MUC;BG2_Tweaks;Init;16;1111;
-MUC;BG2_Tweaks;2260;16;1111;
-MUC;BG2_Tweaks;2261;16;0000;
-MUC;BG2_Tweaks;Init;16;1111;
-MUC;BG2_Tweaks;2270;16;1111;
-MUC;BG2_Tweaks;2271;16;0000;
-MUC;BG2_Tweaks;Init;16;1111;
-MUC;BG2_Tweaks;2280;16;1111;
-MUC;BG2_Tweaks;2281;16;0000;
-MUC;BG2_Tweaks;Init;16;1111;
-MUC;BG2_Tweaks;2290;16;1111;
-MUC;BG2_Tweaks;2291;16;0000;
-MUC;BG2_Tweaks;2292;16;0000;
-MUC;BG2_Tweaks;2293;16;0000;
-MUC;BG2_Tweaks;2294;16;0000;
-MUC;BG2_Tweaks;2295;16;0000;
-MUC;BG2_Tweaks;2296;16;0000;
-STD;BG2_Tweaks;2300;16;1111;
-STD;BG2_Tweaks;2320;16;1111;
-STD;BG2_Tweaks;2330;16;1111;
-STD;BG2_Tweaks;2340;16;1111;
-MUC;BG2_Tweaks;Init;16;0000;
-MUC;BG2_Tweaks;3000;16;0000;
-MUC;BG2_Tweaks;3001;16;0000;
-MUC;BG2_Tweaks;Init;16;0000;
-MUC;BG2_Tweaks;3010;16;0000;
-MUC;BG2_Tweaks;3011;16;0000;
-MUC;BG2_Tweaks;3012;16;0000;
-STD;BG2_Tweaks;3020;16;0000;
-MUC;BG2_Tweaks;Init;16;0000;
-MUC;BG2_Tweaks;3030;16;0000;
-MUC;BG2_Tweaks;3031;16;0000;
-STD;BG2_Tweaks;3040;16;0000;
-STD;BG2_Tweaks;3050;16;1111;
-STD;BG2_Tweaks;3060;16;1111;
-MUC;BG2_Tweaks;Init;16;0000;
-MUC;BG2_Tweaks;3070;16;0000;
-MUC;BG2_Tweaks;3071;16;0000;
-MUC;BG2_Tweaks;3072;16;0000;
-MUC;BG2_Tweaks;3073;16;0000;
-STD;BG2_Tweaks;3080;16;0000;
-STD;BG2_Tweaks;3090;16;0000;
-STD;BG2_Tweaks;3100;16;0000;
-STD;BG2_Tweaks;3110;16;0000;
-MUC;BG2_Tweaks;Init;16;1111;
-MUC;BG2_Tweaks;3120;16;0000;
-MUC;BG2_Tweaks;3121;16;1111;
-MUC;BG2_Tweaks;3122;16;0000;
-STD;BG2_Tweaks;3123;16;0000;
-STD;BG2_Tweaks;3124;16;0000;
-STD;BG2_Tweaks;3125;16;1111;
-STD;BG2_Tweaks;3130;16;0000;
-MUC;BG2_Tweaks;Init;16;0000;
-MUC;BG2_Tweaks;3140;16;0000;
-MUC;BG2_Tweaks;3141;16;0000;
-STD;BG2_Tweaks;3150;16;0000;
-STD;BG2_Tweaks;3160;16;0000;
-STD;BG2_Tweaks;3170;16;0000;
-SUB;BG2_Tweaks;3183;16;1111;
-SUB;BG2_Tweaks;3183?1_a;16;0111;
-SUB;BG2_Tweaks;3183?1_b;16;1000;
-SUB;BG2_Tweaks;3183?2_a;16;0111;
-SUB;BG2_Tweaks;3183?2_b;16;1000;
-SUB;BG2_Tweaks;3183?3_a;16;0111;
-SUB;BG2_Tweaks;3183?3_b;16;1000;
-SUB;BG2_Tweaks;3183?4_a;16;0111;
-SUB;BG2_Tweaks;3183?4_b;16;1000;
-SUB;BG2_Tweaks;3183?5_a;16;0000;
-SUB;BG2_Tweaks;3183?5_b;16;1111;
-SUB;BG2_Tweaks;3183?6_a;16;1111;
-STD;BG2_Tweaks;3190;16;0000;
-STD;BG2_Tweaks;3200;16;0000;
-STD;BG2_Tweaks;3210;16;0000;
-STD;BG2_Tweaks;4000;16;1111;
-STD;BG2_Tweaks;4010;16;1111;
-STD;BG2_Tweaks;4020;16;0000;
-MUC;BG2_Tweaks;Init;16;1111;
-MUC;BG2_Tweaks;4030;16;0000;
-MUC;BG2_Tweaks;4031;16;1111;
-MUC;BG2_Tweaks;Init;16;1111;
-MUC;BG2_Tweaks;4040;16;0000;
-MUC;BG2_Tweaks;4041;16;1111;
-STD;BG2_Tweaks;4050;16;1111;
-MUC;BG2_Tweaks;Init;16;1111;
-MUC;BG2_Tweaks;4060;16;0000;
-MUC;BG2_Tweaks;4061;16;1111;
-MUC;BG2_Tweaks;Init;16;1111;
-MUC;BG2_Tweaks;4070;16;0000;
-MUC;BG2_Tweaks;4071;16;1111;
-STD;BG2_Tweaks;4080;16;0000;
-STD;BG2_Tweaks;4090;16;0000;
-STD;BG2_Tweaks;4100;16;1111;
-STD;BG2_Tweaks;4110;16;1111;
 STD;Turambar_fixes_tweaks;10;00;1111;
 STD;Turambar_fixes_tweaks;11;01;1111;
 STD;Turambar_fixes_tweaks;12;01;1111;
@@ -3137,7 +3257,6 @@ STD;NMTP;3;18;0111;
 STD;NMTP;4;18;0111;
 STD;NMTP;5;18;0111;
 STD;NML;0;18;0111;
-CMD;echo 147 RemoveSpellRES(S:Spell*) >> override/action.ids
 STD;WSR;200;16;1111;
 MUC;WSR;Init;16;1111;
 MUC;WSR;301;16;0000;
@@ -4021,7 +4140,12 @@ STD;crefixer;0;01;1111;
 CMD;IF EXIST ".\override\ahjon.BCS" move ".\override\ahjon.BCS" ".\BWP_workspace\override";;;;D:LongerRoad(0)
 STD;Innate_Fix;0;01;1111;
 CMD;IF EXIST ".\BWP_workspace\override\ahjon.BCS" move ".\BWP_workspace\override\ahjon.BCS" ".\override";;;;D:LongerRoad(0)
-STD;poison_effect_supplement;0;01;1111;
+ANN;poison_effect_supplement;0;01;1111;
+STD;Area_Patcher;0;01;0111;
+STD;Area_Patcher;1000;01;0111;
+STD;Area_Patcher;2000;01;0001;
+STD;Area_Patcher;3000;01;0111;
+STD;Area_Patcher;4000;01;0111;
 STD;lolfixer;0;01;1111;
 STD;lolfixer;1;01;1111;
 STD;lolfixer;2;01;1111;
@@ -4044,6 +4168,8 @@ ANN;correct some possibly corrupted IDS files
 CMD;Call ".\BiG World Installpack\trim_KitIDS.bat"
 ANN;Hotfixes
 CMD;copy /Y ".\BiG World Fixpack\_Hotfixes\RoT\dltcepsmithy\*.*" ".\override";;;;D:ROT(0)
+CMD;IF EXIST Setup-1pp.exe copy /Y ".\1pp\backup\114\SPMAGGLO.BAM" ".\override";;;;D:SPELLPACKB6(1116)
+CMD;IF EXIST Setup-1pp.exe copy /Y ".\1pp\backup\114\SPMAGGLO.VVC" ".\override";;;;D:SPELLPACKB6(1116)
 STD;korekta_przedmiotow;0;01;1111;
 SUB;generalized_biffing;0;00;1111;
 SUB;generalized_biffing;0?1_0;00;0000;
@@ -4072,4 +4198,14 @@ MUC;W_GUI;14;20;0000;
 MUC;W_GUI;15;20;0000;
 SUB;widescreen;0;20;1111;
 DWN;multiinstalltool;0;00;0000;
+ANN;Correction misspellings in the game including mods (under development)
+CMD;WeiDU.exe --traify-tlk --out .\BWP_workspace\dialog.tra
+CMD;copy dialog.tlk .\BWP_workspace\dialog.bak
+CMD;IF EXIST dialogF.tlk copy dialogF.tlk .\BWP_workspace\dialogF.bak
+CMD;copy .\BWP_workspace\dialog.tra .\BWP_workspace\dialog.tra.bak
+CMD;IF EXIST "BiG World Textpack ENGLISH" ren ".\BiG World Installpack\SR_consistence_catalog_English.txt" "SR_consistence_catalog.txt"
+CMD;IF EXIST "BiG World Textpack GERMAN" ren ".\BiG World Installpack\SR_consistence_catalog_German.txt" "SR_consistence_catalog.txt"
+CMD;".\BiG World Installpack\SR_consistence.js" ".\BWP_workspace\dialog.tra"
+CMD;WeiDU.exe --make-tlk .\BWP_workspace\dialog.tra dialog.tlk
+CMD;IF EXIST dialogF.tlk WeiDU.exe --make-tlk .\BWP_workspace\dialog.tra dialogF.tlk
 ANN;Added due to patching
