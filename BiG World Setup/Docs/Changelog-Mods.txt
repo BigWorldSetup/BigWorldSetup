@@ -507,3 +507,8 @@ Updated: Crossmod Banter Pack v15.
 20150728 - Updated by Silent
 Added: A Frosty Journey: The IWDEE Kitpack v2.7, Area Patcher ALPHA 4, Ascension script fix v1.1, Fixed Tanar'ri and Wyvern v2, Foundling: Between the Shades beta 1, House Rules for IWDEE v1.1, L'ogre et le gnome v2, Minor NPC Portraits for IWDEE v1.4, No Restrictions v1, Runescarred Berserker v1.0, Tome and Blood v0.5 beta, Warlock v1.0, WTP Familiars v1.4.
 Updated: BWP selection fits IP 15.3, TP 15.1. IWD1EE selection. Full Plate and Packing Steel v2.2, More Style for Mages v1.42, NPC Strongholds v5, Oversight v15, Return to Faerun v1.06 beta, Sandrah NPC v1.06 beta, Warsling Sniper Kit for Fighters v2.1.
+20150731 - Updated by Lollorian
+Updated: aTweaks v4.42, New travel system between Baldur's Gate City areas v2.0.
+20150801 - Updated by Silent
+Added: Imoen Romnce v1.202, Plasmocat's "BG1 in BG2-Style" Portrait Pack v2.
+Updated: Imoen Romnce v2.5.
