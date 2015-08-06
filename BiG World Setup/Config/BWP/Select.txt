@@ -64,6 +64,7 @@ CMD;IF EXIST "BiG World Fixpack\_iwditemfix" If EXIST Setup-iwditempack.exe xcop
 CMD;IF EXIST "BiG World Fixpack\_shatterfix" If EXIST Setup-item_rev.exe xcopy /Y /S /E ".\BiG World Fixpack\_shatterfix\*.*" "."
 CMD;IF NOT EXIST Setup-lolfixer.exe xcopy /Y /S /E ".\BiG World Fixpack\_Lolfixer\*.*" "."
 CMD;IF EXIST "BiG World Fixpack" xcopy /Y /S /E ".\BiG World Fixpack\_Area_Patcher\*.*" "."
+CMD;IF EXIST Setup-Area_Patcher.tp2 MD ".\Area_Patcher"
 CMD;IF NOT EXIST ".\BWP_workspace\override" MD ".\BWP_workspace\override"
 CMD;IF EXIST tisunpack.exe copy tisunpack.exe ".\BWP_workspace\override"
 CMD;IF EXIST "BiG World Fixpack" copy /Y ".\BiG World Fixpack\_IDS_ref\*.IDS" ".\override"
