@@ -298,6 +298,7 @@ Func Au3ExFix($p_Num)
 		If FileExists($g_BG2Dir&'\Setup-R*deur.tp2') Then DirMove($g_BG2Dir&"\RÓdeur de l'ombre", $g_BG2Dir&"\Rôdeur de l'ombre")
 		If FileExists($g_BG2Dir&'\SetupP!Bhaal.tp2') Then DirMove($g_BG2Dir&'\PrÈtre de Bhaal', $g_BG2Dir&'\Prêtre de Bhaal')
 		If FileExists($g_BG2Dir&'\setup-astscriptpatcher.exe') Then DirCreate($g_BG2Dir&'\astScriptPatcher')
+		If FileExists($g_BG2Dir&'\Setup-Area_Patcher.exe') Then DirCreate($g_BG2Dir&'\Area_Patcher')
 	ElseIf $g_Flags[14] = 'PST' Then
 		If FileExists($g_PSTDir&'\setup-pst-drawfix.exe') Then DirCreate($g_PSTDir&'\pst-drawfix_backup')
 	EndIf

@@ -512,3 +512,8 @@ Updated: aTweaks v4.42, New travel system between Baldur's Gate City areas v2.0.
 20150801 - Updated by Silent
 Added: Imoen Romnce v1.202, Plasmocat's "BG1 in BG2-Style" Portrait Pack v2.
 Updated: Imoen Romnce v2.5.
+20150804 - Updated by Lollorian
+Updated: Horace v1.73, Tyris Flare v7.
+20150806 - Updated by Silent
+Fixed: Area Patcher missing mod folder.
+Updated: Garrick - Tales of a Troubadour v1.24.
