@@ -35,7 +35,7 @@ STD;bgqe;9;03;1111;
 STD;bgqe;10;03;1111;
 STD;SirinesCall;0;03;1111;
 MUC;soa;Init;03;1111;
-MUC;soa;0;03;1111;
+MUC;soa;0;03;0000;
 MUC;soa;1;03;1111;
 STD;AC_QUEST;0;03;1111;
 STD;wbgtap;1;03;0111;

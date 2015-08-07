@@ -14,6 +14,7 @@ ANN;Removing corrupted .wed
 CMD;IF EXIST setup-bgeegraphics.exe IF EXIST ".\override\ar4300.wed" move ".\override\ar4300.wed" ".\BWS_workspace\override"
 STD;DarkHorizonsBGee;0;02;0011;
 MUC;drizztsaga;Init;02;0011;
+MUC;drizztsaga;0;02;0000;
 MUC;drizztsaga;1;02;0011;
 STD;drizztsaga;2;02;0011;
 STD;drizztsaga;3;02;0011;
@@ -31,7 +32,7 @@ STD;bgqe;9;03;1111;
 STD;bgqe;10;03;1111;
 STD;SirinesCall;0;03;1111;
 MUC;soa;Init;03;1111;
-MUC;soa;0;03;1111;
+MUC;soa;0;03;0000;
 MUC;soa;1;03;1111;
 STD;AC_QUEST;0;03;1111;
 STD;wbgtap;1;03;0111;
