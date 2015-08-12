@@ -517,3 +517,12 @@ Updated: Horace v1.73, Tyris Flare v7.
 20150806 - Updated by Silent
 Fixed: Area Patcher missing mod folder.
 Updated: Garrick - Tales of a Troubadour v1.24.
+20150807 - Updated by Lollorian
+Updated: Afaaq the Djinni Companion v1.5.
+20150808 - Updated by Silent
+Added: IWD:EE NPC mod alternative class selection.
+20150809 - Updated by Lollorian
+Updated: Almateria's Restoration Project v8.2.3, BP-BGT Worldmap v10.2b1, Deidre and Joluv in BG v3.
+20150812 - Updated by Silent
+Fixed: Adjusted dependencies.
+Updated: Return to Faerun v1.07 beta, Sandrah NPC v1.07 beta, WTP Familiars for Throne of Bhaal v1.5.
