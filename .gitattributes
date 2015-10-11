@@ -7,8 +7,8 @@
 *.html text eol=crlf
 *.gitignore text eol=crlf
 *.gitattributes text eol=crlf
-*.gif -text -diff
-*.ico -text -diff
-*.jpg -text -diff
-*.png -text -diff
-*.exe -text -diff
+*.gif binary
+*.ico binary
+*.jpg binary
+*.png binary
+*.exe binary
