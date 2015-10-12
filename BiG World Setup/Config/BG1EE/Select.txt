@@ -348,7 +348,7 @@ STD;iwdification;20;09;0000;
 STD;iwdification;30;09;0111;
 STD;iwdification;40;09;0111;
 STD;iwdification;50;09;0000;
-STD;iwdification;60;09;0111;
+ANN;iwdification;60;09;0111;
 MUC;w_packmule;Init;04;0111;
 MUC;w_packmule;2;04;0111;
 MUC;w_packmule;3;04;0000;
