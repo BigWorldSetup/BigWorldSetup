@@ -1,7 +1,7 @@
 /BiG World Downloads/
 /BiG World Backup/
 /BiG World Setup/Includes_Traced/
-/BiG World Setup/Logs/*
+/BiG World Setup/Logs/
 /BiG World Setup/Config/User.ini
 /BiG World Setup/BWS-Selection.ini
 /BiG World Setup/Traced.au3
@@ -15,4 +15,3 @@
 **/WeiDU-*.ini
 **/*.ps1
 **/BiG World Setup Version.txt
-!/BiG World Setup/Logs/KEEP.ME
