@@ -2179,7 +2179,7 @@ STD;BGII-Subrace;0;19;0111;
 STD;BGII-Subrace;1;19;0111;
 STD;BGII-Subrace;2;19;0000;
 STD;BGII-Subrace;3;19;0000;
-STD;tb#kits;0;19;0111;
+STD;tb#kits;0;19;0001;
 ANN;#23. MISC TWEAKS AND GRAFIC MODS
 MUC;1pp;Init;20;1111;
 MUC;1pp;102;20;0000;
@@ -2329,6 +2329,7 @@ STD;Haiass;0;13;0111;
 MUC;Haiass;Init;13;0111;
 MUC;Haiass;10;13;0111;
 MUC;Haiass;15;13;0000;
+STD;tb#kits;1;19;0001;
 CMD;IF EXIST Setup-SandrahNPC.exe copy /Y ".\BiG World Fixpack\_override\worldmap\*.*" ".\override"
 CMD;echo 109 CLERIC_HALLOW >> override/stats.ids
 CMD;echo 162 WIZARD_SPELL_TURNING >> override/stats.ids
