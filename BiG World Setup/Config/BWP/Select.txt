@@ -4176,7 +4176,7 @@ STD;Area_Patcher;0;01;0111;
 STD;Area_Patcher;1000;01;0111;
 ANN;Area_Patcher;2000;01;0001;does not work as expected and not needed
 STD;Area_Patcher;3000;01;0111;
-STD;Area_Patcher;4000;01;0111;
+ANN;Area_Patcher;4000;01;0111;
 STD;lolfixer;0;01;1111;
 STD;lolfixer;1;01;1111;
 STD;lolfixer;2;01;1111;
