@@ -5,6 +5,8 @@ DWN;eekeeper;0;00;1111;
 STD;BGEE_PL;0;0;1111;
 STD;BGEE_PL;1;0;1111;
 DWN;BGEE-Polish;0;00;1111;
+STD;bgeetextpack;0;01;1111;
+STD;bgeetextpack;1;01;1111;
 SUB;bgeegraphics;0;13;1111;
 SUB;bgeegraphics;0?1_1;13;1111;
 SUB;bgeegraphics;0?1_2;13;0000;
@@ -13,6 +15,7 @@ DWN;bgeegraphics_part3;0;13;1111;
 ANN;Removing corrupted .wed
 CMD;IF EXIST setup-bgeegraphics.exe IF EXIST ".\override\ar4300.wed" move ".\override\ar4300.wed" ".\BWS_workspace\override"
 STD;DarkHorizonsBGee;0;02;0011;
+STD;dsotscBGEE;5;02;0111;
 MUC;drizztsaga;Init;02;0011;
 MUC;drizztsaga;0;02;0000;
 MUC;drizztsaga;1;02;0011;
@@ -248,6 +251,7 @@ STD;bg1ub;22;03;1111;
 STD;bg1ub;28;03;1111;
 STD;bg1ub;29;03;1111;
 STD;bg1ub;30;03;1111;
+STD;bg1ub;32;03;1111;
 GRP;Start
 STD;kittomes;0;12;0111;
 MUC;kittomes;Init;12;0111;
@@ -267,8 +271,11 @@ MUC;7c#sartweak;100;09;0111;
 MUC;7c#sartweak;101;09;0000;
 MUC;7c#sartweak;Init;09;0111;
 MUC;7c#sartweak;250;09;0111;
-STD;JklHel;0;06;0111;
+ANN;STD;jkits;0;06;0111;
+ANN;STD;jkits;1;06;0111;
+STD;JklHel;0;06;0001;
 STD;margarita;0;06;0111;
+STD;ACBre;2;05;0111;
 STD;MSFM;0;10;0111;
 STD;MSFM;1;10;0111;
 STD;MSFM;2;10;0111;
