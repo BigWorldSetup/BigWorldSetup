@@ -2,9 +2,9 @@ ANN;Added due to patching
 CMD;IF NOT EXIST ".\BWS_workspace\override" MD ".\BWS_workspace\override"
 DWN;WeiDU;0;00;1111;
 DWN;eekeeper;0;00;1111;
-DWN;BGEE-Polish;0;00;1111;
 STD;BGEE_PL;0;0;1111;
 STD;BGEE_PL;1;0;1111;
+DWN;BGEE-Polish;0;00;1111;
 STD;bgeetextpack;0;01;1111;
 STD;bgeetextpack;1;01;1111;
 SUB;bgeegraphics;0;13;1111;
