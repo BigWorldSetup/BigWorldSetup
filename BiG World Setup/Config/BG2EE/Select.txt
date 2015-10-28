@@ -262,9 +262,9 @@ MUC;kittomes;Init;12;0111;
 MUC;kittomes;5;12;0111;
 MUC;kittomes;6;12;0000;
 GRP;Stop
-MUC;BG_Travel;Init;07;0111;
-MUC;BG_Travel;66;07;0111;
-MUC;BG_Travel;661;07;0000;
+MUC;BG_Travel;Init;09;0111;
+MUC;BG_Travel;66;09;0111;
+MUC;BG_Travel;661;09;0000;
 MUC;7c#sartweak;Init;09;0111;
 MUC;7c#sartweak;100;09;0111;
 MUC;7c#sartweak;101;09;0000;
