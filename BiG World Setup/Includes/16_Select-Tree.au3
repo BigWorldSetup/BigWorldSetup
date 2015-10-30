@@ -879,7 +879,7 @@ Func _Tree_SelectConvert($p_Array)
 	For $a=1 to $p_Array[0][0]
 		$Theme[Number($p_Array[$a][8])]&='|'&$a; add index-numbers to a string that represents a theme
 	Next
-	Local $Return[4000][10]
+	Local $Return[$p_Array[0][0]+1000][10]
 	For $t=0 to $Trans[0]-1
 		If $Theme[$t] = '' Then ContinueLoop; skip if nothing was assigned to the theme
 		$Index=StringSplit(StringTrimLeft($Theme[$t], 1), '|'); get index-numbers of the array assigned to the theme
