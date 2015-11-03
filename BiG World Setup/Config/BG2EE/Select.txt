@@ -286,14 +286,6 @@ ANN;--- BGEE misc tweaks ---
 MUC;BG_Travel;Init;09;0111;
 MUC;BG_Travel;66;09;0111;
 MUC;BG_Travel;661;09;0000;
-MUC;7c#sartweak;Init;09;0011;
-ANN;#100 conflicts with SCS
-MUC;7c#sartweak;100;09;0000;
-MUC;7c#sartweak;101;09;0011;
-MUC;7c#sartweak;Init;09;0111;
-MUC;7c#sartweak;250;09;0100;
-ANN;#251 with EET and Ascension
-MUC;7c#sartweak;251;09;0011;
 ANN;--- smaller BGEE NPCs ---
 STD;JklHel;0;06;0001;
 STD;margarita;0;06;0111;
@@ -331,8 +323,16 @@ SUB;bg2eetp;0?1_4;00;1111;
 STD;BG2EE_GA;0;00;1111;
 ANN;--- post-EET BGEE tweaks ---
 ANN;BGEESpawn?
-ANN;eet_tweaks(12|13)?
-ANN;7c#sartweak?
+STD;eet_tweaks;12;09;1111;
+STD;eet_tweaks;13;07;1111;
+MUC;7c#sartweak;Init;07;0011;
+ANN;#100 conflicts with SCS
+MUC;7c#sartweak;100;07;0000;
+MUC;7c#sartweak;101;07;0011;
+MUC;7c#sartweak;Init;07;0111;
+MUC;7c#sartweak;250;07;0100;
+ANN;#251 with EET and Ascension
+MUC;7c#sartweak;251;07;0011;
 ANN;--- item revisions core, spell revisions core ---
 ANN;IR #0 as early as possible so other mods can overwrite
 ANN;IR #0 is aware of SR #0 so should follow it
@@ -1026,7 +1026,7 @@ MUC;Divine_Remix;10;09;0001;
 MUC;Divine_Remix;11;09;0110;
 ANN;--- BG2EE kit changes ---
 ANN;#100 is cleric remix
-STD;Divine_Remix;100;09;0111;
+STD;Divine_Remix;100;12;0111;
 STD;Divine_Remix;103;12;0111;
 STD;Divine_Remix;106;12;0111;
 STD;Divine_Remix;107;12;0111;
@@ -1039,7 +1039,7 @@ STD;Divine_Remix;124;12;0111;
 STD;Divine_Remix;127;12;0111;
 STD;Divine_Remix;130;12;0111;
 ANN;#200 is druid remix
-STD;Divine_Remix;200;09;0111;
+STD;Divine_Remix;200;12;0111;
 STD;Divine_Remix;203;12;0111;
 STD;Divine_Remix;403;12;0111;
 STD;Divine_Remix;406;12;0111;
@@ -1061,15 +1061,15 @@ STD;song_and_silence;8;12;0111;
 STD;song_and_silence;9;12;0111;
 ANN;RR is SCS aware; should it move down?
 STD;RR;0;09;1111;
-STD;RR;1;09;1111;
-STD;RR;2;09;1111;
+STD;RR;1;12;1111;
+STD;RR;2;12;1111;
 STD;RR;3;09;1111;
-STD;RR;4;09;1111;
-STD;RR;5;09;1111;
+STD;RR;4;12;1111;
+STD;RR;5;12;1111;
 STD;RR;6;09;1111;
 STD;RR;7;09;1111;
 STD;RR;8;09;1111;
-STD;WSR;100;09;1111;
+STD;WSR;100;12;1111;
 STD;BG2_Tweaks;10;09;0000;
 STD;BG2_Tweaks;20;09;0000;
 STD;BG2_Tweaks;30;09;0000;
@@ -1324,7 +1324,7 @@ STD;might_and_guile;205;09;0111;
 STD;might_and_guile;210;09;0111;
 STD;might_and_guile;215;09;0111;
 STD;might_and_guile;220;09;0111;
-STD;might_and_guile;250;09;0111;
+STD;might_and_guile;250;12;0111;
 STD;might_and_guile;255;12;0111;
 STD;might_and_guile;260;12;0111;
 STD;might_and_guile;265;12;0111;
@@ -1639,11 +1639,11 @@ ANN;BPSeries Party AI -> Recommended
 STD;BPSeries;0;11;1111;
 STD;BPSeries;10;11;1111;
 STD;BPSeries;100;11;1111;
-STD;WSR;200;09;1111;
-MUC;WSR;Init;09;1111;
-MUC;WSR;301;09;0000;
-MUC;WSR;302;09;1111;
-STD;WSR;999;09;1111;
+STD;WSR;200;12;1111;
+MUC;WSR;Init;12;1111;
+MUC;WSR;301;12;0000;
+MUC;WSR;302;12;1111;
+STD;WSR;999;12;1111;
 MUC;RR;Init;09;1111;
 MUC;RR;9;09;1111;
 MUC;RR;10;09;0000;
