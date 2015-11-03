@@ -633,9 +633,8 @@ ANN;Improved Copper Coronet & Slavers -> Tactical
 STD;BP;1100;08;0011;
 ANN;Brown Dragon -> Tactical
 STD;BP;1110;08;0011;
-ANN;#1120 will not be installed because of an error in the code.
-ANN;Crypt King
-ANN;STD;BP;1120;08;0001;
+ANN;#1120 Crypt King can be installed because bwfixpack resolves install error
+STD;BP;1120;08;0011;
 ANN;Drizzt Encounter (Chapter 6) -> Tactical
 STD;BP;1130;08;0011;
 MUC;BP;Init;08;0001;
