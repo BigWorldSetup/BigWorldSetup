@@ -1832,21 +1832,20 @@ ANN;#0 teleport spell -> standard
 STD;eet_tweaks;0;09;0111;
 ANN;#1 portraits moved down
 STD;eet_tweaks;2;09;0000;
-SUB;eet_tweaks;3;09;0011;
-SUB;eet_tweaks;3?1_1;09;0011;
+SUB;eet_tweaks;3;09;1111;
+SUB;eet_tweaks;3?1_1;09;0000;
 SUB;eet_tweaks;3?1_2;09;0000;
+SUB;eet_tweaks;3?1_3;09;1111;
 SUB;eet_tweaks;4;09;0011;
 SUB;eet_tweaks;4?1_1;09;0000;
 SUB;eet_tweaks;4?1_2;09;0011;
-SUB;eet_tweaks;4?1_3;09;0000;
-SUB;eet_tweaks;5;09;1111;
-SUB;eet_tweaks;5?1_1;09;0000;
+SUB;eet_tweaks;5;09;0011;
+SUB;eet_tweaks;5?1_1;09;0011;
 SUB;eet_tweaks;5?1_2;09;0000;
-SUB;eet_tweaks;5?1_3;09;1111;
 SUB;eet_tweaks;6;09;0011;
 SUB;eet_tweaks;6?1_1;09;0000;
 SUB;eet_tweaks;6?1_2;09;0000;
-SUB;eet_tweaks;6?1_3;09;0000;
+SUB;eet_tweaks;6?1_3;09;0111;
 SUB;eet_tweaks;6?1_4;09;0011;
 SUB;eet_tweaks;7;09;1111;
 SUB;eet_tweaks;7?1_1;09;0000;
