@@ -1921,9 +1921,9 @@ CMD;IF EXIST "PaintBG*(EE)" MOVE /Y "PAINTBG*(EE)" "PaintBG"
 ANN;Add PaintBG CHARNAME portraits to bgee.sql so they can be selected during character creation
 CMD;IF EXIST "PaintBG" IF EXIST "override\bgee.sql" ECHO INSERT INTO portraits ROWS >> "override\bgee.sql" && ECHO ( >> "override\bgee.sql"
 ANN;Make male CHARNAME portraits selectable
-CMD;IF EXIST "PaintBG" IF EXIST "override\bgee.sql" FOR %F IN ("PaintBG\Man*L.bmp" "PaintBG\PA#Ma*L.bmp") DO cmd /v:on /c "set trunc=%~nF & echo '!trunc:~0,-2!', 1, >> override\bgee.sql"
+CMD;IF EXIST "PaintBG" IF EXIST "override\bgee.sql" FOR %F IN ("PaintBG\PA#Ma*L.bmp") DO cmd /v:on /c "set trunc=%~nF & echo '!trunc:~0,-2!', 1, >> override\bgee.sql"
 ANN;Make female CHARNAME portraits selectable
-CMD;IF EXIST "PaintBG" IF EXIST "override\bgee.sql" FOR %F IN ("PaintBG\Woman*L.bmp" "PaintBG\PA#Wo*L.bmp") DO cmd /v:on /c "set trunc=%~nF & echo '!trunc:~0,-2!', 2, >> override\bgee.sql"
+CMD;IF EXIST "PaintBG" IF EXIST "override\bgee.sql" FOR %F IN ("PaintBG\PA#Wo*L.bmp") DO cmd /v:on /c "set trunc=%~nF & echo '!trunc:~0,-2!', 2, >> override\bgee.sql"
 ANN;Close off the selectable portraits list
 CMD;IF EXIST "PaintBG" IF EXIST "override\bgee.sql" ECHO ); >> "override\bgee.sql"
 ANN;Copy over all the portraits and remove the PaintBG directory
