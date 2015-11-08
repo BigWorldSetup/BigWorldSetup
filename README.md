@@ -13,7 +13,7 @@
 ### How do I contribute? ###
 
 * learn git basics
-* fork this repository
+* fork this repository using "SmartGit" or other prefered tool
 * add mods/make other changes
 * create pull request for this repo
 
