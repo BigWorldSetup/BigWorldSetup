@@ -1,8 +1,8 @@
 ### What is this repository for? ###
 
 * BiG World Setup:
-http://www.shsforums.net/topic/56670-big-world-setup-an-attempt-to-update-the-program/</br>
-https://forums.beamdog.com/discussion/44476/tool-big-world-setup-bws-mod-manager-for-baldurs-gate-enhanced-edition-trilogy-for-windows#latest</br>
+ [Forum SHS](http://www.shsforums.net/topic/56670-big-world-setup-an-attempt-to-update-the-program/)
+ [Forum Beamdog](https://forums.beamdog.com/discussion/44476/tool-big-world-setup-bws-mod-manager-for-baldurs-gate-enhanced-edition-trilogy-for-windows#latest)
 
 ### Contribution guidelines ###
 
