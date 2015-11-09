@@ -4227,7 +4227,7 @@ CMD;copy /Y ".\BiG World Fixpack\_Hotfixes\RoT\dltcepsmithy\*.*" ".\override";;;
 CMD;IF EXIST Setup-1pp.exe copy /Y ".\1pp\backup\114\SPMAGGLO.BAM" ".\override";;;;D:SPELLPACKB6(1116)
 CMD;IF EXIST Setup-1pp.exe copy /Y ".\1pp\backup\114\SPMAGGLO.VVC" ".\override";;;;D:SPELLPACKB6(1116)
 STD;korekta_przedmiotow;0;01;1111;
-STD;sandrahitem;0;12;0111;
+STD;sandrahitem;0;12;0111;D:SandrahNPC(0)
 SUB;generalized_biffing;0;00;1111;
 SUB;generalized_biffing;0?1_0;00;0000;
 SUB;generalized_biffing;0?1_1;00;1111;
