@@ -2,6 +2,11 @@ ANN;Added due to patching
 CMD;IF NOT EXIST ".\BWS_workspace\override" MD ".\BWS_workspace\override"
 DWN;WeiDU;0;00;1111;
 DWN;eekeeper;0;00;1111;
+ANN;--- patches ---
+DWN;bwfixpack;0;00;1111;
+CMD;IF EXIST "BiG-World-Fixpack-master" IF EXIST "Big-World-Fixpack-master\BiG World Fixpack" move "Big-World-Fixpack-master\BiG World Fixpack" ".\"
+CMD;IF EXIST "BiG-World-Fixpack-master" IF EXIST "Big-World-Fixpack-master\BiG World Fixpack.bat" move "Big-World-Fixpack-master\BiG World Fixpack.bat" ".\"
+CMD;IF EXIST "BiG World Fixpack" IF NOT EXIST BWP_Fixpack.installed Call "BiG World Fixpack.bat"
 STD;BGEE_PL;0;0;1111;
 STD;BGEE_PL;1;0;1111;
 DWN;BGEE-Polish;0;00;1111;
@@ -14,6 +19,13 @@ DWN;bgeegraphics_part2;0;13;1111;
 DWN;bgeegraphics_part3;0;13;1111;
 ANN;Removing corrupted .wed
 CMD;IF EXIST setup-bgeegraphics.exe IF EXIST ".\override\ar4300.wed" move ".\override\ar4300.wed" ".\BWS_workspace\override"
+ANN;--- item revisions core, spell revisions core ---
+ANN;IR #0 as early as possible so other mods can overwrite
+ANN;IR #0 is aware of SR #0 so should follow it
+ANN;therefore SR #0 early also
+STD;spell_rev;0;09;0111;
+STD;item_rev;0;09;0111;
+ANN;--- "big mods" ---
 STD;DarkHorizonsBGee;0;02;0011;
 STD;dsotscBGEE;5;02;0111;
 MUC;drizztsaga;Init;02;0011;
@@ -22,6 +34,7 @@ MUC;drizztsaga;1;02;0011;
 STD;drizztsaga;2;02;0011;
 STD;drizztsaga;3;02;0011;
 CMD;IF EXIST setup-drizztsaga.exe echo.>> Worldmap/map_mods_links.tbl
+ANN;--- quests ---
 STD;bgqe;0;03;1111;
 STD;bgqe;1;03;1111;
 STD;bgqe;2;03;1111;
@@ -40,6 +53,8 @@ MUC;soa;1;03;1111;
 STD;AC_QUEST;0;03;1111;
 STD;wbgtap;1;03;0111;
 STD;karatur;0;03;0111;
+ANN;--- stores and items ---
+STD;bg1aerie;0;10;0111;
 STD;thalan;0;10;0111;
 STD;BGeeAR;0;10;0111;
 STD;BGeeW;0;10;0111;
@@ -47,15 +62,9 @@ STD;Animus;0;10;0111;
 STD;ConvinientAmmunition;0;10;0111;
 STD;WandCase;0;10;0111;
 STD;wmart;0;10;0111;
+ANN;--- NPCs ---
 STD;bg1npc;0;07;1111;
 STD;bg1npc;1;07;1111;
-STD;bg1npc;2;07;1111;
-STD;bg1npc;3;07;1111;
-STD;bg1npc;4;07;1111;
-STD;bg1npc;5;07;1111;
-STD;bg1npc;6;07;1111;
-STD;bg1npc;7;07;1111;
-STD;bg1npc;8;07;1111;
 SUB;bg1npc;9;07;1111;
 SUB;bg1npc;9?1_1;07;1111;
 SUB;bg1npc;9?1_2;07;0000;
@@ -131,6 +140,7 @@ STD;IndiNPC;0;05;0111;
 STD;Mur'Neth;0;05;0111;
 STD;XanBG1Friend;0;07;1111;
 STD;coranbgfriend;0;07;1111;
+ANN;AjantisBG1 after bg1npc
 STD;AjantisBG1;0;07;1111;
 SUB;ACBre;0;05;0111;
 SUB;ACBre;0?1_1;05;0111;
@@ -149,19 +159,11 @@ SUB;gavin;1?1_3;05;0000;
 SUB;gavin;1?1_4;05;0000;
 SUB;gavin;1?1_5;05;0000;
 STD;gavin;2;05;1111;
-MUC;gavin;Init;05;1111;
-MUC;gavin;4;05;1111;
-MUC;gavin;5;05;0000;
-MUC;gavin;6;05;0000;
-MUC;gavin;7;05;0000;
-MUC;gavin;8;05;0000;
-MUC;gavin;9;05;0000;
-MUC;gavin;10;05;0000;
-MUC;gavin;11;05;0000;
-MUC;gavin;12;05;0000;
+ANN;portraits moved down
 STD;gavin;13;05;1111;
 STD;valerie;0;05;0111;
 STD;isra;0;05;0111;
+ANN;#1,2 crossmod valerie,gavin
 STD;isra;1;05;0111;
 STD;isra;2;05;0111;
 STD;neera;0;07;1111;
@@ -172,7 +174,8 @@ MUC;neera;3;07;0000;
 MUC;neera;4;07;1111;
 MUC;neera;5;07;0000;
 STD;neera;6;09;1111;
-STD;neera;7;09;1111;
+ANN;"warning - dialogue may seem strange" -> 0000
+STD;neera;7;09;0000;
 SUB;garrick_flirt;0;07;0111;
 SUB;garrick_flirt;0?1_1;07;0111;
 SUB;garrick_flirt;0?1_2;07;0000;
@@ -231,6 +234,7 @@ STD;bg1re;37;07;0111;
 STD;bg1re;38;07;0111;
 STD;bg1re;39;07;0111;
 STD;bg1re;40;07;0111;
+ANN;--- more quests ---
 STD;bg1ub;0;03;1111;
 STD;bg1ub;1;03;1111;
 STD;bg1ub;4;03;1111;
@@ -263,19 +267,22 @@ MUC;kittomes;Init;12;0111;
 MUC;kittomes;5;12;0111;
 MUC;kittomes;6;12;0000;
 GRP;Stop
-MUC;BG_Travel;Init;07;0111;
-MUC;BG_Travel;66;07;0111;
-MUC;BG_Travel;661;07;0000;
+ANN;--- misc tweaks ---
+MUC;BG_Travel;Init;09;0111;
+MUC;BG_Travel;66;09;0111;
+MUC;BG_Travel;661;09;0000;
 MUC;7c#sartweak;Init;09;0111;
-MUC;7c#sartweak;100;09;0111;
-MUC;7c#sartweak;101;09;0000;
+ANN;#100 conflicts with SCS
+MUC;7c#sartweak;100;09;0000;
+MUC;7c#sartweak;101;09;0111;
 MUC;7c#sartweak;Init;09;0111;
 MUC;7c#sartweak;250;09;0111;
-ANN;STD;jkits;0;06;0111;
-ANN;STD;jkits;1;06;0111;
+ANN;--- smaller NPCs ---
 STD;JklHel;0;06;0001;
 STD;margarita;0;06;0111;
+ANN;#2 crossmod needs other NPCs installed first
 STD;ACBre;2;05;0111;
+ANN;--- item tweaks ---
 STD;MSFM;0;10;0111;
 STD;MSFM;1;10;0111;
 STD;MSFM;2;10;0111;
@@ -322,23 +329,86 @@ ANN;STD;ScionMod;1;12;0111;
 ANN;STD;shaman;0;12;0001;
 ANN;STD;shaman;1;10;0111;
 ANN;STD;tiger;0;12;0111;
+ANN;--- new kits ---
 STD;Px_Chantelame;0;12;0111;
 STD;duskblade;0;12;0111;
 STD;WarslingSniperKit;0;12;0111;
 STD;eet_tweaks;25;12;0000;
 STD;eet_tweaks;26;12;0000;
+ANN;--- cosmetic tweaks ---
+ANN;#10 is IWD casting graphics
 STD;iwdification;10;09;0111;
+ANN;#20 is commoners use drab colors
 STD;iwdification;20;09;0000;
+ANN;--- spells ---
+STD;spell_rev;10;09;0111;
+STD;spell_rev;20;09;0111;
+STD;spell_rev;30;09;0111;
+STD;spell_rev;40;09;0111;
+STD;spell_rev;50;09;0111;
+STD;spell_rev;60;09;0111;
+STD;spell_rev;70;09;0111;
+ANN;#30 is IWD arcane spells
 STD;iwdification;30;09;0111;
+ANN;#40 is IWD divine spells
 STD;iwdification;40;09;0111;
+ANN;#50 is IWD bard songs
 STD;iwdification;50;09;0000;
-ANN;iwdification;60;09;0111;
+ANN;--- items ---
+ANN;#60 is IWD axe pack -> stores and items
+STD;iwdification;60;10;0111;
+ANN;--- minimod ---
 MUC;w_packmule;Init;04;0111;
 MUC;w_packmule;2;04;0111;
 MUC;w_packmule;3;04;0000;
+ANN;--- item revisions ---
+STD;item_rev;1;09;0111;
+MUC;item_rev;Init;09;0111;
+MUC;item_rev;2;09;0000;
+MUC;item_rev;3;09;0111;
+MUC;item_rev;4;09;0000;
+MUC;item_rev;5;09;0000;
+MUC;item_rev;Init;09;0011;
+MUC;item_rev;1040;09;0000;
+MUC;item_rev;6;09;0000;
+MUC;item_rev;1041;09;0000;
+MUC;item_rev;1042;09;0000;
+MUC;item_rev;7;09;0000;
+MUC;item_rev;8;09;0011;
+MUC;item_rev;1043;09;0000;
+MUC;item_rev;Init;09;0111;
+MUC;item_rev;9;09;0000;
+MUC;item_rev;1101;09;0111;
+STD;item_rev;1020;09;0111;
+STD;item_rev;1030;09;0111;
+STD;item_rev;1050;09;0111;
+STD;item_rev;10;09;0111;
+STD;item_rev;11;09;0111;
+STD;item_rev;12;09;0111;
+STD;item_rev;13;09;0111;
+MUC;item_rev;Init;09;0000;
+MUC;item_rev;1090;09;0000;
+MUC;item_rev;1091;09;0000;
+MUC;item_rev;1092;09;0000;
+MUC;item_rev;1093;09;0000;
+MUC;item_rev;Init;09;0000;
+MUC;item_rev;15;09;0000;
+MUC;item_rev;16;09;0000;
+STD;item_rev;1060;09;0111;
+STD;item_rev;1070;09;0111;
+STD;item_rev;17;09;0111;
+STD;item_rev;1080;09;0011;
+MUC;item_rev;Init;09;0111;
+MUC;item_rev;18;09;0000;
+MUC;item_rev;19;09;0111;
+MUC;item_rev;20;09;0000;
+STD;item_rev;1200;09;0011;
+ANN;--- new spells ---
 MUC;Divine_Remix;Init;09;0111;
-MUC;Divine_Remix;10;09;0000;
-MUC;Divine_Remix;11;09;0111;
+MUC;Divine_Remix;10;09;0001;
+MUC;Divine_Remix;11;09;0110;
+ANN;--- BG2EE kit changes ---
+ANN;#100 is cleric remix
 STD;Divine_Remix;100;09;0111;
 STD;Divine_Remix;103;12;0111;
 STD;Divine_Remix;106;12;0111;
@@ -351,6 +421,7 @@ STD;Divine_Remix;121;12;0111;
 STD;Divine_Remix;124;12;0111;
 STD;Divine_Remix;127;12;0111;
 STD;Divine_Remix;130;12;0111;
+ANN;#200 is druid remix
 STD;Divine_Remix;200;09;0111;
 STD;Divine_Remix;203;12;0111;
 STD;Divine_Remix;403;12;0111;
@@ -360,6 +431,7 @@ STD;Divine_Remix;412;12;0111;
 STD;Divine_Remix;415;12;0111;
 STD;Divine_Remix;600;12;0111;
 STD;Divine_Remix;610;12;0111;
+ANN;#1000 is sphere system
 STD;Divine_Remix;1000;09;0001;
 STD;song_and_silence;0;12;0111;
 STD;song_and_silence;2;12;0111;
@@ -375,6 +447,7 @@ ANN;STD;sword_and_fist;31;12;0111;
 ANN;STD;sword_and_fist;32;12;0111;
 ANN;STD;sword_and_fist;33;12;0111;
 ANN;STD;sword_and_fist;34;12;0111;
+ANN;RR is SCS aware; should it move down?
 STD;RR;0;09;1111;
 STD;RR;1;09;1111;
 STD;RR;3;09;1111;
@@ -398,7 +471,8 @@ MUC;BG2_Tweaks;Init;09;0111;
 MUC;BG2_Tweaks;1035;09;0111;
 MUC;BG2_Tweaks;1036;09;0000;
 STD;BG2_Tweaks;1060;09;0011;
-STD;BG2_Tweaks;1070;09;0000;
+ANN;Improved Multi-Player Kick-out Dialogues 0000 -> 1111
+STD;BG2_Tweaks;1070;09;1111;
 STD;BG2_Tweaks;1090;10;0111;
 STD;BG2_Tweaks;1100;09;0111;
 STD;BG2_Tweaks;1120;09;0111;
@@ -446,7 +520,7 @@ MUC;BG2_Tweaks;2293;09;0000;
 MUC;BG2_Tweaks;2294;09;0000;
 MUC;BG2_Tweaks;2295;09;0000;
 MUC;BG2_Tweaks;2296;09;0000;
-MUC;BG2_Tweaks;Init;09;0000;
+MUC;BG2_Tweaks;Init;09;0001;
 MUC;BG2_Tweaks;2310;09;0000;
 MUC;BG2_Tweaks;2311;09;0000;
 MUC;BG2_Tweaks;2312;09;0000;
@@ -491,62 +565,54 @@ MUC;BG2_Tweaks;3121;09;1111;
 MUC;BG2_Tweaks;3122;09;0000;
 STD;BG2_Tweaks;3123;09;0000;
 STD;BG2_Tweaks;3125;09;1111;
-STD;BG2_Tweaks;3130;09;0000;
+ANN;no traps or locks -> Expert
+STD;BG2_Tweaks;3130;09;0001;
 STD;BG2_Tweaks;3190;09;0000;
-STD;BG2_Tweaks;3200;09;0000;
+ANN;#3200 sellable items 0000 -> 1111
+STD;BG2_Tweaks;3200;09;1111;
 STD;BG2_Tweaks;3210;09;0000;
 STD;BG2_Tweaks;3220;09;0111;
 STD;BG2_Tweaks;4000;09;1111;
 STD;BG2_Tweaks;4020;09;0111;
-MUC;BG2_Tweaks;Init;09;0000;
+MUC;BG2_Tweaks;Init;09;1111;
 MUC;BG2_Tweaks;4030;09;0000;
-MUC;BG2_Tweaks;4031;09;0000;
-MUC;BG2_Tweaks;Init;09;0000;
+MUC;BG2_Tweaks;4031;09;1111;
+MUC;BG2_Tweaks;Init;09;1111;
 MUC;BG2_Tweaks;4040;09;0000;
-MUC;BG2_Tweaks;4041;09;0000;
+MUC;BG2_Tweaks;4041;09;1111;
 STD;BG2_Tweaks;4050;09;1111;
-MUC;BG2_Tweaks;Init;09;0000;
+MUC;BG2_Tweaks;Init;09;1111;
 MUC;BG2_Tweaks;4060;09;0000;
-MUC;BG2_Tweaks;4061;09;0000;
-MUC;BG2_Tweaks;Init;09;0000;
+MUC;BG2_Tweaks;4061;09;1111;
+MUC;BG2_Tweaks;Init;09;1111;
 MUC;BG2_Tweaks;4070;09;0000;
-MUC;BG2_Tweaks;4071;09;0000;
+MUC;BG2_Tweaks;4071;09;1111;
 STD;BG2_Tweaks;4080;09;0000;
 STD;BG2_Tweaks;4090;09;0000;
 STD;BG2_Tweaks;4110;09;1111;
-STD;eet_tweaks;12;09;0000;
-STD;eet_tweaks;20;09;0000;
-STD;eet_tweaks;27;09;0000;
-STD;eet_tweaks;29;09;0000;
-STD;scales_of_balance;100;09;0111;
-STD;scales_of_balance;200;09;0111;
-STD;scales_of_balance;210;09;0111;
-STD;scales_of_balance;220;09;0111;
-STD;scales_of_balance;230;09;0111;
-STD;scales_of_balance;250;09;0111;
-STD;scales_of_balance;300;09;0111;
-STD;scales_of_balance;320;12;0111;
-STD;scales_of_balance;350;12;0111;
-STD;scales_of_balance;400;09;0111;
-STD;scales_of_balance;410;12;0111;
-STD;scales_of_balance;450;12;0111;
-STD;scales_of_balance;455;12;0111;
-STD;scales_of_balance;460;12;0111;
-STD;scales_of_balance;465;12;0111;
-STD;scales_of_balance;500;09;0111;
-STD;scales_of_balance;510;12;0111;
-STD;scales_of_balance;512;12;0111;
-STD;scales_of_balance;520;12;0111;
-STD;scales_of_balance;526;12;0111;
-STD;scales_of_balance;530;12;0111;
-STD;scales_of_balance;532;12;0111;
-STD;scales_of_balance;540;12;0111;
-STD;scales_of_balance;586;12;0111;
-STD;scales_of_balance;588;12;0111;
-STD;scales_of_balance;600;09;0111;
-STD;scales_of_balance;680;09;0000;
-STD;scales_of_balance;690;09;0111;
-STD;scales_of_balance;700;09;0111;
+STD;scales_of_balance;300;09;0000;
+STD;scales_of_balance;320;12;0000;
+STD;scales_of_balance;350;12;0000;
+STD;scales_of_balance;400;09;0000;
+STD;scales_of_balance;410;12;0000;
+STD;scales_of_balance;450;12;0000;
+STD;scales_of_balance;455;12;0000;
+STD;scales_of_balance;460;12;0000;
+STD;scales_of_balance;465;12;0000;
+STD;scales_of_balance;500;09;0000;
+STD;scales_of_balance;510;12;0000;
+STD;scales_of_balance;512;12;0000;
+STD;scales_of_balance;520;12;0000;
+STD;scales_of_balance;526;12;0000;
+STD;scales_of_balance;530;12;0000;
+STD;scales_of_balance;532;12;0000;
+STD;scales_of_balance;540;12;0000;
+STD;scales_of_balance;586;12;0000;
+STD;scales_of_balance;588;12;0000;
+STD;scales_of_balance;600;09;0001;
+STD;scales_of_balance;680;09;0001;
+STD;scales_of_balance;690;09;0001;
+STD;scales_of_balance;700;09;0001;
 STD;scales_of_balance;800;12;0000;
 STD;scales_of_balance;805;12;0000;
 MUC;scales_of_balance;Init;12;0000;
@@ -575,8 +641,49 @@ MUC;scales_of_balance;Init;12;0000;
 MUC;scales_of_balance;870;12;0000;
 MUC;scales_of_balance;871;12;0000;
 MUC;scales_of_balance;872;12;0000;
+STD;scales_of_balance;875;12;0000;
+MUC;scales_of_balance;Init;12;0000;
+MUC;scales_of_balance;880;12;0000;
+MUC;scales_of_balance;881;12;0000;
+MUC;scales_of_balance;Init;12;0000;
+MUC;scales_of_balance;885;12;0000;
+MUC;scales_of_balance;886;12;0000;
+STD;scales_of_balance;890;12;0000;
+STD;scales_of_balance;895;12;0000;
+STD;scales_of_balance;900;12;0000;
 ANN;Refinements goes here for compatibility with Scales of Balance #25 
-STD;scales_of_balance;580;09;0111;
+STD;scales_of_balance;580;09;0000;
+ANN;might and guile is successor to scales of balance
+STD;might_and_guile;100;09;0111;
+STD;might_and_guile;120;09;0001;
+STD;might_and_guile;160;09;0001;
+STD;might_and_guile;180;09;0001;
+STD;might_and_guile;200;09;0111;
+STD;might_and_guile;205;09;0111;
+STD;might_and_guile;210;09;0111;
+STD;might_and_guile;215;09;0111;
+STD;might_and_guile;220;09;0111;
+STD;might_and_guile;250;12;0111;
+STD;might_and_guile;255;12;0111;
+STD;might_and_guile;260;12;0111;
+STD;might_and_guile;265;12;0111;
+STD;might_and_guile;270;12;0111;
+STD;might_and_guile;275;12;0111;
+STD;might_and_guile;310;12;0111;
+STD;might_and_guile;320;12;0111;
+STD;might_and_guile;322;12;0111;
+STD;might_and_guile;324;12;0111;
+STD;might_and_guile;350;12;0111;
+STD;might_and_guile;360;12;0111;
+STD;might_and_guile;410;12;0111;
+STD;might_and_guile;420;12;0111;
+STD;might_and_guile;450;12;0111;
+STD;might_and_guile;460;12;0111;
+STD;might_and_guile;470;12;0111;
+STD;might_and_guile;480;12;0111;
+STD;might_and_guile;490;12;0111;
+STD;might_and_guile;500;12;0111;
+ANN;--- add and revise kits ---
 STD;Derats_kits;0;12;0111;
 STD;Derats_kits;1;12;0111;
 STD;Derats_kits;2;12;0111;
@@ -587,25 +694,59 @@ STD;Derats_kits;6;12;0111;
 STD;Derats_kits;7;12;0000;
 STD;Derats_kits;8;12;0000;
 STD;A7#ImprovedArcher;0;12;0111;
+ANN;FnP should be installed after all divine kits
+STD;f_n_p;102;12;0001;
+STD;f_n_p;200;12;0001;
+STD;f_n_p;212;12;0001;
+STD;f_n_p;219;12;0001;
+STD;f_n_p;234;12;0001;
+STD;f_n_p;239;12;0001;
+STD;f_n_p;244;12;0001;
+STD;f_n_p;265;12;0001;
+STD;f_n_p;301;12;0001;
+STD;f_n_p;302;12;0001;
+STD;f_n_p;303;12;0001;
+STD;f_n_p;304;12;0001;
+STD;f_n_p;305;12;0001;
+STD;f_n_p;306;12;0001;
+STD;f_n_p;307;12;0001;
+STD;f_n_p;311;12;0001;
+STD;f_n_p;300;12;0001;
+STD;f_n_p;332;12;0001;
+STD;f_n_p;333;12;0001;
+STD;f_n_p;334;12;0001;
+STD;f_n_p;335;12;0001;
+STD;f_n_p;363;12;0001;
+STD;f_n_p;500;12;0001;
+ANN;--- SCS core ---
 STD;stratagems;1000;09;1111;
+ANN;--- SCS spell tweaks ---
+ANN;#1900,1901 not for BGEE
 STD;stratagems;1910;09;1111;
 STD;stratagems;2010;09;1111;
 STD;stratagems;2020;09;1111;
 STD;stratagems;2030;09;1111;
+ANN;#2040 to 2100 not for BGEE
 MUC;stratagems;Init;09;1111;
 MUC;stratagems;2110;09;1111;
 MUC;stratagems;2111;09;0000;
 STD;stratagems;2120;09;1111;
+ANN;#2130,2140 not for BGEE
 STD;stratagems;2150;09;1111;
+ANN;#2160 to 2180 not for BGEE
+ANN;--- SCS item tweaks ---
 STD;stratagems;3000;09;0011;
 STD;stratagems;3010;09;0011;
+ANN;#3020 not for BGEE
 MUC;stratagems;Init;09;0011;
 MUC;stratagems;3021;09;0011;
 MUC;stratagems;3022;09;0000;
-STD;stratagems;3030;09;0011;
+STD;stratagems;3030;09;1111;
 MUC;stratagems;Init;09;0011;
 MUC;stratagems;3040;09;0000;
 MUC;stratagems;3041;09;0011;
+ANN;#3050 to 3110 not for BGEE
+ANN;--- SCS gameplay tweaks ---
 STD;stratagems;4000;09;1111;
 STD;stratagems;4010;09;1111;
 STD;stratagems;4020;09;1111;
@@ -616,40 +757,54 @@ MUC;stratagems;4050;09;0000;
 MUC;stratagems;4051;09;1111;
 MUC;stratagems;4052;09;0000;
 MUC;stratagems;4093;09;0000;
+ANN;#4100 "isn't quite ready for BGEE"
+STD;stratagems;4110;09;1111;
+STD;stratagems;4120;09;1111;
+STD;stratagems;4130;09;1111;
 STD;stratagems;4140;09;1111;
-MUC;stratagems;Init;09;0000;
-MUC;stratagems;4145;09;0000;
-MUC;stratagems;4146;09;0000;
+MUC;stratagems;Init;09;0111;
+MUC;stratagems;4145;09;0110;
+MUC;stratagems;4146;09;0001;
+ANN;#4150 to 4240 not for BGEE
+ANN;--- SCS cosmetic / ease ---
 STD;stratagems;5000;09;1111;
 STD;stratagems;5010;09;1111;
 STD;stratagems;5020;09;1111;
+ANN;#5030 is not for BGEE
 STD;stratagems;5050;09;1111;
 STD;stratagems;5060;09;1111;
+ANN;--- SCS AI ---
 STD;stratagems;5900;11;1111;
 STD;stratagems;6000;11;1111;
+ANN;better calls for help
 STD;stratagems;6010;11;0011;
+ANN;smarter mages
 MUC;stratagems;Init;11;1111;
-MUC;stratagems;6030;11;0000;
-MUC;stratagems;6031;11;0011;
+MUC;stratagems;6030;11;0011;
+MUC;stratagems;6031;11;0000;
 MUC;stratagems;6032;11;1100;
 MUC;stratagems;6033;11;0000;
 MUC;stratagems;6034;11;0000;
+ANN;smarter priests
 MUC;stratagems;Init;11;1111;
-MUC;stratagems;6040;11;0000;
+MUC;stratagems;6040;11;0011;
 MUC;stratagems;6041;11;0000;
-MUC;stratagems;6042;11;0000;
-MUC;stratagems;6043;11;1111;
+MUC;stratagems;6042;11;1100;
+MUC;stratagems;6043;11;0000;
 MUC;stratagems;6044;11;0000;
+ANN;potions for NPCS
 MUC;stratagems;Init;11;1111;
 MUC;stratagems;6100;11;0000;
-MUC;stratagems;6101;11;1111;
-MUC;stratagems;6102;11;0000;
+MUC;stratagems;6101;11;1100;
+MUC;stratagems;6102;11;0011;
 MUC;stratagems;6103;11;0000;
 MUC;stratagems;6104;11;0000;
+ANN;--- SCS creatures AI ---
 STD;stratagems;6200;11;1111;
 STD;stratagems;6300;11;1111;
 STD;stratagems;6310;11;1111;
 STD;stratagems;6320;11;1111;
+ANN;--- SCS BG1 tactical ---
 STD;stratagems;7000;08;0011;
 STD;stratagems;7010;08;0011;
 STD;stratagems;7020;08;0011;
@@ -705,7 +860,8 @@ STD;aTweaks;101;09;1111;
 STD;aTweaks;102;09;1111;
 STD;aTweaks;103;09;1111;
 STD;aTweaks;104;09;1111;
-STD;aTweaks;105;09;0000;
+ANN;#105 PnP Dimension Door -> Expert
+STD;aTweaks;105;09;0001;
 MUC;aTweaks;Init;09;1111;
 MUC;aTweaks;115;09;1111;
 MUC;aTweaks;117;09;0000;
@@ -745,6 +901,74 @@ MUC;aTweaks;500;09;1111;
 MUC;aTweaks;502;09;0000;
 STD;aTweaks;510;09;1111;
 STD;aTweaks;999;09;1111;
+STD;klatu;1000;09;0111;
+STD;klatu;1010;09;0111;
+STD;klatu;1020;09;0111;
+STD;klatu;1030;09;0111;
+STD;klatu;1040;09;0111;
+STD;klatu;1050;09;0111;
+STD;klatu;2000;09;1111;
+STD;klatu;2010;09;1111;
+STD;klatu;2020;09;1111;
+STD;klatu;2030;09;1111;
+STD;klatu;2040;09;1111;
+STD;klatu;2050;09;1111;
+STD;klatu;2060;09;1111;
+STD;klatu;2070;09;1111;
+STD;klatu;2080;09;1111;
+SUB;klatu;2090;09;1111;
+SUB;klatu;2090?1_1;09;1111;
+ANN;second choice disabled until BWS can handle nested sub-components 
+ANN;SUB;klatu;2090?1_2;09;0000;
+ANN;SUB;klatu;2090?1_2_1;09;0000;
+SUB;klatu;2090?2_1;09;1111;
+ANN;second choice disabled until BWS can handle nested sub-components 
+ANN;SUB;klatu;2090?2_2;09;0000;
+ANN;SUB;klatu;2090?2_2_1;09;0000;
+SUB;klatu;2090?3_1;09;1111;
+STD;klatu;2110;09;1111;
+STD;klatu;2120;09;1111;
+STD;klatu;2130;09;1111;
+STD;klatu;2140;09;0000;
+STD;klatu;2150;09;0000;
+STD;klatu;2160;09;1111;
+STD;klatu;2170;09;0111;
+STD;klatu;2180;09;0111;
+STD;klatu;2190;09;0111;
+STD;klatu;2200;09;0111;
+ANN;STD;klatu;3000;09;0000;
+STD;klatu;3010;09;0000;
+ANN;STD;klatu;3012;09;0000;
+STD;klatu;3015;09;0000;
+STD;klatu;3020;09;1111;
+MUC;klatu;Init;09;0000;
+MUC;klatu;3030;09;0000;
+MUC;klatu;3031;09;0000;
+MUC;klatu;3032;09;0000;
+MUC;klatu;3033;09;0000;
+MUC;klatu;3034;09;0000;
+MUC;klatu;3035;09;0000;
+MUC;klatu;Init;09;0000;
+MUC;klatu;3040;09;0000;
+MUC;klatu;3041;09;0000;
+MUC;klatu;3042;09;0000;
+MUC;klatu;3043;09;0000;
+MUC;klatu;3044;09;0000;
+MUC;klatu;3045;09;0000;
+MUC;klatu;Init;09;0000;
+MUC;klatu;3050;09;0000;
+MUC;klatu;3051;09;0000;
+MUC;klatu;3052;09;0000;
+MUC;klatu;3053;09;0000;
+MUC;klatu;3054;09;0000;
+MUC;klatu;3055;09;0000;
+MUC;klatu;Init;09;0000;
+MUC;klatu;3060;09;0000;
+MUC;klatu;3061;09;0000;
+MUC;klatu;3062;09;0000;
+MUC;klatu;3063;09;0000;
+MUC;klatu;3064;09;0000;
+MUC;klatu;3065;09;0000;
 MUC;DiffTweak;Init;09;0111;
 MUC;DiffTweak;0;09;0000;
 MUC;DiffTweak;1;09;0000;
@@ -794,7 +1018,7 @@ MUC;DiffTweak;39;09;0000;
 MUC;DiffTweak;40;09;0000;
 MUC;DiffTweak;41;09;0000;
 STD;DiffTweak;42;09;0000;
-STD;fullplate;1;09;0111;
+STD;fullplate;1;09;0011;
 STD;fullplate;102;09;0111;
 STD;fullplate;204;09;0111;
 STD;randomiser;500;09;0000;
@@ -816,28 +1040,27 @@ SUB;randomiser;1400;09;0000;
 SUB;randomiser;1400?1_y;09;0000;
 SUB;randomiser;1400?1_n;09;0000;
 SUB;randomiser;1400?2_10;09;0000;
-STD;randomiser;5075;09;0000;
+STD;randomiser;5075;09;0111;
 MUC;randomiser;Init;09;0011;
 MUC;randomiser;10100;09;0000;
 MUC;randomiser;10200;09;0011;
-STD;randomiser;10300;09;0000;
 CMD;IF EXIST Setup-Derats_kits.exe IF EXIST ".\override\PXW3CAME.SPL" move ".\override\PXW3CAME.SPL" ".\BWS_workspace\override"
 STD;w_psionics_unleashed;10;12;0001;
 MUC;w_psionics_unleashed;Init;12;0001;
 MUC;w_psionics_unleashed;61;12;0001;
 MUC;w_psionics_unleashed;62;12;0000;
 CMD;IF EXIST Setup-Derats_kits.exe IF EXIST ".\BWS_workspace\override\PXW3CAME.SPL" move ".\BWS_workspace\override\PXW3CAME.SPL" ".\override"
-MUC;xpmod;Init;09;1111;
-MUC;xpmod;0;09;1000;
-MUC;xpmod;1;09;0111;
+MUC;xpmod;Init;09;0000;
+MUC;xpmod;0;09;0000;
+MUC;xpmod;1;09;0000;
 MUC;xpmod;2;09;0000;
 MUC;xpmod;3;09;0000;
 MUC;xpmod;4;09;0000;
 MUC;xpmod;5;09;0000;
 MUC;xpmod;6;09;0000;
-MUC;xpmod;Init;09;1111;
-MUC;xpmod;15;09;1000;
-MUC;xpmod;16;09;0111;
+MUC;xpmod;Init;09;0000;
+MUC;xpmod;15;09;0000;
+MUC;xpmod;16;09;0000;
 MUC;xpmod;17;09;0000;
 MUC;xpmod;18;09;0000;
 MUC;xpmod;19;09;0000;
@@ -851,60 +1074,64 @@ STD;A7NoEENPCs;105;09;0000;
 STD;A7NoEENPCs;4;09;0000;
 STD;A7NoEENPCs;201;09;0000;
 STD;A7NoEENPCs;203;09;0000;
-SUB;eet_tweaks;6;09;1111;
-SUB;eet_tweaks;6?1_1;09;1111;
+SUB;eet_tweaks;6;09;0011;
+SUB;eet_tweaks;6?1_1;09;0000;
 SUB;eet_tweaks;6?1_2;09;0000;
-SUB;eet_tweaks;6?1_3;09;0000;
-SUB;eet_tweaks;6?1_4;09;0000;
+SUB;eet_tweaks;6?1_3;09;0111;
+SUB;eet_tweaks;6?1_4;09;0011;
 SUB;eet_tweaks;7;09;1111;
 SUB;eet_tweaks;7?1_1;09;0000;
-SUB;eet_tweaks;7?1_2;09;1111;
-SUB;eet_tweaks;7?1_3;09;0000;
+SUB;eet_tweaks;7?1_2;09;1100;
+SUB;eet_tweaks;7?1_3;09;0011;
 SUB;eet_tweaks;7?1_4;09;0000;
 SUB;eet_tweaks;7?1_5;09;0000;
 SUB;eet_tweaks;7?1_6;09;0000;
 SUB;eet_tweaks;8;09;1111;
 SUB;eet_tweaks;8?1_1;09;0000;
-SUB;eet_tweaks;8?1_2;09;1111;
-SUB;eet_tweaks;8?1_3;09;0000;
+SUB;eet_tweaks;8?1_2;09;1100;
+SUB;eet_tweaks;8?1_3;09;0011;
 SUB;eet_tweaks;8?1_4;09;0000;
 SUB;eet_tweaks;8?1_5;09;0000;
 SUB;eet_tweaks;8?1_6;09;0000;
-STD;eet_tweaks;9;09;0000;
+STD;eet_tweaks;9;09;0011;
 SUB;eet_tweaks;11;09;0000;
 SUB;eet_tweaks;11?1_1;09;0000;
 SUB;eet_tweaks;11?1_2;09;0000;
+STD;eet_tweaks;12;09;0000;
+STD;eet_tweaks;20;09;1111;
+STD;eet_tweaks;24;13;0000;
+STD;eet_tweaks;27;09;0000;
+STD;eet_tweaks;29;09;0000;
+ANN;worldmap after all mods that use it
 SUB;BP-BGT-Worldmap;0;13;1111;
 SUB;BP-BGT-Worldmap;0?1_1;13;1111;
 SUB;BP-BGT-Worldmap;0?1_2;13;0000;
-SUB;BP-BGT-Worldmap;0?2_1;13;1111;
-SUB;BP-BGT-Worldmap;0?2_2;13;0000;
+SUB;BP-BGT-Worldmap;0?2_1;13;0000;
+SUB;BP-BGT-Worldmap;0?2_2;13;1111;
+ANN;--- PaintBG portraits ---
+ANN;PaintBG for EE is just .bmp files, so install first to allow other mods to overwrite
+ANN;We must install PaintBG before generalized biffing so that we can append to BGEE.SQL
+DWN;paintbg;0;13;1111;
+ANN;Standardize PaintBG directory name to simplify scripting
+CMD;IF EXIST "PaintBG*(EE)" MOVE /Y "PAINTBG*(EE)" "PaintBG"
+ANN;Add PaintBG CHARNAME portraits to bgee.sql so they can be selected during character creation
+CMD;IF EXIST "PaintBG" IF EXIST "override\bgee.sql" ECHO INSERT INTO portraits ROWS >> "override\bgee.sql" && ECHO ( >> "override\bgee.sql"
+ANN;Make male CHARNAME portraits selectable
+CMD;IF EXIST "PaintBG" IF EXIST "override\bgee.sql" FOR %%F IN ("PaintBG\PA#Ma*L.bmp") DO cmd /v:on /c "set trunc=%%~nF & echo '!trunc:~0,-2!', 1, >> override\bgee.sql"
+ANN;Make female CHARNAME portraits selectable
+CMD;IF EXIST "PaintBG" IF EXIST "override\bgee.sql" FOR %%F IN ("PaintBG\PA#Wo*L.bmp") DO cmd /v:on /c "set trunc=%%~nF & echo '!trunc:~0,-2!', 2, >> override\bgee.sql"
+ANN;Close off the selectable portraits list
+CMD;IF EXIST "PaintBG" IF EXIST "override\bgee.sql" ECHO ); >> "override\bgee.sql"
+ANN;Copy over all the portraits and remove the PaintBG directory
+CMD;IF EXIST "PaintBG" XCOPY /Y /I "PaintBG\*.bmp" "characters" && RMDIR /S /Q "PaintBG"
 SUB;generalized_biffing;0;00;1111;
 SUB;generalized_biffing;0?1_0;00;0000;
 SUB;generalized_biffing;0?1_1;00;1111;
+ANN;--- UI, graphics, sound ---
 MUC;BGEEClassicMovies;Init;13;1111;
 MUC;BGEEClassicMovies;0;13;0000;
 MUC;BGEEClassicMovies;1;13;1111;
 STD;BGEEClassicMovies;2;13;1111;
-STD;eet_tweaks;24;13;0000;
-SUB;ajantisportraitpack;0;13;0000;
-SUB;ajantisportraitpack;0?1_1;13;0000;
-SUB;ajantisportraitpack;0?1_2;13;0000;
-SUB;ajantisportraitpack;0?1_3;13;0000;
-SUB;ajantisportraitpack;0?1_4;13;0000;
-SUB;ajantisportraitpack;0?1_5;13;0000;
-SUB;ajantisportraitpack;0?1_6;13;0000;
-SUB;ajantisportraitpack;0?1_7;13;0000;
-SUB;ajantisportraitpack;0?1_8;13;0000;
-SUB;ajantisportraitpack;0?1_9;13;0000;
-SUB;ajantisportraitpack;0?1_10;13;0000;
-SUB;ajantisportraitpack;0?1_11;13;0000;
-SUB;ajantisportraitpack;0?1_12;13;0000;
-SUB;ajantisportraitpack;0?1_13;13;0000;
-SUB;ajantisportraitpack;0?1_14;13;0000;
-SUB;ajantisportraitpack;0?1_15;13;0000;
-SUB;ajantisportraitpack;0?1_16;13;0000;
-SUB;ajantisportraitpack;0?1_17;13;0000;
 MUC;recoloredbuttons;Init;13;0111;
 MUC;recoloredbuttons;0;13;0111;
 MUC;recoloredbuttons;1;13;0000;
@@ -912,7 +1139,6 @@ DWN;BG1EEGUISwitch;0;13;0111;
 DWN;BG1EEGUITweaks;0;13;0111;
 DWN;BG1EEGUITweaksB;0;13;0111;
 DWN;BG1EEGUITweaksWE;0;13;0111;
-DWN;ThePictureStandardBGEE;0;13;0111;
 STD;LightingPack;0;13;0000;
 STD;LightingPack;1;13;0000;
 STD;LightingPack;2;13;1111;
@@ -934,4 +1160,152 @@ STD;LightingPack;17;13;0000;
 STD;LightingPack;18;13;0000;
 STD;LightingPack;19;13;0000;
 STD;LightingPack;20;13;0000;
+ANN;--- portraits ---
+DWN;ThePictureStandardBGEE;0;13;0111;
+SUB;ajantisportraitpack;0;13;0000;
+SUB;ajantisportraitpack;0?1_1;13;0000;
+SUB;ajantisportraitpack;0?1_2;13;0000;
+SUB;ajantisportraitpack;0?1_3;13;0000;
+SUB;ajantisportraitpack;0?1_4;13;0000;
+SUB;ajantisportraitpack;0?1_5;13;0000;
+SUB;ajantisportraitpack;0?1_6;13;0000;
+SUB;ajantisportraitpack;0?1_7;13;0000;
+SUB;ajantisportraitpack;0?1_8;13;0000;
+SUB;ajantisportraitpack;0?1_9;13;0000;
+SUB;ajantisportraitpack;0?1_10;13;0000;
+SUB;ajantisportraitpack;0?1_11;13;0000;
+SUB;ajantisportraitpack;0?1_12;13;0000;
+SUB;ajantisportraitpack;0?1_13;13;0000;
+SUB;ajantisportraitpack;0?1_14;13;0000;
+SUB;ajantisportraitpack;0?1_15;13;0000;
+SUB;ajantisportraitpack;0?1_16;13;0000;
+SUB;ajantisportraitpack;0?1_17;13;0000;
+STD;bg1npc;2;13;0000;
+STD;bg1npc;3;13;0000;
+STD;bg1npc;4;13;0000;
+STD;bg1npc;5;13;0000;
+STD;bg1npc;6;13;0000;
+STD;bg1npc;7;13;0000;
+STD;bg1npc;8;13;0000;
+MUC;gavin;Init;13;1111;
+MUC;gavin;4;13;1111;
+MUC;gavin;5;13;0000;
+MUC;gavin;6;13;0000;
+MUC;gavin;7;13;0000;
+MUC;gavin;8;13;0000;
+MUC;gavin;9;13;0000;
+MUC;gavin;10;13;0000;
+MUC;gavin;11;13;0000;
+MUC;gavin;12;13;0000;
+ANN;--- NPC kit changes ---
+ANN;Imoen
+MUC;npc_ee;Init;12;1111;
+MUC;npc_ee;101;12;0000;
+MUC;npc_ee;102;12;0011;
+MUC;npc_ee;103;12;1100;
+ANN;Jaheira
+MUC;npc_ee;Init;12;1111;
+MUC;npc_ee;121;12;0000;
+MUC;npc_ee;122;12;0011;
+MUC;npc_ee;138;12;1100;
+ANN;Khalid
+MUC;npc_ee;Init;12;1111;
+MUC;npc_ee;141;12;0011;
+MUC;npc_ee;142;12;0000;
+MUC;npc_ee;143;12;0000;
+MUC;npc_ee;144;12;0000;
+MUC;npc_ee;158;12;1100;
+ANN;Minsc
+MUC;npc_ee;Init;12;1111;
+MUC;npc_ee;161;12;0000;
+MUC;npc_ee;163;12;1111;
+MUC;npc_ee;178;12;0000;
+ANN;Kivan
+MUC;npc_ee;Init;12;1111;
+MUC;npc_ee;201;12;0011;
+MUC;npc_ee;202;12;1100;
+MUC;npc_ee;218;12;0000;
+ANN;Coran
+MUC;npc_ee;Init;12;1111;
+MUC;npc_ee;221;12;1111;
+MUC;npc_ee;222;12;0000;
+MUC;npc_ee;223;12;0000;
+MUC;npc_ee;238;12;0000;
+ANN;Branwen
+MUC;npc_ee;Init;12;1111;
+MUC;npc_ee;241;12;0000;
+MUC;npc_ee;242;12;1111;
+MUC;npc_ee;258;12;0000;
+ANN;Safana
+MUC;npc_ee;Init;12;1111;
+MUC;npc_ee;261;12;0000;
+MUC;npc_ee;262;12;1111;
+MUC;npc_ee;278;12;0000;
+ANN;Ajantis
+MUC;npc_ee;Init;12;1111;
+MUC;npc_ee;281;12;0000;
+MUC;npc_ee;282;12;0011;
+MUC;npc_ee;298;12;1100;
+ANN;Montaron
+MUC;npc_ee;Init;12;1111;
+MUC;npc_ee;321;12;1111;
+MUC;npc_ee;338;12;0000;
+ANN;Yeslick
+MUC;npc_ee;Init;12;1111;
+MUC;npc_ee;341;12;1111;
+MUC;npc_ee;358;12;0000;
+ANN;Quayle
+MUC;npc_ee;Init;12;1111;
+MUC;npc_ee;361;12;1111;
+MUC;npc_ee;378;12;0000;
+ANN;Faldorn
+MUC;npc_ee;Init;12;1111;
+MUC;npc_ee;381;12;1100;
+MUC;npc_ee;382;12;0011;
+MUC;npc_ee;383;12;0000;
+MUC;npc_ee;398;12;0000;
+ANN;Skie
+MUC;npc_ee;Init;12;1111;
+MUC;npc_ee;401;12;0000;
+MUC;npc_ee;402;12;0000;
+MUC;npc_ee;403;12;1111;
+MUC;npc_ee;418;12;0000;
+ANN;Eldoth
+MUC;npc_ee;Init;12;1111;
+MUC;npc_ee;421;12;1111;
+MUC;npc_ee;422;12;0000;
+MUC;npc_ee;438;12;0000;
+ANN;Garrick
+MUC;npc_ee;Init;12;1111;
+MUC;npc_ee;441;12;1111;
+MUC;npc_ee;442;12;0000;
+MUC;npc_ee;443;12;0000;
+MUC;npc_ee;458;12;0000;
+ANN;Alora
+MUC;npc_ee;Init;12;1111;
+MUC;npc_ee;461;12;0000;
+MUC;npc_ee;462;12;0000;
+MUC;npc_ee;463;12;1100;
+MUC;npc_ee;464;12;0011;
+MUC;npc_ee;478;12;0000;
+ANN;Xan
+MUC;npc_ee;Init;12;1111;
+MUC;npc_ee;481;12;0000;
+MUC;npc_ee;482;12;0011;
+MUC;npc_ee;483;12;1100;
+MUC;npc_ee;498;12;0000;
+ANN;Shar-Teel
+MUC;npc_ee;Init;12;1111;
+MUC;npc_ee;501;12;1111;
+MUC;npc_ee;518;12;0000;
+ANN;Tiax
+MUC;npc_ee;Init;12;1111;
+MUC;npc_ee;541;12;0111;
+MUC;npc_ee;558;12;1000;
+ANN;Viconia
+MUC;npc_ee;Init;12;1111;
+MUC;npc_ee;581;12;1111;
+MUC;npc_ee;582;12;0000;
+MUC;npc_ee;583;12;0000;
+MUC;npc_ee;598;12;0000;
 ANN;Added due to patching
