@@ -60,6 +60,7 @@ STD;wmart;0;10;0111;
 ANN;--- BGEE NPCs ---
 STD;bg1npc;0;07;1111;
 STD;bg1npc;1;07;1111;
+STD;bg1npc;8;07;1111;
 SUB;bg1npc;9;07;1111;
 SUB;bg1npc;9?1_1;07;1111;
 SUB;bg1npc;9?1_2;07;0000;
@@ -303,9 +304,7 @@ SUB;bg2eetp;0?1_3;00;1111;
 SUB;bg2eetp;0?1_4;00;1111;
 STD;BG2EE_GA;0;00;1111;
 ANN;--- post-EET BGEE tweaks ---
-ANN;BGEESpawn?
-STD;eet_tweaks;12;09;1111;
-STD;eet_tweaks;13;07;1111;
+ANN;move BGEESpawn here?
 MUC;7c#sartweak;Init;07;0011;
 ANN;#100 conflicts with SCS
 MUC;7c#sartweak;100;07;0000;
@@ -1335,8 +1334,8 @@ STD;jkits;0;12;0111;
 STD;jkits;1;12;0111;
 STD;A7#ImprovedArcher;0;12;0111;
 STD;A7#ImprovedArcher;100;10;0111;
-STD;eet_tweaks;25;12;0000;
-STD;eet_tweaks;26;12;0000;
+STD;eet_tweaks;25;12;0111;
+STD;eet_tweaks;26;12;0111;
 ANN;FnP should be installed after all divine kits
 STD;f_n_p;102;12;0001;
 STD;f_n_p;200;12;0001;
@@ -1922,22 +1921,24 @@ STD;A7NoEENPCs;204;09;0000;
 ANN;#0 teleport spell -> standard
 STD;eet_tweaks;0;09;0111;
 ANN;#1 portraits moved down
-STD;eet_tweaks;2;09;0000;
+STD;eet_tweaks;2;09;1111;
 SUB;eet_tweaks;3;09;1111;
 SUB;eet_tweaks;3?1_1;09;0000;
 SUB;eet_tweaks;3?1_2;09;0000;
 SUB;eet_tweaks;3?1_3;09;1111;
+SUB;eet_tweaks;3?1_4;09;0000;
 SUB;eet_tweaks;4;09;0011;
 SUB;eet_tweaks;4?1_1;09;0000;
 SUB;eet_tweaks;4?1_2;09;0011;
 SUB;eet_tweaks;5;09;0011;
 SUB;eet_tweaks;5?1_1;09;0011;
 SUB;eet_tweaks;5?1_2;09;0000;
-SUB;eet_tweaks;6;09;0011;
+SUB;eet_tweaks;6;09;1111;
 SUB;eet_tweaks;6?1_1;09;0000;
 SUB;eet_tweaks;6?1_2;09;0000;
-SUB;eet_tweaks;6?1_3;09;0111;
-SUB;eet_tweaks;6?1_4;09;0011;
+SUB;eet_tweaks;6?1_3;09;1111;
+SUB;eet_tweaks;6?1_4;09;0000;
+SUB;eet_tweaks;6?1_5;09;0000;
 SUB;eet_tweaks;7;09;1111;
 SUB;eet_tweaks;7?1_1;09;0000;
 SUB;eet_tweaks;7?1_2;09;1100;
@@ -1945,6 +1946,7 @@ SUB;eet_tweaks;7?1_3;09;0011;
 SUB;eet_tweaks;7?1_4;09;0000;
 SUB;eet_tweaks;7?1_5;09;0000;
 SUB;eet_tweaks;7?1_6;09;0000;
+SUB;eet_tweaks;7?1_7;09;0000;
 SUB;eet_tweaks;8;09;1111;
 SUB;eet_tweaks;8?1_1;09;0000;
 SUB;eet_tweaks;8?1_2;09;1100;
@@ -1952,12 +1954,17 @@ SUB;eet_tweaks;8?1_3;09;0011;
 SUB;eet_tweaks;8?1_4;09;0000;
 SUB;eet_tweaks;8?1_5;09;0000;
 SUB;eet_tweaks;8?1_6;09;0000;
+SUB;eet_tweaks;8?1_7;09;0000;
 STD;eet_tweaks;9;09;0011;
-STD;eet_tweaks;10;09;0000;
-SUB;eet_tweaks;11;09;0000;
+STD;eet_tweaks;10;09;0011;
+SUB;eet_tweaks;11;09;1111;
 SUB;eet_tweaks;11?1_1;09;0000;
-SUB;eet_tweaks;11?1_2;09;0000;
-STD;eet_tweaks;14;09;0000;
+SUB;eet_tweaks;11?1_2;09;1111;
+SUB;eet_tweaks;11?1_3;09;0000;
+STD;eet_tweaks;12;09;1111;
+ANN;#13 no conflict with 7c#sartweak
+STD;eet_tweaks;13;09;1111;
+STD;eet_tweaks;14;09;0011;
 STD;eet_tweaks;15;09;0000;
 SUB;eet_tweaks;16;09;0000;
 SUB;eet_tweaks;16?1_1;09;0000;
@@ -1988,9 +1995,13 @@ SUB;eet_tweaks;21;09;1111;
 SUB;eet_tweaks;21?1_1;09;0011;
 SUB;eet_tweaks;21?1_2;09;1100;
 SUB;eet_tweaks;21?1_3;09;0000;
-STD;eet_tweaks;27;09;0000;
+SUB;eet_tweaks;21?1_4;09;0000;
+SUB;eet_tweaks;21?1_5;09;0000;
+STD;eet_tweaks;23;13;0000;
+STD;eet_tweaks;24;13;0000;
+STD;eet_tweaks;27;09;0111;
 STD;eet_tweaks;28;09;1111;
-STD;eet_tweaks;29;09;1111;
+STD;eet_tweaks;29;09;0111;
 ANN;eet_tweaks;30;09;0001;
 ANN;worldmap after all mods that use it
 SUB;BP-BGT-Worldmap;0;13;1111;
@@ -2001,8 +2012,6 @@ SUB;BP-BGT-Worldmap;0?2_2;13;1111;
 MUC;BP-BGT-Worldmap;Init;13;1111;
 MUC;BP-BGT-Worldmap;1;13;1111;
 MUC;BP-BGT-Worldmap;2;13;0000;
-STD;eet_tweaks;23;13;0000;
-STD;eet_tweaks;24;13;0000;
 ANN;--- PaintBG portraits ---
 ANN;PaintBG for EE is just .bmp files, so install first to allow other mods to overwrite
 ANN;We must install PaintBG before generalized biffing so that we can append to BGEE.SQL
@@ -2073,7 +2082,6 @@ STD;bg1npc;4;13;0000;
 STD;bg1npc;5;13;0000;
 STD;bg1npc;6;13;0000;
 STD;bg1npc;7;13;0000;
-STD;bg1npc;8;13;0000;
 MUC;gavin;Init;13;1111;
 MUC;gavin;4;13;1111;
 MUC;gavin;5;13;0000;
