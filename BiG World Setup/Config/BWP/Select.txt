@@ -3566,18 +3566,14 @@ SUB;tobaurora;1;12;0000;
 SUB;tobaurora;1?1_1;12;0000;
 SUB;tobaurora;1?1_2;12;0000;
 CMD;IF EXIST Setup-SandrahNPC.exe copy /Y ".\BiG World Fixpack\_override\worldmap\*.*" ".\override"
-CMD;echo 109 CLERIC_HALLOW >> override/stats.ids
 CMD;echo 162 WIZARD_SPELL_TURNING >> override/stats.ids
 CMD;echo 164 WIZARD_SPELL_TRAP >> override/stats.ids
 CMD;echo 177 WIZARD_SPELL_SHIELD >> override/stats.ids
 CMD;echo 3201 INNATE_NEUTRALIZE_POISON >> override/spell.ids
 CMD;echo 4732 HELM_TRUE_SIGHT >> override/spell.ids
-CMD;echo 0xE800 ORC_MELEE1 >> override/Animate.IDS
-CMD;echo 0xE840 ORC_SHAMAN >> override/Animate.IDS
 CMD;echo 201 NEEDS_BREACH >> override/Specific.IDS
 CMD;echo 0x8010202D STATE_DISABLED >> override/State.ids
 CMD;echo 0x00000029 STATE_IMMOBILE >> override/State.ids
-CMD;echo 3600 SHROM_TIMER >> override/gtimes.ids
 SUB;SandrahNPC;0;12;0111;
 SUB;SandrahNPC;0?0_1;12;0111;
 SUB;SandrahNPC;0?0_2;12;0000;
