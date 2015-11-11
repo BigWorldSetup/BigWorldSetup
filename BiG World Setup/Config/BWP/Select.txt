@@ -1150,7 +1150,7 @@ ANN;Not compatible with DrizztSaga v3
 ANN;STD;THEONEDRIZZT;0;14;0111;
 STD;LaValygar;0;14;1111;
 STD;yeslicknpc;0;12;1111;
-STD;sarevokfriendship;0;12;1111;
+STD;sarevokfriendship;0;14;1111;
 STD;Branwen;0;14;1111;
 ANN;#17. MORE BG2 NPC MODS
 STD;cliffhistory;0;12;0001;
