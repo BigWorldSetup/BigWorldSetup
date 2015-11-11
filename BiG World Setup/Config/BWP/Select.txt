@@ -2330,49 +2330,6 @@ MUC;Haiass;Init;13;0111;
 MUC;Haiass;10;13;0111;
 MUC;Haiass;15;13;0000;
 STD;tb#kits;1;19;0001;
-CMD;IF EXIST Setup-SandrahNPC.exe copy /Y ".\BiG World Fixpack\_override\worldmap\*.*" ".\override"
-CMD;echo 109 CLERIC_HALLOW >> override/stats.ids
-CMD;echo 162 WIZARD_SPELL_TURNING >> override/stats.ids
-CMD;echo 164 WIZARD_SPELL_TRAP >> override/stats.ids
-CMD;echo 177 WIZARD_SPELL_SHIELD >> override/stats.ids
-CMD;echo 3201 INNATE_NEUTRALIZE_POISON >> override/spell.ids
-CMD;echo 4732 HELM_TRUE_SIGHT >> override/spell.ids
-CMD;echo 0xE800 ORC_MELEE1 >> override/Animate.IDS
-CMD;echo 0xE840 ORC_SHAMAN >> override/Animate.IDS
-CMD;echo 201 NEEDS_BREACH >> override/Specific.IDS
-CMD;echo 0x8010202D STATE_DISABLED >> override/State.ids
-CMD;echo 0x00000029 STATE_IMMOBILE >> override/State.ids
-CMD;echo 3600 SHROM_TIMER >> override/gtimes.ids
-SUB;SandrahNPC;0;12;0111;
-SUB;SandrahNPC;0?0_1;12;0111;
-SUB;SandrahNPC;0?0_2;12;0000;
-SUB;SandrahNPC;0?1_1;12;0111;
-SUB;SandrahNPC;0?1_2;12;0000;
-SUB;SandrahNPC;0?2_1;12;0111;
-SUB;SandrahNPC;0?2_2;12;0000;
-STD;SandrahNPC;1;12;0111;
-STD;SandrahNPC;2;12;0111;
-STD;SandrahNPC;3;12;0111;
-STD;SandrahNPC;4;12;0111;
-STD;SandrahNPC;5;12;0111;
-STD;SandrahNPC;6;12;0111;
-STD;SandrahNPC;7;12;0111;
-STD;SandrahNPC;8;12;0111;
-STD;SandrahNPC;9;12;0111;
-STD;SandrahNPC;10;12;0111;
-STD;SandrahNPC;11;12;0111;
-STD;SandrahNPC;12;12;0111;
-STD;SandrahNPC;13;12;0111;
-STD;SandrahNPC;14;12;0111;
-STD;SandrahNPC;15;12;0111;
-STD;SandrahRtF;0;09;0111;
-STD;SandrahRtF;1;09;0111;
-STD;SandrahRtF;2;09;0111;
-STD;SandrahRtF;3;09;0111;
-STD;SandrahRtF;4;09;0111;
-STD;SandrahRtF;5;09;0111;
-STD;SandrahRtF;6;09;0111;
-STD;SandrahRtF;7;09;0111;
 STD;vecna;0;10;0011;
 DWN;Vecna_Text_Overhaul;0;10;0011;
 MUC;w_packmule;Init;11;0111;
@@ -3608,6 +3565,45 @@ STD;tobaurora;0;12;0111;
 SUB;tobaurora;1;12;0000;
 SUB;tobaurora;1?1_1;12;0000;
 SUB;tobaurora;1?1_2;12;0000;
+CMD;IF EXIST Setup-SandrahNPC.exe copy /Y ".\BiG World Fixpack\_override\worldmap\*.*" ".\override"
+CMD;echo 162 WIZARD_SPELL_TURNING >> override/stats.ids
+CMD;echo 164 WIZARD_SPELL_TRAP >> override/stats.ids
+CMD;echo 177 WIZARD_SPELL_SHIELD >> override/stats.ids
+CMD;echo 3201 INNATE_NEUTRALIZE_POISON >> override/spell.ids
+CMD;echo 4732 HELM_TRUE_SIGHT >> override/spell.ids
+CMD;echo 201 NEEDS_BREACH >> override/Specific.IDS
+CMD;echo 0x8010202D STATE_DISABLED >> override/State.ids
+CMD;echo 0x00000029 STATE_IMMOBILE >> override/State.ids
+SUB;SandrahNPC;0;12;0111;
+SUB;SandrahNPC;0?0_1;12;0111;
+SUB;SandrahNPC;0?0_2;12;0000;
+SUB;SandrahNPC;0?1_1;12;0111;
+SUB;SandrahNPC;0?1_2;12;0000;
+SUB;SandrahNPC;0?2_1;12;0111;
+SUB;SandrahNPC;0?2_2;12;0000;
+STD;SandrahNPC;1;12;0111;
+STD;SandrahNPC;2;12;0111;
+STD;SandrahNPC;3;12;0111;
+STD;SandrahNPC;4;12;0111;
+STD;SandrahNPC;5;12;0111;
+STD;SandrahNPC;6;12;0111;
+STD;SandrahNPC;7;12;0111;
+STD;SandrahNPC;8;12;0111;
+STD;SandrahNPC;9;12;0111;
+STD;SandrahNPC;10;12;0111;
+STD;SandrahNPC;11;12;0111;
+STD;SandrahNPC;12;12;0111;
+STD;SandrahNPC;13;12;0111;
+STD;SandrahNPC;14;12;0111;
+STD;SandrahNPC;15;12;0111;
+STD;SandrahRtF;0;09;0111;
+STD;SandrahRtF;1;09;0111;
+STD;SandrahRtF;2;09;0111;
+STD;SandrahRtF;3;09;0111;
+STD;SandrahRtF;4;09;0111;
+STD;SandrahRtF;5;09;0111;
+STD;SandrahRtF;6;09;0111;
+STD;SandrahRtF;7;09;0111;
 STD;HardTimes;0;07;0011;
 STD;HardTimes;1;06;0011;
 STD;polytweak;50;15;1111;
@@ -4227,6 +4223,7 @@ CMD;copy /Y ".\BiG World Fixpack\_Hotfixes\RoT\dltcepsmithy\*.*" ".\override";;;
 CMD;IF EXIST Setup-1pp.exe copy /Y ".\1pp\backup\114\SPMAGGLO.BAM" ".\override";;;;D:SPELLPACKB6(1116)
 CMD;IF EXIST Setup-1pp.exe copy /Y ".\1pp\backup\114\SPMAGGLO.VVC" ".\override";;;;D:SPELLPACKB6(1116)
 STD;korekta_przedmiotow;0;01;1111;
+STD;sandrahitem;0;12;0111;D:SandrahNPC(0)
 SUB;generalized_biffing;0;00;1111;
 SUB;generalized_biffing;0?1_0;00;0000;
 SUB;generalized_biffing;0?1_1;00;1111;
