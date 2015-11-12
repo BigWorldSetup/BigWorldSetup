@@ -256,7 +256,7 @@ STD;bg1ub;22;03;1111;
 STD;bg1ub;28;03;1111;
 STD;bg1ub;29;03;1111;
 STD;bg1ub;30;03;1111;
-STD;bg1ub;32;03;1111;
+ANN;STD;bg1ub;32;03;1111;
 GRP;Start
 STD;kittomes;0;12;0111;
 MUC;kittomes;Init;12;0111;
