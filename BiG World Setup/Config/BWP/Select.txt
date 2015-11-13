@@ -2749,77 +2749,17 @@ STD;BG2_Tweaks;4080;16;0000;
 STD;BG2_Tweaks;4090;16;0000;
 STD;BG2_Tweaks;4100;16;1111;
 STD;BG2_Tweaks;4110;16;1111;
-CMD;IF EXIST ".\override\XXX009.ITM" move ".\override\XXX009.ITM" ".\BWP_workspace\override"
-STD;scales_of_balance;100;16;0001;
-CMD;IF EXIST ".\BWP_workspace\override\XXX009.ITM" move ".\BWP_workspace\override\XXX009.ITM" ".\override"
-STD;scales_of_balance;200;16;0001;
-STD;scales_of_balance;210;16;0001;
-STD;scales_of_balance;220;16;0001;
-STD;scales_of_balance;230;16;0001;
-CMD;IF EXIST ".\override\C#AJAN16.CRE" move ".\override\C#AJAN16.CRE" ".\BWP_workspace\override"
-STD;scales_of_balance;250;16;0001;
-CMD;IF EXIST ".\BWP_workspace\override\C#AJAN16.CRE" move ".\BWP_workspace\override\C#AJAN16.CRE" ".\override"
-STD;scales_of_balance;300;16;0001;
-STD;scales_of_balance;320;19;0001;
-STD;scales_of_balance;350;19;0001;
-STD;scales_of_balance;400;16;0001;
-STD;scales_of_balance;410;19;0001;
-STD;scales_of_balance;450;19;0001;
-STD;scales_of_balance;455;19;0001;
-STD;scales_of_balance;460;19;0001;
-STD;scales_of_balance;465;19;0001;
-STD;scales_of_balance;500;16;0001;
-STD;scales_of_balance;510;19;0001;
-STD;scales_of_balance;512;19;0001;
-STD;scales_of_balance;520;19;0001;
-STD;scales_of_balance;526;19;0001;
-STD;scales_of_balance;530;19;0001;
-STD;scales_of_balance;532;19;0001;
-STD;scales_of_balance;540;19;0001;
-STD;scales_of_balance;586;19;0001;
-STD;scales_of_balance;588;19;0001;
+STD;scales_of_balance;500;16;0111;
+STD;scales_of_balance;510;19;0111;
+STD;scales_of_balance;512;19;0111;
+STD;scales_of_balance;520;19;0111;
+STD;scales_of_balance;526;19;0111;
+STD;scales_of_balance;530;19;0111;
+STD;scales_of_balance;532;19;0111;
+STD;scales_of_balance;540;19;0111;
+STD;scales_of_balance;586;19;0111;
+STD;scales_of_balance;588;19;0111;
 STD;scales_of_balance;600;16;0001;
-STD;scales_of_balance;680;16;0001;
-STD;scales_of_balance;690;16;0001;
-STD;scales_of_balance;700;16;0001;
-STD;scales_of_balance;800;19;0001;
-STD;scales_of_balance;805;19;0001;
-MUC;scales_of_balance;Init;19;0001;
-MUC;scales_of_balance;810;19;0000;
-MUC;scales_of_balance;811;19;0000;
-MUC;scales_of_balance;Init;19;0001;
-MUC;scales_of_balance;815;19;0000;
-MUC;scales_of_balance;816;19;0000;
-MUC;scales_of_balance;Init;19;0001;
-MUC;scales_of_balance;820;19;0000;
-MUC;scales_of_balance;821;19;0000;
-MUC;scales_of_balance;Init;19;0001;
-MUC;scales_of_balance;825;19;0000;
-MUC;scales_of_balance;826;19;0000;
-STD;scales_of_balance;830;19;0001;
-STD;scales_of_balance;835;19;0001;
-STD;scales_of_balance;840;19;0001;
-MUC;scales_of_balance;Init;19;0001;
-MUC;scales_of_balance;845;19;0000;
-MUC;scales_of_balance;846;19;0000;
-STD;scales_of_balance;850;19;0001;
-STD;scales_of_balance;855;19;0001;
-STD;scales_of_balance;860;19;0001;
-STD;scales_of_balance;865;19;0001;
-MUC;scales_of_balance;Init;19;0001;
-MUC;scales_of_balance;870;19;0000;
-MUC;scales_of_balance;871;19;0000;
-MUC;scales_of_balance;872;19;0000;
-STD;scales_of_balance;875;19;0001;
-MUC;scales_of_balance;Init;19;0001;
-MUC;scales_of_balance;880;19;0000;
-MUC;scales_of_balance;881;19;0000;
-MUC;scales_of_balance;Init;19;0001;
-MUC;scales_of_balance;885;19;0000;
-MUC;scales_of_balance;886;19;0000;
-STD;scales_of_balance;890;19;0001;
-STD;scales_of_balance;895;19;0001;
-STD;scales_of_balance;900;19;0001;
 CMD;type B#BLADEstring.txt >> ./override/kit.ids;;;;D:RevisedBattles(24)
 STD;refinements;10;16;1111;
 MUC;refinements;Init;16;1111;
@@ -2827,13 +2767,16 @@ MUC;refinements;30;16;1111;
 MUC;refinements;31;16;0000;
 STD;refinements;40;16;1111;
 STD;refinements;50;19;0111;
-STD;scales_of_balance;580;16;0001;
-ANN;might and guile is successor to scales of balance
+STD;scales_of_balance;580;16;0111;
+CMD;IF EXIST ".\override\XXX009.ITM" move ".\override\XXX009.ITM" ".\BWP_workspace\override"
 STD;might_and_guile;100;16;0111;
+CMD;IF EXIST ".\BWP_workspace\override\XXX009.ITM" move ".\BWP_workspace\override\XXX009.ITM" ".\override"
+CMD;IF EXIST ".\override\C#AJAN16.CRE" move ".\override\C#AJAN16.CRE" ".\BWP_workspace\override"
 STD;might_and_guile;120;16;0001;
+CMD;IF EXIST ".\BWP_workspace\override\C#AJAN16.CRE" move ".\BWP_workspace\override\C#AJAN16.CRE" ".\override"
 STD;might_and_guile;160;16;0001;
 STD;might_and_guile;180;16;0001;
-STD;might_and_guile;200;16;0111;
+ANN;STD;might_and_guile;200;16;0111;
 STD;might_and_guile;205;16;0111;
 STD;might_and_guile;210;16;0111;
 STD;might_and_guile;215;16;0111;
@@ -3845,7 +3788,7 @@ STD;eet_tweaks;9;09;0011;
 SUB;eet_tweaks;11;09;0000;
 SUB;eet_tweaks;11?1_1;09;0000;
 SUB;eet_tweaks;11?1_2;09;0000;
-STD;eet_tweaks;20;09;1111;
+STD;eet_tweaks;20;09;0000;
 ANN;eet_tweaks;30;09;0000;
 MUC;BP-Balancer;Init;16;1111;
 MUC;BP-Balancer;1;16;1111;
@@ -4227,11 +4170,11 @@ CMD;IF EXIST ".\override\ahjon.BCS" move ".\override\ahjon.BCS" ".\BWP_workspace
 STD;Innate_Fix;0;01;1111;
 CMD;IF EXIST ".\BWP_workspace\override\ahjon.BCS" move ".\BWP_workspace\override\ahjon.BCS" ".\override";;;;D:LongerRoad(0)
 ANN;poison_effect_supplement;0;01;1111;
-STD;Area_Patcher;0;01;0111;
-STD;Area_Patcher;1000;01;0111;
-ANN;Area_Patcher;2000;01;0001;does not work as expected and not needed
-STD;Area_Patcher;3000;01;0111;
-ANN;Area_Patcher;4000;01;0111;
+STD;Area_Patcher;0;01;0000;
+STD;Area_Patcher;1000;01;0000;
+STD;Area_Patcher;2000;01;0000;
+STD;Area_Patcher;3000;01;0000;
+ANN;Area_Patcher;4000;01;0000;handled by BWFixpack
 STD;lolfixer;0;01;1111;
 STD;lolfixer;1;01;1111;
 STD;lolfixer;2;01;1111;
