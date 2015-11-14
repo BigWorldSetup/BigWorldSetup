@@ -2196,7 +2196,7 @@ MUC;npc_ee;818;12;1111;
 ANN;Cernd
 MUC;npc_ee;Init;12;1111;
 MUC;npc_ee;861;12;1100;
-MUC;npc_ee;862;12;0000;
-MUC;npc_ee;863;12;0011;
-MUC;npc_ee;888;12;0000;
+MUC;npc_ee;862;12;0011;
+MUC;npc_ee;863;12;0000;
+MUC;npc_ee;878;12;0000;
 ANN;Added due to patching
