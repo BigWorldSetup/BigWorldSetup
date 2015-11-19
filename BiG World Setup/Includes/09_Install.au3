@@ -826,7 +826,7 @@ EndFunc   ;==>_Install_CompressLog
 ; This will create a dummy WeiDU-entry
 ; ---------------------------------------------------------------------------------------------
 Func _Install_CreateTP2Entry($p_Setup, $p_Text, $p_Process=1, $p_File=''); $a=tp2-name; $b=component-name; $c=execute, $d=at_now-cmd
-	$Handle=FileOpen($g_GameDir&'\Setup-'&$p_Setup&'.tp2', 2)
+	$Handle=FileOpen($g_GameDir&'\Setup-'&$p_Setup&'.tp2', 2) ;overwrite
 	If $Handle=-1 Then
 		$Type=StringRegExpReplace($g_Flags[14], '(?i)BWS|BWP', 'BG2')
 		_Misc_MsgGUI(4, _GetTR($g_UI_Message, '0-T1'), StringFormat(_GetTR($g_UI_Message, '8-L2'), $Type, @AutoItExe), 1, _GetTR($g_UI_Message, '8-B3')); => don't have write-permission -> exit
@@ -836,9 +836,14 @@ Func _Install_CreateTP2Entry($p_Setup, $p_Text, $p_Process=1, $p_File=''); $a=tp
 	If Not FileExists($g_GameDir&'\WeiDU\BWP_Backup') Then DirCreate($g_GameDir&'\WeiDU\BWP_Backup')
 	FileWriteLine($Handle, 'BACKUP ~WeiDU/bwp_backup~')
 	FileWriteLine($Handle, 'AUTHOR ~dummy@mail.de~')
-	FileWriteLine($Handle, 'BEGIN "'&$p_Text&'"')
-	If $p_File <> '' Then FileWriteLine($Handle, 'AT_NOW ~'&$p_File&'~'); execute this windows-command
+	;;FileWriteLine($Handle, 'BEGIN "'&$p_Text&'"')
 	FileClose($Handle)
+	RunWait(@ComSpec&' /c echo BEGIN "'&$p_Text&' (installed by BWS on %DATE%)" >> '&'Setup-'&$p_Setup&'.tp2', $g_gameDir, @SW_HIDE)
+	If $p_File <> '' Then
+		FileOpen($g_GameDir&'\Setup-'&$p_Setup&'.tp2', 1) ;append
+		FileWriteLine($Handle, 'AT_NOW ~'&$p_File&'~'); execute this windows-command
+		FileClose($Handle)
+	EndIf
 	If Not FileExists($g_GameDir&'\WeiDU.log') Then FileClose(FileOpen($g_GameDir&'\WeiDU.log', 2))
 	If $p_Process = 1 Then _Process_Run('WeiDU.exe "Setup-'&$p_Setup&'.tp2" --game "." --language 0 --force-install-list 0 --quick-log --log "Setup-'&$p_Setup&'.Debug"', 'WeiDU.exe')
 EndFunc   ;==>_Install_CreateTP2Entry
