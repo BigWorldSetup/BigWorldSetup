@@ -836,12 +836,12 @@ Func _Install_CreateTP2Entry($p_Setup, $p_Text, $p_Process=1, $p_File=''); $a=tp
 	If Not FileExists($g_GameDir&'\WeiDU\BWP_Backup') Then DirCreate($g_GameDir&'\WeiDU\BWP_Backup')
 	FileWriteLine($Handle, 'BACKUP ~WeiDU/bwp_backup~')
 	FileWriteLine($Handle, 'AUTHOR ~dummy@mail.de~')
-	;;FileWriteLine($Handle, 'BEGIN "'&$p_Text&'"')
-	FileClose($Handle)
-	RunWait(@ComSpec&' /c echo BEGIN "'&$p_Text&' (installed by BWS on %DATE%)" >> '&'Setup-'&$p_Setup&'.tp2', $g_gameDir, @SW_HIDE)
-	If $p_File <> '' Then
-		FileOpen($g_GameDir&'\Setup-'&$p_Setup&'.tp2', 1) ;append
-		FileWriteLine($Handle, 'AT_NOW ~'&$p_File&'~'); execute this windows-command
+	If $p_Setup = 'BWS' Then
+		FileClose($Handle)
+		RunWait(@ComSpec&' /c echo BEGIN "'&$p_Text&' (installation date %DATE%)" >> Setup-BWS.tp2', $g_gameDir, @SW_HIDE)
+	Else ;important assumption -- Setup-BWS.tp2 will never have $p_File <> '' -- if it does, this function needs rewrite
+		FileWriteLine($Handle, 'BEGIN "'&$p_Text&'"')
+		If $p_File <> '' Then FileWriteLine($Handle, 'AT_NOW ~'&$p_File&'~'); execute this windows-command
 		FileClose($Handle)
 	EndIf
 	If Not FileExists($g_GameDir&'\WeiDU.log') Then FileClose(FileOpen($g_GameDir&'\WeiDU.log', 2))
