@@ -284,7 +284,9 @@ Func Au3Install($p_Num = 0)
 		If StringRegExp($Array[$a], '(?i)\A(DWN|ANN)') Then
 			ContinueLoop
 		ElseIf StringRegExp($Array[$a], '(?i)\ACMD') Then
-			$Split=StringSplit($Array[$a], ';')
+			$Split=StringReplace($Array[$a], "\;", "&SEMI&") ; allow backslash to escape a semicolon in CMD statements
+			$Split=StringSplit($Split, ';')
+			$Split[2]=StringReplace($Split[2], "&SEMI&", ";") ; replace placeholders with semicolons after splitting string
 			IniWrite($g_BWSIni, 'Options', 'Start', $a); create entry to enable resume
 			If UBound($Split)>6 Then; only look for requirement if line has enough semicolons
 				If $Split[6] <> '' Then; skip if requirements are not met. No feedback - it's just a cmd like copy/del.
@@ -293,10 +295,10 @@ Func Au3Install($p_Num = 0)
 			EndIf
 			FileDelete($g_GameDir&'\BWS_Finished.nul')
 			GUICtrlSetData($g_UI_Static[6][2], _GetTR($Message, 'L7')); => run batch
-			$Handle = FileOpen($g_GameDir & '\Tmp.bat', 2); jeah, this looks stupid, but how would I now that the action is done?
-			FileWriteLine($Handle, '@echo off'); be quite
+			$Handle = FileOpen($g_GameDir & '\Tmp.bat', 2); yeah, this looks stupid, but how else would I know that the action is done?
+			FileWriteLine($Handle, '@echo off'); be quiet
 			FileWriteLine($Handle, $Split[2]); >> Do not comment if not debugging!!!
-			FileWriteLine($Handle, 'copy "BWS_Dummy.nul" "BWS_Finished.nul" 2>nul 1>nul'); be a little more quite
+			FileWriteLine($Handle, 'copy "BWS_Dummy.nul" "BWS_Finished.nul" 2>nul 1>nul'); be a little more quiet
 			FileClose($Handle)
 			If Not StringRegExp($Array[$a], '(?i)\s(Call|For|xcopy)\s|_IDS') Then; just avoid some annoying and useless linefeeds
 				_Process_SetConsoleLog($Split[2])
