@@ -1971,9 +1971,9 @@ STD;SpellPackB6;2913;16;0111;
 STD;SpellPackB6;2915;16;0111;
 GRP;Stop
 CMD;IF EXIST Setup-TheUndying.exe IF EXIST ".\BWP_workspace\override\SPWI231*.BAM" move ".\BWP_workspace\override\SPWI231*.BAM" ".\override"
-STD;Spell50;0;16;0001;
-STD;Spell50;1;16;0001;
-STD;Spell50;2;16;0001;
+STD;Spell50;0;16;0000;
+STD;Spell50;1;16;0000;
+STD;Spell50;2;16;0000;
 STD;WildMage;0;16;0111;
 STD;WildMage;1;19;0000;
 STD;WildMage;2;16;0000;
