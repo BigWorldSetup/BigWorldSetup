@@ -4,11 +4,11 @@
  lang="en" dir="ltr">
 <head>
   <meta http-equiv="Content-Type" content="text/html; charset=utf-8;charset=utf-8" />
-  <title>plublic:bws:faq</title>
+  <title>public:bws:faq</title>
 <meta name="generator" content="DokuWiki Release 2009-02-14b" />
 <meta name="robots" content="noindex,nofollow" />
 <meta name="date" content="2010-07-07T21:12:55+0200" />
-<meta name="keywords" content="plublic,bws,faq" />
+<meta name="keywords" content="public,bws,faq" />
 <link rel="search" type="application/opensearchdescription+xml" href="/dokuwiki/lib/exe/opensearch.php" title="BiG World Project" />
 <link rel="start" href="/dokuwiki/" />
 <link rel="contents" href="/dokuwiki/doku.php?id=plublic:bws:faq&amp;do=index" title="Index" />
@@ -20,6 +20,9 @@
 <link rel="stylesheet" media="screen" type="text/css" href="files/wiki.css" />
 <link rel="stylesheet" media="print" type="text/css" href="/dokuwiki/lib/exe/css.php?s=print&amp;t=battlehorse" />
 <script type="text/javascript" charset="utf-8" src="/dokuwiki/lib/exe/js.php?edit=0&amp;write=1" ></script>
+<style type="text/css">
+.wrapcode {white-space: pre-line;}
+</style>
 </head>
 <body>
 <div class="dokuwiki export">
@@ -286,7 +289,8 @@ Lets take a look at an example from the mod.ini first:
 <span class="re1">Down</span><span class="sy0">=</span><span class="re2">http://www.shsforums.net/index.php?app=downloads&amp;module=display&amp;section=download&amp;do=confirm_download&amp;id=518</span>
 <span class="re1">Save</span><span class="sy0">=</span><span class="re2">A6XPPatch_v2.rar</span>
 <span class="re1">Size</span><span class="sy0">=</span><span class="re2">561656</span>
-<span class="re1">Tra</span><span class="sy0">=</span><span class="re2">EN:0,GE:<span class="nu0">1</span>,SP:<span class="nu0">2</span>,IT:<span class="nu0">3</span>,FR:<span class="nu0">4</span>,--:0</span></pre>
+<span class="re1">Tra</span><span class="sy0">=</span><span class="re2">EN:0,GE:<span class="nu0">1</span>,SP:<span class="nu0">2</span>,IT:<span class="nu0">3</span>,FR:<span class="nu0">4</span>,--:0</span>
+</p>
 <p>
 The <strong>[section]</strong>-name is the name of the setup. The <strong>name</strong> is not translated and fixed for all translations. <strong>Type</strong> lists the pre-selections that this mod will be included in or at least be selectable (remember that you read about
 pre-selections). <strong>Link</strong> is the <acronym title="Uniform Resource Locator">URL</acronym> to the homepage that will be opened when you click on the button above the description (at the bottom of the selection-screen). 
@@ -745,28 +749,43 @@ There are also some hotkeys you can use:<br/>
 To make things a bit more clear, lets pretend we got a new mod: BG1 Mini Quests and Encounters. So what files do we need to edit if we don't use the built-in GUI?
 </p>
 <ul>
-<li class="level1"><div class="li">mod.ini -> Add generic information like name, download, homepage, ...</div></li>
-<li class="level1"><div class="li">mod-XX.ini -> Add some description about the mod that is displayed (currently in <b>En</b>glish, <b>Ge</b>rman or <b>Ru</b>ssian)</div></li>
-<li class="level1"><div class="li">select.txt -> Add possible actions the BWS has to perform during the install (execute commands, install components, ...)</div></li>
-<li class="level1"><div class="li">WeiDU-XX.ini -> Add the possible translations for each of the components</div></li>
-<li class="level1"><div class="li">Game.ini -> Add dependencies, conflicts, special options</div></li>
+<li class="level1"><div class="li">Config\Global\modname.ini -> Add information like display name, type, download link, homepage, mod description, component descriptions, ...</div></li>
+<li class="level1"><div class="li">Config\gametype\Select.txt -> Add possible actions the BWS has to perform during the install (execute commands, install components, ...)</div></li>
+<li class="level1"><div class="li">Config\gametype\Game.ini -> Add rules for mod or mod-component dependencies, conflicts, special options (hide components if dependencies are not met - [Purge], or allow users to enter custom text - [Edit])</div></li>
+<li class="level1"><div class="li"><strike>Config\gametype\mod-XX.ini -> Add some description about the mod that is displayed (currently in <b>En</b>glish, <b>Ge</b>rman or <b>Ru</b>ssian)</strike> <b>(it is no longer necessary to manually edit these files, instead put the information in a [Description] section in modname.ini with lines 'Mod-EN=', 'Mod-GE=' and 'Mod-RU=')</b> </div></li>
+<li class="level1"><div class="li"><strike>Config\gametype\WeiDU-XX.ini -> Add the possible translations for each of the components</strike> <b>(it is no longer necessary manually edit these files, instead put the information in [WeiDU-XX] sections in modname.ini, ending each section with a 'Tra=#' line, with XX and the Tra # corresponding to one of the entries from the 'Tra=' list at the top of the modname.ini file)</b> </div></li>
 </ul>
-<p><b><a href="#add_or_modify_mods">Mod.ini</a></b></p>
-<p>Lets have a look at the mod.ini first. Here are the possible entries:</p>
+<p><b><a href="#add_or_modify_mods">modname.ini (replace modname with the setup-name, e.g. if a mod's setup executable is 'setup-mymod.exe' then name the ini file 'mymod.ini')</a></b></p>
+<p>Lets have a look at the modname.ini first. Here are the possible entries:</p>
 <pre class="ini code ini" style="font-family:monospace;"><span class="re0"><span class="br0">&#91;</span>Setup-Name<span class="br0">&#93;</span></span>
-<span class="re1">Name</span><span class="sy0">=</span><span class="re2">The mods name</span>
-<span class="re1">Rev</span><span class="sy0">=</span><span class="re2">The revision/version number</span>
-<span class="re1">Type</span><span class="sy0">=</span><span class="re2">The mod is part in pre-selection... (<b>F</b>ixed,<b>R</b>ecommended,<b>S</b>tandard,<b>T</b>actic,<b>E</b>xpert)</span>
-<span class="re1">Link</span><span class="sy0">=</span><span class="re2">The link to the homepage</span>
-<span class="re1">Down</span><span class="sy0">=</span><span class="re2">The direct link to the download</span>
-<span class="re1">Save</span><span class="sy0">=</span><span class="re2">The filename of the download</span>
-<span class="re1">Size</span><span class="sy0">=</span><span class="re2">The filesize of the download in bytes</span>
-<span class="re1">Tra</span><span class="sy0">=</span><span class="re2">Available translations, listed by token:number</span>
-<span class="re1">Wiki</span><span class="sy0">=</span><span class="re2">Optional name of the wiki-page on Baldursgate.eu</span>
-<span class="re1">Test</span><span class="sy0">=</span><span class="re2">Optional test for a file to determine correct extraction</span>
-<span class="re1">Ren</span><span class="sy0">=</span><span class="re2">Optional alias-name for a setup if batch has problems with the original</span>
-<span class="re1">NotFixed</span><span class="sy0">=</span><span class="re2">Optional components if mod is fixed</span>
+<span class="re1">Name</span><span class="sy0">=</span><span class="re2">The mod's name, as it should appear in the selection tree-view
+</span>
+<span class="re1">Rev</span><span class="sy0">=</span><span class="re2">The revision/version number, which will be displayed above the mod description
+</span>
+<span class="re1">Type</span><span class="sy0">=</span><span class="re2">The mod type (<b>F</b>ixed,<b>R</b>ecommended,<b>S</b>tandard,<b>T</b>actic,<b>E</b>xpert,<b>W</b>arning,<b>M</b>anual Download) controls:
+  1) the color of the mod name in the selection tree-view (<b>R</b>=green, <b>S</b>=blue, <b>T</b>=orange, <b>E</b>=red, <b>W</b>=yellow-background, <b>M</b>=grey-background)
+  2) if the mod can be disabled (fixed mods require at least one component to be enabled)
+  3) if a confirmation prompt should be displayed before starting an installation including this mod (for <b>E</b>xpert or <b>W</b>arning)
+  </span>
+<span class="re1">Link</span><span class="sy0">=</span><span class="re2">A link starting with http:// to the mod homepage or a page with information about the mod (ideally a readme or a forum page with a sticky link to the readme)
+</span>
+<span class="re1">Down</span><span class="sy0">=</span><span class="re2">The direct link to the download, including https:// or http://
+</span>
+<span class="re1">Save</span><span class="sy0">=</span><span class="re2">The filename of the download
+</span>
+<span class="re1">Size</span><span class="sy0">=</span><span class="re2">The filesize of the download in bytes ("size" from file Properties, without commas; not "size on disk")
+</span>
+<span class="re1">Tra</span><span class="sy0">=</span><span class="re2">Available translations, listed by language-token:number, e.g. 'EN:0,FR:1' (there should be a matching [Weidu-??] @#=... Tra=# for each translation listed here)
+</span>
+<span class="re1">Wiki</span><span class="sy0">=</span><span class="re2">Optional name of the mod's wiki-page on Baldursgate.eu
+</span>
+<span class="re1">Test</span><span class="sy0">=</span><span class="re2">Optional filename from inside the mod package to test (check if it exists) to check if extraction of the mod was successful
+</span>
+<span class="re1">Ren</span><span class="sy0">=</span><span class="re2">Optional alias-name for the setup executable .. if BWS can't find a file called setup-[this filename without .ini].exe then it will look for setup-[alias-name].exe instead
+</span>
+<span class="re1">NotFixed</span><span class="sy0">=</span><span class="re2">Optional list of component numbers if the mod is fixed .. users will be allowed to disable only the components listed here (sub-components must also be listed, e.g. 1?1_1 and 1?1_2)</span>
 </pre>
+<p>Any of the lines in the file also can be prefixed with a game type, e.g., BG1EE_ or BWP_ or BG2EE_ or with a language, e.g., EN_, or FR_ .. and such lines will be used instead of the same kind of line without prefixes when the matching game type/language is chosen by the user .. for example, 'BG2EE_Name=My Mod for EE' overrides 'Name=My Mod'</p>
 <p>If the mod has additional download-files, you would get down-, save-, size- and possible test-entries with a prefix. But in this case, BGQE has one download-package, the setups name does not contain special characters like a exclamation mark, nor is the mod fixed. So it looks like this:</p>
 <pre class="ini code ini" style="font-family:monospace;"><span class="re0"><span class="br0">&#91;</span>bgqe<span class="br0">&#93;</span></span>
 <span class="re1">Name</span><span class="sy0">=</span><span class="re2">BG1 Mini Quests and Encounters (BGQE)</span>
@@ -778,21 +797,43 @@ To make things a bit more clear, lets pretend we got a new mod: BG1 Mini Quests 
 <span class="re1">Size</span><span class="sy0">=</span><span class="re2">1188048</span>
 <span class="re1">Tra</span><span class="sy0">=</span><span class="re2">EN:0,GE:1,SP:2,FR:3,IT:4,RU:5,PO:6</span>
 <span class="re1">Wiki</span><span class="sy0">=</span><span class="re2">Baldur%27s_Gate_Mini_Quests_and_Encounters</span>
+
+<span class="re1">[WeiDU-EN]</span>
+<span class="re1">@0=description in English of component 0 (this is a good place to briefly describe what the component does)</span>
+<span class="re1">@1=description in English of component 1 (this is also a good place to mention problems with a component)</span>
+<span class="re1">Tra=0</span>
+
+...
+
+<span class="re1">[WeiDU-PO]</span>
+<span class="re1">@0=description in Polish of component 0</span>
+<span class="re1">@1=description in Polish of component 1</span>
+<span class="re1">Tra=6</span>
+
+<span class="re1">[Description]</span>
+<span class="re1">Mod-EN=description of the mod in English (the symbol | works as a line-break; || is a double line-break)</span>
+<span class="re1">Mod-GE=description of the mod in German (this is a good place to mention problems that are not component-specific)</span>
+<span class="re1">Mod-RU=description of the mod in Cyrillic (or to provide more detail about problematic components)</span>
 </pre>
-<p><b>Mod-XX.ini</b></p>
-<p>Next step would be adding the translation in Mod-EN.ini, Mod-GE.ini and Mod-RU.ini:</p>
+<p><strike><b>Mod-XX.ini</b></strike></p>
+<p><strike>Next step would be adding the translation in Mod-EN.ini, Mod-GE.ini and Mod-RU.ini:</strike> <b>(description entries in the Mod-XX.ini files are updated automatically now for any mods that have components listed in Select.txt, so you do not need to manually edit the Mod-??.ini files, but you do need to include a [Description] section in modname.ini with at least three lines (Mod-EN, Mod-GE and Mod-RU)</b></p>
+<strike>
 <pre class="ini code ini" style="font-family:monospace;"><span class="re0"><span class="br0">&#91;</span>Description<span class="br0">&#93;</span></span>
 ...
 <span class="re1">bgqe</span><span class="sy0">=</span><span class="re2">The Mod adds several mall quests. Also included is the "Slime-Quest Mini-Modifikation, so now Jasteys BG1 Mini-Quests replaces Slime-Quest v1.6.</span>
 </pre>
-<p><b><a href="#add_some_translations">WeiDU-XX.ini</a></b></p>
-<p>To see some text in the selection screen, you'll need to populate the WeiDU-XX.ini. Let's have a look what components WeiDU would reveal by using its --list-languages and --list-components -switches.</p>
+</strike>
+<p><strike><b><a href="#add_some_translations">WeiDU-XX.ini</a></b></strike></p>
+<p><strike>To see some text in the selection screen, you'll need to populate the WeiDU-XX.ini with component descriptions</strike> <b>(component descriptions in the WeiDU-XX.ini files are updated automatically now for any mods that have components listed in Select.txt, so you do not need to manually edit the WeiDU-XX.ini files, but you do need to include [WeiDU-XX] sections in modname.ini for each of the languages listed in the <b>Tra=</b> section of modname.ini)</b></p>
+<p>Let's have a look what components WeiDU would reveal by using its --list-languages and --list-components -switches.</p>
 <pre class="text code text" style="font-family:monospace;">~BGQE/SETUP-BGQE.TP2~ #0 #0 // Baldur's Gate Mini-Quests and Encounters Mod: 7</pre>
-<p>Now just put those into the WeiDU-XX.ini. The <b>Tra</b>-entry is more or less a copy from the mod.ini. Repeat the step for each of the available translations.</p>
+<p><strike>Now just put those into the WeiDU-XX.ini. The <b>Tra</b>-entry is more or less a copy from the mod.ini.</strike> <b>Now just put those into the modname.ini in the [WeiDU-XX] section for the appropriate language.</b> Repeat the step for each of the available translations.</p>
+<strike>
 <pre class="ini code ini" style="font-family:monospace;"><span class="re0"><span class="br0">&#91;</span>BGQE<span class="br0">&#93;</span></span>
 <span class="re1">@0</span><span class="sy0">=</span><span class="re2">Baldur's Gate Mini-Quests and Encounters Mod</span>
 <span class="re1">Tra</span><span class="sy0">=</span><span class="re2">0</span>
 </pre>
+</strike>
 <p><b><a href="#i_miss_component_x_for_mod_y">Select.txt</a></b></p>
 <p>To see some entries in the selection-view of the BWS. we still need to populate the select.txt. The syntax would be:
 <pre class="text code text" style="font-family:monospace;">type of line;setups name;component number;corresponding number for the components theme;install with pre-selections (<b>R</b>ecommended,<b>S</b>tandard,<b>T</b>actic,<b>E</b>xpert);[optional dependency: if a component could be installed in two places depending on the selection, run a check if it should be installed "now".]</pre>

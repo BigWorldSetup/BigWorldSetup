@@ -292,7 +292,7 @@ Func _Tree_Populate($p_Show=1)
 			If $g_Flags[21] = 0 Then $Setup=_Tree_SelectConvert($Setup); convert it to a theme-sorted view
 		Else
 			$Trans = StringSplit(IniRead($g_TRAIni, 'UI-Buildtime', 'Menu[2][2]', ''), '|'); => translations for themes
-			$Setup[0][3] = $Trans[0]
+			$Setup[0][3] = $Trans[0] ; how many '|'-separated themes were found at the line starting 'Menu[2][2]=' in Translation-??.ini
 		EndIf
 	EndIf
 	$Index=_Depend_PrepareBuildIndex($g_Connections, $Setup)
