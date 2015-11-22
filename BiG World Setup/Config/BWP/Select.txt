@@ -1378,7 +1378,7 @@ STD;Kiara-Zaiya;1;12;0111;
 STD;Kiara-Zaiya;2;16;0111;
 STD;Kiara-Zaiya;3;12;0011;
 STD;Kiara-Zaiya;4;12;0011;
-STD;Kiara-Zaiya;5;15;0001;
+STD;Kiara-Zaiya;5;15;0011;
 STD;Kiara-Zaiya;6;15;0011;
 STD;Kiara-Zaiya;7;15;0011;
 STD;iylos;0;12;1111;
