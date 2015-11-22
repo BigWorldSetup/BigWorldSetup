@@ -157,7 +157,7 @@ Func _Selection_ExpertWarning()
 	For $w = $g_CentralArray[0][1] To $g_CentralArray[0][0]
 		If $g_CentralArray[$w][2] <> '-' Then ContinueLoop; only got interest in headlines
 		If GUICtrlRead($w) = 0 Then ContinueLoop
-		If $g_CentralArray[$w][9] <> 0 And $g_CentralArray[$w][11] = 'E' or StringInStr($g_CentralArray[$w][11], 'W') Then
+		If $g_CentralArray[$w][9] <> 0 And ($g_CentralArray[$w][11] = 'E' Or StringInStr($g_CentralArray[$w][11], 'W')) Then
 			$Warning&=@CRLF&$g_CentralArray[$w][4]
 		EndIf
 	Next
