@@ -322,7 +322,7 @@ Func _AI_SetClicked($p_Num, $p_Type = 0, $p_Key=0); $a=itemnumber; $p_Type=0(ide
 EndFunc   ;==>_AI_SetClicked
 
 ; ---------------------------------------------------------------------------------------------
-; If the number of selectable components are selected, set a diffrent color for the mods headline [Got (to be) ALWAYS CALLED!!!] ..._AI_SetMod_Disable
+; If the number of selectable components are selected, set a different color for the mods headline [Got (to be) ALWAYS CALLED!!!] ..._AI_SetMod_Disable
 ; ---------------------------------------------------------------------------------------------
 Func _AI_SetModStateIcon($p_Num, $p_First = '-'); $p_Num=TVitemID; $p_First=first state before
 	$ChapterID=_AI_GetStart($p_Num, '!')

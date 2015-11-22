@@ -361,7 +361,7 @@ Func _Tree_Populate($p_Show=1)
 			$g_CentralArray[$g_TreeviewItem[$cs][0]][0] = $Setup[$s][2]; current setup
 			$g_CentralArray[$g_TreeviewItem[$cs][0]][1] = $Setup[$s][8]; tag
 			$g_CentralArray[$g_TreeviewItem[$cs][0]][2] = '-'; tag as no component
-			$g_CentralArray[$g_TreeviewItem[$cs][0]][3] = '-'; it's a mod, there is no component-discription
+			$g_CentralArray[$g_TreeviewItem[$cs][0]][3] = '-'; it's a mod, there is no component-description
 			$g_CentralArray[$g_TreeviewItem[$cs][0]][4] = $Setup[$s][7]; mod description
 			$g_CentralArray[$g_TreeviewItem[$cs][0]][5] = GUICtrlGetHandle($g_TreeviewItem[$cs][0]); handle
 			$Test = _Depend_ItemGetConnections($g_Connections, $g_TreeviewItem[$cs][0],  $Index[$Setup[$s][1]][2], $Setup[$s][2])
@@ -386,19 +386,27 @@ Func _Tree_Populate($p_Show=1)
 			EndIf
 			If StringInStr($g_CentralArray[$g_TreeviewItem[$cs][0]][11], 'F') And Not StringRegExp($g_fLock, ','&$Setup[$s][2]&'(,|\z)') Then $g_fLock&=','&$Setup[$s][2]
 			If $p_Show Then
-				; 0x1a8c14 lime = recommanded / 0x000070 dark = standard / 0xe8901a = tactics / 0xad1414 light = expert / checkbox-default = 0x1c5180
+				; 0x1a8c14 lime = recommended / 0x000070 dark = standard / 0xe8901a = tactics / 0xad1414 light = expert / checkbox-default = 0x1c5180
 				If StringInStr($g_CentralArray[$g_TreeviewItem[$cs][0]][11], 'R') Then
 					If $g_Flags[14]='BWP' Then $Type='1111'; set defaults for batch install
-					GUICtrlSetColor($g_TreeviewItem[$cs][0], 0x1a8c14); lime = recommanded
+					GUICtrlSetColor($g_TreeviewItem[$cs][0], 0x1a8c14); lime = recommended
 				ElseIf StringInStr($g_CentralArray[$g_TreeviewItem[$cs][0]][11], 'S') Then
 					If $g_Flags[14]='BWP' Then $Type='0111'; set defaults for batch install
 					GUICtrlSetColor($g_TreeviewItem[$cs][0], 0x000070); dark = standard
 				ElseIf StringInStr($g_CentralArray[$g_TreeviewItem[$cs][0]][11], 'T') Then
 					If $g_Flags[14]='BWP' Then $Type='0011'; set defaults for batch install
 					GUICtrlSetColor($g_TreeviewItem[$cs][0], 0xe8901a); yellow = tactics
-				Else
+				Else ;'E'
 					If $g_Flags[14]='BWP' Then $Type='0001'; set defaults for batch install
 					GUICtrlSetColor($g_TreeviewItem[$cs][0], 0xad1414); light = expert
+				EndIf
+				; If a mod ini has 'W' or 'M' in its comma-separated Type list, highlight the background of the mod name
+				; This is purely cosmetic to encourage users to read the mod description, which should explain why
+				If StringInStr($g_CentralArray[$g_TreeviewItem[$cs][0]][11], 'W') Then
+					If $g_Flags[14]='BWP' Then $Type='0000'; no components by default for batch install
+					GUICtrlSetBkColor($g_TreeviewItem[$cs][0], 0xffff99); yellow background = warning
+				ElseIf StringInStr($g_CentralArray[$g_TreeviewItem[$cs][0]][11], 'M') Then
+					GUICtrlSetBkColor($g_TreeviewItem[$cs][0], 0xdddddd); light grey background = manual download
 				EndIf
 			EndIf
 			$cc = 0
@@ -515,7 +523,7 @@ Func _Tree_Populate($p_Show=1)
 		_Misc_CreateMenu(); rebuild menus so not present settings are left out
 		GUICtrlSetData($g_UI_Interact[9][1], 82); set the progress
 		GUICtrlSetData($g_UI_Static[9][2], '82 %')
-		_AI_GetType(); calculate the icon-color/shifing
+		_AI_GetType(); calculate the icon-color/shifting
 		GUICtrlSetData($g_UI_Interact[9][1], 87); set the progress
 		GUICtrlSetData($g_UI_Static[9][2], '90 %')
 		For $s = $g_CentralArray[0][1] To $g_CentralArray[0][0]

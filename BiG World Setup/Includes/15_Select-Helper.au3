@@ -149,7 +149,7 @@ Func _Selection_ContextMenu()
 EndFunc    ;==>_Selection_ContextMenu
 
 ; ---------------------------------------------------------------------------------------------
-; Warn i expert mods are going to be installed
+; Warn if expert mods or mods with warnings are going to be installed
 ; ---------------------------------------------------------------------------------------------
 Func _Selection_ExpertWarning()
 	_PrintDebug('+' & @ScriptLineNumber & ' Calling _Selection_ExpertWarning')
@@ -157,7 +157,9 @@ Func _Selection_ExpertWarning()
 	For $w = $g_CentralArray[0][1] To $g_CentralArray[0][0]
 		If $g_CentralArray[$w][2] <> '-' Then ContinueLoop; only got interest in headlines
 		If GUICtrlRead($w) = 0 Then ContinueLoop
-		If $g_CentralArray[$w][9] <> 0 And $g_CentralArray[$w][11] = 'E' Then $Warning&=@CRLF&$g_CentralArray[$w][4]
+		If $g_CentralArray[$w][9] <> 0 And $g_CentralArray[$w][11] = 'E' or StringInStr($g_CentralArray[$w][11], 'W') Then
+			$Warning&=@CRLF&$g_CentralArray[$w][4]
+		EndIf
 	Next
 	If $Warning = '' Then Return 2
 	$Test=_Misc_MsgGUI(3, _GetTR($g_UI_Message, '0-T1'), _GetTR($g_UI_Message, '8-L1')&$Warning, 2); => expert-warning
@@ -245,7 +247,7 @@ EndFunc    ;==>_Selection_ReadWeidu
 
 ; ---------------------------------------------------------------------------------------------
 ; (Re)Color an item
-; 0x1a8c14 lime = recommanded / 0x000070 dark = standard / 0xe8901a = tactics / 0xad1414 light = expert, 0xad1414
+; 0x1a8c14 lime = recommended / 0x000070 dark = standard / 0xe8901a = tactics / 0xad1414 light = expert, 0xad1414
 ; ---------------------------------------------------------------------------------------------
 Func _Selection_SearchColorItem($p_Num, $p_Color)
 	If $p_Color Then
@@ -253,13 +255,16 @@ Func _Selection_SearchColorItem($p_Num, $p_Color)
 	Else
 		If $g_CentralArray[$p_Num][6] <> '' Then
 			If $g_CentralArray[$p_Num][2] = '-' And StringInStr($g_CentralArray[$p_Num][11], 'R') Then
-				GUICtrlSetColor($p_Num, 0x1a8c14); repaint the item lime, since it's recommanded
+				GUICtrlSetColor($p_Num, 0x1a8c14); repaint the item lime, since it's recommended
 			ElseIf $g_CentralArray[$p_Num][2] = '-' And StringInStr($g_CentralArray[$p_Num][11], 'S') Then
 				GUICtrlSetColor($p_Num, 0x000070); repaint the item darkblue, since it's standard
 			ElseIf $g_CentralArray[$p_Num][2] = '-' And StringInStr($g_CentralArray[$p_Num][11], 'T') Then
 				GUICtrlSetColor($p_Num, 0xe8901a); repaint the item rust, since it's tactics
 			Else
 				GUICtrlSetColor($p_Num, 0xad1414); repaint the item blue, since it's expert mod or a description
+			EndIf
+			If $g_CentralArray[$p_Num][2] = '-' And StringInStr($g_CentralArray[$p_Num][11], 'W') Then
+				GUICtrlSetBkColor($p_Num, 0xffff99); highlight the item, since it has a warning
 			EndIf
 		Else
 			GUICtrlSetColor($p_Num, 0x000000); repaint the item black, it's just a component without infos
@@ -368,7 +373,7 @@ Func _Selection_SearchSingle($p_String, $p_Text)
 	$Last = $g_CentralArray[0][0]
 	$Run = 1
 ; ---------------------------------------------------------------------------------------------
-; loop through the elemets of the main-array. We make heavy usage of the main-array here. Now you know why it's that important. :)
+; loop through the elements of the main-array. We make heavy usage of the main-array here. Now you know why it's that important. :)
 ; ---------------------------------------------------------------------------------------------
 	For $m = $Mod To $Last; loop through the main-array
 		If StringInStr($g_CentralArray[$m][3], $p_String) Or (StringInStr($g_CentralArray[$m][4], $p_String) And $g_CentralArray[$m][2] = '-') Or ($g_CentralArray[$m][0] = $p_String And $g_CentralArray[$m][2] = '-') Then
