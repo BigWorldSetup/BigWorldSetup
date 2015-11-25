@@ -1288,7 +1288,7 @@ STD;res_fixer;0;01;1111;
 CMD;IF EXIST Setup-BP.exe copy /Y ".\BiG World Fixpack\_TheUndying_for_BP\*.*" ".\BP\SNIP";;;;D:TheUndying(1)
 CMD;IF EXIST ".\override\.itm" del ".\override\.itm"
 STD;BP;0;18;0111;
-ANN;BP;10;01;0000;
+STD;BP;10;18;0111;
 STD;BP;35;17;0111;
 STD;BP;50;16;0111;
 STD;BP;60;16;0111;
@@ -3308,8 +3308,8 @@ STD;ImprovedSummons;8;16;0011;
 STD;ImprovedSummons;9;16;0011;
 STD;ImprovedSummons;10;16;0011;
 STD;BPSeries;0;18;0111;
-ANN;BPSeries;10;01;0111;
-STD;BPSeries;100;18;0000;
+STD;BPSeries;10;18;0111;
+STD;BPSeries;100;18;0111;
 MUC;NMRF-PC;Init;18;0111;
 MUC;NMRF-PC;0;18;0111;
 MUC;NMRF-PC;1;18;0000;
@@ -4173,10 +4173,9 @@ STD;1pp_hq_music_BGT;4;20;0000;
 DWN;1pp_hq_music_ToSC;0;20;0001;
 DWN;1pp_hq_music_II;0;20;0001;
 STD;crefixer;0;01;1111;
-ANN;lolfixer's spell fixer includes innate fix, so we do not need these next three lines
-ANN;CMD;IF EXIST ".\override\ahjon.BCS" move ".\override\ahjon.BCS" ".\BWP_workspace\override";;;;D:LongerRoad(0)
-ANN;Innate_Fix;0;01;0000;
-ANN;CMD;IF EXIST ".\BWP_workspace\override\ahjon.BCS" move ".\BWP_workspace\override\ahjon.BCS" ".\override";;;;D:LongerRoad(0)
+CMD;IF EXIST ".\override\ahjon.BCS" move ".\override\ahjon.BCS" ".\BWP_workspace\override";;;;D:LongerRoad(0)
+STD;Innate_Fix;0;01;1111;
+CMD;IF EXIST ".\BWP_workspace\override\ahjon.BCS" move ".\BWP_workspace\override\ahjon.BCS" ".\override";;;;D:LongerRoad(0)
 ANN;poison_effect_supplement;0;01;1111;
 STD;Area_Patcher;0;01;0000;
 STD;Area_Patcher;1000;01;0000;
