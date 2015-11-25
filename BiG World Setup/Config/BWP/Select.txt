@@ -1077,7 +1077,7 @@ SUB;aranw;10?1_13;12;0000;
 SUB;aranw;10?1_14;12;0000;
 STD;c#solaufein;0;12;0111;
 STD;Isra_bg2;0;12;0111;
-STD;TheUndying;0;12;0111;
+STD;TheUndying;0;12;0011;
 STD;Neh'taniel;0;12;0111;
 SUB;foundling;0;12;0111;
 SUB;foundling;0?1_1;12;0111;
