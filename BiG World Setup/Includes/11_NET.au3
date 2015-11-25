@@ -613,7 +613,7 @@ Func _Net_DownloadStop($p_URL, $p_File, $p_Setup, $p_Prefix, $p_expectSize)
 			FileDelete($g_DownDir & '\' & $p_File)
 			$Result='Fault'
 		ElseIf Not FileExists($g_DownDir & '\' & $p_File) Then; broken download
-			_Process_SetConsoleLog(StringFormat(_GetTR($Message, 'L6'), $p_File)); => an error occoured. networkproblems?
+			_Process_SetConsoleLog(StringFormat(_GetTR($Message, 'L6'), $p_File)); => an error occurred. network problems?
 			$Result='Fault'
 		ElseIf $p_expectSize <= 0 Then; save new size for following sessions
 			IniWrite($g_MODIni, $p_Setup, $p_Prefix&'Size', $localSize)
@@ -641,8 +641,8 @@ EndFunc   ;==>_Net_EndAu3NetTest
 ; Fix an attachment from SHS
 ; ---------------------------------------------------------------------------------------------
 Func _Net_FixSHSAttachment($p_Mod, $p_Prefix='')
-	$Save=IniRead($g_ModIni, $p_Mod, $p_Prefix&'Save', 'MANUAL')
-	If $Save = 'MANUAL' Or $Save = '' Then Return -1
+	$Save=IniRead($g_ModIni, $p_Mod, $p_Prefix&'Save', 'Manual')
+	If $Save = 'Manual' Or $Save = '' Then Return -1
 	If Not FileExists($g_DownDir&'\'&$Save) Then Return -1
 	If Asc(FileRead($g_DownDir&'\'&$Save, 1)) <> 10 Then Return 1
 	FileCopy($g_DownDir&'\'&$Save, @TempDir&'\'&$Save, 1); backup
@@ -796,7 +796,7 @@ Func _Net_LinkUpdateInfo($p_URL, $p_File, $p_Setup, $p_Prefix)
 			$Return[0]=1; ...assume that this is fine
 			$Return[1]=$p_File
 			FileWrite($g_LogFile, '= FB')
-		Else; size does not match
+		Else ; size does not match
 			$Return[0]=0; mark as error
 			FileWrite($g_LogFile, '= FB = NA' & @CRLF)
 			Return SetError(1, 0, $Return)
@@ -805,8 +805,14 @@ Func _Net_LinkUpdateInfo($p_URL, $p_File, $p_Setup, $p_Prefix)
 	$Return[1]=StringReplace(StringReplace($Return[1], '%20', ' '), '\', ''); set correct space
 	If StringLower($Return[1]) <> StringLower($p_File) Then; name changed
 		FileWrite($g_LogFile, '> '&$Return[1]&' ')
-		$Extended=1
-		IniWrite($g_MODIni, $p_Setup, $p_Prefix&'Save', $Return[1]); save for following sessions
+		If StringRegExp($p_URL, 'lynxlynx') Then ; http://lynxlynx.info/ie/modhub.php?AstroBryGuy/bg1ub -> AstroBryGuy-bg1ub-???.zip
+			; a different filename is expected each time there is a new commit; don't change the 'Save' entry in the mod ini file
+			; also don't set $Extended to 1 because of this (we might still set it later because of different filesize, which is fine)
+			; N.B. $Extended = 1 is indication to the caller of this function that the filename or filesize does not match the mod ini
+		Else ; for any other URL, update the filename in mod ini to match what was found
+			$Extended=1
+			IniWrite($g_MODIni, $p_Setup, $p_Prefix&'Save', $Return[1]); save for following sessions
+		EndIf
 	Else
 		FileWrite($g_LogFile, '= '&$Return[1]&' ')
 	EndIf
@@ -888,7 +894,7 @@ Func _Net_LoginFastShare($p_URL)
 	$p_URL = StringReplace($p_URL, 'download', 'files')
 	$p_URL = StringSplit($p_URL, '/')
 	$Handle = __HTTPConnect("fastshare.org")
-	__HTTPGet("fastshare.org", "/dlgo/"&$p_URL[$p_URL[0]]&"?submit=Download&accpet=yes", $Handle)
+	__HTTPGet("fastshare.org", "/dlgo/"&$p_URL[$p_URL[0]]&"?submit=Download&accept=yes", $Handle)
 	__HTTPClose($Handle)
 EndFunc   ;==>_Net_LoginFastShare
 
@@ -918,7 +924,7 @@ Func _Net_LinkTest($p_Num = 0)
 		For $p=1 to 3
 			$Down = _IniRead($ReadSection, $Prefix[$p]&'Down', '')
 			$Save = _IniRead($ReadSection, $Prefix[$p]&'Save', '')
-			If $Down = '' Then ContinueLoop; if no additonal stuff is found, skip forward
+			If $Down = '' Then ContinueLoop; if no additional stuff is found, skip forward
 			If $Down <> '' Then
 				If $TestedBefore = 0 Then _Process_SetScrollLog($List[$l][1])
 				_Process_SetScrollLog($Down)
@@ -926,7 +932,7 @@ Func _Net_LinkTest($p_Num = 0)
 			If $Down = 'Manual' Then
 				$TestedBefore=0; resetting
 				_Process_SetScrollLog(_GetTR($Message, 'L5')); => included in another mod
-			ElseIf StringRegExp($Down , 'mediafire.com|clandlan.net|zippyshare.com') Then; these servers need some manual interaction
+			ElseIf StringRegExp($Down, 'mediafire.com|clandlan.net|zippyshare.com') Then; these servers need some manual interaction
 				_Process_SetScrollLog($NeedInteract); => Download needs interaction
 			Else
 				$NetInfo = _Net_LinkUpdateInfo($Down, $Save, $List[$l][0], $Prefix[$p])

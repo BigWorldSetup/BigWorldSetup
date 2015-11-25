@@ -196,13 +196,13 @@ Func _Test_ArchivesExist()
 				Else
 					ContinueLoop
 				EndIf
-			ElseIf $Save = '' And $Prefix <> '' Then; if no additonal stuff is found, skip forward
+			ElseIf $Save = '' And $Prefix <> '' Then; if no additional stuff is found, skip forward
 				ContinueLoop
 			EndIf
 			If $Save = 'Manual' Then
 				_Process_SetScrollLog(_GetTR($Message, 'L5')); => mod is included in another one
 				_Process_SetScrollLog('')
-				ContinueLoop; that's addtional stuff like Nej2Gui, CTB_FF, it's included in other saves
+				ContinueLoop; that's additional stuff like Nej2Gui, CTB_FF, it's included in other saves
 			EndIf
 			If $Prefix = '' Then
 				$Tag = ''
