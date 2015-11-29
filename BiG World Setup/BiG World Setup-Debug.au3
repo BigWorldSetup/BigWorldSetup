@@ -7,7 +7,7 @@ If $CmdLine[0] = 1 Then
 	FileDelete($g_TraceFile)
 	FileDelete($g_DebugFile)
 	Trace()
-	Run(@ComSpec & ' /c AutoIt3.exe /ErrorStdOut Traced.au3 | AutoIt3.exe Debug.au3', @ScriptDir, @SW_HIDE)
+	Run(@ComSpec & ' /c AutoIt3.exe /ErrorStdOut Traced.au3 | AutoIt3.exe "BiG World Setup-Debug.au3"', @ScriptDir, @SW_HIDE)
 	Exit
 EndIf
 
@@ -26,7 +26,7 @@ If $IsCrashed = 1 Then
 	EndIf	
 	$Answer=MsgBox(3+32, 'BiG World Setup - '&_GetSTR('T1'), _GetSTR('L2'))
 	If $Answer=6 Then
-		Run(@ComSpec & ' /c AutoIt3.exe /ErrorStdOut Traced.au3 | AutoIt3.exe Debug.au3', @ScriptDir, @SW_HIDE)
+		Run(@ComSpec & ' /c AutoIt3.exe /ErrorStdOut Traced.au3 | AutoIt3.exe "BiG World Setup-Debug.au3"', @ScriptDir, @SW_HIDE)
 	ElseIf $Answer=7 Then
 		MsgBox(48, 'BiG World Setup - '&_GetSTR('T1'), _GetSTR('L1'))
 		ShellExecute($g_TraceFile)
