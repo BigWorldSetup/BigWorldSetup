@@ -1287,8 +1287,8 @@ ANN;#19. BP AND FOLLOWING MODS
 STD;res_fixer;0;01;1111;
 CMD;IF EXIST Setup-BP.exe copy /Y ".\BiG World Fixpack\_TheUndying_for_BP\*.*" ".\BP\SNIP";;;;D:TheUndying(1)
 CMD;IF EXIST ".\override\.itm" del ".\override\.itm"
-STD;BP;0;18;0111;
-STD;BP;10;18;0000;
+STD;BP;0;09;0111;
+STD;BP;10;01;0000;
 STD;BP;35;17;0111;
 STD;BP;50;16;0111;
 STD;BP;60;16;0111;
@@ -2779,11 +2779,11 @@ CMD;IF EXIST ".\override\XXX009.ITM" move ".\override\XXX009.ITM" ".\BWP_workspa
 STD;might_and_guile;100;16;0111;
 CMD;IF EXIST ".\BWP_workspace\override\XXX009.ITM" move ".\BWP_workspace\override\XXX009.ITM" ".\override"
 CMD;IF EXIST ".\override\C#AJAN16.CRE" move ".\override\C#AJAN16.CRE" ".\BWP_workspace\override"
-STD;might_and_guile;120;16;0001;
+STD;might_and_guile;120;16;0111;
 CMD;IF EXIST ".\BWP_workspace\override\C#AJAN16.CRE" move ".\BWP_workspace\override\C#AJAN16.CRE" ".\override"
-STD;might_and_guile;160;16;0001;
-STD;might_and_guile;180;16;0001;
-ANN;STD;might_and_guile;200;16;0111;
+STD;might_and_guile;160;16;0111;
+STD;might_and_guile;180;16;0000;
+STD;might_and_guile;200;16;0111;
 STD;might_and_guile;205;16;0111;
 STD;might_and_guile;210;16;0111;
 STD;might_and_guile;215;16;0111;
@@ -2888,21 +2888,21 @@ MUC;stratagems;4093;16;0000;
 STD;stratagems;4110;16;1111;
 STD;stratagems;4120;16;1111;
 STD;stratagems;4130;16;1111;
+MUC;stratagems;Init;16;0111;
+MUC;stratagems;4145;16;0111;
+MUC;stratagems;4146;16;0000;
 MUC;stratagems;Init;16;1111;
-MUC;stratagems;4145;16;0000;
-MUC;stratagems;4146;16;1111;
-MUC;stratagems;Init;16;1111;
-MUC;stratagems;4160;16;1111;
+MUC;stratagems;4160;16;1100;
 MUC;stratagems;4161;16;0000;
 MUC;stratagems;4162;16;0000;
 MUC;stratagems;4163;16;0000;
-MUC;stratagems;4164;16;0000;
+MUC;stratagems;4164;16;0011;
 MUC;stratagems;Init;16;1111;
-MUC;stratagems;4170;16;1111;
+MUC;stratagems;4170;16;1100;
 MUC;stratagems;4171;16;0000;
 MUC;stratagems;4172;16;0000;
 MUC;stratagems;4173;16;0000;
-MUC;stratagems;4174;16;0000;
+MUC;stratagems;4174;16;0011;
 STD;stratagems;4180;16;1111;
 STD;stratagems;4200;16;1111;
 STD;stratagems;4210;16;1111;
@@ -2910,7 +2910,7 @@ MUC;stratagems;Init;16;1111;
 MUC;stratagems;4216;16;0000;
 MUC;stratagems;4217;16;1111;
 MUC;stratagems;4218;16;0000;
-STD;stratagems;4230;16;1111;
+STD;stratagems;4230;16;0011;
 STD;stratagems;4240;16;1111;
 STD;stratagems;5000;16;1111;
 STD;stratagems;5010;16;1111;
