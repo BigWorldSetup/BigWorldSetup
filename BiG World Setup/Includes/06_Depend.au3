@@ -17,7 +17,7 @@
 ; Automatically solve the dependencies and conflicts (used before and after selection)
 ; ---------------------------------------------------------------------------------------------
 Func _Depend_AutoSolve($p_Type, $p_State)
-	Local $Num, $Number, $Return[500][4]
+	Local $Num, $Number, $Return[5000][4]
 	While 1
 		$Restart=0
 		$Progress=Round(($g_Flags[23]-$g_ActiveConnections[0][0])*100/$g_Flags[23], 0)
