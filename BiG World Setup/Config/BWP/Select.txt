@@ -134,7 +134,7 @@ STD;ascension;3;15;0011;
 STD;ascension;4;15;0011;
 STD;ascension;5;15;0011;
 STD;astscriptpatcher;0;15;1111;
-STD;TheUndying;1;15;0001;
+STD;TheUndying;1;18;0001;
 STD;Oversight;0;15;0011;
 STD;bg2fixpack;0;01;1111;
 MUC;bg2fixpack;Init;01;1111;
@@ -2431,7 +2431,6 @@ SUB;AnimalCompanions;0?1_0;16;0111;
 SUB;AnimalCompanions;0?1_1;16;0000;
 SUB;AnimalCompanions;0?2_Buddy;16;0111;
 SUB;AnimalCompanions;0?3_1;16;0111;
-SUB;AnimalCompanions;0?3_2;16;0000;
 STD;song_and_silence;0;16;0111;
 STD;song_and_silence;1;17;0111;
 STD;song_and_silence;2;19;0111;
@@ -2513,6 +2512,7 @@ STD;hammers;25;17;1111;
 STD;hammers;35;17;1111;
 STD;hammers;50;17;1111;
 GRP;Stop
+ANN;--BWP15.5--Item_Pack after spell mods, improved mae'var (bp 1300/tactics 10), ItemUpgrade, Anishai, d0questpack(5) "additional shadow thieves content"
 STD;Item_Pack;0;17;1111;
 STD;Item_Pack;1;17;1111;
 STD;Item_Pack;2;17;1111;
@@ -2994,6 +2994,7 @@ STD;stratagems;7030;06;0011;
 STD;stratagems;7040;06;0011;
 STD;stratagems;7050;06;0011;
 STD;stratagems;7060;06;0011;
+ANN;--BWP 15.5--7070 must be installed after d0questpack AI
 STD;stratagems;7070;06;0011;
 STD;stratagems;7080;06;0011;
 STD;stratagems;7090;06;0011;
@@ -3295,7 +3296,8 @@ STD;aTweaks;510;16;1111;
 STD;aTweaks;999;16;1111;
 STD;BardSong_BG2_IWD;0;16;0000;
 STD;BardSong_BG2_IWD;1;16;0000;
-STD;gMinion;0;18;0111;
+ANN;--BWP15.5--gMinion before SR, but after SCS and BP AI (not possible)
+STD;gMinion;0;18;0000;
 STD;ImprovedSummons;0;16;0011;
 STD;ImprovedSummons;1;16;0011;
 STD;ImprovedSummons;2;16;0011;
