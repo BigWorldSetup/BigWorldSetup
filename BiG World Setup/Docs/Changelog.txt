@@ -998,3 +998,5 @@ Fixed: Normalize all the line endings.
 Updated: Documentation. Speedup tree creation process.
 20150725 - Updated by Tzarnal
 Added: Added context menu option to visit a mods download link manually from the Selection screen. [_Selection_Download_Manually]
+20151129 - Updated by AL|EN
+Added: simple git-based auto-update
