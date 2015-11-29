@@ -11,8 +11,6 @@ GitStashPop = "git stash pop"
 wshShell.Run GitStash,1,1
 wshShell.Run GitPullRebase,1,1
 wshShell.Run GitStashPop,1,1
-'wshshell.Exec ("git stash")
-'wshshell.Exec ("git pull --rebase")
-'wshshell.Exec ("git stash pop")
+wshShell.Run """BiG World Setup\AutoIt3.exe""" &" " & """BiG World Setup\BiG World Setup.au3""", 6, True
 Set wshshell = nothing
 End If
