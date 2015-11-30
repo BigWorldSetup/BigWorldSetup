@@ -504,7 +504,8 @@ Func _AI_SetMod_Enable($p_Num, $p_Force=0)
 			EndIf
 			If $p_Num > $g_CentralArray[0][0] Then ExitLoop
 		WEnd
-		_Misc_MsgGUI(1, _GetTR($g_UI_Message, '0-B3'), _GetTR($g_UI_Message, '4-L14')); => no versions found, so mod was installed completely
+		; disable the annoying pop-up when activating a mod with no pre-selected components
+		;_Misc_MsgGUI(1, _GetTR($g_UI_Message, '0-B3'), _GetTR($g_UI_Message, '4-L14')); => no versions found, so mod was installed completely
 	Else
 		While StringRegExp($g_CentralArray[$p_Num][2], '-|!') = 0
 			If _AI_GetSelect($p_Num) = 1 Then
