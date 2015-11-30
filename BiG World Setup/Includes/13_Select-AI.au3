@@ -313,7 +313,7 @@ Func _AI_SetClicked($p_Num, $p_Type = 0, $p_Key=0); $a=itemnumber; $p_Type=0(ide
 			GUICtrlSetBkColor($g_UI_Interact[4][2], 0xff8800)
 			GUICtrlSetFont($g_UI_Interact[4][2], 32, 800, 0, "MS Sans Serif")
 			GUICtrlSetData($g_UI_Interact[4][2], _GetTR($g_UI_Message, '0-T1')); => warning
-			Sleep(1000)
+			Sleep(200)
 			GUICtrlSetFont($g_UI_Interact[4][2], 8, 400, 0, "MS Sans Serif")
 			GUICtrlSetBkColor($g_UI_Interact[4][2], 0xffffff)
 		EndIf
