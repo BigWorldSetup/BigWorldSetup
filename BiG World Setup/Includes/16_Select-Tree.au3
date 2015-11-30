@@ -73,7 +73,7 @@ Func _Tree_Export($p_File='')
 			$Text=StringRegExpReplace($Text, '\x28.*\x29', @MDAY&'.'&@MON&'.'&@YEAR)
 			IniWrite($g_GConfDir&'\Mod-'&$g_ATrans[$a]&'.ini', 'Preselect', '00', $Text)
 		Next
-		IniWrite($g_UsrIni, 'Options', 'InstallType', '01'); auto-export will be No 1.
+		IniWrite($g_UsrIni, 'Options', 'InstallType', '01') ; set user ini to reload auto-export on restart
 	EndIf
 	IniWriteSection($File, 'Save', IniReadSection($g_UsrIni, 'Save'))
 	IniWriteSection($File, 'DeSave', IniReadSection($g_UsrIni, 'DeSave'))

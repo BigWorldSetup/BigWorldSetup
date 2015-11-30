@@ -502,18 +502,18 @@ Func _Misc_SetAvailableSelection()
 	$SplitD = StringSplit($UI, '|'); => defaults
 	GUICtrlSetData($g_UI_Interact[2][4], '')
 	$InstallType = IniRead($g_UsrIni, 'Options', 'InstallType', '')
-	If $InstallType = '' Then
+	If $InstallType = '' Then ; revert to a default pre-selection if no record of most recent user selection
 		If $g_Flags[14] = 'BWS' Then
 			$InstallType = $Split[1]; => preselections with total happyness as default
 		Else
-			$InstallType = $Split[2]; => preselections with recommended as default
+			$InstallType = $SplitD[2]; => preselections with recommended as default
 		EndIf
-	ElseIf StringLen($InstallType) = 1 Then
+	ElseIf StringLen($InstallType) = 1 Then ; one of the default pre-selections was the most recent user selection
 		If $InstallType > UBound($SplitD) - 1 Then $InstallType = 1
 		$InstallType = $SplitD[$InstallType]
-	Else
+	Else ; a custom compilation was the most recent user selection
 		If $InstallType > UBound($Split) - 1 Then $InstallType = 1
-		If FileExists($g_GConfDir & '\Preselection00.ini') Then $InstallType +=1
+;		If FileExists($g_GConfDir & '\Preselection00.ini') Then $InstallType += 1 ; if available, reload auto-export (user-customized selection)
 		$InstallType = $Split[$InstallType]
 	EndIf
 	GUICtrlSetData($g_UI_Interact[2][4], _GetTR($g_UI_Message, '2-I1'), $InstallType); => preselections with total happyness as default

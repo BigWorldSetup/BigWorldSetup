@@ -172,8 +172,9 @@ EndFunc    ;==>_Selection_ExpertWarning
 Func _Selection_GetCurrentInstallType()
 	_PrintDebug('+' & @ScriptLineNumber & ' Calling _Selection_GetCurrentInstallType')
 	$Array = StringSplit(_GetTR($g_UI_Message, '2-I1'), '|'); => versions
-	$Num = StringSplit($g_Flags[25], '|')
-	$String = GUICtrlRead($g_UI_Interact[2][4])
+	$Num = StringSplit($g_Flags[25], '|') 	; indices of available selections (00|01|02|03|04|05 ... |1|2|3|4|5)
+											; default pre-selections at the end are represented by single digits
+	$String = GUICtrlRead($g_UI_Interact[2][4]) ; current compilation/selection (from drop-down menu)
 	$Found=0
 	For $a = 1 To $Array[0]
 		If $Array[$a] = $String Then
@@ -188,8 +189,8 @@ Func _Selection_GetCurrentInstallType()
 			$a=2; recommended
 		EndIf
 	EndIf
-	$Compilation = StringSplit(IniRead($g_BWSIni, 'Options', 'Type', 'F,R,S,T,E'), ',')
-	If StringLen($Num[$a]) = 2 Then; if custom selection set selection to tactics
+	$Compilation = StringSplit(IniRead($g_BWSIni, 'Options', 'Type', 'F,R,S,T,E'), ',') ; 'F,R,S,T,E' is default if Type is missing from Setup.ini
+	If StringLen($Num[$a]) > 1 Then; if custom selection, set "click mode" to tactical
 		$g_Compilation='T'
 	Else
 		$g_Compilation=$Compilation[$Num[$a]]

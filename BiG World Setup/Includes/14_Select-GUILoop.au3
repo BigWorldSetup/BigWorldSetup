@@ -274,7 +274,7 @@ Func Au3Select($p_Num = 0)
 			_Misc_LS_GUI()
 		Case $g_UI_Interact[2][4]; presel combo
 			If $g_CentralArray[0][0] <> '' Then _Tree_SetPreSelected(2)
-			$g_Flags[24]=0; no need to save changes to selection anymore after some reload
+			$g_Flags[24]=0; no need to save changes to selection any more after some reload
 			_Selection_GetCurrentInstallType()
 		Case $g_UI_Button[2][5]; adv. selection
 			If _Tree_Populate_PreCheck() = 0 Then ContinueLoop
