@@ -1025,6 +1025,11 @@ STD;A7NoEENPCs;105;09;0000;
 STD;A7NoEENPCs;4;09;0000;
 STD;A7NoEENPCs;201;09;0000;
 STD;A7NoEENPCs;203;09;0000;
+SUB;eet_tweaks;3;09;1111;
+SUB;eet_tweaks;3?1_1;09;0000;
+SUB;eet_tweaks;3?1_2;09;0000;
+SUB;eet_tweaks;3?1_3;09;1111;
+SUB;eet_tweaks;3?1_4;09;0000;
 SUB;eet_tweaks;6;09;1111;
 SUB;eet_tweaks;6?1_1;09;0000;
 SUB;eet_tweaks;6?1_2;09;0000;
@@ -1262,4 +1267,5 @@ MUC;npc_ee;581;12;1111;
 MUC;npc_ee;582;12;0000;
 MUC;npc_ee;583;12;0000;
 MUC;npc_ee;598;12;0000;
+STD;apr_fix;0;01;0111;
 ANN;Added due to patching

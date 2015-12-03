@@ -4402,6 +4402,7 @@ STD;level1npcs;4830;19;0000;
 STD;level1npcs;4900;19;0000;
 STD;level1npcs;4910;19;0000;
 STD;level1npcs;4920;19;0000;
+STD;apr_fix;0;01;0111;
 DWN;multiinstalltool;0;00;0000;
 ANN;Correction misspellings in the game including mods (under development)
 CMD;WeiDU.exe --traify-tlk --out .\BWP_workspace\dialog.tra
