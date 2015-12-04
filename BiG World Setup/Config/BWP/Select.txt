@@ -4404,14 +4404,14 @@ STD;level1npcs;4910;19;0000;
 STD;level1npcs;4920;19;0000;
 STD;apr_fix;0;01;0111;
 DWN;multiinstalltool;0;00;0000;
-ANN;Correction misspellings in the game including mods (under development)
-CMD;WeiDU.exe --traify-tlk --out .\BWP_workspace\dialog.tra
-CMD;copy dialog.tlk .\BWP_workspace\dialog.bak
-CMD;IF EXIST dialogF.tlk copy dialogF.tlk .\BWP_workspace\dialogF.bak
-CMD;copy .\BWP_workspace\dialog.tra .\BWP_workspace\dialog.tra.bak
-CMD;IF EXIST "BiG World Textpack ENGLISH" ren ".\BiG World Installpack\SR_consistence_catalog_English.txt" "SR_consistence_catalog.txt"
-CMD;IF EXIST "BiG World Textpack GERMAN" ren ".\BiG World Installpack\SR_consistence_catalog_German.txt" "SR_consistence_catalog.txt"
-CMD;".\BiG World Installpack\SR_consistence.js" ".\BWP_workspace\dialog.tra"
-CMD;WeiDU.exe --make-tlk .\BWP_workspace\dialog.tra dialog.tlk
-CMD;IF EXIST dialogF.tlk WeiDU.exe --make-tlk .\BWP_workspace\dialog.tra dialogF.tlk
+ANN;Correction misspellings in the game including mods (under development -- disabled for now)
+ANN;CMD;WeiDU.exe --traify-tlk --out .\BWP_workspace\dialog.tra
+ANN;CMD;copy dialog.tlk .\BWP_workspace\dialog.bak
+ANN;CMD;IF EXIST dialogF.tlk copy dialogF.tlk .\BWP_workspace\dialogF.bak
+ANN;CMD;copy .\BWP_workspace\dialog.tra .\BWP_workspace\dialog.tra.bak
+ANN;CMD;IF EXIST "BiG World Textpack ENGLISH" ren ".\BiG World Installpack\SR_consistence_catalog_English.txt" "SR_consistence_catalog.txt"
+ANN;CMD;IF EXIST "BiG World Textpack GERMAN" ren ".\BiG World Installpack\SR_consistence_catalog_German.txt" "SR_consistence_catalog.txt"
+ANN;CMD;".\BiG World Installpack\SR_consistence.js" ".\BWP_workspace\dialog.tra"
+ANN;CMD;WeiDU.exe --make-tlk .\BWP_workspace\dialog.tra dialog.tlk
+ANN;CMD;IF EXIST dialogF.tlk WeiDU.exe --make-tlk .\BWP_workspace\dialog.tra dialogF.tlk
 ANN;Added due to patching
