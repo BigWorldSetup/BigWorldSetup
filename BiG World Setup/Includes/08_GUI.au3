@@ -87,8 +87,8 @@ Func Au3BuildGUI($p_Num = 0)
 	$g_UI_Static[2][5] = GUICtrlCreateLabel('', 30, 290, 370, 15); language
 	$g_UI_Interact[2][5] = GUICtrlCreateInput('', 30, 305, 300, 20)
 	$g_UI_Button[2][4] = GUICtrlCreateButton(_GetTR($g_UI_Message, '0-B6'), 350, 305, 50, 20, 0)
-	$g_UI_Static[2][4] = GUICtrlCreateLabel('', 30, 345, 370, 15); preselection
-	$g_UI_Interact[2][4] = GUICtrlCreateCombo('', 30, 360, 300, 20)
+	$g_UI_Static[2][4] = GUICtrlCreateLabel('', 30, 345, 370, 15); compilation / pre-selection menu
+	$g_UI_Interact[2][4] = GUICtrlCreateCombo('', 30, 360, 370, 20)
 	$g_UI_Button[2][5] = GUICtrlCreateButton(_GetTR($g_UI_Message, '0-B7'), 29, 385, 302, 20, 0); open mod/componentselection
 	GUICtrlCreateGroup("", -99, -99, 1, 1)
 	$g_UI_Interact[2][6] = GUICtrlCreateEdit('', 430, 65, 305, 345, BitOR($SS_Left, $WS_VSCROLL, $ES_READONLY, 0x0100)); help

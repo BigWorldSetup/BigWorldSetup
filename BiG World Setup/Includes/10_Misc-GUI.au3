@@ -512,8 +512,11 @@ Func _Misc_SetAvailableSelection()
 		If $InstallType > UBound($SplitD) - 1 Then $InstallType = 1
 		$InstallType = $SplitD[$InstallType]
 	Else ; a custom compilation was the most recent user selection
-		If $InstallType > UBound($Split) - 1 Then $InstallType = 1
-;		If FileExists($g_GConfDir & '\Preselection00.ini') Then $InstallType += 1 ; if available, reload auto-export (user-customized selection)
+		If $InstallType > UBound($Split) - 1 Then
+			$InstallType = 1
+		ElseIf $InstallType = '00' And FileExists($g_GConfDir & '\Preselection00.ini') Then
+			$InstallType = '01' ; if available, reload auto-export (user-customized selection)
+		EndIf
 		$InstallType = $Split[$InstallType]
 	EndIf
 	GUICtrlSetData($g_UI_Interact[2][4], _GetTR($g_UI_Message, '2-I1'), $InstallType); => preselections with total happyness as default
