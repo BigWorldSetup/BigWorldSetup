@@ -1,13 +1,16 @@
 ANN;Added due to patching
-CMD;IF NOT EXIST ".\BWS_workspace\override" MD ".\BWS_workspace\override"
+ANN;--- BWS starts in BG1EE folder if EET is selected, so all following lines until EET are applied to BG1EE ---
+ANN;--- if EET is not selected, we use the Game.ini purge section to hide all the BG1EE-exclusive mods below ---
+ANN;--- we use ;;;;D:EET(0) for CMD lines applicable to BG1EE to suppress them if EET is not being installed ---
+CMD;IF NOT EXIST ".\BWS_workspace\override" MD ".\BWS_workspace\override";D:EET(0)
 DWN;WeiDU;0;00;1111;
 DWN;eekeeper;0;00;1111;
 DWN;bwfixpack;0;00;1111;
-ANN;special case - BWS should also extract bwfixpack in BG2EE directory
+ANN;special case - BWS has code in Testing.au3 that will apply the three lines above in both BG1EE and BG2EE directory if EET is selected
 ANN;--- BGEE patches ---
-CMD;IF EXIST "BiG-World-Fixpack-master" IF EXIST "Big-World-Fixpack-master\BiG World Fixpack" move "Big-World-Fixpack-master\BiG World Fixpack" ".\"
-CMD;IF EXIST "BiG-World-Fixpack-master" IF EXIST "Big-World-Fixpack-master\BiG World Fixpack.bat" move "Big-World-Fixpack-master\BiG World Fixpack.bat" ".\"
-CMD;IF EXIST "BiG World Fixpack" IF NOT EXIST BWP_Fixpack.installed Call "BiG World Fixpack.bat"
+CMD;IF EXIST "BiG-World-Fixpack-master" IF EXIST "Big-World-Fixpack-master\BiG World Fixpack" move "Big-World-Fixpack-master\BiG World Fixpack" ".\";;;;D:EET(0)
+CMD;IF EXIST "BiG-World-Fixpack-master" IF EXIST "Big-World-Fixpack-master\BiG World Fixpack.bat" move "Big-World-Fixpack-master\BiG World Fixpack.bat" ".\";;;;D:EET(0)
+CMD;IF EXIST "BiG World Fixpack" IF NOT EXIST BWP_Fixpack.installed Call "BiG World Fixpack.bat";;;;D:EET(0)
 STD;BGEE_PL;0;0;1111;
 STD;BGEE_PL;1;0;1111;
 DWN;BGEE-Polish;0;00;1111;
@@ -19,17 +22,17 @@ SUB;bgeegraphics;0?1_2;13;0000;
 DWN;bgeegraphics_part2;0;13;1111;
 DWN;bgeegraphics_part3;0;13;1111;
 ANN;Removing corrupted .wed
-CMD;IF EXIST setup-bgeegraphics.exe IF EXIST ".\override\ar4300.wed" move ".\override\ar4300.wed" ".\BWS_workspace\override"
+CMD;IF EXIST setup-bgeegraphics.exe IF EXIST ".\override\ar4300.wed" move ".\override\ar4300.wed" ".\BWS_workspace\override";;;;D:EET(0)
 ANN;--- BGEE "big mods" ---
 STD;DarkHorizonsBGee;0;02;0011;
 STD;dsotscBGEE;5;02;0111;
 MUC;drizztsaga;Init;02;0011;
 MUC;drizztsaga;0;02;0000;
 MUC;drizztsaga;1;02;0011;
-ANN;don't change XP cap before EET
+ANN;pointless to change XP cap before EET
 ANN;STD;drizztsaga;2;02;0000;
 STD;drizztsaga;3;02;0011;
-CMD;IF EXIST setup-drizztsaga.exe echo.>> Worldmap/map_mods_links.tbl
+CMD;IF EXIST setup-drizztsaga.exe echo.>> Worldmap/map_mods_links.tbl;;;;D:EET(0)
 ANN;--- BGEE quests ---
 STD;bgqe;0;03;1111;
 STD;bgqe;1;03;1111;
@@ -290,8 +293,10 @@ MUC;BGEEClassicMovies;1;13;0000;
 STD;BGEEClassicMovies;2;13;0000;
 ANN;--- end BGEE, start EET / BG2EE ---
 STD;EET;0;00;1111;
-ANN;special case - BWS should also extract bwfixpack in BG2EE directory
+ANN;--- BWS switches from BG1EE folder to BG2EE folder after this line ---
+CMD;IF NOT EXIST ".\BWS_workspace\override" MD ".\BWS_workspace\override"
 ANN;--- BG2EE patches ---
+ANN;special case - BWS has code in Testing.au3 that will cause WeiDU and bwfixpack to be extracted in both the BG1EE and BG2EE folders for EET
 CMD;IF EXIST "BiG-World-Fixpack-master" IF EXIST "Big-World-Fixpack-master\BiG World Fixpack" move "Big-World-Fixpack-master\BiG World Fixpack" ".\"
 CMD;IF EXIST "BiG-World-Fixpack-master" IF EXIST "Big-World-Fixpack-master\BiG World Fixpack.bat" move "Big-World-Fixpack-master\BiG World Fixpack.bat" ".\"
 CMD;IF EXIST "BiG World Fixpack" IF NOT EXIST BWP_Fixpack.installed Call "BiG World Fixpack.bat"
