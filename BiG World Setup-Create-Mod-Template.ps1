@@ -29,7 +29,7 @@ Stop-Process $PID
 Grant-Elevation
 
 try {
-Invoke-WebRequest 'https://bitbucket.org/BigWorldSetup/bigworldsetup/raw/master/BiG%20World%20Setup-Create-Mod-Template.ps1' -UseBasicParsing -OutFile $script:MyInvocation.MyCommand.Name | Out-Null
+Invoke-WebRequest 'https://bitbucket.org/BigWorldSetup/bigworldsetup/raw/master/BiG%20World%20Setup-Create-Mod-Template.ps1' -UseBasicParsing -OutFile "$($script:MyInvocation.MyCommand.Name)" | Out-Null
 } catch { $_.Exception.Response.StatusCode.Value__ }
 
 $comWeiDU = $langWeiDU = $tp2data = $tp2dataRaw = $tp2dataRegex = $tp2File = $tp2FullPath = $weidu = $null
