@@ -46,10 +46,9 @@ if ( $modPath -eq $null ) {
     } else {
         Write-Warning "Put this script inside mod directory or provide path to it."
         Write-Warning 'Example: .\BWS.ps1 -Path "D:\Downloads\ModDirectory"'
-        break  }
+        break }
 } else {
-    if ( !( Test-Path $modPath )) { Write-Warning "Wrong path: $modPath" 
-exit }
+    if ( !( Test-Path $modPath )) { Write-Warning "Wrong path: $modPath" ; exit }
     Set-Location $modPath
 
     $tp2File = ( Get-ChildItem -Path $modPath -Filter *.tp2 -Recurse )[0]
@@ -59,7 +58,6 @@ $tp2FileNoSetup = $tp2File.BaseName -replace 'setup-'
 if ( $iniPath -eq $null ) { $iniPath = Split-Path $tp2FullPath -Parent }
 
 $weidu = Get-ChildItem -Path $modPath -Filter setup-*.exe -Recurse -EA 0 | Select-Object -First 1 -EA 0
-#$weidu = Get-Item 'D:\Gry\BG\Tools\setup-weidu.exe'
 if ( !$weidu ) { $weidu = Get-ChildItem -Path ( Split-Path ( Split-Path $tp2FullPath -Parent ) -Parent ) -Filter "setup-$tp2FileNoSetup.exe" -Recurse -EA 0 | Select-Object -First 1 -EA 0
 }
 if ( !$weidu ) {
@@ -170,20 +168,18 @@ $mod = New-Object -TypeName PSObject -Property $Property
 [array]$languages = @()
 
 $langWeiDU | % {
+
     $Property = @{
     'LanguageNumber'= $_[0]
     'LanguageCode'= ($_ -split ':')[1]
     'LanguageData'= $null
     }
+
     $singleLanguage = New-Object -TypeName PSObject -Property $Property
-    
-    #& $weidu --no-exit-pause --noautoupdate --nogame --list-components "$tp2FullPath" $_[0] | Out-File -FilePath "$iniPath\list-components.ini" -Encoding default -Force | Out-Null
     $comFileName = "$tp2FileNoSetup-components-$($singleLanguage.LanguageNumber)-$($singleLanguage.LanguageCode).ini"
     $comFilePath = $iniPath + '\' + $comFileName
-    $weidu
-    Write-Output "& $weidu --no-exit-pause --noautoupdate --nogame --list-components $tp2FullPath $($singleLanguage.LanguageNumber) --out $comFilePath"
     & $weidu --no-exit-pause --noautoupdate --nogame --list-components "$tp2FullPath" $singleLanguage.LanguageNumber --out "$comFilePath"
-    $comWeiDU = Get-Content "$iniPath\$comFileName" #| Select-String -Pattern '~.'
+    $comWeiDU = Get-Content "$iniPath\$comFileName"
 
 	#$comWeiDU
 	[array]$components = @()
@@ -241,7 +237,7 @@ $langWeiDU | % {
 	}
     $singleLanguage.LanguageData = $iniComponents
     $languages += $singleLanguage
-} #| Out-Null
+} | Out-Null
 
 $components | % {
 if ( $_.Count -eq 1 ) {
@@ -299,7 +295,7 @@ $iniSelect | Out-File -FilePath "$iniPath\$($mod.tp2)-select-$game.ini" -Encodin
 
 # ACTION_READLN, only simple report
 [Regex]$regex0 = '(ACTION_READLN ~..*?~)'
-$tp2dataRegex = [Regex]::Matches($tp2dataRaw,$regex0, [System.Text.RegularExpressions.RegexOptions]::Singleline) | select -Unique
+$tp2dataRegex = [Regex]::Matches($tp2dataRaw,$regex0, [System.Text.RegularExpressions.RegexOptions]::Singleline) | Select-Object -Unique
 
 if ( $tp2dataRegex -ne $null ) {
 Write-Warning "ACTION_READLN detected inside $tp2FullPath, $($mod.tp2 -replace 'setup-').ini file is not complete."
