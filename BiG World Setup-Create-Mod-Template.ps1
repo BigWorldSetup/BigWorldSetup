@@ -282,7 +282,12 @@ $iniMod += "Mod-EN=$($mod.Name)"
 $iniMod += "Mod-GE=$($mod.Name)"
 $iniMod += "Mod-RU=$($mod.Name)"
 
-Write-Host "Mod information:" -ForegroundColor Green
+Write-Host ''
+Write-Host 'Mod files:' -ForegroundColor Green
+Write-Host ".tp2 file: $tp2FullPath"
+Write-Host "WeiDU exe: $($weidu.FullName)"
+Write-Host ''
+Write-Host 'Mod information:' -ForegroundColor Green -NoNewline
 $mod
 
 $iniMod | Out-File -FilePath ("$iniPath\$($mod.tp2 -replace 'setup-').ini") -Encoding default -Force | Out-Null
@@ -294,7 +299,7 @@ $iniSelect | Out-File -FilePath "$iniPath\$($mod.tp2)-select-$game.ini" -Encodin
 $tp2dataRegex = [Regex]::Matches($tp2dataRaw,$regex0, [System.Text.RegularExpressions.RegexOptions]::Singleline) | Select-Object -Unique
 
 if ( $tp2dataRegex -ne $null ) {
-Write-Warning "ACTION_READLN detected inside $tp2FullPath, $($mod.tp2 -replace 'setup-').ini file is not complete."
+Write-Warning "ACTION_READLN detected inside $($tp2File), $($tp2FileNoSetup).ini file is not complete."
 }
 $tp2dataRegex | % {
     $optionName = ( $_.groups[1].value -split '~' )[1]
