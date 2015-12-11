@@ -1,36 +1,35 @@
 param([Parameter(Position=0)]$modPath,$Name=$null,$Type='S',$Version,$Download=$null,$HomePage='http://www.shsforums.net',$Category='99',$iniPath=$null)
-function Grant-Elevation {  
-if ( $script:MyInvocation.MyCommand.Path ) { Set-Location ( Split-Path $script:MyInvocation.MyCommand.Path )} else { Set-Location ( Split-Path -parent $psISE.CurrentFile.Fullpath )}
+function Grant-Elevation {
+    if ( $script:MyInvocation.MyCommand.Path ) { Set-Location ( Split-Path $script:MyInvocation.MyCommand.Path ) } else { Set-Location ( Split-Path -parent $psISE.CurrentFile.Fullpath ) }
 
-$myWindowsID = [System.Security.Principal.WindowsIdentity]::GetCurrent()
-$myWindowsPrincipal = New-Object System.Security.Principal.WindowsPrincipal( $myWindowsID )
-$adminRole = [System.Security.Principal.WindowsBuiltInRole]::Administrator
+    $myWindowsID = [System.Security.Principal.WindowsIdentity]::GetCurrent()
+    $myWindowsPrincipal = New-Object System.Security.Principal.WindowsPrincipal( $myWindowsID )
+    $adminRole = [System.Security.Principal.WindowsBuiltInRole]::Administrator
 
-if ( !$myWindowsPrincipal.IsInRole( $adminRole )) {
+    if ( !$myWindowsPrincipal.IsInRole( $adminRole )) {
 
-# This fixes error wen script is located at mapped network drive
-$private:scriptFullPath = $script:MyInvocation.MyCommand.Path
-if ( $scriptFullPath.Contains([io.path]::VolumeSeparatorChar )) { # check for a drive letter
-$private:psDrive = Get-PSDrive -Name $scriptFullPath.Substring(0,1) -PSProvider 'FileSystem'
-if ( $psDrive.DisplayRoot ) { # check if it's a mapped network drive
-$scriptFullPath = $scriptFullPath.Replace( $psdrive.Name + [io.path]::VolumeSeparatorChar, $psDrive.DisplayRoot )
-}
+    # This fixes error when the script is located at mapped network drive
+    $private:scriptFullPath = $script:MyInvocation.MyCommand.Path
+    if ( $scriptFullPath.Contains([io.path]::VolumeSeparatorChar )) { # check for a drive letter
+        $private:psDrive = Get-PSDrive -Name $scriptFullPath.Substring(0,1) -PSProvider 'FileSystem'
+        if ( $psDrive.DisplayRoot ) { $scriptFullPath = $scriptFullPath.Replace( $psdrive.Name + [io.path]::VolumeSeparatorChar, $psDrive.DisplayRoot ) } # check if it's a mapped network drive
+    }
+    [string[]]$argList = @( '-NoLogo', '-NoProfile', '-NoExit', '-File', "`"$scriptFullPath`"" )
 
-}
-[string[]]$argList = @( '-NoLogo', '-NoProfile', '-NoExit', '-File', "`"$scriptFullPath`"" )
+    $argList += $MyInvocation.BoundParameters.GetEnumerator() | % { "-$($_.Key)", "$($_.Value)" }
+    $argList += $MyInvocation.UnboundArguments
 
-$argList += $MyInvocation.BoundParameters.GetEnumerator() | % { "-$( $_.Key )", "$( $_.Value )" }
-$argList += $MyInvocation.UnboundArguments
-
-Start-Process powershell.exe -Verb Runas -WorkingDirectory $PWD -ArgumentList $argList -PassThru
-Stop-Process $PID
-}
+    Start-Process powershell.exe -Verb Runas -WorkingDirectory $PWD -ArgumentList $argList -PassThru
+    Stop-Process $PID
+    }
 }
 Grant-Elevation
 
 try {
-Invoke-WebRequest 'https://bitbucket.org/BigWorldSetup/bigworldsetup/raw/master/BiG%20World%20Setup-Create-Mod-Template.ps1' -UseBasicParsing -OutFile "$($script:MyInvocation.MyCommand.Name)" | Out-Null
-} catch { $_.Exception.Response.StatusCode.Value__ }
+    Invoke-WebRequest 'https://bitbucket.org/BigWorldSetup/bigworldsetup/raw/master/BiG%20World%20Setup-Create-Mod-Template.ps1' -UseBasicParsing -OutFile "$($script:MyInvocation.MyCommand.Name)" | Out-Null
+} catch {
+    $_.Exception.Response.StatusCode.Value__
+}
 
 $comWeiDU = $langWeiDU = $tp2data = $tp2dataRaw = $tp2dataRegex = $tp2File = $tp2FullPath = $weidu = $null
 
@@ -49,22 +48,24 @@ if ( $modPath -eq $null ) {
         break }
 } else {
     if ( !( Test-Path $modPath )) { Write-Warning "Wrong path: $modPath" ; exit }
+    
     Set-Location $modPath
 
     $tp2File = ( Get-ChildItem -Path $modPath -Filter *.tp2 -Recurse )[0]
     $tp2FullPath = $tp2File.FullName
 }
+
 $tp2FileNoSetup = $tp2File.BaseName -replace 'setup-'
 if ( $iniPath -eq $null ) { $iniPath = Split-Path $tp2FullPath -Parent }
 
 $weidu = Get-ChildItem -Path $modPath -Filter setup-*.exe -Recurse -EA 0 | Select-Object -First 1 -EA 0
-if ( !$weidu ) { $weidu = Get-ChildItem -Path ( Split-Path ( Split-Path $tp2FullPath -Parent ) -Parent ) -Filter "setup-$tp2FileNoSetup.exe" -Recurse -EA 0 | Select-Object -First 1 -EA 0
-}
+if ( !$weidu ) { $weidu = Get-ChildItem -Path ( Split-Path ( Split-Path $tp2FullPath -Parent ) -Parent ) -Filter "setup-$tp2FileNoSetup.exe" -Recurse -EA 0 | Select-Object -First 1 -EA 0 }
 if ( !$weidu ) {
     Write-Warning "Missing:"
     ( $tp2FullPath -replace 'setup-' ) -replace 'tp2','exe'
     exit
 }
+
 $weidu = Get-Item $weidu.FullName
 Set-Location $weidu.Directory
 
@@ -139,14 +140,14 @@ $translations = ( Get-Content "$iniPath\$langFileName" ) # | Select-String -Patt
 
 $defaultLanguage = $translations | Select-String '0:'
 if ( $defaultLanguage -eq $null ) {
-$defaultLanguage = '0:--'
-$defaultLanguageNumber = $defaultLanguage.ToString()[0]
-$tra = $defaultLanguage
-$langWeiDU = '0:EN'
+    $defaultLanguage = '0:--'
+    $defaultLanguageNumber = $defaultLanguage.ToString()[0]
+    $tra = $defaultLanguage
+    $langWeiDU = '0:EN'
 } else {
-$langWeiDU = $translations | % { ( $_ -split ' ' )[0] -replace 'Portuguese','PT' } 
-$langWeiDU = ($langWeiDU | % { (((( $_[0..3] -join '' ) -replace 'am','EN') -replace 'de','GE' ) -replace 'ca','SP' ) -replace 'es','SP' }).ToUpper()
-$tra = ( $langWeiDU | % {( ( $_[2..3] ) -join '' ) + ':' + ( $_[0] ) }) -join ','
+    $langWeiDU = $translations | % { ( $_ -split ' ' )[0] -replace 'Portuguese','PT' } 
+    $langWeiDU = ($langWeiDU | % { (((( $_[0..3] -join '' ) -replace 'am','EN') -replace 'de','GE' ) -replace 'ca','SP' ) -replace 'es','SP' }).ToUpper()
+    $tra = ( $langWeiDU | % {( ( $_[2..3] ) -join '' ) + ':' + ( $_[0] ) }) -join ','
 }
 
 #Mod data
@@ -213,27 +214,24 @@ $langWeiDU | % {
 	}
 
 	$components = $components | Sort-Object -Property Number |  Group-Object -Property Name
-
-	#$components | FL
 	#$components | Select-Object Number, Name, Subcomponent
 
 	[array]$iniComponents = @()
 	[array]$iniSelect = @()
-
     $components | % {
 	if ( $_.Count -eq 1 ) {
 		$_.Group | % {
-			#Write-Host "STD;$($_.Name);$($_.Number);$($mod.category);0000;"
+			#Write-Host "@$($_.Number)=$(($_.Name).trimstart())"
 			$iniComponents += "@$($_.Number)=" + ($_.Name).trimstart()#.trimend(" ")
 			}
 		}
 	if ( $_.Count -ge 2 ) {
 		$_.Group | % {
-			#Write-Host "MUC;$($mod.name);$($_.Number);$($mod.category);0000;"
+			#Write-Host "@$($_.Number)=$(($_.Name).trimstart()) -> $($_.Subcomponent)"
 			$iniComponents += "@$($_.Number)=" + ($_.Name).trimstart() + ' -> ' + ($_.Subcomponent)#.trimend(" ")
 			}
 		}
-    $iniComponents# = $iniComponents | Sort-Object
+    $iniComponents
 	}
     $singleLanguage.LanguageData = $iniComponents
     $languages += $singleLanguage
@@ -259,7 +257,7 @@ if ( $_.Count -ge 2 ) {
 ($languages | Group-Object -Property LanguageCode) | % {
     if ($_.Count -gt 1 ) {
     $multiple = $_.Values
-    Write-Warning "Mod has multiple language numbers for the same translation: $( $langWeiDU | ? { $_ -match $multiple }) - manuall edit of $tp2FileNoSetup.ini required."
+    Write-Warning "Mod has multiple language numbers for the same translation: $( $langWeiDU | ? { $_ -match $multiple }) - manuall edit of $tp2FullPath required."
     }
 }
 
@@ -280,7 +278,9 @@ $iniMod += "Down=$($mod.Down)"
 $iniMod += "Save=$($mod.Save)"
 $iniMod += "Size=$($mod.Size)"
 $iniMod += " Tra=$($mod.Tra)`r`n"
+
 $iniMod += $iniLanguage
+
 $iniMod += '[Description]'
 $iniMod += "Mod-EN=$($mod.Name)"
 $iniMod += "Mod-GE=$($mod.Name)"
