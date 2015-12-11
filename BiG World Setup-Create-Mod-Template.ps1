@@ -15,10 +15,8 @@ function Grant-Elevation {
         if ( $psDrive.DisplayRoot ) { $scriptFullPath = $scriptFullPath.Replace( $psdrive.Name + [io.path]::VolumeSeparatorChar, $psDrive.DisplayRoot ) } # check if it's a mapped network drive
     }
     [string[]]$argList = @( '-NoLogo', '-NoProfile', '-NoExit', '-File', "`"$scriptFullPath`"" )
-
     $argList += $MyInvocation.BoundParameters.GetEnumerator() | % { "-$($_.Key)", "$($_.Value)" }
     $argList += $MyInvocation.UnboundArguments
-
     Start-Process powershell.exe -Verb Runas -WorkingDirectory $PWD -ArgumentList $argList -PassThru
     Stop-Process $PID
     }
@@ -38,19 +36,17 @@ $Type = 'S'
 $Category = '99'
 
 if ( $modPath -eq $null ) {
-    if ( (Get-ChildItem -Path $g_ScriptPath -Filter *.tp2 -Recurse) -ne $null ) {
-    $tp2File = (Get-ChildItem -Path $g_ScriptPath -Filter *.tp2 -Recurse)[0]
+    if ( ( Get-ChildItem -Path $g_ScriptPath -Filter *.tp2 -Recurse ) -ne $null ) {
+    $tp2File = ( Get-ChildItem -Path $g_ScriptPath -Filter *.tp2 -Recurse )[0]
     $tp2Path = $tp2File.Directory
     $tp2FullPath = $tp2File.FullName
     } else {
-        Write-Warning "Put this script inside mod directory or provide path to it."
-        Write-Warning 'Example: .\BWS.ps1 -Path "D:\Downloads\ModDirectory"'
-        break }
-} else {
+	Write-Warning "Put this script inside mod directory or provide path to it."
+	Write-Warning 'Example: .\BWS.ps1 -Path "D:\Downloads\ModDirectory"'
+	break }
+	} else {
     if ( !( Test-Path $modPath )) { Write-Warning "Wrong path: $modPath" ; exit }
-    
     Set-Location $modPath
-
     $tp2File = ( Get-ChildItem -Path $modPath -Filter *.tp2 -Recurse )[0]
     $tp2FullPath = $tp2File.FullName
 }
@@ -136,7 +132,7 @@ $langFileName = "$tp2FileNoSetup-languages.ini"
 $langFilePath = $iniPath + '\' + $langFileName
 & $weidu --no-exit-pause --noautoupdate --nogame --list-languages "$tp2FullPath" --out "$langFilePath" | Out-Null
 
-$translations = ( Get-Content "$iniPath\$langFileName" )
+$translations = ( Get-Content "$iniPath\$langFileName" ) # | Select-String -Pattern '[0-9]:'
 
 $defaultLanguage = $translations | Select-String '0:'
 if ( $defaultLanguage -eq $null ) {
@@ -257,7 +253,7 @@ if ( $_.Count -ge 2 ) {
 ($languages | Group-Object -Property LanguageCode) | % {
     if ($_.Count -gt 1 ) {
     $multiple = $_.Values
-    Write-Warning "Mod has multiple language numbers for the same translation: $( $langWeiDU | ? { $_ -match $multiple }) - manuall edit of $tp2FileNoSetup.ini required."
+    Write-Warning "Mod has multiple language numbers for the same translation: $( $langWeiDU | ? { $_ -match $multiple }) - manuall edit of $tp2FullPath required."
     }
 }
 
@@ -286,12 +282,7 @@ $iniMod += "Mod-EN=$($mod.Name)"
 $iniMod += "Mod-GE=$($mod.Name)"
 $iniMod += "Mod-RU=$($mod.Name)"
 
-Write-Host ''
-Write-Host 'Mod files:' -ForegroundColor Green
-Write-Host ".tp2 file: $tp2FullPath"
-Write-Host "WeiDU exe: $($weidu.FullName)"
-Write-Host ''
-Write-Host 'Mod information:' -ForegroundColor Green -NoNewline
+Write-Host "Mod information:" -ForegroundColor Green
 $mod
 
 $iniMod | Out-File -FilePath ("$iniPath\$($mod.tp2 -replace 'setup-').ini") -Encoding default -Force | Out-Null
@@ -303,7 +294,7 @@ $iniSelect | Out-File -FilePath "$iniPath\$($mod.tp2)-select-$game.ini" -Encodin
 $tp2dataRegex = [Regex]::Matches($tp2dataRaw,$regex0, [System.Text.RegularExpressions.RegexOptions]::Singleline) | Select-Object -Unique
 
 if ( $tp2dataRegex -ne $null ) {
-Write-Warning "ACTION_READLN detected inside $($tp2File), $($tp2FileNoSetup).ini file is not complete."
+Write-Warning "ACTION_READLN detected inside $tp2FullPath, $($mod.tp2 -replace 'setup-').ini file is not complete."
 }
 $tp2dataRegex | % {
     $optionName = ( $_.groups[1].value -split '~' )[1]
