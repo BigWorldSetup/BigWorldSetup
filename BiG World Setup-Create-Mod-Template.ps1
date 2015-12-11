@@ -136,7 +136,7 @@ $langFileName = "$tp2FileNoSetup-languages.ini"
 $langFilePath = $iniPath + '\' + $langFileName
 & $weidu --no-exit-pause --noautoupdate --nogame --list-languages "$tp2FullPath" --out "$langFilePath" | Out-Null
 
-$translations = ( Get-Content "$iniPath\$langFileName" ) # | Select-String -Pattern '[0-9]:'
+$translations = ( Get-Content "$iniPath\$langFileName" )
 
 $defaultLanguage = $translations | Select-String '0:'
 if ( $defaultLanguage -eq $null ) {
