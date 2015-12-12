@@ -816,7 +816,7 @@ STD;npckit;31;12;1111;
 STD;npckit;400;12;1111;
 STD;npckit;410;12;0000;
 STD;npckit;420;12;0000;
-STD;npckit;900;12;1111;
+STD;npckit;900;12;0001;
 STD;npckit;1400;12;0000;
 MUC;npckit;Init;12;0000;
 MUC;npckit;1410;12;0000;
@@ -828,11 +828,9 @@ MUC;npckit;1415;12;0000;
 MUC;npckit;1416;12;0000;
 MUC;npckit;1417;12;0000;
 STD;npckit;2100;12;1111;
-ANN;#2200 mazzy kit 1111 -> 0000 (-> NPC_EE)
 STD;npckit;2200;12;0000;
 STD;npckit;2300;12;1111;
-ANN;#2500 nalia kit 1111 -> 1100 (rest -> NPC_EE)
-STD;npckit;2500;12;1100;
+STD;npckit;2500;12;0001;
 MUC;npckit;Init;12;0000;
 MUC;npckit;2510;12;0000;
 MUC;npckit;2511;12;0000;
@@ -2158,10 +2156,10 @@ MUC;npc_ee;701;12;0000;
 MUC;npc_ee;702;12;1111;
 MUC;npc_ee;718;12;0000;
 ANN;Nalia
-MUC;npc_ee;Init;12;0011;
-MUC;npc_ee;721;12;0011;
+MUC;npc_ee;Init;12;1111;
+MUC;npc_ee;721;12;1100;
 MUC;npc_ee;722;12;0000;
-MUC;npc_ee;723;12;0000;
+MUC;npc_ee;723;12;0011;
 ANN;Haer'Dalis
 MUC;npc_ee;Init;12;1111;
 MUC;npc_ee;741;12;1111;
