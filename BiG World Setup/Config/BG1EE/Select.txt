@@ -1159,9 +1159,9 @@ MUC;gavin;12;13;0000;
 ANN;--- NPC kit changes ---
 ANN;Imoen
 MUC;npc_ee;Init;12;1111;
-MUC;npc_ee;101;12;0000;
+MUC;npc_ee;101;12;1000;
 MUC;npc_ee;102;12;0011;
-MUC;npc_ee;103;12;1100;
+MUC;npc_ee;103;12;0100;
 ANN;Jaheira
 MUC;npc_ee;Init;12;1111;
 MUC;npc_ee;121;12;0000;
