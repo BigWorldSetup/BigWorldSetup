@@ -538,7 +538,7 @@ Func _Misc_SetLang()
 	GUICtrlSetData($g_UI_Static[2][2], _GetGameName())
 	GUICtrlSetData($g_UI_Static[3][1], StringFormat(_GetSTR($Message, 'Static[3][1]'), $g_Flags[14])); => backup important files
 	GUICtrlSetData($g_UI_Interact[3][4], StringFormat(_GetSTR($Message, 'Interact[3][4]'), _GetGameName(), $g_Flags[14], $g_Flags[14])); => backup help text
-	; Items that need special treetment
+	; Items that need special treatment
 	$Split = StringSplit(_GetTR($Message, 'Interact[1][2]'), '|'); => BWS translations
 	GUICtrlSetData($g_UI_Interact[1][2], '')
 	GUICtrlSetData($g_UI_Interact[1][2], _GetTR($Message, 'Interact[1][2]'), $Split[$g_ATNum]); => BWS translations
@@ -833,7 +833,7 @@ Func _Misc_SwichGUIToInstallMethod()
 			GUICtrlSetState($g_UI_Menu[1][16], $GUI_CHECKED)
 			GUICtrlSetState($g_UI_Interact[14][8], $GUI_UNCHECKED); will be asked by batch
 		Else;If StringRegExp($g_Flags[14], 'BWS|BG2EE)' Then
-			$g_Flags[21] = 0; sort by theme
+			$g_Flags[21] = 0; sort components by theme
 			GUICtrlSetState($g_UI_Menu[1][16], $GUI_UNCHECKED)
 		EndIf
 	Else; hide BG1-folder and adjust positions of GUI-controls
@@ -841,10 +841,10 @@ Func _Misc_SwichGUIToInstallMethod()
 		GUICtrlSetState($g_UI_Interact[2][1], $GUI_HIDE)
 		GUICtrlSetState($g_UI_Button[2][1], $GUI_HIDE)
 		GUICtrlSetData($g_UI_Interact[2][1], '-'); disable BG1-tests
-		GUICtrlSetPos($g_UI_Static[2][2], 30, 100, 370, 15)
+		GUICtrlSetPos($g_UI_Static[2][2], 30, 100, 370, 15); BG2/BG2EE folder
 		GUICtrlSetPos($g_UI_Interact[2][2], 30, 115, 300, 20)
 		GUICtrlSetPos($g_UI_Button[2][2], 350, 115, 50, 20)
-		GUICtrlSetPos($g_UI_Static[2][3], 30, 170, 370, 15); Download
+		GUICtrlSetPos($g_UI_Static[2][3], 30, 170, 370, 15); Download folder
 		GUICtrlSetPos($g_UI_Interact[2][3], 30, 185, 300, 20)
 		GUICtrlSetPos($g_UI_Button[2][3], 350, 185, 50, 20)
 		_Test_GetGamePath($g_Flags[14])

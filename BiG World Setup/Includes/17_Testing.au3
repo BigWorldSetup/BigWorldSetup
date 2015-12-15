@@ -748,10 +748,10 @@ Func _Test_GetCustomTP2($p_Setup, $p_Dir='\')
 EndFunc   ;==>_Test_GetCustomTP2
 
 ; ---------------------------------------------------------------------------------------------
-; Check if EET will be use to install BG1 using the current selection, list BG1/BG2 mods
+; Check if EET will be used to install BG1 using the current selection, list BG1/BG2 mods
 ; ---------------------------------------------------------------------------------------------
-Func _Test_Get_EET_Mods()
-	Local $BG1EE_Mods='WeiDU|eekeeper|bwfixpack|', $BG2EE_Mods='WeiDU|eekeeper|bwfixpack|', $EETMods, $DoBG1=0
+Func _Test_Get_EET_Mods(); called by _Tree_EndSelection() just before starting an installation
+	Local $BG1EE_Mods='WeiDU|eekeeper|bwfixpack|', $BG2EE_Mods='WeiDU|eekeeper|bwfixpack|', $EETMods, $DoBG1=0, $SplitPurgeLine
 	$g_Flags[21]=''; will contain BG1-mods in EET -> Empty means no BG1-install
 	$g_Flags[22]=''; will contain BG2-mods in EET
 	If Not StringInStr($g_GConfDir, 'BG2EE') Then Return
@@ -759,12 +759,24 @@ Func _Test_Get_EET_Mods()
 	If _IniRead($Current, 'EET', '') = '' Then Return
 	$Select=StringSplit(StringStripCR(FileRead($g_GConfDir&'\Select.txt')), @LF)
 	$Purge=IniReadSection($g_GConfDir&'\Game.ini', 'Purge')
-	For $p=1 to $Purge[0][0]
-		If StringLeft($Purge[$p][1], 1) = 'D' And StringRegExp($Purge[$p][1], '(?i)EET\x28\x2d\x29\z') Then; these mods require EET
-			$EETMods&=StringRegExpReplace($Purge[$p][1], '(?i)\AD\x3a|\AC\x3a[[:alpha:]]{2}\x3a|\x3a(BGT|EET)\x28\x2d\x29\z|\x28\x2d\x29|\x3a[[:alpha:]]{2}\z|\x3a\d[\x2e\d|\x7c]{1,}\z', '')&'|'; remove D:|C:XX:|:BGT(-)|(-)|:XX
-		EndIf
-	Next
-	$EETMods=StringTrimRight($EETMods, 1)
+	; Keep this function consistent with _Tree_PurgeUnNeeded in Select-Tree.au3
+	If IsArray($Purge) Then
+		; We don't check for game type or BGT because we only use this function for BG2EE installs
+		For $p=1 to $Purge[0][0]
+			$SplitPurgeLine = StringSplit($Purge[$p][1], ':')
+			If ($SplitPurgeLine[0] <> 3) Then ContinueLoop; Purge lines should have exactly three sections (C|D : ... : ...)
+			If StringLeft($SplitPurgeLine[1], 1) = 'D' And StringRegExp($SplitPurgeLine[3], '(?i)EET\x28\x2d\x29') Then; requires EET
+				$EETMods &= StringReplace(StringReplace(StringReplace(StringReplace($SplitPurgeLine[2], '&', '|'), "(-)", ''), '(', ';('), '?', '\x3f')
+				;  a purge rule "D:abc(0)&def(3):EET(-)" will be interpreted as "abc(0) and def(3) each independently depend on EET"
+				;  in this example def(3) will be considered an EET mod (eligible for pre-EET installation) even if abc(0) is not installed
+				$EETMods &= '|'; add delimiter/separator
+				;old implementation
+				;$EETMods &= StringRegExpReplace($Purge[$p][1], '(?i)\AD\x3a|\AC\x3a[[:alpha:]]{2}\x3a|\x3a([\x7c]?(BGT|EET)\x28\x2d\x29){1,}\z|\x28\x2d\x29|\x3a([[:alpha:]]{2}[\x7c]?)+\z|\x3a\d[\x2e\d|\x7c]{1,}\z', '')&'|' ; remove D:|C:XX:|:BGT(-)|:EET(-)|(-)|:#[.#|]|:XX, add delimiter/separator
+			EndIf
+		Next
+	EndIf
+	$EETMods=StringTrimRight($EETMods, 1); remove trailing |
+;	IniWrite($g_UsrIni, 'Debug', 'EETMods', $EETMods)	
 	For $s=1 to $Select[0]
 		If StringRegExp($Select[$s], '(?i)\A(ANN|CMD|GRP);') Then ContinueLoop
 		$Mod=StringRegExpReplace($Select[$s], '\A...;|;.*\z', '')
