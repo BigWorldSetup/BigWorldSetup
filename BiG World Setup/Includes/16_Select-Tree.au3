@@ -108,6 +108,7 @@ Func _Tree_GetCurrentSelection($p_Show = 0, $p_Write=''); $a=hide seletion-GUI
 	$DeSelect[0][0] = 0
 	If $p_Show = 0 Then _Misc_ProgressGUI(_GetTR($g_UI_Message, '4-T2'), _GetTR($g_UI_Message, '4-L4')); => write entries
 	IniDelete($g_UsrIni, 'Current'); delete old selections
+	; Keep this section consistent with _Tree_Reload in Select-Tree.au3
 	If $g_Flags[14] = 'BG2EE' Then
 		IniWrite($g_UsrIni, 'Options', 'BG1EE', StringRegExpReplace(GUICtrlRead($g_UI_Interact[2][1]), '\x5c{1,}\z', ''))
 		IniWrite($g_UsrIni, 'Options', 'BG2EE', StringRegExpReplace(GUICtrlRead($g_UI_Interact[2][2]), '\x5c{1,}\z', ''))
@@ -560,7 +561,7 @@ Func _Tree_Populate_PreCheck()
 		$Error+=_Test_RejectPath($i); see if paths are set
 	Next
 	If $Error > 0 Then Return 0
-	If _Test_CheckRequieredFiles() > 0 Then Return 0; see if files are present
+	If _Test_CheckRequiredFiles() > 0 Then Return 0; see if files are present
 	If _Misc_LS_Verify() = 0 Then Return 0; look if language settings are ok
 ;	If _Test_ACP() = 1 Then Return 0; remove infinity-mods if codepage may not support the mods files characters
 	If $g_CentralArray[0][0] = '' Then _Tree_Populate(1); build the tree if needed
@@ -761,8 +762,16 @@ EndFunc   ;==>_Tree_PurgeUnNeeded
 Func _Tree_Reload($p_Show=1, $p_Hint=0, $p_Ini=$g_UsrIni)
 	_PrintDebug('+' & @ScriptLineNumber & ' Calling _Tree_Reload')
 	GUISwitch($g_UI[0])
-	GUICtrlSetData($g_UI_Interact[2][1], IniRead($g_UsrIni, 'Options', 'BG1', GUICtrlRead($g_UI_Interact[2][1]))); set the data for the folder
-	GUICtrlSetData($g_UI_Interact[2][2], IniRead($g_UsrIni, 'Options', 'BG2', GUICtrlRead($g_UI_Interact[2][2])))
+	; Keep this section consistent with _Tree_GetCurrentSelection in Select-Tree.au3
+	If $g_Flags[14] = 'BG2EE' Then ; BG2EE / EET
+		GUICtrlSetData($g_UI_Interact[2][1], IniRead($g_UsrIni, 'Options', 'BG1EE', GUICtrlRead($g_UI_Interact[2][1]))); BG1 folder path
+		GUICtrlSetData($g_UI_Interact[2][2], IniRead($g_UsrIni, 'Options', 'BG2EE', GUICtrlRead($g_UI_Interact[2][2]))); BG2 folder path
+	ElseIf StringRegExp($g_Flags, 'BWP|BWS') Then ; BWP / BWS / BGT
+		GUICtrlSetData($g_UI_Interact[2][1], IniRead($g_UsrIni, 'Options', 'BG1', GUICtrlRead($g_UI_Interact[2][1]))); BG1 folder path
+		GUICtrlSetData($g_UI_Interact[2][2], IniRead($g_UsrIni, 'Options', 'BG2', GUICtrlRead($g_UI_Interact[2][2]))); BG2 folder path
+	Else ; other game types
+		GUICtrlSetData($g_UI_Interact[2][2], IniRead($g_UsrIni, 'Options', $g_Flags[14], GUICtrlRead($g_UI_Interact[2][2]))); game folder path
+	EndIf
 	GUICtrlSetData($g_UI_Interact[2][3], IniRead($g_UsrIni, 'Options', 'Download', GUICtrlRead($g_UI_Interact[2][3])))
 	Local $ModID = '', $ChapterID = '', $Tag = '', $Mod = 0, $Found = 0
 ; ---------------------------------------------------------------------------------------------

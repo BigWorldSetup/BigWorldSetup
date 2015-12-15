@@ -158,7 +158,8 @@ Func _Selection_ExpertWarning()
 		If $g_CentralArray[$w][2] <> '-' Then ContinueLoop; only got interest in headlines
 		If GUICtrlRead($w) = 0 Then ContinueLoop
 		If $g_CentralArray[$w][9] <> 0 And ($g_CentralArray[$w][11] = 'E' Or StringInStr($g_CentralArray[$w][11], 'W')) Then
-			$Warning&=@CRLF&$g_CentralArray[$w][4]
+			; Only add mod once even if it appears in multiple theme sections
+			If Not StringInStr($Warning, $g_CentralArray[$w][4]&@CRLF) Then $Warning&=$g_CentralArray[$w][4]&@CRLF
 		EndIf
 	Next
 	If $Warning = '' Then Return 2

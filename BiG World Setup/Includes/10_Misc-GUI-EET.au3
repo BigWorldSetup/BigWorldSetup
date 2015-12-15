@@ -467,7 +467,7 @@ Func _Misc_SelectFolder($p_Type, $p_Text)
 			GUICtrlSetData($g_UI_Interact[2][2], $Folder)
 			$g_GameDir = $Folder
 		EndIf
-		Call('_Test_CheckRequieredFiles_' & $p_Type)
+		Call('_Test_CheckRequiredFiles_' & $p_Type)
 	EndIf
 EndFunc   ;==>_Misc_SelectFolder
 
