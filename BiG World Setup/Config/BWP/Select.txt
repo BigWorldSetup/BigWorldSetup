@@ -3045,9 +3045,9 @@ STD;BP;390;18;0011;
 STD;BP;400;18;0011;
 STD;BP;425;18;0011;
 MUC;BP;Init;18;0011;
-MUC;BP;440;18;0011;
-MUC;BP;450;18;0000;
-MUC;BP;460;18;0000;
+MUC;BP;440;18;0001;
+MUC;BP;450;18;0001;
+MUC;BP;460;18;0010;
 CMD;IF EXIST ".\override\DUEARC02.CRE" copy /Y ".\override\DUEARC01.CRE" ".\override\DUEARC02.CRE"
 CMD;IF EXIST ".\override\DUEARC03.CRE" copy /Y ".\override\DUEARC01.CRE" ".\override\DUEARC03.CRE"
 CMD;IF EXIST ".\override\DUEARC04.CRE" copy /Y ".\override\DUEARC01.CRE" ".\override\DUEARC04.CRE"
@@ -3317,6 +3317,7 @@ STD;BardSong_BG2_IWD;0;16;0000;
 STD;BardSong_BG2_IWD;1;16;0000;
 ANN;--BWP15.5--gMinion before SR, but after SCS and BP AI (not possible)
 STD;gMinion;0;18;0000;
+CMD;echo 2302 WIZARD_REMOVE_MAGIC >> override\Spell.IDS;;;;D:BPSeries(0)
 STD;BPSeries;0;18;0111;
 STD;BPSeries;10;18;0000;
 STD;BPSeries;100;18;0111;
