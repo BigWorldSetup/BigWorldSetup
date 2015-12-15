@@ -794,16 +794,16 @@ Func _Misc_SwichGUIToInstallMethod()
 	$g_GConfDir = $g_ProgDir & '\Config\' & $g_GameList[$g][0]
 	GUICtrlSetData($g_UI_Interact[1][3], $g_GameList[$g][2])
 	If StringRegExp($g_Flags[14], 'BWS|BWP|BG2EE') Then; includes BGT/EET
-		;GUICtrlSetState($g_UI_Static[2][1], $GUI_HIDE)
-		;GUICtrlSetState($g_UI_Interact[2][1], $GUI_HIDE)
-		;GUICtrlSetState($g_UI_Button[2][1], $GUI_HIDE)
-		;GUICtrlSetData($g_UI_Interact[2][1], '-'); disable BG1-tests
+		GUICtrlSetState($g_UI_Static[2][1], $GUI_HIDE)
+		GUICtrlSetState($g_UI_Interact[2][1], $GUI_HIDE)
+		GUICtrlSetState($g_UI_Button[2][1], $GUI_HIDE)
+		GUICtrlSetData($g_UI_Interact[2][1], '-'); disable BG1-tests
 		GUICtrlSetPos($g_UI_Static[2][1], 30, 85, 370, 15); BG1/BG1EE folder
 		GUICtrlSetPos($g_UI_Interact[2][1], 30, 100, 300, 20)
 		GUICtrlSetPos($g_UI_Button[2][1], 350, 100, 50, 20)
-		GUICtrlSetState($g_UI_Static[2][1], $GUI_SHOW); BG1/BG1EE folder
-		GUICtrlSetState($g_UI_Interact[2][1], $GUI_SHOW)
-		GUICtrlSetState($g_UI_Button[2][1], $GUI_SHOW)
+		;GUICtrlSetState($g_UI_Static[2][1], $GUI_SHOW); BG1/BG1EE folder
+		;GUICtrlSetState($g_UI_Interact[2][1], $GUI_SHOW)
+		;GUICtrlSetState($g_UI_Button[2][1], $GUI_SHOW)
 		GUICtrlSetPos($g_UI_Static[2][2], 30, 135, 370, 15); BG2/IWD1/IWD2/PST/BG2EE folder
 		GUICtrlSetPos($g_UI_Interact[2][2], 30, 150, 300, 20)
 		GUICtrlSetPos($g_UI_Button[2][2], 350, 150, 50, 20)
@@ -811,16 +811,16 @@ Func _Misc_SwichGUIToInstallMethod()
 		GUICtrlSetPos($g_UI_Interact[2][3], 30, 205, 300, 20)
 		GUICtrlSetPos($g_UI_Button[2][3], 350, 205, 50, 20)
 		If $g_Flags[14] = 'BG2EE' Then
-			_Test_GetGamePath('BG1EE')
+			;_Test_GetGamePath('BG1EE')
 			_Test_GetGamePath('BG2EE')
 			$g_GameDir = $g_BG2EEDir
-			GUICtrlSetData($g_UI_Static[2][1], "BG1:EE folder, put '-' if you want only BG2:EE")
-			GUICtrlSetData($g_UI_Interact[2][1], $g_BG1EEDir)
+			;GUICtrlSetData($g_UI_Static[2][1], "BG1:EE folder, put '-' if you want only BG2:EE")
+			;GUICtrlSetData($g_UI_Interact[2][1], $g_BG1EEDir)
 			GUICtrlSetData($g_UI_Interact[2][2], $g_BG2EEDir)
 		Else; BWS/BWP
-			;GUICtrlSetState($g_UI_Static[2][1], $GUI_SHOW)
-			;GUICtrlSetState($g_UI_Interact[2][1], $GUI_SHOW)
-			;GUICtrlSetState($g_UI_Button[2][1], $GUI_SHOW)
+			GUICtrlSetState($g_UI_Static[2][1], $GUI_SHOW)
+			GUICtrlSetState($g_UI_Interact[2][1], $GUI_SHOW)
+			GUICtrlSetState($g_UI_Button[2][1], $GUI_SHOW)
 			_Test_GetGamePath('BG1')
 			_Test_GetGamePath('BG2')
 			$g_GameDir = $g_BG2Dir

@@ -502,17 +502,21 @@ Func _Misc_SetAvailableSelection()
 	$SplitD = StringSplit($UI, '|'); => defaults
 	GUICtrlSetData($g_UI_Interact[2][4], '')
 	$InstallType = IniRead($g_UsrIni, 'Options', 'InstallType', '')
-	If $InstallType = '' Then
+	If $InstallType = '' Then ; revert to a default pre-selection if no record of most recent user selection
 		If $g_Flags[14] = 'BWS' Then
 			$InstallType = $Split[1]; => preselections with total happyness as default
 		Else
-			$InstallType = $Split[2]; => preselections with recommended as default
+			$InstallType = $SplitD[2]; => preselections with recommended as default
 		EndIf
-	ElseIf StringLen($InstallType) = 1 Then
+	ElseIf StringLen($InstallType) = 1 Then ; one of the default pre-selections was the most recent user selection
 		If $InstallType > UBound($SplitD) - 1 Then $InstallType = 1
 		$InstallType = $SplitD[$InstallType]
-	Else
-		If $InstallType > UBound($Split) - 1 Then $InstallType = 1
+	Else ; a custom compilation was the most recent user selection
+		If $InstallType > UBound($Split) - 1 Then
+			$InstallType = 1
+		ElseIf $InstallType = '00' And FileExists($g_GConfDir & '\Preselection00.ini') Then
+			$InstallType = '01' ; if available, reload auto-export (user-customized selection)
+		EndIf
 		$InstallType = $Split[$InstallType]
 	EndIf
 	GUICtrlSetData($g_UI_Interact[2][4], _GetTR($g_UI_Message, '2-I1'), $InstallType); => preselections with total happyness as default
@@ -534,7 +538,7 @@ Func _Misc_SetLang()
 	GUICtrlSetData($g_UI_Static[2][2], _GetGameName())
 	GUICtrlSetData($g_UI_Static[3][1], StringFormat(_GetSTR($Message, 'Static[3][1]'), $g_Flags[14])); => backup important files
 	GUICtrlSetData($g_UI_Interact[3][4], StringFormat(_GetSTR($Message, 'Interact[3][4]'), _GetGameName(), $g_Flags[14], $g_Flags[14])); => backup help text
-	; Items that need special treetment
+	; Items that need special treatment
 	$Split = StringSplit(_GetTR($Message, 'Interact[1][2]'), '|'); => BWS translations
 	GUICtrlSetData($g_UI_Interact[1][2], '')
 	GUICtrlSetData($g_UI_Interact[1][2], _GetTR($Message, 'Interact[1][2]'), $Split[$g_ATNum]); => BWS translations
@@ -789,29 +793,34 @@ Func _Misc_SwichGUIToInstallMethod()
 	Next
 	$g_GConfDir = $g_ProgDir & '\Config\' & $g_GameList[$g][0]
 	GUICtrlSetData($g_UI_Interact[1][3], $g_GameList[$g][2])
-	If StringRegExp($g_Flags[14], 'BWS|BWP|BG2EE') Then
-		GUICtrlSetState($g_UI_Static[2][1], $GUI_SHOW)
+	If StringRegExp($g_Flags[14], 'BWS|BWP|BG2EE') Then; includes BGT/EET
+		;GUICtrlSetState($g_UI_Static[2][1], $GUI_HIDE)
+		;GUICtrlSetState($g_UI_Interact[2][1], $GUI_HIDE)
+		;GUICtrlSetState($g_UI_Button[2][1], $GUI_HIDE)
+		;GUICtrlSetData($g_UI_Interact[2][1], '-'); disable BG1-tests
+		GUICtrlSetPos($g_UI_Static[2][1], 30, 85, 370, 15); BG1/BG1EE folder
+		GUICtrlSetPos($g_UI_Interact[2][1], 30, 100, 300, 20)
+		GUICtrlSetPos($g_UI_Button[2][1], 350, 100, 50, 20)
+		GUICtrlSetState($g_UI_Static[2][1], $GUI_SHOW); BG1/BG1EE folder
 		GUICtrlSetState($g_UI_Interact[2][1], $GUI_SHOW)
 		GUICtrlSetState($g_UI_Button[2][1], $GUI_SHOW)
-		GUICtrlSetData($g_UI_Interact[2][1], '-'); disable BG1-tests
-		GUICtrlSetPos($g_UI_Static[2][2], 30, 135, 370, 15); BG2/IWD1/IWD2/PST/BG1EE
+		GUICtrlSetPos($g_UI_Static[2][2], 30, 135, 370, 15); BG2/IWD1/IWD2/PST/BG2EE folder
 		GUICtrlSetPos($g_UI_Interact[2][2], 30, 150, 300, 20)
 		GUICtrlSetPos($g_UI_Button[2][2], 350, 150, 50, 20)
-		GUICtrlSetPos($g_UI_Static[2][3], 30, 190, 370, 15); download
+		GUICtrlSetPos($g_UI_Static[2][3], 30, 190, 370, 15); Download folder
 		GUICtrlSetPos($g_UI_Interact[2][3], 30, 205, 300, 20)
 		GUICtrlSetPos($g_UI_Button[2][3], 350, 205, 50, 20)
 		If $g_Flags[14] = 'BG2EE' Then
-			;_Test_GetGamePath('BG1EE')
+			_Test_GetGamePath('BG1EE')
 			_Test_GetGamePath('BG2EE')
 			$g_GameDir = $g_BG2EEDir
-			GUICtrlSetData($g_UI_Static[2][1], "Baldur's Gate: EE, put '-' if you want only BGII: EE")
+			GUICtrlSetData($g_UI_Static[2][1], "BG1:EE folder, put '-' if you want only BG2:EE")
 			GUICtrlSetData($g_UI_Interact[2][1], $g_BG1EEDir)
 			GUICtrlSetData($g_UI_Interact[2][2], $g_BG2EEDir)
-		Else
-			;Disable EET and wait for K4thos green light
-			GUICtrlSetState($g_UI_Static[2][1], $GUI_SHOW)
-			GUICtrlSetState($g_UI_Interact[2][1], $GUI_SHOW)
-			GUICtrlSetState($g_UI_Button[2][1], $GUI_SHOW)
+		Else; BWS/BWP
+			;GUICtrlSetState($g_UI_Static[2][1], $GUI_SHOW)
+			;GUICtrlSetState($g_UI_Interact[2][1], $GUI_SHOW)
+			;GUICtrlSetState($g_UI_Button[2][1], $GUI_SHOW)
 			_Test_GetGamePath('BG1')
 			_Test_GetGamePath('BG2')
 			$g_GameDir = $g_BG2Dir
@@ -825,7 +834,7 @@ Func _Misc_SwichGUIToInstallMethod()
 			GUICtrlSetState($g_UI_Menu[1][16], $GUI_CHECKED)
 			GUICtrlSetState($g_UI_Interact[14][8], $GUI_UNCHECKED); will be asked by batch
 		Else;If StringRegExp($g_Flags[14], 'BWS|BG2EE)' Then
-			$g_Flags[21] = 0; sort by theme
+			$g_Flags[21] = 0; sort components by theme
 			GUICtrlSetState($g_UI_Menu[1][16], $GUI_UNCHECKED)
 		EndIf
 	Else; hide BG1-folder and adjust positions of GUI-controls
@@ -833,10 +842,10 @@ Func _Misc_SwichGUIToInstallMethod()
 		GUICtrlSetState($g_UI_Interact[2][1], $GUI_HIDE)
 		GUICtrlSetState($g_UI_Button[2][1], $GUI_HIDE)
 		GUICtrlSetData($g_UI_Interact[2][1], '-'); disable BG1-tests
-		GUICtrlSetPos($g_UI_Static[2][2], 30, 100, 370, 15)
+		GUICtrlSetPos($g_UI_Static[2][2], 30, 100, 370, 15); BG2/BG2EE folder
 		GUICtrlSetPos($g_UI_Interact[2][2], 30, 115, 300, 20)
 		GUICtrlSetPos($g_UI_Button[2][2], 350, 115, 50, 20)
-		GUICtrlSetPos($g_UI_Static[2][3], 30, 170, 370, 15); Download
+		GUICtrlSetPos($g_UI_Static[2][3], 30, 170, 370, 15); Download folder
 		GUICtrlSetPos($g_UI_Interact[2][3], 30, 185, 300, 20)
 		GUICtrlSetPos($g_UI_Button[2][3], 350, 185, 50, 20)
 		_Test_GetGamePath($g_Flags[14])
