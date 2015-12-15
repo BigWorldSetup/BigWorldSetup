@@ -701,7 +701,7 @@ Func _Tree_PurgeUnNeeded()
 					EndIf
 				ElseIf StringRegExp($g_Flags[14], 'BWP|BWS') Then
 					If $g_BG1Dir <> '-' Then; BGT install
-						If StringInStr($SplitPurgeLine[3], '(?i)BGT\x28\x2d\x29') Then ContinueLoop; don't purge mods that depend on BGT
+						If StringRegExp($SplitPurgeLine[3], '(?i)BGT\x28\x2d\x29') Then ContinueLoop; don't purge mods that depend on BGT
 					Else
 						; BG1-only install - fall through to purge mods that depend on BGT
 					EndIf
