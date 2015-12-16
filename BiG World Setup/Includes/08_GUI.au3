@@ -63,7 +63,7 @@ Func Au3BuildGUI($p_Num = 0)
 	$g_UI_Interact[1][2] = GUICtrlCreateCombo('', 430, 390, 305, 100)
 	$g_UI_Static[1][3] = GUICtrlCreateLabel('', 15, 390, 400, 20, $SS_CENTER+$SS_CENTERIMAGE); install method
 	GUICtrlSetState(-1, $GUI_HIDE)
-	$g_UI_Interact[1][3] = GUICtrlCreateCombo('', 430, 390, 305, 100); installmethod
+	$g_UI_Interact[1][3] = GUICtrlCreateCombo('', 430, 390, 305, 100); install method
 	GUICtrlSetState(-1, $GUI_HIDE)
 	$g_UI_Static[1][4] = GUICtrlCreateLabel('', 15, 105, 400, 260); dummy for resizing the picture in the screen
 #EndRegion Welcome Tab

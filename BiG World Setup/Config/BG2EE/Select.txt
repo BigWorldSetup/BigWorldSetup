@@ -1943,8 +1943,8 @@ MUC;BP-BGT-Worldmap;Init;13;1111;
 MUC;BP-BGT-Worldmap;1;13;1111;
 MUC;BP-BGT-Worldmap;2;13;0000;
 ANN;--- PaintBG portraits ---
-ANN;PaintBG for EE is just .bmp files, so install first to allow other mods to overwrite
 ANN;We must install PaintBG before generalized biffing so that we can append to BGEE.SQL
+ANN;PaintBG for EE is just .bmp files, so install first to allow other mods to overwrite
 DWN;paintbg;0;13;1111;
 ANN;Standardize PaintBG directory name to simplify scripting
 CMD;IF EXIST "PaintBG*(EE)" MOVE /Y "PAINTBG*(EE)" "PaintBG"
@@ -1984,6 +1984,8 @@ STD;LightingPack;17;13;0000;
 STD;LightingPack;18;13;0000;
 STD;LightingPack;19;13;0000;
 STD;LightingPack;20;13;0000;
+ANN;--- optional fixes ---
+STD;apr_fix;0;01;0111;
 ANN;--- portraits ---
 SUB;eet_tweaks;1;13;1111;
 SUB;eet_tweaks;1?1_1;13;0000;
@@ -2012,6 +2014,7 @@ STD;bg1npc;4;13;0000;
 STD;bg1npc;5;13;0000;
 STD;bg1npc;6;13;0000;
 STD;bg1npc;7;13;0000;
+STD;DjinniCompanion;300;13;0111;
 MUC;gavin;Init;13;1111;
 MUC;gavin;4;13;1111;
 MUC;gavin;5;13;0000;
@@ -2034,7 +2037,6 @@ MUC;Nathaniel;Init;13;0111;
 MUC;Nathaniel;1;13;0111;
 MUC;Nathaniel;2;13;0000;
 MUC;Nathaniel;3;13;0000;
-STD;DjinniCompanion;300;13;0111;
 ANN;--- NPC kit changes ---
 ANN;Imoen
 MUC;npc_ee;Init;12;1111;
@@ -2186,5 +2188,4 @@ MUC;npc_ee;861;12;1100;
 MUC;npc_ee;862;12;0011;
 MUC;npc_ee;863;12;0000;
 MUC;npc_ee;878;12;0000;
-STD;apr_fix;0;01;0111;
 ANN;Added due to patching

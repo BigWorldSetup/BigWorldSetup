@@ -270,7 +270,7 @@ Func _Misc_LS_Verify()
 	EndIf
 	If $BGTInstallable = 0 And GUICtrlRead($g_UI_Interact[2][1]) <> '-' Then $Error &= '||' & IniRead($g_GConfDir & '\Translation-' & $g_ATrans[$g_ATNum] & '.ini', 'UI-RunTime', '2-L4', ''); => BGT/EET not installable
 	If $Error <> '' Then
-		If $Current = 2 Then $Error &= '||' & _GetTR($g_UI_Message, '2-L5'); => start assistent
+		If $Current = 2 Then $Error &= '||' & _GetTR($g_UI_Message, '2-L5'); => start assistant
 		_Misc_MsgGUI(4, _GetTR($g_UI_Message, '0-T1'), $Error); => warning
 		If $Current = 2 Then _Misc_LS_GUI()
 		Return 0

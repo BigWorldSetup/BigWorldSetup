@@ -1070,8 +1070,8 @@ SUB;BP-BGT-Worldmap;0?1_2;13;0000;
 SUB;BP-BGT-Worldmap;0?2_1;13;0000;
 SUB;BP-BGT-Worldmap;0?2_2;13;1111;
 ANN;--- PaintBG portraits ---
-ANN;PaintBG for EE is just .bmp files, so install first to allow other mods to overwrite
 ANN;We must install PaintBG before generalized biffing so that we can append to BGEE.SQL
+ANN;PaintBG for EE is just .bmp files, so install first to allow other mods to overwrite
 DWN;paintbg;0;13;1111;
 ANN;Standardize PaintBG directory name to simplify scripting
 CMD;IF EXIST "PaintBG*(EE)" MOVE /Y "PAINTBG*(EE)" "PaintBG"
@@ -1121,6 +1121,8 @@ STD;LightingPack;17;13;0000;
 STD;LightingPack;18;13;0000;
 STD;LightingPack;19;13;0000;
 STD;LightingPack;20;13;0000;
+ANN;--- optional fixes ---
+STD;apr_fix;0;01;0111;
 ANN;--- portraits ---
 DWN;ThePictureStandardBGEE;0;13;0111;
 SUB;ajantisportraitpack;0;13;0000;
@@ -1268,5 +1270,4 @@ MUC;npc_ee;581;12;1111;
 MUC;npc_ee;582;12;0000;
 MUC;npc_ee;583;12;0000;
 MUC;npc_ee;598;12;0000;
-STD;apr_fix;0;01;0111;
 ANN;Added due to patching
