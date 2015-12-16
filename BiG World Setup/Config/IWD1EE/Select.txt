@@ -47,13 +47,13 @@ MUC;MSFM;18;10;0111;
 STD;MSFM;19;10;0111;
 MUC;DjinniCompanion;Init;06;0111;
 MUC;DjinniCompanion;2;06;0111;
-MUC;DjinniCompanion;Init;06;0000;
-MUC;DjinniCompanion;101;06;0000;
-MUC;DjinniCompanion;102;06;0000;
-MUC;DjinniCompanion;103;06;0000;
-MUC;DjinniCompanion;104;06;0000;
-MUC;DjinniCompanion;105;06;0000;
-STD;DjinniCompanion;200;06;0000;
+ANN;MUC;DjinniCompanion;Init;06;0000;
+ANN;MUC;DjinniCompanion;101;06;0000;
+ANN;MUC;DjinniCompanion;102;06;0000;
+ANN;MUC;DjinniCompanion;103;06;0000;
+ANN;MUC;DjinniCompanion;104;06;0000;
+ANN;MUC;DjinniCompanion;105;06;0000;
+ANN;STD;DjinniCompanion;200;06;0000;
 ANN;#300 portrait installed later
 STD;DjinniCompanion;400;06;0000;
 ANN;DjinniCompanion;900;06;0000; (needs InfinityAnimations)
