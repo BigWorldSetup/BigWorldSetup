@@ -1,6 +1,6 @@
 ### What is this repository for? ###
 
-* BiG World Setup:
+* BiG World Setup by dabus:
 
 [Forum SHS](http://www.shsforums.net/topic/56670-big-world-setup-an-attempt-to-update-the-program/)
 
@@ -17,9 +17,7 @@
 * add mods/make other changes
 * create pull request for this repo
 
-### Who do I talk to? ###
+### Contributions ###
+[agb1](http://www.shsforums.net/user/41035-agb1/)
 [AL|EN](http://www.shsforums.net/user/10953-alien/)
-
 [Quiet](http://www.shsforums.net/user/13265-quiet/)
-
-[dabus](http://www.shsforums.net/user/11682-dabus/)
