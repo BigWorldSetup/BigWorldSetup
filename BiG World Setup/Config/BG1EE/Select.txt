@@ -12,11 +12,11 @@ STD;BGEE_PL;1;0;1111;
 DWN;BGEE-Polish;0;00;1111;
 STD;bgeetextpack;0;01;1111;
 STD;bgeetextpack;1;01;1111;
-SUB;bgeegraphics;0;13;1111;
-SUB;bgeegraphics;0?1_1;13;1111;
+SUB;bgeegraphics;0;13;0001;
+SUB;bgeegraphics;0?1_1;13;0001;
 SUB;bgeegraphics;0?1_2;13;0000;
-DWN;bgeegraphics_part2;0;13;1111;
-DWN;bgeegraphics_part3;0;13;1111;
+DWN;bgeegraphics_part2;0;13;0001;
+DWN;bgeegraphics_part3;0;13;0001;
 ANN;Removing corrupted .wed
 CMD;IF EXIST setup-bgeegraphics.exe IF EXIST ".\override\ar4300.wed" move ".\override\ar4300.wed" ".\BWS_workspace\override"
 ANN;--- item revisions core, spell revisions core ---
