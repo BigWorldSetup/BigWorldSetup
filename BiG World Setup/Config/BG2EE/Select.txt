@@ -1167,11 +1167,10 @@ ANN;Refinements goes here for compatibility with Scales of Balance
 STD;scales_of_balance;580;09;0111;
 STD;might_and_guile;100;09;0111;
 CMD;IF EXIST ".\override\C#AJAN16.CRE" move ".\override\C#AJAN16.CRE" ".\BWS_workspace\override"
-STD;might_and_guile;120;09;0001;
+STD;might_and_guile;120;09;0111;
 CMD;IF EXIST ".\BWS_workspace\override\C#AJAN16.CRE" move ".\BWS_workspace\override\C#AJAN16.CRE" ".\override"
-STD;might_and_guile;160;09;0001;
-STD;might_and_guile;180;09;0001;
-ANN;STD;might_and_guile;200;09;0111;
+STD;might_and_guile;160;09;0111;
+STD;might_and_guile;200;09;0111;
 STD;might_and_guile;205;09;0111;
 STD;might_and_guile;210;09;0111;
 STD;might_and_guile;215;09;0111;
@@ -1848,10 +1847,13 @@ STD;A7NoEENPCs;201;09;0000;
 STD;A7NoEENPCs;202;09;0000;
 STD;A7NoEENPCs;203;09;0000;
 STD;A7NoEENPCs;204;09;0000;
+ANN;Magic Resistance Overhaul
+STD;might_and_guile;180;09;0000;
 ANN;#0 teleport spell -> standard
 STD;eet_tweaks;0;09;0111;
 ANN;#1 portraits moved down
 STD;eet_tweaks;2;09;1111;
+ANN;-- adjust total XP cap --
 SUB;eet_tweaks;3;09;1111;
 SUB;eet_tweaks;3?1_1;09;0000;
 SUB;eet_tweaks;3?1_2;09;0000;
@@ -1863,12 +1865,14 @@ SUB;eet_tweaks;4?1_2;09;0011;
 SUB;eet_tweaks;5;09;0011;
 SUB;eet_tweaks;5?1_1;09;0011;
 SUB;eet_tweaks;5?1_2;09;0000;
+ANN;-- XP for locks, traps, spells
 SUB;eet_tweaks;6;09;1111;
 SUB;eet_tweaks;6?1_1;09;0000;
 SUB;eet_tweaks;6?1_2;09;0000;
 SUB;eet_tweaks;6?1_3;09;1111;
 SUB;eet_tweaks;6?1_4;09;0000;
 SUB;eet_tweaks;6?1_5;09;0000;
+ANN;-- XP for killing creatures --
 SUB;eet_tweaks;7;09;1111;
 SUB;eet_tweaks;7?1_1;09;0000;
 SUB;eet_tweaks;7?1_2;09;1100;
@@ -1877,6 +1881,7 @@ SUB;eet_tweaks;7?1_4;09;0000;
 SUB;eet_tweaks;7?1_5;09;0000;
 SUB;eet_tweaks;7?1_6;09;0000;
 SUB;eet_tweaks;7?1_7;09;0000;
+ANN;-- XP for completing quests --
 SUB;eet_tweaks;8;09;1111;
 SUB;eet_tweaks;8?1_1;09;0000;
 SUB;eet_tweaks;8?1_2;09;1100;
@@ -1885,8 +1890,10 @@ SUB;eet_tweaks;8?1_4;09;0000;
 SUB;eet_tweaks;8?1_5;09;0000;
 SUB;eet_tweaks;8?1_6;09;0000;
 SUB;eet_tweaks;8?1_7;09;0000;
+ANN;-- proportional quest XP --
 STD;eet_tweaks;9;09;0011;
 STD;eet_tweaks;10;09;0011;
+ANN;-- FPS without audio skip --
 SUB;eet_tweaks;11;09;1111;
 SUB;eet_tweaks;11?1_1;09;0000;
 SUB;eet_tweaks;11?1_2;09;1111;
@@ -1920,6 +1927,7 @@ SUB;eet_tweaks;19?1_2;09;0000;
 SUB;eet_tweaks;19?1_3;09;0000;
 SUB;eet_tweaks;19?1_4;09;0000;
 SUB;eet_tweaks;19?1_5;09;0000;
+ANN;-- no hostile charm reaction --
 STD;eet_tweaks;20;09;1111;
 SUB;eet_tweaks;21;09;1111;
 SUB;eet_tweaks;21?1_1;09;0011;

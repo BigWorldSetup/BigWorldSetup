@@ -2749,7 +2749,6 @@ CMD;IF EXIST ".\override\C#AJAN16.CRE" move ".\override\C#AJAN16.CRE" ".\BWP_wor
 STD;might_and_guile;120;16;0111;
 CMD;IF EXIST ".\BWP_workspace\override\C#AJAN16.CRE" move ".\BWP_workspace\override\C#AJAN16.CRE" ".\override"
 STD;might_and_guile;160;16;0111;
-STD;might_and_guile;180;16;0000;
 STD;might_and_guile;200;16;0111;
 STD;might_and_guile;205;16;0111;
 STD;might_and_guile;210;16;0111;
@@ -3721,6 +3720,8 @@ MUC;BP-Balancer;Init;16;1111;
 MUC;BP-Balancer;29;16;0000;
 MUC;BP-Balancer;30;16;1111;
 MUC;BP-Balancer;31;16;0000;
+ANN;Magic Resistance Overhaul
+STD;might_and_guile;180;16;0000;
 ANN;-- adjust total XP cap --
 SUB;eet_tweaks;3;16;0111;
 SUB;eet_tweaks;3?1_1;16;0000;
@@ -3755,6 +3756,7 @@ ANN;-- FPS without audio skip --
 SUB;eet_tweaks;11;16;0111;
 SUB;eet_tweaks;11?1_1;16;0000;
 SUB;eet_tweaks;11?1_2;16;0111;
+SUB;eet_tweaks;11?1_3;09;0000;
 ANN;-- no hostile charm reaction --
 STD;eet_tweaks;20;16;0111;
 STD;Virtue;0;16;0001;
