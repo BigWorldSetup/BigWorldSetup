@@ -429,7 +429,7 @@ EndFunc    ;==>_Depend_GetActiveDependAll
 ; Therefore: we split rules into 'and-group' sub-sets and require at least one from each set
 ; ---------------------------------------------------------------------------------------------
 Func _Depend_GetActiveDependAdv($p_String, $p_ID, $p_Show)
-	IniWrite("depend.ini", "debug", "_Depend_GADA_"&$p_ID, $g_Connections[$p_ID][0]&" ~~ "&$g_Connections[$p_ID][1]&" ~~ "&$p_String)
+	;IniWrite("depend.ini", "debug", "_Depend_GADA_"&$p_ID, $g_Connections[$p_ID][0]&" ~~ "&$g_Connections[$p_ID][1]&" ~~ "&$p_String)
 	$p_String=StringSplit($p_String, ':'); p_String will be a dependency rule like "123&456:789" without the "D:" prefix
 	$Left=_Depend_ItemGetSelected($p_String[1]); otherwise, check which mods/components from the LEFT side of the dependency rule are active
 	If $Left[0][1] = 0 Then Return; NOTHING on the LEFT side of the rule is active/selected, so the RIGHT side does not matter -> do nothing
