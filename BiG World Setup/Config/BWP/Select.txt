@@ -2489,7 +2489,9 @@ STD;Item_Pack;7;17;1111;
 STD;Item_Pack;8;17;1111;
 STD;Item_Pack;9;17;1111;
 CMD;IF EXIST Setup-DungeonBeGone.exe IF EXIST ".\override\FWJASSY.CRE" move ".\override\FWJASSY.CRE" ".\BWP_workspace\override"
-STD;iiItemMod;1;17;0111;
+SUB;iiItemMod;1;17;0111;
+SUB;iiItemMod;1?1_0;17;0111;
+SUB;iiItemMod;1?1_1;17;0000;
 CMD;IF EXIST Setup-DungeonBeGone.exe IF EXIST ".\BWP_workspace\override\FWJASSY.CRE" move ".\BWP_workspace\override\FWJASSY.CRE" ".\override"
 MUC;item_rev;Init;16;0011;
 MUC;item_rev;2;16;0000;
