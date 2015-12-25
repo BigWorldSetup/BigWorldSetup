@@ -648,7 +648,8 @@ STD;Derats_kits;7;12;0000;
 STD;Derats_kits;8;12;0000;
 STD;A7#ImprovedArcher;0;12;0111;
 ANN;FnP should be installed after all divine kits
-STD;f_n_p;102;12;0001;
+SUB;f_n_p;102;12;0001;
+SUB;f_n_p;102?1_1;12;0001;
 STD;f_n_p;200;12;0001;
 STD;f_n_p;212;12;0001;
 STD;f_n_p;219;12;0001;
