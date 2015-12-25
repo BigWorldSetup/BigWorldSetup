@@ -701,6 +701,9 @@ STD;RE;51;07;0111;
 STD;RE;52;07;0111;
 STD;RE;53;07;0111;
 STD;RE;54;07;0111;
+STD;haerdalisromance;0;07;0111;
+STD;nephele;0;05;0111;
+STD;nephele;1;05;0111;
 STD;Faren;0;05;0111;
 MUC;Faren;Init;05;0111;
 MUC;Faren;1;05;0000;
@@ -799,10 +802,6 @@ STD;d0questpack;20;03;0111;
 STD;d0questpack;21;03;0111;
 ANN;--- BG2EE minimods ---
 STD;wheels;0;04;1111;
-ANN;--- BG2EE NPCs ---
-STD;haerdalisromance;0;07;0111;
-STD;nephele;0;05;0111;
-STD;nephele;1;05;0111;
 ANN;--- BG2EE minimods ---
 STD;G3Anniversary;0;04;0111;
 ANN;--- BG2EE NPCs ---
@@ -1955,19 +1954,19 @@ MUC;BP-BGT-Worldmap;2;13;0000;
 ANN;--- PaintBG portraits ---
 ANN;We must install PaintBG before generalized biffing so that we can append to BGEE.SQL
 ANN;PaintBG for EE is just .bmp files, so install first to allow other mods to overwrite
-DWN;paintbg;0;13;1111;
+DWN;paintbg;0;13;0000;
 ANN;Standardize PaintBG directory name to simplify scripting
-CMD;IF EXIST "PaintBG*(EE)" MOVE /Y "PAINTBG*(EE)" "PaintBG"
+CMD;IF EXIST "PaintBG*(EE)" MOVE /Y "PAINTBG*(EE)" "PaintBG";;;;D:paintbg(0)
 ANN;Add PaintBG CHARNAME portraits to bgee.sql so they can be selected during character creation
-CMD;IF EXIST "PaintBG" IF EXIST "override\bgee.sql" ECHO INSERT INTO portraits ROWS >> "override\bgee.sql" && ECHO ( >> "override\bgee.sql"
+CMD;IF EXIST "PaintBG" IF EXIST "override\bgee.sql" ECHO INSERT INTO portraits ROWS >> "override\bgee.sql" && ECHO ( >> "override\bgee.sql";;;;D:paintbg(0)
 ANN;Make male CHARNAME portraits selectable
-CMD;IF EXIST "PaintBG" IF EXIST "override\bgee.sql" FOR %%F IN ("PaintBG\PA#Ma*L.bmp") DO cmd /v:on /c "set trunc=%%%%~nF & echo '!trunc:~0,-2!', 1, >> override\bgee.sql"
+CMD;IF EXIST "PaintBG" IF EXIST "override\bgee.sql" FOR %%F IN ("PaintBG\PA#Ma*L.bmp") DO cmd /v:on /c "set trunc=%%%%~nF & echo '!trunc:~0,-2!', 1, >> override\bgee.sql";;;;D:paintbg(0)
 ANN;Make female CHARNAME portraits selectable
-CMD;IF EXIST "PaintBG" IF EXIST "override\bgee.sql" FOR %%F IN ("PaintBG\PA#Wo*L.bmp") DO cmd /v:on /c "set trunc=%%%%~nF & echo '!trunc:~0,-2!', 2, >> override\bgee.sql"
+CMD;IF EXIST "PaintBG" IF EXIST "override\bgee.sql" FOR %%F IN ("PaintBG\PA#Wo*L.bmp") DO cmd /v:on /c "set trunc=%%%%~nF & echo '!trunc:~0,-2!', 2, >> override\bgee.sql";;;;D:paintbg(0)
 ANN;Close off the selectable portraits list
-CMD;IF EXIST "PaintBG" IF EXIST "override\bgee.sql" ECHO )\; >> "override\bgee.sql"
+CMD;IF EXIST "PaintBG" IF EXIST "override\bgee.sql" ECHO )\; >> "override\bgee.sql";;;;D:paintbg(0)
 ANN;Copy over all the portraits and remove the PaintBG directory
-CMD;IF EXIST "PaintBG" XCOPY /Y /I "PaintBG\*.bmp" "characters" && RMDIR /S /Q "PaintBG"
+CMD;IF EXIST "PaintBG" XCOPY /Y /I "PaintBG\*.bmp" "characters" && RMDIR /S /Q "PaintBG";;;;D:paintbg(0)
 SUB;generalized_biffing;0;00;1111;
 SUB;generalized_biffing;0?1_0;00;0000;
 SUB;generalized_biffing;0?1_1;00;1111;
@@ -2018,12 +2017,12 @@ SUB;ajantisportraitpack;0?1_14;13;0000;
 SUB;ajantisportraitpack;0?1_15;13;0000;
 SUB;ajantisportraitpack;0?1_16;13;0000;
 SUB;ajantisportraitpack;0?1_17;13;0000;
-STD;bg1npc;2;13;0000;
-STD;bg1npc;3;13;0000;
-STD;bg1npc;4;13;0000;
-STD;bg1npc;5;13;0000;
-STD;bg1npc;6;13;0000;
-STD;bg1npc;7;13;0000;
+STD;bg1npc;2;13;1111;
+STD;bg1npc;3;13;1111;
+STD;bg1npc;4;13;1111;
+STD;bg1npc;5;13;1111;
+STD;bg1npc;6;13;1111;
+STD;bg1npc;7;13;1111;
 STD;DjinniCompanion;300;13;0111;
 MUC;gavin;Init;13;1111;
 MUC;gavin;4;13;1111;
