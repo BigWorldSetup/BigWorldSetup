@@ -435,6 +435,8 @@ Func _Depend_GetActiveDependAdv($p_String, $p_ID, $p_Show)
 	If $Left[0][1] = 0 Then Return; NOTHING on the LEFT side of the rule is active/selected, so the RIGHT side does not matter -> do nothing
 	$Right=_Depend_ItemGetSelected($p_String[2]); check which mods/components from the RIGHT side of the dependency rule are active
 	If $Right[0][0] = $Right[0][1] Then Return; if ALL mods/components on the RIGHT side of the rule are active, the rule is satisfied -> do nothing
+	;check for a special case - game type can also be a dependency satisfying an OR condition
+	If StringRegExp($p_String[2], '\x7c('&$g_Flags[14]&')[^[:alpha:]]') Then Return; found OR '|' followed by game type in dependencies -> do nothing
 	; at this point, we know at least one mod/component on the LEFT is active, but there could still be unsatisfied '&' rules on the LEFT side
 	; at this point, we know at least one mod/component on the RIGHT is inactive, but not necessarily a needed dependency (it could be an '|' rule)
 	; now we need to evaluate the rule to check which conditions on the LEFT are satisfied and which conditions on the RIGHT are not satisfied
@@ -442,7 +444,7 @@ Func _Depend_GetActiveDependAdv($p_String, $p_ID, $p_Show)
 	; to handle rules with combinations of AND/OR, we will split each side of the rule into parts separated by '&' operators
 	; we will do two passes through both sides of the rule because we need to check conditions on both sides before adding connections
 	Local $Warning = ''
-	If $g_Connections[$p_ID][4]=1 Then $Warning=' *'; the rule we are checking is a 'CW' or 'DW'
+	If $g_Connections[$p_ID][4]=1 Then $Warning=' **'; the rule we are checking is a 'CW' or 'DW'
 	Local $foundMissingDependency=0
 	For $secondPass = 0 to 1
 		; evaluate the rule to check if conditions on the LEFT are satisfied and conditions on the RIGHT are not satisfied
@@ -460,48 +462,47 @@ Func _Depend_GetActiveDependAdv($p_String, $p_ID, $p_Show)
 						$Prefix = ''
 						For $t=1 to $ThisPart[0][0]; process mods/components "in need" (from the LEFT side of the rule)
 							If $ThisPart[$t][1]=1 Then; only consider "in need" mods/components if they are ACTIVE
-								If $p_Show=1 Then GUICtrlCreateListViewItem($Prefix&$g_CentralArray[$Left[$t][0]][4]&$Warning & '|' & $g_CentralArray[$Left[$t][0]][3], $g_UI_Interact[10][1]); mod name, component description
-								_Depend_ActiveAddItem('DS', $p_ID, $Left[$t][0]); add an "in need" connection from this mod/component
+								If $p_Show=1 Then GUICtrlCreateListViewItem($Prefix & $g_CentralArray[$ThisPart[$t][0]][4] & $Warning & '|' & $g_CentralArray[$ThisPart[$t][0]][3], $g_UI_Interact[10][1]); mod name, component description
+								_Depend_ActiveAddItem('DS', $p_ID, $ThisPart[$t][0]); add an "in need" connection from this mod/component
 								If $Prefix='' Then $Prefix='+ '
 							EndIf
 						Next
 					EndIf
 				Else;If $s = 2 Then; on the right side, we need at least one inactive mod in ANY '&'-subset, else no missing dependencies
-					$inActiveCount = $ThisPart[0][0] - $ThisPart[0][1]; 'total in group' minus 'active in group'
-					If $inActiveCount > 0 Then $foundMissingDependency=1
+					If $ThisPart[0][1] > 0 Then ContinueLoop; at least one active mod/component in this part -> skip to next part
+					$foundMissingDependency=1; else, we found at least one missing ('needed') dependency here
 					If $secondPass Then
-						For $t = 1 to $ThisPart[0][0]; add active connections for any missing dependencies
-							If $ThisPart[$t][1] = 0 Then; mod/component is inactive, possibly needed
-								If $inActiveCount = 1 Then; if it is the only missing dependency in this '&'-subset, it is MANDATORY
-									_Depend_ActiveAddItem('DM', $p_ID, $ThisPart[$t][0], $and_Group); add MANDATORY connection for this mod/component
-									If $p_Show = 1 Then
-										$ModName=$g_CentralArray[$ThisPart[$t][0]][4]; mod name
-										If $ModName = '' Then
-											$ModName=_GetTR($g_UI_Message, '10-L1'); => removed due to purge/translation/invalid
-											$CompDesc=''; no component description
-										Else
-											$CompDesc=$g_CentralArray[$ThisPart[$t][0]][3]; component description
-										EndIf
-										GUICtrlCreateListViewItem($Prefix&$ModName & '|' & $CompDesc, $g_UI_Interact[10][1])
-										GUICtrlSetBkColor(-1, 0xFFA500)
+						$inActiveCount = $ThisPart[0][0]; - $ThisPart[0][1]; 'total in group' minus 'active in group' (we already checked none are active)
+						For $t = 1 to $ThisPart[0][0]; iterate over inactive mods/components in this part
+							If $inActiveCount = 1 Then; if it is the only missing dependency in this '&'-subset, it is MANDATORY
+								_Depend_ActiveAddItem('DM', $p_ID, $ThisPart[$t][0], $and_Group); add MANDATORY connection for this mod/component
+								If $Prefix <> '' Then $Prefix='+ '
+								If $p_Show = 1 Then
+									$ModName=$g_CentralArray[$ThisPart[$t][0]][4]; mod name
+									If $ModName = '' Then
+										$ModName=_GetTR($g_UI_Message, '10-L1'); => removed due to purge/translation/invalid
+										$CompDesc=''; no component description
+									Else
+										$CompDesc=$g_CentralArray[$ThisPart[$t][0]][3]; component description
 									EndIf
-									$Prefix='+ '
-								ElseIf $inActiveCount > 1 Then; if it is one of multiple missing dependencies in this '&'-subset, it is OPTIONAL
-									_Depend_ActiveAddItem('DO', $p_ID, $ThisPart[$t][0], $and_Group); add OPTIONAL connection for this mod/component
-									If $p_Show = 1 Then
-										$ModName=$g_CentralArray[$ThisPart[$t][0]][4]; mod name
-										If $ModName = '' Then
-											$ModName=_GetTR($g_UI_Message, '10-L1'); => removed due to purge/translation/invalid
-											$CompDesc=''; no component description
-										Else
-											$CompDesc=$g_CentralArray[$ThisPart[$t][0]][3]; component description
-										EndIf
-										GUICtrlCreateListViewItem($Prefix&$ModName & '|' & $CompDesc, $g_UI_Interact[10][1])
-										GUICtrlSetBkColor(-1, 0xFFA500)
+									GUICtrlCreateListViewItem($Prefix&$ModName & '|' & $CompDesc, $g_UI_Interact[10][1])
+									GUICtrlSetBkColor(-1, 0xFFA500)
+								EndIf
+							ElseIf $inActiveCount > 1 Then; if it is one of multiple missing dependencies in this '&'-subset, it is OPTIONAL
+								_Depend_ActiveAddItem('DO', $p_ID, $ThisPart[$t][0], $and_Group); add OPTIONAL connection for this mod/component
+								If $Prefix <> '' Then $Prefix='/ '
+								If $p_Show = 1 Then
+									$ModName=$g_CentralArray[$ThisPart[$t][0]][4]; mod name
+									If $ModName = '' Then
+										$ModName=_GetTR($g_UI_Message, '10-L1'); => removed due to purge/translation/invalid
+										$CompDesc=''; no component description
+									Else
+										$CompDesc=$g_CentralArray[$ThisPart[$t][0]][3]; component description
 									EndIf
-									$Prefix='/ '
-								EndIf; else $inActiveCount is 0 (skip)
-							Endif; else dependency is active (skip)
+									GUICtrlCreateListViewItem($Prefix&$ModName & '|' & $CompDesc, $g_UI_Interact[10][1])
+									GUICtrlSetBkColor(-1, 0xFFA500)
+								EndIf
+							EndIf; else $inActiveCount is 0 (we never encounter this case because we check earlier and skip)
 						Next; LOOP: check next mod/component
 					EndIf; secondPass
 				Endif; left/right side
@@ -530,7 +531,7 @@ Func _Depend_GetActiveConflictAdv($p_String, $p_ID, $p_Show)
 	If $Test[0][0] <= 1 Then Return; no multiple conflicts were selected
 	Local $IsConflict = 0
 	$Warning = ''
-	If $g_Connections[$p_ID][4]=1 Then $Warning=' *'
+	If $g_Connections[$p_ID][4]=1 Then $Warning=' **'
 	For $s=1 to $p_String[0]
 		If $Test[$s][0] <> 0 Then
 			Local $Prefix = ''
@@ -554,7 +555,7 @@ Func _Depend_GetActiveConflictStd($p_String, $p_ID, $p_Show)
 	$Active=_Depend_ItemGetSelected($p_String)
 	If $Active[0][1] = 0 or $Active[0][1] = 1 Then Return
 	$Warning = ''
-	If $g_Connections[$p_ID][4]=1 Then $Warning=' *'
+	If $g_Connections[$p_ID][4]=1 Then $Warning=' **'
 	For $r=1 to $Active[0][0]
 		If $Active[$r][1]=1 Then
 			If $p_Show=1 Then GUICtrlCreateListViewItem($g_CentralArray[$Active[$r][0]][4]&$Warning & '|' & $g_CentralArray[$Active[$r][0]][3], $g_UI_Interact[10][1])

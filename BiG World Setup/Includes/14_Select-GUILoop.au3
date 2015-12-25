@@ -239,9 +239,9 @@ Func Au3Select($p_Num = 0)
 				GUICtrlSetState($g_UI_Static[6][1], $GUI_SHOW)
 				GUICtrlSetState($g_UI_Button[0][3], $GUI_DISABLE)
 			ElseIf $Current = 4 Then ; leaving 'choose mods and components' tree-view
-				If _Selection_ExpertWarning() = 1 Then ContinueLoop
 				_Misc_SwitchWideScreen($g_Flags[22], $g_CentralArray[$g_Flags[22]][9])
 				If _Depend_ResolveGui(0) = 0 Then ContinueLoop; _Depend_ResolveGui($p_Solve = 0)
+				If _Selection_ExpertWarning() = 1 Then ContinueLoop
 				_Misc_SetTab(2)
 			Else
 				If $g_Flags[24]=1 Then _Tree_Export($g_GConfDir&'\PreSelection00.ini')
