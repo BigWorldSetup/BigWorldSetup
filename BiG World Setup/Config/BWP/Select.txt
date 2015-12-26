@@ -2748,17 +2748,20 @@ CMD;IF EXIST ".\BWP_workspace\override\XXX009.ITM" move ".\BWP_workspace\overrid
 CMD;IF EXIST ".\override\C#AJAN16.CRE" move ".\override\C#AJAN16.CRE" ".\BWP_workspace\override"
 STD;might_and_guile;120;16;0111;
 CMD;IF EXIST ".\BWP_workspace\override\C#AJAN16.CRE" move ".\BWP_workspace\override\C#AJAN16.CRE" ".\override"
+ANN;might_and_guile;140;09;0001;placeholder
+ANN;might_and_guile;150;09;0001;placeholder
 STD;might_and_guile;160;16;0111;
+ANN;#180 MRO is installed later
 STD;might_and_guile;200;16;0111;
 STD;might_and_guile;205;16;0111;
 STD;might_and_guile;210;16;0111;
 STD;might_and_guile;215;16;0111;
 STD;might_and_guile;220;16;0111;
-STD;might_and_guile;250;19;0111;
-STD;might_and_guile;255;19;0111;
-STD;might_and_guile;260;19;0111;
-STD;might_and_guile;265;19;0111;
-STD;might_and_guile;270;19;0111;
+STD;might_and_guile;250;16;0111;
+STD;might_and_guile;255;16;0111;
+STD;might_and_guile;260;16;0111;
+STD;might_and_guile;265;16;0111;
+STD;might_and_guile;270;16;0111;
 ANN;#275 (Revised Shadowdancer) needs EE
 STD;might_and_guile;310;19;0111;
 STD;might_and_guile;320;19;0111;
@@ -2773,7 +2776,7 @@ STD;might_and_guile;460;19;0111;
 STD;might_and_guile;470;19;0111;
 STD;might_and_guile;480;19;0111;
 STD;might_and_guile;490;19;0111;
-STD;might_and_guile;500;19;0111;
+STD;might_and_guile;500;16;0111;
 STD;RPG-KP;0;19;0111;
 STD;RPG-KP;1;19;0000;
 STD;RPG-KP;2;19;0111;
@@ -2801,7 +2804,33 @@ STD;Derats_kits;8;19;0111;
 STD;A7#ImprovedArcher;0;19;0111;
 STD;A7#ImprovedArcher;100;17;0111;
 STD;spell_rev;60;16;1111;
+ANN;FnP should be installed after all divine kits
+STD;f_n_p;102;12;0001;
+STD;f_n_p;200;12;0001;
+STD;f_n_p;212;12;0001;
+STD;f_n_p;219;12;0001;
+STD;f_n_p;234;12;0001;
+STD;f_n_p;239;12;0001;
+STD;f_n_p;244;12;0001;
+STD;f_n_p;265;12;0001;
+STD;f_n_p;283;12;0001;
+STD;f_n_p;284;12;0001;
+STD;f_n_p;285;12;0001;
+STD;f_n_p;300;12;0001;
+STD;f_n_p;302;12;0001;
+STD;f_n_p;303;12;0001;
+STD;f_n_p;304;12;0001;
+STD;f_n_p;305;12;0001;
+STD;f_n_p;306;12;0001;
+STD;f_n_p;307;12;0001;
+STD;f_n_p;308;12;0001;
+STD;f_n_p;311;12;0001;
+STD;f_n_p;332;12;0001;
+STD;f_n_p;363;12;0001;
+STD;f_n_p;500;12;0001;
+ANN;--- SCS core ---
 STD;stratagems;1000;16;1111;
+ANN;--- SCS spell tweaks ---
 MUC;stratagems;Init;16;1111;
 MUC;stratagems;1900;16;0000;
 MUC;stratagems;1901;16;1111;
@@ -2828,6 +2857,7 @@ STD;stratagems;2150;16;1111;
 STD;stratagems;2160;16;1111;
 STD;stratagems;2170;16;1111;
 STD;stratagems;2180;16;1111;
+ANN;--- SCS item tweaks ---
 STD;stratagems;3010;16;0011;
 MUC;stratagems;Init;16;0011;
 MUC;stratagems;3021;16;0000;
@@ -2841,6 +2871,7 @@ STD;stratagems;3070;16;0011;
 STD;stratagems;3080;16;0011;
 STD;stratagems;3090;16;0011;
 STD;stratagems;3110;16;0011;
+ANN;--- SCS gameplay tweaks ---
 STD;stratagems;4000;16;1111;
 STD;stratagems;4010;16;1111;
 STD;stratagems;4020;16;1111;
@@ -2857,12 +2888,14 @@ STD;stratagems;4130;16;1111;
 MUC;stratagems;Init;16;0111;
 MUC;stratagems;4145;16;0111;
 MUC;stratagems;4146;16;0000;
+ANN;magic license cost
 MUC;stratagems;Init;16;1111;
 MUC;stratagems;4160;16;1100;
 MUC;stratagems;4161;16;0000;
 MUC;stratagems;4162;16;0000;
 MUC;stratagems;4163;16;0000;
 MUC;stratagems;4164;16;0011;
+ANN;spellhold cost
 MUC;stratagems;Init;16;1111;
 MUC;stratagems;4170;16;1100;
 MUC;stratagems;4171;16;0000;
@@ -2878,32 +2911,37 @@ MUC;stratagems;4217;16;1111;
 MUC;stratagems;4218;16;0000;
 STD;stratagems;4230;16;0011;
 STD;stratagems;4240;16;1111;
+ANN;--- SCS cosmetic / ease ---
 STD;stratagems;5000;16;1111;
 STD;stratagems;5010;16;1111;
 STD;stratagems;5020;16;1111;
 STD;stratagems;5030;16;1111;
 STD;stratagems;5050;16;1111;
 STD;stratagems;5060;16;1111;
-ANN;SCS initialize AI 1111 --> 1100 (not for Tactical)
-STD;stratagems;5900;18;1100;
+ANN;--- SCS AI ---
+STD;stratagems;5900;18;1111;
 CMD;IF EXIST Setup-NeJ2v691.exe IF NOT EXIST .\override\SPIN506.SPL copy /Y ".\BiG World Fixpack\NeJ\_copy\misc\SPIN506.SPL" ".\override"
 CMD;IF EXIST Setup-NeJ2v68.exe IF NOT EXIST .\override\SPIN506.SPL copy /Y ".\BiG World Fixpack\NeJ\_copy\misc\SPIN506.SPL" ".\override"
 CMD;IF EXIST Setup-DSotSC.exe IF EXIST ".\override\orc03.cre" move ".\override\orc03.cre" ".\BWP_workspace\override"
 CMD;IF EXIST Setup-DSotSC.exe IF EXIST ".\override\orc04.cre" move ".\override\orc04.cre" ".\BWP_workspace\override"
 STD;stratagems;6000;18;1100;
+ANN;better calls for help
 STD;stratagems;6010;18;0011;
+ANN;HLAs for spellcasters
 MUC;stratagems;Init;18;1111;
 MUC;stratagems;6020;18;0000;
 MUC;stratagems;6021;18;1100;
 MUC;stratagems;6022;18;0000;
 MUC;stratagems;6023;18;0011;
 MUC;stratagems;6024;18;0000;
+ANN;smarter mages
 MUC;stratagems;Init;18;1111;
 MUC;stratagems;6030;18;0000;
 MUC;stratagems;6031;18;0011;
 MUC;stratagems;6032;18;1100;
 MUC;stratagems;6033;18;0000;
 MUC;stratagems;6034;18;0000;
+ANN;smarter priests
 MUC;stratagems;Init;18;1111;
 MUC;stratagems;6040;18;0000;
 MUC;stratagems;6041;18;0011;
@@ -2912,48 +2950,66 @@ MUC;stratagems;6043;18;0000;
 MUC;stratagems;6044;18;0000;
 CMD;IF EXIST Setup-DSotSC.exe IF EXIST ".\BWP_workspace\override\orc03.cre" move ".\BWP_workspace\override\orc03.cre" ".\override"
 CMD;IF EXIST Setup-DSotSC.exe IF EXIST ".\BWP_workspace\override\orc04.cre" move ".\BWP_workspace\override\orc04.cre" ".\override"
+ANN;potions for NPCS
 MUC;stratagems;Init;18;1111;
 MUC;stratagems;6100;18;0000;
 MUC;stratagems;6101;18;1111;
 MUC;stratagems;6102;18;0000;
 MUC;stratagems;6103;18;0000;
 MUC;stratagems;6104;18;0000;
+ANN;--- SCS creatures AI ---
+ANN;spiders
 STD;stratagems;6200;18;1111;
+ANN;dryads and sirines
 STD;stratagems;6300;18;1111;
+ANN;carrion crawlers
 STD;stratagems;6310;18;1111;
+ANN;basilisks
 STD;stratagems;6320;18;1111;
+ANN;golems
 STD;stratagems;6500;18;1111;
+ANN;fiends
 MUC;stratagems;Init;18;1111;
 MUC;stratagems;6510;18;0011;
 MUC;stratagems;6511;18;1100;
+ANN;genies
 MUC;stratagems;Init;18;1111;
 MUC;stratagems;6520;18;0011;
 MUC;stratagems;6521;18;1100;
+ANN;celestials
 MUC;stratagems;Init;18;1111;
 MUC;stratagems;6530;18;0011;
 MUC;stratagems;6531;18;1100;
+ANN;dragons
 MUC;stratagems;Init;18;1111;
 MUC;stratagems;6540;18;0011;
 MUC;stratagems;6541;18;1100;
+ANN;beholders
 MUC;stratagems;Init;18;1111;
 MUC;stratagems;6550;18;0011;
 MUC;stratagems;6551;18;1100;
 MUC;stratagems;6552;18;0000;
 MUC;stratagems;6553;18;0000;
+ANN;illithids
 MUC;stratagems;Init;18;1111;
 MUC;stratagems;6560;18;1100;
 MUC;stratagems;6561;18;0011;
 MUC;stratagems;6562;18;0000;
 MUC;stratagems;6563;18;0000;
+ANN;githyanki
 STD;stratagems;6570;18;1111;
+ANN;vampires
 STD;stratagems;6580;18;1111;
+ANN;melissan
 STD;stratagems;6590;18;1111;
+ANN;--- SCS Ascension AI ---
 STD;stratagems;6800;18;1111;
 STD;stratagems;6810;18;1111;
 STD;stratagems;6820;18;1111;
 STD;stratagems;6830;18;1111;
 STD;stratagems;6840;18;1111;
 STD;stratagems;6850;18;1111;
+ANN;--- SCS BG1 tactical ---
 STD;stratagems;7000;06;1100;
 STD;stratagems;7010;06;1100;
 STD;stratagems;7020;06;1100;
@@ -2975,6 +3031,7 @@ STD;stratagems;7220;06;1100;
 STD;stratagems;7230;06;1100;
 STD;stratagems;7250;06;1100;
 STD;stratagems;7900;06;1100;
+ANN;--- SCS BG2 tactical ---
 STD;stratagems;8000;15;1100;
 STD;stratagems;8010;15;0011;
 STD;stratagems;8020;15;0011;

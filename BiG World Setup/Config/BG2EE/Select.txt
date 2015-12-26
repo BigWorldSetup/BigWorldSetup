@@ -1170,12 +1170,10 @@ STD;might_and_guile;100;09;0111;
 CMD;IF EXIST ".\override\C#AJAN16.CRE" move ".\override\C#AJAN16.CRE" ".\BWS_workspace\override"
 STD;might_and_guile;120;09;0111;
 CMD;IF EXIST ".\BWS_workspace\override\C#AJAN16.CRE" move ".\BWS_workspace\override\C#AJAN16.CRE" ".\override"
-STD;might_and_guile;100;09;0111;
-STD;might_and_guile;120;09;0001;
-ANN;might_and_guile;140;09;0001;
-ANN;might_and_guile;150;09;0001;
-STD;might_and_guile;160;09;0001;
-STD;might_and_guile;180;09;0001;
+ANN;might_and_guile;140;09;0001;placeholder
+ANN;might_and_guile;150;09;0001;placeholder
+STD;might_and_guile;160;09;0111;
+ANN;#180 MRO is installed later
 STD;might_and_guile;200;09;0111;
 STD;might_and_guile;205;09;0111;
 STD;might_and_guile;210;09;0111;
