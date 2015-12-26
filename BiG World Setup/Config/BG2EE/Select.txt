@@ -558,7 +558,7 @@ STD;YoshimoRomance;4;07;0111;
 STD;EdwinRomance;0;07;0001;
 ANN;#1 portrait moved down
 STD;EdwinRomance;2;07;0001;
-STD;EdwinRomance;3;07;0001;
+STD;EdwinRomance;3;07;0111;
 STD;Tsujatha;0;05;0111;
 STD;imoenfriendship;0;07;1111;
 STD;ImoenRomance;0;07;0111;
