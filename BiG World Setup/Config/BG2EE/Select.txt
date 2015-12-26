@@ -304,6 +304,15 @@ SUB;bg2eetp;0?1_2;00;1111;
 SUB;bg2eetp;0?1_3;00;1111;
 SUB;bg2eetp;0?1_4;00;1111;
 STD;BG2EE_GA;0;00;1111;
+ANN;--- Ascension BG2EE 1.51 BETA ---
+STD;Ascension;0;08;1111;
+STD;Ascension;1;08;1111;
+STD;Ascension;4;09;1111;
+STD;Ascension;5;08;0010;
+STD;Ascension;6;08;0010;
+STD;Ascension;7;08;0010;
+STD;Ascension;8;08;0010;
+STD;Ascension;9;08;0010;
 ANN;--- post-EET BGEE tweaks ---
 ANN;move BGEESpawn here?
 MUC;7c#sartweak;Init;07;0011;
@@ -1999,6 +2008,8 @@ STD;LightingPack;18;13;0000;
 STD;LightingPack;19;13;0000;
 STD;LightingPack;20;13;0000;
 ANN;--- portraits ---
+STD;Ascension;2;13;1100;
+STD;Ascension;3;13;1100;
 SUB;eet_tweaks;1;13;1111;
 SUB;eet_tweaks;1?1_1;13;0000;
 SUB;eet_tweaks;1?1_2;13;1111;
