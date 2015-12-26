@@ -318,6 +318,7 @@ STD;Ascension;6;08;0010;
 STD;Ascension;7;08;0010;
 STD;Ascension;8;08;0010;
 STD;Ascension;9;08;0010;
+STD;astscriptpatcher;0;01;1111;
 ANN;--- post-EET BGEE tweaks ---
 ANN;move BGEESpawn here?
 MUC;7c#sartweak;Init;07;0011;
