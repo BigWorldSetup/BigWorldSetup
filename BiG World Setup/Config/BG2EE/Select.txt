@@ -22,7 +22,7 @@ SUB;bgeegraphics;0?1_2;13;0000;
 DWN;bgeegraphics_part2;0;13;0001;
 DWN;bgeegraphics_part3;0;13;0001;
 ANN;Removing corrupted .wed
-CMD;IF EXIST setup-bgeegraphics.exe IF EXIST ".\override\ar4300.wed" move ".\override\ar4300.wed" ".\BWS_workspace\override";;;;D:EET(0)
+ANN;CMD;IF EXIST setup-bgeegraphics.exe IF EXIST ".\override\ar4300.wed" move ".\override\ar4300.wed" ".\BWS_workspace\override";;;;D:EET(0)
 ANN;--- BGEE "big mods" ---
 STD;DarkHorizonsBGee;0;02;0011;
 STD;dsotscBGEE;5;02;0111;
@@ -1167,9 +1167,9 @@ STD;scales_of_balance;600;09;0001;
 ANN;Refinements goes here for compatibility with Scales of Balance
 STD;scales_of_balance;580;09;0111;
 STD;might_and_guile;100;09;0111;
-CMD;IF EXIST ".\override\C#AJAN16.CRE" move ".\override\C#AJAN16.CRE" ".\BWS_workspace\override"
+ANN;CMD;IF EXIST ".\override\C#AJAN16.CRE" move ".\override\C#AJAN16.CRE" ".\BWS_workspace\override"
 STD;might_and_guile;120;09;0111;
-CMD;IF EXIST ".\BWS_workspace\override\C#AJAN16.CRE" move ".\BWS_workspace\override\C#AJAN16.CRE" ".\override"
+ANN;CMD;IF EXIST ".\BWS_workspace\override\C#AJAN16.CRE" move ".\BWS_workspace\override\C#AJAN16.CRE" ".\override"
 ANN;might_and_guile;140;09;0001;placeholder
 ANN;might_and_guile;150;09;0001;placeholder
 STD;might_and_guile;160;09;0111;
@@ -1507,9 +1507,9 @@ MUC;BP;Init;11;0011;
 MUC;BP;440;11;0001;
 MUC;BP;450;11;0001;
 MUC;BP;460;11;0010;
-CMD;IF EXIST ".\override\DUEARC02.CRE" copy /Y ".\override\DUEARC01.CRE" ".\override\DUEARC02.CRE"
-CMD;IF EXIST ".\override\DUEARC03.CRE" copy /Y ".\override\DUEARC01.CRE" ".\override\DUEARC03.CRE"
-CMD;IF EXIST ".\override\DUEARC04.CRE" copy /Y ".\override\DUEARC01.CRE" ".\override\DUEARC04.CRE"
+ANN;CMD;IF EXIST ".\override\DUEARC02.CRE" copy /Y ".\override\DUEARC01.CRE" ".\override\DUEARC02.CRE"
+ANN;CMD;IF EXIST ".\override\DUEARC03.CRE" copy /Y ".\override\DUEARC01.CRE" ".\override\DUEARC03.CRE"
+ANN;CMD;IF EXIST ".\override\DUEARC04.CRE" copy /Y ".\override\DUEARC01.CRE" ".\override\DUEARC04.CRE"
 STD;BP;475;11;0011;
 STD;BP;500;11;0011;
 STD;BP;525;11;0011;
@@ -1652,13 +1652,13 @@ STD;aTweaks;270;09;1111;
 STD;aTweaks;220;09;1111;
 STD;aTweaks;230;09;1111;
 STD;aTweaks;239;09;1111;
-CMD;IF EXIST Setup-ajantisbg2.exe IF EXIST ".\override\C#AJCUD1.bcs" move ".\override\C#AJCUD1.bcs" ".\BWS_workspace\override"
+ANN;CMD;IF EXIST Setup-ajantisbg2.exe IF EXIST ".\override\C#AJCUD1.bcs" move ".\override\C#AJCUD1.bcs" ".\BWS_workspace\override"
 MUC;aTweaks;Init;09;1111;
 MUC;aTweaks;300;09;0000;
 MUC;aTweaks;322;09;0000;
 MUC;aTweaks;323;09;0000;
 MUC;aTweaks;324;09;1111;
-CMD;IF EXIST Setup-ajantisbg2.exe IF EXIST ".\BWS_workspace\override\C#AJCUD1.bcs" move ".\BWS_workspace\override\C#AJCUD1.bcs" ".\override"
+ANN;CMD;IF EXIST Setup-ajantisbg2.exe IF EXIST ".\BWS_workspace\override\C#AJCUD1.bcs" move ".\BWS_workspace\override\C#AJCUD1.bcs" ".\override"
 STD;aTweaks;301;09;1111;
 STD;aTweaks;302;09;1111;
 STD;aTweaks;310;09;1111;
