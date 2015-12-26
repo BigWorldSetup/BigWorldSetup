@@ -73,7 +73,7 @@ Func _Tree_Export($p_File='')
 			$Text=StringRegExpReplace($Text, '\x28.*\x29', @MDAY&'.'&@MON&'.'&@YEAR)
 			IniWrite($g_GConfDir&'\Mod-'&$g_ATrans[$a]&'.ini', 'Preselect', '00', $Text)
 		Next
-		IniWrite($g_UsrIni, 'Options', 'InstallType', '01'); auto-export will be No 1.
+		IniWrite($g_UsrIni, 'Options', 'InstallType', '01') ; set user ini to reload auto-export on restart
 	EndIf
 	IniWriteSection($File, 'Save', IniReadSection($g_UsrIni, 'Save'))
 	IniWriteSection($File, 'DeSave', IniReadSection($g_UsrIni, 'DeSave'))
@@ -108,6 +108,7 @@ Func _Tree_GetCurrentSelection($p_Show = 0, $p_Write=''); $a=hide seletion-GUI
 	$DeSelect[0][0] = 0
 	If $p_Show = 0 Then _Misc_ProgressGUI(_GetTR($g_UI_Message, '4-T2'), _GetTR($g_UI_Message, '4-L4')); => write entries
 	IniDelete($g_UsrIni, 'Current'); delete old selections
+	; Keep this section consistent with _Tree_Reload in Select-Tree.au3
 	If $g_Flags[14] = 'BG2EE' Then
 		IniWrite($g_UsrIni, 'Options', 'BG1EE', StringRegExpReplace(GUICtrlRead($g_UI_Interact[2][1]), '\x5c{1,}\z', ''))
 		IniWrite($g_UsrIni, 'Options', 'BG2EE', StringRegExpReplace(GUICtrlRead($g_UI_Interact[2][2]), '\x5c{1,}\z', ''))
@@ -389,16 +390,16 @@ Func _Tree_Populate($p_Show=1)
 				; 0x1a8c14 lime = recommended / 0x000070 dark = standard / 0xe8901a = tactics / 0xad1414 light = expert / checkbox-default = 0x1c5180
 				If StringInStr($g_CentralArray[$g_TreeviewItem[$cs][0]][11], 'R') Then
 					If $g_Flags[14]='BWP' Then $Type='1111'; set defaults for batch install
-					GUICtrlSetColor($g_TreeviewItem[$cs][0], 0x1a8c14); lime = recommended
+					GUICtrlSetColor($g_TreeviewItem[$cs][0], 0x1a8c14); lime foreground = recommended
 				ElseIf StringInStr($g_CentralArray[$g_TreeviewItem[$cs][0]][11], 'S') Then
 					If $g_Flags[14]='BWP' Then $Type='0111'; set defaults for batch install
-					GUICtrlSetColor($g_TreeviewItem[$cs][0], 0x000070); dark = standard
+					GUICtrlSetColor($g_TreeviewItem[$cs][0], 0x000070); dark foreground = stable
 				ElseIf StringInStr($g_CentralArray[$g_TreeviewItem[$cs][0]][11], 'T') Then
 					If $g_Flags[14]='BWP' Then $Type='0011'; set defaults for batch install
-					GUICtrlSetColor($g_TreeviewItem[$cs][0], 0xe8901a); yellow = tactics
+					GUICtrlSetColor($g_TreeviewItem[$cs][0], 0xe8901a); yellow foreground = tactical
 				Else ;'E'
 					If $g_Flags[14]='BWP' Then $Type='0001'; set defaults for batch install
-					GUICtrlSetColor($g_TreeviewItem[$cs][0], 0xad1414); light = expert
+					GUICtrlSetColor($g_TreeviewItem[$cs][0], 0xad1414); light foreground = expert
 				EndIf
 				; If a mod ini has 'W' or 'M' in its comma-separated Type list, highlight the background of the mod name
 				; This is purely cosmetic to encourage users to read the mod description, which should explain why
@@ -418,7 +419,7 @@ Func _Tree_Populate($p_Show=1)
 		$Dsc = _IniRead($ReadSection, '@' & $Setup[$s][3], $Compnote)
 		If @error = -1 Then ConsoleWrite($Setup[$s][2]& ' @' & $Setup[$s][3] & @CRLF)
 ; ---------------------------------------------------------------------------------------------
-; SUB: A selectable sub-component/question  (SUB-Selectionen are counted as possible selections to [10][0])
+; SUB: A selectable sub-component/question  (SUB-Selections are counted as possible selections to [10][0])
 ; ---------------------------------------------------------------------------------------------
 		If StringInStr($Setup[$s][3], '?') Then
 			$n = 1
@@ -433,8 +434,8 @@ Func _Tree_Populate($p_Show=1)
 				$SubPrefix=''
 			EndIf
 			$g_TreeviewItem[$cs][$cc] = GUICtrlCreateTreeViewItem($SubPrefix&$Dsc, $g_TreeviewItem[$cs][$cc - $n]); create a "sub-"treeviewitem (gui-element) for the component
-			If $g_CentralArray[$g_TreeviewItem[$cs][$cc - $n]][10] = 0 Then; this was markes a a normal component before
-				$g_CentralArray[$g_TreeviewItem[$cs][$cc - $n]][10] = 2; this item has it's own subtree now
+			If $g_CentralArray[$g_TreeviewItem[$cs][$cc - $n]][10] = 0 Then; this was marked as a normal component before
+				$g_CentralArray[$g_TreeviewItem[$cs][$cc - $n]][10] = 2; this item has its own subtree now
 				$t = $s-$n+1
 				While StringInStr($Setup[$t+1][3], '?')
 					$t += 1
@@ -560,9 +561,9 @@ Func _Tree_Populate_PreCheck()
 		$Error+=_Test_RejectPath($i); see if paths are set
 	Next
 	If $Error > 0 Then Return 0
-	If _Test_CheckRequieredFiles() > 0 Then Return 0; see if files are present
+	If _Test_CheckRequiredFiles() > 0 Then Return 0; see if files are present
 	If _Misc_LS_Verify() = 0 Then Return 0; look if language settings are ok
-;	If _Test_ACP() = 1 Then Return 0; remove infiniy-mods if codepage may not support the mods files characters
+;	If _Test_ACP() = 1 Then Return 0; remove infinity-mods if codepage may not support the mods files characters
 	If $g_CentralArray[0][0] = '' Then _Tree_Populate(1); build the tree if needed
 	If $g_Flags[14] = 'BG2EE' Then
 		If $g_BG1EEDir = '-' Then; BG2EE-only-install
@@ -674,31 +675,50 @@ Func _Tree_PurgeItem($p_Index)
 EndFunc   ;==>_Tree_PurgeItem
 
 ; ---------------------------------------------------------------------------------------------
-; Removes items that cannot be installed (due to language or BGT not found)
+; Remove items that cannot be installed (due to language, game version or BGT/EET requirements)
 ; ---------------------------------------------------------------------------------------------
 Func _Tree_PurgeUnNeeded()
-	Local $Version='-'
-	$g_Skip='BGTNeJ;0;19;0001'
+	Local $Version='-', $SplitPurgeLine
+	$g_Skip='BGTNeJ;0;'; not sure why this rule is hard-coded, but we don't want blank because next lines start with |
 	If $g_BG1Dir = '-' Then $g_Skip&='|BGT'
 	If $g_BG1EEDir = '-' Then $g_Skip&='|EET'
-	If $g_Flags[14]='IWD1' Then $Version=StringReplace(FileGetVersion($g_IWD1Dir&'\idmain.exe'), '.', '\x2e')
+	If $g_Flags[14]='IWD1' Then $Version=StringReplace(FileGetVersion($g_IWD1Dir&'\idmain.exe'), '.', '\x2e') ; unicode full stop
 	$ReadSection=IniReadSection($g_GConfDir&'\Game.ini', 'Purge')
+	; Keep this function consistent with _Test_Get_EET_Mods in Testing.au3
 	If IsArray($ReadSection) Then
 		For $r=1 to $ReadSection[0][0]
-			If StringLeft($ReadSection[$r][1], 1) = 'D' Then; look if depends are met
-				If StringRegExp($ReadSection[$r][1], ':'&$g_MLang[1]&'\z') Then ContinueLoop; only remove mods that require a certain language
-				If $g_BG1Dir <> '-' And StringRegExp($ReadSection[$r][1], '(?i)BGT\x28\x2d\x29\z') Then ContinueLoop; remove mods that require BGT
-				If $g_BG1EEDir <> '-' And StringRegExp($ReadSection[$r][1], '(?i)EET\x28\x2d\x29\z') Then ContinueLoop; remove mods that require EET
-				If $Version <> '-' And StringRegExp($ReadSection[$r][1], $Version) Then ContinueLoop; remove mods that require a certain version
-			Else; look for conflicts
-				If Not StringRegExp($ReadSection[$r][1], '\x3a'&$g_MLang[1]&'\x3a') Then ContinueLoop; remove mods only if certain language was selected
+			$SplitPurgeLine = StringSplit($ReadSection[$r][1], ':')
+			If ($SplitPurgeLine[0] <> 3) Then ContinueLoop; Purge lines should have exactly three sections (C|D : ... : ...)
+;			IniWrite($g_UsrIni, 'Debug', 'SplitPurgeLine'&$r, $SplitPurgeLine[1]&' ~ '&$SplitPurgeLine[2]&' ~ '&$SplitPurgeLine[3])
+			If StringLeft($SplitPurgeLine[1], 1) = 'D' Then; look for dependencies
+				If StringRegExp($SplitPurgeLine[3], $g_MLang[1]) Then ContinueLoop; don't purge mods for currently selected language
+				If $Version <> '-' And StringRegExp($SplitPurgeLine[3], $Version) Then ContinueLoop; don't purge mods for current game version
+				; Checks for BGT / EET dependencies
+				If $g_Flags[14] = 'BG2EE' Or $g_Flags[14] = 'BG1EE' Then; user is installing BG2EE, EET or BG1EE
+					If $g_BG1EEDir <> '-' Then; EET install
+						If StringRegExp($SplitPurgeLine[3], '(?i)EET\x28\x2d\x29') Then ContinueLoop; don't purge mods that depend on EET
+					Else
+						; BG2EE-only install - fall through to purge mods that depend on EET
+					EndIf
+				ElseIf StringRegExp($g_Flags[14], 'BWP|BWS') Then
+					If $g_BG1Dir <> '-' Then; BGT install
+						If StringRegExp($SplitPurgeLine[3], '(?i)BGT\x28\x2d\x29') Then ContinueLoop; don't purge mods that depend on BGT
+					Else
+						; BG1-only install - fall through to purge mods that depend on BGT
+					EndIf
+				EndIf
+			Else; not a dependency rule, assume conflict
+				If Not StringRegExp($SplitPurgeLine[3], $g_MLang[1]) Then ContinueLoop; don't purge unless it conflicts with currently selected language
+				; Else - fall through to purge mods that DO conflict with currently selected language
 			EndIf
-			$Line=StringRegExpReplace($ReadSection[$r][1], '(?i)\AD\x3a|\AC\x3a[[:alpha:]]{2}\x3a|\x3a(BGT|EET)\x28\x2d\x29\z|\x28\x2d\x29|\x3a[[:alpha:]]{2}\z|\x3a\d[\x2e\d|\x7c]{1,}\z', ''); remove D:|C:XX:|:BGT(-)|:EET(-)|(-)|:XX
-			$g_Skip&='|'&StringReplace(StringReplace(StringReplace($Line, '&', '|'), '(', ';('), '?', '\x3f')
+			; If we reached this line, we found something that needs to be purged
+			$g_Skip&='|'&StringReplace(StringReplace(StringReplace(StringReplace($SplitPurgeLine[2], '&', '|'), "(-)", ''), '(', ';('), '?', '\x3f')
+			;  a purge rule "D:abc(0)&def(3):EET(-)" will be interpreted as "abc(0) and def(3) each independently depend on EET"
+			;  in this example abc(0) and def(3) will both be purged/hidden (in non-EET installs) even if only one of them is selected
 		Next
 	EndIf
 	If _Test_ACP() = 1 Then Exit
-	If $g_BG1Dir <> '-' And $g_MLang[0] = 2 And $g_MLang[1] = 'GE' Then; second $g_Mlang-entry is --
+	If $g_BG1Dir <> '-' And $g_MLang[0] = 2 And $g_MLang[1] = 'GE' Then; second $g_MLang-entry is --
 		$g_Skip&='|BG1NPC|BG1NPCMusic'
 	ElseIf $g_BG1Dir <> '-' And $g_MLang[1] = 'GE' Then
 		$Trans=IniRead($g_ModIni, 'BG1NPC', 'Tra', ''); get other translations
@@ -724,14 +744,15 @@ Func _Tree_PurgeUnNeeded()
 			EndIf
 		EndIf
 	EndIf
+;	IniWrite($g_UsrIni, 'Debug', 'g_Skip', $g_Skip)
 	If $g_MLang[1] = 'PO' Then
 		; stuff to add if Polish
-		IniWrite($g_GConfDir&'\Game.ini', 'Connections', 'NTotSC Natalin fix by dradiel is requred for NTotSC but works only for Polish', 'D:NTotSC(-)&NTotSC-Natalin-fix(-)')
-		IniWrite($g_GConfDir&'\Game.ini', 'Connections', 'Secret of Bone Hill Part II fix by dradiel is requred for SoBH but works only for Polish', 'D:BoneHillv275(-)&sobh-part2-fix(-)')
+		IniWrite($g_GConfDir&'\Game.ini', 'Connections', 'NTotSC Natalin fix by dradiel is required for NTotSC but works only for Polish', 'D:NTotSC(-)&NTotSC-Natalin-fix(-)')
+		IniWrite($g_GConfDir&'\Game.ini', 'Connections', 'Secret of Bone Hill Part II fix by dradiel is required for SoBH but works only for Polish', 'D:BoneHillv275(-)&sobh-part2-fix(-)')
 		Else
 		; stuff to remove if not Polish
-		IniDelete($g_GConfDir&'\Game.ini', 'Connections', 'NTotSC Natalin fix by dradiel is requred for NTotSC but works only for Polish')
-		IniDelete($g_GConfDir&'\Game.ini', 'Connections', 'Secret of Bone Hill Part II fix by dradiel is requred for SoBH but works only for Polish')
+		IniDelete($g_GConfDir&'\Game.ini', 'Connections', 'NTotSC Natalin fix by dradiel is required for NTotSC but works only for Polish')
+		IniDelete($g_GConfDir&'\Game.ini', 'Connections', 'Secret of Bone Hill Part II fix by dradiel is required for SoBH but works only for Polish')
 	EndIf
 EndFunc   ;==>_Tree_PurgeUnNeeded
 
@@ -741,8 +762,16 @@ EndFunc   ;==>_Tree_PurgeUnNeeded
 Func _Tree_Reload($p_Show=1, $p_Hint=0, $p_Ini=$g_UsrIni)
 	_PrintDebug('+' & @ScriptLineNumber & ' Calling _Tree_Reload')
 	GUISwitch($g_UI[0])
-	GUICtrlSetData($g_UI_Interact[2][1], IniRead($g_UsrIni, 'Options', 'BG1', GUICtrlRead($g_UI_Interact[2][1]))); set the data for the folder
-	GUICtrlSetData($g_UI_Interact[2][2], IniRead($g_UsrIni, 'Options', 'BG2', GUICtrlRead($g_UI_Interact[2][2])))
+	; Keep this section consistent with _Tree_GetCurrentSelection in Select-Tree.au3
+	If $g_Flags[14] = 'BG2EE' Then ; BG2EE / EET
+		GUICtrlSetData($g_UI_Interact[2][1], IniRead($g_UsrIni, 'Options', 'BG1EE', GUICtrlRead($g_UI_Interact[2][1]))); BG1 folder path
+		GUICtrlSetData($g_UI_Interact[2][2], IniRead($g_UsrIni, 'Options', 'BG2EE', GUICtrlRead($g_UI_Interact[2][2]))); BG2 folder path
+	ElseIf StringRegExp($g_Flags, 'BWP|BWS') Then ; BWP / BWS / BGT
+		GUICtrlSetData($g_UI_Interact[2][1], IniRead($g_UsrIni, 'Options', 'BG1', GUICtrlRead($g_UI_Interact[2][1]))); BG1 folder path
+		GUICtrlSetData($g_UI_Interact[2][2], IniRead($g_UsrIni, 'Options', 'BG2', GUICtrlRead($g_UI_Interact[2][2]))); BG2 folder path
+	Else ; other game types
+		GUICtrlSetData($g_UI_Interact[2][2], IniRead($g_UsrIni, 'Options', $g_Flags[14], GUICtrlRead($g_UI_Interact[2][2]))); game folder path
+	EndIf
 	GUICtrlSetData($g_UI_Interact[2][3], IniRead($g_UsrIni, 'Options', 'Download', GUICtrlRead($g_UI_Interact[2][3])))
 	Local $ModID = '', $ChapterID = '', $Tag = '', $Mod = 0, $Found = 0
 ; ---------------------------------------------------------------------------------------------
@@ -968,8 +997,8 @@ Func _Tree_SelectReadForBatch()
 		$Return[$Return[0][0]][1]=$Return[0][1]; $Index-number (will be used for connections)
 	Next
 	$Return[0][3]=$Theme
-	$Return[0][4]=$Return[0][0]+$Return[0][1]+$Return[0][3]+$g_UI_Menu[8][10]+100; calculate Treeview-items: Items+Mods+Themes+GUI-items+Error-Margin for wrong calculation
-	Global $g_CentralArray[$Return[0][4]][16];set size for global array before running _Tree_Populate -- if the BWS goes kaboom, recalculatre this number...
+	$Return[0][4]=$Return[0][0]+$Return[0][1]+$Return[0][3]+$g_UI_Menu[8][10]+10000; calculate Treeview-items: Items+Mods+Themes+GUI-items+Error-Margin for wrong calculation
+	Global $g_CentralArray[$Return[0][4]][16];set size for global array before running _Tree_Populate -- if the BWS goes kaboom, recalculate this number...
 	ReDim $Return[$Return[0][0]+1][10]
 	Return $Return
 EndFunc   ;==>_Tree_SelectReadForBatch

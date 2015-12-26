@@ -361,7 +361,7 @@ If $p_Game <> '' Then; Enable testing of this function or use defaults...
 									$Split=StringInStr($Text[$t], '=')
 									$Key=StringMid($Text[$t], $GameLen+2, $Split-$GameLen-2)
 									If $Desc='' Then $Desc=' '
-									$Edit&=$Key&'|Description|'& $Array[$a]&'|'&$Desc&'||'; save for later
+									$Edit&=$Key&'|Description|'&$Array[$a]&'|'&StringReplace($Desc, '|', '\x7c')&'||'; save for later (temporarily replace vertical bars with \x7c because they have overloaded meaning here -- in Description section they represent newlines, but we are also using vertical bars here to represent key/value associations)
 								EndIf
 							EndIf
 							FileWrite(Eval('h_Mod_'&StringMid($Text[$t], 5, 2)), $Array[$a]&'='&$Desc&@CRLF)
@@ -402,6 +402,7 @@ If $p_Game <> '' Then; Enable testing of this function or use defaults...
 		If $Split[4]=' ' Then
 			IniDelete($g_GConfDir&'\'&$Split[1]&'.ini', $Split[2], $Split[3])
 		Else
+			If $Split[2] = 'Description' Then $Split[4]=StringReplace($Split[4], '\x7c', '|'); restore vertical bars we replaced earlier with \x7c
 			IniWrite($g_GConfDir&'\'&$Split[1]&'.ini', $Split[2], $Split[3], $Split[4])
 		EndIf
 	Next

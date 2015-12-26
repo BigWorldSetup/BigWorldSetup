@@ -17,7 +17,7 @@ Func Au3CleanInst($p_Num = 0, $p_Tab = 6) ;1=first timer, 2=backup, 3=restore
 	Global $g_RemovedDir = $g_BaseDir & '\BiG World Backup\Saved_'&$Type; don't move files accross partitions if BWS and BG2-dirs lay on different ones
 	Local $Action = 0
 	GUICtrlSetData($g_UI_Interact[6][4], StringFormat(_GetSTR($Message, 'H1'), $Type)); => help
-	Call('_Test_CheckRequieredFiles_'&$Type)
+	Call('_Test_CheckRequiredFiles_'&$Type)
 	If @error > 0 Then
 		If $p_Num = 1 Then ; Exit if it's from withing a process
 			;_ResetInstall(); Enable a clean restart -- useful?

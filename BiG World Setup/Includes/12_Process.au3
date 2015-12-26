@@ -54,7 +54,7 @@ EndFunc   ;==>_Process_EnablePause
 Func _Process_Gui_Create($p_Scroll = 0, $p_Pause=1)
 	_PrintDebug('+' & @ScriptLineNumber & ' Calling _Process_Gui_Create')
 	If $p_Scroll = 2 Then
-		$Error=_Test_CheckRequieredFiles(); do filecheck if we do restarts
+		$Error=_Test_CheckRequiredFiles(); do filecheck if we do restarts
 		If $Error>0 Then Exit
 	EndIf
 	_Process_SwitchEdit($p_Scroll, $p_Pause)

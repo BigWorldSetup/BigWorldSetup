@@ -154,7 +154,7 @@ Func Au3Select($p_Num = 0)
 		EndIf
 		;If $sMsg >0 Then ConsoleWrite($sMsg & @CRLF)
 		Switch $sMsg
-		Case 0; nothing happend
+		Case 0; nothing happened
 			Sleep(10)
 			ContinueLoop
 		Case -11; mouse moved
@@ -196,12 +196,12 @@ Func Au3Select($p_Num = 0)
 		Case $g_UI_Button[0][2]; next
 			$Current = GUICtrlRead($g_UI_Seperate[0][0])+1
 ; ---------------------------------------------------------------------------------------------
-; language-selection-state
+; leaving language-selection-state
 ; ---------------------------------------------------------------------------------------------
 			If $Current = 1 Then
 				If _Misc_SetWelcomeScreen('+') = 0 Then ContinueLoop
 ; ---------------------------------------------------------------------------------------------
-; folder selection
+; leaving folder selection
 ; ---------------------------------------------------------------------------------------------
 			ElseIf $Current = 2 Then
 				If _Tree_Populate_PreCheck() = 0 Then ContinueLoop
@@ -233,14 +233,15 @@ Func Au3Select($p_Num = 0)
 			$Current = GUICtrlRead($g_UI_Seperate[0][0])+1
 			If $Current = 6 Then
 				$g_Flags[0] = 1
-				GUICtrlSetData($g_UI_Static[6][1], _GetTR($g_UI_Message, '0-L1')); => set hint to be patiend
+				GUICtrlSetData($g_UI_Static[6][1], _GetTR($g_UI_Message, '0-L1')); => set hint to be patient
 				GUICtrlSetState($g_UI_Static[6][1], $GUI_HIDE)
 				Sleep(1000)
 				GUICtrlSetState($g_UI_Static[6][1], $GUI_SHOW)
 				GUICtrlSetState($g_UI_Button[0][3], $GUI_DISABLE)
-			ElseIf $Current = 4 Then
+			ElseIf $Current = 4 Then ; leaving 'choose mods and components' tree-view
 				_Misc_SwitchWideScreen($g_Flags[22], $g_CentralArray[$g_Flags[22]][9])
-				If _Depend_ResolveGui() = 0 Then ContinueLoop
+				If _Depend_ResolveGui(0) = 0 Then ContinueLoop; _Depend_ResolveGui($p_Solve = 0)
+				If _Selection_ExpertWarning() = 1 Then ContinueLoop
 				_Misc_SetTab(2)
 			Else
 				If $g_Flags[24]=1 Then _Tree_Export($g_GConfDir&'\PreSelection00.ini')
@@ -251,7 +252,7 @@ Func Au3Select($p_Num = 0)
 #Region welcome
 		Case $g_UI_Interact[1][2]; language selector
 			_Misc_SwichLang()
-		Case $g_UI_Interact[1][3]; installmethod
+		Case $g_UI_Interact[1][3]; install method
 			_Misc_SetTip()
 #EndRegion welcome
 ; ---------------------------------------------------------------------------------------------
@@ -274,7 +275,7 @@ Func Au3Select($p_Num = 0)
 			_Misc_LS_GUI()
 		Case $g_UI_Interact[2][4]; presel combo
 			If $g_CentralArray[0][0] <> '' Then _Tree_SetPreSelected(2)
-			$g_Flags[24]=0; no need to save changes to selection anymore after some reload
+			$g_Flags[24]=0; no need to save changes to selection any more after some reload
 			_Selection_GetCurrentInstallType()
 		Case $g_UI_Button[2][5]; adv. selection
 			If _Tree_Populate_PreCheck() = 0 Then ContinueLoop
@@ -356,9 +357,9 @@ Func Au3Select($p_Num = 0)
 			_Tree_ShowComponents()
 		Case $g_UI_Menu[1][7]; Recommended-clicking-behaviour
 			_AI_SwitchComp(1, 1)
-		Case $g_UI_Menu[1][8]; Standard-clicking-behaviour
+		Case $g_UI_Menu[1][8]; Stable-clicking-behaviour
 			_AI_SwitchComp(2, 1)
-		Case $g_UI_Menu[1][9]; Tactic-clicking-behaviour
+		Case $g_UI_Menu[1][9]; Tactical-clicking-behaviour
 			_AI_SwitchComp(3, 1)
 		Case $g_UI_Menu[1][10]; Expert-clicking-behaviour
 			_AI_SwitchComp(4, 1)

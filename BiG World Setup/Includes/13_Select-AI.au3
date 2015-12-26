@@ -313,7 +313,7 @@ Func _AI_SetClicked($p_Num, $p_Type = 0, $p_Key=0); $a=itemnumber; $p_Type=0(ide
 			GUICtrlSetBkColor($g_UI_Interact[4][2], 0xff8800)
 			GUICtrlSetFont($g_UI_Interact[4][2], 32, 800, 0, "MS Sans Serif")
 			GUICtrlSetData($g_UI_Interact[4][2], _GetTR($g_UI_Message, '0-T1')); => warning
-			Sleep(1000)
+			Sleep(200)
 			GUICtrlSetFont($g_UI_Interact[4][2], 8, 400, 0, "MS Sans Serif")
 			GUICtrlSetBkColor($g_UI_Interact[4][2], 0xffffff)
 		EndIf
@@ -504,7 +504,8 @@ Func _AI_SetMod_Enable($p_Num, $p_Force=0)
 			EndIf
 			If $p_Num > $g_CentralArray[0][0] Then ExitLoop
 		WEnd
-		_Misc_MsgGUI(1, _GetTR($g_UI_Message, '0-B3'), _GetTR($g_UI_Message, '4-L14')); => no versions found, so mod was installed completely
+		; disable the annoying pop-up when activating a mod with no pre-selected components
+		;_Misc_MsgGUI(1, _GetTR($g_UI_Message, '0-B3'), _GetTR($g_UI_Message, '4-L14')); => no versions found, so mod was installed completely
 	Else
 		While StringRegExp($g_CentralArray[$p_Num][2], '-|!') = 0
 			If _AI_GetSelect($p_Num) = 1 Then

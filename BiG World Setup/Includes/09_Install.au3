@@ -252,7 +252,7 @@ Func Au3RunFix($p_Num = 0)
 EndFunc    ;==>Au3RunFix
 
 ; ---------------------------------------------------------------------------------------------
-; Just run the cusomized install-batch if it exists
+; Just run the customized install-batch if it exists
 ; ---------------------------------------------------------------------------------------------
 Func Au3Install($p_Num = 0)
 	_PrintDebug('+' & @ScriptLineNumber & ' Calling Au3Install')

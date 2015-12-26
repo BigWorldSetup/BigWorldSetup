@@ -12,11 +12,11 @@ STD;BGEE_PL;1;0;1111;
 DWN;BGEE-Polish;0;00;1111;
 STD;bgeetextpack;0;01;1111;
 STD;bgeetextpack;1;01;1111;
-SUB;bgeegraphics;0;13;1111;
-SUB;bgeegraphics;0?1_1;13;1111;
+SUB;bgeegraphics;0;13;0001;
+SUB;bgeegraphics;0?1_1;13;0001;
 SUB;bgeegraphics;0?1_2;13;0000;
-DWN;bgeegraphics_part2;0;13;1111;
-DWN;bgeegraphics_part3;0;13;1111;
+DWN;bgeegraphics_part2;0;13;0001;
+DWN;bgeegraphics_part3;0;13;0001;
 ANN;Removing corrupted .wed
 CMD;IF EXIST setup-bgeegraphics.exe IF EXIST ".\override\ar4300.wed" move ".\override\ar4300.wed" ".\BWS_workspace\override"
 ANN;--- item revisions core, spell revisions core ---
@@ -294,6 +294,7 @@ MUC;MSFM;Init;10;0111;
 MUC;MSFM;4;10;0000;
 MUC;MSFM;5;10;0111;
 STD;MSFM;6;10;0111;
+CMD;echo 2302 WIZARD_REMOVE_MAGIC >> override\Spell.IDS;;;;D:BPSeries(0)
 STD;BPSeries;0;11;1111;
 STD;BPSeries;10;11;1111;
 STD;BPSeries;100;11;1111;
@@ -608,19 +609,21 @@ ANN;Refinements goes here for compatibility with Scales of Balance
 STD;scales_of_balance;580;09;0111;
 STD;might_and_guile;100;09;0111;
 STD;might_and_guile;120;09;0001;
+ANN;might_and_guile;140;09;0001;
+ANN;might_and_guile;150;09;0001;
 STD;might_and_guile;160;09;0001;
 STD;might_and_guile;180;09;0001;
-ANN;STD;might_and_guile;200;09;0111;
+STD;might_and_guile;200;09;0111;
 STD;might_and_guile;205;09;0111;
 STD;might_and_guile;210;09;0111;
 STD;might_and_guile;215;09;0111;
 STD;might_and_guile;220;09;0111;
-STD;might_and_guile;250;12;0111;
-STD;might_and_guile;255;12;0111;
-STD;might_and_guile;260;12;0111;
-STD;might_and_guile;265;12;0111;
-STD;might_and_guile;270;12;0111;
-STD;might_and_guile;275;12;0111;
+STD;might_and_guile;250;09;0111;
+STD;might_and_guile;255;09;0111;
+STD;might_and_guile;260;09;0111;
+STD;might_and_guile;265;09;0111;
+STD;might_and_guile;270;09;0111;
+STD;might_and_guile;275;09;0111;
 STD;might_and_guile;310;12;0111;
 STD;might_and_guile;320;12;0111;
 STD;might_and_guile;322;12;0111;
@@ -634,7 +637,7 @@ STD;might_and_guile;460;12;0111;
 STD;might_and_guile;470;12;0111;
 STD;might_and_guile;480;12;0111;
 STD;might_and_guile;490;12;0111;
-STD;might_and_guile;500;12;0111;
+STD;might_and_guile;500;09;0111;
 ANN;--- add and revise kits ---
 STD;Derats_kits;0;12;0111;
 STD;Derats_kits;1;12;0111;
@@ -647,7 +650,8 @@ STD;Derats_kits;7;12;0000;
 STD;Derats_kits;8;12;0000;
 STD;A7#ImprovedArcher;0;12;0111;
 ANN;FnP should be installed after all divine kits
-STD;f_n_p;102;12;0001;
+SUB;f_n_p;102;12;0001;
+SUB;f_n_p;102?1_1;12;0001;
 STD;f_n_p;200;12;0001;
 STD;f_n_p;212;12;0001;
 STD;f_n_p;219;12;0001;
@@ -655,19 +659,19 @@ STD;f_n_p;234;12;0001;
 STD;f_n_p;239;12;0001;
 STD;f_n_p;244;12;0001;
 STD;f_n_p;265;12;0001;
-STD;f_n_p;301;12;0001;
+STD;f_n_p;283;12;0001;
+STD;f_n_p;284;12;0001;
+STD;f_n_p;285;12;0001;
+STD;f_n_p;300;12;0001;
 STD;f_n_p;302;12;0001;
 STD;f_n_p;303;12;0001;
 STD;f_n_p;304;12;0001;
 STD;f_n_p;305;12;0001;
 STD;f_n_p;306;12;0001;
 STD;f_n_p;307;12;0001;
+STD;f_n_p;308;12;0001;
 STD;f_n_p;311;12;0001;
-STD;f_n_p;300;12;0001;
 STD;f_n_p;332;12;0001;
-STD;f_n_p;333;12;0001;
-STD;f_n_p;334;12;0001;
-STD;f_n_p;335;12;0001;
 STD;f_n_p;363;12;0001;
 STD;f_n_p;500;12;0001;
 ANN;--- SCS core ---
@@ -1025,6 +1029,11 @@ STD;A7NoEENPCs;105;09;0000;
 STD;A7NoEENPCs;4;09;0000;
 STD;A7NoEENPCs;201;09;0000;
 STD;A7NoEENPCs;203;09;0000;
+SUB;eet_tweaks;3;09;1111;
+SUB;eet_tweaks;3?1_1;09;0000;
+SUB;eet_tweaks;3?1_2;09;0000;
+SUB;eet_tweaks;3?1_3;09;1111;
+SUB;eet_tweaks;3?1_4;09;0000;
 SUB;eet_tweaks;6;09;1111;
 SUB;eet_tweaks;6?1_1;09;0000;
 SUB;eet_tweaks;6?1_2;09;0000;
@@ -1064,8 +1073,8 @@ SUB;BP-BGT-Worldmap;0?1_2;13;0000;
 SUB;BP-BGT-Worldmap;0?2_1;13;0000;
 SUB;BP-BGT-Worldmap;0?2_2;13;1111;
 ANN;--- PaintBG portraits ---
-ANN;PaintBG for EE is just .bmp files, so install first to allow other mods to overwrite
 ANN;We must install PaintBG before generalized biffing so that we can append to BGEE.SQL
+ANN;PaintBG for EE is just .bmp files, so install first to allow other mods to overwrite
 DWN;paintbg;0;13;1111;
 ANN;Standardize PaintBG directory name to simplify scripting
 CMD;IF EXIST "PaintBG*(EE)" MOVE /Y "PAINTBG*(EE)" "PaintBG"
@@ -1115,6 +1124,8 @@ STD;LightingPack;17;13;0000;
 STD;LightingPack;18;13;0000;
 STD;LightingPack;19;13;0000;
 STD;LightingPack;20;13;0000;
+ANN;--- optional fixes ---
+STD;apr_fix;0;01;0111;
 ANN;--- portraits ---
 DWN;ThePictureStandardBGEE;0;13;0111;
 SUB;ajantisportraitpack;0;13;0000;
@@ -1154,9 +1165,9 @@ MUC;gavin;12;13;0000;
 ANN;--- NPC kit changes ---
 ANN;Imoen
 MUC;npc_ee;Init;12;1111;
-MUC;npc_ee;101;12;0000;
+MUC;npc_ee;101;12;1000;
 MUC;npc_ee;102;12;0011;
-MUC;npc_ee;103;12;1100;
+MUC;npc_ee;103;12;0100;
 ANN;Jaheira
 MUC;npc_ee;Init;12;1111;
 MUC;npc_ee;121;12;0000;
