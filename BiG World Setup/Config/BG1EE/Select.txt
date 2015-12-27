@@ -369,10 +369,10 @@ STD;iwdification;50;09;0000;
 ANN;--- items ---
 ANN;#60 is IWD axe pack -> stores and items
 STD;iwdification;60;10;0111;
+MUC;w_packmule;Init;10;0111;
+MUC;w_packmule;2;10;0111;
+MUC;w_packmule;3;10;0000;
 ANN;--- minimod ---
-MUC;w_packmule;Init;04;0111;
-MUC;w_packmule;2;04;0111;
-MUC;w_packmule;3;04;0000;
 ANN;--- item revisions ---
 STD;item_rev;1;09;0111;
 MUC;item_rev;Init;09;0111;
