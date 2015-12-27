@@ -298,12 +298,15 @@ STD;EET;0;00;1111;
 ANN;--- BWS switches from BG1EE folder to BG2EE folder after this line ---
 CMD;IF NOT EXIST ".\BWS_workspace\override" MD ".\BWS_workspace\override"
 ANN;--- BG2EE patches ---
-ANN;special case - BWS has code in Testing.au3 that will cause WeiDU and bwfixpack to be extracted in both the BG1EE and BG2EE folders for EET
+ANN;special case - BWS has code in Testing.au3 that will extract WeiDU, bwinstallpack and bwfixpack in BG2EE folder (and BG1EE folder for EET)
+CMD;IF EXIST ".\BiG World Installpack\BiG World Smoothpack" move ".\BiG World Installpack\BiG World Smoothpack\_modify\*.*" "."
 CMD;IF EXIST "BiG-World-Fixpack-master" IF EXIST "Big-World-Fixpack-master\BiG World Fixpack" move "Big-World-Fixpack-master\BiG World Fixpack" ".\"
 CMD;IF EXIST "BiG-World-Fixpack-master" IF EXIST "Big-World-Fixpack-master\BiG World Fixpack.bat" move "Big-World-Fixpack-master\BiG World Fixpack.bat" ".\"
 CMD;IF EXIST "BiG World Fixpack" xcopy /Y /S /E ".\BiG World Fixpack\_Lolfixer\*.*" "."
 CMD;IF EXIST "BiG World Fixpack" xcopy /Y /S /E ".\BiG World Fixpack\_resfixer_v1\*.*" "."
 CMD;IF EXIST "BiG World Fixpack" IF NOT EXIST BWP_Fixpack.installed Call "BiG World Fixpack.bat"
+CMD;IF NOT EXIST BWP_Smoothpack.installed Call ".\BiG World Installpack\BiG World Smoothpack.bat"
+CMD;IF EXIST ".\BiG World Installpack\BWP_Smoothpack.installed" copy ".\BiG World Installpack\BWP_Smoothpack.installed" "."
 STD;BG2EE_PL;0;0;1111;
 STD;BG2EE_PL;1;0;1111;
 DWN;BG2EE-Polish;0;00;1111;

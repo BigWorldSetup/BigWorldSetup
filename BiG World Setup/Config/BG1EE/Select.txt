@@ -5,11 +5,14 @@ DWN;eekeeper;0;00;1111;
 ANN;--- patches ---
 DWN;bwinstallpack;0;00;1111;
 DWN;bwfixpack;0;00;1111;
+CMD;IF EXIST ".\BiG World Installpack\BiG World Smoothpack" move ".\BiG World Installpack\BiG World Smoothpack\_modify\*.*" "."
 CMD;IF EXIST "BiG-World-Fixpack-master" IF EXIST "Big-World-Fixpack-master\BiG World Fixpack" move "Big-World-Fixpack-master\BiG World Fixpack" ".\"
 CMD;IF EXIST "BiG-World-Fixpack-master" IF EXIST "Big-World-Fixpack-master\BiG World Fixpack.bat" move "Big-World-Fixpack-master\BiG World Fixpack.bat" ".\"
 CMD;IF EXIST "BiG World Fixpack" xcopy /Y /S /E ".\BiG World Fixpack\_Lolfixer\*.*" "."
 CMD;IF EXIST "BiG World Fixpack" xcopy /Y /S /E ".\BiG World Fixpack\_resfixer_v1\*.*" "."
 CMD;IF EXIST "BiG World Fixpack" IF NOT EXIST BWP_Fixpack.installed Call "BiG World Fixpack.bat"
+CMD;IF NOT EXIST BWP_Smoothpack.installed Call ".\BiG World Installpack\BiG World Smoothpack.bat"
+CMD;IF EXIST ".\BiG World Installpack\BWP_Smoothpack.installed" copy ".\BiG World Installpack\BWP_Smoothpack.installed" "."
 STD;BGEE_PL;0;0;1111;
 STD;BGEE_PL;1;0;1111;
 DWN;BGEE-Polish;0;00;1111;
