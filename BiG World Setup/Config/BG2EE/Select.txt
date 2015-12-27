@@ -602,6 +602,8 @@ STD;arestorationp;11;09;0111;
 ANN;#12 alternate slayer change -> tactical
 STD;arestorationp;12;09;0011;
 STD;arestorationp;13;09;0111;
+ANN;BP and BPSeries AI need the following IDS entry
+CMD;echo 2302 WIZARD_REMOVE_MAGIC >> override\Spell.IDS
 ANN;BP needs res_fixer (at least BGT version does)
 STD;res_fixer;0;01;1111;
 ANN;#0 is detectable spells v3 and other patches
@@ -629,7 +631,10 @@ STD;Keto;0;05;0111;
 ANN;#1 Keto/Kelsey crossmod
 STD;Keto;1;05;0111;
 STD;Nathaniel;0;05;0111;
-ANN;Nathaniel portraits moved down
+MUC;Nathaniel;Init;13;0111;
+MUC;Nathaniel;1;13;0111;
+MUC;Nathaniel;2;13;0000;
+MUC;Nathaniel;3;13;0000;
 STD;Nathaniel;4;05;0000;
 STD;Nathaniel;5;05;0111;
 STD;iylos;0;05;1111;
@@ -1594,7 +1599,7 @@ STD;BP;1675;08;0011;
 STD;BP;1700;08;0011;
 STD;BP;1750;08;0011;
 STD;BP;1800;08;0011;
-CMD;echo 2302 WIZARD_REMOVE_MAGIC >> override\Spell.IDS;;;;D:BPSeries(0)
+CMD;echo 134 STATE_DISEASED_FIX >> override\Stats.IDS;;;;D:BPSeries(100)
 ANN;BPSeries Core (detectable spells v3)
 STD;BPSeries;0;11;1111;
 ANN;BPSeries Innate Fix -> Recommended
@@ -2058,10 +2063,6 @@ MUC;Kelsey;20;13;0000;
 MUC;Kelsey;21;13;0000;
 MUC;Kelsey;22;13;0000;
 MUC;Kelsey;23;13;0000;
-MUC;Nathaniel;Init;13;0111;
-MUC;Nathaniel;1;13;0111;
-MUC;Nathaniel;2;13;0000;
-MUC;Nathaniel;3;13;0000;
 ANN;--- NPC kit changes ---
 ANN;Imoen
 MUC;npc_ee;Init;12;1111;
