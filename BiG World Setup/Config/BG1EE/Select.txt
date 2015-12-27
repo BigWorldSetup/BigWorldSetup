@@ -15,7 +15,8 @@ CMD;IF NOT EXIST BWP_Smoothpack.installed Call ".\BiG World Installpack\BiG Worl
 CMD;IF EXIST ".\BiG World Installpack\BWP_Smoothpack.installed" copy ".\BiG World Installpack\BWP_Smoothpack.installed" "."
 STD;BGEE_PL;0;0;1111;
 STD;BGEE_PL;1;0;1111;
-DWN;BGEE-Polish;0;00;1111;
+ANN;--- Polish launguage up to date ---
+ANN;BGEE-Polish;0;00;1111;
 STD;bgeetextpack;0;01;1111;
 STD;bgeetextpack;1;01;1111;
 SUB;bgeegraphics;0;13;0001;
@@ -864,11 +865,8 @@ MUC;aTweaks;500;09;1111;
 MUC;aTweaks;502;09;0000;
 STD;aTweaks;510;09;1111;
 STD;aTweaks;999;09;1111;
-STD;klatu;1000;09;0111;
 STD;klatu;1010;09;0111;
 STD;klatu;1020;09;0111;
-STD;klatu;1030;09;0111;
-STD;klatu;1040;09;0111;
 STD;klatu;1050;09;0111;
 STD;klatu;2000;09;1111;
 STD;klatu;2010;09;1111;
