@@ -751,7 +751,7 @@ EndFunc   ;==>_Test_GetCustomTP2
 ; Check if EET will be used to install BG1 using the current selection, list BG1/BG2 mods
 ; ---------------------------------------------------------------------------------------------
 Func _Test_Get_EET_Mods(); called by _Tree_EndSelection() just before starting an installation
-	Local $BG1EE_Mods='WeiDU|eekeeper|bwfixpack|', $BG2EE_Mods='WeiDU|eekeeper|bwfixpack|', $EETMods, $DoBG1=0, $SplitPurgeLine
+	Local $BG1EE_Mods='WeiDU|eekeeper|bwinstallpack|bwfixpack|', $BG2EE_Mods='WeiDU|eekeeper|bwinstallpack|bwfixpack|', $EETMods, $DoBG1=0, $SplitPurgeLine
 	$g_Flags[21]=''; will contain BG1-mods in EET -> Empty means no BG1-install
 	$g_Flags[22]=''; will contain BG2-mods in EET
 	If Not StringInStr($g_GConfDir, 'BG2EE') Then Return

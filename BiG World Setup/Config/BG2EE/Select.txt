@@ -5,8 +5,10 @@ ANN;--- we use ;;;;D:EET(0) for CMD lines applicable to BG1EE to suppress them i
 CMD;IF NOT EXIST ".\BWS_workspace\override" MD ".\BWS_workspace\override";D:EET(0)
 DWN;WeiDU;0;00;1111;
 DWN;eekeeper;0;00;1111;
+ANN;--- BGEE + BG2EE patches ---
+DWN;bwinstallpack;0;00;1111;
 DWN;bwfixpack;0;00;1111;
-ANN;special case - BWS has code in Testing.au3 that will apply the three lines above in both BG1EE and BG2EE directory if EET is selected
+ANN;special case - BWS has code in Testing.au3 that will apply the lines above in both BG1EE and BG2EE directory if EET is selected
 ANN;--- BGEE patches ---
 CMD;IF EXIST "BiG-World-Fixpack-master" IF EXIST "Big-World-Fixpack-master\BiG World Fixpack" move "Big-World-Fixpack-master\BiG World Fixpack" ".\";;;;D:EET(0)
 CMD;IF EXIST "BiG-World-Fixpack-master" IF EXIST "Big-World-Fixpack-master\BiG World Fixpack.bat" move "Big-World-Fixpack-master\BiG World Fixpack.bat" ".\";;;;D:EET(0)
@@ -299,6 +301,8 @@ ANN;--- BG2EE patches ---
 ANN;special case - BWS has code in Testing.au3 that will cause WeiDU and bwfixpack to be extracted in both the BG1EE and BG2EE folders for EET
 CMD;IF EXIST "BiG-World-Fixpack-master" IF EXIST "Big-World-Fixpack-master\BiG World Fixpack" move "Big-World-Fixpack-master\BiG World Fixpack" ".\"
 CMD;IF EXIST "BiG-World-Fixpack-master" IF EXIST "Big-World-Fixpack-master\BiG World Fixpack.bat" move "Big-World-Fixpack-master\BiG World Fixpack.bat" ".\"
+CMD;IF EXIST "BiG World Fixpack" xcopy /Y /S /E ".\BiG World Fixpack\_Lolfixer\*.*" "."
+CMD;IF EXIST "BiG World Fixpack" xcopy /Y /S /E ".\BiG World Fixpack\_resfixer_v1\*.*" "."
 CMD;IF EXIST "BiG World Fixpack" IF NOT EXIST BWP_Fixpack.installed Call "BiG World Fixpack.bat"
 STD;BG2EE_PL;0;0;1111;
 STD;BG2EE_PL;1;0;1111;
@@ -1986,6 +1990,27 @@ ANN;Close off the selectable portraits list
 CMD;IF EXIST "PaintBG" IF EXIST "override\bgee.sql" ECHO )\; >> "override\bgee.sql";;;;D:paintbg(0)
 ANN;Copy over all the portraits and remove the PaintBG directory
 CMD;IF EXIST "PaintBG" XCOPY /Y /I "PaintBG\*.bmp" "characters" && RMDIR /S /Q "PaintBG";;;;D:paintbg(0)
+STD;lolfixer;0;01;1111;
+STD;lolfixer;1;01;1111;
+STD;lolfixer;2;01;1111;
+STD;lolfixer;3;01;1111;
+STD;lolfixer;4;01;1111;
+STD;lolfixer;5;01;1111;
+STD;lolfixer;6;01;1111;
+STD;lolfixer;7;01;1111;
+STD;lolfixer;8;01;1111;
+STD;lolfixer;9;01;1111;
+STD;lolfixer;10;01;1111;
+STD;lolfixer;11;01;1111;
+STD;lolfixer;12;01;0000;
+STD;lolfixer;13;01;1111;
+STD;lolfixer;14;01;1111;
+STD;lolfixer;15;01;1111;
+ANN;--- hotfixes ---
+ANN;trim leading and trailing spaces, remove duplicates
+CMD;Call ".\BiG World Installpack\trim_IDS.bat" 
+ANN;correct some possibly corrupted IDS files
+CMD;Call ".\BiG World Installpack\trim_KitIDS.bat"
 SUB;generalized_biffing;0;00;1111;
 SUB;generalized_biffing;0?1_0;00;0000;
 SUB;generalized_biffing;0?1_1;00;1111;
