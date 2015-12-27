@@ -361,6 +361,9 @@ EndFunc   ;==>_Depend_GetActiveConnections
 Func _Depend_GetActiveDependAll($p_String, $p_ID, $p_Show)
 	$Return=_Depend_ItemGetSelected($p_String)
 	If $Return[0][1] = 0 or $Return[0][1] = $Return[0][0] Then Return; nothing selected or all selected
+	;check for a special case - game type can also be a dependency satisfying an OR condition
+	If StringRegExp($p_String, '\x7c('&$g_Flags[14]&')[^[:alpha:]]') Then Return; found OR '|' followed by game type in dependencies -> do nothing
+	;TODO: check '|' conditions
 	$Prefix = ''
 	$Warning = ''
 	If $g_Connections[$p_ID][4]=1 Then $Warning=' **'
