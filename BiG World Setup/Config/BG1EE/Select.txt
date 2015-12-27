@@ -8,7 +8,7 @@ DWN;bwfixpack;0;00;1111;
 CMD;IF EXIST ".\BiG World Installpack\BiG World Smoothpack" move ".\BiG World Installpack\BiG World Smoothpack\_modify\*.*" "."
 CMD;IF EXIST "BiG-World-Fixpack-master" IF EXIST "Big-World-Fixpack-master\BiG World Fixpack" move "Big-World-Fixpack-master\BiG World Fixpack" ".\"
 CMD;IF EXIST "BiG-World-Fixpack-master" IF EXIST "Big-World-Fixpack-master\BiG World Fixpack.bat" move "Big-World-Fixpack-master\BiG World Fixpack.bat" ".\"
-CMD;IF EXIST "BiG World Fixpack" xcopy /Y /S /E ".\BiG World Fixpack\_Lolfixer\*.*" "."
+ANN;IF EXIST "BiG World Fixpack" xcopy /Y /S /E ".\BiG World Fixpack\_Lolfixer\*.*" "."
 CMD;IF EXIST "BiG World Fixpack" xcopy /Y /S /E ".\BiG World Fixpack\_resfixer_v1\*.*" "."
 CMD;IF EXIST "BiG World Fixpack" IF NOT EXIST BWP_Fixpack.installed Call "BiG World Fixpack.bat"
 CMD;IF NOT EXIST BWP_Smoothpack.installed Call ".\BiG World Installpack\BiG World Smoothpack.bat"
@@ -1095,22 +1095,23 @@ ANN;Close off the selectable portraits list
 CMD;IF EXIST "PaintBG" IF EXIST "override\bgee.sql" ECHO )\; >> "override\bgee.sql"
 ANN;Copy over all the portraits and remove the PaintBG directory
 CMD;IF EXIST "PaintBG" XCOPY /Y /I "PaintBG\*.bmp" "characters" && RMDIR /S /Q "PaintBG"
-STD;lolfixer;0;01;1111;
-STD;lolfixer;1;01;1111;
-STD;lolfixer;2;01;1111;
-STD;lolfixer;3;01;1111;
-STD;lolfixer;4;01;1111;
-STD;lolfixer;5;01;1111;
-STD;lolfixer;6;01;1111;
-STD;lolfixer;7;01;1111;
-STD;lolfixer;8;01;1111;
-STD;lolfixer;9;01;1111;
-STD;lolfixer;10;01;1111;
-STD;lolfixer;11;01;1111;
-STD;lolfixer;12;01;0000;
-STD;lolfixer;13;01;1111;
-STD;lolfixer;14;01;1111;
-STD;lolfixer;15;01;1111;
+ANN;--- lolfixer not yet ready for EE ---
+ANN;lolfixer;0;01;1111;
+ANN;lolfixer;1;01;1111;
+ANN;lolfixer;2;01;1111;
+ANN;lolfixer;3;01;1111;
+ANN;lolfixer;4;01;1111;
+ANN;lolfixer;5;01;1111;
+ANN;lolfixer;6;01;1111;
+ANN;lolfixer;7;01;1111;
+ANN;lolfixer;8;01;1111;
+ANN;lolfixer;9;01;1111;
+ANN;lolfixer;10;01;1111;
+ANN;lolfixer;11;01;1111;
+ANN;lolfixer;12;01;0000;
+ANN;lolfixer;13;01;1111;
+ANN;lolfixer;14;01;1111;
+ANN;lolfixer;15;01;1111;
 ANN;--- hotfixes ---
 ANN;trim leading and trailing spaces, remove duplicates
 CMD;Call ".\BiG World Installpack\trim_IDS.bat" 
