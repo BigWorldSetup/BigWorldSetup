@@ -11,57 +11,110 @@
 
 ; Not used items from g_CentralArray: 5 - 6 - 7 - 8 - 11 - 12 - 14 - 15
 
-;~ $g_Connections contains: 0: inikey (A conflicts b)- 1: inivalue (C:A(-):B(-))- 2: converted sentence (A is preffered to B)- 3: IDs(C:312:645) - 4: Warning (0/1)
+;~ $g_CentralArray is an array of all mods/components from Select.txt, with the following fields:
+;     0: setup-name
+;     2: '-' for the root (top level) of a mod branch, '+' for the root of a multiple choice menu
+;     3: component description (if 2 is '-' then this also will be '-')
+;     4: name of the mod (from modname.ini)
+;     9: number of active components (0 or 1 for a component; can be > 1 for a mod branch)
+;      : theme/category number (ex. NPCs, items, tweaks)
+;    13: blank '' or comma separated list of sections if mod is installed in different places
+
+;~ $g_Connections is an array of rules entries (from Game.ini), with the following fields:
+;    0: inikey (rule text from before the = )
+;    1: inivalue (the rule, like C:A(-):B(-))
+;    2: converted sentence (A is preferred to B)
+;    3: the rule with mod names and components replaced with IDs (C:123|456&789&101|202:645&8910)
+;         if user ignores this rule (via right-click menu), BWS will prefix this value with 'W'
+;    4: 0/1 - is the rule a CW: or DW: warning (ignorable by the user)?
+
+;~ $g_ActiveConnections is an array of mod/component entries, with the following fields:
+;    0: connection type ('C', 'DS', 'DO', 'DM')
+;          C = this mod/component conflicts with all other mods/components in the array that have the same rule ID
+;         DS = this mod/component is active and "in need" of mods/components that are not active
+;         DO = this mod/component is inactive and "needed" but is OPTIONAL to satisfy the rule (has alternatives)
+;         DM = this mod/component is inactive and "needed" and is MANDATORY to satisfy the rule (no alternatives)
+;    1: rule ID (index to the associated rule for this connection in $g_Connections)
+;    2: control ID (index to the specific mod/component in $g_CentralArray for toggling status)
+;    3: group ID (blank '' unless the mod/component is listed in the '[Groups]' section of Game.ini)
+;    4: and-group (zero if rule does not contain '&', else each side of '&' is a non-zero 'and-group')
+;
+;    this array is only for mods/components involved in rules with unsolved conflicts or missing dependencies
+;        connections for the same rule should be sequential in the array, "in need" followed by "needed"
+;        connections from rules that have been right-click ignored by user will not be added to this array
+;      mods/components that are "needed" (can satisfy missing dependencies) will be added only if they are INACTIVE
+;      mods/components that are "in need" (have missing dependencies) will be added only if they are ACTIVE
+;      mods/components that are in conflict with other mods in the rule will be added only if they are ACTIVE
+;    note: the same mod/component can be added to the array multiple times if it is involved in more than one rule
+;         - or (error case) if the same mod/component is on both sides of the rule - D:a(-):a(-) or C:b(-):b(-)
 
 ; ---------------------------------------------------------------------------------------------
-; Automatically solve the dependencies and conflicts (used before and after selection)
+; Automatically solve dependencies and conflicts of provided type (used before and after selection)
+;  p_Type = which type of connection to change (see comments above for $g_ActiveConnections)
+;    C = change mods/components that conflict with the one that appears first in the list
+;    DS = change mods/components that are active and have missing dependencies
+;    DO = change first mod/component that can satisfy 
+;  p_State = what to do with mods/components of specified type (1 = activate, 2 = deactivate)
+;  p_skipConflictWarnings = whether or not to skip user-ignorable rules (1 = skip, 0 = don't)
+;  p_skipDependencyWarnings = whether or not to skip user-ignorable rules (1 = skip, 0 = don't)
 ; ---------------------------------------------------------------------------------------------
-Func _Depend_AutoSolve($p_Type, $p_State)
-	Local $Num, $Number, $Return[500][4]
+Func _Depend_AutoSolve($p_Type, $p_State, $p_skipConflictWarnings = 1, $p_skipDependencyWarnings = 1)
+	Local $RuleID, $GroupID, $and_Group, $Return[9999][4]
 	While 1
 		$Restart=0
-		$Progress=Round(($g_Flags[23]-$g_ActiveConnections[0][0])*100/$g_Flags[23], 0)
-		GUICtrlSetData($g_UI_Interact[9][1], $Progress)
-		GUICtrlSetData($g_UI_Static[9][2], $Progress &  ' %')
-		For $a=1 to $g_ActiveConnections[0][0]
-			If $g_ActiveConnections[$a][0] <> $p_Type Then ContinueLoop
-			$Num=$g_ActiveConnections[$a][1]
-			$Number=$g_ActiveConnections[$a][3]
-			If $p_Type <> 'C' Then $a-=1
-			While 1
-				$a+=1
-				If $a > $g_ActiveConnections[0][0] Then ExitLoop
-				If $Number <> '' And $Number=$g_ActiveConnections[$a][3] Then ContinueLoop
-				If $p_Type <> $g_ActiveConnections[$a][0] Then ContinueLoop; skip other types
-				If $Num <> $g_ActiveConnections[$a][1] Then
-					$a-=1
-					ExitLoop; exit if case / problem was left
+		$Progress=Round((($g_Flags[23]-$g_ActiveConnections[0][0])*100)/$g_Flags[23], 0)
+		GUICtrlSetData($g_UI_Interact[9][1], $Progress); update progress bar
+		GUICtrlSetData($g_UI_Static[9][2], $Progress &  ' %'); update progress text
+		For $a=1 to $g_ActiveConnections[0][0]; for each active connection (representing a particular active mod/component)
+			If $g_ActiveConnections[$a][0] <> $p_Type Then ContinueLoop; if it isn't the type of connection we are looking for, skip it
+			$RuleID=$g_ActiveConnections[$a][1]; save the current connection's associated rule ID (index to $g_Connections)
+			If $p_Type = 'C' And $p_skipConflictWarnings And $g_Connections[$RuleID][4] = 1 Then ContinueLoop; skip conflict warnings?
+			If $p_Type <> 'C' And $p_skipDependencyWarnings And $g_Connections[$RuleID][4] = 1 Then ContinueLoop; skip dependency warnings?
+			$GroupID=$g_ActiveConnections[$a][3]; save the current connection's associated 'group' ID (groups can be enabled/disabled together)
+			$and_Group=$g_ActiveConnections[$a][4]; save the current connection's 'and-group' number (zero unless the rule contains '&')
+			If $p_Type <> 'C' Then $a-=1; if we are NOT looking for conflicts, back-step so the inner loop starts from the current mod/component
+			While 1; iterate over all mods/components after 'saved' one (we've already checked the mods/components before 'saved')
+				$a+=1; advance inner loop
+				If $a > $g_ActiveConnections[0][0] Then ExitLoop ; we reached the end of the inner loop (compared 'saved' to all other actives)
+				If $GroupID <> '' And $GroupID=$g_ActiveConnections[$a][3] Then ContinueLoop; go to next if 'saved' and 'this' belong to same 'group'
+				; we use 'group' to represent sub-groups when we need one from each sub-group (ex: a|b&c|d is satisfied by ac, bc, ad, bd)
+				; _Depend_GetActiveDependAdv implements this as follows: each '&' we encounter in a rule increments the 'group' count by one
+				If $p_Type <> $g_ActiveConnections[$a][0] Then ContinueLoop; if we are looking for dependencies, ignore conflicts, and vice versa
+				If $RuleID <> $g_ActiveConnections[$a][1] Then; if the saved rule ID doesn't match the rule ID of 'this' connection
+					$a-=1; we passed the last of the connections for the current rule - go back to the final connection of that rule
+					ExitLoop; stop the inner loop - we are done scanning connections for the current mod/component
 				EndIf
-				_Depend_SetModState($g_ActiveConnections[$a][2], $p_State)
+				; if we reached this point, we found a connection for the 'saved' rule that has the type we want
+				_Depend_SetModState($g_ActiveConnections[$a][2], $p_State); activate or deactivate the mod/component
 				;ConsoleWrite($g_CentralArray[$g_ActiveConnections[$a][2]][0] & ' ' & $g_CentralArray[$g_ActiveConnections[$a][2]][2] & @CRLF)
-				$Return[0][0]+=1
-				$Return[$Return[0][0]][0]=$g_CentralArray[$g_ActiveConnections[$a][2]][0]
-				$Return[$Return[0][0]][2]=$g_CentralArray[$g_ActiveConnections[$a][2]][4]
+				$Return[0][0]+=1; record the change we just made
+				$Return[$Return[0][0]][0]=$g_CentralArray[$g_ActiveConnections[$a][2]][0]; record setup-name
+				$Return[$Return[0][0]][2]=$g_CentralArray[$g_ActiveConnections[$a][2]][4]; record mod name
 				If $g_CentralArray[$g_ActiveConnections[$a][2]][2] <> '-' Then
-					$Return[$Return[0][0]][1]=$g_CentralArray[$g_ActiveConnections[$a][2]][2]
-					$Return[$Return[0][0]][3]=$g_CentralArray[$g_ActiveConnections[$a][2]][3]
+					$Return[$Return[0][0]][1]=$g_CentralArray[$g_ActiveConnections[$a][2]][2]; record component type (MUC +, SUB ?)
+					$Return[$Return[0][0]][3]=$g_CentralArray[$g_ActiveConnections[$a][2]][3]; record component description
 				EndIf
-				$Restart=1
-				If $p_Type = 'DO' Then ExitLoop; only one of the possible dependencies is needed
+				$Restart=1; we made a change, so we will need to rebuild $g_ActiveConnections after we finish the inner loop
+				If $p_Type = 'DO' Then
+					If $and_Group = 0 Then ExitLoop; only one of the possible dependencies is needed, so no need to keep searching
+					If $and_Group = $g_ActiveConnections[$a][4] Then ContinueLoop; we made a change, skip to next and-group if any
+				EndIf
 			WEnd
 			If $Restart = 1 Then
-				_Depend_GetActiveConnections(0)
-				ExitLoop
+				_Depend_GetActiveConnections(0); we made a change, so clear and rebuild $g_ActiveConnections
+				ExitLoop; jump to CHECK FOR COMPLETION
 			EndIf
 		Next
-		If $Restart = 0 Then ExitLoop
-		For $r = 1 to $Return[0][0]
-			If $Return[$r][1] = '' Then ExitLoop; Prevent crashes...
+		; CHECK FOR COMPLETION
+		If $Restart = 0 Then ExitLoop; we reached the end of the active connections without making any changes -> jump to FINAL
+		For $r = 1 to $Return[0][0]; Prevent crashes...
+			If $Return[$r][1] = '' Then ExitLoop; one of the recorded component types was blank 
 		Next
 	WEnd
-	ReDim $Return[$Return[0][0]+1][4]
-	If $Return[0][0] = 0 Then Return $Return
-	_Depend_CreateSortedOutout($Return)
+	; FINAL
+	ReDim $Return[$Return[0][0]+1][4]; trim any excess slots from the end of the return array
+	If $Return[0][0] = 0 Then Return $Return; if we made no changes, return the empty array
+	_Depend_CreateSortedOutput($Return); otherwise, sort the array of changes
 	Return $Return
 EndFunc   ;==>_Depend_AutoSolve
 
@@ -71,33 +124,36 @@ EndFunc   ;==>_Depend_AutoSolve
 Func _Depend_AutoSolveWarning($p_Type, $p_Force=0)
 	Local $Message = IniReadSection($g_TRAIni, 'DP-Msg')
 	Local $Return, $Output = ''
-	_Tree_GetCurrentSelection(1); remove conflicts
-	If StringInStr($p_Type, 1) Then
-		$Return=_Depend_AutoSolve('C', 2)
-		If $Return[0][1] <> '' Then $Output &= _GetTR($Message, 'L3') & @CRLF & $Return[0][1] & @CRLF & @CRLF; => item will be removed
+	_Tree_GetCurrentSelection(1)
+	If StringInStr($p_Type, 1) Then; deactivate mods/components that conflict
+		$Return=_Depend_AutoSolve('C', 2, 1, 1); skip warning rules
+		If $Return[0][1] <> '' Then $Output &= _GetTR($Message, 'L3') & @CRLF & $Return[0][1] & @CRLF & @CRLF; => mod/component will be removed
 	EndIf
-	If StringInStr($p_Type, 2) Then; add open dependencies
+	If StringInStr($p_Type, 2) Then; activate mods/components that can satisfy missing dependencies
 		$Test = $g_Compilation
 		$g_Compilation = 'E'
-		$Return=_Depend_AutoSolve('DM', 1)
-		If $Return[0][1] <> '' Then $Output &= _GetTR($Message, 'L4') & @CRLF & $Return[0][1] & @CRLF & @CRLF; => mod will be added
-		$Return=_Depend_AutoSolve('DO', 1)
-		If $Return[0][1] <> '' Then $Output &= _GetTR($Message, 'L4') & @CRLF & $Return[0][1] & @CRLF & @CRLF; => mod will be added
+		$Return=_Depend_AutoSolve('DM', 1, 1, 1); skip warning rules
+		If $Return[0][1] <> '' Then $Output &= _GetTR($Message, 'L4') & @CRLF & $Return[0][1] & @CRLF & @CRLF; => mod/component will be added
+		$Return=_Depend_AutoSolve('DO', 1, 1, 1); skip warning rules
+		If $Return[0][1] <> '' Then $Output &= _GetTR($Message, 'L4') & @CRLF & $Return[0][1] & @CRLF & @CRLF; => mod/component will be added
 		$g_Compilation = $Test
 	EndIf
-	If StringInStr($p_Type, 3) Then; remove mods that are missing something
-		$Return=_Depend_AutoSolve('DS', 2)
-		If Not StringInStr($p_Type, 1) Then $Output &= _GetTR($Message, 'L3') & @CRLF; => mod will be removed
+	If StringInStr($p_Type, 3) Then; deactivate mods/components that are missing dependencies
+		$Return=_Depend_AutoSolve('DS', 2, 1, 1); skip warning rules
+		If Not StringInStr($p_Type, 1) Then $Output &= _GetTR($Message, 'L3') & @CRLF; => mod/component will be removed
 		If $Return[0][1] <> '' Then $Output &= $Return[0][1] & @CRLF & @CRLF
 	EndIf
-	If StringInStr($p_Type, 1) And StringInStr($p_Type, 2) Then; remove conflicts if dependencies were added
-		$Return=_Depend_AutoSolve('C', 2)
-		If $Return[0][1] <> '' Then $Output &= _GetTR($Message, 'L3') & @CRLF & $Return[0][1] & @CRLF & @CRLF; => mod will be removed
+	If StringInStr($p_Type, 1) And StringInStr($p_Type, 2) Then; if mods were activated to solve dependencies, deactivate any new conflicts
+		$Return=_Depend_AutoSolve('C', 2, 1, 1); skip warning rules
+		If $Return[0][1] <> '' Then $Output &= _GetTR($Message, 'L3') & @CRLF & $Return[0][1] & @CRLF & @CRLF; => mod/component will be removed
 	EndIf
 	If $Output <> '' Then
-		$Output &= _GetTR($Message, 'L5'); => proceed or go back?
-		If $p_Force = 1 Then $Output =  _GetTR($Message, 'L6')&@CRLF&$Output; => autosolve forced
-		$Answer = _Misc_MsgGUI(2, _GetTR($g_UI_Message, '0-T1'), $Output, 2, _GetTR($g_UI_Message, '0-B1'), _GetTR($g_UI_Message, '0-B2')); => ok to continue with this results?
+		If $p_Force = 1 Then
+			$Output =  _GetTR($Message, 'L6')&@CRLF&$Output; => auto-solve forced
+		Else
+			$Output &= _GetTR($Message, 'L5'); => proceed or go back?
+		EndIf
+		$Answer = _Misc_MsgGUI(2, _GetTR($g_UI_Message, '0-T1'), $Output, 2, _GetTR($g_UI_Message, '0-B1'), _GetTR($g_UI_Message, '0-B2')); => ok to continue with this result?
 		If $Answer = 1 Then
 			_Misc_SetTab(9); view progress-bar
 			_Tree_Reload(); reload saved settings
@@ -219,8 +275,12 @@ EndFunc   ;==>_Depend_Contextmenu
 
 ; ---------------------------------------------------------------------------------------------
 ; Create a sorted output for message-boxes and others
+;  p_Array[][0] = setup-name
+;  p_Array[][1] = component-type ('', '+' MUC, '?' SUB, '-' if a mod, not a component)
+;  p_Array[][2] = mod name
+;  p_Array[][3] = component description or '-' if a mod, not a component
 ; ---------------------------------------------------------------------------------------------
-Func _Depend_CreateSortedOutout(ByRef $p_Array)
+Func _Depend_CreateSortedOutput(ByRef $p_Array)
 	Local $Complete='|'
 	$p_Array[0][1]=''
 	_ArraySort($p_Array, 0, 1, 0, 1)
@@ -247,46 +307,49 @@ Func _Depend_CreateSortedOutout(ByRef $p_Array)
 		EndIf
 		$p_Array[0][1]&=_Tree_SetLength($p_Array[$p][1]) & ': '& $p_Array[$p][3] & @CRLF
 	Next
-EndFunc   ;==>_Depend_CreateSortedOutout
+EndFunc   ;==>_Depend_CreateSortedOutput
 
 ; ---------------------------------------------------------------------------------------------
 ; Add entries to the array of active problems
 ; ---------------------------------------------------------------------------------------------
-Func _Depend_GetActiveAddItem($p_Type, $p_Num, $p_Setup, $p_ID=0)
+Func _Depend_ActiveAddItem($p_Type, $p_Num, $p_Setup, $p_ID=0, $and_Group=0)
 	$g_ActiveConnections[0][0]+=1
 	$g_ActiveConnections[$g_ActiveConnections[0][0]][0]=$p_Type
 	$g_ActiveConnections[$g_ActiveConnections[0][0]][1]=$p_Num
 	$g_ActiveConnections[$g_ActiveConnections[0][0]][2]=$p_Setup
 	$g_ActiveConnections[$g_ActiveConnections[0][0]][3]=$p_ID
-EndFunc   ;==>_Depend_GetActiveAddItem
+	$g_ActiveConnections[$g_ActiveConnections[0][0]][4]=$and_Group
+EndFunc   ;==>_Depend_ActiveAddItem
 
 ; ---------------------------------------------------------------------------------------------
-; Display all conflicts and depencies as needed (used during selection)
+; Clear and fill $g_ActiveConnections array
+; If $p_Show is true, display all conflicts and dependencies as needed (used during selection)
 ; ---------------------------------------------------------------------------------------------
 Func _Depend_GetActiveConnections($p_Show=1)
 	_PrintDebug('+' & @ScriptLineNumber & ' Calling _Depend_GetActiveConnections')
-	Local $Mod, $Comp
-	Global $g_ActiveConnections[999][4]
-	$g_ActiveConnections[0][0] = 0
+	Global $g_ActiveConnections[99999][5]; initialize/clear active connections (will fill using _Depend_ActiveAddItem)
+	$g_ActiveConnections[0][0] = 0; reset number of active connections counter to zero
 	If $p_Show=1 Then _GUICtrlListView_BeginUpdate($g_UI_Handle[1])
 	If $p_Show=1 Then _GUICtrlListView_DeleteAllItems($g_UI_Handle[1])
-	For $c = 1 To $g_Connections[0][0]; loop through array
-		If StringLeft ($g_Connections[$c][3], 1) = 'W' Then; ignore warnings
-
-		ElseIf StringLeft ($g_Connections[$c][3], 1) = 'D' Then; dependencies first
+	For $c = 1 To $g_Connections[0][0]; loop through array of all Game.ini rules
+		If StringLeft ($g_Connections[$c][3], 1) = 'W' Then; skip rules that have been right-click ignored by user
+			ContinueLoop
+		ElseIf StringLeft ($g_Connections[$c][3], 1) = 'D' Then; this is a dependency rule
 			$String=StringTrimLeft($g_Connections[$c][3], 2)
 			If Not StringInStr($String, ':') Then; all items are needed
 				_Depend_GetActiveDependAll($String, $c, $p_Show)
-			Else; some items need some other
+			Else; some items need some other items
 				_Depend_GetActiveDependAdv($String, $c, $p_Show)
 			EndIf
-		Else; conflicts
+		ElseIf StringLeft ($g_Connections[$c][3], 1) = 'C' Then; this is a conflict rule
 			$String=StringTrimLeft($g_Connections[$c][3], 2)
-			If StringInStr($String, ':') Then; This is an advanced conflict
+			If StringInStr($String, ':') Then; this is an advanced conflict
 				_Depend_GetActiveConflictAdv($String, $c, $p_Show)
 			Else; this is a normal conflict
 				_Depend_GetActiveConflictStd($String, $c, $p_Show)
 			EndIf
+		Else; this is an unknown type of connection
+			_PrintDebug('+' & @ScriptLineNumber & ' Unknown type encountered in _Depend_GetActiveConnections: ' & $g_Connections[$c][3])
 		EndIf
 	Next
 	If $p_Show=1 Then _GUICtrlListView_EndUpdate($g_UI_Handle[1])
@@ -297,14 +360,14 @@ EndFunc   ;==>_Depend_GetActiveConnections
 ; ---------------------------------------------------------------------------------------------
 Func _Depend_GetActiveDependAll($p_String, $p_ID, $p_Show)
 	$Return=_Depend_ItemGetSelected($p_String)
-	If $Return[0][1] = 0 or $Return[0][1] = $Return[0][0] Then Return; nothin selected or all selected
+	If $Return[0][1] = 0 or $Return[0][1] = $Return[0][0] Then Return; nothing selected or all selected
 	$Prefix = ''
 	$Warning = ''
 	If $g_Connections[$p_ID][4]=1 Then $Warning=' **'
 	For $r=1 to $Return[0][0]; show selected items first
 		If $Return[$r][1]=1 Then
 			If $p_Show=1 Then GUICtrlCreateListViewItem($Prefix&$g_CentralArray[$Return[$r][0]][4]&$Warning & '|' & $g_CentralArray[$Return[$r][0]][3], $g_UI_Interact[10][1])
-			_Depend_GetActiveAddItem('DS', $p_ID, $Return[$r][0])
+			_Depend_ActiveAddItem('DS', $p_ID, $Return[$r][0])
 			If $Prefix='' Then $Prefix='+ '
 		EndIf
 	Next
@@ -319,7 +382,7 @@ Func _Depend_GetActiveDependAll($p_String, $p_ID, $p_Show)
 				$Comp=$g_CentralArray[$Return[$r][0]][3]
 			EndIf
 			If $p_Show=1 Then GUICtrlCreateListViewItem($Prefix&$Mod & '|' & $Comp, $g_UI_Interact[10][1])
-			_Depend_GetActiveAddItem('DM', $p_ID, $Return[$r][0])
+			_Depend_ActiveAddItem('DM', $p_ID, $Return[$r][0])
 			If $p_Show=1 Then GUICtrlSetBkColor(-1, 0xFFA500)
 			If $Prefix='' Then $Prefix='+ '
 		EndIf
@@ -327,49 +390,125 @@ Func _Depend_GetActiveDependAll($p_String, $p_ID, $p_Show)
 EndFunc    ;==>_Depend_GetActiveDependAll
 
 ; ---------------------------------------------------------------------------------------------
-; See if a component is installed that needs another listed components
+; Check if currently active/selected mods/components satisfy a provided dependency rule or not
+; If conditions on the LEFT side of the rule (mods/components "in need") are unmet, do nothing
+; If any conditions on the RIGHT side of the rule (mods/components "needed") are not met, then:
+;  Add all active "in need" mods and inactive "needed" mods in the rule to $g_ActiveConnections
+;  If $p_Show is true, build text for 'resolve dependencies' screen (display handled elsewhere)
+;
+; How do we interpret rules that contain combinations of AND '&' and OR '|'?
+;
+; Examples:
+;
+;  D:DrizztSaga(0|1)&InfinityAnimations(0):IAContent08(-)&IAContent01(-)&IAContent04(-)&IAContent05(-)
+;    rule only applies if InfinityAnimations 0 is active AND DrizztSaga 0 or 1 is active
+;  D:DrizztIsNotStupid(0)&DrizztSaga(0|1):DrizztSaga(3)
+;    rule only applies if Drizzt Saga 0 or 1 is active AND DrizztIsNotStupid 0 is active
+;
+; What if multiple '&' and '|' are alternated in the rule?
+;
+; Consider an alternate form of the first rule:
+;   D:DrizztSaga(0)&InfinityAnimations(0)|DrizztSaga(1)&InfinityAnimations(0):IAContent08(-)&IAContent01(-)&IAContent04(-)&IAContent05(-)
+;     This rule is improperly written because the InfinityAnimations 0 component is repeated
+;     It will be interpreted by BWS as Drizzt Saga 0 AND (Infinity Animations 0 or Drizzt Saga 1) AND Infinity Animations 0
+;     If only Drizzt Saga 1 and Infinity Animations 0 are active, BWS will NOT require the dependencies (contrary to intent)
+;
+; Examples of '&' and '|' combinations on left side of dependency rule ('in need'):
+;  D:aa|bb&cc:zz 		means that zz is needed only if cc AND (aa or bb) aew active
+;  D:aa&bb|cc:zz 		means that zz is needed only if aa AND (bb or cc) are active
+;  D:aa&bb|cc&dd:zz 	means that zz is needed only if aa AND (bb or cc) AND dd are active
+;  D:aa|bb&cc&dd|ee:zz 	means that zz is needed only if (aa or bb) AND cc AND (dd or ee) are active
+;
+; Examples of '&' and '|' combinations on right side of dependency rule ('needed'):
+;  D:aa:zz&xx|yy 		means that zz AND (xx or yy) are needed
+;  D:aa:zz|xx&yy 		means that (zz or xx) AND yy are needed
+;  D:aa:zz|xx&yy|ww 	means that (zz or xx) AND yy or ww are needed
+;  D:aa:zz|xx&yy|ww&uu 	means that (zz or xx) AND (yy or ww) AND uu are needed
+;    note the above rule does NOT mean "zz OR both xx and yy OR both ww and uu"
+;
+; Therefore: we split rules into 'and-group' sub-sets and require at least one from each set
 ; ---------------------------------------------------------------------------------------------
 Func _Depend_GetActiveDependAdv($p_String, $p_ID, $p_Show)
-	$p_String=StringSplit($p_String, ':')
-	$Test=_Depend_ItemGetSelected($p_String[1])
-	If $Test[0][1] = 0 Then Return; nothing was selected
-	If StringInStr($p_String[1], '&') And $Test[0][1] <> $Test[0][0] Then Return; "&" means that all items require one. If that's not matched, the compartibility-item is not needed
-	$Return=_Depend_ItemGetSelected($p_String[2])
-	If $Return[0][0] = $Return[0][1] Then Return; all possible items are selected which were needed
-	If StringInStr($p_String[2], '|') And $Return[0][1] <> 0 Then Return; "|" means that one item is needed. If selected is above 0, that's ok
-	$Prefix = ''
-	$Warning = ''
-	If $g_Connections[$p_ID][4]=1 Then $Warning=' *'
-	For $t=1 to $Test[0][0]; show selected items in need first
-		If $Test[$t][1]=1 Then
-			If $p_Show=1 Then GUICtrlCreateListViewItem($Prefix&$g_CentralArray[$Test[$t][0]][4]&$Warning & '|' & $g_CentralArray[$Test[$t][0]][3], $g_UI_Interact[10][1])
-			_Depend_GetActiveAddItem('DS', $p_ID, $Test[$t][0])
-			If $Prefix='' Then $Prefix='+ '
-		EndIf
-	Next
-	$Prefix = ''
-	For $r=1 to $Return[0][0]; then show missing needed items
-		If $Return[$r][1]=0 Then
-			$Mod=$g_CentralArray[$Return[$r][0]][4]
-			If $Mod = '' Then
-				$Mod=_GetTR($g_UI_Message, '10-L1'); => removed due to translation
-				$Comp=''
-			Else
-				$Comp=$g_CentralArray[$Return[$r][0]][3]
-			EndIf
-			If $p_Show=1 Then GUICtrlCreateListViewItem($Prefix&$Mod & '|' & $Comp, $g_UI_Interact[10][1])
-			If $p_Show=1 Then GUICtrlSetBkColor(-1, 0xFFA500)
-			If $Prefix='' And StringInStr($p_String[2], '|') Then; first of serveral possible items
-				_Depend_GetActiveAddItem('DO', $p_ID, $Return[$r][0])
-				$Prefix='/ '
-			ElseIf $Prefix='/ ' Then; other possible items that are skipped when solving dependencies
-				_Depend_GetActiveAddItem('DO', $p_ID, $Return[$r][0], 1)
-			Else
-				_Depend_GetActiveAddItem('DM', $p_ID, $Return[$r][0])
-				If $Prefix='' Then $Prefix='+ '
-			EndIf
-		EndIf
-	Next
+	;IniWrite("depend.ini", "debug", "_Depend_GADA_"&$p_ID, $g_Connections[$p_ID][0]&" ~~ "&$g_Connections[$p_ID][1]&" ~~ "&$p_String)
+	$p_String=StringSplit($p_String, ':'); p_String will be a dependency rule like "123&456:789" without the "D:" prefix
+	$Left=_Depend_ItemGetSelected($p_String[1]); otherwise, check which mods/components from the LEFT side of the dependency rule are active
+	If $Left[0][1] = 0 Then Return; NOTHING on the LEFT side of the rule is active/selected, so the RIGHT side does not matter -> do nothing
+	$Right=_Depend_ItemGetSelected($p_String[2]); check which mods/components from the RIGHT side of the dependency rule are active
+	If $Right[0][0] = $Right[0][1] Then Return; if ALL mods/components on the RIGHT side of the rule are active, the rule is satisfied -> do nothing
+	;check for a special case - game type can also be a dependency satisfying an OR condition
+	If StringRegExp($p_String[2], '\x7c('&$g_Flags[14]&')[^[:alpha:]]') Then Return; found OR '|' followed by game type in dependencies -> do nothing
+	; at this point, we know at least one mod/component on the LEFT is active, but there could still be unsatisfied '&' rules on the LEFT side
+	; at this point, we know at least one mod/component on the RIGHT is inactive, but not necessarily a needed dependency (it could be an '|' rule)
+	; now we need to evaluate the rule to check which conditions on the LEFT are satisfied and which conditions on the RIGHT are not satisfied
+	; we only have two operators (AND/OR) -- if we had more, we would need a parser (http://effbot.org/zone/simple-top-down-parsing.htm)
+	; to handle rules with combinations of AND/OR, we will split each side of the rule into parts separated by '&' operators
+	; we will do two passes through both sides of the rule because we need to check conditions on both sides before adding connections
+	Local $Warning = ''
+	If $g_Connections[$p_ID][4]=1 Then $Warning=' **'; the rule we are checking is a 'CW' or 'DW'
+	Local $foundMissingDependency=0
+	For $secondPass = 0 to 1
+		; evaluate the rule to check if conditions on the LEFT are satisfied and conditions on the RIGHT are not satisfied
+		If $secondPass And $foundMissingDependency = 0 Then Return; first pass did not find any missing dependencies -> do nothing
+		For $s = 1 to 2; outer loop to check LEFT side (1) followed by RIGHT side (2)
+			$Prefix = ''; we need to clear the prefix (only used if $p_Show = 1) when we switch from LEFT side to RIGHT side
+			$Parts=StringSplit($p_String[$s], '&'); we split the rule into '&'-subsets (this also works on strings without '&')
+			For $and_Group = 1 to $Parts[0]; this $and_Group number is also used for adding dependency connections
+				$ThisPart=_Depend_ItemGetSelected($Parts[$and_Group]); this is inefficient but simpler than reusing $Left/$Right
+				If $s = 1 Then; on the left side, we need at least one active mod in EVERY '&'-subset, else the entire rule does not apply
+					If $ThisPart[0][1] = 0 Then Return; left side, no active mods/components in this part (which needs at least one) -> do nothing
+					If $secondPass = 0 And $ThisPart[0][0] = $ThisPart[0][1] Then ContinueLoop; all mods/components are active -> check next part
+					If $secondPass Then
+						; if we reached this point, conditions on the LEFT side are met and there is at least one missing dependency on the RIGHT side
+						$Prefix = ''
+						For $t=1 to $ThisPart[0][0]; process mods/components "in need" (from the LEFT side of the rule)
+							If $ThisPart[$t][1]=1 Then; only consider "in need" mods/components if they are ACTIVE
+								If $p_Show=1 Then GUICtrlCreateListViewItem($Prefix & $g_CentralArray[$ThisPart[$t][0]][4] & $Warning & '|' & $g_CentralArray[$ThisPart[$t][0]][3], $g_UI_Interact[10][1]); mod name, component description
+								_Depend_ActiveAddItem('DS', $p_ID, $ThisPart[$t][0]); add an "in need" connection from this mod/component
+								If $Prefix='' Then $Prefix='+ '
+							EndIf
+						Next
+					EndIf
+				Else;If $s = 2 Then; on the right side, we need at least one inactive mod in ANY '&'-subset, else no missing dependencies
+					If $ThisPart[0][1] > 0 Then ContinueLoop; at least one active mod/component in this part -> skip to next part
+					$foundMissingDependency=1; else, we found at least one missing ('needed') dependency here
+					If $secondPass Then
+						$inActiveCount = $ThisPart[0][0]; - $ThisPart[0][1]; 'total in group' minus 'active in group' (we already checked none are active)
+						For $t = 1 to $ThisPart[0][0]; iterate over inactive mods/components in this part
+							If $inActiveCount = 1 Then; if it is the only missing dependency in this '&'-subset, it is MANDATORY
+								_Depend_ActiveAddItem('DM', $p_ID, $ThisPart[$t][0], $and_Group); add MANDATORY connection for this mod/component
+								If $Prefix <> '' Then $Prefix='+ '
+								If $p_Show = 1 Then
+									$ModName=$g_CentralArray[$ThisPart[$t][0]][4]; mod name
+									If $ModName = '' Then
+										$ModName=_GetTR($g_UI_Message, '10-L1'); => removed due to purge/translation/invalid
+										$CompDesc=''; no component description
+									Else
+										$CompDesc=$g_CentralArray[$ThisPart[$t][0]][3]; component description
+									EndIf
+									GUICtrlCreateListViewItem($Prefix&$ModName & '|' & $CompDesc, $g_UI_Interact[10][1])
+									GUICtrlSetBkColor(-1, 0xFFA500)
+								EndIf
+							ElseIf $inActiveCount > 1 Then; if it is one of multiple missing dependencies in this '&'-subset, it is OPTIONAL
+								_Depend_ActiveAddItem('DO', $p_ID, $ThisPart[$t][0], $and_Group); add OPTIONAL connection for this mod/component
+								If $Prefix <> '' Then $Prefix='/ '
+								If $p_Show = 1 Then
+									$ModName=$g_CentralArray[$ThisPart[$t][0]][4]; mod name
+									If $ModName = '' Then
+										$ModName=_GetTR($g_UI_Message, '10-L1'); => removed due to purge/translation/invalid
+										$CompDesc=''; no component description
+									Else
+										$CompDesc=$g_CentralArray[$ThisPart[$t][0]][3]; component description
+									EndIf
+									GUICtrlCreateListViewItem($Prefix&$ModName & '|' & $CompDesc, $g_UI_Interact[10][1])
+									GUICtrlSetBkColor(-1, 0xFFA500)
+								EndIf
+							EndIf; else $inActiveCount is 0 (we never encounter this case because we check earlier and skip)
+						Next; LOOP: check next mod/component
+					EndIf; secondPass
+				Endif; left/right side
+			Next; LOOP: check next '&'-subset 
+		Next; LOOP: left side -> right side
+	Next; LOOP: first pass -> second pass
 EndFunc    ;==>_Depend_GetActiveDependAdv
 
 ; ---------------------------------------------------------------------------------------------
@@ -379,12 +518,12 @@ Func _Depend_GetActiveConflictAdv($p_String, $p_ID, $p_Show)
 	$p_String=StringSplit($p_String, ':')
 	Local $Test[$p_String[0]+1][50]
 	For $s=1 to $p_String[0]
-		$Return=_Depend_ItemGetSelected($p_String[$s])
-		For $r=1 to $Return[0][0]
-			If StringInStr($p_String[$s], '&') And $Return[0][1] <> $Return[0][0] Then $r=$Return[0][0]; skip if all items are required and only one was selected
-			If $Return[$r][1] = 1 Then
+		$Active=_Depend_ItemGetSelected($p_String[$s])
+		For $r=1 to $Active[0][0]
+			If StringInStr($p_String[$s], '&') And $Active[0][1] <> $Active[0][0] Then $r=$Active[0][0]; skip if all are required and not all are active
+			If $Active[$r][1] = 1 Then
 				$Test[$s][0]+=1
-				$Test[$s][$Test[$s][0]]=$Return[$r][0]
+				$Test[$s][$Test[$s][0]]=$Active[$r][0]
 			EndIf
 		Next
 		If $Test[$s][0]<> 0 Then $Test[0][0]+=1
@@ -392,13 +531,13 @@ Func _Depend_GetActiveConflictAdv($p_String, $p_ID, $p_Show)
 	If $Test[0][0] <= 1 Then Return; no multiple conflicts were selected
 	Local $IsConflict = 0
 	$Warning = ''
-	If $g_Connections[$p_ID][4]=1 Then $Warning=' *'
+	If $g_Connections[$p_ID][4]=1 Then $Warning=' **'
 	For $s=1 to $p_String[0]
 		If $Test[$s][0] <> 0 Then
 			Local $Prefix = ''
 			For $r=1 to $Test[$s][0]
 				If $p_Show=1 Then GUICtrlCreateListViewItem($Prefix&$g_CentralArray[$Test[$s][$r]][4]&$Warning & '|' & $g_CentralArray[$Test[$s][$r]][3], $g_UI_Interact[10][1])
-				_Depend_GetActiveAddItem('C', $p_ID, $Test[$s][$r], $s)
+				_Depend_ActiveAddItem('C', $p_ID, $Test[$s][$r], $s)
 				$Prefix='+ '
 				If $p_Show=1 And $IsConflict = 1 Then GUICtrlSetBkColor(-1, 0xFF0000)
 			Next
@@ -413,14 +552,14 @@ EndFunc    ;==>_Depend_GetActiveConflictAdv
 ; ---------------------------------------------------------------------------------------------
 Func _Depend_GetActiveConflictStd($p_String, $p_ID, $p_Show)
 	Local $IsConflict = 0
-	$Return=_Depend_ItemGetSelected($p_String)
-	If $Return[0][1] = 0 or $Return[0][1] = 1 Then Return
+	$Active=_Depend_ItemGetSelected($p_String)
+	If $Active[0][1] = 0 or $Active[0][1] = 1 Then Return
 	$Warning = ''
-	If $g_Connections[$p_ID][4]=1 Then $Warning=' *'
-	For $r=1 to $Return[0][0]
-		If $Return[$r][1]=1 Then
-			If $p_Show=1 Then GUICtrlCreateListViewItem($g_CentralArray[$Return[$r][0]][4]&$Warning & '|' & $g_CentralArray[$Return[$r][0]][3], $g_UI_Interact[10][1])
-			_Depend_GetActiveAddItem('C', $p_ID, $Return[$r][0])
+	If $g_Connections[$p_ID][4]=1 Then $Warning=' **'
+	For $r=1 to $Active[0][0]
+		If $Active[$r][1]=1 Then
+			If $p_Show=1 Then GUICtrlCreateListViewItem($g_CentralArray[$Active[$r][0]][4]&$Warning & '|' & $g_CentralArray[$Active[$r][0]][3], $g_UI_Interact[10][1])
+			_Depend_ActiveAddItem('C', $p_ID, $Active[$r][0])
 			If $IsConflict = 0 Then
 				$IsConflict=1
 				$Warning=''
@@ -443,7 +582,7 @@ Func _Depend_GetUnsolved($p_Setup='', $p_Comp='')
 		$Tmp[$Tmp[0][0]][0]=$a
 		$Tmp[$Tmp[0][0]][1]=$g_CentralArray[$a][9]
 	Next
-; disable the mods that are listed as faults
+	; disable the mods that are listed as faults
 	Local $Fault=IniReadSection($g_BWSIni, 'Faults')
 	If IsArray($Fault) Then
 		For $f=1 to $Fault[0][0]
@@ -458,20 +597,20 @@ Func _Depend_GetUnsolved($p_Setup='', $p_Comp='')
 			Next
 		Next
 	EndIf
-; also disable setups component if defined
+	; also disable setups component if defined
 	If $p_Setup <> '' Then
 		For $a=$g_CentralArray[0][1] to $g_CentralArray[0][0]
 			If $p_Setup = $g_CentralArray[$a][0] And $p_Comp = $g_CentralArray[$a][2] Then _AI_SetClicked($a, 2)
 		Next
 	EndIf
-; only list unsolved mods in the array & create some formated output
-	_Depend_GetActiveConnections(0); fetch active connections
+	; only list unsolved mods in the array & create some formatted output
+	_Depend_GetActiveConnections(0); rebuild currently active connections
 	If $g_ActiveConnections[0][0] <> 0 Then
-		$Return=_Depend_AutoSolve('DS', 2); remove all mods and components that have an open dependency
+		$Return=_Depend_AutoSolve('DS', 2, 1, 1); remove all mods and components that have an open dependency (skip ignorable rules)
 		If $Return[0][1] <> '' Then
 			For $r =1 to $Return[0][0]
 				If StringInStr($String, '|'&$Return[$r][0]&'|') Then
-					$Return[$r][0]=''; don't show those that are mssing - have already been displayed as they are in the faults-section
+					$Return[$r][0]=''; don't show those that are missing - have already been displayed as they are in the faults-section
 				Else
 					$Return[0][2]+=1; increase counter for unsolved components/mods that depend on mods from faults-section
 					For $s=0 to 3; re-arrange array
@@ -484,7 +623,7 @@ Func _Depend_GetUnsolved($p_Setup='', $p_Comp='')
 		ReDim $Return[$Return[0][0]+1][4]
 	EndIf
 	If IsArray($Fault) Then $Return[0][2]+=$Fault[0][0]; set number of total "faulty" components/mods
-	If $Return[0][1] <> '' Then _Depend_CreateSortedOutout($Return)
+	If $Return[0][1] <> '' Then _Depend_CreateSortedOutput($Return)
 ; reset the selection before the testing was done
 	For $t=1 to $Tmp[0][0]
 		$g_CentralArray[$Tmp[$t][0]][9]=$Tmp[$t][1]
@@ -515,7 +654,12 @@ Func _Depend_ItemGetConnections(ByRef $p_Array, $p_ID, $p_String, $p_Setup, $p_C
 EndFunc   ;==>_Depend_ItemGetConnections
 
 ; ---------------------------------------------------------------------------------------------
-; Just return an array with the items and wheather they are selected or not
+; Expects a rule 
+; Just return an array of mod/component IDs and whether they are selected (active) or not
+;  Return[0][0] = total number of mod/component IDs in the array
+;  Return[0][1] = number of active mod/component IDs in the array
+;  Return[N][0] = mod/component ID
+;  Return[N][1] = 0/1 active/inactive
 ; ---------------------------------------------------------------------------------------------
 Func _Depend_ItemGetSelected($p_String, $p_Debug=0)
 	If Not IsArray($p_String) Then
@@ -523,23 +667,25 @@ Func _Depend_ItemGetSelected($p_String, $p_Debug=0)
 	Else
 		$Array = $p_String
 	EndIf
-	Local $Return[$Array[0]+1][2]
-	$Return[0][0]=$Array[0]
+	Local $Return[$Array[0]+1][3]; create a return array with three values for each element in the split array
+	$Return[0][0]=$Array[0]; set number of elements in return array equal to number of elements in split array
+	;Return[0][1] will be used to count the total number of active mods/components in the return array
 	For $a=1 to $Array[0]; loop
-		$Return[$a][0]=$Array[$a]
-		If StringInStr($Array[$a], ')') Then; if item is no number, it does not exist/is not available in this selection (being a foreign language)
-			; so just keep this as not selected and continue
-		ElseIf $g_CentralArray[$Array[$a]][2] <> '-' Then; check a component
-			$Return[$a][1]=$g_CentralArray[$Array[$a]][9]
-			$Return[0][1]+=$g_CentralArray[$Array[$a]][9]
-		Else; check a mod
-			If $g_CentralArray[$Array[$a]][9] > 0 Then; already selected, so no other tests are needed
-				$Return[$a][1]=1
-				$Return[0][1]+=1
-			ElseIf 	$g_CentralArray[$Array[$a]][13] <> '' Then; the mod installed at different times during the installation
+		$Return[$a][0]=$Array[$a]; copy next mod/component ID from split array into return array
+		If $p_Debug Then IniWrite("debug.ini", "debug", "_Depend_IGS_"&$p_String&"_"&$Array[$a], "#active: "&$g_CentralArray[$Array[$a]][9]&" ~ modname: "&$g_CentralArray[$Array[$a]][4]&" ~ component? "&$g_CentralArray[$Array[$a]][3]&" ~ multi-install? "&$g_CentralArray[$Array[$a]][13])
+		If StringInStr($Array[$a], ')') Then; if item is not a number, it does not exist/is not available in this selection (might have been purged)
+			$Return[$a][1]=0; so just mark this element in the return array as not-active and continue
+		ElseIf $g_CentralArray[$Array[$a]][2] <> '-' Then; ID points to a single component (not a mod)
+			$Return[$a][1]=$g_CentralArray[$Array[$a]][9]; 0 if component not active, 1 if active 
+			$Return[0][1]+=$g_CentralArray[$Array[$a]][9]; add to count of active mods/components found
+		Else;If $g_CentralArray[$Array[$a]][2] = '-' Then; ID points to a mod heading, not a component
+			If $g_CentralArray[$Array[$a]][9] > 0 Then; at least one component of the mod is active, so no other tests are needed here
+				$Return[$a][1]=1; 0 if not active, 1 if active - the mod is active, so 1
+				$Return[0][1]+=1; add to count of active mods/components found
+			ElseIf $g_CentralArray[$Array[$a]][13] <> '' Then; it is not active here, but components might be installed later in the installation
 				$Splitted=StringSplit($g_CentralArray[$Array[$a]][13], ','); get the other possible selections and check them, too
 				For $s=1 to $Splitted[0]
-					If $g_CentralArray[$Splitted[$s]][9] > 0 Then
+					If $g_CentralArray[$Splitted[$s]][9] > 0 Then; we found an active selection
 						$Return[$a][1]=1
 						$Return[0][1]+=1
 						ExitLoop
@@ -622,7 +768,7 @@ EndFunc   ;==>_Depend_ListInstallUnsolved
 ; Use install-order and assign the lines where the mod is mentioned in the [connections]-section
 ; ---------------------------------------------------------------------------------------------
 Func _Depend_PrepareBuildIndex($p_Array, $p_Select)
-	Local $Return[1000][4], $OldSetup
+	Local $Return[9999][4], $OldSetup
 	For $a=1 to $p_Select[0][0]
 		If $p_Select[$a][2] <> $OldSetup Then
 			$Return[0][0]+=1
@@ -659,8 +805,8 @@ Func _Depend_PrepareBuildIndex($p_Array, $p_Select)
 	Next
 	; goal is to identify connections (or better their index number) that may be connected to a mod into $Return[$r][2]
 	For $r=1 to $Return[0][0]
-		GUICtrlSetData($g_UI_Interact[9][1], 20*$r/$Return[0][0]); set the progress
-		If _MathCheckDiv($r, 10) = 2 Then GUICtrlSetData($g_UI_Static[9][2], Round(20*$r/$Return[0][0], 0) & ' %')
+		GUICtrlSetData($g_UI_Interact[9][1], 20*$r/$Return[0][0]); update the progress bar
+		If _MathCheckDiv($r, 10) = 2 Then GUICtrlSetData($g_UI_Static[9][2], Round(20*$r/$Return[0][0], 0) & ' %'); update progress text
 		$Lines=''
 		$StartIdx=$Index[Asc(StringLower(StringLeft($Return[$r][1], 1)))]
 		For $s=$StartIdx To $Setups[0][0]
@@ -856,14 +1002,17 @@ Func _Depend_RemoveFromCurrent($p_Array, $p_Comp=1)
 EndFunc   ;==>_Depend_RemoveFromCurrent
 
 ; ---------------------------------------------------------------------------------------------
-; checks the mods from the connections-array
+; this function displays and handles the UI for the 'resolve conflicts and dependencies' screen
+; checks the mods from the connections-array (Select-GUILoop calls this when leaving tree-view)
+;   p_Solve = auto-solve (deactivate) conflict losers and missing dependencies first?
+;       this option is currently not used anywhere in BWS
 ; ---------------------------------------------------------------------------------------------
 Func _Depend_ResolveGui($p_Solve=0)
 	_PrintDebug('+' & @ScriptLineNumber & ' Calling _Depend_ResolveGui')
 	_Depend_GetActiveConnections()
 	If $p_Solve = 1 Then
-		_Depend_AutoSolve('C', 2)
-		_Depend_AutoSolve('DS', 2)
+		_Depend_AutoSolve('C', 2, 1, 1); disable all conflict losers (but ignore conflict warning rules)
+		_Depend_AutoSolve('DS', 2, 1, 1); disable mods/components with missing dependencies (but ignore conflict warning rules)
 	EndIf
 	If $g_ActiveConnections[0][0] <> 0 Then _Misc_SetTab(10); dependencies-tab
 	$g_Flags[16] = 0
@@ -879,9 +1028,9 @@ Func _Depend_ResolveGui($p_Solve=0)
 				Exit
 			Case $Gui_Event_Close
 				Exit
-			Case $g_UI_Button[10][1]; autosolve both dependencies and confilcts
+			Case $g_UI_Button[10][1]; autosolve both dependencies and conflicts
 				_Depend_AutoSolveWarning(3)
-			Case $g_UI_Button[10][2]; autosolve confilcts
+			Case $g_UI_Button[10][2]; autosolve conflicts
 				_Depend_AutoSolveWarning(1)
 			Case $g_UI_Button[10][3]; autosolve dependencies
 				_Depend_AutoSolveWarning(2)
@@ -901,17 +1050,17 @@ EndFunc   ;==>_Depend_ResolveGui
 ; Force a state on items in a certain "connection-group" $p_State: 1=select, 2=deselect
 ; ---------------------------------------------------------------------------------------------
 Func _Depend_SetGroupByNumber($p_Num, $p_State, $p_Skip='')
-	Local $Number
+	Local $GroupID
 	If $p_Skip <> '' Then
 		For $a=1 to $g_ActiveConnections[0][0]
 			If $g_ActiveConnections[$a][2] <> $p_Skip Then ContinueLoop
-			$Number = $g_ActiveConnections[$a][3]; look if item is part of a group
+			$GroupID = $g_ActiveConnections[$a][3]; look if item is part of a group
 			ExitLoop
 		Next
 	EndIf
 	For $a=1 to $g_ActiveConnections[0][0]
 		If $g_ActiveConnections[$a][1] <> $p_Num Then ContinueLoop
-		If $Number <> '' And $Number = $g_ActiveConnections[$a][3] Then ContinueLoop; keep items of the same group
+		If $GroupID <> '' And $GroupID = $g_ActiveConnections[$a][3] Then ContinueLoop; keep items of the same group
 		If $p_Skip <> '' And $p_Skip = $g_ActiveConnections[$a][2] Then ContinueLoop
 		If $g_ActiveConnections[$a][0] = 'DO' And $g_ActiveConnections[$a][3] = 1 Then ContinueLoop
 		_Depend_SetModState($g_ActiveConnections[$a][2], $p_State)
@@ -938,17 +1087,17 @@ Func _Depend_SetModState($p_ControlID, $p_State)
 EndFunc   ;==>_Depend_SetModState
 
 ; ---------------------------------------------------------------------------------------------
-; Remove all items that have problems with a sepcific item or setup. Invert is possible.
+; Remove all items that have problems with a specific item or setup. Invert is possible.
 ; ---------------------------------------------------------------------------------------------
 Func _Depend_SolveConflict($p_Setup, $p_State, $p_Type=0)
-	Local $Number
+	Local $GroupID
 	For $a=1 to $g_ActiveConnections[0][0]
 		If $p_Type = 0 Then $Test = $g_ActiveConnections[$a][2]
 		If $p_Type = 1 Then $Test = $g_CentralArray[$g_ActiveConnections[$a][2]][0]
 		If $Test = $p_Setup Then
 			If $g_ActiveConnections[$a][0] <> 'C' Then ContinueLoop
 			$n=$a
-			$Number = $g_ActiveConnections[$a][3]
+			$GroupID = $g_ActiveConnections[$a][3]
 			While $g_ActiveConnections[$n][1]=$g_ActiveConnections[$a][1]; get the beginning of the conflict
 				$n-=1
 			WEnd
@@ -958,7 +1107,7 @@ Func _Depend_SolveConflict($p_Setup, $p_State, $p_Type=0)
 				If $p_Type = 0 Then $Test = $g_ActiveConnections[$n][2]
 				If $p_Type = 1 Then $Test = $g_CentralArray[$g_ActiveConnections[$n][2]][0]
 				If $p_State = 1 Then
-					If $Number <> '' And $Number = $g_ActiveConnections[$n][3] Then ContinueLoop
+					If $GroupID <> '' And $GroupID = $g_ActiveConnections[$n][3] Then ContinueLoop
 					If $Test <> $p_Setup Then _Depend_SetModState($g_ActiveConnections[$n][2], 2); remove the item if it is not the setup itself
 					;If $Test <> $p_Setup Then ConsoleWrite(@ScriptLineNumber & ': '&$g_CentralArray[$g_ActiveConnections[$n][2]][0] & ' - ' & $g_CentralArray[$g_ActiveConnections[$n][2]][2] & ' - ' & $p_State & @CRLF)
 				Else

@@ -63,7 +63,7 @@ Func Au3BuildGUI($p_Num = 0)
 	$g_UI_Interact[1][2] = GUICtrlCreateCombo('', 430, 390, 305, 100)
 	$g_UI_Static[1][3] = GUICtrlCreateLabel('', 15, 390, 400, 20, $SS_CENTER+$SS_CENTERIMAGE); install method
 	GUICtrlSetState(-1, $GUI_HIDE)
-	$g_UI_Interact[1][3] = GUICtrlCreateCombo('', 430, 390, 305, 100); installmethod
+	$g_UI_Interact[1][3] = GUICtrlCreateCombo('', 430, 390, 305, 100); install method
 	GUICtrlSetState(-1, $GUI_HIDE)
 	$g_UI_Static[1][4] = GUICtrlCreateLabel('', 15, 105, 400, 260); dummy for resizing the picture in the screen
 #EndRegion Welcome Tab
@@ -87,8 +87,8 @@ Func Au3BuildGUI($p_Num = 0)
 	$g_UI_Static[2][5] = GUICtrlCreateLabel('', 30, 290, 370, 15); language
 	$g_UI_Interact[2][5] = GUICtrlCreateInput('', 30, 305, 300, 20)
 	$g_UI_Button[2][4] = GUICtrlCreateButton(_GetTR($g_UI_Message, '0-B6'), 350, 305, 50, 20, 0)
-	$g_UI_Static[2][4] = GUICtrlCreateLabel('', 30, 345, 370, 15); preselection
-	$g_UI_Interact[2][4] = GUICtrlCreateCombo('', 30, 360, 300, 20)
+	$g_UI_Static[2][4] = GUICtrlCreateLabel('', 30, 345, 370, 15); compilation / pre-selection menu
+	$g_UI_Interact[2][4] = GUICtrlCreateCombo('', 30, 360, 370, 20)
 	$g_UI_Button[2][5] = GUICtrlCreateButton(_GetTR($g_UI_Message, '0-B7'), 29, 385, 302, 20, 0); open mod/componentselection
 	GUICtrlCreateGroup("", -99, -99, 1, 1)
 	$g_UI_Interact[2][6] = GUICtrlCreateEdit('', 430, 65, 305, 345, BitOR($SS_Left, $WS_VSCROLL, $ES_READONLY, 0x0100)); help
@@ -273,8 +273,8 @@ Func Au3BuildGUI($p_Num = 0)
 	$g_UI_Interact[10][1] = GUICtrlCreateListView('1|2', 15, 100, 400, 255, $LVS_SINGLESEL + $LVS_NOSORTHEADER, $LVS_EX_GRIDLINES + $LVS_EX_FULLROWSELECT + $LVS_EX_INFOTIP + $WS_Ex_Clientedge)
 	GUICtrlSetResizing(-1, 102)
 	$g_UI_Handle[1] = GUICtrlGetHandle($g_UI_Interact[10][1])
-	_GUICtrlListView_SetColumnWidth($g_UI_Handle[1], 0, 195)
-	_GUICtrlListView_SetColumnWidth($g_UI_Handle[1], 1, 200)
+	_GUICtrlListView_SetColumnWidth($g_UI_Handle[1], 0, 205)
+	_GUICtrlListView_SetColumnWidth($g_UI_Handle[1], 1, 400)
 	$g_UI_Button[10][4] = GUICtrlCreateButton('>', 415, 100, 15, 255, -1, 0x00000200)
 	GUICtrlSetResizing(-1, 356)
 	$g_UI_Interact[10][2] = GUICtrlCreateEdit('', 430, 100, 305, 255, BitOR($SS_Left, $WS_VSCROLL, $ES_READONLY))

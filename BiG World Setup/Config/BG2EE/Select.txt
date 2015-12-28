@@ -1,35 +1,38 @@
 ANN;Added due to patching
-CMD;IF NOT EXIST ".\BWS_workspace\override" MD ".\BWS_workspace\override"
+ANN;--- BWS starts in BG1EE folder if EET is selected, so all following lines until EET are applied to BG1EE ---
+ANN;--- if EET is not selected, we use the Game.ini purge section to hide all the BG1EE-exclusive mods below ---
+ANN;--- we use ;;;;D:EET(0) for CMD lines applicable to BG1EE to suppress them if EET is not being installed ---
+CMD;IF NOT EXIST ".\BWS_workspace\override" MD ".\BWS_workspace\override";D:EET(0)
 DWN;WeiDU;0;00;1111;
 DWN;eekeeper;0;00;1111;
 DWN;bwfixpack;0;00;1111;
-ANN;special case - BWS should also extract bwfixpack in BG2EE directory
+ANN;special case - BWS has code in Testing.au3 that will apply the three lines above in both BG1EE and BG2EE directory if EET is selected
 ANN;--- BGEE patches ---
-CMD;IF EXIST "BiG-World-Fixpack-master" IF EXIST "Big-World-Fixpack-master\BiG World Fixpack" move "Big-World-Fixpack-master\BiG World Fixpack" ".\"
-CMD;IF EXIST "BiG-World-Fixpack-master" IF EXIST "Big-World-Fixpack-master\BiG World Fixpack.bat" move "Big-World-Fixpack-master\BiG World Fixpack.bat" ".\"
-CMD;IF EXIST "BiG World Fixpack" IF NOT EXIST BWP_Fixpack.installed Call "BiG World Fixpack.bat"
+CMD;IF EXIST "BiG-World-Fixpack-master" IF EXIST "Big-World-Fixpack-master\BiG World Fixpack" move "Big-World-Fixpack-master\BiG World Fixpack" ".\";;;;D:EET(0)
+CMD;IF EXIST "BiG-World-Fixpack-master" IF EXIST "Big-World-Fixpack-master\BiG World Fixpack.bat" move "Big-World-Fixpack-master\BiG World Fixpack.bat" ".\";;;;D:EET(0)
+CMD;IF EXIST "BiG World Fixpack" IF NOT EXIST BWP_Fixpack.installed Call "BiG World Fixpack.bat";;;;D:EET(0)
 STD;BGEE_PL;0;0;1111;
 STD;BGEE_PL;1;0;1111;
 DWN;BGEE-Polish;0;00;1111;
 STD;bgeetextpack;0;01;1111;
 STD;bgeetextpack;1;01;1111;
-SUB;bgeegraphics;0;13;1111;
-SUB;bgeegraphics;0?1_1;13;1111;
+SUB;bgeegraphics;0;13;0001;
+SUB;bgeegraphics;0?1_1;13;0001;
 SUB;bgeegraphics;0?1_2;13;0000;
-DWN;bgeegraphics_part2;0;13;1111;
-DWN;bgeegraphics_part3;0;13;1111;
+DWN;bgeegraphics_part2;0;13;0001;
+DWN;bgeegraphics_part3;0;13;0001;
 ANN;Removing corrupted .wed
-CMD;IF EXIST setup-bgeegraphics.exe IF EXIST ".\override\ar4300.wed" move ".\override\ar4300.wed" ".\BWS_workspace\override"
+ANN;CMD;IF EXIST setup-bgeegraphics.exe IF EXIST ".\override\ar4300.wed" move ".\override\ar4300.wed" ".\BWS_workspace\override";;;;D:EET(0)
 ANN;--- BGEE "big mods" ---
 STD;DarkHorizonsBGee;0;02;0011;
 STD;dsotscBGEE;5;02;0111;
 MUC;drizztsaga;Init;02;0011;
 MUC;drizztsaga;0;02;0000;
 MUC;drizztsaga;1;02;0011;
-ANN;don't change XP cap before EET
+ANN;pointless to change XP cap before EET
 ANN;STD;drizztsaga;2;02;0000;
 STD;drizztsaga;3;02;0011;
-CMD;IF EXIST setup-drizztsaga.exe echo.>> Worldmap/map_mods_links.tbl
+CMD;IF EXIST setup-drizztsaga.exe echo.>> Worldmap/map_mods_links.tbl;;;;D:EET(0)
 ANN;--- BGEE quests ---
 STD;bgqe;0;03;1111;
 STD;bgqe;1;03;1111;
@@ -288,10 +291,12 @@ MUC;BGEEClassicMovies;Init;13;0000;
 MUC;BGEEClassicMovies;0;13;0000;
 MUC;BGEEClassicMovies;1;13;0000;
 STD;BGEEClassicMovies;2;13;0000;
-ANN;--- end BGEE ---
+ANN;--- end BGEE, start EET / BG2EE ---
 STD;EET;0;00;1111;
-ANN;special case - BWS should also extract bwfixpack in BG2EE directory
+ANN;--- BWS switches from BG1EE folder to BG2EE folder after this line ---
+CMD;IF NOT EXIST ".\BWS_workspace\override" MD ".\BWS_workspace\override"
 ANN;--- BG2EE patches ---
+ANN;special case - BWS has code in Testing.au3 that will cause WeiDU and bwfixpack to be extracted in both the BG1EE and BG2EE folders for EET
 CMD;IF EXIST "BiG-World-Fixpack-master" IF EXIST "Big-World-Fixpack-master\BiG World Fixpack" move "Big-World-Fixpack-master\BiG World Fixpack" ".\"
 CMD;IF EXIST "BiG-World-Fixpack-master" IF EXIST "Big-World-Fixpack-master\BiG World Fixpack.bat" move "Big-World-Fixpack-master\BiG World Fixpack.bat" ".\"
 CMD;IF EXIST "BiG World Fixpack" IF NOT EXIST BWP_Fixpack.installed Call "BiG World Fixpack.bat"
@@ -304,6 +309,16 @@ SUB;bg2eetp;0?1_2;00;1111;
 SUB;bg2eetp;0?1_3;00;1111;
 SUB;bg2eetp;0?1_4;00;1111;
 STD;BG2EE_GA;0;00;1111;
+ANN;--- Ascension BG2EE 1.51 BETA ---
+STD;Ascension;0;08;1111;
+STD;Ascension;1;08;1111;
+STD;Ascension;4;09;1111;
+STD;Ascension;5;08;0010;
+STD;Ascension;6;08;0010;
+STD;Ascension;7;08;0010;
+STD;Ascension;8;08;0010;
+STD;Ascension;9;08;0010;
+STD;astscriptpatcher;0;01;1111;
 ANN;--- post-EET BGEE tweaks ---
 ANN;move BGEESpawn here?
 MUC;7c#sartweak;Init;07;0011;
@@ -318,8 +333,8 @@ ANN;--- item revisions core, spell revisions core ---
 ANN;IR #0 as early as possible so other mods can overwrite
 ANN;IR #0 is aware of SR #0 so should follow it
 ANN;therefore SR #0 early also
-STD;spell_rev;0;09;0111;
-STD;item_rev;0;09;0111;
+STD;spell_rev;0;09;0000;
+STD;item_rev;0;09;0000;
 ANN;--- BG2EE quests ---
 STD;TOD;0;03;1111;
 STD;TOD;1;03;0011;
@@ -437,7 +452,7 @@ MUC;adrian;1;05;0000;
 MUC;adrian;2;05;0000;
 STD;arath;0;05;0111;
 STD;dace;0;05;0111;
-STD;dace;1;05;0000;
+STD;dace;1;13;0000;
 SUB;aranw;0;05;0111;
 SUB;aranw;0?1_1;05;0000;
 SUB;aranw;0?1_2;05;0111;
@@ -509,21 +524,21 @@ SUB;aranw;9?3_1;05;0000;
 SUB;aranw;9?3_2;05;0000;
 SUB;aranw;9?3_3;05;0000;
 SUB;aranw;9?3_4;05;0000;
-SUB;aranw;10;05;0111;
-SUB;aranw;10?1_1;05;0111;
-SUB;aranw;10?1_2;05;0000;
-SUB;aranw;10?1_3;05;0000;
-SUB;aranw;10?1_4;05;0000;
-SUB;aranw;10?1_5;05;0000;
-SUB;aranw;10?1_6;05;0000;
-SUB;aranw;10?1_7;05;0000;
-SUB;aranw;10?1_8;05;0000;
-SUB;aranw;10?1_9;05;0000;
-SUB;aranw;10?1_10;05;0000;
-SUB;aranw;10?1_11;05;0000;
-SUB;aranw;10?1_12;05;0000;
-SUB;aranw;10?1_13;05;0000;
-SUB;aranw;10?1_14;05;0000;
+SUB;aranw;10;13;0111;
+SUB;aranw;10?1_1;13;0111;
+SUB;aranw;10?1_2;13;0000;
+SUB;aranw;10?1_3;13;0000;
+SUB;aranw;10?1_4;13;0000;
+SUB;aranw;10?1_5;13;0000;
+SUB;aranw;10?1_6;13;0000;
+SUB;aranw;10?1_7;13;0000;
+SUB;aranw;10?1_8;13;0000;
+SUB;aranw;10?1_9;13;0000;
+SUB;aranw;10?1_10;13;0000;
+SUB;aranw;10?1_11;13;0000;
+SUB;aranw;10?1_12;13;0000;
+SUB;aranw;10?1_13;13;0000;
+SUB;aranw;10?1_14;13;0000;
 STD;c#solaufein;0;05;0111;
 STD;Isra_bg2;0;05;1111;
 STD;TheUndying;0;05;0111;
@@ -550,9 +565,9 @@ STD;7C-Yoshi;0;07;0111;
 STD;YoshimoRomance;0;07;0111;
 STD;YoshimoRomance;1;07;0111;
 STD;YoshimoRomance;4;07;0111;
-STD;EdwinRomance;0;07;0111;
+STD;EdwinRomance;0;07;0001;
 ANN;#1 portrait moved down
-STD;EdwinRomance;2;07;0111;
+STD;EdwinRomance;2;07;0001;
 STD;EdwinRomance;3;07;0111;
 STD;Tsujatha;0;05;0111;
 STD;imoenfriendship;0;07;1111;
@@ -587,93 +602,25 @@ STD;arestorationp;11;09;0111;
 ANN;#12 alternate slayer change -> tactical
 STD;arestorationp;12;09;0011;
 STD;arestorationp;13;09;0111;
+ANN;BP needs res_fixer (at least BGT version does)
+STD;res_fixer;0;01;1111;
 ANN;#0 is detectable spells v3 and other patches
-STD;BP;0;11;0111;
+STD;BP;0;02;0111;
 ANN;#10 is innate fix, recommend BPSeries instead (installs later)
-STD;BP;10;11;0000;
+STD;BP;10;01;0000;
 ANN;#35 -> stores and items
 STD;BP;35;10;0111;
 ANN;#50,60 is level 50 rules, grandmastery
 STD;BP;50;09;0111;
 STD;BP;60;09;0111;
-ANN;--- BG2EE tactical encounters ---
-STD;BP;1020;08;0001;
-MUC;BP;Init;08;0001;
-MUC;BP;1030;08;0000;
-MUC;BP;1040;08;0000;
-MUC;BP;1050;08;0000;
-MUC;BP;1060;08;0000;
-MUC;BP;1070;08;0000;
-MUC;BP;1080;08;0001;
-MUC;BP;1090;08;0000;
-ANN;Improved Copper Coronet & Slavers -> Tactical
-STD;BP;1100;08;0011;
-ANN;Brown Dragon -> Tactical
-STD;BP;1110;08;0011;
-ANN;#1120 Crypt King can be installed because bwfixpack resolves install error
-STD;BP;1120;08;0011;
-ANN;Drizzt Encounter (Chapter 6) -> Tactical
-STD;BP;1130;08;0011;
-MUC;BP;Init;08;0001;
-MUC;BP;1140;08;0001;
-MUC;BP;1150;08;0000;
-MUC;BP;1160;08;0000;
-ANN;Treant Encounter -> Tactical
-STD;BP;1170;08;0011;
-ANN;Gnome Fighter/Illusionist -> Tactical
-STD;BP;1175;08;0011;
-ANN;Hell Trials -> Tactical
-STD;BP;1190;08;0011;
-ANN;Horred's Lair -> Tactical
-STD;BP;1200;08;0011;
-STD;BP;1210;08;0001;
-STD;BP;1225;08;0001;
-ANN;Kuroisan -> Tactical
-STD;BP;1250;08;0011;
-ANN;Lich in the Docks -> Tactical
-STD;BP;1275;08;0011;
-STD;BP;1300;08;0001;
-STD;BP;1315;08;0001;
-ANN;Tavern Brawl (Seven Veils) -> Tactical
-STD;BP;1330;08;0011;
-ANN;Planar Prison -> Tactical
-STD;BP;1350;08;0011;
-ANN;Planar Sphere (with Tolgerias) -> Tactical
-STD;BP;1375;08;0011;
-STD;BP;1400;08;0001;
-ANN;Red Badge -> Tactical
-STD;BP;1425;08;0011;
-ANN;The Ritual -> Tactical
-STD;BP;1450;08;0011;
-ANN;Small Teeth Pass -> Tactical
-STD;BP;1525;08;0011;
-MUC;BP;Init;08;0001;
-MUC;BP;1550;08;0000;
-MUC;BP;1560;08;0000;
-MUC;BP;1570;08;0001;
-MUC;BP;1580;08;0000;
-MUC;BP;1590;08;0000;
-ANN;Suldanessellar -> Tactical
-STD;BP;1600;08;0011;
-ANN;Tanner's Quest -> Tactical
-STD;BP;1625;08;0011;
-ANN;Trademeet -> Tactical
-STD;BP;1650;08;0011;
-ANN;Wand of Orcus -> Tactical
-STD;BP;1675;08;0011;
-STD;BP;1700;08;0001;
-ANN;Xvart Village (BGEE) -> Tactical
-STD;BP;1725;08;0011;
-STD;BP;1750;08;0001;
-STD;BP;1800;08;0001;
 ANN;--- BP Ascension ---
 STD;BP;2000;08;0111;
-STD;BP;2100;11;0011;
-STD;BP;2200;11;0011;
-STD;BP;2300;11;0011;
-STD;BP;2400;11;0011;
-STD;BP;2500;11;0011;
-STD;BP;2600;11;0011;
+STD;BP;2100;08;0011;
+STD;BP;2200;08;0011;
+STD;BP;2300;08;0011;
+STD;BP;2400;08;0011;
+STD;BP;2500;08;0011;
+STD;BP;2600;08;0011;
 ANN;--- BG2EE NPCs ---
 ANN;Kelsey after (BP) Ascension
 STD;Kelsey;0;05;1111;
@@ -764,6 +711,9 @@ STD;RE;51;07;0111;
 STD;RE;52;07;0111;
 STD;RE;53;07;0111;
 STD;RE;54;07;0111;
+STD;haerdalisromance;0;07;0111;
+STD;nephele;0;05;0111;
+STD;nephele;1;05;0111;
 STD;Faren;0;05;0111;
 MUC;Faren;Init;05;0111;
 MUC;Faren;1;05;0000;
@@ -862,10 +812,6 @@ STD;d0questpack;20;03;0111;
 STD;d0questpack;21;03;0111;
 ANN;--- BG2EE minimods ---
 STD;wheels;0;04;1111;
-ANN;--- BG2EE NPCs ---
-STD;haerdalisromance;0;07;0111;
-STD;nephele;0;05;0111;
-STD;nephele;1;05;0111;
 ANN;--- BG2EE minimods ---
 STD;G3Anniversary;0;04;0111;
 ANN;--- BG2EE NPCs ---
@@ -876,38 +822,36 @@ STD;CrossmodBG2;2;07;1111;
 ANN;why is ACBre #2 here? it was already installed on BGEE
 ANN;STD;ACBre;2;05;0111;
 ANN;--- BG2EE kit changes ---
-STD;npckit;30;12;1111;
-STD;npckit;31;12;1111;
-STD;npckit;400;12;1111;
-STD;npckit;410;12;0000;
-STD;npckit;420;12;0000;
-STD;npckit;900;12;1111;
-STD;npckit;1400;12;0000;
-MUC;npckit;Init;12;0000;
-MUC;npckit;1410;12;0000;
-MUC;npckit;1411;12;0000;
-MUC;npckit;1412;12;0000;
-MUC;npckit;1413;12;0000;
-MUC;npckit;1414;12;0000;
-MUC;npckit;1415;12;0000;
-MUC;npckit;1416;12;0000;
-MUC;npckit;1417;12;0000;
-STD;npckit;2100;12;1111;
-ANN;#2200 mazzy kit 1111 -> 0000 (-> NPC_EE)
-STD;npckit;2200;12;0000;
-STD;npckit;2300;12;1111;
-ANN;#2500 nalia kit 1111 -> 1100 (rest -> NPC_EE)
-STD;npckit;2500;12;1100;
-MUC;npckit;Init;12;0000;
-MUC;npckit;2510;12;0000;
-MUC;npckit;2511;12;0000;
-MUC;npckit;2512;12;0000;
-MUC;npckit;2513;12;0000;
-MUC;npckit;2514;12;0000;
-MUC;npckit;2515;12;0000;
-MUC;npckit;2516;12;0000;
-MUC;npckit;2517;12;0000;
-STD;npckit;2800;12;1111;
+STD;npckit;30;12;0001;
+STD;npckit;31;12;0001;
+STD;npckit;400;12;0001;
+STD;npckit;410;12;0001;
+STD;npckit;420;12;0001;
+STD;npckit;900;12;0001;
+STD;npckit;1400;12;0001;
+MUC;npckit;Init;12;0001;
+MUC;npckit;1410;12;0001;
+MUC;npckit;1411;12;0001;
+MUC;npckit;1412;12;0001;
+MUC;npckit;1413;12;0001;
+MUC;npckit;1414;12;0001;
+MUC;npckit;1415;12;0001;
+MUC;npckit;1416;12;0001;
+MUC;npckit;1417;12;0001;
+STD;npckit;2100;12;0001;
+STD;npckit;2200;12;0001;
+STD;npckit;2300;12;0001;
+STD;npckit;2500;12;0001;
+MUC;npckit;Init;12;0001;
+MUC;npckit;2510;12;0001;
+MUC;npckit;2511;12;0001;
+MUC;npckit;2512;12;0001;
+MUC;npckit;2513;12;0001;
+MUC;npckit;2514;12;0001;
+MUC;npckit;2515;12;0001;
+MUC;npckit;2516;12;0001;
+MUC;npckit;2517;12;0001;
+STD;npckit;2800;12;0001;
 ANN;--- BG2EE new kits ---
 STD;Px_Chantelame;0;12;0111;
 STD;duskblade;0;12;0111;
@@ -918,13 +862,13 @@ STD;iwdification;10;09;0111;
 ANN;#20 is commoners use drab colors
 STD;iwdification;20;09;0000;
 ANN;--- BG2EE spells ---
-STD;spell_rev;10;09;0111;
-STD;spell_rev;20;09;0111;
-STD;spell_rev;30;09;0111;
-STD;spell_rev;40;09;0111;
-STD;spell_rev;50;09;0111;
-STD;spell_rev;60;09;0111;
-STD;spell_rev;70;09;0111;
+STD;spell_rev;10;09;0000;
+STD;spell_rev;20;09;0000;
+STD;spell_rev;30;09;0000;
+STD;spell_rev;40;09;0000;
+STD;spell_rev;50;09;0000;
+STD;spell_rev;60;09;0000;
+STD;spell_rev;70;09;0000;
 ANN;#30 is IWD arcane spells
 STD;iwdification;30;09;0111;
 ANN;#40 is IWD divine spells
@@ -951,30 +895,30 @@ MUC;DjinniCompanion;105;06;0000;
 STD;DjinniCompanion;200;06;0000;
 ANN;DjinniCompanion portrait moved down
 ANN;--- item revisions ---
-STD;item_rev;1;09;0111;
-MUC;item_rev;Init;09;0111;
+STD;item_rev;1;09;0000;
+MUC;item_rev;Init;09;0000;
 MUC;item_rev;2;09;0000;
-MUC;item_rev;3;09;0111;
+MUC;item_rev;3;09;0000;
 MUC;item_rev;4;09;0000;
 MUC;item_rev;5;09;0000;
-MUC;item_rev;Init;09;0011;
+MUC;item_rev;Init;09;0000;
 MUC;item_rev;1040;09;0000;
 MUC;item_rev;6;09;0000;
 MUC;item_rev;1041;09;0000;
 MUC;item_rev;1042;09;0000;
 MUC;item_rev;7;09;0000;
-MUC;item_rev;8;09;0011;
+MUC;item_rev;8;09;0000;
 MUC;item_rev;1043;09;0000;
-MUC;item_rev;Init;09;0111;
+MUC;item_rev;Init;09;0000;
 MUC;item_rev;9;09;0000;
-MUC;item_rev;1101;09;0111;
-STD;item_rev;1020;09;0111;
-STD;item_rev;1030;09;0111;
-STD;item_rev;1050;09;0111;
-STD;item_rev;10;09;0111;
-STD;item_rev;11;09;0111;
-STD;item_rev;12;09;0111;
-STD;item_rev;13;09;0111;
+MUC;item_rev;1101;09;0000;
+STD;item_rev;1020;09;0000;
+STD;item_rev;1030;09;0000;
+STD;item_rev;1050;09;0000;
+STD;item_rev;10;09;0000;
+STD;item_rev;11;09;0000;
+STD;item_rev;12;09;0000;
+STD;item_rev;13;09;0000;
 MUC;item_rev;Init;09;0000;
 MUC;item_rev;1090;09;0000;
 MUC;item_rev;1091;09;0000;
@@ -983,15 +927,15 @@ MUC;item_rev;1093;09;0000;
 MUC;item_rev;Init;09;0000;
 MUC;item_rev;15;09;0000;
 MUC;item_rev;16;09;0000;
-STD;item_rev;1060;09;0111;
-STD;item_rev;1070;09;0111;
-STD;item_rev;17;09;0111;
-STD;item_rev;1080;09;0011;
-MUC;item_rev;Init;09;0111;
+STD;item_rev;1060;09;0000;
+STD;item_rev;1070;09;0000;
+STD;item_rev;17;09;0000;
+STD;item_rev;1080;09;0000;
+MUC;item_rev;Init;09;0000;
 MUC;item_rev;18;09;0000;
-MUC;item_rev;19;09;0111;
+MUC;item_rev;19;09;0000;
 MUC;item_rev;20;09;0000;
-STD;item_rev;1200;09;0011;
+STD;item_rev;1200;09;0000;
 ANN;--- NPC kit changes ---
 MUC;LaViconia;Init;07;0000;
 MUC;LaViconia;0;07;0000;
@@ -1110,17 +1054,17 @@ STD;BG2_Tweaks;2200;09;0111;
 STD;BG2_Tweaks;2210;09;0111;
 STD;BG2_Tweaks;2240;09;1111;
 STD;BG2_Tweaks;2250;09;0111;
-MUC;BG2_Tweaks;Init;09;0111;
-MUC;BG2_Tweaks;2260;09;0111;
+MUC;BG2_Tweaks;Init;09;0000;
+MUC;BG2_Tweaks;2260;09;0000;
 MUC;BG2_Tweaks;2261;09;0000;
-MUC;BG2_Tweaks;Init;09;1111;
-MUC;BG2_Tweaks;2270;09;1111;
+MUC;BG2_Tweaks;Init;09;1000;
+MUC;BG2_Tweaks;2270;09;1000;
 MUC;BG2_Tweaks;2271;09;0000;
-MUC;BG2_Tweaks;Init;09;1111;
-MUC;BG2_Tweaks;2280;09;1111;
+MUC;BG2_Tweaks;Init;09;1000;
+MUC;BG2_Tweaks;2280;09;1000;
 MUC;BG2_Tweaks;2281;09;0000;
-MUC;BG2_Tweaks;Init;09;1111;
-MUC;BG2_Tweaks;2290;09;1111;
+MUC;BG2_Tweaks;Init;09;1000;
+MUC;BG2_Tweaks;2290;09;1000;
 MUC;BG2_Tweaks;2291;09;0000;
 MUC;BG2_Tweaks;2292;09;0000;
 MUC;BG2_Tweaks;2293;09;0000;
@@ -1233,22 +1177,24 @@ STD;scales_of_balance;600;09;0001;
 ANN;Refinements goes here for compatibility with Scales of Balance
 STD;scales_of_balance;580;09;0111;
 STD;might_and_guile;100;09;0111;
-CMD;IF EXIST ".\override\C#AJAN16.CRE" move ".\override\C#AJAN16.CRE" ".\BWS_workspace\override"
-STD;might_and_guile;120;09;0001;
-CMD;IF EXIST ".\BWS_workspace\override\C#AJAN16.CRE" move ".\BWS_workspace\override\C#AJAN16.CRE" ".\override"
-STD;might_and_guile;160;09;0001;
-STD;might_and_guile;180;09;0001;
-ANN;STD;might_and_guile;200;09;0111;
+ANN;CMD;IF EXIST ".\override\C#AJAN16.CRE" move ".\override\C#AJAN16.CRE" ".\BWS_workspace\override"
+STD;might_and_guile;120;09;0111;
+ANN;CMD;IF EXIST ".\BWS_workspace\override\C#AJAN16.CRE" move ".\BWS_workspace\override\C#AJAN16.CRE" ".\override"
+ANN;might_and_guile;140;09;0001;placeholder
+ANN;might_and_guile;150;09;0001;placeholder
+STD;might_and_guile;160;09;0111;
+ANN;#180 MRO is installed later
+STD;might_and_guile;200;09;0111;
 STD;might_and_guile;205;09;0111;
 STD;might_and_guile;210;09;0111;
 STD;might_and_guile;215;09;0111;
 STD;might_and_guile;220;09;0111;
-STD;might_and_guile;250;12;0111;
-STD;might_and_guile;255;12;0111;
-STD;might_and_guile;260;12;0111;
-STD;might_and_guile;265;12;0111;
-STD;might_and_guile;270;12;0111;
-STD;might_and_guile;275;12;0111;
+STD;might_and_guile;250;09;0111;
+STD;might_and_guile;255;09;0111;
+STD;might_and_guile;260;09;0111;
+STD;might_and_guile;265;09;0111;
+STD;might_and_guile;270;09;0111;
+STD;might_and_guile;275;09;0111;
 STD;might_and_guile;310;12;0111;
 STD;might_and_guile;320;12;0111;
 STD;might_and_guile;322;12;0111;
@@ -1262,7 +1208,7 @@ STD;might_and_guile;460;12;0111;
 STD;might_and_guile;470;12;0111;
 STD;might_and_guile;480;12;0111;
 STD;might_and_guile;490;12;0111;
-STD;might_and_guile;500;12;0111;
+STD;might_and_guile;500;09;0111;
 ANN;--- add and revise kits ---
 STD;Derats_kits;0;12;0111;
 STD;Derats_kits;1;12;0111;
@@ -1289,19 +1235,19 @@ STD;f_n_p;234;12;0001;
 STD;f_n_p;239;12;0001;
 STD;f_n_p;244;12;0001;
 STD;f_n_p;265;12;0001;
-STD;f_n_p;301;12;0001;
+STD;f_n_p;283;12;0001;
+STD;f_n_p;284;12;0001;
+STD;f_n_p;285;12;0001;
+STD;f_n_p;300;12;0001;
 STD;f_n_p;302;12;0001;
 STD;f_n_p;303;12;0001;
 STD;f_n_p;304;12;0001;
 STD;f_n_p;305;12;0001;
 STD;f_n_p;306;12;0001;
 STD;f_n_p;307;12;0001;
+STD;f_n_p;308;12;0001;
 STD;f_n_p;311;12;0001;
-STD;f_n_p;300;12;0001;
 STD;f_n_p;332;12;0001;
-STD;f_n_p;333;12;0001;
-STD;f_n_p;334;12;0001;
-STD;f_n_p;335;12;0001;
 STD;f_n_p;363;12;0001;
 STD;f_n_p;500;12;0001;
 ANN;--- SCS core ---
@@ -1560,42 +1506,95 @@ SUB;BGEESpawn;101?2_8;08;0000;
 SUB;BGEESpawn;101?2_9;08;0000;
 STD;NPC_Strongholds;0;09;0111;
 STD;NPC_Strongholds;1;09;0111;
-STD;BP;325;11;0001;
-STD;BP;350;11;0001;
-STD;BP;375;11;0001;
-STD;BP;390;11;0001;
-STD;BP;400;11;0001;
-STD;BP;425;11;0001;
-MUC;BP;Init;11;0001;
+ANN;-- BP AI --
+STD;BP;325;11;0011;
+STD;BP;350;11;0011;
+STD;BP;375;11;0011;
+STD;BP;390;11;0011;
+STD;BP;400;11;0011;
+STD;BP;425;11;0011;
+MUC;BP;Init;11;0011;
 MUC;BP;440;11;0001;
-MUC;BP;450;11;0000;
-MUC;BP;460;11;0000;
-CMD;IF EXIST ".\override\DUEARC02.CRE" copy /Y ".\override\DUEARC01.CRE" ".\override\DUEARC02.CRE"
-CMD;IF EXIST ".\override\DUEARC03.CRE" copy /Y ".\override\DUEARC01.CRE" ".\override\DUEARC03.CRE"
-CMD;IF EXIST ".\override\DUEARC04.CRE" copy /Y ".\override\DUEARC01.CRE" ".\override\DUEARC04.CRE"
-STD;BP;475;11;0001;
-STD;BP;500;11;0001;
-STD;BP;525;11;0001;
-STD;BP;550;11;0001;
-STD;BP;575;11;0001;
-STD;BP;600;11;0001;
-STD;BP;625;11;0001;
-STD;BP;650;11;0001;
-STD;BP;675;11;0001;
-STD;BP;700;11;0001;
-STD;BP;725;11;0001;
-STD;BP;750;11;0001;
-MUC;BP;Init;11;0001;
-MUC;BP;760;11;0001;
+MUC;BP;450;11;0001;
+MUC;BP;460;11;0010;
+ANN;CMD;IF EXIST ".\override\DUEARC02.CRE" copy /Y ".\override\DUEARC01.CRE" ".\override\DUEARC02.CRE"
+ANN;CMD;IF EXIST ".\override\DUEARC03.CRE" copy /Y ".\override\DUEARC01.CRE" ".\override\DUEARC03.CRE"
+ANN;CMD;IF EXIST ".\override\DUEARC04.CRE" copy /Y ".\override\DUEARC01.CRE" ".\override\DUEARC04.CRE"
+STD;BP;475;11;0011;
+STD;BP;500;11;0011;
+STD;BP;525;11;0011;
+STD;BP;550;11;0011;
+STD;BP;575;11;0011;
+STD;BP;600;11;0011;
+STD;BP;625;11;0011;
+ANN;BP 650 conflicts with SCS core
+STD;BP;650;11;0011;
+STD;BP;675;11;0011;
+STD;BP;700;11;0011;
+STD;BP;725;11;0011;
+STD;BP;750;11;0011;
+MUC;BP;Init;11;0011;
+MUC;BP;760;11;0000;
 MUC;BP;770;11;0000;
-MUC;BP;780;11;0000;
-STD;BP;800;11;0001;
-STD;BP;875;11;0001;
-STD;BP;900;11;0001;
-STD;BP;925;11;0001;
-STD;BP;150;11;0001;
-STD;BP;175;11;0001;
-STD;BP;1000;08;0001;
+MUC;BP;780;11;0011;
+STD;BP;800;11;0011;
+STD;BP;875;11;0011;
+STD;BP;900;11;0011;
+STD;BP;925;11;0011;
+STD;BP;150;11;0111;
+STD;BP;175;11;0000;
+ANN;-- BG1 encounters --
+STD;BP;1725;08;0011;
+ANN;-- BG2 encounters --
+STD;BP;1000;08;0011;
+STD;BP;1020;08;0011;
+MUC;BP;Init;08;0011;
+MUC;BP;1030;08;0000;
+MUC;BP;1040;08;0000;
+MUC;BP;1050;08;0000;
+MUC;BP;1060;08;0000;
+MUC;BP;1070;08;0011;
+MUC;BP;1080;08;0000;
+MUC;BP;1090;08;0000;
+STD;BP;1100;08;0011;
+STD;BP;1110;08;0011;
+STD;BP;1120;08;0011;
+STD;BP;1130;08;0011;
+MUC;BP;Init;08;0011;
+MUC;BP;1140;08;0011;
+MUC;BP;1150;08;0000;
+MUC;BP;1160;08;0000;
+STD;BP;1170;08;0011;
+STD;BP;1175;08;0011;
+STD;BP;1190;08;0011;
+STD;BP;1200;08;0011;
+STD;BP;1210;08;0011;
+STD;BP;1225;08;0011;
+STD;BP;1250;08;0011;
+STD;BP;1275;08;0011;
+STD;BP;1300;08;0011;
+STD;BP;1315;08;0011;
+STD;BP;1330;08;0011;
+STD;BP;1350;08;0011;
+STD;BP;1375;08;0011;
+STD;BP;1400;08;0011;
+STD;BP;1425;08;0011;
+STD;BP;1450;08;0011;
+STD;BP;1525;08;0011;
+MUC;BP;Init;08;0011;
+MUC;BP;1550;08;0000;
+MUC;BP;1560;08;0000;
+MUC;BP;1570;08;0011;
+ANN;BP;1580;08;0000;
+ANN;BP;1590;08;0000;
+STD;BP;1600;08;0011;
+STD;BP;1625;08;0011;
+STD;BP;1650;08;0011;
+STD;BP;1675;08;0011;
+STD;BP;1700;08;0011;
+STD;BP;1750;08;0011;
+STD;BP;1800;08;0011;
+CMD;echo 2302 WIZARD_REMOVE_MAGIC >> override\Spell.IDS;;;;D:BPSeries(0)
 ANN;BPSeries Core (detectable spells v3)
 STD;BPSeries;0;11;1111;
 ANN;BPSeries Innate Fix -> Recommended
@@ -1663,13 +1662,13 @@ STD;aTweaks;270;09;1111;
 STD;aTweaks;220;09;1111;
 STD;aTweaks;230;09;1111;
 STD;aTweaks;239;09;1111;
-CMD;IF EXIST Setup-ajantisbg2.exe IF EXIST ".\override\C#AJCUD1.bcs" move ".\override\C#AJCUD1.bcs" ".\BWS_workspace\override"
+ANN;CMD;IF EXIST Setup-ajantisbg2.exe IF EXIST ".\override\C#AJCUD1.bcs" move ".\override\C#AJCUD1.bcs" ".\BWS_workspace\override"
 MUC;aTweaks;Init;09;1111;
 MUC;aTweaks;300;09;0000;
 MUC;aTweaks;322;09;0000;
 MUC;aTweaks;323;09;0000;
 MUC;aTweaks;324;09;1111;
-CMD;IF EXIST Setup-ajantisbg2.exe IF EXIST ".\BWS_workspace\override\C#AJCUD1.bcs" move ".\BWS_workspace\override\C#AJCUD1.bcs" ".\override"
+ANN;CMD;IF EXIST Setup-ajantisbg2.exe IF EXIST ".\BWS_workspace\override\C#AJCUD1.bcs" move ".\BWS_workspace\override\C#AJCUD1.bcs" ".\override"
 STD;aTweaks;301;09;1111;
 STD;aTweaks;302;09;1111;
 STD;aTweaks;310;09;1111;
@@ -1796,9 +1795,9 @@ MUC;DiffTweak;39;09;0000;
 MUC;DiffTweak;40;09;0000;
 MUC;DiffTweak;41;09;0000;
 STD;DiffTweak;42;09;0000;
-STD;fullplate;1;09;0011;
-STD;fullplate;102;09;0111;
-STD;fullplate;204;09;0111;
+STD;fullplate;1;09;0000;
+STD;fullplate;102;09;0000;
+STD;fullplate;204;09;0000;
 SUB;randomiser;510;09;0000;
 SUB;randomiser;510?1_10;09;0000;
 STD;randomiser;520;09;0011;
@@ -1862,10 +1861,13 @@ STD;A7NoEENPCs;201;09;0000;
 STD;A7NoEENPCs;202;09;0000;
 STD;A7NoEENPCs;203;09;0000;
 STD;A7NoEENPCs;204;09;0000;
+ANN;Magic Resistance Overhaul
+STD;might_and_guile;180;09;0000;
 ANN;#0 teleport spell -> standard
 STD;eet_tweaks;0;09;0111;
 ANN;#1 portraits moved down
 STD;eet_tweaks;2;09;1111;
+ANN;-- adjust total XP cap --
 SUB;eet_tweaks;3;09;1111;
 SUB;eet_tweaks;3?1_1;09;0000;
 SUB;eet_tweaks;3?1_2;09;0000;
@@ -1877,12 +1879,14 @@ SUB;eet_tweaks;4?1_2;09;0011;
 SUB;eet_tweaks;5;09;0011;
 SUB;eet_tweaks;5?1_1;09;0011;
 SUB;eet_tweaks;5?1_2;09;0000;
+ANN;-- XP for locks, traps, spells
 SUB;eet_tweaks;6;09;1111;
 SUB;eet_tweaks;6?1_1;09;0000;
 SUB;eet_tweaks;6?1_2;09;0000;
 SUB;eet_tweaks;6?1_3;09;1111;
 SUB;eet_tweaks;6?1_4;09;0000;
 SUB;eet_tweaks;6?1_5;09;0000;
+ANN;-- XP for killing creatures --
 SUB;eet_tweaks;7;09;1111;
 SUB;eet_tweaks;7?1_1;09;0000;
 SUB;eet_tweaks;7?1_2;09;1100;
@@ -1891,6 +1895,7 @@ SUB;eet_tweaks;7?1_4;09;0000;
 SUB;eet_tweaks;7?1_5;09;0000;
 SUB;eet_tweaks;7?1_6;09;0000;
 SUB;eet_tweaks;7?1_7;09;0000;
+ANN;-- XP for completing quests --
 SUB;eet_tweaks;8;09;1111;
 SUB;eet_tweaks;8?1_1;09;0000;
 SUB;eet_tweaks;8?1_2;09;1100;
@@ -1899,8 +1904,11 @@ SUB;eet_tweaks;8?1_4;09;0000;
 SUB;eet_tweaks;8?1_5;09;0000;
 SUB;eet_tweaks;8?1_6;09;0000;
 SUB;eet_tweaks;8?1_7;09;0000;
+ANN;-- proportional quest XP --
 STD;eet_tweaks;9;09;0011;
-STD;eet_tweaks;10;09;0011;
+ANN;-- 3E sneak attacks (flanking) --
+STD;eet_tweaks;10;09;0000;
+ANN;-- FPS without audio skip --
 SUB;eet_tweaks;11;09;1111;
 SUB;eet_tweaks;11?1_1;09;0000;
 SUB;eet_tweaks;11?1_2;09;1111;
@@ -1934,6 +1942,7 @@ SUB;eet_tweaks;19?1_2;09;0000;
 SUB;eet_tweaks;19?1_3;09;0000;
 SUB;eet_tweaks;19?1_4;09;0000;
 SUB;eet_tweaks;19?1_5;09;0000;
+ANN;-- no hostile charm reaction --
 STD;eet_tweaks;20;09;1111;
 SUB;eet_tweaks;21;09;1111;
 SUB;eet_tweaks;21?1_1;09;0011;
@@ -1946,7 +1955,7 @@ STD;eet_tweaks;24;13;0000;
 STD;eet_tweaks;27;09;0111;
 STD;eet_tweaks;28;09;1111;
 STD;eet_tweaks;29;09;0111;
-ANN;eet_tweaks;30;09;0001;
+STD;eet_tweaks;30;09;0001;
 ANN;worldmap after all mods that use it
 SUB;BP-BGT-Worldmap;0;13;1111;
 SUB;BP-BGT-Worldmap;0?1_1;13;1111;
@@ -1957,21 +1966,21 @@ MUC;BP-BGT-Worldmap;Init;13;1111;
 MUC;BP-BGT-Worldmap;1;13;1111;
 MUC;BP-BGT-Worldmap;2;13;0000;
 ANN;--- PaintBG portraits ---
-ANN;PaintBG for EE is just .bmp files, so install first to allow other mods to overwrite
 ANN;We must install PaintBG before generalized biffing so that we can append to BGEE.SQL
-DWN;paintbg;0;13;1111;
+ANN;PaintBG for EE is just .bmp files, so install first to allow other mods to overwrite
+DWN;paintbg;0;13;0000;
 ANN;Standardize PaintBG directory name to simplify scripting
-CMD;IF EXIST "PaintBG*(EE)" MOVE /Y "PAINTBG*(EE)" "PaintBG"
+CMD;IF EXIST "PaintBG*(EE)" MOVE /Y "PAINTBG*(EE)" "PaintBG";;;;D:paintbg(0)
 ANN;Add PaintBG CHARNAME portraits to bgee.sql so they can be selected during character creation
-CMD;IF EXIST "PaintBG" IF EXIST "override\bgee.sql" ECHO INSERT INTO portraits ROWS >> "override\bgee.sql" && ECHO ( >> "override\bgee.sql"
+CMD;IF EXIST "PaintBG" IF EXIST "override\bgee.sql" ECHO INSERT INTO portraits ROWS >> "override\bgee.sql" && ECHO ( >> "override\bgee.sql";;;;D:paintbg(0)
 ANN;Make male CHARNAME portraits selectable
-CMD;IF EXIST "PaintBG" IF EXIST "override\bgee.sql" FOR %%F IN ("PaintBG\PA#Ma*L.bmp") DO cmd /v:on /c "set trunc=%%%%~nF & echo '!trunc:~0,-2!', 1, >> override\bgee.sql"
+CMD;IF EXIST "PaintBG" IF EXIST "override\bgee.sql" FOR %%F IN ("PaintBG\PA#Ma*L.bmp") DO cmd /v:on /c "set trunc=%%%%~nF & echo '!trunc:~0,-2!', 1, >> override\bgee.sql";;;;D:paintbg(0)
 ANN;Make female CHARNAME portraits selectable
-CMD;IF EXIST "PaintBG" IF EXIST "override\bgee.sql" FOR %%F IN ("PaintBG\PA#Wo*L.bmp") DO cmd /v:on /c "set trunc=%%%%~nF & echo '!trunc:~0,-2!', 2, >> override\bgee.sql"
+CMD;IF EXIST "PaintBG" IF EXIST "override\bgee.sql" FOR %%F IN ("PaintBG\PA#Wo*L.bmp") DO cmd /v:on /c "set trunc=%%%%~nF & echo '!trunc:~0,-2!', 2, >> override\bgee.sql";;;;D:paintbg(0)
 ANN;Close off the selectable portraits list
-CMD;IF EXIST "PaintBG" IF EXIST "override\bgee.sql" ECHO )\; >> "override\bgee.sql"
+CMD;IF EXIST "PaintBG" IF EXIST "override\bgee.sql" ECHO )\; >> "override\bgee.sql";;;;D:paintbg(0)
 ANN;Copy over all the portraits and remove the PaintBG directory
-CMD;IF EXIST "PaintBG" XCOPY /Y /I "PaintBG\*.bmp" "characters" && RMDIR /S /Q "PaintBG"
+CMD;IF EXIST "PaintBG" XCOPY /Y /I "PaintBG\*.bmp" "characters" && RMDIR /S /Q "PaintBG";;;;D:paintbg(0)
 SUB;generalized_biffing;0;00;1111;
 SUB;generalized_biffing;0?1_0;00;0000;
 SUB;generalized_biffing;0?1_1;00;1111;
@@ -1998,7 +2007,11 @@ STD;LightingPack;17;13;0000;
 STD;LightingPack;18;13;0000;
 STD;LightingPack;19;13;0000;
 STD;LightingPack;20;13;0000;
+ANN;--- optional fixes ---
+STD;apr_fix;0;01;0111;
 ANN;--- portraits ---
+STD;Ascension;2;13;1100;
+STD;Ascension;3;13;1100;
 SUB;eet_tweaks;1;13;1111;
 SUB;eet_tweaks;1?1_1;13;0000;
 SUB;eet_tweaks;1?1_2;13;1111;
@@ -2020,12 +2033,13 @@ SUB;ajantisportraitpack;0?1_14;13;0000;
 SUB;ajantisportraitpack;0?1_15;13;0000;
 SUB;ajantisportraitpack;0?1_16;13;0000;
 SUB;ajantisportraitpack;0?1_17;13;0000;
-STD;bg1npc;2;13;0000;
-STD;bg1npc;3;13;0000;
-STD;bg1npc;4;13;0000;
-STD;bg1npc;5;13;0000;
-STD;bg1npc;6;13;0000;
-STD;bg1npc;7;13;0000;
+STD;bg1npc;2;13;1111;
+STD;bg1npc;3;13;1111;
+STD;bg1npc;4;13;1111;
+STD;bg1npc;5;13;1111;
+STD;bg1npc;6;13;1111;
+STD;bg1npc;7;13;1111;
+STD;DjinniCompanion;300;13;0111;
 MUC;gavin;Init;13;1111;
 MUC;gavin;4;13;1111;
 MUC;gavin;5;13;0000;
@@ -2036,7 +2050,7 @@ MUC;gavin;9;13;0000;
 MUC;gavin;10;13;0000;
 MUC;gavin;11;13;0000;
 MUC;gavin;12;13;0000;
-STD;Kivan;300;05;1111;
+STD;Kivan;300;13;0000;
 STD;EdwinRomance;1;13;0000;
 MUC;Kelsey;Init;13;0000;
 MUC;Kelsey;2;13;0000;
@@ -2048,13 +2062,12 @@ MUC;Nathaniel;Init;13;0111;
 MUC;Nathaniel;1;13;0111;
 MUC;Nathaniel;2;13;0000;
 MUC;Nathaniel;3;13;0000;
-STD;DjinniCompanion;300;13;0111;
 ANN;--- NPC kit changes ---
 ANN;Imoen
 MUC;npc_ee;Init;12;1111;
-MUC;npc_ee;101;12;0000;
+MUC;npc_ee;101;12;1000;
 MUC;npc_ee;102;12;0011;
-MUC;npc_ee;103;12;1100;
+MUC;npc_ee;103;12;0100;
 ANN;Jaheira
 MUC;npc_ee;Init;12;1111;
 MUC;npc_ee;121;12;0000;
@@ -2171,10 +2184,10 @@ MUC;npc_ee;701;12;0000;
 MUC;npc_ee;702;12;1111;
 MUC;npc_ee;718;12;0000;
 ANN;Nalia
-MUC;npc_ee;Init;12;0011;
-MUC;npc_ee;721;12;0011;
+MUC;npc_ee;Init;12;1111;
+MUC;npc_ee;721;12;1100;
 MUC;npc_ee;722;12;0000;
-MUC;npc_ee;723;12;0000;
+MUC;npc_ee;723;12;0011;
 ANN;Haer'Dalis
 MUC;npc_ee;Init;12;1111;
 MUC;npc_ee;741;12;1111;

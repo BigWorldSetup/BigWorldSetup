@@ -45,6 +45,18 @@ MUC;MSFM;Init;10;0111;
 MUC;MSFM;17;10;0000;
 MUC;MSFM;18;10;0111;
 STD;MSFM;19;10;0111;
+MUC;DjinniCompanion;Init;06;0111;
+MUC;DjinniCompanion;2;06;0111;
+ANN;MUC;DjinniCompanion;Init;06;0000;
+ANN;MUC;DjinniCompanion;101;06;0000;
+ANN;MUC;DjinniCompanion;102;06;0000;
+ANN;MUC;DjinniCompanion;103;06;0000;
+ANN;MUC;DjinniCompanion;104;06;0000;
+ANN;MUC;DjinniCompanion;105;06;0000;
+ANN;STD;DjinniCompanion;200;06;0000;
+ANN;#300 portrait installed later
+STD;DjinniCompanion;400;06;0000;
+ANN;DjinniCompanion;900;06;0000; (needs InfinityAnimations)
 STD;duskblade;0;12;0111;
 STD;k9iwdeekit;0;12;0111;
 STD;k9iwdeekit;1;12;0111;
@@ -113,13 +125,13 @@ STD;Divine_Remix;415;12;0111;
 STD;Divine_Remix;1000;09;0001;
 STD;song_and_silence;0;12;0111;
 STD;song_and_silence;2;12;0111;
-STD;song_and_silence;3;12;0111;
-STD;song_and_silence;4;12;0111;
-STD;song_and_silence;5;12;0111;
-STD;song_and_silence;6;12;0111;
-STD;song_and_silence;7;12;0111;
-STD;song_and_silence;8;12;0111;
-STD;song_and_silence;9;12;0111;
+STD;song_and_silence;3;12;0001;
+STD;song_and_silence;4;12;0001;
+STD;song_and_silence;5;12;0001;
+STD;song_and_silence;6;12;0001;
+STD;song_and_silence;7;12;0001;
+STD;song_and_silence;8;12;0001;
+STD;song_and_silence;9;12;0001;
 STD;TomeAndBlood;0;09;0001;
 STD;TomeAndBlood;1;09;0001;
 STD;TomeAndBlood;2;09;0001;
@@ -386,4 +398,8 @@ STD;LightingPack;20;13;0000;
 SUB;generalized_biffing;0;00;1111;
 SUB;generalized_biffing;0?1_0;00;0000;
 SUB;generalized_biffing;0?1_1;00;1111;
+ANN;--- optional fixes ---
+STD;apr_fix;0;01;0111;
+ANN;--- portraits ---
+STD;DjinniCompanion;300;13;0111;
 ANN;Added due to patching

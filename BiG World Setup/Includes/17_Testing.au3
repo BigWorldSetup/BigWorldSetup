@@ -319,25 +319,25 @@ EndFunc    ;==>_Test_CheckTotSCFiles_BG1
 ; ---------------------------------------------------------------------------------------------
 ; Searches for required files and dirs...
 ; ---------------------------------------------------------------------------------------------
-Func _Test_CheckRequieredFiles()
-	_PrintDebug('+' & @ScriptLineNumber & ' Calling _Test_CheckRequieredFiles')
+Func _Test_CheckRequiredFiles()
+	_PrintDebug('+' & @ScriptLineNumber & ' Calling _Test_CheckRequiredFiles')
 	Local $Error=0
 	If StringRegExp($g_Flags[14], 'BWS|BWP') Then; (BGT)
-		$Return = _Test_CheckRequieredFiles_BG1()
+		$Return = _Test_CheckRequiredFiles_BG1()
 		$Error += @error
 		If $Return = 1 Then $Error += 1
-		$Return = _Test_CheckRequieredFiles_BG2()
+		$Return = _Test_CheckRequiredFiles_BG2()
 		$Error += @error
 		If $Return = 1 Then $Error += 1
 	ElseIf $g_Flags[14] = 'BG2EE' Then; (EET)
-		$Return = _Test_CheckRequieredFiles_BG1EE()
+		$Return = _Test_CheckRequiredFiles_BG1EE()
 		$Error += @error
 		If $Return = 1 Then $Error += 1
-		$Return = _Test_CheckRequieredFiles_BG2EE()
+		$Return = _Test_CheckRequiredFiles_BG2EE()
 		$Error += @error
 		If $Return = 1 Then $Error += 1
 	Else
-		$Return = Call ('_Test_CheckRequieredFiles_'&$g_Flags[14])
+		$Return = Call ('_Test_CheckRequiredFiles_'&$g_Flags[14])
 		$Error += @error
 		If $Return = 1 Then $Error += 1
 	EndIf
@@ -347,14 +347,14 @@ Func _Test_CheckRequieredFiles()
 	If Not FileExists($g_LogDir) Then DirCreate($g_LogDir)
 	If Not FileExists($g_ProgDir&'\Update') Then DirCreate($g_ProgDir&'\Update')
 	Return $Error
-EndFunc    ;==>_Test_CheckRequieredFiles
+EndFunc    ;==>_Test_CheckRequiredFiles
 
 ; ---------------------------------------------------------------------------------------------
 ; Searches for required bg1-files and dirs...
 ; ---------------------------------------------------------------------------------------------
-Func _Test_CheckRequieredFiles_BG1()
+Func _Test_CheckRequiredFiles_BG1()
 	Local $Message = IniReadSection($g_TRAIni, 'TE-BG1')
-	_PrintDebug('+' & @ScriptLineNumber & ' Calling _Test_CheckRequieredFiles_BG1')
+	_PrintDebug('+' & @ScriptLineNumber & ' Calling _Test_CheckRequiredFiles_BG1')
 	Local $Missing='', $Hint='', $Error='', $Return
 	If IniRead($g_BWSIni, 'Order', 'Au3Select', 0) = 1 Then
 		$g_BG1Dir=GUICtrlRead($g_UI_Interact[2][1])
@@ -404,14 +404,14 @@ Func _Test_CheckRequieredFiles_BG1()
 	EndIf
 	_Test_SetButtonColor(1, $ret_Error, $ret_Extended)
 	Return SetError($ret_Error, $ret_Extended, $Return)
-EndFunc    ;==>_Test_CheckRequieredFiles_BG1
+EndFunc    ;==>_Test_CheckRequiredFiles_BG1
 
 ; ---------------------------------------------------------------------------------------------
 ; Searches for required bg1-files and dirs...
 ; ---------------------------------------------------------------------------------------------
-Func _Test_CheckRequieredFiles_BG2()
+Func _Test_CheckRequiredFiles_BG2()
 	Local $Message = IniReadSection($g_TRAIni, 'TE-BG2')
-	_PrintDebug('+' & @ScriptLineNumber & ' Calling _Test_CheckRequieredFiles_BG2')
+	_PrintDebug('+' & @ScriptLineNumber & ' Calling _Test_CheckRequiredFiles_BG2')
 	Local $Hint='', $Error='', $Return
 	If IniRead($g_BWSIni, 'Order', 'Au3Select', 0) = 1 Then
 		$g_BG2Dir=GUICtrlRead($g_UI_Interact[2][2])
@@ -454,14 +454,14 @@ Func _Test_CheckRequieredFiles_BG2()
 	EndIf
 	_Test_SetButtonColor(2, $ret_Error, $ret_Extended)
 	Return SetError($ret_Error, $ret_Extended, $Return)
-EndFunc    ;==>_Test_CheckRequieredFiles_BG2
+EndFunc    ;==>_Test_CheckRequiredFiles_BG2
 
 ; ---------------------------------------------------------------------------------------------
 ; Searches for required bg1ee-files and dirs...
 ; ---------------------------------------------------------------------------------------------
-Func _Test_CheckRequieredFiles_BG1EE()
+Func _Test_CheckRequiredFiles_BG1EE()
 	Local $Message = IniReadSection($g_TRAIni, 'TE-BG1EE')
-	_PrintDebug('+' & @ScriptLineNumber & ' Calling _Test_CheckRequieredFiles_BG1EE')
+	_PrintDebug('+' & @ScriptLineNumber & ' Calling _Test_CheckRequiredFiles_BG1EE')
 	Local $Missing='', $Hint='', $Error='', $Return, $Num=2
 	If $g_Flags[14] = 'BG2EE' Then $Num=1; use the upper group for the game since there are two games to select
 	If IniRead($g_BWSIni, 'Order', 'Au3Select', 0) = 1 Then
@@ -492,14 +492,14 @@ Func _Test_CheckRequieredFiles_BG1EE()
 	EndIf
 	_Test_SetButtonColor($Num, $ret_Error, $ret_Extended)
 	Return SetError($ret_Error, $ret_Extended, $Return)
-EndFunc    ;==>_Test_CheckRequieredFiles_BG1EE
+EndFunc    ;==>_Test_CheckRequiredFiles_BG1EE
 
 ; ---------------------------------------------------------------------------------------------
 ; Searches for required bg2ee-files and dirs...
 ; ---------------------------------------------------------------------------------------------
-Func _Test_CheckRequieredFiles_BG2EE()
+Func _Test_CheckRequiredFiles_BG2EE()
 	Local $Message = IniReadSection($g_TRAIni, 'TE-BG2EE')
-	_PrintDebug('+' & @ScriptLineNumber & ' Calling _Test_CheckRequieredFiles_BG2EE')
+	_PrintDebug('+' & @ScriptLineNumber & ' Calling _Test_CheckRequiredFiles_BG2EE')
 	Local $Missing='', $Hint='', $Error='', $Return
 	If IniRead($g_BWSIni, 'Order', 'Au3Select', 0) = 1 Then
 		$g_BG2EEDir=GUICtrlRead($g_UI_Interact[2][2])
@@ -525,12 +525,12 @@ Func _Test_CheckRequieredFiles_BG2EE()
 	EndIf
 	_Test_SetButtonColor(2, $ret_Error, $ret_Extended)
 	Return SetError($ret_Error, $ret_Extended, $Return)
-EndFunc    ;==>_Test_CheckRequieredFiles_BG2EE
+EndFunc    ;==>_Test_CheckRequiredFiles_BG2EE
 
 ; ---------------------------------------------------------------------------------------------
 ; Searches for required iwd1-files and dirs...
 ; ---------------------------------------------------------------------------------------------
-Func _Test_CheckRequieredFiles_IWD1()
+Func _Test_CheckRequiredFiles_IWD1()
 	Local $Message = IniReadSection($g_TRAIni, 'TE-IWD1')
 	_PrintDebug('+' & @ScriptLineNumber & ' Calling IWD1-FileCheck')
 	Local $Missing='', $Hint='', $Error='', $Return
@@ -566,12 +566,12 @@ Func _Test_CheckRequieredFiles_IWD1()
 	EndIf
 	_Test_SetButtonColor(2, $ret_Error, $ret_Extended)
 	Return SetError($ret_Error, $ret_Extended, $Return)
-EndFunc    ;==>_Test_CheckRequieredFiles_IWD1
+EndFunc    ;==>_Test_CheckRequiredFiles_IWD1
 
 ; ---------------------------------------------------------------------------------------------
 ; Searches for required iwd2-files and dirs...
 ; ---------------------------------------------------------------------------------------------
-Func _Test_CheckRequieredFiles_IWD2()
+Func _Test_CheckRequiredFiles_IWD2()
 	Local $Message = IniReadSection($g_TRAIni, 'TE-IWD2')
 	_PrintDebug('+' & @ScriptLineNumber & ' Calling IWD2-FileCheck')
 	Local $Missing='', $Hint='', $Error='', $Return
@@ -599,14 +599,14 @@ Func _Test_CheckRequieredFiles_IWD2()
 	EndIf
 	_Test_SetButtonColor(2, $ret_Error, $ret_Extended)
 	Return SetError($ret_Error, $ret_Extended, $Return)
-EndFunc    ;==>_Test_CheckRequieredFiles_IWD2
+EndFunc    ;==>_Test_CheckRequiredFiles_IWD2
 
 ; ---------------------------------------------------------------------------------------------
 ; Searches for required iwd1ee-files and dirs...
 ; ---------------------------------------------------------------------------------------------
-Func _Test_CheckRequieredFiles_IWD1EE()
+Func _Test_CheckRequiredFiles_IWD1EE()
 	Local $Message = IniReadSection($g_TRAIni, 'TE-IWD1EE')
-	_PrintDebug('+' & @ScriptLineNumber & ' Calling _Test_CheckRequieredFiles_IWD1EE')
+	_PrintDebug('+' & @ScriptLineNumber & ' Calling _Test_CheckRequiredFiles_IWD1EE')
 	Local $Missing='', $Hint='', $Error='', $Return
 	If IniRead($g_BWSIni, 'Order', 'Au3Select', 0) = 1 Then
 		$g_IWD1EEDir=GUICtrlRead($g_UI_Interact[2][2])
@@ -632,12 +632,12 @@ Func _Test_CheckRequieredFiles_IWD1EE()
 	EndIf
 	_Test_SetButtonColor(2, $ret_Error, $ret_Extended)
 	Return SetError($ret_Error, $ret_Extended, $Return)
-EndFunc    ;==>_Test_CheckRequieredFiles_IWD1EE
+EndFunc    ;==>_Test_CheckRequiredFiles_IWD1EE
 
 ; ---------------------------------------------------------------------------------------------
 ; Searches for required pst-files and dirs...
 ; ---------------------------------------------------------------------------------------------
-Func _Test_CheckRequieredFiles_PST()
+Func _Test_CheckRequiredFiles_PST()
 	Local $Message = IniReadSection($g_TRAIni, 'TE-PST')
 	_PrintDebug('+' & @ScriptLineNumber & ' Calling PST-FileCheck')
 	Local $Missing='', $Hint='', $Error='', $Return
@@ -724,7 +724,7 @@ Func _Test_CheckRequieredFiles_PST()
 	EndIf
 	_Test_SetButtonColor(2, $ret_Error, $ret_Extended)
 	Return SetError($ret_Error, $ret_Extended, $Return)
-EndFunc    ;==>_Test_CheckRequieredFiles_PST
+EndFunc    ;==>_Test_CheckRequiredFiles_PST
 
 ; ---------------------------------------------------------------------------------------------
 ; Same as _Test_GetTP2, but always returns a hit for bgt-music and bgt-gui and considers wrong filenames
@@ -748,10 +748,10 @@ Func _Test_GetCustomTP2($p_Setup, $p_Dir='\')
 EndFunc   ;==>_Test_GetCustomTP2
 
 ; ---------------------------------------------------------------------------------------------
-; Check if EET will be use to install BG1 using the current selection, list BG1/BG2 mods
+; Check if EET will be used to install BG1 using the current selection, list BG1/BG2 mods
 ; ---------------------------------------------------------------------------------------------
-Func _Test_Get_EET_Mods()
-	Local $BG1EE_Mods='WeiDU|eekeeper|bwfixpack|', $BG2EE_Mods='WeiDU|eekeeper|bwfixpack|', $EETMods, $DoBG1=0
+Func _Test_Get_EET_Mods(); called by _Tree_EndSelection() just before starting an installation
+	Local $BG1EE_Mods='WeiDU|eekeeper|bwfixpack|', $BG2EE_Mods='WeiDU|eekeeper|bwfixpack|', $EETMods, $DoBG1=0, $SplitPurgeLine
 	$g_Flags[21]=''; will contain BG1-mods in EET -> Empty means no BG1-install
 	$g_Flags[22]=''; will contain BG2-mods in EET
 	If Not StringInStr($g_GConfDir, 'BG2EE') Then Return
@@ -759,12 +759,24 @@ Func _Test_Get_EET_Mods()
 	If _IniRead($Current, 'EET', '') = '' Then Return
 	$Select=StringSplit(StringStripCR(FileRead($g_GConfDir&'\Select.txt')), @LF)
 	$Purge=IniReadSection($g_GConfDir&'\Game.ini', 'Purge')
-	For $p=1 to $Purge[0][0]
-		If StringLeft($Purge[$p][1], 1) = 'D' And StringRegExp($Purge[$p][1], '(?i)EET\x28\x2d\x29\z') Then; these mods require EET
-			$EETMods&=StringRegExpReplace($Purge[$p][1], '(?i)\AD\x3a|\AC\x3a[[:alpha:]]{2}\x3a|\x3a(BGT|EET)\x28\x2d\x29\z|\x28\x2d\x29|\x3a[[:alpha:]]{2}\z|\x3a\d[\x2e\d|\x7c]{1,}\z', '')&'|'; remove D:|C:XX:|:BGT(-)|(-)|:XX
-		EndIf
-	Next
-	$EETMods=StringTrimRight($EETMods, 1)
+	; Keep this function consistent with _Tree_PurgeUnNeeded in Select-Tree.au3
+	If IsArray($Purge) Then
+		; We don't check for game type or BGT because we only use this function for BG2EE installs
+		For $p=1 to $Purge[0][0]
+			$SplitPurgeLine = StringSplit($Purge[$p][1], ':')
+			If ($SplitPurgeLine[0] <> 3) Then ContinueLoop; Purge lines should have exactly three sections (C|D : ... : ...)
+			If StringLeft($SplitPurgeLine[1], 1) = 'D' And StringRegExp($SplitPurgeLine[3], '(?i)EET\x28\x2d\x29') Then; requires EET
+				$EETMods &= StringReplace(StringReplace(StringReplace(StringReplace($SplitPurgeLine[2], '&', '|'), "(-)", ''), '(', ';('), '?', '\x3f')
+				;  a purge rule "D:abc(0)&def(3):EET(-)" will be interpreted as "abc(0) and def(3) each independently depend on EET"
+				;  in this example def(3) will be considered an EET mod (eligible for pre-EET installation) even if abc(0) is not installed
+				$EETMods &= '|'; add delimiter/separator
+				;old implementation
+				;$EETMods &= StringRegExpReplace($Purge[$p][1], '(?i)\AD\x3a|\AC\x3a[[:alpha:]]{2}\x3a|\x3a([\x7c]?(BGT|EET)\x28\x2d\x29){1,}\z|\x28\x2d\x29|\x3a([[:alpha:]]{2}[\x7c]?)+\z|\x3a\d[\x2e\d|\x7c]{1,}\z', '')&'|' ; remove D:|C:XX:|:BGT(-)|:EET(-)|(-)|:#[.#|]|:XX, add delimiter/separator
+			EndIf
+		Next
+	EndIf
+	$EETMods=StringTrimRight($EETMods, 1); remove trailing |
+;	IniWrite($g_UsrIni, 'Debug', 'EETMods', $EETMods)	
 	For $s=1 to $Select[0]
 		If StringRegExp($Select[$s], '(?i)\A(ANN|CMD|GRP);') Then ContinueLoop
 		$Mod=StringRegExpReplace($Select[$s], '\A...;|;.*\z', '')
