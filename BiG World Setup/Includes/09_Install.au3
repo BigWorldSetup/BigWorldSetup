@@ -275,7 +275,7 @@ Func Au3Install($p_Num = 0)
 	FileWriteLine($g_LogFile, 'BiG World Install')
 	GUICtrlSetData($g_UI_Static[6][1], _GetTR($Message, 'L1')); => watch progress
 	$Array = StringSplit(StringRegExpReplace(StringStripCR(FileRead($g_GConfDir&'\Select.txt')), '\x0a((|\s{1,})\x0a){1,}', @LF), @LF)
-	If IniRead($g_UsrIni, 'Options', 'GroupInstall', 0) =  1 Then $Array = _Install_ModifyForGroupInstall($Array); always install in groups
+	If IniRead($g_UsrIni, 'Options', 'GroupInstall', 0) = 1 Then $Array = _Install_ModifyForGroupInstall($Array); always install in groups
 	For $a = $g_FItem To $Array[0]
 		If $g_Flags[0] = 0 Then; the exit button was pressed
 			Exit

@@ -34,7 +34,7 @@ Func Au3Net($p_Num = 0)
 			$URL=_IniRead($ReadSection, $Prefix[$p]&'Down', 'Manual')
 			$File=_IniRead($ReadSection, $Prefix[$p]&'Save', ''); filename
 			$Text=FileRead($g_LogFile)
-			If StringInStr($Text, StringFormat(_GetTR($Message, 'L5'), $File)) Or StringInStr($Text, $File & ' ' & _GetTR($Message, 'L7')) Then; => download succesful / has been done before - skip downloads that the log stated as done
+			If StringInStr($Text, StringFormat(_GetTR($Message, 'L5'), $File)) Or StringInStr($Text, $File & ' ' & _GetTR($Message, 'L7')) Then; => download successful / has been done before - skip downloads that the log stated as done
 				$Sizes[0][2]+=_IniRead($ReadSection, $Prefix[$p]&'Size', 0); add size to progressbar
 				Continueloop
 			EndIf
@@ -46,7 +46,7 @@ Func Au3Net($p_Num = 0)
 				$DArray[$DArray[0][0]][3]=$Prefix[$p]; Add/XX-Add
 				$DArray[$DArray[0][0]][4]=_IniRead($ReadSection, 'Name', ''); modname
 				$DArray[$DArray[0][0]][5]=_IniRead($ReadSection, $Prefix[$p]&'Size', 0); size
-				$URL=StringRegExpReplace($URL, '\A.*//|/.*\z', ''); shorten to get the serveronly
+				$URL=StringRegExpReplace($URL, '\A.*//|/.*\z', ''); shorten to get the server only
 				If StringInStr($URL, '.', 0, 2) Then $URL=StringRegExpReplace($URL, '\A[^\x2e]*\x2e', '')
 				$DArray[$DArray[0][0]][6]=$URL; server/queue
 				; [7]=pid
@@ -282,7 +282,7 @@ Func Au3Net($p_Num = 0)
 				ElseIf $Result = 0 Then; fault
 					_Process_SetConsoleLog(_GetTR($Message, 'L9')); => fetching update...
 					If StringRegExp(_Net_SingleLinkUpdate($DArray[$DSlot[$d]][2]), '(?i)(\A|\x2c)'&$DArray[$DSlot[$d]][3]&'Down(\z|\x2c)') Then
-						_Process_SetConsoleLog(_GetTR($Message, 'L10')); => ...was a success
+						_Process_SetConsoleLog(_GetTR($Message, 'L10')); => ...was a success, checking again
 						$ReadSection = IniReadSection($g_MODIni, $DArray[$DSlot[$d]][2])
 						$DArray[$DSlot[$d]][0]=_IniRead($ReadSection, $DArray[$DSlot[$d]][3]&'Down', 'Manual')
 						$DArray[$DSlot[$d]][1]=_IniRead($ReadSection, $DArray[$DSlot[$d]][3]&'Save', '')
@@ -319,7 +319,7 @@ Func Au3Net($p_Num = 0)
 				EndIf
 			EndIf
 		Next
-		Sleep(500)
+		Sleep(100)
 		$Loop+=1
 		If $Loop=6 Then
 			$Loop=0; reset loop
@@ -361,7 +361,7 @@ Func Au3NetFix($p_Num = 0)
 	$ExtractOnlyMods=IniRead($g_GConfDir&'\Game.ini', 'Options', 'ExtractOnly', 'BWFixpack,BWTextpack,BWInstallpack,WeiDU,BeregostCF')
 	$DownloadOnlyMods=IniRead($g_GConfDir&'\Game.ini', 'Options', 'DownloadOnly', 'BG1TP,BWPDF')
 	For $c=1 to $g_CurrentPackages[0][0]
-		If StringRegExp($ExtractOnlyMods, '(?i)(\A|\x2c)'&$g_CurrentPackages[$c][0]&'(\z|\x2c)') Then; avoid filemovements from Au3Extract (subdir-logic will move if no tp2 is found)
+		If StringRegExp($ExtractOnlyMods, '(?i)(\A|\x2c)'&$g_CurrentPackages[$c][0]&'(\z|\x2c)') Then; avoid file movements from Au3Extract (subdir-logic will move if no tp2 is found)
 			_Install_CreateTP2Entry($g_CurrentPackages[$c][0], IniRead($g_MODIni, $g_CurrentPackages[$c][0], 'Name', $g_CurrentPackages[$c][0]), 0)
 		ElseIf StringRegExp($DownloadOnlyMods, '(?i)(\A|\x2c)'&$g_CurrentPackages[$c][0]&'(\z|\x2c)') Then; avoid unpacking of pdfs and other bg1-files
 			IniDelete ($g_UsrIni, 'Current', $g_CurrentPackages[$c][0])
@@ -396,7 +396,7 @@ Func Au3NetTest($p_Num = 0)
 		$ReadSection=IniReadSection($g_MODIni, $g_CurrentPackages[$c][0])
 		$Prefix[3] = _GetTra($ReadSection, 'T')&'-Add'; adjust the language-addon
 		For $p=1 to $Prefix[0]
-			$File = _IniRead($ReadSection, $Prefix[$p]&'Save', 'Manual')
+			$File = _IniRead($ReadSection, $Prefix[$p]&'Down', 'Manual')
 			If $File = 'Manual' Then ContinueLoop
 			$expectedSize = _IniRead($ReadSection, $Prefix[$p]&'Size', -1)
 			$localSize = FileGetSize($g_DownDir & '\' & $File)
@@ -418,8 +418,8 @@ Func Au3NetTest($p_Num = 0)
 ; Automatically remove all mods with errors if it's selected that way
 ; ---------------------------------------------------------------------------------------------
 	If IniRead($g_UsrIni, 'Options', 'Logic1', 1) = 2 Then; remove all mods with download-errors
-		If $Test[0][3] = 0 Then; no essentials are missing.
-			_Process_SetScrollLog(_GetTR($Message, 'L6')); => this should run propperly
+		If $Test[0][3] = 0 Then; no essentials are missing
+			_Process_SetScrollLog(_GetTR($Message, 'L6')); => this should run properly
 			If $Test[0][0] <> 0 Then _Depend_RemoveFromCurrent($Test); remove mods/tp2-files that cannot be installed due to dependencies
 			$Fault=IniReadSection($g_BWSIni, 'Faults')
 			_Depend_RemoveFromCurrent($Fault, 0); remove mods that could not be loaded completely
@@ -472,8 +472,11 @@ Func Au3NetTest($p_Num = 0)
 					$Down+=1
 				ElseIf $g_pQuestion = 'f' Then; file
 					While 1
-						$Test=FileOpenDialog(_GetTR($Message, 'L10'), $g_GameDir, _GetTR($Message, 'F1') &' (*.7z;*.ace;*.exe;*.rar;*.zip)', 1, $Save, $g_UI[0]); => archives
-						If $Test='' Then ExitLoop
+						$Test=FileOpenDialog(_GetTR($Message, 'L10'), $g_DownDir, _GetTR($Message, 'F1') &' (*.7z;*.ace;*.exe;*.rar;*.zip)', 1, $Save, $g_UI[0]); => archives
+						If $Test='' Then; user hit cancel button, go back to 'p'rovide prompt
+							$f -= 1; back-track the outer loop so we process the same 'fault' (this mod) again
+							ExitLoop 2; break out of the two inner loops (While 1 and For $l) to get back to the For $f loop
+						EndIf
 						Local $File[3] = [$Test, StringLeft($Test, StringInStr($Test, '\', 1, -1)-1), StringTrimLeft($Test, StringInStr($Test, '\', 1, -1))]
 						$localSize = FileGetSize($File[0])
 						If $localSize = $expectedSize Then; selection matches
@@ -487,15 +490,17 @@ Func Au3NetTest($p_Num = 0)
 								IniWrite($g_MODIni, $Fault[$f][0], $Prefix[$Type]&'Size', $localSize)
 								FileCopy($File[0], $g_DownDir&'\', 1)
 								ExitLoop
-							ElseIf $g_pQuestion = 'c' Then
-								ExitLoop
+							ElseIf $g_pQuestion = 'c' Then; user chose to cancel, go back to 'p'rovide prompt
+								$f -= 1; back-track the outer loop so we process the same 'fault' (this mod) again
+								ExitLoop 2; break out of the two inner loops (While 1 and For $l) to get back to the For $f loop
 							EndIf
 						EndIf
 					WEnd
-				ElseIf $g_pQuestion = 's' Then; skip
-					ExitLoop
-				ElseIf $g_pQuestion = 'c' Then; cancel
-					ExitLoop(2)
+				ElseIf $g_pQuestion = 's' Then; skip this mod
+					ExitLoop; break out of While 1 loop
+				ElseIf $g_pQuestion = 'c' Then; user chose to cancel, go back to 'p'rovide prompt
+					$f -= 1; back-track the outer loop so we process the same 'fault' (this mod) again
+					ExitLoop 2; break out of the two inner loops (While 1 and For $l) to get back to the For $f loop
 				EndIf
 			Next
 		Next
@@ -512,7 +517,7 @@ Func Au3NetTest($p_Num = 0)
 ; No essential files are missing: Solve the problem
 ; ---------------------------------------------------------------------------------------------
 	If $Test[0][3] = 0 Then; no essentials are missing.
-		_Process_SetScrollLog('|'&_GetTR($Message, 'L6')); => this should run propperly
+		_Process_SetScrollLog('|'&_GetTR($Message, 'L6')); => this should run properly
 		_Process_SetScrollLog(_GetTR($Message, 'L4'), 1, -1); => please check the missing ones
 		_Process_Question('r|e', _GetTR($Message, 'L8'), _GetTR($Message, 'Q3'), 2); => remove mod/exit?
 		If $g_pQuestion = 'r' Then; user want's to remove all mods with missing files
@@ -560,10 +565,9 @@ Func _Net_DownloadStart($p_URL, $p_File, $p_Setup, $p_Prefix, $p_String); Link, 
 		If $expectedSize = $localSize And FileExists($g_DownDir & '\' & $p_File) Then; expected file was found
 			FileWrite($g_LogFile, '<= '& $p_File & ' = ' & $localSize & @CRLF)
 			_Process_SetConsoleLog($p_File & ' ' & _GetTR($Message, 'L7')); => downloaded before
-			Sleep(500)
+			Sleep(100)
 			Return SetError(0, $Loaded, 2)
-		EndIf
-		If FileExists($g_DownDir & '\' & $p_File) Then
+		ElseIf FileExists($g_DownDir & '\' & $p_File) Then
 			FileWrite($g_LogFile, '<= '& $p_File & ' <> ' & $localSize & @CRLF)
 			$Text=FileRead($g_LogFile)
 			If StringInStr($Text, _GetTR($Message, 'L4') & ' ' & $p_File) And StringInStr($Text, '= '&$p_File&' = '&$expectedSize) Then; => fetching - loading logged with same name and size before
@@ -608,7 +612,7 @@ Func _Net_DownloadStop($p_URL, $p_File, $p_Setup, $p_Prefix, $p_expectSize)
 		$localSize = FileGetSize($g_DownDir & '\' & $p_File)
 		If $p_expectSize = $localSize Or $p_expectSize = 0-$localSize Then; file has expected size (second version is for problematic servers)
 			_Process_SetConsoleLog(StringFormat(_GetTR($Message, 'L5'), $p_File)); => download successful
-			Sleep(500)
+			Sleep(100)
 		ElseIf $localSize = 0 Then
 			FileDelete($g_DownDir & '\' & $p_File)
 			$Result='Fault'
@@ -618,13 +622,13 @@ Func _Net_DownloadStop($p_URL, $p_File, $p_Setup, $p_Prefix, $p_expectSize)
 		ElseIf $p_expectSize <= 0 Then; save new size for following sessions
 			IniWrite($g_MODIni, $p_Setup, $p_Prefix&'Size', $localSize)
 			_Process_SetConsoleLog(StringFormat(_GetTR($Message, 'L5'), $p_File)); => download successful
-			Sleep(500)
+			Sleep(100)
 		EndIf
 	EndIf
 	_Process_SetConsoleLog('')
 	If $Result<>'Fault' Then Return SetError(0, 1, 1)
 	_Process_SetConsoleLog(StringFormat(_GetTR($Message, 'L3'), $p_File, $p_URL)); => file not found
-	Sleep(1000)
+	Sleep(100)
 	Return SetError(1, 1, 0)
 EndFunc   ;==>_Net_DownloadStop
 
@@ -721,7 +725,7 @@ EndFunc   ;==>_Net_LinkListUpdate
 ; ---------------------------------------------------------------------------------------------
 Func _Net_LinkGetInfo($p_URL, $p_Debug=0)
 	Local $Return[4] = [0, '', 0, 0]; active, name, size, resume
-	If $p_URL = '' Or $p_URL = 'manual' Then Return SetError(1, 0, $Return)
+	If $p_URL = '' Or $p_URL = 'Manual' Then Return SetError(1, 0, $Return)
 ; ---------------------------------------------------------------------------------------------
 ; Use wget to get the filesize
 ; ---------------------------------------------------------------------------------------------
@@ -795,10 +799,10 @@ Func _Net_LinkUpdateInfo($p_URL, $p_File, $p_Setup, $p_Prefix)
 		If $Size=$Return[2] Then; if size matches...
 			$Return[0]=1; ...assume that this is fine
 			$Return[1]=$p_File
-			FileWrite($g_LogFile, '= FB')
+			FileWrite($g_LogFile, '= FB'); fallback to local file
 		Else ; size does not match
 			$Return[0]=0; mark as error
-			FileWrite($g_LogFile, '= FB = NA' & @CRLF)
+			FileWrite($g_LogFile, '= FB = NA' & @CRLF); fallback, size did not match
 			Return SetError(1, 0, $Return)
 		EndIf
 	EndIf
@@ -816,7 +820,7 @@ Func _Net_LinkUpdateInfo($p_URL, $p_File, $p_Setup, $p_Prefix)
 	Else
 		FileWrite($g_LogFile, '= '&$Return[1]&' ')
 	EndIf
-	If $Return[2] <> 0 Then; don't change the filesize if it is zero
+	If $Return[2] <> 0 Then; update the filesize if it is not set to zero in mod ini
 		$Size=IniRead($g_MODIni, $p_Setup, $p_Prefix&'Size', -1)
 		If $Return[2] <> $Size Then
 			FileWrite($g_LogFile, '> '&$Return[2] & @CRLF)
@@ -825,7 +829,7 @@ Func _Net_LinkUpdateInfo($p_URL, $p_File, $p_Setup, $p_Prefix)
 		Else
 			FileWrite($g_LogFile, '= '&$Return[2] & @CRLF)
 		EndIf
-	Else
+	Else; don't change the filesize if it is set to zero in mod ini (i.e., always try to download again)
 		$Size=IniRead($g_MODIni, $p_Setup, $p_Prefix&'Size', 1)
 		FileWrite($g_LogFile, '= NA > ' & $Size & @CRLF)
 		$Return[2]=-$Size
@@ -956,7 +960,7 @@ Func _Net_LinkTest($p_Num = 0)
 					$Fault = $Fault & '|' & $List[$l][1]; collect wrong sizes
 					_Process_SetScrollLog(_GetTR($Message, 'L3')); => not found
 					GUICtrlSetColor($g_UI_Interact[6][2], 0xff0000); paint the item red
-					Sleep(1000)
+					Sleep(100)
 					GUICtrlSetColor($g_UI_Interact[6][2], 0x000000); paint the item black
 					$TestedBefore = 0
 				EndIf
@@ -1178,7 +1182,7 @@ Func _Net_Update_Link($p_Show = 0); Show GUI
 				Local $OldSection[1][2]
 				$OldSection[0][0]=0
 			EndIf
-			ReDim $OldSection[$NewSection[0][0]+$OldSection[0][0]+1][2]; ReDim seems be faster once & big than small & every time during _IniWrite/Delelte, so use a size big enough.
+			ReDim $OldSection[$NewSection[0][0]+$OldSection[0][0]+1][2]; ReDim seems be faster once & big than small & every time during _IniWrite/Delete, so use a size big enough.
 			For $n = 1 to $NewSection[0][0]
 				If $NewSection[$n][0] = 'Rev' Then
 					$NewValue=StringRegExpReplace($NewSection[$n][1], '\Av|\A\x28|\x29\z', '')

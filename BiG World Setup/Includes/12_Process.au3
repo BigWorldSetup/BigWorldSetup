@@ -201,7 +201,7 @@ Func _Process_Question($p_String, $p_Text, $p_Translation, $p_Close=-1, $p_Ring=
 	EndIf
 	GUICtrlSetState($g_UI_Interact[6][5], $GUI_FOCUS); focus and highlight input
 	GUICtrlSetBkColor($g_UI_Interact[6][5], 0x000070)
-	Sleep(1000)
+	Sleep(500)
 	GUICtrlSetBkColor($g_UI_Interact[6][5], 0xffffff)
 	$g_pQuestion = 'Need4Answer'
 	While 1
