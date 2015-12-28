@@ -310,7 +310,7 @@ STD;SirinesCall;0;03;1111;
 MUC;soa;Init;03;1111;
 MUC;soa;0;03;0000;
 MUC;soa;1;03;1111;
-CMD;echo 99 HELPME >> override/shoutids.ids
+CMD;IF EXIST "override\shoutids.IDS" echo 99 HELPME >> override\shoutids.IDS
 STD;AC_QUEST;0;03;1111;
 STD;NMT;0;03;0111;
 STD;wbgtap;1;03;0111;
@@ -1485,7 +1485,7 @@ STD;RevisedBattles;24;19;0111;
 STD;RevisedBattles;25;19;0111;
 STD;RevisedBattles;26;19;0111;
 STD;RevisedBattles;27;15;0011;
-CMD;findstr /D:override /C:"B#BLADE" kit.ids > B#BLADEtemp.txt;;;;D:RevisedBattles(24)
+CMD;findstr /D:override /C:"B#BLADE" kit.IDS > B#BLADEtemp.txt;;;;D:RevisedBattles(24)
 CMD;more +1 B#BLADEtemp.txt > B#BLADEstring.txt;;;;D:RevisedBattles(24)
 CMD;del B#BLADEtemp.txt;;;;D:RevisedBattles(24)
 STD;UB;0;10;1111;
@@ -2533,7 +2533,7 @@ MUC;item_rev;18;16;1100;
 MUC;item_rev;19;16;0000;
 MUC;item_rev;20;16;0011;
 STD;ninjawakifix;0;1;1111;
-CMD;echo 1413 CLERIC_NEGATIVE_PLANE_PROTECTION >> override/spell.ids
+CMD;IF EXIST "override\spell.IDS" echo 1413 CLERIC_NEGATIVE_PLANE_PROTECTION >> override\spell.IDS
 MUC;UniqueArtifacts;Init;16;0001;
 MUC;UniqueArtifacts;1;16;0000;
 MUC;UniqueArtifacts;2;16;0001;
@@ -2734,7 +2734,7 @@ STD;scales_of_balance;540;19;0111;
 STD;scales_of_balance;586;19;0001;
 STD;scales_of_balance;588;19;0111;
 STD;scales_of_balance;600;16;0001;
-CMD;type B#BLADEstring.txt >> ./override/kit.ids;;;;D:RevisedBattles(24)
+CMD;IF EXIST "override\kit.IDS" type B#BLADEstring.txt >> override\kit.IDS;;;;D:RevisedBattles(24)
 STD;refinements;10;16;1111;
 MUC;refinements;Init;16;1111;
 MUC;refinements;30;16;1111;
@@ -3376,7 +3376,7 @@ STD;BardSong_BG2_IWD;0;16;0000;
 STD;BardSong_BG2_IWD;1;16;0000;
 ANN;--BWP15.5--gMinion before SR, but after SCS and BP AI (not possible)
 STD;gMinion;0;18;0000;
-CMD;echo 2302 WIZARD_REMOVE_MAGIC >> override\Spell.IDS;;;;D:BPSeries(0)
+CMD;IF EXIST "override\spell.IDS" echo 2302 WIZARD_REMOVE_MAGIC >> override\spell.IDS;;;;D:BPSeries(0)
 STD;BPSeries;0;18;0111;
 STD;BPSeries;10;18;0000;
 STD;BPSeries;100;18;0111;
@@ -3619,15 +3619,15 @@ STD;tobaurora;0;12;0111;
 SUB;tobaurora;1;12;0000;
 SUB;tobaurora;1?1_1;12;0000;
 SUB;tobaurora;1?1_2;12;0000;
-CMD;IF EXIST Setup-SandrahNPC.exe copy /Y ".\BiG World Fixpack\_override\worldmap\*.*" ".\override"
-CMD;echo 162 WIZARD_SPELL_TURNING >> override/stats.ids
-CMD;echo 164 WIZARD_SPELL_TRAP >> override/stats.ids
-CMD;echo 177 WIZARD_SPELL_SHIELD >> override/stats.ids
-CMD;echo 3201 INNATE_NEUTRALIZE_POISON >> override/spell.ids
-CMD;echo 4732 HELM_TRUE_SIGHT >> override/spell.ids
-CMD;echo 201 NEEDS_BREACH >> override/Specific.IDS
-CMD;echo 0x8010202D STATE_DISABLED >> override/State.ids
-CMD;echo 0x00000029 STATE_IMMOBILE >> override/State.ids
+ANN;CMD;IF EXIST Setup-SandrahNPC.exe copy /Y ".\BiG World Fixpack\_override\worldmap\*.*" ".\override"
+CMD;IF EXIST "override\stats.IDS" echo 162 WIZARD_SPELL_TURNING >> override\stats.IDS
+CMD;IF EXIST "override\stats.IDS" echo 164 WIZARD_SPELL_TRAP >> override\stats.IDS
+CMD;IF EXIST "override\stats.IDS" echo 177 WIZARD_SPELL_SHIELD >> override\stats.IDS
+CMD;IF EXIST "override\spell.IDS" echo 3201 INNATE_NEUTRALIZE_POISON >> override\spell.IDS
+CMD;IF EXIST "override\spell.IDS" echo 4732 HELM_TRUE_SIGHT >> override\spell.IDS
+CMD;IF EXIST "override\specific.IDS" echo 201 NEEDS_BREACH >> override\specific.IDS
+CMD;IF EXIST "override\state.IDS" echo 0x8010202D STATE_DISABLED >> override\state.IDS
+CMD;IF EXIST "override\state.IDS" echo 0x00000029 STATE_IMMOBILE >> override\state.IDS
 SUB;SandrahNPC;0;12;0111;
 SUB;SandrahNPC;0?0_1;12;0111;
 SUB;SandrahNPC;0?0_2;12;0000;
@@ -3714,7 +3714,7 @@ MUC;level1npcs;51;16;1111;
 STD;level1npcs;55;16;1111;
 STD;level1npcs;60;16;1111;
 STD;level1npcs;100;16;1111;
-CMD;IF EXIST ".\level1npcs\backup\0\kit.ids" copy ".\level1npcs\backup\0\kit.ids" ".\override";;;;D:refinements(10)
+CMD;IF EXIST ".\level1npcs\backup\0\kit.IDS" copy ".\level1npcs\backup\0\kit.IDS" ".\override";;;;D:refinements(10)
 CMD;IF EXIST setup-w_psionics_unleashed.exe Call ".\BiG World Installpack\edit_string_w_psionics.bat
 CMD;IF EXIST Setup-Derats_kits.exe IF EXIST ".\override\PXW3CAME.SPL" move ".\override\PXW3CAME.SPL" ".\BWP_workspace\override"
 STD;w_psionics_unleashed;10;16;0000;
