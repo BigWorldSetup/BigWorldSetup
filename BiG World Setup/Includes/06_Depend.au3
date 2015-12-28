@@ -55,10 +55,15 @@
 ;    DS = change mods/components that are active and have missing dependencies
 ;    DO = change first mod/component that can satisfy 
 ;  p_State = what to do with mods/components of specified type (1 = activate, 2 = deactivate)
-;  p_skipConflictWarnings = whether or not to skip user-ignorable rules (1 = skip, 0 = don't)
-;  p_skipDependencyWarnings = whether or not to skip user-ignorable rules (1 = skip, 0 = don't)
+;  p_skipWarnings = whether or not to skip user-ignorable rules (1 = skip, 0 = don't)
+;  Return value will be an array with five fields:
+;    Return[0][0] will be the number of changes made by this function
+;    Return[N][0] will be the setup-name of a mod/component whose status this function changed
+;    Return[N][1] will be the setup-name of a mod/component whose status this function changed
+;    Return[N][2] will be the description of a component whose status this function changed
+;    Return[N][3] will be the mod-name of a mod/component whose status this function changed
 ; ---------------------------------------------------------------------------------------------
-Func _Depend_AutoSolve($p_Type, $p_State, $p_skipConflictWarnings = 1, $p_skipDependencyWarnings = 1)
+Func _Depend_AutoSolve($p_Type, $p_State, $p_skipWarnings = 1)
 	Local $RuleID, $GroupID, $and_Group, $Return[9999][4]
 	While 1
 		$Restart=0
@@ -66,28 +71,25 @@ Func _Depend_AutoSolve($p_Type, $p_State, $p_skipConflictWarnings = 1, $p_skipDe
 		GUICtrlSetData($g_UI_Interact[9][1], $Progress); update progress bar
 		GUICtrlSetData($g_UI_Static[9][2], $Progress &  ' %'); update progress text
 		For $a=1 to $g_ActiveConnections[0][0]; for each active connection (representing a particular active mod/component)
-			If $g_ActiveConnections[$a][0] <> $p_Type Then ContinueLoop; if it isn't the type of connection we are looking for, skip it
-			$RuleID=$g_ActiveConnections[$a][1]; save the current connection's associated rule ID (index to $g_Connections)
-			If $p_Type = 'C' And $p_skipConflictWarnings And $g_Connections[$RuleID][4] = 1 Then ContinueLoop; skip conflict warnings?
-			If $p_Type <> 'C' And $p_skipDependencyWarnings And $g_Connections[$RuleID][4] = 1 Then ContinueLoop; skip dependency warnings?
+			If $g_ActiveConnections[$a][0] <> $p_Type Then ContinueLoop; if the connection isn't the type we are looking for, skip it
+			If $p_skipWarnings And $g_Connections[$RuleID][4] = 1 Then ContinueLoop; optionally, also skip if the rule is user-ignorable
+			$RuleID=$g_ActiveConnections[$a][1]; else, save the current connection's associated rule ID (index to $g_Connections)
 			$GroupID=$g_ActiveConnections[$a][3]; save the current connection's associated 'group' ID (groups can be enabled/disabled together)
 			$and_Group=$g_ActiveConnections[$a][4]; save the current connection's 'and-group' number (zero unless the rule contains '&')
 			If $p_Type <> 'C' Then $a-=1; if we are NOT looking for conflicts, back-step so the inner loop starts from the current mod/component
 			While 1; iterate over all mods/components after 'saved' one (we've already checked the mods/components before 'saved')
 				$a+=1; advance inner loop
-				If $a > $g_ActiveConnections[0][0] Then ExitLoop ; we reached the end of the inner loop (compared 'saved' to all other actives)
+				If $a > $g_ActiveConnections[0][0] Then ExitLoop ; we reached the end of the inner loop (compared 'saved' to all of its connections)
 				If $GroupID <> '' And $GroupID=$g_ActiveConnections[$a][3] Then ContinueLoop; go to next if 'saved' and 'this' belong to same 'group'
-				; we use 'group' to represent sub-groups when we need one from each sub-group (ex: a|b&c|d is satisfied by ac, bc, ad, bd)
-				; _Depend_GetActiveDependAdv implements this as follows: each '&' we encounter in a rule increments the 'group' count by one
-				If $p_Type <> $g_ActiveConnections[$a][0] Then ContinueLoop; if we are looking for dependencies, ignore conflicts, and vice versa
+				If $p_Type <> $g_ActiveConnections[$a][0] Then ContinueLoop; ignore connections of different types than the one are looking for
 				If $RuleID <> $g_ActiveConnections[$a][1] Then; if the saved rule ID doesn't match the rule ID of 'this' connection
-					$a-=1; we passed the last of the connections for the current rule - go back to the final connection of that rule
+					$a-=1; we passed the last of the connections for the current rule - go back so outer loop (which steps +1) starts at next connection
 					ExitLoop; stop the inner loop - we are done scanning connections for the current mod/component
 				EndIf
 				; if we reached this point, we found a connection for the 'saved' rule that has the type we want
-				_Depend_SetModState($g_ActiveConnections[$a][2], $p_State); activate or deactivate the mod/component
-				;ConsoleWrite($g_CentralArray[$g_ActiveConnections[$a][2]][0] & ' ' & $g_CentralArray[$g_ActiveConnections[$a][2]][2] & @CRLF)
-				$Return[0][0]+=1; record the change we just made
+				If Not _Depend_SetModState($g_ActiveConnections[$a][2], $p_State) then ExitLoop; activate or deactivate the mod/component
+				; if we were unable to make a change, just keep going through other active connections (give up on automatically solving this one)
+				$Return[0][0]+=1; else, the change succeeded -> record the change we just made
 				$Return[$Return[0][0]][0]=$g_CentralArray[$g_ActiveConnections[$a][2]][0]; record setup-name
 				$Return[$Return[0][0]][2]=$g_CentralArray[$g_ActiveConnections[$a][2]][4]; record mod name
 				If $g_CentralArray[$g_ActiveConnections[$a][2]][2] <> '-' Then
@@ -98,6 +100,8 @@ Func _Depend_AutoSolve($p_Type, $p_State, $p_skipConflictWarnings = 1, $p_skipDe
 				If $p_Type = 'DO' Then
 					If $and_Group = 0 Then ExitLoop; only one of the possible dependencies is needed, so no need to keep searching
 					If $and_Group = $g_ActiveConnections[$a][4] Then ContinueLoop; we made a change, skip to next and-group if any
+					; we use 'and-group' to represent sub-groups when we need one from each sub-group (ex: a|b&c|d is satisfied by ac, bc, ad, bd)
+					; _Depend_GetActiveDependAdv implements this as follows: each '&' we encounter in a rule increments the 'group' count by one
 				EndIf
 			WEnd
 			If $Restart = 1 Then
@@ -120,31 +124,32 @@ EndFunc   ;==>_Depend_AutoSolve
 
 ; ---------------------------------------------------------------------------------------------
 ; show the mods that would be removed. Reload saved settings if desired
+;  p_Type =
+;	3 - autosolve both dependencies and conflicts
+;	2 - autosolve dependencies
+;	1 - autosolve conflicts
+;  p_Force = whether to display 'this was forced' text or not (no other effect)
 ; ---------------------------------------------------------------------------------------------
 Func _Depend_AutoSolveWarning($p_Type, $p_Force=0)
 	Local $Message = IniReadSection($g_TRAIni, 'DP-Msg')
 	Local $Return, $Output = ''
 	_Tree_GetCurrentSelection(1)
-	If StringInStr($p_Type, 1) Then; deactivate mods/components that conflict
-		$Return=_Depend_AutoSolve('C', 2, 1, 1); skip warning rules
+	; resolve dependencies only, or if also resolving conflicts, resolve dependencies first
+	If $p_Type = 2 or $p_Type = 3 Then; activate mods/components that can satisfy missing dependencies
+		;$Test = $g_Compilation
+		;$g_Compilation = 'E'
+		$Return=_Depend_AutoSolve('DM', 1, 0); don't skip warning rules
+		If $Return[0][1] <> '' Then $Output &= _GetTR($Message, 'L4') & @CRLF & $Return[0][1] & @CRLF & @CRLF; => mod/component will be added
+		$Return=_Depend_AutoSolve('DO', 1, 0); don't skip warning rules
+		If $Return[0][1] <> '' Then $Output &= _GetTR($Message, 'L4') & @CRLF & $Return[0][1] & @CRLF & @CRLF; => mod/component will be added
+		;$g_Compilation = $Test
+	EndIf
+	If $p_Type = 1 or $p_Type = 3 Then; deactivate mods/components that conflict
+		$Return=_Depend_AutoSolve('C', 2, 0); don't skip warning rules
 		If $Return[0][1] <> '' Then $Output &= _GetTR($Message, 'L3') & @CRLF & $Return[0][1] & @CRLF & @CRLF; => mod/component will be removed
 	EndIf
-	If StringInStr($p_Type, 2) Then; activate mods/components that can satisfy missing dependencies
-		$Test = $g_Compilation
-		$g_Compilation = 'E'
-		$Return=_Depend_AutoSolve('DM', 1, 1, 1); skip warning rules
-		If $Return[0][1] <> '' Then $Output &= _GetTR($Message, 'L4') & @CRLF & $Return[0][1] & @CRLF & @CRLF; => mod/component will be added
-		$Return=_Depend_AutoSolve('DO', 1, 1, 1); skip warning rules
-		If $Return[0][1] <> '' Then $Output &= _GetTR($Message, 'L4') & @CRLF & $Return[0][1] & @CRLF & @CRLF; => mod/component will be added
-		$g_Compilation = $Test
-	EndIf
-	If StringInStr($p_Type, 3) Then; deactivate mods/components that are missing dependencies
-		$Return=_Depend_AutoSolve('DS', 2, 1, 1); skip warning rules
-		If Not StringInStr($p_Type, 1) Then $Output &= _GetTR($Message, 'L3') & @CRLF; => mod/component will be removed
-		If $Return[0][1] <> '' Then $Output &= $Return[0][1] & @CRLF & @CRLF
-	EndIf
-	If StringInStr($p_Type, 1) And StringInStr($p_Type, 2) Then; if mods were activated to solve dependencies, deactivate any new conflicts
-		$Return=_Depend_AutoSolve('C', 2, 1, 1); skip warning rules
+	If $p_Type = 2 Or $p_Type = 3 Then; deactivate any "in need" mods/components that are still missing dependencies
+		$Return=_Depend_AutoSolve('DS', 2, 0); don't skip warning rules
 		If $Return[0][1] <> '' Then $Output &= _GetTR($Message, 'L3') & @CRLF & $Return[0][1] & @CRLF & @CRLF; => mod/component will be removed
 	EndIf
 	If $Output <> '' Then
@@ -356,14 +361,36 @@ Func _Depend_GetActiveConnections($p_Show=1)
 EndFunc   ;==>_Depend_GetActiveConnections
 
 ; ---------------------------------------------------------------------------------------------
-; See if a component is installed that needs all other listed components
+; Handle dependency rules without a ':' delimiter
+; This is usually for rules like D:modA(1|2)&modB(3)|modC(-)
+; We interpret this to mean that all parts are "needed" ONLY if at least one part is active
+; Effectively this is equivalent to D:modA(1|2):modB(3)|modC(-) and D:modB(3)|modC(-):modA(1|2)
+; Therefore, to avoid duplication of parsing logic, we reuse the advanced parsing method
+; Dependency rules that do not contain any '&' will be silently ignored (e.g., D:a or D:a|b)
 ; ---------------------------------------------------------------------------------------------
 Func _Depend_GetActiveDependAll($p_String, $p_ID, $p_Show)
 	$Return=_Depend_ItemGetSelected($p_String)
 	If $Return[0][1] = 0 or $Return[0][1] = $Return[0][0] Then Return; nothing selected or all selected
 	;check for a special case - game type can also be a dependency satisfying an OR condition
-	If StringRegExp($p_String, '\x7c('&$g_Flags[14]&')[^[:alpha:]]') Then Return; found OR '|' followed by game type in dependencies -> do nothing
-	;TODO: check '|' conditions
+	If StringRegExp($p_String, '\x7c('&$g_Flags[14]&')[^[:alpha:]]') Then Return; found OR '|' followed by current game type -> do nothing
+	$Parts=StringSplit($p_String, '&'); we split the rule into '&'-subsets
+	If @error Then Return; if no '&' in the rule then do nothing
+	For $and_Group = 1 to $Parts[0]; this $and_Group number is also used for adding dependency connections
+		$ThisPart=_Depend_ItemGetSelected($Parts[$and_Group]); this is inefficient but simpler than reusing $Return
+		If $ThisPart[0][1] > 0 Then; at least one active mod/component in this part -> call _Depend_GetActiveDependAdv
+			; for each part that is active, we treat it like an advanced rule of the form D:ThisPart:OtherParts
+			$OtherParts=''
+			For $p=1 to $Parts[0]
+				If $p <> $and_Group Then
+					$OtherParts &= $Parts[$p]
+					If $p <> 1 And $p <> $Parts[0] Then $OtherParts &= '&'
+				EndIf
+			Next
+			_Depend_GetActiveDependAdv($Parts[$and_Group] & ':' & $OtherParts, $p_ID, $p_Show)
+			_PrintDebug('_Depend_GetActiveDependAll called _Depend_GetActiveDependAdv('& $Parts[$and_Group]&':'&$OtherParts & ') for original rule '&$p_String)
+		EndIf
+	Next
+	Return; disable all code after this line
 	$Prefix = ''
 	$Warning = ''
 	If $g_Connections[$p_ID][4]=1 Then $Warning=' **'
@@ -609,7 +636,7 @@ Func _Depend_GetUnsolved($p_Setup='', $p_Comp='')
 	; only list unsolved mods in the array & create some formatted output
 	_Depend_GetActiveConnections(0); rebuild currently active connections
 	If $g_ActiveConnections[0][0] <> 0 Then
-		$Return=_Depend_AutoSolve('DS', 2, 1, 1); remove all mods and components that have an open dependency (skip ignorable rules)
+		$Return=_Depend_AutoSolve('DS', 2, 1); remove all mods and components that have an open dependency (skip ignorable rules)
 		If $Return[0][1] <> '' Then
 			For $r =1 to $Return[0][0]
 				If StringInStr($String, '|'&$Return[$r][0]&'|') Then
@@ -1014,8 +1041,8 @@ Func _Depend_ResolveGui($p_Solve=0)
 	_PrintDebug('+' & @ScriptLineNumber & ' Calling _Depend_ResolveGui')
 	_Depend_GetActiveConnections()
 	If $p_Solve = 1 Then
-		_Depend_AutoSolve('C', 2, 1, 1); disable all conflict losers (but ignore conflict warning rules)
-		_Depend_AutoSolve('DS', 2, 1, 1); disable mods/components with missing dependencies (but ignore conflict warning rules)
+		_Depend_AutoSolve('C', 2, 1); disable all conflict losers (but skip warning rules)
+		_Depend_AutoSolve('DS', 2, 1); disable mods/components with missing dependencies (but skip warning rules)
 	EndIf
 	If $g_ActiveConnections[0][0] <> 0 Then _Misc_SetTab(10); dependencies-tab
 	$g_Flags[16] = 0
@@ -1031,7 +1058,7 @@ Func _Depend_ResolveGui($p_Solve=0)
 				Exit
 			Case $Gui_Event_Close
 				Exit
-			Case $g_UI_Button[10][1]; autosolve both dependencies and conflicts
+			Case $g_UI_Button[10][1]; autosolve both dependencies and conflicts, not including warnings
 				_Depend_AutoSolveWarning(3)
 			Case $g_UI_Button[10][2]; autosolve conflicts
 				_Depend_AutoSolveWarning(1)
@@ -1039,8 +1066,8 @@ Func _Depend_ResolveGui($p_Solve=0)
 				_Depend_AutoSolveWarning(2)
 			Case $g_UI_Button[10][4]; help on/off
 				_Depend_ToggleHelp()
-			Case $g_UI_Button[0][2]; continue: force autosolve
-				_Depend_AutoSolveWarning(13, 1)
+			Case $g_UI_Button[0][2]; continue: autosolve both dependencies and conflicts, including warnings
+				_Depend_AutoSolveWarning(4, 1)
 			Case $g_UI_Button[0][1]; cancel
 				_Misc_SetTab(4); advsel-tab
 				Return 0
@@ -1073,7 +1100,8 @@ Func _Depend_SetGroupByNumber($p_Num, $p_State, $p_Skip='')
 EndFunc   ;==>_Depend_SetGroupByNumber
 
 ; ---------------------------------------------------------------------------------------------
-; Enable or disable all parts of a mod
+; Activate or deactivate all parts of a mod (returns 1 if success, 0 if state change failed)
+;   p_State = 1 (enable) or 2 (disable)
 ; ---------------------------------------------------------------------------------------------
 Func _Depend_SetModState($p_ControlID, $p_State)
 	_AI_SetClicked($p_ControlID, $p_State)
@@ -1087,6 +1115,14 @@ Func _Depend_SetModState($p_ControlID, $p_State)
 			Next
 		EndIf
 	EndIf
+	If $p_State = 1 And $g_CentralArray[$p_ControlID][9] = 0 Then; failed to activate
+		_PrintDebug('ERROR! Unable to activate ' & $g_CentralArray[$p_ControlID][4] & '(' & $g_CentralArray[$p_ControlID][3] & ')' & @CRLF, 1); mod name(component name or - for entire mod)
+		Return 0
+	ElseIf $p_State = 2 And $g_CentralArray[$p_ControlID][9] <> 0 Then; failed to deactivate
+		_PrintDebug('ERROR! Unable to deactivate ' & $g_CentralArray[$p_ControlID][4] & '(' & $g_CentralArray[$p_ControlID][3] & ')' & @CRLF, 1); mod name(component name or - for entire mod)
+		Return 0
+	EndIf
+	Return 1
 EndFunc   ;==>_Depend_SetModState
 
 ; ---------------------------------------------------------------------------------------------
