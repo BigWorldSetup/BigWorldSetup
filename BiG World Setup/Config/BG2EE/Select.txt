@@ -1010,7 +1010,8 @@ STD;BG2_Tweaks;50;09;0000;
 STD;BG2_Tweaks;60;09;1111;
 STD;BG2_Tweaks;70;09;1111;
 STD;BG2_Tweaks;90;09;0000;
-STD;BG2_Tweaks;100;09;0000;
+ANN;https://forums.beamdog.com/discussion/comment/677241/#Comment_677241
+ANN;BG2_Tweaks;100;09;0000;
 STD;BG2_Tweaks;110;09;1111;
 STD;BG2_Tweaks;120;09;0000;
 STD;BG2_Tweaks;130;09;1111;
@@ -1131,9 +1132,10 @@ STD;BG2_Tweaks;3125;09;1111;
 ANN;no traps or locks -> Expert
 STD;BG2_Tweaks;3130;09;0001;
 ANN;fast ch.1,2 cutscenes & dreams -> Expert
-MUC;BG2_Tweaks;Init;09;0001;
-MUC;BG2_Tweaks;3140;09;0000;
-MUC;BG2_Tweaks;3141;09;0001;
+ANN;https://forums.beamdog.com/discussion/comment/677241/#Comment_677241
+ANN;MUC;BG2_Tweaks;Init;09;0001;
+ANN;MUC;BG2_Tweaks;3140;09;0000;
+ANN;MUC;BG2_Tweaks;3141;09;0001;
 STD;BG2_Tweaks;3150;09;0000;
 STD;BG2_Tweaks;3160;09;0000;
 STD;BG2_Tweaks;3170;09;0000;
