@@ -2358,19 +2358,15 @@ STD;RR;4;16;1111;
 STD;RR;6;16;1111;
 STD;RR;7;17;1111;
 STD;RR;8;17;1111;
-CMD;IF EXIST Setup-SpellPackB6.exe IF EXIST ".\override\SPPR342.SPL" move ".\override\SPPR342.SPL" ".\BWP_workspace\override"
-CMD;IF EXIST Setup-SpellPackB6.exe IF EXIST ".\override\SPWI317.SPL" move ".\override\SPWI317.SPL" ".\BWP_workspace\override"
-CMD;IF EXIST setup-divine_remix.exe IF EXIST ".\override\SPPR342.SPL" move ".\override\SPPR342.SPL" ".\BWP_workspace\override"
-CMD;IF EXIST ".\override\SPWI414.SPL" move ".\override\SPWI414.SPL" ".\BWP_workspace\override"
+ANN;CMD;IF EXIST Setup-SpellPackB6.exe IF EXIST ".\override\SPPR342.SPL" move ".\override\SPPR342.SPL" ".\BWP_workspace\override"
+ANN;CMD;IF EXIST setup-divine_remix.exe IF EXIST ".\override\SPPR342.SPL" move ".\override\SPPR342.SPL" ".\BWP_workspace\override"
 SUB;1pp;202;20;1111;
 SUB;1pp;202?1_1;20;0000;
 SUB;1pp;202?1_2;20;1111;
 SUB;1pp;202?2_1;20;1111;
 SUB;1pp;202?2_2;20;0000;
-CMD;IF EXIST Setup-SpellPackB6.exe IF EXIST ".\BWP_workspace\override\SPPR342.SPL" move ".\BWP_workspace\override\SPPR342.SPL" ".\override"
-CMD;IF EXIST Setup-SpellPackB6.exe IF EXIST ".\BWP_workspace\override\SPWI317.SPL" move ".\BWP_workspace\override\SPWI317.SPL" ".\override"
-CMD;IF EXIST setup-divine_remix.exe IF EXIST ".\BWP_workspace\override\SPPR342.SPL" move ".\BWP_workspace\override\SPPR342.SPL" ".\override"
-CMD;IF EXIST ".\BWP_workspace\override\SPWI414.SPL" move ".\BWP_workspace\override\SPWI414.SPL" ".\override"
+ANN;CMD;IF EXIST Setup-SpellPackB6.exe IF EXIST ".\BWP_workspace\override\SPPR342.SPL" move ".\BWP_workspace\override\SPPR342.SPL" ".\override"
+ANN;CMD;IF EXIST setup-divine_remix.exe IF EXIST ".\BWP_workspace\override\SPPR342.SPL" move ".\BWP_workspace\override\SPPR342.SPL" ".\override"
 STD;ashesofembers;0;16;0001;
 STD;ashesofembers;2;16;0001;
 STD;ashesofembers;3;16;0001;
