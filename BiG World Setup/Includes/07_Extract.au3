@@ -210,6 +210,10 @@ Func Au3ExFix($p_Num)
 		EndIf
 	EndIf
 ; ================         move files from sub-directories to main     ================
+	If StringRegExp($g_Flags[14], 'BWP|BWS') And FileExists($g_GameDir&'\A4Auror') Then
+		FileWrite($g_LogFile, '>A4Auror\* .' & @CRLF)
+		FileMove($g_BG2Dir&'\A4Auror\Setup-A4Auror.exe', $g_BG2Dir&'\Setup-A4Auror.exe')
+	EndIf
 	If StringRegExp($g_Flags[14], 'BWP|BWS') And FileExists($g_GameDir&'\CtBv1.13a\CtBv1.13') Then
 		$TP2Exists = _Test_GetCustomTP2('CTB', '\CtBv1.13a\CtBv1.13\')
 		If $TP2Exists <> '0' Then; this is a folder
@@ -232,6 +236,10 @@ Func Au3ExFix($p_Num)
 	If StringRegExp($g_Flags[14], 'BG1EE|BG2EE') And FileExists($g_GameDir&'\MSFM WeiDU Install v1.35') Then
 		FileWrite($g_LogFile, '>MSFM WeiDU Install v1.35\* .' & @CRLF)
 		_Extract_MoveMod('MSFM WeiDU Install v1.35')
+	EndIf
+	If StringRegExp($g_Flags[14], 'BWP|BWS') And FileExists($g_GameDir&'\SandrahToT-master') Then
+		FileWrite($g_LogFile, '>SandrahToT-master\* .' & @CRLF)
+		_Extract_MoveMod('SandrahToT-master')
 	EndIf
 ; ==============  Fix textstring so weidu will not fail to install the mod ============
 	If StringRegExp($g_Flags[14], 'BWP|BWS') And FileExists($g_BG2Dir&'\setup-bonehillv275.exe') Then
@@ -286,7 +294,6 @@ Func Au3ExFix($p_Num)
 		If FileExists($g_BG2Dir&'\setup-iwditempack.exe') Then DirCreate($g_BG2Dir&'\iwditemfix')
 		If FileExists($g_BG2Dir&'\setup-item_rev.exe') Then DirCreate($g_BG2Dir&'\ninjawakifix')
 		If FileExists($g_BG2Dir&'\setup-item_rev.exe') Then DirCreate($g_BG2Dir&'\item_rev_shatterfix')
-;		If FileExists($g_BG2Dir&'\setup-tobex.exe') Then DirCreate($g_BG2Dir&'\poison_effect_supplement')
 		If FileExists($g_BG2Dir&'\Setup-R*deur.tp2') Then DirMove($g_BG2Dir&"\RÓdeur de l'ombre", $g_BG2Dir&"\Rôdeur de l'ombre")
 		If FileExists($g_BG2Dir&'\SetupP!Bhaal.tp2') Then DirMove($g_BG2Dir&'\PrÈtre de Bhaal', $g_BG2Dir&'\Prêtre de Bhaal')
 		If FileExists($g_BG2Dir&'\setup-astscriptpatcher.exe') Then DirCreate($g_BG2Dir&'\astScriptPatcher')
