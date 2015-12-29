@@ -257,14 +257,6 @@ Func Au3ExFix($p_Num)
 		EndIf
 	EndIf
 ; ==============      Fix keyword-test for _Test_GetModFolder-function     ============
-	If StringRegExp($g_Flags[14], 'BWP|BWS') And FileExists($g_BG2Dir&'\Setup-NeJ2v68.tp2') Then
-		$Text=FileRead($g_BG2Dir&'\Setup-NeJ2v68.tp2')
-		If StringRegExp($Text, '\A\t{2}') Then
-			$Handle=FileOpen($g_BG2Dir&'\Setup-NeJ2v68.tp2', 2)
-			FileWrite($Handle, StringTrimLeft($Text, 2))
-			FileClose($Handle)
-		EndIf
-	EndIf
 	If StringRegExp($g_Flags[14], 'BWP|BWS') And FileExists($g_BG2Dir&'\dsotsc\setup-dsotsc.tp2') Then
 		$Text=FileRead($g_BG2Dir&'\dsotsc\setup-dsotsc.tp2')
 		If StringInStr($Text, Chr(0)) Then

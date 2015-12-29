@@ -176,18 +176,6 @@ SUB;1pp;200;20;1111;
 SUB;1pp;200?1_1;20;0000;
 SUB;1pp;200?1_2;20;1111;
 ANN;#2. NEJ
-ANN;We need the files unbiffed in the override!
-ANN;STD;NeJ2Biffer;0;01;0000;
-STD;NeJ2;0;09;0001;
-STD;NeJ2;7;09;0001;
-STD;NeJ2;8;12;0001;
-STD;NeJ2;9;12;0001;
-STD;NeJ2;10;09;0001;
-STD;BGTNeJ;0;19;0001;D:NEJ2(7)
-STD;NeJ2v602;0;01;0001;D:NEJ2(7)
-STD;NeJ2v602;2;01;0001;D:NEJ2(7)
-CMD;IF NOT EXIST Setup-NeJ2v691.exe IF NOT EXIST Setup-NeJ2v68.exe copy /Y ".\BiG World Fixpack\_override\NEJ2\*.*" ".\override";;;;D:NEJ2(7)
-CMD;IF EXIST setup-randomiser.exe IF NOT EXIST Setup-NeJ2v691.exe copy /Y ".\NeJ2\NEJ-BIFF\override\obsdem01.cre" ".\override";;;;D:NEJ2(7)
 ANN;#3. BIG BG2 MODS PRE BGT
 STD;SOS;0;09;0111;
 STD;CtB;0;09;0111;
@@ -195,7 +183,6 @@ STD;CtB-Chores;0;09;0111;
 STD;CtB_FF;0;09;0111;
 STD;TethyrForestPatch;0;01;0111;
 STD;CtBcutImp;0;01;0111;
-STD;TS-BP;0;09;0000;
 STD;RoT;0;09;0111;
 STD;RoT;1;19;0111;
 CMD;copy /Y ".\RoTerror\anim\Yeti\*.bam" ".\override";;;;D:SOS(0)&ROT(0)
@@ -216,26 +203,9 @@ STD;JondalarFix;0;01;1111;
 STD;TP;1;01;1111;
 STD;BGT-NPCSound;0;01;1111;
 STD;TxtMusic;0;01;1111;
-STD;BGTNeJ2;0;01;0001;;;;D:NEJ2(7)
-STD;BGTNeJ2;3;19;0001;;;;D:NEJ2(7)
-STD;BGTNeJ;2;19;0001;
-STD;BGTNeJ;4;16;0001;
-STD;BGTNeJ;5;08;0001;
-STD;BGTNeJ;6;08;0001;
-STD;BGTNeJ;7;17;0001;
-ANN;BGTNeJ;8;06;0001;
 ANN;#5. BIG BG2 MODS PAST BGT
 CMD;IF EXIST Setup-NeJ2v691.exe copy /Y ".\override\ar8701.wed" ".\BWP_workspace\override";;;;D:bggraphics(0)
 CMD;IF EXIST ".\BWP_workspace\override\tisunpack.exe" copy /Y ".\BWP_workspace\override\tisunpack.exe" "*.*"
-STD;NeJ2v68;0;09;0001;
-STD;NeJ2v68;1;19;0001;
-STD;NeJ2v68;3;19;0001;
-STD;NeJ2v68;5;09;0001;
-STD;NeJ2v68;6;19;0001;
-STD;NeJ2v68;7;08;0001;
-STD;NeJ2v68;8;17;0001;
-ANN;NeJ2v68;9;06;0001;
-STD;NeJ2v68;10;09;0001;
 STD;NeJ2v691;0;01;0001;
 STD;NeJ2v691;1;19;0001;
 STD;NeJ2v691;3;19;0001;
@@ -2921,7 +2891,6 @@ STD;stratagems;5060;16;1111;
 ANN;--- SCS AI ---
 STD;stratagems;5900;18;1111;
 CMD;IF EXIST Setup-NeJ2v691.exe IF NOT EXIST .\override\SPIN506.SPL copy /Y ".\BiG World Fixpack\NeJ\_copy\misc\SPIN506.SPL" ".\override"
-CMD;IF EXIST Setup-NeJ2v68.exe IF NOT EXIST .\override\SPIN506.SPL copy /Y ".\BiG World Fixpack\NeJ\_copy\misc\SPIN506.SPL" ".\override"
 CMD;IF EXIST Setup-DSotSC.exe IF EXIST ".\override\orc03.cre" move ".\override\orc03.cre" ".\BWP_workspace\override"
 CMD;IF EXIST Setup-DSotSC.exe IF EXIST ".\override\orc04.cre" move ".\override\orc04.cre" ".\BWP_workspace\override"
 STD;stratagems;6000;18;1100;
@@ -4158,8 +4127,8 @@ STD;Innate_Fix;0;01;0000;
 CMD;IF EXIST ".\BWP_workspace\override\ahjon.BCS" move ".\BWP_workspace\override\ahjon.BCS" ".\override";;;;D:LongerRoad(0)
 ANN;poison_effect_supplement;0;01;1111;
 STD;Area_Patcher;0;01;0000;
-STD;Area_Patcher;1000;01;0000;
-STD;Area_Patcher;2000;01;0000;
+ANN;Area_Patcher;1000;01;0000;no need without old NEJ
+ANN;Area_Patcher;2000;01;0000;no need without old NEJ
 STD;Area_Patcher;3000;01;0000;
 ANN;Area_Patcher;4000;01;0000;handled by BWFixpack
 STD;lolfixer;0;01;1111;
@@ -4196,16 +4165,16 @@ STD;apr_fix;0;01;0111;
 ANN;--- UI, graphics ---
 MUC;GUI;Init;20;1111;
 MUC;GUI;0;20;0000;
-MUC;GUI;1;20;0000;
+ANN;MUC;GUI;1;20;0000;no need without old NEJ
 MUC;GUI;2;20;0000;
 MUC;GUI;3;20;0000;
 MUC;GUI;4;20;0000;
-MUC;GUI;5;20;0000;
+ANN;MUC;GUI;5;20;0000;no need without TS-BP
 MUC;GUI;7;20;0000;
 MUC;GUI;8;20;0000;
 MUC;GUI;9;20;1111;
 MUC;GUI;10;20;0000;
-STD;GUI;6;20;0000;
+ANN;STD;GUI;6;20;0000;no need without TS-BP
 STD;TutuGui;0;20;0000;
 STD;TutuGui;1;20;0000;
 STD;W_GUI;0;20;0000;
