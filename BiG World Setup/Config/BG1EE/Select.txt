@@ -6,10 +6,10 @@ ANN;--- patches ---
 DWN;bwinstallpack;0;00;1111;
 DWN;bwfixpack;0;00;1111;
 CMD;IF EXIST ".\BiG World Installpack\BiG World Smoothpack" move ".\BiG World Installpack\BiG World Smoothpack\_modify\*.*" "."
-CMD;IF EXIST "BiG-World-Fixpack-master" IF EXIST "Big-World-Fixpack-master\BiG World Fixpack" move "Big-World-Fixpack-master\BiG World Fixpack" ".\"
-CMD;IF EXIST "BiG-World-Fixpack-master" IF EXIST "Big-World-Fixpack-master\BiG World Fixpack.bat" move "Big-World-Fixpack-master\BiG World Fixpack.bat" ".\"
 CMD;IF EXIST "BiG World Fixpack" xcopy /Y /S /E ".\BiG World Fixpack\_Lolfixer\*.*" "."
 CMD;IF EXIST "BiG World Fixpack" xcopy /Y /S /E ".\BiG World Fixpack\_resfixer_v1\*.*" "."
+CMD;IF EXIST "BiG World Fixpack\item_rev" rmdir /s /q "BiG World Fixpack\item_rev"
+CMD;IF EXIST "BiG World Fixpack\spell_rev" rmdir /s /q "BiG World Fixpack\spell_rev"
 CMD;IF EXIST "BiG World Fixpack" IF NOT EXIST BWP_Fixpack.installed Call "BiG World Fixpack.bat"
 CMD;IF NOT EXIST BWP_Smoothpack.installed Call ".\BiG World Installpack\BiG World Smoothpack.bat"
 CMD;IF EXIST ".\BiG World Installpack\BWP_Smoothpack.installed" copy ".\BiG World Installpack\BWP_Smoothpack.installed" "."
@@ -26,6 +26,8 @@ DWN;bgeegraphics_part2;0;13;0001;
 DWN;bgeegraphics_part3;0;13;0001;
 ANN;Removing corrupted .wed
 CMD;IF EXIST setup-bgeegraphics.exe IF EXIST ".\override\ar4300.wed" move ".\override\ar4300.wed" ".\BWS_workspace\override"
+ANN;Removing .are because of corrupted .wed
+CMD;IF EXIST setup-bgeegraphics.exe IF EXIST ".\override\ar3000n.wed" move ".\override\ar3000.are" ".\BWS_workspace\override"
 ANN;--- item revisions core, spell revisions core ---
 ANN;IR #0 as early as possible so other mods can overwrite
 ANN;IR #0 is aware of SR #0 so should follow it
@@ -265,7 +267,6 @@ STD;bg1ub;29;03;1111;
 STD;bg1ub;30;03;1111;
 STD;bg1ub;32;03;1111;
 STD;bg1ub;33;03;1111;
-ANN;STD;bg1ub;32;03;1111;
 GRP;Start
 STD;kittomes;0;12;0111;
 MUC;kittomes;Init;12;0111;

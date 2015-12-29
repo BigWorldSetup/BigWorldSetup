@@ -225,7 +225,7 @@ Func Au3ExFix($p_Num)
 		FileWrite($g_LogFile, '>Keenmarker\* .' & @CRLF)
 		_Extract_MoveMod('Keenmarker')
 	EndIf
-	If StringRegExp($g_Flags[14], 'BWP|BWS') And FileExists($g_GameDir&'\BiG-World-Fixpack-master') Then
+	If StringRegExp($g_Flags[14], 'BWP|BWS|BG1EE|BG2EE') And FileExists($g_GameDir&'\BiG-World-Fixpack-master') Then
 		FileWrite($g_LogFile, '>BiG-World-Fixpack-master\* .' & @CRLF)
 		_Extract_MoveMod('BiG-World-Fixpack-master')
 	EndIf
