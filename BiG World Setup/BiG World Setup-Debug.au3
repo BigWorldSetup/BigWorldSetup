@@ -61,8 +61,8 @@ Func Observe()
 				$DoDebug=0
 			Else ;If StringInStr($String, 'Array variable has incorrect number') Then
 				$Num=StringSplit($String[$s], '()')
-				$File=StringStripWS($Num[1], 1+2)
-				$Num=$Num[2]
+				$File=StringStripWS($Num[1], 1+2); strip leading and trailing white space
+				$Num=$Num[2]; 1= text ( 2 = line number ) 3 = other text
 				$Array=StringSplit(StringStripCR(FileRead($File)), @LF)
 				_InsertDebug($Array, $Num, $File)
 			EndIf
@@ -78,7 +78,7 @@ Func Observe()
 			FileWriteLine($Handle, $String[$s] & ' - ' & $Line)
 		Else
 			$Search=FileFindFirstFile(@ScriptDir&'\Includes\'&$Num&'*')
-			If $Search=-1 Then 
+			If $Search=-1 Then
 				FileClose($Search)
 				ContinueLoop
 			EndIf	
@@ -206,12 +206,14 @@ EndFunc
 ; Insert a debug-line 
 ; ---------------------------------------------------------------------------------------------
 Func _InsertDebug($p_Array, $p_Num, $p_File)
-	$iNum=_CheckLine($p_Array, $p_Num) ; see the debugging has to be done a few lines before that one that lead to the cash
-	If StringInStr($p_Array[$iNum-1], '#EndRegion Debug') Then Return SetError(1, 0, 'Does exist')
+	$iNum=_CheckLine($p_Array, $p_Num); see if the debugging has to start a few lines before the one that crashed
+	ConsoleWrite('!!BWS!! inserting debugging code in '&$p_File&' before line #'&$iNum&': '&$p_Array[$iNum]&@CRLF)
+	ConsoleWrite('!!BWS!! original line #'&$p_Num&': '&$p_Array[$p_Num]&@CRLF)
+	If StringInStr($p_Array[$iNum-1], '#EndRegion Debug') Then Return SetError(1, 0, 'Debug code was inserted already'); expected if debugging is repeated
 	$debug_String=''
 	$debug_Skip='ineedthisdummy'
-	$debug_Line=StringStripWS($p_Array[$p_Num], 1+2)
-	$debug_Line=StringRegExpReplace($debug_Line, '\s{2,}', ' '); get rid of more than one space
+	$debug_Line=StringStripWS($p_Array[$p_Num], 1+2); strip leading and trailing white space
+	$debug_Line=StringRegExpReplace($debug_Line, '\s{2,}', ' '); replace multiple spaces with single spaces
 	$debug_Line=StringRegExpReplace($debug_Line, '\x3b.*', ''); remove trailing comments
 	$debug_Line=StringSplit($debug_Line, ' ()')
 	For $debug_l=1 to $debug_Line[0]
@@ -220,17 +222,18 @@ Func _InsertDebug($p_Array, $p_Num, $p_File)
 			$debug_pDimension=UBound($debug_pDimension)
 			If @error = 1 Then; this is a normal var, but may be an array
 				$debug_Var=$debug_Line[$debug_l]
-			ElseIf $debug_pDimension = 1 Or $debug_pDimension = 2 Then; this is a one- or two-dimensonal array
+			ElseIf $debug_pDimension = 1 Or $debug_pDimension = 2 Then; this is a one- or two-dimensional array
 				$debug_Var=StringLeft($debug_Line[$debug_l], StringInStr($debug_Line[$debug_l], '[')-1)
 			Else
 				ContinueLoop
 			EndIf
 			If StringRegExp(StringLower(StringTrimLeft($debug_Var, 1)), $debug_Skip) Then ContinueLoop
-			$debug_String&=' '&$debug_Var&' ' & $debug_pDimension
+			$debug_String&=' ' & $debug_Var & ' ' & $debug_pDimension
 			$debug_Skip=StringRegExpReplace($debug_Skip&'|\A'&StringLower(StringTrimLeft($debug_Var, 1))&'\z', '\A\x7c', '')
-		EndIf	
+		EndIf
 	Next
 	$debug_String=String(StringReplace($debug_String, ' ', '', 1))
+	If $debug_String = '' Then Return SetError(1, 0, 'debug_String is blank'); not expected - something went wrong 
 ; ---------------------------------------------------------------------------------------------
 ; create the new file
 ; ---------------------------------------------------------------------------------------------

@@ -76,14 +76,14 @@ Func _Depend_AutoSolve($p_Type, $p_State, $p_skipWarnings = 1)
 			$RuleID=$g_ActiveConnections[$a][1]; else, save the current connection's associated rule ID (index to $g_Connections)
 			$GroupID=$g_ActiveConnections[$a][3]; save the current connection's associated 'group' ID (groups can be enabled/disabled together)
 			$and_Group=$g_ActiveConnections[$a][4]; save the current connection's 'and-group' number (zero unless the rule contains '&')
-			If $p_Type <> 'C' Then $a-=1; if we are NOT looking for conflicts, back-step so the inner loop starts from the current mod/component
+			If $p_Type <> 'C' Then $a -= 1; if we are NOT looking for conflicts, back-step so the inner loop starts from the current mod/component
 			While 1; iterate over all mods/components after 'saved' one (we've already checked the mods/components before 'saved')
-				$a+=1; advance inner loop
+				$a += 1; advance inner loop
 				If $a > $g_ActiveConnections[0][0] Then ExitLoop ; we reached the end of the inner loop (compared 'saved' to all of its connections)
 				If $GroupID <> '' And $GroupID=$g_ActiveConnections[$a][3] Then ContinueLoop; go to next if 'saved' and 'this' belong to same 'group'
 				If $p_Type <> $g_ActiveConnections[$a][0] Then ContinueLoop; ignore connections of different types than the one are looking for
 				If $RuleID <> $g_ActiveConnections[$a][1] Then; if the saved rule ID doesn't match the rule ID of 'this' connection
-					$a-=1; we passed the last of the connections for the current rule - go back so outer loop (which steps +1) starts at next connection
+					$a -= 1; we passed the last of the connections for the current rule - go back so outer loop (which steps +1) starts at next connection
 					ExitLoop; stop the inner loop - we are done scanning connections for the current mod/component
 				EndIf
 				; if we reached this point, we found a connection for the 'saved' rule that has the type we want
@@ -148,7 +148,7 @@ Func _Depend_AutoSolveWarning($p_Type, $p_Force=0)
 		$Return=_Depend_AutoSolve('C', 2, 0); don't skip warning rules
 		If $Return[0][1] <> '' Then $Output &= _GetTR($Message, 'L3') & @CRLF & $Return[0][1] & @CRLF & @CRLF; => mod/component will be removed
 	EndIf
-	If $p_Type = 2 Or $p_Type = 3 Then; deactivate any "in need" mods/components that are still missing dependencies
+	If $p_Type = 3 Then; deactivate any "in need" mods/components that are still missing dependencies
 		$Return=_Depend_AutoSolve('DS', 2, 0); don't skip warning rules
 		If $Return[0][1] <> '' Then $Output &= _GetTR($Message, 'L3') & @CRLF & $Return[0][1] & @CRLF & @CRLF; => mod/component will be removed
 	EndIf
@@ -166,6 +166,8 @@ Func _Depend_AutoSolveWarning($p_Type, $p_Force=0)
 			_Misc_SetTab(10); view connections-screen
 			Return
 		EndIf
+	Else; $Output = ''
+		_PrintDebug('AutoSolve did not change anything', 1)
 	EndIf
 	_Depend_GetActiveConnections()
 EndFunc   ;==>_Depend_AutoSolveWarning
@@ -332,7 +334,7 @@ EndFunc   ;==>_Depend_ActiveAddItem
 ; ---------------------------------------------------------------------------------------------
 Func _Depend_GetActiveConnections($p_Show=1)
 	_PrintDebug('+' & @ScriptLineNumber & ' Calling _Depend_GetActiveConnections')
-	Global $g_ActiveConnections[99999][5]; initialize/clear active connections (will fill using _Depend_ActiveAddItem)
+	Global $g_ActiveConnections[9999][5]; initialize/clear active connections (will fill using _Depend_ActiveAddItem)
 	$g_ActiveConnections[0][0] = 0; reset number of active connections counter to zero
 	If $p_Show=1 Then _GUICtrlListView_BeginUpdate($g_UI_Handle[1])
 	If $p_Show=1 Then _GUICtrlListView_DeleteAllItems($g_UI_Handle[1])
@@ -340,14 +342,22 @@ Func _Depend_GetActiveConnections($p_Show=1)
 		If StringLeft ($g_Connections[$c][3], 1) = 'W' Then; skip rules that have been right-click ignored by user
 			ContinueLoop
 		ElseIf StringLeft ($g_Connections[$c][3], 1) = 'D' Then; this is a dependency rule
-			$String=StringTrimLeft($g_Connections[$c][3], 2)
+			If StringMid($g_Connections[$c][3], 2, 1) = 'W' Then
+				$String=StringTrimLeft($g_Connections[$c][3], 3)
+			Else
+				$String=StringTrimLeft($g_Connections[$c][3], 2)
+			EndIf
 			If Not StringInStr($String, ':') Then; all items are needed
 				_Depend_GetActiveDependAll($String, $c, $p_Show)
 			Else; some items need some other items
 				_Depend_GetActiveDependAdv($String, $c, $p_Show)
 			EndIf
 		ElseIf StringLeft ($g_Connections[$c][3], 1) = 'C' Then; this is a conflict rule
-			$String=StringTrimLeft($g_Connections[$c][3], 2)
+			If StringMid($g_Connections[$c][3], 2, 1) = 'W' Then
+				$String=StringTrimLeft($g_Connections[$c][3], 3)
+			Else
+				$String=StringTrimLeft($g_Connections[$c][3], 2)
+			EndIf
 			If StringInStr($String, ':') Then; this is an advanced conflict
 				_Depend_GetActiveConflictAdv($String, $c, $p_Show)
 			Else; this is a normal conflict
@@ -379,15 +389,17 @@ Func _Depend_GetActiveDependAll($p_String, $p_ID, $p_Show)
 		$ThisPart=_Depend_ItemGetSelected($Parts[$and_Group]); this is inefficient but simpler than reusing $Return
 		If $ThisPart[0][1] > 0 Then; at least one active mod/component in this part -> call _Depend_GetActiveDependAdv
 			; for each part that is active, we treat it like an advanced rule of the form D:ThisPart:OtherParts
+			; 1&2&3&4 -> 1:2&3&4, 2:1&3&4, 3:1&2&4, 4:1&2&3
 			$OtherParts=''
 			For $p=1 to $Parts[0]
 				If $p <> $and_Group Then
-					$OtherParts &= $Parts[$p]
-					If $p <> 1 And $p <> $Parts[0] Then $OtherParts &= '&'
+					$OtherParts &= $Parts[$p]&'&'
 				EndIf
 			Next
-			_Depend_GetActiveDependAdv($Parts[$and_Group] & ':' & $OtherParts, $p_ID, $p_Show)
-			_PrintDebug('_Depend_GetActiveDependAll called _Depend_GetActiveDependAdv('& $Parts[$and_Group]&':'&$OtherParts & ') for original rule '&$p_String)
+			$OtherParts=StringTrimRight($OtherParts, 1); remove trailing '&'
+			$SubRule=$Parts[$and_Group]&':'&$OtherParts
+			_Depend_GetActiveDependAdv($SubRule, $p_ID, $p_Show)
+			;_PrintDebug('_Depend_GetActiveDependAll called _Depend_GetActiveDependAdv('&$SubRule&') for original rule '&$p_String)
 		EndIf
 	Next
 	Return; disable all code after this line
@@ -459,7 +471,7 @@ EndFunc    ;==>_Depend_GetActiveDependAll
 ; Therefore: we split rules into 'and-group' sub-sets and require at least one from each set
 ; ---------------------------------------------------------------------------------------------
 Func _Depend_GetActiveDependAdv($p_String, $p_ID, $p_Show)
-	;IniWrite("depend.ini", "debug", "_Depend_GADA_"&$p_ID, $g_Connections[$p_ID][0]&" ~~ "&$g_Connections[$p_ID][1]&" ~~ "&$p_String)
+	;IniWrite("depend.ini", "debug", "_Depend_GADA_"&$p_ID, $p_String&' for '&$g_Connections[$p_ID][0]&'=D:'&$g_Connections[$p_ID][1])
 	$p_String=StringSplit($p_String, ':'); p_String will be a dependency rule like "123&456:789" without the "D:" prefix
 	$Left=_Depend_ItemGetSelected($p_String[1]); otherwise, check which mods/components from the LEFT side of the dependency rule are active
 	If $Left[0][1] = 0 Then Return; NOTHING on the LEFT side of the rule is active/selected, so the RIGHT side does not matter -> do nothing
@@ -699,10 +711,14 @@ Func _Depend_ItemGetSelected($p_String, $p_Debug=0)
 	EndIf
 	Local $Return[$Array[0]+1][3]; create a return array with three values for each element in the split array
 	$Return[0][0]=$Array[0]; set number of elements in return array equal to number of elements in split array
-	;Return[0][1] will be used to count the total number of active mods/components in the return array
+	$Return[0][1]=0; will be used to count the total number of active mods/components in the return array
+	If $Array[0] = 0 Then Return $Return; array is empty
+	If $p_Debug Then FileDelete('debug.ini')
+	If $p_Debug Then IniWrite('debug.ini', '_Depend_ItemGetSelected', 'p_String', $p_String)
 	For $a=1 to $Array[0]; loop
+		If $p_Debug Then IniWrite('debug.ini', '_Depend_ItemGetSelected', 'Array['&$a&']', $Array[$a])
 		$Return[$a][0]=$Array[$a]; copy next mod/component ID from split array into return array
-		If $p_Debug Then IniWrite("debug.ini", "debug", "_Depend_IGS_"&$p_String&"_"&$Array[$a], "#active: "&$g_CentralArray[$Array[$a]][9]&" ~ modname: "&$g_CentralArray[$Array[$a]][4]&" ~ component? "&$g_CentralArray[$Array[$a]][3]&" ~ multi-install? "&$g_CentralArray[$Array[$a]][13])
+		If $p_Debug Then IniWrite('debug.ini', 'debug', $p_String&'_'&$Array[$a], '#active: '&$g_CentralArray[$Array[$a]][9]&' ~ modname: '&$g_CentralArray[$Array[$a]][4]&' ~ component? '&$g_CentralArray[$Array[$a]][3]&' ~ multi-install? '&$g_CentralArray[$Array[$a]][13])
 		If StringInStr($Array[$a], ')') Then; if item is not a number, it does not exist/is not available in this selection (might have been purged)
 			$Return[$a][1]=0; so just mark this element in the return array as not-active and continue
 		ElseIf $g_CentralArray[$Array[$a]][2] <> '-' Then; ID points to a single component (not a mod)
