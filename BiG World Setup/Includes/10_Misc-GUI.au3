@@ -424,9 +424,10 @@ Func _Misc_ReBuildTreeView($p_Save = 0)
 	_Misc_SetAvailableSelection()
 	_Tree_Populate(1 + $p_Save); rebuild Arrays, GUI and so on
 	_Depend_GetActiveConnections()
-	$g_Flags[23] = $g_ActiveConnections[0][0]
-	_Depend_AutoSolve('C', 2)
-	_Depend_AutoSolve('DS', 2)
+	$g_Flags[23] = $g_ActiveConnections[0][0]; progress bar target
+	_Depend_AutoSolve('C', 2, 1); disable conflict losers, skip warning rules
+	$g_Flags[23] = $g_ActiveConnections[0][0]; progress bar target
+	_Depend_AutoSolve('DS', 2, 1); disable mods/components with unsatisfied dependencies, skip warning rules
 	$g_Flags[23] = ''
 	If $p_Save Then _Tree_Reload(1, 1, @TempDir & '\BWS_Reload.ini')
 	GUICtrlSetData($g_UI_Static[9][2], '100 %')

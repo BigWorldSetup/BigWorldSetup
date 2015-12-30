@@ -2736,6 +2736,8 @@ STD;Derats_kits;8;19;0111;
 STD;A7#ImprovedArcher;0;19;0111;
 STD;A7#ImprovedArcher;100;17;0111;
 STD;spell_rev;60;16;1111;
+ANN;DR sphere system should be installed after all divine kits
+STD;Divine_Remix;1000;19;0001;
 ANN;FnP should be installed after all divine kits
 STD;f_n_p;102;12;0001;
 STD;f_n_p;200;12;0001;
@@ -3365,8 +3367,8 @@ MUC;DiffTweak;39;16;0000;
 MUC;DiffTweak;40;16;0000;
 MUC;DiffTweak;41;16;0000;
 STD;DiffTweak;42;16;0000;
-STD;fullplate;1;16;0000;
-STD;fullplate;102;16;0000;
+STD;fullplate;1;16;0111;
+STD;fullplate;102;16;0111;
 STD;fullplate;204;16;0000;
 STD;randomiser;500;16;0000;
 SUB;randomiser;510;16;0000;
@@ -3559,7 +3561,7 @@ CMD;IF EXIST "override\stats.IDS" echo 177 WIZARD_SPELL_SHIELD >> override\stats
 CMD;IF EXIST "override\spell.IDS" echo 3201 INNATE_NEUTRALIZE_POISON >> override\spell.IDS
 CMD;IF EXIST "override\spell.IDS" echo 4732 HELM_TRUE_SIGHT >> override\spell.IDS
 CMD;IF EXIST "override\specific.IDS" echo 201 NEEDS_BREACH >> override\specific.IDS
-CMD;IF EXIST "override\gtimes.IDS" echo 3600 SHROM_TIMER >> override\gtimes.ids
+CMD;IF EXIST "override\gtimes.IDS" echo 3600 SHROM_TIMER >> override\gtimes.IDS
 GRP;Start
 SUB;SandrahNPC;0;12;0111;
 SUB;SandrahNPC;0?0_1;12;0111;

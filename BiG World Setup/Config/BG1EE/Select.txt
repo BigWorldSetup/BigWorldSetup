@@ -981,7 +981,7 @@ MUC;DiffTweak;41;09;0000;
 STD;DiffTweak;42;09;0000;
 STD;fullplate;1;09;0011;
 STD;fullplate;102;09;0111;
-STD;fullplate;204;09;0111;
+STD;fullplate;204;09;0000;
 STD;randomiser;500;09;0000;
 SUB;randomiser;510;09;0000;
 SUB;randomiser;510?1_10;09;0000;

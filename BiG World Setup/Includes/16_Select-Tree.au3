@@ -447,7 +447,7 @@ Func _Tree_Populate($p_Show=1)
 ; ---------------------------------------------------------------------------------------------
 ; MUC create a subtree-item since the component has it's own number (MUC-Select-Headlines are not counted as possible selections to [10][0])
 ; ---------------------------------------------------------------------------------------------
-		ElseIf $Setup[$s][0] = 'MuC'  Then
+		ElseIf $Setup[$s][0] = 'MUC'  Then
 			If $Setup[$s][3] = 'Init' Then
 				$g_TreeviewItem[$cs][$cc] = GUICtrlCreateTreeViewItem(StringRegExpReplace(_IniRead($ReadSection, '@'&$Setup[$s+1][3], ''), '\s?->.*\z', ''), $g_TreeviewItem[$cs][0]); create a treeviewitem (gui-element) for the component
 				$g_CentralArray[0][0] = $g_TreeviewItem[$cs][$cc] ; last item in array
@@ -467,10 +467,10 @@ Func _Tree_Populate($p_Show=1)
 				ContinueLoop
 			Else
 				$n = 1
-				While StringRegExp($Setup[$s-$n][3], '\A\d{1,}\z'); get the select-item
+				While StringRegExp($Setup[$s-$n][3], '\A\d{1,}\z'); search backwards until the select-item
 					$n+=1
 				WEnd
-				$g_TreeviewItem[$cs][$cc] = GUICtrlCreateTreeViewItem(_Tree_SetLength($Setup[$s][3])&': ' &StringRegExpReplace($Dsc, '\A.*\s?->\s?', ''), $g_TreeviewItem[$cs][$cc-$n-1]); create a treeviewitem (gui-element) for the component
+				$g_TreeviewItem[$cs][$cc] = GUICtrlCreateTreeViewItem(_Tree_SetLength($Setup[$s][3])&': '&StringRegExpReplace($Dsc, '\A.*\s?->\s?', ''), $g_TreeviewItem[$cs][$cc-$n-1]); create a treeviewitem (gui-element) for the component
 				$g_CentralArray[$g_TreeviewItem[$cs][$cc]][8] = $Setup[$s][5]; language
 				$g_CentralArray[$g_TreeviewItem[$cs][$cc]][10] = 1; this item is part of a subtree
 			EndIf
@@ -1082,9 +1082,10 @@ Func _Tree_SetPreSelected($p_Num='')
 		_GUICtrlTreeView_EndUpdate($g_UI_Handle[0])
 	EndIf
 	_Depend_GetActiveConnections()
-	$g_Flags[23]=$g_ActiveConnections[0][0]
-	_Depend_AutoSolve('C', 2)
-	_Depend_AutoSolve('DS', 2)
+	$g_Flags[23] = $g_ActiveConnections[0][0]; progress bar target
+	_Depend_AutoSolve('C', 2, 1); disable conflict losers, skip warning rules
+	$g_Flags[23] = $g_ActiveConnections[0][0]; progress bar target
+	_Depend_AutoSolve('DS', 2, 1); disable mods/components with unsatisfied dependencies, skip warning rules
 	$g_Flags[23]=''
 	GUICtrlSetData($g_UI_Static[9][2], '100 %')
 	If $p_Num <> '' Then _Misc_SetTab($p_Num); selected another version on selection-tab 2

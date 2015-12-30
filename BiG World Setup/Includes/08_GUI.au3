@@ -261,20 +261,20 @@ Func Au3BuildGUI($p_Num = 0)
 	$g_UI_Seperate[10][0] = GUICtrlCreateTabItem('Dependencies')
 	$g_UI_Static[10][1] = GUICtrlCreateLabel('', 15, 60, 720, 40); GUI-description
 	GUICtrlSetResizing(-1, 544)
-	$g_UI_Button[10][1] = GUICtrlCreateButton('', 30, 400, 170, 20, $SS_CENTER+$SS_CENTERIMAGE); basics
+	$g_UI_Button[10][1] = GUICtrlCreateButton('', 30, 400, 170, 20, $SS_CENTER+$SS_CENTERIMAGE); basis...
 	GUICtrlSetBkColor(-1, 0xFFFFFF)
 	GUICtrlSetResizing(-1, 576)
-	$g_UI_Button[10][2] = GUICtrlCreateButton('', 230, 400, 170, 20, $SS_CENTER+$SS_CENTERIMAGE); conflict
+	$g_UI_Button[10][2] = GUICtrlCreateButton('', 230, 400, 170, 20, $SS_CENTER+$SS_CENTERIMAGE); has conflict with...
 	GUICtrlSetBkColor(-1, 0xFF0000)
 	GUICtrlSetResizing(-1, 576)
-	$g_UI_Button[10][3] = GUICtrlCreateButton('', 505, 400, 170, 20, $SS_CENTER+$SS_CENTERIMAGE); dependency
+	$g_UI_Button[10][3] = GUICtrlCreateButton('', 505, 400, 170, 20, $SS_CENTER+$SS_CENTERIMAGE); is in need of...
 	GUICtrlSetBkColor(-1, 0xFFA500)
 	GUICtrlSetResizing(-1, 576)
 	$g_UI_Interact[10][1] = GUICtrlCreateListView('1|2', 15, 100, 400, 255, $LVS_SINGLESEL + $LVS_NOSORTHEADER, $LVS_EX_GRIDLINES + $LVS_EX_FULLROWSELECT + $LVS_EX_INFOTIP + $WS_Ex_Clientedge)
 	GUICtrlSetResizing(-1, 102)
 	$g_UI_Handle[1] = GUICtrlGetHandle($g_UI_Interact[10][1])
 	_GUICtrlListView_SetColumnWidth($g_UI_Handle[1], 0, 205)
-	_GUICtrlListView_SetColumnWidth($g_UI_Handle[1], 1, 400)
+	_GUICtrlListView_SetColumnWidth($g_UI_Handle[1], 1, 800)
 	$g_UI_Button[10][4] = GUICtrlCreateButton('>', 415, 100, 15, 255, -1, 0x00000200)
 	GUICtrlSetResizing(-1, 356)
 	$g_UI_Interact[10][2] = GUICtrlCreateEdit('', 430, 100, 305, 255, BitOR($SS_Left, $WS_VSCROLL, $ES_READONLY))
