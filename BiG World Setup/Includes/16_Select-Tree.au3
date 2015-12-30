@@ -745,7 +745,7 @@ Func _Tree_PurgeUnNeeded()
 		EndIf
 	EndIf
 ;	IniWrite($g_UsrIni, 'Debug', 'g_Skip', $g_Skip)
-	If $g_Flags[14] = 'BWS' Then; user is installing 'BWS'
+	If StringInStr($g_Flags[14], 'BWS') Then; user is installing 'BWS'
 		If $g_MLang[1] = 'PO' Then
 		; stuff to add if Polish
 		IniWrite($g_GConfDir&'\Game.ini', 'Connections', 'NTotSC Natalin fix by dradiel is required for NTotSC but works only for Polish', 'D:NTotSC(-)&NTotSC-Natalin-fix(-)')
