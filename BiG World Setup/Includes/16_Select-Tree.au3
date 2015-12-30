@@ -745,12 +745,18 @@ Func _Tree_PurgeUnNeeded()
 		EndIf
 	EndIf
 ;	IniWrite($g_UsrIni, 'Debug', 'g_Skip', $g_Skip)
-	If $g_MLang[1] = 'PO' Then
+	If $g_Flags[14] = 'BWS' Then; user is installing 'BWS'
+		If $g_MLang[1] = 'PO' Then
 		; stuff to add if Polish
 		IniWrite($g_GConfDir&'\Game.ini', 'Connections', 'NTotSC Natalin fix by dradiel is required for NTotSC but works only for Polish', 'D:NTotSC(-)&NTotSC-Natalin-fix(-)')
 		IniWrite($g_GConfDir&'\Game.ini', 'Connections', 'Secret of Bone Hill Part II fix by dradiel is required for SoBH but works only for Polish', 'D:BoneHillv275(-)&sobh-part2-fix(-)')
 		Else
 		; stuff to remove if not Polish
+		IniDelete($g_GConfDir&'\Game.ini', 'Connections', 'NTotSC Natalin fix by dradiel is required for NTotSC but works only for Polish')
+		IniDelete($g_GConfDir&'\Game.ini', 'Connections', 'Secret of Bone Hill Part II fix by dradiel is required for SoBH but works only for Polish')
+		EndIf
+	Else
+		; stuff to remove if not BWS
 		IniDelete($g_GConfDir&'\Game.ini', 'Connections', 'NTotSC Natalin fix by dradiel is required for NTotSC but works only for Polish')
 		IniDelete($g_GConfDir&'\Game.ini', 'Connections', 'Secret of Bone Hill Part II fix by dradiel is required for SoBH but works only for Polish')
 	EndIf
