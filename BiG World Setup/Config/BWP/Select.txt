@@ -278,7 +278,7 @@ STD;SirinesCall;0;03;1111;
 MUC;soa;Init;03;1111;
 MUC;soa;0;03;0000;
 MUC;soa;1;03;1111;
-CMD;IF EXIST "override\shoutids.IDS" echo 99 HELPME >> override\shoutids.IDS
+ANN;CMD;IF EXIST "override\shoutids.IDS" echo 99 HELPME >> override\shoutids.IDS
 STD;AC_QUEST;0;03;1111;
 STD;NMT;0;03;0111;
 STD;wbgtap;1;03;0111;
@@ -2465,7 +2465,7 @@ MUC;item_rev;18;16;1100;
 MUC;item_rev;19;16;0000;
 MUC;item_rev;20;16;0011;
 STD;ninjawakifix;0;01;1111;
-CMD;IF EXIST "override\spell.IDS" echo 1413 CLERIC_NEGATIVE_PLANE_PROTECTION >> override\spell.IDS
+ANN;CMD;IF EXIST "override\spell.IDS" echo 1413 CLERIC_NEGATIVE_PLANE_PROTECTION >> override\spell.IDS
 MUC;UniqueArtifacts;Init;16;0001;
 MUC;UniqueArtifacts;1;16;0000;
 MUC;UniqueArtifacts;2;16;0001;
@@ -3307,7 +3307,7 @@ STD;BardSong_BG2_IWD;0;16;0000;
 STD;BardSong_BG2_IWD;1;16;0000;
 ANN;--BWP15.5--gMinion before SR, but after SCS and BP AI (not possible)
 STD;gMinion;0;18;0000;
-CMD;IF EXIST "override\spell.IDS" echo 2302 WIZARD_REMOVE_MAGIC >> override\spell.IDS;;;;D:BPSeries(0)
+ANN;CMD;IF EXIST "override\spell.IDS" echo 2302 WIZARD_REMOVE_MAGIC >> override\spell.IDS;;;;D:BPSeries(100)
 STD;BPSeries;0;18;0111;
 STD;BPSeries;10;18;0000;
 STD;BPSeries;100;18;0111;
@@ -3458,14 +3458,16 @@ MUC;tb#tweaks;9120;16;0000;
 MUC;tb#tweaks;9130;16;0000;
 MUC;tb#tweaks;9140;16;0000;
 MUC;tb#tweaks;9150;16;0000;
-CMD;IF EXIST Setup-SandrahNPC.exe IF EXIST ".\override\CVPRO11.SPL" move ".\override\CVPRO11.SPL" ".\BWP_workspace\override"
+ANN;Not needed if Sandrah installed after P5Tweaks?
+ANN;CMD;IF EXIST Setup-SandrahNPC.exe IF EXIST ".\override\CVPRO11.SPL" move ".\override\CVPRO11.SPL" ".\BWP_workspace\override"
 STD;P5Tweaks;10;16;1111;
 STD;P5Tweaks;20;16;1111;
 STD;P5Tweaks;30;16;1111;
 STD;P5Tweaks;40;16;1111;
 STD;P5Tweaks;50;16;1111;
 STD;P5Tweaks;60;16;1111;
-CMD;IF EXIST Setup-SandrahNPC.exe IF EXIST ".\BWP_workspace\override\CVPRO11.SPL" move ".\BWP_workspace\override\CVPRO11.SPL" ".\override"
+ANN;Not needed if Sandrah installed after P5Tweaks?
+ANN;CMD;IF EXIST Setup-SandrahNPC.exe IF EXIST ".\BWP_workspace\override\CVPRO11.SPL" move ".\BWP_workspace\override\CVPRO11.SPL" ".\override"
 STD;trap_rev;0;16;0111;
 MUC;contain;Init;20;1111;
 MUC;contain;10;20;1111;

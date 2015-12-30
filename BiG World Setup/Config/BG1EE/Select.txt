@@ -303,7 +303,6 @@ MUC;MSFM;4;10;0000;
 MUC;MSFM;5;10;0111;
 STD;MSFM;6;10;0111;
 CMD;IF EXIST "override\spell.IDS" echo 2302 WIZARD_REMOVE_MAGIC >> override\spell.IDS;;;;D:BPSeries(100)
-CMD;IF EXIST "override\stats.IDS" echo 134 STATE_DISEASED_FIX >> override\stats.IDS;;;;D:BPSeries(100)
 STD;BPSeries;0;11;1111;
 STD;BPSeries;10;11;1111;
 STD;BPSeries;100;11;1111;

@@ -302,6 +302,7 @@ ANN;special case - BWS has code in Testing.au3 that will extract WeiDU, bwinstal
 CMD;IF EXIST ".\BiG World Installpack\BiG World Smoothpack" move ".\BiG World Installpack\BiG World Smoothpack\_modify\*.*" "."
 CMD;IF EXIST "BiG World Fixpack" xcopy /Y /S /E ".\BiG World Fixpack\_Lolfixer\*.*" "."
 CMD;IF EXIST "BiG World Fixpack" xcopy /Y /S /E ".\BiG World Fixpack\_resfixer_v1\*.*" "."
+CMD;IF EXIST "BiG World Fixpack\ascension" rmdir /s /q "BiG World Fixpack\ascension"
 CMD;IF EXIST "BiG World Fixpack\item_rev" rmdir /s /q "BiG World Fixpack\item_rev"
 CMD;IF EXIST "BiG World Fixpack\spell_rev" rmdir /s /q "BiG World Fixpack\spell_rev"
 CMD;IF EXIST "BiG World Fixpack" IF NOT EXIST BWP_Fixpack.installed Call "BiG World Fixpack.bat"
@@ -325,7 +326,6 @@ STD;Ascension;6;08;0010;
 STD;Ascension;7;08;0010;
 STD;Ascension;8;08;0010;
 STD;Ascension;9;08;0010;
-STD;astscriptpatcher;0;01;1111;
 ANN;--- post-EET BGEE tweaks ---
 ANN;move BGEESpawn here?
 MUC;7c#sartweak;Init;07;0011;
@@ -609,8 +609,6 @@ STD;arestorationp;11;09;0111;
 ANN;#12 alternate slayer change -> tactical
 STD;arestorationp;12;09;0011;
 STD;arestorationp;13;09;0111;
-ANN;BP and BPSeries AI need the following IDS entry
-CMD;IF EXIST "override\spell.IDS" echo 2302 WIZARD_REMOVE_MAGIC >> override\spell.IDS
 ANN;BP needs res_fixer (at least BGT version does)
 STD;res_fixer;0;01;0001;
 ANN;#0 is detectable spells v3 and other patches
@@ -824,6 +822,9 @@ STD;d0questpack;20;03;0111;
 STD;d0questpack;21;03;0111;
 ANN;--- BG2EE minimods ---
 STD;wheels;0;04;1111;
+ANN;BP and BPSeries AI need the following IDS entry
+ANN;For some reason Wheels of Prophecy removes this entry (but exclusively for EE) so we add it back only if WoP is installed
+CMD;IF EXIST setup-wheels.exe IF EXIST "override\spell.IDS" echo 2302 WIZARD_REMOVE_MAGIC >> override\spell.IDS
 ANN;--- BG2EE minimods ---
 STD;G3Anniversary;0;04;0111;
 ANN;--- BG2EE NPCs ---
