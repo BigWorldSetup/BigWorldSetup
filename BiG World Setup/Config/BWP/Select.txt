@@ -50,24 +50,29 @@ CMD;IF EXIST "Big World Fixpack\BW_Herbs\_optional\Improved Animations\_copy" mo
 CMD;IF EXIST "Big World Fixpack\BW_Herbs\_optional" rmdir /s /q ".\BiG World Fixpack\BW_Herbs\_optional"
 CMD;IF EXIST "Big World Fixpack\BW_Herbs_BG2\_optional\Improved Animations\_copy" move ".\BiG World Fixpack\BW_Herbs_BG2\_optional\Improved Animations\_copy" ".\BiG World Fixpack\BW_Herbs_BG2\_copy"
 CMD;IF EXIST "Big World Fixpack\BW_Herbs_BG2\_optional" rmdir /s /q ".\BiG World Fixpack\BW_Herbs_BG2\_optional"
+ANN;Copy some mods and patches that are packaged with the Fixpack into the game folder
+CMD;IF EXIST "BiG World Fixpack" xcopy /Y /S /E ".\BiG World Fixpack\_Lolfixer\*.*" "."
 CMD;IF EXIST "BiG World Fixpack" xcopy /Y /S /E ".\BiG World Fixpack\_resfixer_v1\*.*" "."
 CMD;IF EXIST "BiG World Fixpack" xcopy /Y /S /E ".\BiG World Fixpack\_crefixer_v2\*.*" "."
-CMD;IF EXIST "BiG World Fixpack" xcopy /Y /S /E ".\BiG World Fixpack\_ninjawakifix\*.*" "."
 CMD;IF EXIST "BiG World Fixpack" xcopy /Y /S /E ".\BiG World Fixpack\_Innate_Fix\*.*" "."
+CMD;IF EXIST "BiG World Fixpack" xcopy /Y /S /E ".\BiG World Fixpack\_Area_Patcher\*.*" "."
+CMD;IF EXIST "BiG World Fixpack\_IDS_ref" copy /Y ".\BiG World Fixpack\_IDS_ref\*.IDS" ".\override"
 CMD;IF EXIST "BiG World Fixpack\_AuroraPatch" IF EXIST Setup-aurora.exe xcopy /Y /S /E ".\BiG World Fixpack\_AuroraPatch\*.*" "."
+CMD;IF EXIST Setup-Area_Patcher.tp2 MD ".\Area_Patcher"
 CMD;IF EXIST "BiG World Fixpack\_CtBcutImp" IF EXIST Setup-ctb.exe xcopy /Y /S /E ".\BiG World Fixpack\_CtBcutImp\*.*" "."
 CMD;IF EXIST "BiG World Fixpack\_Gavin_Hotfixes" IF EXIST Setup-gavin.exe xcopy /Y /S /E ".\BiG World Fixpack\_Gavin_Hotfixes\*.*" "."
 CMD;IF EXIST "BiG World Fixpack\_iwditemfix" If EXIST Setup-iwditempack.exe xcopy /Y /S /E ".\BiG World Fixpack\_iwditemfix\*.*" "."
 CMD;IF EXIST "BiG World Fixpack\_shatterfix" If EXIST Setup-item_rev.exe xcopy /Y /S /E ".\BiG World Fixpack\_shatterfix\*.*" "."
-CMD;IF NOT EXIST Setup-lolfixer.exe xcopy /Y /S /E ".\BiG World Fixpack\_Lolfixer\*.*" "."
-CMD;IF EXIST "BiG World Fixpack" xcopy /Y /S /E ".\BiG World Fixpack\_Area_Patcher\*.*" "."
-CMD;IF EXIST Setup-Area_Patcher.tp2 MD ".\Area_Patcher"
+CMD;IF EXIST "BiG World Fixpack\_ninjawakifix" IF EXIST Setup-item_rev.exe xcopy /Y /S /E ".\BiG World Fixpack\_ninjawakifix\*.*" "."
+CMD;IF EXIST "BiG World Textpack GERMAN\gavin" rmdir /s /q ".\BiG World Textpack GERMAN\gavin"
+ANN;For some foreign languages this adds English text files to the mods as a substitute to prevent that the installation fails because of missing files
+CMD;IF EXIST "BiG World Textpack GERMAN" xcopy /Y /S /E ".\BiG World Textpack GERMAN\_English_files" ".\BiG World Textpack GERMAN"
+ANN;---- following two lines are temporary - remove after BWFixpack patches for item_rev v3 and spell_rev v3 are updated
+CMD;IF EXIST "BiG World Fixpack\item_rev" rmdir /s /q "BiG World Fixpack\item_rev"
+CMD;IF EXIST "BiG World Fixpack\spell_rev" rmdir /s /q "BiG World Fixpack\spell_rev"
 CMD;IF NOT EXIST ".\BWP_workspace\override" MD ".\BWP_workspace\override"
 CMD;IF EXIST tisunpack.exe copy tisunpack.exe ".\BWP_workspace\override"
-CMD;IF EXIST "BiG World Fixpack" copy /Y ".\BiG World Fixpack\_IDS_ref\*.IDS" ".\override"
-CMD;IF EXIST "BiG World Textpack GERMAN\gavin" rmdir /s /q ".\BiG World Textpack GERMAN\gavin"
-ANN;For some foreign languages this adds English text files to the mods as a substitute to prevent that the installation failes because of missing files.
-CMD;IF EXIST "BiG World Textpack GERMAN" xcopy /Y /S /E ".\BiG World Textpack GERMAN\_English_files" ".\BiG World Textpack GERMAN"
+ANN;Done copying files, now run the Trimpack, Fixpack and Smoothpack batch scripts
 CMD;IF EXIST "BiG World Trimpack" IF NOT EXIST BWP_Trimpack.installed Call "BiG World Trimpack.bat"
 CMD;IF EXIST "BiG World Fixpack" IF NOT EXIST BWP_Fixpack.installed Call "BiG World Fixpack.bat"
 CMD;IF NOT EXIST BWP_Textpack.installed Call "BiG World Textpack.bat"
@@ -513,7 +518,7 @@ STD;ktweaks;3;08;1111;
 STD;ktweaks;301;08;1111;
 STD;item_rev;0;16;1111;
 STD;item_rev;1;16;1111;
-STD;item_rev_shatterfix;0;01;1111;
+ANN;STD;item_rev_shatterfix;0;01;1111;
 STD;BDToBv168;6;01;0111;
 GRP;Start
 STD;kittomes;0;19;0111;
@@ -2464,7 +2469,7 @@ MUC;item_rev;Init;16;1111;
 MUC;item_rev;18;16;1100;
 MUC;item_rev;19;16;0000;
 MUC;item_rev;20;16;0011;
-STD;ninjawakifix;0;01;1111;
+ANN;STD;ninjawakifix;0;01;1111;
 ANN;CMD;IF EXIST "override\spell.IDS" echo 1413 CLERIC_NEGATIVE_PLANE_PROTECTION >> override\spell.IDS
 MUC;UniqueArtifacts;Init;16;0001;
 MUC;UniqueArtifacts;1;16;0000;
