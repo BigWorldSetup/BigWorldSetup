@@ -423,14 +423,11 @@ Func _Misc_ReBuildTreeView($p_Save = 0)
 	_Selection_GetCurrentInstallType()
 	_Misc_SetAvailableSelection()
 	_Tree_Populate(1 + $p_Save); rebuild Arrays, GUI and so on
-	_Depend_GetActiveConnections()
-	$g_Flags[23] = $g_ActiveConnections[0][0]; progress bar target
 	_Depend_AutoSolve('C', 2, 1); disable conflict losers, skip warning rules
-	$g_Flags[23] = $g_ActiveConnections[0][0]; progress bar target
 	_Depend_AutoSolve('DS', 2, 1); disable mods/components with unsatisfied dependencies, skip warning rules
-	$g_Flags[23] = ''
+	$g_Flags[23]=''
 	If $p_Save Then _Tree_Reload(1, 1, @TempDir & '\BWS_Reload.ini')
-	GUICtrlSetData($g_UI_Static[9][2], '100 %')
+	;GUICtrlSetData($g_UI_Static[9][2], '100 %')
 	GUICtrlSetData($g_UI_Interact[1][1], StringReplace(IniRead($g_TRAIni, 'UI-Buildtime', 'Interact[1][1]', ''), '|', @CRLF))
 EndFunc   ;==>_Misc_ReBuildTreeView
 

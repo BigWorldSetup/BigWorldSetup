@@ -69,13 +69,18 @@
 Func _Depend_AutoSolve($p_Type, $p_State, $p_skipWarnings = 1)
 	Local $RuleID, $GroupID, $SubGroup, $Return[9999][4], $p_Debug=0
 	If $p_Debug Then FileWrite($g_dependDebugFile, 'starting _Depend_AutoSolve('&$p_Type&'_'&$p_State&'_'&$p_SkipWarnings&')'&@CRLF&@CRLF)
+	_Depend_GetActiveConnections(0); build (or clear and rebuild) $g_ActiveConnections
+	$g_Flags[23] = $g_ActiveConnections[0][0]; save original number of active connections for progress bar
 	While 1
 		$Restart=0
 		If $p_Debug Then FileWrite($g_dependDebugFile, @CRLF&'rebuilding active connections'&@CRLF)
-		_Depend_GetActiveConnections(0); clear and rebuild $g_ActiveConnections
-		$Progress=Round((($g_Flags[23]-$g_ActiveConnections[0][0])*100)/$g_Flags[23], 0)
-		GUICtrlSetData($g_UI_Interact[9][1], $Progress); update progress bar
-		GUICtrlSetData($g_UI_Static[9][2], $Progress &  ' %'); update progress text
+		$Progress = $g_Flags[23] - $g_ActiveConnections[0][0]; how many connections we have removed since the last check
+		If $Progress < 0 Then $g_Flags[23]=$g_ActiveConnections[0][0]; number of active connections has increased since we started -> use new count
+		If $Progress > 0 And $g_Flags[23] <> 0 Then; avoid displaying negative progress and avoid division by zero
+			$Progress=Round(($Progress*100)/$g_Flags[23], 0)
+			GUICtrlSetData($g_UI_Interact[9][1], $Progress); update progress bar
+			GUICtrlSetData($g_UI_Static[9][2], $Progress &  ' %'); update progress text
+		EndIf
 		For $a=1 to $g_ActiveConnections[0][0]; OUTER LOOP - check connection entries (each representing a particular mod/component)
 			If $g_ActiveConnections[$a][0] <> $p_Type Then ContinueLoop; if the connection isn't the type we are looking for, skip it
 			$RuleID=$g_ActiveConnections[$a][1]; else, save the current connection's associated rule ID (index to $g_Connections)
@@ -112,8 +117,6 @@ Func _Depend_AutoSolve($p_Type, $p_State, $p_skipWarnings = 1)
 		Next; OUTER LOOP
 		; CHECK FOR COMPLETION
 		If $Restart = 0 Then ExitLoop; we reached the end of the active connections array without making any changes -> jump to FINAL
-;		If $Restart = 1 Then
-;		EndIf
 ;		For $r = 1 to $Return[0][0]; Prevent crashes... What crashes?
 ;			If $Return[$r][1] = '' Then
 ;				If $p_Debug Then FileWrite($g_dependDebugFile, 'ERROR -- one of the recorded component types was blank ~ '&$Return[$r][0]&' ~ '&$Return[$r][2]&' ~ '&$Return[$r][1]&' ~ '&$Return[$r][3]&@CRLF&@CRLF)
@@ -121,8 +124,11 @@ Func _Depend_AutoSolve($p_Type, $p_State, $p_skipWarnings = 1)
 ;			EndIf
 ;		Next
 		; else, loop around again
+		_Depend_GetActiveConnections(0); clear and rebuild $g_ActiveConnections
 	WEnd; restart loop
 	; FINAL
+	$g_Flags[23]=''; done with active connections count for progress bar
+	GUICtrlSetData($g_UI_Static[9][2], '100 %'); update progress bar text to 100%
 	If $p_Debug Then FileWrite($g_dependDebugFile, 'ending _Depend_AutoSolve('&$p_Type&'_'&$p_State&'_'&$p_SkipWarnings&')'&@CRLF&@CRLF)
 	If $p_Debug Then FileClose($g_dependDebugFile)
 	If $p_Debug Then $g_dependDebugFile=FileOpen('depend_debug.txt', 1); append

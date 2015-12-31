@@ -270,7 +270,7 @@ Func _Misc_LS_Verify()
 	EndIf
 	If $BGTInstallable = 0 And GUICtrlRead($g_UI_Interact[2][1]) <> '-' Then $Error &= '||' & IniRead($g_GConfDir & '\Translation-' & $g_ATrans[$g_ATNum] & '.ini', 'UI-RunTime', '2-L4', ''); => BGT/EET not installable
 	If $Error <> '' Then
-		If $Current = 2 Then $Error &= '||' & _GetTR($g_UI_Message, '2-L5'); => start assistent
+		If $Current = 2 Then $Error &= '||' & _GetTR($g_UI_Message, '2-L5'); => start assistant
 		_Misc_MsgGUI(4, _GetTR($g_UI_Message, '0-T1'), $Error); => warning
 		If $Current = 2 Then _Misc_LS_GUI()
 		Return 0
@@ -423,11 +423,8 @@ Func _Misc_ReBuildTreeView($p_Save = 0)
 	_Selection_GetCurrentInstallType()
 	_Misc_SetAvailableSelection()
 	_Tree_Populate(1 + $p_Save); rebuild Arrays, GUI and so on
-	_Depend_GetActiveConnections()
-	$g_Flags[23] = $g_ActiveConnections[0][0]
-	_Depend_AutoSolve('C', 2)
-	_Depend_AutoSolve('DS', 2)
-	$g_Flags[23] = ''
+	_Depend_AutoSolve('C', 2, 1); disable conflict losers, skip warning rules
+	_Depend_AutoSolve('DS', 2, 1); disable mods/components with unsatisfied dependencies, skip warning rules
 	If $p_Save Then _Tree_Reload(1, 1, @TempDir & '\BWS_Reload.ini')
 	GUICtrlSetData($g_UI_Static[9][2], '100 %')
 	GUICtrlSetData($g_UI_Interact[1][1], StringReplace(IniRead($g_TRAIni, 'UI-Buildtime', 'Interact[1][1]', ''), '|', @CRLF))
