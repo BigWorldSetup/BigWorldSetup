@@ -163,10 +163,10 @@ STD;gavin;2;05;1111;
 ANN;gavin portraits moved down
 STD;gavin;13;13;1111;
 STD;valerie;0;05;0111;
-STD;isra;0;05;0111;
+STD;isra;0;05;1111;
 ANN;#1,2 crossmod valerie,gavin
 STD;isra;1;05;0111;
-STD;isra;2;05;0111;
+STD;isra;2;05;1111;
 STD;neera;0;07;1111;
 MUC;neera;Init;07;1111;
 MUC;neera;1;07;0000;
@@ -458,7 +458,7 @@ MUC;adrian;Init;05;0000;
 MUC;adrian;1;05;0000;
 MUC;adrian;2;05;0000;
 STD;arath;0;05;0111;
-STD;dace;0;05;0111;
+STD;dace;0;05;1111;
 STD;dace;1;13;0000;
 SUB;aranw;0;05;0111;
 SUB;aranw;0?1_1;05;0000;
