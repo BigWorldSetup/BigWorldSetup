@@ -3829,6 +3829,8 @@ STD;NSCPortraits;3000;20;1111;
 STD;NSCPortraits;3010;20;1111;
 STD;NSCPortraits;5000;20;1111;
 STD;NSCPortraits;5010;20;1111;
+STD;Isandir;0;20;0000;
+STD;Isandir;1;20;0000;
 STD;bg1npc_portrait_pack;0;20;0000;
 STD;bg1npc_portrait_pack;1;20;0000;
 STD;bg1npc_portrait_pack;4;20;0000;
