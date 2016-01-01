@@ -66,9 +66,6 @@ CMD;IF EXIST "BiG World Fixpack\_CtBcutImp" xcopy /Y /S /E ".\BiG World Fixpack\
 CMD;IF EXIST "BiG World Fixpack\_Gavin_Hotfixes" xcopy /Y /S /E ".\BiG World Fixpack\_Gavin_Hotfixes\*.*" "."
 CMD;IF EXIST "BiG World Fixpack\_iwditemfix" xcopy /Y /S /E ".\BiG World Fixpack\_iwditemfix\*.*" "."
 CMD;IF EXIST "BiG World Fixpack\_shatterfix" xcopy /Y /S /E ".\BiG World Fixpack\_shatterfix\*.*" "."
-ANN;Fixpack _ninjawakifix is no longer needed for Item Revisions
-ANN;should the following line still be here?
-CMD;IF EXIST "BiG World Textpack GERMAN\gavin" rmdir /s /q ".\BiG World Textpack GERMAN\gavin"
 ANN;For some foreign languages this adds English text files to the mods as a substitute to prevent that the installation fails because of missing files
 CMD;IF EXIST "BiG World Textpack GERMAN" xcopy /Y /S /E ".\BiG World Textpack GERMAN\_English_files" ".\BiG World Textpack GERMAN"
 ANN;Set up workspace
