@@ -50,29 +50,31 @@ CMD;IF EXIST "Big World Fixpack\BW_Herbs\_optional\Improved Animations\_copy" mo
 CMD;IF EXIST "Big World Fixpack\BW_Herbs\_optional" rmdir /s /q ".\BiG World Fixpack\BW_Herbs\_optional"
 CMD;IF EXIST "Big World Fixpack\BW_Herbs_BG2\_optional\Improved Animations\_copy" move ".\BiG World Fixpack\BW_Herbs_BG2\_optional\Improved Animations\_copy" ".\BiG World Fixpack\BW_Herbs_BG2\_copy"
 CMD;IF EXIST "Big World Fixpack\BW_Herbs_BG2\_optional" rmdir /s /q ".\BiG World Fixpack\BW_Herbs_BG2\_optional"
-ANN;Copy some mods and patches that are packaged with the Fixpack into the game folder
+ANN;---- following two lines are temporary - remove after BWFixpack patches for item_rev v3 and spell_rev v3 are updated
+CMD;IF EXIST "BiG World Fixpack\item_rev" rmdir /s /q "BiG World Fixpack\item_rev"
+CMD;IF EXIST "BiG World Fixpack\spell_rev" rmdir /s /q "BiG World Fixpack\spell_rev"
+ANN;Copy some additional mods and patches that are packaged with the Fixpack into the game folder (this must come before Smoothpack which adds missing setup-exes)
 CMD;IF EXIST "BiG World Fixpack" xcopy /Y /S /E ".\BiG World Fixpack\_Lolfixer\*.*" "."
 CMD;IF EXIST "BiG World Fixpack" xcopy /Y /S /E ".\BiG World Fixpack\_resfixer_v1\*.*" "."
 CMD;IF EXIST "BiG World Fixpack" xcopy /Y /S /E ".\BiG World Fixpack\_crefixer_v2\*.*" "."
 CMD;IF EXIST "BiG World Fixpack" xcopy /Y /S /E ".\BiG World Fixpack\_Innate_Fix\*.*" "."
 CMD;IF EXIST "BiG World Fixpack" xcopy /Y /S /E ".\BiG World Fixpack\_Area_Patcher\*.*" "."
+CMD;IF EXIST Setup-Area_Patcher.tp2 MD ".\Area_Patcher"
 CMD;IF EXIST "BiG World Fixpack\_IDS_ref" copy /Y ".\BiG World Fixpack\_IDS_ref\*.IDS" ".\override"
 CMD;IF EXIST "BiG World Fixpack\_AuroraPatch" xcopy /Y /S /E ".\BiG World Fixpack\_AuroraPatch\*.*" "."
-CMD;IF EXIST Setup-Area_Patcher.tp2 MD ".\Area_Patcher"
 CMD;IF EXIST "BiG World Fixpack\_CtBcutImp" xcopy /Y /S /E ".\BiG World Fixpack\_CtBcutImp\*.*" "."
 CMD;IF EXIST "BiG World Fixpack\_Gavin_Hotfixes" xcopy /Y /S /E ".\BiG World Fixpack\_Gavin_Hotfixes\*.*" "."
 CMD;IF EXIST "BiG World Fixpack\_iwditemfix" xcopy /Y /S /E ".\BiG World Fixpack\_iwditemfix\*.*" "."
 CMD;IF EXIST "BiG World Fixpack\_shatterfix" xcopy /Y /S /E ".\BiG World Fixpack\_shatterfix\*.*" "."
 ANN;Fixpack _ninjawakifix is no longer needed for Item Revisions
+ANN;should the following line still be here?
 CMD;IF EXIST "BiG World Textpack GERMAN\gavin" rmdir /s /q ".\BiG World Textpack GERMAN\gavin"
 ANN;For some foreign languages this adds English text files to the mods as a substitute to prevent that the installation fails because of missing files
 CMD;IF EXIST "BiG World Textpack GERMAN" xcopy /Y /S /E ".\BiG World Textpack GERMAN\_English_files" ".\BiG World Textpack GERMAN"
-ANN;---- following two lines are temporary - remove after BWFixpack patches for item_rev v3 and spell_rev v3 are updated
-CMD;IF EXIST "BiG World Fixpack\item_rev" rmdir /s /q "BiG World Fixpack\item_rev"
-CMD;IF EXIST "BiG World Fixpack\spell_rev" rmdir /s /q "BiG World Fixpack\spell_rev"
+ANN;Set up workspace
 CMD;IF NOT EXIST ".\BWP_workspace\override" MD ".\BWP_workspace\override"
 CMD;IF EXIST tisunpack.exe copy tisunpack.exe ".\BWP_workspace\override"
-ANN;Done copying files, now run the Trimpack, Fixpack and Smoothpack batch scripts
+ANN;Run the Trimpack, Fixpack, Textpack and Smoothpack batch scripts
 CMD;IF EXIST "BiG World Trimpack" IF NOT EXIST BWP_Trimpack.installed Call "BiG World Trimpack.bat"
 CMD;IF EXIST "BiG World Fixpack" IF NOT EXIST BWP_Fixpack.installed Call "BiG World Fixpack.bat"
 CMD;IF NOT EXIST BWP_Textpack.installed Call "BiG World Textpack.bat"
