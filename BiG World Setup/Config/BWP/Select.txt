@@ -63,7 +63,7 @@ CMD;IF EXIST "BiG World Fixpack\_CtBcutImp" IF EXIST Setup-ctb.exe xcopy /Y /S /
 CMD;IF EXIST "BiG World Fixpack\_Gavin_Hotfixes" IF EXIST Setup-gavin.exe xcopy /Y /S /E ".\BiG World Fixpack\_Gavin_Hotfixes\*.*" "."
 CMD;IF EXIST "BiG World Fixpack\_iwditemfix" If EXIST Setup-iwditempack.exe xcopy /Y /S /E ".\BiG World Fixpack\_iwditemfix\*.*" "."
 CMD;IF EXIST "BiG World Fixpack\_shatterfix" If EXIST Setup-item_rev.exe xcopy /Y /S /E ".\BiG World Fixpack\_shatterfix\*.*" "."
-CMD;IF EXIST "BiG World Fixpack\_ninjawakifix" IF EXIST Setup-item_rev.exe xcopy /Y /S /E ".\BiG World Fixpack\_ninjawakifix\*.*" "."
+ANN;CMD;IF EXIST "BiG World Fixpack\_ninjawakifix" IF EXIST Setup-item_rev.exe xcopy /Y /S /E ".\BiG World Fixpack\_ninjawakifix\*.*" "."
 CMD;IF EXIST "BiG World Textpack GERMAN\gavin" rmdir /s /q ".\BiG World Textpack GERMAN\gavin"
 ANN;For some foreign languages this adds English text files to the mods as a substitute to prevent that the installation fails because of missing files
 CMD;IF EXIST "BiG World Textpack GERMAN" xcopy /Y /S /E ".\BiG World Textpack GERMAN\_English_files" ".\BiG World Textpack GERMAN"
@@ -2470,7 +2470,6 @@ MUC;item_rev;Init;16;1111;
 MUC;item_rev;18;16;1100;
 MUC;item_rev;19;16;0000;
 MUC;item_rev;20;16;0011;
-STD;ninjawakifix;0;01;1111;
 ANN;CMD;IF EXIST "override\spell.IDS" echo 1413 CLERIC_NEGATIVE_PLANE_PROTECTION >> override\spell.IDS
 MUC;UniqueArtifacts;Init;16;0001;
 MUC;UniqueArtifacts;1;16;0000;
