@@ -32,7 +32,7 @@ ANN;--- item revisions core, spell revisions core ---
 ANN;IR #0 as early as possible so other mods can overwrite
 ANN;IR #0 is aware of SR #0 so should follow it
 ANN;therefore SR #0 early also
-STD;spell_rev;0;09;0000;
+STD;spell_rev;0;09;0111;
 STD;item_rev;0;09;0111;
 ANN;--- "big mods" ---
 STD;DarkHorizonsBGee;0;02;0011;
@@ -353,13 +353,13 @@ STD;iwdification;10;09;0111;
 ANN;#20 is commoners use drab colors
 STD;iwdification;20;09;0000;
 ANN;--- spells ---
-STD;spell_rev;10;09;0000;
-STD;spell_rev;20;09;0000;
-STD;spell_rev;30;09;0000;
-STD;spell_rev;40;09;0000;
-STD;spell_rev;50;09;0000;
-STD;spell_rev;60;09;0000;
-STD;spell_rev;70;09;0000;
+STD;spell_rev;10;09;0111;
+STD;spell_rev;20;09;0111;
+STD;spell_rev;30;09;0111;
+STD;spell_rev;40;09;0111;
+STD;spell_rev;50;09;0111;
+STD;spell_rev;55;09;0111;
+STD;spell_rev;60;09;0111;
 ANN;#30 is IWD arcane spells
 STD;iwdification;30;09;0111;
 ANN;#40 is IWD divine spells
