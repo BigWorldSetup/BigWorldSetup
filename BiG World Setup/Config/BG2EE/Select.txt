@@ -318,14 +318,14 @@ SUB;bg2eetp;0?1_3;00;1111;
 SUB;bg2eetp;0?1_4;00;1111;
 STD;BG2EE_GA;0;00;1111;
 ANN;--- Ascension BG2EE 1.51 BETA ---
-STD;Ascension;0;08;0001;
-STD;Ascension;1;08;0001;
-STD;Ascension;4;09;0001;
-STD;Ascension;5;08;0001;
-STD;Ascension;6;08;0001;
-STD;Ascension;7;08;0001;
-STD;Ascension;8;08;0001;
-STD;Ascension;9;08;0001;
+STD;Ascension;0;08;1111;
+STD;Ascension;1;08;1111;
+STD;Ascension;4;09;1111;
+STD;Ascension;5;08;0011;
+STD;Ascension;6;08;0011;
+STD;Ascension;7;08;0011;
+STD;Ascension;8;08;0011;
+STD;Ascension;9;08;0011;
 ANN;--- post-EET BGEE tweaks ---
 ANN;move BGEESpawn here?
 MUC;7c#sartweak;Init;07;0011;
@@ -2053,8 +2053,8 @@ STD;apr_fix;0;01;0111;
 ANN;--- portraits ---
 STD;Isandir;0;13;0000;
 STD;Isandir;1;13;0000;
-STD;Ascension;2;13;1100;
-STD;Ascension;3;13;1100;
+STD;Ascension;2;13;1111;
+STD;Ascension;3;13;1111;
 SUB;eet_tweaks;1;13;1111;
 SUB;eet_tweaks;1?1_1;13;0000;
 SUB;eet_tweaks;1?1_2;13;1111;
