@@ -2051,8 +2051,8 @@ STD;LightingPack;20;13;0000;
 ANN;--- optional fixes ---
 STD;apr_fix;0;01;0111;
 ANN;--- portraits ---
-STD;Isandir;0;20;0000;
-STD;Isandir;1;20;0000;
+STD;Isandir;0;13;0000;
+STD;Isandir;1;13;0000;
 STD;Ascension;2;13;1100;
 STD;Ascension;3;13;1100;
 SUB;eet_tweaks;1;13;1111;

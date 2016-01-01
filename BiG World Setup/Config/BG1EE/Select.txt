@@ -1156,8 +1156,8 @@ ANN;--- optional fixes ---
 STD;apr_fix;0;01;0111;
 ANN;--- portraits ---
 DWN;ThePictureStandardBGEE;0;13;0111;
-STD;Isandir;0;20;0000;
-STD;Isandir;1;20;0000;
+STD;Isandir;0;13;0000;
+STD;Isandir;1;13;0000;
 SUB;ajantisportraitpack;0;13;0000;
 SUB;ajantisportraitpack;0?1_1;13;0000;
 SUB;ajantisportraitpack;0?1_2;13;0000;
