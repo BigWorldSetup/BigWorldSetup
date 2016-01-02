@@ -440,8 +440,8 @@ STD;Divine_Remix;406;12;0111;
 STD;Divine_Remix;409;12;0111;
 STD;Divine_Remix;412;12;0111;
 STD;Divine_Remix;415;12;0111;
-STD;Divine_Remix;600;12;0111;
-STD;Divine_Remix;610;12;0111;
+STD;Divine_Remix;600;12;0001;
+STD;Divine_Remix;610;12;0001;
 ANN;#1000 is sphere system
 STD;Divine_Remix;1000;09;0001;
 STD;song_and_silence;0;12;0111;
