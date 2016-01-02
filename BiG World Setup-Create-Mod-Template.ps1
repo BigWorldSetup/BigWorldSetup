@@ -73,7 +73,7 @@ $tp2data = $tp2dataRaw -split "`r`n|`r|`n"
 if ( !$Name ) { $Name  = $tp2FileNoSetup }
 
 if ( !$version ) {
-    $version = ((( $tp2data | Select-String -Pattern 'VERSION ~') -split ' ') -replace '~')[1]
+    $version = ((( $tp2data | Select-String -Pattern 'VERSION ') -split ' ') -replace '~')[1]
     if ( !$version ) {
     Write-Warning "Missing VERSION inside $($tp2File.FullName) - manuall edit of $tp2FileNoSetup.ini required."
     #Write-Host "Please provide version of the mod"
