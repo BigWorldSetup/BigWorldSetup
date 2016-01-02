@@ -23,10 +23,12 @@ function Grant-Elevation {
 }
 Grant-Elevation
 
+if (( Get-ChildItem -Filter 'BiG*World*Setup*' ).count -eq 0 ) {
 try {
     Invoke-WebRequest 'https://bitbucket.org/BigWorldSetup/bigworldsetup/raw/master/BiG%20World%20Setup-Create-Mod-Template.ps1' -UseBasicParsing -OutFile "$($script:MyInvocation.MyCommand.Name)" | Out-Null
 } catch {
     $_.Exception.Response.StatusCode.Value__
+}
 }
 
 $comWeiDU = $langWeiDU = $tp2data = $tp2dataRaw = $tp2dataRegex = $tp2File = $tp2FullPath = $weidu = $null
@@ -71,7 +73,7 @@ $tp2data = $tp2dataRaw -split "`r`n|`r|`n"
 if ( !$Name ) { $Name  = $tp2FileNoSetup }
 
 if ( !$version ) {
-    $version = (($tp2data | Select-String -Pattern 'VERSION ~') -split '~')[1]
+    $version = ((( $tp2data | Select-String -Pattern 'VERSION ~') -split ' ') -replace '~')[1]
     if ( !$version ) {
     Write-Warning "Missing VERSION inside $($tp2File.FullName) - manuall edit of $tp2FileNoSetup.ini required."
     #Write-Host "Please provide version of the mod"
