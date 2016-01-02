@@ -36,7 +36,7 @@ STD;spell_rev;0;09;0111;
 STD;item_rev;0;09;0111;
 ANN;--- "big mods" ---
 STD;DarkHorizonsBGee;0;02;0011;
-STD;dsotscBGEE;5;02;0111;
+STD;dsotscBGEE;0;02;0111;
 MUC;drizztsaga;Init;02;0011;
 MUC;drizztsaga;0;02;0000;
 MUC;drizztsaga;1;02;0011;
