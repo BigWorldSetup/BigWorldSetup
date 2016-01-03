@@ -203,7 +203,8 @@ STD;TP;1;01;1111;
 STD;BGT-NPCSound;0;01;1111;
 STD;TxtMusic;0;01;1111;
 ANN;#4. BIG BG2 MODS PAST BGT
-CMD;IF EXIST Setup-NeJ2v691.exe copy /Y ".\override\ar8701.wed" ".\BWP_workspace\override";;;;D:bggraphics(0)
+ANN;Looks like this alredy fixed too
+ANN;CMD;IF EXIST Setup-NeJ2v691.exe copy /Y ".\override\ar8701.wed" ".\BWP_workspace\override";;;;D:bggraphics(0)
 CMD;IF EXIST ".\BWP_workspace\override\tisunpack.exe" copy /Y ".\BWP_workspace\override\tisunpack.exe" "*.*"
 STD;NeJ2v691;0;01;0001;
 STD;NeJ2v691;1;19;0001;
@@ -217,7 +218,8 @@ STD;NeJ2v691;10;17;0001;
 ANN;NeJ2v691;11;06;0001;
 STD;NeJ2v691;12;09;0001;
 STD;NeJ2v694;0;01;0001;
-CMD;IF EXIST ".\BWP_workspace\override\ar8701.wed" copy /Y ".\BWP_workspace\override\ar8701.wed" ".\override"
+ANN;Looks like this alredy fixed too
+ANN;CMD;IF EXIST ".\BWP_workspace\override\ar8701.wed" copy /Y ".\BWP_workspace\override\ar8701.wed" ".\override"
 CMD;IF EXIST ".\override\CLABCHRG.2DA" IF NOT EXIST ".\override\SPIN506.SPL" del ".\override\CLABCHRG.2DA"
 CMD;IF EXIST ".\NEJ2" copy /Y ".\BiG World Fixpack\_override\NEJ2\*.*" ".\override"
 STD;TS;0;09;0111;

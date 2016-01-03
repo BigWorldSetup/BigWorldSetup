@@ -2054,8 +2054,8 @@ STD;apr_fix;0;01;0111;
 ANN;--- portraits ---
 STD;Isandir;0;13;0000;
 STD;Isandir;1;13;0000;
-STD;Ascension;2;13;0111;
-STD;Ascension;3;13;0111;
+STD;Ascension;101;13;0111;
+STD;Ascension;102;13;0111;
 SUB;eet_tweaks;1;13;1111;
 SUB;eet_tweaks;1?1_1;13;0000;
 SUB;eet_tweaks;1?1_2;13;1111;
