@@ -1120,8 +1120,8 @@ MUC;Khalid;7;12;0000;
 MUC;Khalid;Init;12;0000;
 MUC;Khalid;8;12;0000;
 MUC;Khalid;9;12;0000;
-ANN;Not compatible with DrizztSaga v3
-ANN;STD;THEONEDRIZZT;0;14;0111;
+ANN;The One Drizzt requires DrizztSaga but is not compatible with DrizztSaga v3
+STD;THEONEDRIZZT;0;14;0001;
 STD;LaValygar;0;14;1111;
 STD;yeslicknpc;0;12;1111;
 STD;sarevokfriendship;0;14;1111;
