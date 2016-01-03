@@ -879,14 +879,12 @@ STD;klatu;2070;09;1111;
 STD;klatu;2080;09;1111;
 SUB;klatu;2090;09;1111;
 SUB;klatu;2090?1_1;09;1111;
-ANN;second choice disabled until BWS can handle nested sub-components 
-ANN;SUB;klatu;2090?1_2;09;0000;
-ANN;SUB;klatu;2090?1_2_1;09;0000;
-SUB;klatu;2090?2_1;09;1111;
-ANN;second choice disabled until BWS can handle nested sub-components 
-ANN;SUB;klatu;2090?2_2;09;0000;
-ANN;SUB;klatu;2090?2_2_1;09;0000;
+SUB;klatu;2090?1_2;09;0000;
+SUB;klatu;2090?2_10;09;0000;
 SUB;klatu;2090?3_1;09;1111;
+SUB;klatu;2090?3_2;09;0000;
+SUB;klatu;2090?4_10;09;0000;
+SUB;klatu;2090?5_1;09;1111;
 STD;klatu;2110;09;1111;
 STD;klatu;2120;09;1111;
 STD;klatu;2130;09;1111;

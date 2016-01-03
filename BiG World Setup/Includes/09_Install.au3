@@ -699,6 +699,14 @@ Func _Install_BuildSubcmd($p_Setup, $p_Comp)
 			$Components=StringRegExpReplace($Components, '400\x3f7_\d\s', '')
 		EndIf
 	EndIf
+	If $p_Setup = 'klatu' Then
+		If StringInStr($Components, '2090?') And Not StringInStr($Components, '2090?1_2') Then ; Remove Enter a number if Allow divine casting was not selected before.
+			$Components=StringRegExpReplace($Components, '2090\x3f2_\d\s', '')
+		EndIf
+		If StringInStr($Components, '2090?') And Not StringInStr($Components, '2090?3_2') Then ; Remove Enter a number if Allow arcane casting was not selected before.
+			$Components=StringRegExpReplace($Components, '2090\x3f4_\d\s', '')
+		EndIf
+	EndIf
 	$Components=_SplitComp($Components)
 	$Handle=FileOpen($g_GameDir&'\BWS_Sub.nul', 2)
 	For $c=1 to $Components[0]
