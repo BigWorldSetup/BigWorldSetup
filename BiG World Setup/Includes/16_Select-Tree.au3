@@ -275,7 +275,7 @@ EndFunc    ;==>_Tree_GetTags
 ; ---------------------------------------------------------------------------------------------
 Func _Tree_Populate($p_Show=1)
 	_PrintDebug('+' & @ScriptLineNumber & ' Calling _Tree_Populate')
-	Local $ch, $cs, $cc, $ReadSection, $Type, $ATMod, $ATIdx, $NotFixedItems
+	Local $ch, $cs, $cc, $ReadSection, $Type='0000', $ATMod, $ATIdx, $NotFixedItems
 	_Misc_ProgressGUI(_GetTR($g_UI_Message, '0-T2'), _GetTR($g_UI_Message, '0-L3')); => building dependencies-table
 	GUISwitch($g_UI[0])
 	_Tree_PurgeUnNeeded(); calculate unsuited mods
@@ -376,7 +376,7 @@ Func _Tree_Populate($p_Show=1)
 			$g_CentralArray[$g_TreeviewItem[$cs][0]][9] = 0
 			$g_CentralArray[$g_TreeviewItem[$cs][0]][10] = 0
 			$g_CentralArray[$g_TreeviewItem[$cs][0]][11] = _IniRead($ReadSection, 'Type', '')
-			$g_CentralArray[$g_TreeviewItem[$cs][0]][12] = $Setup[$s][4]
+			$g_CentralArray[$g_TreeviewItem[$cs][0]][12] = $Setup[$s][4]; pre-selection bits (0000 to 1111)
 			$g_CentralArray[$g_TreeviewItem[$cs][0]][15] = _IniRead($ReadSection, 'Rev', '')
 			If $g_Flags[14] = 'BWP' Then; prevent search if batch-install is used
 				Local $ReadSection[1][2]
@@ -402,9 +402,9 @@ Func _Tree_Populate($p_Show=1)
 					GUICtrlSetColor($g_TreeviewItem[$cs][0], 0xad1414); light foreground = expert
 				EndIf
 				; If a mod ini has 'W' or 'M' in its comma-separated Type list, highlight the background of the mod name
-				; This is purely cosmetic to encourage users to read the mod description, which should explain why
+				; This is purely cosmetic to encourage users to read the mod description, which should explain the warning
 				If StringInStr($g_CentralArray[$g_TreeviewItem[$cs][0]][11], 'W') Then
-					If $g_Flags[14]='BWP' Then $Type='0000'; no components by default for batch install
+					If $g_Flags[14]='BWP' Then $Type='0000'; don't select warning mods by default for batch install
 					GUICtrlSetBkColor($g_TreeviewItem[$cs][0], 0xffff99); yellow background = warning
 				ElseIf StringInStr($g_CentralArray[$g_TreeviewItem[$cs][0]][11], 'M') Then
 					GUICtrlSetBkColor($g_TreeviewItem[$cs][0], 0xdddddd); light grey background = manual download
@@ -459,7 +459,7 @@ Func _Tree_Populate($p_Show=1)
 				$g_CentralArray[$g_TreeviewItem[$cs][$cc]][9] = 0
 				$g_CentralArray[$g_TreeviewItem[$cs][$cc]][10] = 0
 				$g_CentralArray[$g_TreeviewItem[$cs][$cc]][11] = $g_CentralArray[$g_TreeviewItem[$cs][0]][11]
-				$g_CentralArray[$g_TreeviewItem[$cs][$cc]][12] = $Setup[$s][4]
+				$g_CentralArray[$g_TreeviewItem[$cs][$cc]][12] = $Setup[$s][4]; pre-selection bits (0000 to 1111)
 				;$g_CentralArray[$g_TreeviewItem[$cs][$cc]][13] = $g_CentralArray[$g_TreeviewItem[$cs][0]][13]
 				$g_CentralArray[$g_TreeviewItem[$cs][0]][10]+=2; increase possible selections
 				$g_CentralArray[0][0] = $g_TreeviewItem[$cs][$cc] ; last item in array
@@ -489,18 +489,20 @@ Func _Tree_Populate($p_Show=1)
 		$g_CentralArray[0][0] = $g_TreeviewItem[$cs][$cc] ; last item in array
 		$g_CentralArray[$g_TreeviewItem[$cs][$cc]][0] = $g_CentralArray[$g_TreeviewItem[$cs][0]][0] ; setup-name
 		$g_CentralArray[$g_TreeviewItem[$cs][$cc]][1] = $Setup[$s][8] ; tag
-		$g_CentralArray[$g_TreeviewItem[$cs][$cc]][2] = $Setup[$s][3] ; componentnumber
-		$g_CentralArray[$g_TreeviewItem[$cs][$cc]][3] = $Dsc ; componentdescription
+		$g_CentralArray[$g_TreeviewItem[$cs][$cc]][2] = $Setup[$s][3] ; component number
+		$g_CentralArray[$g_TreeviewItem[$cs][$cc]][3] = $Dsc ; component description
 		$g_CentralArray[$g_TreeviewItem[$cs][$cc]][4] = $Setup[$s][7]; mod description
 		$g_CentralArray[$g_TreeviewItem[$cs][$cc]][5] = GUICtrlGetHandle($g_TreeviewItem[$cs][$cc]); handle
 		$Test = _Depend_ItemGetConnections($g_Connections, $g_TreeviewItem[$cs][$cc], $Index[$Setup[$s][1]][2], $Setup[$s][2], $Setup[$s][3]); get dependencies and conflicts; takes 800 ms
 		$g_CentralArray[$g_TreeviewItem[$cs][$cc]][11] = $g_CentralArray[$g_TreeviewItem[$cs][0]][11]
 		If $g_Flags[14]='BWP' Then; batch-install
-			$g_CentralArray[$g_TreeviewItem[$cs][$cc]][12] = $Type; insert calculated component type
+			$g_CentralArray[$g_TreeviewItem[$cs][$cc]][12] = $Type; set pre-selection bits based on mod Type ($Type is set earlier in this function)
+		ElseIf StringRegExp($g_CentralArray[$g_TreeviewItem[$cs][0]][11], '\A[^RST]+\z') Then; mod Type does not include 'R'ecommended, 'S' Maximized or 'T'actical
+			$g_CentralArray[$g_TreeviewItem[$cs][$cc]][12] = '0001'; mark the item Expert regardless of Select.txt
 		Else
-			$g_CentralArray[$g_TreeviewItem[$cs][$cc]][12] = $Setup[$s][4]
+			$g_CentralArray[$g_TreeviewItem[$cs][$cc]][12] = $Setup[$s][4]; pre-selection bits (0000 to 1111) according to Setup.txt
 		EndIf
-		If $NotFixedItems <> '' Then; see if the item is not among the fixed ones
+		If $NotFixedItems <> '' Then; see if the item is among the 'not fixed' ones
 			$ItemIsNotFixed = StringRegExp($NotFixedItems, '(?i)(\A|\s)' & $Setup[$s][3] & '(\s|\z)'); Note: Not checking for SUBs here.
 			If $ItemIsNotFixed Then $g_CentralArray[$g_TreeviewItem[$cs][$cc]][11]=StringRegExpReplace($g_CentralArray[$g_TreeviewItem[$cs][$cc]][11], '\AF,|,F', '')
 		EndIf
