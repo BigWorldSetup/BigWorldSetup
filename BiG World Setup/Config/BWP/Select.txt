@@ -203,8 +203,6 @@ STD;TP;1;01;1111;
 STD;BGT-NPCSound;0;01;1111;
 STD;TxtMusic;0;01;1111;
 ANN;#4. BIG BG2 MODS PAST BGT
-ANN;Looks like this alredy fixed too
-ANN;CMD;IF EXIST Setup-NeJ2v691.exe copy /Y ".\override\ar8701.wed" ".\BWP_workspace\override";;;;D:bggraphics(0)
 CMD;IF EXIST ".\BWP_workspace\override\tisunpack.exe" copy /Y ".\BWP_workspace\override\tisunpack.exe" "*.*"
 STD;NeJ2v691;0;01;0001;
 STD;NeJ2v691;1;19;0001;
@@ -218,9 +216,7 @@ STD;NeJ2v691;10;17;0001;
 ANN;NeJ2v691;11;06;0001;
 STD;NeJ2v691;12;09;0001;
 STD;NeJ2v694;0;01;0001;
-ANN;Looks like this alredy fixed too
-ANN;CMD;IF EXIST ".\BWP_workspace\override\ar8701.wed" copy /Y ".\BWP_workspace\override\ar8701.wed" ".\override"
-CMD;IF EXIST ".\override\CLABCHRG.2DA" IF NOT EXIST ".\override\SPIN506.SPL" del ".\override\CLABCHRG.2DA"
+ANN;CMD;IF EXIST ".\override\CLABCHRG.2DA" IF NOT EXIST ".\override\SPIN506.SPL" del ".\override\CLABCHRG.2DA"
 CMD;IF EXIST ".\NEJ2" copy /Y ".\BiG World Fixpack\_override\NEJ2\*.*" ".\override"
 STD;TS;0;09;0111;
 STD;TS;1;20;0111;
@@ -2352,9 +2348,9 @@ STD;sword_and_fist;1;16;0111;
 STD;sword_and_fist;30;19;0111;
 STD;sword_and_fist;31;19;0111;
 STD;sword_and_fist;32;19;0111;
-CMD;IF EXIST Setup-Spell_Rev.exe IF EXIST ".\override\SPPR107.SPL" move ".\override\SPPR107.SPL" ".\BWP_workspace\override"
+ANN;CMD;IF EXIST Setup-Spell_Rev.exe IF EXIST ".\override\SPPR107.SPL" move ".\override\SPPR107.SPL" ".\BWP_workspace\override"
 STD;sword_and_fist;33;19;0111;
-CMD;IF EXIST Setup-Spell_Rev.exe IF EXIST ".\BWP_workspace\override\SPPR107.SPL" move ".\BWP_workspace\override\SPPR107.SPL" ".\override"
+ANN;CMD;IF EXIST Setup-Spell_Rev.exe IF EXIST ".\BWP_workspace\override\SPPR107.SPL" move ".\BWP_workspace\override\SPPR107.SPL" ".\override"
 STD;sword_and_fist;34;19;0111;
 STD;RR;0;16;1111;
 STD;RR;1;16;1111;
@@ -2716,12 +2712,12 @@ STD;might_and_guile;500;16;0111;
 STD;RPG-KP;0;19;0111;
 STD;RPG-KP;1;19;0000;
 STD;RPG-KP;2;19;0111;
-STD;RPG-KP;3;19;0111;
+STD;RPG-KP;3;19;0001;
 STD;RPG-KP;4;19;0001;
-STD;RPG-KP;5;19;0001;
+STD;RPG-KP;5;19;0000;
 STD;RPG-KP;6;19;0001;
 STD;RPG-KP;7;19;0001;
-STD;RPG-KP;8;19;0001;
+STD;RPG-KP;8;19;0000;
 STD;RPG-KP;9;19;0111;
 STD;RPG-KP;10;19;0111;
 STD;RPG-KP;11;19;0111;
@@ -3464,16 +3460,12 @@ MUC;tb#tweaks;9120;16;0000;
 MUC;tb#tweaks;9130;16;0000;
 MUC;tb#tweaks;9140;16;0000;
 MUC;tb#tweaks;9150;16;0000;
-ANN;Not needed if Sandrah installed after P5Tweaks?
-ANN;CMD;IF EXIST Setup-SandrahNPC.exe IF EXIST ".\override\CVPRO11.SPL" move ".\override\CVPRO11.SPL" ".\BWP_workspace\override"
 STD;P5Tweaks;10;16;1111;
 STD;P5Tweaks;20;16;1111;
 STD;P5Tweaks;30;16;1111;
 STD;P5Tweaks;40;16;1111;
 STD;P5Tweaks;50;16;1111;
 STD;P5Tweaks;60;16;1111;
-ANN;Not needed if Sandrah installed after P5Tweaks?
-ANN;CMD;IF EXIST Setup-SandrahNPC.exe IF EXIST ".\BWP_workspace\override\CVPRO11.SPL" move ".\BWP_workspace\override\CVPRO11.SPL" ".\override"
 STD;trap_rev;0;16;0111;
 MUC;contain;Init;20;1111;
 MUC;contain;10;20;1111;
@@ -4082,8 +4074,17 @@ MUC;BP-BGT-Worldmap;2;20;0000;
 STD;BG2_Tweaks;3220;16;0111;
 STD;mapnames;0;20;1111;
 STD;mapnames;25;20;1111;
-CMD;IF EXIST RPG-KP.exe IF EXIST ".\override\SPCL565.SPL" move ".\override\SPCL565.SPL" ".\BWP_workspace\override"
-CMD;IF EXIST RPG-KP.exe IF EXIST ".\override\SPCL566.SPL" move ".\override\SPCL566.SPL" ".\BWP_workspace\override"
+CMD;move ".\override\SPCL562.SPL" ".\BWP_workspace\override";;;;D:RPG-KP(4)
+CMD;move ".\override\SPCL562.SPL" ".\BWP_workspace\override";;;;D:RPG-KP(5)
+CMD;move ".\override\SPCL563.SPL" ".\BWP_workspace\override";;;;D:RPG-KP(6)
+CMD;move ".\override\SPCL564.SPL" ".\BWP_workspace\override";;;;D:RPG-KP(6)
+CMD;move ".\override\SPCL565.SPL" ".\BWP_workspace\override";;;;D:RPG-KP(7)
+CMD;move ".\override\SPCL565.SPL" ".\BWP_workspace\override";;;;D:RPG-KP(8)
+CMD;move ".\override\SPCL566.SPL" ".\BWP_workspace\override";;;;D:RPG-KP(7)
+CMD;move ".\override\SPCL566.SPL" ".\BWP_workspace\override";;;;D:RPG-KP(8)
+CMD;move ".\override\W#HLAB01.SPL" ".\BWP_workspace\override";;;;D:RPG-KP(3)
+CMD;move ".\override\W#HLAB02.SPL" ".\BWP_workspace\override";;;;D:RPG-KP(3)
+CMD;move ".\override\W#HLAB04.SPL" ".\BWP_workspace\override";;;;D:RPG-KP(3)
 STD;BInfinitySounds;0;20;0111;
 SUB;BInfinitySounds;1;20;0111;
 SUB;BInfinitySounds;1?1_y;20;0111;
@@ -4113,8 +4114,17 @@ STD;BInfinitySounds;8;20;0111;
 STD;BInfinitySounds;9;20;0111;
 STD;BInfinitySounds;10;20;0000;
 STD;BInfinitySounds;11;20;0000;
-CMD;IF EXIST RPG-KP.exe IF EXIST ".\BWP_workspace\override\SPCL565.SPL" move ".\BWP_workspace\override\SPCL565.SPL" ".\override"
-CMD;IF EXIST RPG-KP.exe IF EXIST ".\BWP_workspace\override\SPCL566.SPL" move ".\BWP_workspace\override\SPCL566.SPL" ".\override"
+CMD;move ".\BWP_workspace\override\SPCL562.SPL" ".\override";;;;D:RPG-KP(4)
+CMD;move ".\BWP_workspace\override\SPCL562.SPL" ".\override";;;;D:RPG-KP(5)
+CMD;move ".\BWP_workspace\override\SPCL563.SPL" ".\override";;;;D:RPG-KP(6)
+CMD;move ".\BWP_workspace\override\SPCL564.SPL" ".\override";;;;D:RPG-KP(6)
+CMD;move ".\BWP_workspace\override\SPCL565.SPL" ".\override";;;;D:RPG-KP(7)
+CMD;move ".\BWP_workspace\override\SPCL565.SPL" ".\override";;;;D:RPG-KP(8)
+CMD;move ".\BWP_workspace\override\SPCL566.SPL" ".\override";;;;D:RPG-KP(7)
+CMD;move ".\BWP_workspace\override\SPCL566.SPL" ".\override";;;;D:RPG-KP(8)
+CMD;move ".\BWP_workspace\override\W#HLAB01.SPL" ".\override";;;;D:RPG-KP(3)
+CMD;move ".\BWP_workspace\override\W#HLAB02.SPL" ".\override";;;;D:RPG-KP(3)
+CMD;move ".\BWP_workspace\override\W#HLAB04.SPL" ".\override";;;;D:RPG-KP(3)
 MUC;1pp_hq_music_BGT;Init;20;0001;
 MUC;1pp_hq_music_BGT;0;20;0001;
 MUC;1pp_hq_music_BGT;1;20;0000;
