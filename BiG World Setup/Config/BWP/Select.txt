@@ -3306,7 +3306,7 @@ MUC;aTweaks;502;16;0000;
 STD;aTweaks;510;16;1111;
 STD;aTweaks;999;16;1111;
 STD;BardSong_BG2_IWD;0;16;0000;
-STD;BardSong_BG2_IWD;1;16;0000;
+STD;BardSong_BG2_IWD;1;16;0001;
 ANN;--BWP15.5--gMinion before SR, but after SCS and BP AI (not possible)
 STD;gMinion;0;18;0000;
 ANN;CMD;IF EXIST "override\spell.IDS" echo 2302 WIZARD_REMOVE_MAGIC >> override\spell.IDS;;;;D:BPSeries(100)
