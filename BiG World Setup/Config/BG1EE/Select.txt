@@ -8,7 +8,6 @@ DWN;bwfixpack;0;00;1111;
 CMD;IF EXIST ".\BiG World Installpack\BiG World Smoothpack" move ".\BiG World Installpack\BiG World Smoothpack\_modify\*.*" "."
 CMD;IF EXIST "BiG World Fixpack" xcopy /Y /S /E ".\BiG World Fixpack\_Lolfixer\*.*" "."
 CMD;IF EXIST "BiG World Fixpack" xcopy /Y /S /E ".\BiG World Fixpack\_resfixer_v1\*.*" "."
-CMD;IF EXIST "BiG World Fixpack" xcopy /Y /S /E ".\BiG World Fixpack\_shatterfix\*.*" "."
 CMD;IF EXIST "BiG World Fixpack\item_rev" rmdir /s /q "BiG World Fixpack\item_rev"
 CMD;IF EXIST "BiG World Fixpack\spell_rev" rmdir /s /q "BiG World Fixpack\spell_rev"
 CMD;IF EXIST "BiG World Fixpack" IF NOT EXIST BWP_Fixpack.installed Call "BiG World Fixpack.bat"
@@ -415,7 +414,6 @@ MUC;item_rev;18;09;0000;
 MUC;item_rev;19;09;0111;
 MUC;item_rev;20;09;0000;
 STD;item_rev;1200;09;0011;
-STD;item_rev_shatterfix;0;01;0111;
 ANN;--- new spells ---
 MUC;Divine_Remix;Init;09;0111;
 MUC;Divine_Remix;10;09;0001;

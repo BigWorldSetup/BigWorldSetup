@@ -335,7 +335,7 @@ Func Au3ExFix($p_Num)
 			$ReadSection = IniReadSection($g_MODIni, $Fault[$f][0])
 			$Mod = _IniRead($ReadSection, 'Name', $Fault[$f][0])
 			_Process_SetConsoleLog(_GetTR($Message, 'L2') & ' ' & $Mod & ' ...'); => checking
-			If StringInStr($Fault[$f][1], '1') Then; remove hole mod
+			If StringInStr($Fault[$f][1], '1') Then; remove whole mod
 				$TP2 = _Test_GetTP2($Fault[$f][0], '\')
 				If $TP2 = '0' Then
 					$Rename = IniRead($g_MODIni, $Fault[$f][0], 'REN', ''); look for some non-standard-filenames that will be renamed later

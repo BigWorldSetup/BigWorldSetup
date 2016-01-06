@@ -292,7 +292,6 @@ ANN;special case - BWS has code in Testing.au3 that will extract WeiDU, bwinstal
 CMD;IF EXIST ".\BiG World Installpack\BiG World Smoothpack" move ".\BiG World Installpack\BiG World Smoothpack\_modify\*.*" "."
 CMD;IF EXIST "BiG World Fixpack" xcopy /Y /S /E ".\BiG World Fixpack\_Lolfixer\*.*" "."
 CMD;IF EXIST "BiG World Fixpack" xcopy /Y /S /E ".\BiG World Fixpack\_resfixer_v1\*.*" "."
-CMD;IF EXIST "BiG World Fixpack" xcopy /Y /S /E ".\BiG World Fixpack\_shatterfix\*.*" "."
 CMD;IF EXIST "BiG World Fixpack\ascension" rmdir /s /q "BiG World Fixpack\ascension"
 CMD;IF EXIST "BiG World Fixpack\item_rev" rmdir /s /q "BiG World Fixpack\item_rev"
 CMD;IF EXIST "BiG World Fixpack\spell_rev" rmdir /s /q "BiG World Fixpack\spell_rev"
@@ -951,7 +950,6 @@ MUC;item_rev;18;09;0000;
 MUC;item_rev;19;09;0111;
 MUC;item_rev;20;09;0000;
 STD;item_rev;1200;09;0011;
-STD;item_rev_shatterfix;0;01;0111;
 ANN;--- NPC kit changes ---
 MUC;LaViconia;Init;07;0000;
 MUC;LaViconia;0;07;0000;
