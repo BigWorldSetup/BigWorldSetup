@@ -25,9 +25,9 @@ SUB;bgeegraphics;0?1_2;13;0000;
 DWN;bgeegraphics_part2;0;13;0001;
 DWN;bgeegraphics_part3;0;13;0001;
 ANN;Removing corrupted .wed
-CMD;IF EXIST setup-bgeegraphics.exe IF EXIST ".\override\ar4300.wed" move ".\override\ar4300.wed" ".\BWS_workspace\override"
+ANN;CMD;IF EXIST setup-bgeegraphics.exe IF EXIST ".\override\ar4300.wed" move ".\override\ar4300.wed" ".\BWS_workspace\override"
 ANN;Removing .are because of corrupted .wed
-CMD;IF EXIST setup-bgeegraphics.exe IF EXIST ".\override\ar3000n.wed" move ".\override\ar3000.are" ".\BWS_workspace\override"
+ANN;CMD;IF EXIST setup-bgeegraphics.exe IF EXIST ".\override\ar3000n.wed" move ".\override\ar3000.are" ".\BWS_workspace\override"
 ANN;--- item revisions core, spell revisions core ---
 ANN;IR #0 as early as possible so other mods can overwrite
 ANN;IR #0 is aware of SR #0 so should follow it
