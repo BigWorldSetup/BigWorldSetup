@@ -1,6 +1,6 @@
 #include-once
 
-;Global $g_dependDebugFile=FileOpen('depend_debug.txt', 1); append
+Global $g_dependDebugFile ;= FileOpen('depend_debug.txt', 1); append
 
 ; Note that you have to edit the functions when doing changes:
 ; _Depend_AutoSolve => solve problems right from start or in the dependency/connections-screen
@@ -48,6 +48,61 @@
 ;      mods/components that are in conflict with other mods in the rule will be added only if they are ACTIVE
 ;    note: the same mod/component can be added to the array multiple times if it is involved in more than one rule
 ;         - or (error case) if the same mod/component is on both sides of the rule - D:a(-):a(-) or C:b(-):b(-)
+
+; ---------------------------------------------------------------------------------------------
+; Add entries to the array of active problems
+; ---------------------------------------------------------------------------------------------
+Func _Depend_ActiveAddItem($p_Type, $p_RuleID, $p_Setup, $SubGroup=0)
+	Local $p_Debug=0
+	$g_ActiveConnections[0][0]+=1
+	$g_ActiveConnections[$g_ActiveConnections[0][0]][0]=$p_Type
+	$g_ActiveConnections[$g_ActiveConnections[0][0]][1]=$p_RuleID
+	$g_ActiveConnections[$g_ActiveConnections[0][0]][2]=$p_Setup
+	$g_ActiveConnections[$g_ActiveConnections[0][0]][3]=$SubGroup
+	If $p_Debug Then FileWrite($g_dependDebugFile, '_Depend_ActiveAddItem:  p_Type='&$p_Type&', p_RuleID='&$p_RuleID&', p_Setup='&$p_Setup&', SubGroup='&$SubGroup&@CRLF)
+EndFunc   ;==>_Depend_ActiveAddItem
+
+; ---------------------------------------------------------------------------------------------
+; Clear and fill $g_ActiveConnections array
+; If $p_Show is true, display all conflicts and dependencies as needed (used during selection)
+; ---------------------------------------------------------------------------------------------
+Func _Depend_GetActiveConnections($p_Show=1)
+	_PrintDebug('+' & @ScriptLineNumber & ' Calling _Depend_GetActiveConnections')
+	Global $g_ActiveConnections[9999][4]; initialize/clear active connections (will fill using _Depend_ActiveAddItem)
+	$g_ActiveConnections[0][0] = 0; reset number of active connections counter to zero
+	If $p_Show=1 Then _GUICtrlListView_BeginUpdate($g_UI_Handle[1])
+	If $p_Show=1 Then _GUICtrlListView_DeleteAllItems($g_UI_Handle[1])
+	For $c = 1 To $g_Connections[0][0]; loop through array of all Game.ini rules
+		If StringLeft ($g_Connections[$c][3], 1) = 'W' Then; skip rules that have been right-click ignored by user
+			ContinueLoop
+		ElseIf StringLeft ($g_Connections[$c][3], 1) = 'D' Then; this is a dependency rule
+			If StringMid($g_Connections[$c][3], 2, 1) = 'W' Then
+				$String=StringTrimLeft($g_Connections[$c][3], 3)
+			Else
+				$String=StringTrimLeft($g_Connections[$c][3], 2)
+			EndIf
+			If Not StringInStr($String, ':') Then; all items are needed
+				_Depend_GetActiveDependAll($String, $c, $p_Show)
+			Else; some items need some other items
+				_Depend_GetActiveDependAdv($String, $c, $p_Show)
+			EndIf
+		ElseIf StringLeft ($g_Connections[$c][3], 1) = 'C' Then; this is a conflict rule
+			If StringMid($g_Connections[$c][3], 2, 1) = 'W' Then
+				$String=StringTrimLeft($g_Connections[$c][3], 3)
+			Else
+				$String=StringTrimLeft($g_Connections[$c][3], 2)
+			EndIf
+			If StringInStr($String, ':') Then; this is an advanced conflict
+				_Depend_GetActiveConflictAdv($String, $c, $p_Show)
+			Else; this is a normal conflict
+				_Depend_GetActiveConflictStd($String, $c, $p_Show)
+			EndIf
+		Else; this is an unknown type of connection
+			_PrintDebug('+' & @ScriptLineNumber & ' Unknown type encountered in _Depend_GetActiveConnections: ' & $g_Connections[$c][3])
+		EndIf
+	Next
+	If $p_Show=1 Then _GUICtrlListView_EndUpdate($g_UI_Handle[1])
+EndFunc   ;==>_Depend_GetActiveConnections
 
 ; ---------------------------------------------------------------------------------------------
 ; Automatically solve dependencies and conflicts of provided type (used before and after selection)
@@ -334,61 +389,6 @@ Func _Depend_CreateSortedOutput(ByRef $p_Array)
 EndFunc   ;==>_Depend_CreateSortedOutput
 
 ; ---------------------------------------------------------------------------------------------
-; Add entries to the array of active problems
-; ---------------------------------------------------------------------------------------------
-Func _Depend_ActiveAddItem($p_Type, $p_RuleID, $p_Setup, $SubGroup=0)
-	Local $p_Debug=0
-	$g_ActiveConnections[0][0]+=1
-	$g_ActiveConnections[$g_ActiveConnections[0][0]][0]=$p_Type
-	$g_ActiveConnections[$g_ActiveConnections[0][0]][1]=$p_RuleID
-	$g_ActiveConnections[$g_ActiveConnections[0][0]][2]=$p_Setup
-	$g_ActiveConnections[$g_ActiveConnections[0][0]][3]=$SubGroup
-	If $p_Debug Then FileWrite($g_dependDebugFile, '_Depend_ActiveAddItem:  p_Type='&$p_Type&', p_RuleID='&$p_RuleID&', p_Setup='&$p_Setup&', SubGroup='&$SubGroup&@CRLF)
-EndFunc   ;==>_Depend_ActiveAddItem
-
-; ---------------------------------------------------------------------------------------------
-; Clear and fill $g_ActiveConnections array
-; If $p_Show is true, display all conflicts and dependencies as needed (used during selection)
-; ---------------------------------------------------------------------------------------------
-Func _Depend_GetActiveConnections($p_Show=1)
-	_PrintDebug('+' & @ScriptLineNumber & ' Calling _Depend_GetActiveConnections')
-	Global $g_ActiveConnections[9999][4]; initialize/clear active connections (will fill using _Depend_ActiveAddItem)
-	$g_ActiveConnections[0][0] = 0; reset number of active connections counter to zero
-	If $p_Show=1 Then _GUICtrlListView_BeginUpdate($g_UI_Handle[1])
-	If $p_Show=1 Then _GUICtrlListView_DeleteAllItems($g_UI_Handle[1])
-	For $c = 1 To $g_Connections[0][0]; loop through array of all Game.ini rules
-		If StringLeft ($g_Connections[$c][3], 1) = 'W' Then; skip rules that have been right-click ignored by user
-			ContinueLoop
-		ElseIf StringLeft ($g_Connections[$c][3], 1) = 'D' Then; this is a dependency rule
-			If StringMid($g_Connections[$c][3], 2, 1) = 'W' Then
-				$String=StringTrimLeft($g_Connections[$c][3], 3)
-			Else
-				$String=StringTrimLeft($g_Connections[$c][3], 2)
-			EndIf
-			If Not StringInStr($String, ':') Then; all items are needed
-				_Depend_GetActiveDependAll($String, $c, $p_Show)
-			Else; some items need some other items
-				_Depend_GetActiveDependAdv($String, $c, $p_Show)
-			EndIf
-		ElseIf StringLeft ($g_Connections[$c][3], 1) = 'C' Then; this is a conflict rule
-			If StringMid($g_Connections[$c][3], 2, 1) = 'W' Then
-				$String=StringTrimLeft($g_Connections[$c][3], 3)
-			Else
-				$String=StringTrimLeft($g_Connections[$c][3], 2)
-			EndIf
-			If StringInStr($String, ':') Then; this is an advanced conflict
-				_Depend_GetActiveConflictAdv($String, $c, $p_Show)
-			Else; this is a normal conflict
-				_Depend_GetActiveConflictStd($String, $c, $p_Show)
-			EndIf
-		Else; this is an unknown type of connection
-			_PrintDebug('+' & @ScriptLineNumber & ' Unknown type encountered in _Depend_GetActiveConnections: ' & $g_Connections[$c][3])
-		EndIf
-	Next
-	If $p_Show=1 Then _GUICtrlListView_EndUpdate($g_UI_Handle[1])
-EndFunc   ;==>_Depend_GetActiveConnections
-
-; ---------------------------------------------------------------------------------------------
 ; Handle dependency rules without a ':' delimiter
 ; This is usually for rules like D:modA(1|2)&modB(3)|modC(-)
 ; We interpret this to mean that all parts are "needed" ONLY if at least one part is active
@@ -400,8 +400,12 @@ Func _Depend_GetActiveDependAll($p_String, $p_RuleID, $p_Show)
 	$Return=_Depend_ItemGetSelected($p_String)
 	If $Return[0][1] = 0 or $Return[0][1] = $Return[0][0] Then Return; nothing selected or all selected
 	;check for a special case - game type can also be a dependency satisfying an OR condition
-	If StringRegExp($p_String, '\x7c('&$g_Flags[14]&')[^[:alpha:]]') Then Return; found OR '|' followed by current game type -> do nothing
-	$Parts=StringSplit($p_String, '&'); we split the rule into '&'-subsets
+	If StringRegExp($p_String, '\x7c('&$g_Flags[14]&')\b') Then Return; found OR '|' followed by game type in dependencies -> do nothing
+	;FileWrite($g_dependDebugFile, 'DependAll before = ' & $p_String & @CRLF)
+	;eliminate any unresolved mod/component IDs from the rule (i.e., purged/missing translation/invalid)
+	$p_String=StringRegExpReplace($p_String, '(?i)(\A|\x7c|\x26)[[:alnum:]_]+\x28.*\x29|[[:alnum:]_]+\x28.*\x29(\x7c|\x26|\z)', ''); x7c = |, x26 = &, x28/29 = ()
+	;FileWrite($g_dependDebugFile, 'DependAll after = ' & $p_String & @CRLF)
+	$Parts=StringSplit($p_String, '&'); split the rule into '&'-subsets
 	If @error Then Return; if no '&' in the rule then do nothing
 	For $SubGroup = 1 to $Parts[0]; this $SubGroup number is also used for adding dependency connections
 		$ThisPart=_Depend_ItemGetSelected($Parts[$SubGroup]); this is inefficient but simpler than reusing $Return
@@ -489,14 +493,15 @@ EndFunc    ;==>_Depend_GetActiveDependAll
 ; Therefore: we split rules into 'and-group' sub-sets and require at least one from each set
 ; ---------------------------------------------------------------------------------------------
 Func _Depend_GetActiveDependAdv($p_String, $p_RuleID, $p_Show)
-	;IniWrite("depend.ini", "debug", "_Depend_GADA_"&$p_RuleID, $p_String&' for '&$g_Connections[$p_RuleID][0]&'=D:'&$g_Connections[$p_RuleID][1])
+	Local $p_Debug=0
+	If $p_Debug Then FileWrite($g_dependDebugFile, '_Depend_GADA_'&$p_RuleID&': $p_String = '&$p_String&' for '&$g_Connections[$p_RuleID][0]&'=D:'&$g_Connections[$p_RuleID][1]&@CRLF)
 	$p_String=StringSplit($p_String, ':'); p_String will be a dependency rule like "123&456:789" without the "D:" prefix
 	$Left=_Depend_ItemGetSelected($p_String[1]); otherwise, check which mods/components from the LEFT side of the dependency rule are active
 	If $Left[0][1] = 0 Then Return; NOTHING on the LEFT side of the rule is active/selected, so the RIGHT side does not matter -> do nothing
 	$Right=_Depend_ItemGetSelected($p_String[2]); check which mods/components from the RIGHT side of the dependency rule are active
 	If $Right[0][0] = $Right[0][1] Then Return; if ALL mods/components on the RIGHT side of the rule are active, the rule is satisfied -> do nothing
 	;check for a special case - game type can also be a dependency satisfying an OR condition
-	If StringRegExp($p_String[2], '\x7c('&$g_Flags[14]&')[^[:alpha:]]') Then Return; found OR '|' followed by game type in dependencies -> do nothing
+	If StringRegExp($p_String[2], '\x7c('&$g_Flags[14]&')\b') Then Return; found OR '|' followed by game type in dependencies -> do nothing
 	; at this point, we know at least one mod/component on the LEFT is active, but there could still be unsatisfied '&' rules on the LEFT side
 	; at this point, we know at least one mod/component on the RIGHT is inactive, but not necessarily a needed dependency (it could be an '|' rule)
 	; now we need to evaluate the rule to check which conditions on the LEFT are satisfied and which conditions on the RIGHT are not satisfied
@@ -534,6 +539,7 @@ Func _Depend_GetActiveDependAdv($p_String, $p_RuleID, $p_Show)
 					If $secondPass Then
 						$inActiveCount = $ThisPart[0][0]; - $ThisPart[0][1]; 'total in group' minus 'active in group' (we already checked none are active)
 						For $t = 1 to $ThisPart[0][0]; iterate over inactive mods/components in this part
+							If StringRegExp($ThisPart[$t][0], 'BG1EE|BG2EE') Then ContinueLoop; don't add game type as a missing dependency!
 							If $inActiveCount = 1 Then; if it is the only missing dependency in this '&'-subset, it is MANDATORY
 								_Depend_ActiveAddItem('DM', $p_RuleID, $ThisPart[$t][0], $SubGroup); add MANDATORY connection for this mod/component
 								If $Prefix <> '' Then $Prefix='+ '
@@ -575,6 +581,8 @@ EndFunc    ;==>_Depend_GetActiveDependAdv
 ; See if a component is installed that has a conflict with a combination of other listed components
 ; ---------------------------------------------------------------------------------------------
 Func _Depend_GetActiveConflictAdv($p_String, $p_RuleID, $p_Show)
+	Local $p_Debug=0
+	If $p_Debug Then FileWrite($g_dependDebugFile, '_Depend_GACA_'&$p_RuleID&': $p_String = '&$p_String&' for '&$g_Connections[$p_RuleID][0]&'=D:'&$g_Connections[$p_RuleID][1]&@CRLF)
 	$p_String=StringSplit($p_String, ':')
 	Local $Test[$p_String[0]+1][50]
 	For $s=1 to $p_String[0]
@@ -731,12 +739,9 @@ Func _Depend_ItemGetSelected($p_String, $p_Debug=0)
 	$Return[0][0]=$Array[0]; set number of elements in return array equal to number of elements in split array
 	$Return[0][1]=0; will be used to count the total number of active mods/components in the return array
 	If $Array[0] = 0 Then Return $Return; array is empty
-	If $p_Debug Then FileDelete('debug.ini')
-	If $p_Debug Then IniWrite('debug.ini', '_Depend_ItemGetSelected', 'p_String', $p_String)
 	For $a=1 to $Array[0]; loop
-		If $p_Debug Then IniWrite('debug.ini', '_Depend_ItemGetSelected', 'Array['&$a&']', $Array[$a])
 		$Return[$a][0]=$Array[$a]; copy next mod/component ID from split array into return array
-		If $p_Debug Then IniWrite('debug.ini', 'debug', $p_String&'_'&$Array[$a], '#active: '&$g_CentralArray[$Array[$a]][9]&' ~ modname: '&$g_CentralArray[$Array[$a]][4]&' ~ component? '&$g_CentralArray[$Array[$a]][3]&' ~ multi-install? '&$g_CentralArray[$Array[$a]][13])
+		If $p_Debug Then FileWrite($g_dependDebugFile, '_Depend_ItemGetSelected:  Array['&$a&'] = ' & $Array[$a] & '#active: '&$g_CentralArray[$Array[$a]][9]&' ~ modname: '&$g_CentralArray[$Array[$a]][4]&' ~ component? '&$g_CentralArray[$Array[$a]][3]&' ~ multi-install? '&$g_CentralArray[$Array[$a]][13]&@CRLF)
 		If StringInStr($Array[$a], ')') Then; if item is not a number, it does not exist/is not available in this selection (might have been purged)
 			$Return[$a][1]=0; so just mark this element in the return array as not-active and continue
 		ElseIf $g_CentralArray[$Array[$a]][2] <> '-' Then; ID points to a single component (not a mod)

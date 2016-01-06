@@ -292,7 +292,7 @@ Func _Process_Read(ByRef $p_Answer); $p_Answer=Array with questions from weidu/b
 EndFunc   ;==>_Process_Read
 
 ; ---------------------------------------------------------------------------------------------
-; Run a process and moitor the console that it's running in
+; Run a process and monitor the console that it's running in
 ; ---------------------------------------------------------------------------------------------
 Func _Process_Run($p_String, $p_File, $p_Answer = ''); $p_String=complete call, $p_File=process or filename; $p_Answer=array with questions and answers
 	If $p_Answer = '' Then Dim $p_Answer[1]=[0]
@@ -305,11 +305,11 @@ Func _Process_Run($p_String, $p_File, $p_Answer = ''); $p_String=complete call, 
 	$PIDExist = 0
 	$g_ConsoleOutput = $g_ConsoleOutput & @CRLF
 	StdinWrite($g_STDStream, $p_String & @CRLF); write the command into the console
-	If Not @error Then; the data was send propperly
+	If Not @error Then; the command was sent to the console successfully
 		If StringRight($p_File, 3) = 'exe' Then; it's an executable
 			$PIDExist = ProcessWait($p_File, 5); wait until the process starts
 			If $PIDExist = 0 Then; create an error message
-				_Process_SetConsoleLog(@CRLF & _GetTR($g_UI_Message, '6-L2') & @CRLF & $p_String & '.' & @CRLF & _GetTR($g_UI_Message, '6-L3') & @CRLF); => process could not be started for unkown reasons
+				_Process_SetConsoleLog(@CRLF & _GetTR($g_UI_Message, '6-L2') & @CRLF & $p_String & '.' & @CRLF & _GetTR($g_UI_Message, '6-L3') & @CRLF); => process could not be started for unknown reasons
 				FileWrite($g_LogFile, 'ProcessWait-Error: '&$p_File& @CRLF)
 				GUICtrlSetColor($g_UI_Interact[6][3], 0xff0000); paint the item red
 				Sleep(1000)
@@ -336,7 +336,7 @@ Func _Process_Run($p_String, $p_File, $p_Answer = ''); $p_String=complete call, 
 			Return 1
 		EndIf
 	Else
-		_Process_SetConsoleLog(@CRLF & _GetTR($g_UI_Message, '6-L2') & @CRLF & $p_String & '.' & @CRLF & _GetTR($g_UI_Message, '6-L3') & @CRLF); => process could not be started for unkown reasons
+		_Process_SetConsoleLog(@CRLF & _GetTR($g_UI_Message, '6-L2') & @CRLF & $p_String & '.' & @CRLF & _GetTR($g_UI_Message, '6-L3') & @CRLF); => process could not be started for unknown reasons
 		FileWrite($g_LogFile, 'STDInWrite-Error: '&ProcessExists($g_STDStream) &  @CRLF)
 		GUICtrlSetColor($g_UI_Interact[6][3], 0xff0000); paint the item red
 		Sleep(1000)

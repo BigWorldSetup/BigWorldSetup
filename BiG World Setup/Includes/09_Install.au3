@@ -334,7 +334,7 @@ Func Au3Install($p_Num = 0)
 					While 1; search for for first installed component
 						$Split=StringSplit($Array[$a], ';')
 						If UBound($Split) > 3 Then; avoid crashes on group- or ann-lines
-							If $Split[3] = $Test[1] And $Split[2] = $Setup[2] And StringRegExp($Split[1], '(?i)STD|MUC|SUB') Then; get a vaild line
+							If $Split[3] = $Test[1] And $Split[2] = $Setup[2] And StringRegExp($Split[1], '(?i)STD|MUC|SUB') Then; get a valid line
 								$a-=1
 								$Group=''
 								ContinueLoop 3; redo from that position
@@ -456,9 +456,9 @@ Func Au3Install($p_Num = 0)
 			If $Success = 0 Then
 				If StringRegExp($Logic, '5') = 0 Then; errors should be displayed
 					_Process_SetConsoleLog(_GetTR($Message, 'L15'), -1); => try to start cmd again?
-					_Process_Question('r|c|e', _GetTR($TMessage, 'L6'), _GetTR($TMessage, 'Q1'), 3, $g_Flags[18]); => install anyway/skip/exit?
+					_Process_Question('r|c|e', _GetTR($TMessage, 'L6'), _GetTR($TMessage, 'Q1'), 3, $g_Flags[18]); => retry/continue (skip)/exit?
 				Else
-					$g_pQuestion = 'r'
+					$g_pQuestion = 'r'; set answer to retry if user chose not to be prompted
 				EndIf
 				If $g_pQuestion = 'e' Then; exit
 					Exit
@@ -467,7 +467,7 @@ Func Au3Install($p_Num = 0)
 				ElseIf $g_pQuestion = 'r' Then; retry
 					$Success=_Process_Run($InstallString, $Setup[0])
 					If $Success = 0 Then
-						_Misc_MsgGUI(4, _GetTR($g_UI_Message, '0-T1'), _GetTR($Message, 'L16')); => got another error. Shutdown & restart.
+						_Misc_MsgGUI(4, _GetTR($g_UI_Message, '0-T1'), _GetTR($Message, 'L16')); => Got an error again. User action needed. Exit BWS.
 						Exit
 					EndIf
 				EndIf
@@ -480,7 +480,7 @@ Func Au3Install($p_Num = 0)
 		EndIf
 	Next
 	$g_FItem = 1
-	_Install_CreateTP2Entry('BWS_Final', 'Make quick-logged WeiDU-entries visible'); use am unintall with a normal log to show hidden names (which used quick-log during installation)
+	_Install_CreateTP2Entry('BWS_Final', 'Make quick-logged WeiDU-entries visible'); use a dummy install/uninstall without --quick-log to add details from previous WeiDU setups that used --quick-log
 	_Process_Run('WeiDU.exe "Setup-BWS_Final.tp2" --no-exit-pause --game "." --language 0 --force-uninstall-list 0 --log "Setup-BWS_Final.Debug"', 'WeiDU.exe')
 	FileClose(FileOpen($g_GameDir&'\WeiDU\BWP_Backup\0\MAPPINGS.0', 9))
 	If StringInStr($g_GConfDir, 'BG2EE') And $g_Flags[14] = 'BG1EE' Then; this is the end of the BG1EE install, now install BG2EE and import BG1EE with EET
@@ -1274,7 +1274,7 @@ Func _Install_ReadDebug($p_Setup)
 		EndIf
 	Next
 ; ---------------------------------------------------------------------------------------------
-; Search for WeiDUs return valure and assign the selected messages for that type of value
+; Search for WeiDU's return value and assign the selected messages for that type of value
 ; ---------------------------------------------------------------------------------------------
 	$Num=-1
 	For $a = $Array[0] To 1 Step -1
@@ -1319,7 +1319,7 @@ Func _Install_ReadWeiDU($p_Setup, $p_Comp='*', $p_Lang='*')
 EndFunc   ;==>_Install_ReadWeiDU
 
 ; ---------------------------------------------------------------------------------------------
-; Overwrite WeiDU-settup with a current one; prevent beta releases to be overwritten by stable releases
+; Overwrite WeiDU-setup with a current one; prevent beta releases to be overwritten by stable releases
 ; ---------------------------------------------------------------------------------------------
 Func _Install_UpdateWeiDU($p_File, $p_Size=0)
 	If $p_Size = 0 Then $p_Size=FileGetSize($g_GameDir&'\WeiDU\WeiDU.exe')

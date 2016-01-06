@@ -279,16 +279,16 @@ Func _Tree_Populate($p_Show=1)
 	_Misc_ProgressGUI(_GetTR($g_UI_Message, '0-T2'), _GetTR($g_UI_Message, '0-L3')); => building dependencies-table
 	GUISwitch($g_UI[0])
 	_Tree_PurgeUnNeeded(); calculate unsuited mods
-	$g_Groups=IniReadSection($g_GConfDir&'\Game.ini', 'Groups'); replace the ampersands with a vertical line so that regex will work on these components
-	For $g = 1 To $g_Groups[0][0]
+	$g_Groups=IniReadSection($g_GConfDir&'\Game.ini', 'Groups')
+	For $g = 1 To $g_Groups[0][0]; replace the ampersands with a vertical line so that regex will work on these components
 		$g_Groups[$g][1]=StringReplace($g_Groups[$g][1], '&', '|')
 	Next
-	$g_Connections=_IniReadSection($g_GConfDir&'\Game.ini', 'Connections')
-	If $g_Flags[14] = 'BWP' Then
+	$g_Connections=_IniReadSection($g_ConnectionsConfDir&'\Game.ini', 'Connections')
+	If $g_Flags[14] = 'BWP' Then; we are doing a BWP batch-install
 		$Setup=_Tree_SelectReadForBatch()
-		_Depend_TrimBWSConnections(); remove connections for BWS-installs (which contain component-numbers)
-	Else; do a bws install
-		$Setup=_Tree_SelectRead(); read the select.txt-file
+		_Depend_TrimBWSConnections(); remove rules that contain component numbers because BWP batch-install ignores such rules
+	Else; we are doing a BWS customizable install
+		$Setup=_Tree_SelectRead(); read the Select.txt-file
 		If $p_Show Then
 			If $g_Flags[21] = 0 Then $Setup=_Tree_SelectConvert($Setup); convert it to a theme-sorted view
 		Else
@@ -305,7 +305,7 @@ Func _Tree_Populate($p_Show=1)
 	GUICtrlSetData($g_UI_Interact[9][1], 32); set the progress
 	GUICtrlSetData($g_UI_Static[9][2], '32 %')
 	ReDim $Setup[$Setup[0][0] + 2][10]
-	ReDim $g_TreeviewItem[$Setup[0][1] + 1][250]; if the BWS goes kaboom, adjust this numbers...
+	ReDim $g_TreeviewItem[$Setup[0][1] + 1][500]; if BWS goes kaboom, increase this number...
 	ReDim $g_CHTreeviewItem[$Setup[0][3]+1]
 	$ATMod=_IniReadSection($g_GConfDir&'\Mod-'&$g_ATrans[$g_ATNum]&'.ini', 'Description', 1)
 	$ATIdx=_IniCreateIndex($ATMod)
@@ -696,22 +696,26 @@ Func _Tree_PurgeUnNeeded()
 				If StringRegExp($SplitPurgeLine[3], $g_MLang[1]) Then ContinueLoop; don't purge mods for currently selected language
 				If $Version <> '-' And StringRegExp($SplitPurgeLine[3], $Version) Then ContinueLoop; don't purge mods for current game version
 				; Checks for BGT / EET dependencies
-				If $g_Flags[14] = 'BG2EE' Or $g_Flags[14] = 'BG1EE' Then; user is installing BG2EE, EET or BG1EE
-					If $g_BG1EEDir <> '-' Then; EET install
-						If StringRegExp($SplitPurgeLine[3], '(?i)EET\x28\x2d\x29') Then ContinueLoop; don't purge mods that depend on EET
-					Else
-						; BG2EE-only install - fall through to purge mods that depend on EET
+				If $g_Flags[14] = 'BG1EE' Then; user is installing BG1EE
+					If StringRegExp($SplitPurgeLine[3], '(?i)\bBG1EE\b') Then ContinueLoop; don't purge mods/components that depend on BG1EE
+					; else, fall through to purge mods/components that DO depend on BG1EE
+				ElseIf $g_Flags[14] = 'BG2EE' Then; user is installing BG2EE or EET
+					If $g_BG1EEDir <> '-' Then; BG1EE path is set, therefore this is an EET install
+						If StringRegExp($SplitPurgeLine[3], '(?i)\bEET\x28\x2d\x29') Then ContinueLoop; don't purge mods/components that depend on EET
+						; else, fall through to purge mods/components that DO depend on EET
+					Else; this is a BG2EE-only install
+						If StringRegExp($SplitPurgeLine[3], '(?i)\bBG2EE\b') Then ContinueLoop; don't purge mods/components that depend on BG2EE
+						; else, fall through to purge mods/components that DO depend on BG2EE
 					EndIf
 				ElseIf StringRegExp($g_Flags[14], 'BWP|BWS') Then
-					If $g_BG1Dir <> '-' Then; BGT install
-						If StringRegExp($SplitPurgeLine[3], '(?i)BGT\x28\x2d\x29') Then ContinueLoop; don't purge mods that depend on BGT
-					Else
-						; BG1-only install - fall through to purge mods that depend on BGT
+					If $g_BG1Dir <> '-' Then; BG1 path is set, therefore this is a BGT install
+						If StringRegExp($SplitPurgeLine[3], '(?i)BGT\x28\x2d\x29') Then ContinueLoop; don't purge mods/components that depend on BGT
+						; else, fall through to purge mods/components that DO depend on BGT
 					EndIf
 				EndIf
 			Else; not a dependency rule, assume conflict
 				If Not StringRegExp($SplitPurgeLine[3], $g_MLang[1]) Then ContinueLoop; don't purge unless it conflicts with currently selected language
-				; Else - fall through to purge mods that DO conflict with currently selected language
+				; else, fall through to purge mods that DO conflict with currently selected language
 			EndIf
 			; If we reached this line, we found something that needs to be purged
 			$g_Skip&='|'&StringReplace(StringReplace(StringReplace(StringReplace($SplitPurgeLine[2], '&', '|'), "(-)", ''), '(', ';('), '?', '\x3f')
@@ -747,20 +751,12 @@ Func _Tree_PurgeUnNeeded()
 		EndIf
 	EndIf
 ;	IniWrite($g_UsrIni, 'Debug', 'g_Skip', $g_Skip)
-	If StringInStr($g_Flags[14], 'BWS') Then; user is installing 'BWS'
-		If $g_MLang[1] = 'PO' Then
-		; stuff to add if Polish
-		IniWrite($g_GConfDir&'\Game.ini', 'Connections', 'NTotSC Natalin fix by dradiel is required for NTotSC but works only for Polish', 'D:NTotSC(-)&NTotSC-Natalin-fix(-)')
-		IniWrite($g_GConfDir&'\Game.ini', 'Connections', 'Secret of Bone Hill Part II fix by dradiel is required for SoBH but works only for Polish', 'D:BoneHillv275(-)&sobh-part2-fix(-)')
-		Else
-		; stuff to remove if not Polish
-		IniDelete($g_GConfDir&'\Game.ini', 'Connections', 'NTotSC Natalin fix by dradiel is required for NTotSC but works only for Polish')
-		IniDelete($g_GConfDir&'\Game.ini', 'Connections', 'Secret of Bone Hill Part II fix by dradiel is required for SoBH but works only for Polish')
-		EndIf
-	Else
-		; stuff to remove if not BWS
-		IniDelete($g_GConfDir&'\Game.ini', 'Connections', 'NTotSC Natalin fix by dradiel is required for NTotSC but works only for Polish')
-		IniDelete($g_GConfDir&'\Game.ini', 'Connections', 'Secret of Bone Hill Part II fix by dradiel is required for SoBH but works only for Polish')
+	If StringInStr($g_Flags[14], 'BWS') And $g_MLang[1] = 'PO' Then; user is installing 'BWS' and user selected language is Polish
+		IniWrite($g_ConnectionsConfDir&'\Game.ini', 'Connections', 'NTotSC Natalin fix by dradiel is required for NTotSC but only for Polish', 'D:NTotSC(-)&NTotSC-Natalin-fix(-)')
+		IniWrite($g_ConnectionsConfDir&'\Game.ini', 'Connections', 'SoBH Part II fix by dradiel is required for SoBH but only for Polish', 'D:BoneHillv275(-)&sobh-part2-fix(-)')
+	Else; remove special case rules (language + game type specific)
+		IniDelete($g_ConnectionsConfDir&'\Game.ini', 'Connections','NTotSC Natalin fix by dradiel is required for NTotSC but only for Polish')
+		IniDelete($g_ConnectionsConfDir&'\Game.ini', 'Connections','SoBH Part II fix by dradiel is required for SoBH but only for Polish')
 	EndIf
 EndFunc   ;==>_Tree_PurgeUnNeeded
 
@@ -1006,7 +1002,7 @@ Func _Tree_SelectReadForBatch()
 	Next
 	$Return[0][3]=$Theme
 	$Return[0][4]=$Return[0][0]+$Return[0][1]+$Return[0][3]+$g_UI_Menu[8][10]+10000; calculate Treeview-items: Items+Mods+Themes+GUI-items+Error-Margin for wrong calculation
-	Global $g_CentralArray[$Return[0][4]][16];set size for global array before running _Tree_Populate -- if the BWS goes kaboom, recalculate this number...
+	Global $g_CentralArray[$Return[0][4]][16];set size for global array before running _Tree_Populate -- if BWS goes kaboom, recalculate this number...
 	ReDim $Return[$Return[0][0]+1][10]
 	Return $Return
 EndFunc   ;==>_Tree_SelectReadForBatch
@@ -1052,7 +1048,7 @@ Func _Tree_SelectRead($p_Admin=0)
 		$Return[$Return[0][0]][1]=$Return[0][1]; $Index-number (will be used for connections)
 	Next
 	$Return[0][4]=$Return[0][0]+$Return[0][1]+$Return[0][3]+$g_UI_Menu[8][10]+100; calculate Treeview-items: Items+Mods+Themes+GUI-items+Error-Margin for wrong calculation
-	Global $g_CentralArray[$Return[0][4]][16];set size for global array before running _Tree_Populate -- if the BWS goes kaboom, recalculatre this number...
+	Global $g_CentralArray[$Return[0][4]][16];set size for global array before running _Tree_Populate -- if BWS goes kaboom, recalculate this number...
 	ReDim $Return[$Return[0][0]+1][10]
 	Return $Return
 EndFunc   ;==>_Tree_SelectRead

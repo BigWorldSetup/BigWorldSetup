@@ -10,7 +10,7 @@ TraySetIcon(@ScriptDir & '\Pics\BWS.ico'); sets the tray-icon
 #Region Global vars
 ; Global are named with a $g_ , parameters with a $p_ . Normal/Local variables don't have a prefix.
 ; files and folders
-Global $g_BaseDir = StringLeft(@ScriptDir, StringInStr(@ScriptDir, '\', 1, -1) - 1), $g_GConfDir, $g_GameDir, $g_ProgName = 'BiG World Setup'
+Global $g_BaseDir = StringLeft(@ScriptDir, StringInStr(@ScriptDir, '\', 1, -1) - 1), $g_GConfDir, $g_ConnectionsConfDir, $g_GameDir, $g_ProgName = 'BiG World Setup'
 Global $g_ProgDir = $g_BaseDir & '\BiG World Setup', $g_LogDir = $g_ProgDir & '\Logs', $g_DownDir = $g_BaseDir & '\BiG World Downloads'
 Global $g_BG1Dir, $g_BG2Dir, $g_BG1EEDIR, $g_BG2EEDIR, $g_IWD1Dir, $g_IWD1EEDir, $g_IWD2Dir, $g_PSTDir, $g_RemovedDir, $g_BackupDir, $g_LogFile = $g_LogDir & '\BiG World Debug.txt'
 Global $g_BWSIni = $g_ProgDir & '\Config\Setup.ini', $g_MODIni, $g_UsrIni = $g_ProgDir & '\Config\User.ini'
@@ -93,8 +93,11 @@ Func Au3GetVal($p_Num = 0)
 	_PrintDebug('+' & @ScriptLineNumber & ' Calling Au3GetVal')
 	$g_Order = IniReadSection($g_BWSIni, 'Order'); reload this to get the new selected functions
 	$ReadSection = IniReadSection($g_UsrIni, 'Options')
-	$Test = StringSplit(_IniRead($ReadSection, 'AppType', ''), ':'); need correct gametype
-	$g_GConfDir = $g_ProgDir & '\Config\' & $Test[1]
+	$Test = StringSplit(_IniRead($ReadSection, 'AppType', 'BWP:BWS'), ':'); need correct gametype
+	If $Test[0] <> 2 Then; revert to default if AppType in User.ini is not in expected format
+		$Test = [2, "BWP", "BWS"]
+	EndIf
+	_Misc_Set_GConfDir($Test[1])
 	$g_Flags[14] = StringUpper($Test[2])
 	If StringRegExp($g_Flags[14], 'BWS|BWP') Then
 		_Test_GetGamePath('BG1')
@@ -286,15 +289,15 @@ EndFunc   ;==>_GetCurrent
 ; Gather all the information from single small mod-files and write them into the bigger ini-files
 ; ---------------------------------------------------------------------------------------------
 Func _GetGlobalData($p_Game='')
-If $p_Game <> '' Then; Enable testing of this function or use defaults...
-		$g_GConfDir=$g_ProgDir&'\Config\'&$p_Game
+	If $p_Game <> '' Then; Enable testing of this function or use defaults...
+		_Misc_Set_GConfDir($p_Game)
 	Else
 		$p_Game=StringRegExpReplace($g_GConfDir, '\A.*\\', '')
 	EndIf
 	Local $LastMod, $Mods='|', $Lang=StringSplit('EN|GE|RU', '|'), $LCodes[13]=[12, 'GE','EN','FR','PO','RU','IT','SP','CZ','KO','CH','JP','PR']
 	Local $Edit, $GameLen=StringLen($p_Game), $GameToken=''; 'BCIP'
 	If $p_Game <> '' Then; Enable testing of this function or use defaults...
-		$g_GConfDir=$g_ProgDir&'\Config\'&$p_Game
+		_Misc_Set_GConfDir($p_Game)
 	Else
 		$p_Game=$g_Flags[14]
 	EndIf

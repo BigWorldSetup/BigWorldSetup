@@ -8,6 +8,7 @@ DWN;bwfixpack;0;00;1111;
 CMD;IF EXIST ".\BiG World Installpack\BiG World Smoothpack" move ".\BiG World Installpack\BiG World Smoothpack\_modify\*.*" "."
 CMD;IF EXIST "BiG World Fixpack" xcopy /Y /S /E ".\BiG World Fixpack\_Lolfixer\*.*" "."
 CMD;IF EXIST "BiG World Fixpack" xcopy /Y /S /E ".\BiG World Fixpack\_resfixer_v1\*.*" "."
+CMD;IF EXIST "BiG World Fixpack" xcopy /Y /S /E ".\BiG World Fixpack\_shatterfix\*.*" "."
 CMD;IF EXIST "BiG World Fixpack\item_rev" rmdir /s /q "BiG World Fixpack\item_rev"
 CMD;IF EXIST "BiG World Fixpack\spell_rev" rmdir /s /q "BiG World Fixpack\spell_rev"
 CMD;IF EXIST "BiG World Fixpack" IF NOT EXIST BWP_Fixpack.installed Call "BiG World Fixpack.bat"
@@ -414,6 +415,7 @@ MUC;item_rev;18;09;0000;
 MUC;item_rev;19;09;0111;
 MUC;item_rev;20;09;0000;
 STD;item_rev;1200;09;0011;
+STD;item_rev_shatterfix;0;01;0111;
 ANN;--- new spells ---
 MUC;Divine_Remix;Init;09;0111;
 MUC;Divine_Remix;10;09;0001;
@@ -612,7 +614,7 @@ STD;scales_of_balance;532;12;0111;
 STD;scales_of_balance;540;12;0111;
 STD;scales_of_balance;586;12;0111;
 STD;scales_of_balance;588;12;0111;
-STD;scales_of_balance;600;09;0001;
+STD;scales_of_balance;600;09;0111;
 ANN;Refinements goes here for compatibility with Scales of Balance
 STD;scales_of_balance;580;09;0111;
 STD;might_and_guile;100;09;0111;
@@ -1078,7 +1080,7 @@ SUB;BP-BGT-Worldmap;0?2_2;13;1111;
 ANN;--- PaintBG portraits ---
 ANN;We must install PaintBG before generalized biffing so that we can append to BGEE.SQL
 ANN;PaintBG for EE is just .bmp files, so install first to allow other mods to overwrite
-DWN;paintbg;0;13;1111;
+DWN;paintbg;0;13;0000;
 ANN;Standardize PaintBG directory name to simplify scripting
 CMD;IF EXIST "PaintBG*(EE)" MOVE /Y "PAINTBG*(EE)" "PaintBG"
 ANN;Add PaintBG CHARNAME portraits to bgee.sql so they can be selected during character creation

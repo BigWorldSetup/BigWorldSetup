@@ -8,6 +8,15 @@ Func _Misc_Search($p_ID, $p_String, $p_Occurrence = 1)
 	_GUICtrlEdit_Scroll($Handle, $__EDITCONSTANT_SB_SCROLLCARET)
 EndFunc   ;==>_Misc_Search
 
+Func _Misc_Set_GConfDir($p_GameType)
+	$g_GConfDir = $g_ProgDir & '\Config\'&$p_GameType
+	If StringRegExp($g_Flags[14], 'BG1EE|BG2EE') Then
+		$g_ConnectionsConfDir = $g_ProgDir&'\Config\BWP'; make BG1EE and BG2EE use BWP Game.ini for Connections rules
+	Else
+		$g_ConnectionsConfDir = $g_GConfDir
+	EndIf
+EndFunc   ;==>_Misc_SetGConfDir
+
 ; ---------------------------------------------------------------------------------------------
 ; Displays the about-screen
 ; ---------------------------------------------------------------------------------------------
@@ -425,7 +434,7 @@ Func _Misc_ReBuildTreeView($p_Save = 0)
 	_Tree_Populate(1 + $p_Save); rebuild Arrays, GUI and so on
 	_Depend_AutoSolve('C', 2, 1); disable conflict losers, skip warning rules
 	_Depend_AutoSolve('DS', 2, 1); disable mods/components with unsatisfied dependencies, skip warning rules
-	$g_Flags[23]=''
+	;$g_Flags[23]=''; reset progress bar
 	If $p_Save Then _Tree_Reload(1, 1, @TempDir & '\BWS_Reload.ini')
 	;GUICtrlSetData($g_UI_Static[9][2], '100 %')
 	GUICtrlSetData($g_UI_Interact[1][1], StringReplace(IniRead($g_TRAIni, 'UI-Buildtime', 'Interact[1][1]', ''), '|', @CRLF))
@@ -714,24 +723,25 @@ EndFunc   ;==>_Misc_SetTip
 
 ; ---------------------------------------------------------------------------------------------
 ; Select the language in the first tab
+;  $p_String = '+' if we're going forward (user clicked 'continue'), else we're going 'back'
 ; ---------------------------------------------------------------------------------------------
 Func _Misc_SetWelcomeScreen($p_String)
 	_PrintDebug('+' & @ScriptLineNumber & ' Calling _Misc_SetWelcomeScreen')
 	$Current = GUICtrlRead($g_UI_Seperate[0][0]) + 1
 	$State = BitAND(GUICtrlGetState($g_UI_Interact[1][2]), $GUI_HIDE)
-	If $p_String = '+' Then
+	If $p_String = '+' Then; we're going forwards
 		If $State Then; jump from install selection to folder selection
 			$Method = GUICtrlRead($g_UI_Interact[1][3]); look if install-method changed
 			For $g = 1 To $g_GameList[0][0]
 				If $Method = $g_GameList[$g][2] Then
 					If $g_Flags[14] <> $g_GameList[$g][1] Then
 						$g_Flags[14] = $g_GameList[$g][1]
-						_Misc_SwichGUIToInstallMethod()
+						_Misc_SwitchGUIToInstallMethod()
 						_Misc_SetAvailableSelection()
 						IniWrite($g_UsrIni, 'Options', 'AppType', $g_GameList[$g][0] & ':' & $g_Flags[14])
 						$g_Flags[10] = 1
 					Else; make sure the correct config-dir is used (rare case if you use something, go back, change game , go back, go forth, revert game, continue)
-						$g_GConfDir = $g_ProgDir & '\Config\' & $g_GameList[$g][0]
+						_Misc_Set_GConfDir($g_GameList[$g][0])
 					EndIf
 				EndIf
 			Next
@@ -755,16 +765,16 @@ Func _Misc_SetWelcomeScreen($p_String)
 			GUICtrlSetState($g_UI_Button[0][1], $GUI_ENABLE)
 			Return 0
 		EndIf
-	Else
-		If $Current = 2 Then; jump from show folder selection to install selection
+	Else; not '+' => we're going back, not forward
+		If $Current = 2 Then; jump back from folder selection to install selection
 			GUICtrlSetData($g_UI_Static[1][1], _GetTR($g_UI_Message, '1-L1')); => important notes
 			GUICtrlSetData($g_UI_Interact[1][1], StringReplace(IniRead($g_GConfDir & '\Translation-' & $g_ATrans[$g_ATNum] & '.ini', 'UI-RunTime', '1-L2', ''), '|', @CRLF)); => questionary (did you have installed...)
 			_Misc_SetTab(1)
-		ElseIf $State Then; jump from install selection to welcome
+		ElseIf $State Then; jump back from install selection to welcome
 			$Method = GUICtrlRead($g_UI_Interact[1][3]); look if install-method changed
 			For $g = 1 To $g_GameList[0][0]
 				If $Method = $g_GameList[$g][2] Then
-					If $g_Flags[14] <> $g_GameList[$g][1] Then $g_GConfDir = $g_ProgDir & '\Config\' & $g_GameList[$g][0]
+					If $g_Flags[14] <> $g_GameList[$g][1] Then _Misc_Set_GConfDir($g_GameList[$g][0])
 				EndIf
 			Next
 			GUICtrlSetData($g_UI_Static[1][1], StringReplace(IniRead($g_TRAIni, 'UI-Buildtime', 'Static[1][1]', ''), '|', @CRLF)); => important notes
@@ -774,7 +784,7 @@ Func _Misc_SetWelcomeScreen($p_String)
 			GUICtrlSetState($g_UI_Interact[1][3], $GUI_HIDE); combobox
 			GUICtrlSetState($g_UI_Static[1][3], $GUI_HIDE); install label
 			GUICtrlSetState($g_UI_Button[0][1], $GUI_DISABLE)
-		Else; the language-selection is already shown
+		Else; the language-selection is already shown, can't go any further 
 		EndIf
 	EndIf
 EndFunc   ;==>_Misc_SetWelcomeScreen
@@ -782,14 +792,14 @@ EndFunc   ;==>_Misc_SetWelcomeScreen
 ; ---------------------------------------------------------------------------------------------
 ; (De)activate the GUI-controls to fit the install-method
 ; ---------------------------------------------------------------------------------------------
-Func _Misc_SwichGUIToInstallMethod()
-	_PrintDebug('+' & @ScriptLineNumber & ' Calling _Misc_SwichGUIToInstallMethod')
+Func _Misc_SwitchGUIToInstallMethod()
+	_PrintDebug('+' & @ScriptLineNumber & ' Calling _Misc_SwitchGUIToInstallMethod')
 	Local $Message = IniReadSection($g_TRAIni, 'UI-Buildtime')
 	Local $State = $GUI_ENABLE
 	For $g = 1 To $g_GameList[0][0]
 		If $g_Flags[14] = $g_GameList[$g][1] Then ExitLoop
 	Next
-	$g_GConfDir = $g_ProgDir & '\Config\' & $g_GameList[$g][0]
+	_Misc_Set_GConfDir($g_GameList[$g][0])
 	GUICtrlSetData($g_UI_Interact[1][3], $g_GameList[$g][2])
 	If StringRegExp($g_Flags[14], 'BWS|BWP|BG2EE') Then; includes BGT/EET
 		GUICtrlSetState($g_UI_Static[2][1], $GUI_HIDE)
@@ -874,7 +884,7 @@ Func _Misc_SwichGUIToInstallMethod()
 	For $i = 5 To 7
 		GUICtrlSetState($g_UI_Interact[14][$i], $State)
 	Next
-EndFunc   ;==>_Misc_SwichGUIToInstallMethod
+EndFunc   ;==>_Misc_SwitchGUIToInstallMethod
 
 ; ---------------------------------------------------------------------------------------------
 ; Get the current language and switch if needed

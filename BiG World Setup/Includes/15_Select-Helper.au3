@@ -190,7 +190,7 @@ Func _Selection_GetCurrentInstallType()
 			$a=2; recommended
 		EndIf
 	EndIf
-	$Compilation = StringSplit(IniRead($g_BWSIni, 'Options', 'Type', 'F,R,S,T,E'), ',') ; 'F,R,S,T,E' is default if Type is missing from Setup.ini
+	$Compilation = StringSplit(IniRead($g_BWSIni, 'Options', 'Preselections', 'F,R,S,T,E'), ',') ; 'F,R,S,T,E' is default if Preselections is missing from Setup.ini
 	If StringLen($Num[$a]) > 1 Then; if custom selection, set "click mode" to tactical
 		$g_Compilation='T'
 	Else

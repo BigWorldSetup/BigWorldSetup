@@ -1539,7 +1539,7 @@ Func _Dep_Populate()
 	WinActivate($g_UI[0])
 	_GUICtrlListView_BeginUpdate($g_UI_Handle[4])
 	_GUICtrlListView_DeleteAllItems($g_UI_Handle[4]); delete previous entries
-	$g_Connections=_Depend_PrepareToUseID(_Depend_PrepareBuildSentences(_IniReadSection($g_GConfDir&'\Game.ini', 'Connections')))
+	$g_Connections=_Depend_PrepareToUseID(_Depend_PrepareBuildSentences(_IniReadSection($g_ConnectionsConfDir&'\Game.ini', 'Connections')))
 	For $c=1 to $g_Connections[0][0]
 		GUICtrlSetData($g_UI_Interact[0][1], $c*100/$g_Connections[0][0]); set the progress
 		If _MathCheckDiv($c, 10) = 2 Then
@@ -1568,7 +1568,7 @@ Func _Dep_Save()
 		$Return[$Return[0][0]][0]=$g_Connections[$Text[3]][0]
 		$Return[$Return[0][0]][1]=$g_Connections[$Text[3]][1]
 	Next
-	IniWriteSection($g_GConfDir&'\Game.ini', 'Connections', $Return)
+	IniWriteSection($g_ConnectionsConfDir&'\Game.ini', 'Connections', $Return)
 	GUICtrlSetState($g_UI_Static[13][5], $GUI_SHOW)
 	Sleep(1000)
 	GUICtrlSetState($g_UI_Static[13][5], $GUI_HIDE)
