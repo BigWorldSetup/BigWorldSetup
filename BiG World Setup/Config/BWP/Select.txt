@@ -360,7 +360,6 @@ MUC;BG1NPCMusic;4;05;0000;
 MUC;BG1NPCMusic;5;05;0000;
 ANN;Imoen Friendship and Romance before new NPCs
 STD;imoenfriendship;0;14;1111;
-STD;Imoen;0;14;0000;
 STD;ImoenRomance;0;14;0111;
 MUC;ImoenRomance;Init;14;0111;
 MUC;ImoenRomance;1;14;0111;
