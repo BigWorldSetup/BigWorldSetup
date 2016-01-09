@@ -836,7 +836,7 @@ EndFunc   ;==>_Install_CompressLog
 ; This will create a dummy WeiDU-entry
 ; ---------------------------------------------------------------------------------------------
 Func _Install_CreateTP2Entry($p_Setup, $p_Text, $p_Process=1, $p_File=''); $a=tp2-name; $b=component-name; $c=execute, $d=at_now-cmd
-	$Handle=FileOpen($g_GameDir&'\Setup-'&$p_Setup&'.tp2', 2) ;overwrite
+	Local $Handle=FileOpen($g_GameDir&'\Setup-'&$p_Setup&'.tp2', 2) ;overwrite
 	If $Handle=-1 Then
 		$Type=StringRegExpReplace($g_Flags[14], '(?i)BWS|BWP', 'BG2')
 		_Misc_MsgGUI(4, _GetTR($g_UI_Message, '0-T1'), StringFormat(_GetTR($g_UI_Message, '8-L2'), $Type, @AutoItExe), 1, _GetTR($g_UI_Message, '8-B3')); => don't have write-permission -> exit
@@ -847,6 +847,12 @@ Func _Install_CreateTP2Entry($p_Setup, $p_Text, $p_Process=1, $p_File=''); $a=tp
 	FileWriteLine($Handle, 'BACKUP ~WeiDU/bwp_backup~')
 	FileWriteLine($Handle, 'AUTHOR ~dummy@mail.de~')
 	If $p_Setup = 'BWS' Then
+		; remove ANYONE from EA.IDS to work around script compilation errors with WeiDU 238 and earlier
+		FileWriteLine($Handle, 'ALWAYS')
+		FileWriteLine($Handle, '  COPY_EXISTING ~EA.IDS~ ~override~')
+		FileWriteLine($Handle, '    REPLACE_TEXTUALLY ~0[ %TAB%]+ANYONE~ ~~')
+		FileWriteLine($Handle, '  BUT_ONLY')
+		FileWriteLine($Handle, 'END')
 		FileClose($Handle)
 		RunWait(@ComSpec&' /c echo BEGIN "'&$p_Text&' (installation date %DATE%)" >> Setup-BWS.tp2', $g_gameDir, @SW_HIDE)
 	Else ;important assumption -- Setup-BWS.tp2 will never have $p_File <> '' -- if it does, this function needs rewrite
