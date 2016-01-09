@@ -318,7 +318,7 @@ STD;Ascension;4;08;0011;
 STD;Ascension;5;08;0011;
 STD;Ascension;103;08;0111;
 STD;Ascension;999;08;0111;
-ANN;#104 is for BG2:TOB / #105 is for EE
+STD;Ascension;104;08;0111;
 STD;Ascension;105;08;0111;
 ANN;--- post-EET BGEE tweaks ---
 ANN;move BGEESpawn here?
