@@ -858,7 +858,7 @@ Func _Depend_GetActiveDependAdv($p_String, $p_RuleID, $p_Show)
 					If $secondPass Then
 						Local $inActiveCount = $ThisPart[0][0]; - $ThisPart[0][1]; 'total in group' minus 'active in group' (we already checked none are active)
 						For $t = 1 to $ThisPart[0][0]; iterate over inactive mods/components in this part
-							If StringRegExp($ThisPart[$t][0], 'BG1EE|BG2EE') Then ContinueLoop; don't add game type as a missing dependency!
+							If StringRegExp($ThisPart[$t][0], '\b(BG1EE|BG2EE)\b') Then ContinueLoop; don't add game type as a missing dependency!
 							Local $InSelection=1, $Prefix = '', $CompDesc, $ModName=$g_CentralArray[$ThisPart[$t][0]][4]; mod long-name
 							If $ModName = '' Then
 								$InSelection=0
@@ -868,7 +868,8 @@ Func _Depend_GetActiveDependAdv($p_String, $p_RuleID, $p_Show)
 								$CompDesc=$g_CentralArray[$ThisPart[$t][0]][3]; component description
 							EndIf
 							If $inActiveCount = 1 Then; if it is the only missing dependency in this '&'-subset, it is MANDATORY
-								_Depend_ActiveAddItem('DM', $p_RuleID, $ThisPart[$t][0], $SubGroup); add MANDATORY connection for this mod/component
+								If Not $InSelection And $Warning = ' **' Then ContinueLoop; skip if warning rule and not available due to purge/translation/invalid
+								_Depend_ActiveAddItem('DM', $p_RuleID, $ThisPart[$t][0], $SubGroup); add MANDATORY dependency for this mod/component
 								If $p_Show = 1 Then
 									$Prefix='+ '
 									GUICtrlCreateListViewItem($Prefix&$ModName&'|'&$CompDesc, $g_UI_Interact[10][1])
@@ -876,7 +877,7 @@ Func _Depend_GetActiveDependAdv($p_String, $p_RuleID, $p_Show)
 								EndIf
 							ElseIf $inActiveCount > 1 Then; if it is one of multiple missing dependencies in this '&'-subset, it is OPTIONAL
 								If $InSelection Then; for OPTIONAL connections, skip if not available for selection due to purge/translation/invalid
-									_Depend_ActiveAddItem('DO', $p_RuleID, $ThisPart[$t][0], $SubGroup); add OPTIONAL connection for this mod/component									
+									_Depend_ActiveAddItem('DO', $p_RuleID, $ThisPart[$t][0], $SubGroup); add OPTIONAL dependency for this mod/component									
 									If $p_Show = 1 Then									
 										GUICtrlCreateListViewItem($Prefix&$ModName&'|'&$CompDesc, $g_UI_Interact[10][1])
 										GUICtrlSetBkColor(-1, 0xFFA500)
