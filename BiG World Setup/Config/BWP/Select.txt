@@ -634,6 +634,8 @@ STD;dq;0;10;0111;
 STD;dq;1;10;0111;
 STD;dq;2;10;0111;
 ANN;#11. BG2 Tactical Encounters
+ANN;RevisedBattles #15 - Improved Trademeet Crypt - will not install after AzenMod #0
+STD;RevisedBattles;15;15;0011;
 STD;AzenMOD;0;15;0011;
 STD;AzenMOD;1;15;0011;
 STD;AzenMOD;2;15;0011;
@@ -1440,7 +1442,6 @@ STD;RevisedBattles;11;15;0000;
 STD;RevisedBattles;12;15;0000;
 STD;RevisedBattles;13;15;0011;
 STD;RevisedBattles;14;15;0011;
-STD;RevisedBattles;15;15;0011;
 STD;RevisedBattles;16;15;0011;
 STD;RevisedBattles;17;15;0011;
 STD;RevisedBattles;18;15;0011;
