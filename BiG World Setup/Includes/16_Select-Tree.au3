@@ -13,6 +13,7 @@ Func _Tree_EndSelection()
 	Next
 	ReDim $Ignores[$Ignores[0][0]+1][2]
 	IniWriteSection($g_UsrIni, 'IgnoredConnections', $Ignores)
+	Local $Current, $Array
 	For $l=1 to 3
 		$Current=GUICtrlRead($g_UI_Interact[14][$l])
 		$Array = StringSplit(IniRead($g_TRAIni, 'UI-Buildtime', 'Interact[14]['&$l&']', ''), '|')
@@ -59,7 +60,7 @@ EndFunc    ;==>_Tree_EndSelection
 ; save/export the current selection
 ; ---------------------------------------------------------------------------------------------
 Func _Tree_Export($p_File='')
-	$File=$p_File
+	Local $File=$p_File
 	If $File = '' Then
 		$File = FileSaveDialog(_GetTR($g_UI_Message, '4-F2'), $g_ProgDir, 'Ini files (*.ini)', 2, 'BWS-Selection.ini', $g_UI[0]); => save selection as
 		If @error Then Return
@@ -67,13 +68,14 @@ Func _Tree_Export($p_File='')
 	EndIf
 	_Tree_GetCurrentSelection(0)
 	FileClose(FileOpen($File, 2))
+	Local $Text
 	If StringInStr ($p_File, 'PreSelection00.ini') Then; adjust current date in the preselection-hints
 		For $a=1 to $g_ATrans[0]
 			$Text=IniRead($g_GConfDir&'\Mod-'&$g_ATrans[$a]&'.ini', 'Preselect', '00', '')
 			$Text=StringRegExpReplace($Text, '\x28.*\x29', @MDAY&'.'&@MON&'.'&@YEAR)
 			IniWrite($g_GConfDir&'\Mod-'&$g_ATrans[$a]&'.ini', 'Preselect', '00', $Text)
 		Next
-		IniWrite($g_UsrIni, 'Options', 'InstallType', '01') ; set user ini to reload auto-export on restart
+		IniWrite($g_UsrIni, 'Options', 'InstallType', '01'); set user ini to reload auto-export on restart
 	EndIf
 	IniWriteSection($File, 'Save', IniReadSection($g_UsrIni, 'Save'))
 	IniWriteSection($File, 'DeSave', IniReadSection($g_UsrIni, 'DeSave'))
@@ -120,7 +122,7 @@ Func _Tree_GetCurrentSelection($p_Show = 0, $p_Write=''); $a=hide seletion-GUI
 	EndIf
 	IniWrite($g_UsrIni, 'Options', 'Download', StringRegExpReplace(GUICtrlRead($g_UI_Interact[2][3]), '\x5c{1,}\z', ''))
 	Local $Comp = '', $DComp = ''
-	$Setup = $g_CentralArray[$g_CentralArray[0][1]][0]
+	Local $Setup = $g_CentralArray[$g_CentralArray[0][1]][0]
 ; ---------------------------------------------------------------------------------------------
 ; loop through the elemets of the main-array. We make heavy usage of the main-array here. Now you know why it's that important. :)
 ; ---------------------------------------------------------------------------------------------
@@ -193,7 +195,7 @@ Func _Tree_GetSplittedMods()
 			$Doubles&=','&$Index[$i][0]&':'&$Index[$i][1]
 		EndIf
 	Next
-	$Array=StringSplit(StringTrimLeft($Doubles, 1) , ','); work on those mods
+	Local $Mod, $Len, $Num, $Doubles, $Array=StringSplit(StringTrimLeft($Doubles, 1) , ','); work on those mods
 	For $a = 1 to $Array[0]
 		If $Array[$a] = '' Then ContinueLoop
 		$Mod=StringLeft($Array[$a], StringInStr($Array[$a], ':')-1)
@@ -214,7 +216,7 @@ Func _Tree_GetSplittedMods()
 		$Doubles = StringSplit($Num&$Doubles, ','); sort the output, so the next id comes first in line (e.g. 402=> 501, 102)
 		For $d=1 to $Doubles[0]
 			GUICtrlSetData($Doubles[$d], GUICtrlRead($Doubles[$d], 1)&'*')
-			$Output=''
+			Local $Output=''
 			For $e=$d to $Doubles[0]
 				If $e=$d Then ContinueLoop
 				$Output&=','&$Doubles[$e]
@@ -249,7 +251,7 @@ Func _Tree_GetTags()
 	EndIf
 	Global $g_Tags[$g_UI_Menu[0][3]][2]; localized menu-items
 	$g_Tags[0][0]=$g_UI_Menu[0][3]-1
-	$Split = StringSplit(IniRead($g_TRAIni, 'UI-Buildtime', 'Menu[2][1]', ''), '|'); => Special|All
+	Local $Split = StringSplit(IniRead($g_TRAIni, 'UI-Buildtime', 'Menu[2][1]', ''), '|'); => Special|All
 	$g_Tags[2][0]='*'
 	$g_Tags[2][1]=$Split[2]
 	If $g_Flags[14] = 'BWS' Then
@@ -275,7 +277,7 @@ EndFunc    ;==>_Tree_GetTags
 ; ---------------------------------------------------------------------------------------------
 Func _Tree_Populate($p_Show=1)
 	_PrintDebug('+' & @ScriptLineNumber & ' Calling _Tree_Populate')
-	Local $ch, $cs, $cc, $ReadSection, $Type='0000', $ATMod, $ATIdx, $NotFixedItems
+	Local $ch, $cs, $cc, $ReadSection, $Type='0000', $ATMod, $ATIdx, $NotFixedItems, $p_Debug = 0
 	_Misc_ProgressGUI(_GetTR($g_UI_Message, '0-T2'), _GetTR($g_UI_Message, '0-L3')); => building dependencies-table
 	GUISwitch($g_UI[0])
 	_Tree_PurgeUnNeeded(); calculate unsuited mods
@@ -283,109 +285,117 @@ Func _Tree_Populate($p_Show=1)
 	For $g = 1 To $g_Groups[0][0]; replace the ampersands with a vertical line so that regex will work on these components
 		$g_Groups[$g][1]=StringReplace($g_Groups[$g][1], '&', '|')
 	Next
-	$g_Connections=_IniReadSection($g_ConnectionsConfDir&'\Game.ini', 'Connections')
+	Local $SelectArray
+	Local $RuleLines =_IniReadSection($g_ConnectionsConfDir&'\Game.ini', 'Connections'); must precede _Depend_TrimBWSConnections()
+	If $p_Debug Then FileWrite($g_LogFile, '_Tree_Populate $RuleLines[0][0]='&$RuleLines[0][0]&@CRLF)
+	If $p_Debug Then FileWrite($g_LogFile, '_Tree_Populate $g_Flags[14]='&$g_Flags[14]&@CRLF)
 	If $g_Flags[14] = 'BWP' Then; we are doing a BWP batch-install
-		$Setup=_Tree_SelectReadForBatch()
-		_Depend_TrimBWSConnections(); remove rules that contain component numbers because BWP batch-install ignores such rules
+		$SelectArray=_Tree_SelectReadForBatch(); read the Select.txt-file, ignoring ANN/CMD/GRP
+		$RuleLines = _Depend_TrimBWSConnections($RuleLines); remove rule lines with component numbers because BWP batch-install ignores such rules
+		If $p_Debug Then FileWrite($g_LogFile, '_Tree_Populate $RuleLines[0][0] after _Depend_TrimBWSConnections='&$RuleLines[0][0]&@CRLF)
 	Else; we are doing a BWS customizable install
-		$Setup=_Tree_SelectRead(); read the Select.txt-file
+		$SelectArray=_Tree_SelectRead(); read the Select.txt-file, ignoring ANN/CMD/GRP
 		If $p_Show Then
-			If $g_Flags[21] = 0 Then $Setup=_Tree_SelectConvert($Setup); convert it to a theme-sorted view
+			If $g_Flags[21] = 0 Then $SelectArray=_Tree_SelectConvert($SelectArray); convert it to a theme-sorted view
 		Else
-			$Trans = StringSplit(IniRead($g_TRAIni, 'UI-Buildtime', 'Menu[2][2]', ''), '|'); => translations for themes
-			$Setup[0][3] = $Trans[0] ; how many '|'-separated themes were found at the line starting 'Menu[2][2]=' in Translation-??.ini
+			Local $Trans = StringSplit(IniRead($g_TRAIni, 'UI-Buildtime', 'Menu[2][2]', ''), '|'); => translations for themes
+			$SelectArray[0][3] = $Trans[0] ; how many '|'-separated themes were found at the line starting 'Menu[2][2]=' in Translation-??.ini
 		EndIf
 	EndIf
-	$Index=_Depend_PrepareBuildIndex($g_Connections, $Setup)
-	$g_Connections=_Depend_PrepareBuildSentences($g_Connections)
+	If $p_Debug Then FileWrite($g_LogFile, '_Tree_Populate $RuleLines[0][0]='&$RuleLines[0][0]&@CRLF)
+	Local $Index=_Depend_PrepareBuildIndex($RuleLines, $SelectArray)
+	$g_Connections=_Depend_PrepareBuildSentences($RuleLines)
 	$g_Connections=_Depend_PrepareToUseID($g_Connections)
+	; final step in building $g_Connections is _Depend_ItemGetConnections which is done for each treeview-item representing a mod headline or (sub-)component
 	GUICtrlSetData($g_UI_Interact[9][1], 20); set the progress
 	GUICtrlSetData($g_UI_Static[9][2], '20 %')
 	GUICtrlSetData ($g_UI_Static[9][1], _GetTR($g_UI_Message, '0-L2')); => search component
 	GUICtrlSetData($g_UI_Interact[9][1], 32); set the progress
 	GUICtrlSetData($g_UI_Static[9][2], '32 %')
-	ReDim $Setup[$Setup[0][0] + 2][10]
-	ReDim $g_TreeviewItem[$Setup[0][1] + 1][500]; if BWS goes kaboom, increase this number...
-	ReDim $g_CHTreeviewItem[$Setup[0][3]+1]
+	ReDim $SelectArray[$SelectArray[0][0] + 2][10]
+	ReDim $g_TreeviewItem[$SelectArray[0][1] + 1][500]; if BWS goes kaboom, increase this number...
+	ReDim $g_CHTreeviewItem[$SelectArray[0][3]+1]
 	$ATMod=_IniReadSection($g_GConfDir&'\Mod-'&$g_ATrans[$g_ATNum]&'.ini', 'Description', 1)
-	$ATIdx=_IniCreateIndex($ATMod)
-	$Setup[0][8]=-1
+	$ATIdx=_IniCreateIndex($ATMod); => ASCII char lookup table (# of lines in $ATMod starting with ASCII char, first such index in $ATMod, last such index in $ATMod)
+	$SelectArray[0][8]=-1
 	_Tree_GetTags()
 	$g_UI_Menu[0][1]='|'
-	$Compnote = _GetTR($g_UI_Message, '4-L1'); => in the future you will be able to select components
-	$ConnNote = IniRead($g_TRAIni, 'DP-BuildSentences', 'L9', ''); => dependencies and conflicts
-	$EditSubs = IniReadSection($g_GConfDir&'\Game.ini', 'Edit')
+	Local $Compnote = _GetTR($g_UI_Message, '4-L1'); => in the future you will be able to select components
+	Local $ConnNote = IniRead($g_TRAIni, 'DP-BuildSentences', 'L9', ''); => dependencies and conflicts
+	Local $EditSubs = IniReadSection($g_GConfDir&'\Game.ini', 'Edit')
 	_GUICtrlTreeView_BeginUpdate($g_UI_Handle[0])
-	For $s = 1 To $Setup[0][0]; loop through the elements of the array (contains the chapters)
-		If $Setup[$s][2] <> $Setup[$s-1][2] Then
-			$Setup[0][2]+=1; set old compnumber
+	For $s = 1 To $SelectArray[0][0]; loop through the elements of the array (contains the chapters)
+		If $SelectArray[$s][2] <> $SelectArray[$s-1][2] Then
+			$SelectArray[0][2]+=1; set old compnumber
 			$cs+=1
-			GUICtrlSetData($g_UI_Interact[9][1], 32+($cs * 45 / $Setup[0][1])); set the progress
-			If _MathCheckDiv($Setup[0][2], 10) = 2 Then GUICtrlSetData($g_UI_Static[9][2], Round(32+($cs * 45 / $Setup[0][1]), 0) & ' %')
-			$ReadSection = IniReadSection($g_ModIni, $Setup[$s][2])
+			GUICtrlSetData($g_UI_Interact[9][1], 32+($cs * 45 / $SelectArray[0][1])); set the progress
+			If _MathCheckDiv($SelectArray[0][2], 10) = 2 Then GUICtrlSetData($g_UI_Static[9][2], Round(32+($cs * 45 / $SelectArray[0][1]), 0) & ' %')
+			$ReadSection = IniReadSection($g_ModIni, $SelectArray[$s][2])
 			$NotFixedItems = _IniRead($ReadSection, 'NotFixed', '') ; see if there are not fixed items (among the fixed)
-			$Setup[$s][5] = _GetTra($ReadSection, 'T+')
-			If $Setup[$s][5]='' Then
-				If StringInStr(_IniRead($ReadSection, 'Type', ''), 'F') And Not StringRegExp($g_fLock, ','&$Setup[$s][2]&'(,|\z)') Then $g_fLock&=','&$Setup[$s][2]
-				$Tmp=$s; see for more components of this mod
-				While $Setup[$Tmp+1][2] = $Setup[$s][2]
+			$SelectArray[$s][5] = _GetTra($ReadSection, 'T+')
+			If $SelectArray[$s][5]='' Then
+				If StringInStr(_IniRead($ReadSection, 'Type', ''), 'F') And Not StringRegExp($g_fLock, ','&$SelectArray[$s][2]&'(,|\z)') Then $g_fLock&=','&$SelectArray[$s][2]
+				Local $Tmp=$s; see for more components of this mod
+				While $SelectArray[$Tmp+1][2] = $SelectArray[$s][2]
 					$Tmp+=1
-					If $Tmp = $Setup[0][0] Then ExitLoop
+					If $Tmp = $SelectArray[0][0] Then ExitLoop
 				WEnd
 				$s=$Tmp
 				ContinueLoop
 			EndIf
-			If $Setup[$s][8]+3 > $g_Tags[0][0] Then $Setup[$s][8] = 0; don't crash if tag does not fit -> move it to general
-			If $g_CHTreeviewItem[$Setup[$s][8]] = '' Then; if current tree does not exist, create it
+			If $SelectArray[$s][8]+3 > $g_Tags[0][0] Then $SelectArray[$s][8] = 0; don't crash if tag does not fit -> move it to general
+			If $g_CHTreeviewItem[$SelectArray[$s][8]] = '' Then; if current tree does not exist, create it
 				If $g_Flags[21]=0 Then; new theme-based-sorting
-					$g_CHTreeviewItem[$Setup[$s][8]] = GUICtrlCreateTreeViewItem($g_Tags[$Setup[$s][8]+3][1], $g_UI_Interact[4][1]); create a treeviewitem (gui-element) for the chapter itself (headline)
+					$g_CHTreeviewItem[$SelectArray[$s][8]] = GUICtrlCreateTreeViewItem($g_Tags[$SelectArray[$s][8]+3][1], $g_UI_Interact[4][1]); create a treeviewitem (gui-element) for the chapter itself (headline)
 				Else
-					$g_CHTreeviewItem[$Setup[$s][8]] = $g_UI_Interact[4][1]
+					$g_CHTreeviewItem[$SelectArray[$s][8]] = $g_UI_Interact[4][1]
 				EndIf
-				GUICtrlSetState($g_CHTreeviewItem[$Setup[$s][8]], $GUI_DEFBUTTON); only set the chapter-line bold
-				$g_CentralArray[$g_CHTreeviewItem[$Setup[$s][8]]][1]= $Setup[$s][8]; tag
-				$g_CentralArray[$g_CHTreeviewItem[$Setup[$s][8]]][2]= '!'; tag as no component
-				$g_CentralArray[$g_CHTreeviewItem[$Setup[$s][8]]][5] = GUICtrlGetHandle($g_CHTreeviewItem[$Setup[$s][8]]); handle
-				$g_CentralArray[$g_CHTreeviewItem[$Setup[$s][8]]][9]= 0; set "current selected mods per chapter" counter
-				$g_CentralArray[$g_CHTreeviewItem[$Setup[$s][8]]][10]= 0; set "mods per chapter" counter
-				If Not StringInStr($g_UI_Menu[0][1], '|'&$Setup[$s][8]&'|') Then $g_UI_Menu[0][1]&=$Setup[$s][8]&'|'; save used themes for the creation of menus
+				GUICtrlSetState($g_CHTreeviewItem[$SelectArray[$s][8]], $GUI_DEFBUTTON); only set the chapter-line bold
+				$g_CentralArray[$g_CHTreeviewItem[$SelectArray[$s][8]]][1]= $SelectArray[$s][8]; tag
+				$g_CentralArray[$g_CHTreeviewItem[$SelectArray[$s][8]]][2]= '!'; tag as no component
+				$g_CentralArray[$g_CHTreeviewItem[$SelectArray[$s][8]]][5] = GUICtrlGetHandle($g_CHTreeviewItem[$SelectArray[$s][8]]); handle
+				$g_CentralArray[$g_CHTreeviewItem[$SelectArray[$s][8]]][9]= 0; set "current selected mods per chapter" counter
+				$g_CentralArray[$g_CHTreeviewItem[$SelectArray[$s][8]]][10]= 0; set "mods per chapter" counter
+				If Not StringInStr($g_UI_Menu[0][1], '|'&$SelectArray[$s][8]&'|') Then $g_UI_Menu[0][1]&=$SelectArray[$s][8]&'|'; save used themes for the creation of menus
 			EndIf
-			$Setup[$s][7]=_IniRead($ReadSection, 'Name', $Setup[$s][2])
-			$Ext = _IniRead($ATMod, $Setup[$s][2], '', $ATIdx[Asc(StringLower(StringLeft($Setup[$s][2], 1)))]); gather the mods description
-			If $Ext = '' Then ConsoleWrite('!No mod description: '&$Setup[$s][2]&@CRLF)
-			$g_TreeviewItem[$cs][0] = GUICtrlCreateTreeViewItem($Setup[$s][7]&' ['&$Setup[$s][5]& ']', $g_CHTreeviewItem[$Setup[$s][8]]); create a treeviewitem (gui-element) for the mod itself (headline)
-			$g_CentralArray[$g_CHTreeviewItem[$Setup[$s][8]]][10]+= 1; increase "mods per chapter" counter
+			$SelectArray[$s][7]=_IniRead($ReadSection, 'Name', $SelectArray[$s][2])
+			$g_TreeviewItem[$cs][0] = GUICtrlCreateTreeViewItem($SelectArray[$s][7]&' ['&$SelectArray[$s][5]& ']', $g_CHTreeviewItem[$SelectArray[$s][8]]); create a treeviewitem (gui-element) for the mod itself (headline)
+			$g_CentralArray[$g_CHTreeviewItem[$SelectArray[$s][8]]][10]+= 1; increase "mods per chapter" counter
 			GUICtrlSetState($g_TreeviewItem[$cs][0], $GUI_DEFBUTTON); only set the mod-line bold
 ; ---------------------------------------------------------------------------------------------
-; Create the entries for the mod in an two-dimensional main-array.
+; Create the entries for a mod headline in the two-dimensional main-array.
 ; ---------------------------------------------------------------------------------------------
-			$g_CentralArray[$g_TreeviewItem[$cs][0]][0] = $Setup[$s][2]; current setup
-			$g_CentralArray[$g_TreeviewItem[$cs][0]][1] = $Setup[$s][8]; tag
+			$g_CentralArray[$g_TreeviewItem[$cs][0]][0] = $SelectArray[$s][2]; current setup
+			$g_CentralArray[$g_TreeviewItem[$cs][0]][1] = $SelectArray[$s][8]; tag
 			$g_CentralArray[$g_TreeviewItem[$cs][0]][2] = '-'; tag as no component
 			$g_CentralArray[$g_TreeviewItem[$cs][0]][3] = '-'; it's a mod, there is no component-description
-			$g_CentralArray[$g_TreeviewItem[$cs][0]][4] = $Setup[$s][7]; mod description
+			$g_CentralArray[$g_TreeviewItem[$cs][0]][4] = $SelectArray[$s][7]; mod description
 			$g_CentralArray[$g_TreeviewItem[$cs][0]][5] = GUICtrlGetHandle($g_TreeviewItem[$cs][0]); handle
-			$Test = _Depend_ItemGetConnections($g_Connections, $g_TreeviewItem[$cs][0],  $Index[$Setup[$s][1]][2], $Setup[$s][2])
+			Local $Char = Asc(StringLower(StringLeft($SelectArray[$s][2], 1))); ASCII-symbol of first character in the mod's setup-name from Select.txt
+			Local $Ext = _IniRead($ATMod, $SelectArray[$s][2], '', $ATIdx[$Char][1], $ATIdx[$Char][2]); gather the mod's translated description for the given setup-name, limiting search range for efficiency to only look for the [setup-name] ini section between previously determined first and last possible match
+			If $Ext = '' Then ConsoleWrite('!No mod description: '&$SelectArray[$s][2]&@CRLF)
+			If $p_Debug Then FileWrite($g_LogFile, '_Tree_Populate calling _Depend_ItemGetConnections $SelectArray[$s='&$s&'][1] = '&$SelectArray[$s][1]&', $SelectArray[$s][2]='&$SelectArray[$s][2]&', $Index[$SelectArray[$s][1]][0]='&$Index[$SelectArray[$s][1]][0]&', $Index[$SelectArray[$s][1]][1]='&$Index[$SelectArray[$s][1]][1]&@CRLF)
+			Local $Test = _Depend_ItemGetConnections($g_Connections, $g_TreeviewItem[$cs][0], $Index[$SelectArray[$s][1]][1], $SelectArray[$s][2]); get dependencies and conflicts; parameters = rules array, treeview-item ID, array of indices to other rules in $g_Connections that might be connected to this treeview-item (based on its associated mod-setup-name, and pre-calculated by _Depend_PrepareBuildIndex), and finally the mod-setup-name for this mod headline -- we do not pass a component number because this is the mod headline so it only connects with rules that contain 'mod-setup-name(-)'
 			If $Test <> '' Then
 				$g_CentralArray[$g_TreeviewItem[$cs][0]][6] = StringReplace($Ext, '|', @CRLF) & @CRLF & @CRLF & $ConnNote & $Test
 			Else
 				$g_CentralArray[$g_TreeviewItem[$cs][0]][6] = StringReplace($Ext, '|', @CRLF)
 			EndIf
 			$g_CentralArray[$g_TreeviewItem[$cs][0]][7] = _IniRead($ReadSection, 'Size', '102400'); get the size of the mod
-			$g_CentralArray[$g_TreeviewItem[$cs][0]][8] = $Setup[$s][5] ; get the language of the mod
+			$g_CentralArray[$g_TreeviewItem[$cs][0]][8] = $SelectArray[$s][5] ; get the language of the mod
 			$g_CentralArray[$g_TreeviewItem[$cs][0]][9] = 0
 			$g_CentralArray[$g_TreeviewItem[$cs][0]][10] = 0
 			$g_CentralArray[$g_TreeviewItem[$cs][0]][11] = _IniRead($ReadSection, 'Type', '')
-			$g_CentralArray[$g_TreeviewItem[$cs][0]][12] = $Setup[$s][4]; pre-selection bits (0000 to 1111)
+			$g_CentralArray[$g_TreeviewItem[$cs][0]][12] = $SelectArray[$s][4]; pre-selection bits (0000 to 1111)
 			$g_CentralArray[$g_TreeviewItem[$cs][0]][15] = _IniRead($ReadSection, 'Rev', '')
 			If $g_Flags[14] = 'BWP' Then; prevent search if batch-install is used
 				Local $ReadSection[1][2]
-			ElseIf $Setup[$s][5] = '--' Then
-				$ReadSection=IniReadSection($g_GConfDir&'\WeiDU-'&_GetTra($ReadSection, 'T')&'.ini', $Setup[$s][2])
+			ElseIf $SelectArray[$s][5] = '--' Then
+				$ReadSection=IniReadSection($g_GConfDir&'\WeiDU-'&_GetTra($ReadSection, 'T')&'.ini', $SelectArray[$s][2])
 			Else
-				$ReadSection=IniReadSection($g_GConfDir&'\WeiDU-'&$Setup[$s][5]&'.ini', $Setup[$s][2])
+				$ReadSection=IniReadSection($g_GConfDir&'\WeiDU-'&$SelectArray[$s][5]&'.ini', $SelectArray[$s][2])
 			EndIf
-			If StringInStr($g_CentralArray[$g_TreeviewItem[$cs][0]][11], 'F') And Not StringRegExp($g_fLock, ','&$Setup[$s][2]&'(,|\z)') Then $g_fLock&=','&$Setup[$s][2]
+			If StringInStr($g_CentralArray[$g_TreeviewItem[$cs][0]][11], 'F') And Not StringRegExp($g_fLock, ','&$SelectArray[$s][2]&'(,|\z)') Then $g_fLock&=','&$SelectArray[$s][2]
 			If $p_Show Then
 				; 0x1a8c14 lime = recommended / 0x000070 dark = standard / 0xe8901a = tactics / 0xad1414 light = expert / checkbox-default = 0x1c5180
 				If StringInStr($g_CentralArray[$g_TreeviewItem[$cs][0]][11], 'R') Then
@@ -412,22 +422,23 @@ Func _Tree_Populate($p_Show=1)
 			EndIf
 			$cc = 0
 		Else
-			$Setup[$s][5]=$Setup[$s-1][5]
-			$Setup[$s][7]=$Setup[$s-1][7]
+			$SelectArray[$s][5]=$SelectArray[$s-1][5]
+			$SelectArray[$s][7]=$SelectArray[$s-1][7]
 		EndIf
 		$cc+=1
-		$Dsc = _IniRead($ReadSection, '@' & $Setup[$s][3], $Compnote)
-		If @error = -1 Then ConsoleWrite($Setup[$s][2]& ' @' & $Setup[$s][3] & @CRLF)
+		Local $Dsc = _IniRead($ReadSection, '@' & $SelectArray[$s][3], $Compnote)
+		If @error = -1 Then ConsoleWrite($SelectArray[$s][2]& ' @' & $SelectArray[$s][3] & @CRLF)
 ; ---------------------------------------------------------------------------------------------
 ; SUB: A selectable sub-component/question  (SUB-Selections are counted as possible selections to [10][0])
 ; ---------------------------------------------------------------------------------------------
-		If StringInStr($Setup[$s][3], '?') Then
-			$n = 1
-			While StringInStr($Setup[$s-$n][3], '?')
+		If StringInStr($SelectArray[$s][3], '?') Then
+			Local $n = 1
+			While StringInStr($SelectArray[$s-$n][3], '?')
 				$n += 1
 			WEnd
-			$Pos=StringInStr($Setup[$s][3], '_', 0, -1)
-			$Definition=_IniRead($EditSubs, $Setup[$s][2]&';'&StringLeft($Setup[$s][3], $Pos-1), '')
+			Local $SubPrefix
+			Local $Pos=StringInStr($SelectArray[$s][3], '_', 0, -1)
+			Local $Definition=_IniRead($EditSubs, $SelectArray[$s][2]&';'&StringLeft($SelectArray[$s][3], $Pos-1), '')
 			If $Definition <> '' Then
 				$SubPrefix=_GetTR($g_UI_Message, '4-L23')&' '; => Suggested answer:
 			Else
@@ -436,50 +447,50 @@ Func _Tree_Populate($p_Show=1)
 			$g_TreeviewItem[$cs][$cc] = GUICtrlCreateTreeViewItem($SubPrefix&$Dsc, $g_TreeviewItem[$cs][$cc - $n]); create a "sub-"treeviewitem (gui-element) for the component
 			If $g_CentralArray[$g_TreeviewItem[$cs][$cc - $n]][10] = 0 Then; this was marked as a normal component before
 				$g_CentralArray[$g_TreeviewItem[$cs][$cc - $n]][10] = 2; this item has its own subtree now
-				$t = $s-$n+1
-				While StringInStr($Setup[$t+1][3], '?')
+				Local $t = $s-$n+1
+				While StringInStr($SelectArray[$t+1][3], '?')
 					$t += 1
 				WEnd
-				$g_CentralArray[$g_TreeviewItem[$cs][0]][10]+=Number(StringRegExpReplace($Setup[$t][3], '\A\d{1,}\x3f|\x5f.*', '')); increase the possible selection
+				$g_CentralArray[$g_TreeviewItem[$cs][0]][10]+=Number(StringRegExpReplace($SelectArray[$t][3], '\A\d{1,}\x3f|\x5f.*', '')); increase the possible selection
 			EndIf
-			$g_CentralArray[$g_TreeviewItem[$cs][$cc]][8] = $Setup[$s][5] ; available languages
+			$g_CentralArray[$g_TreeviewItem[$cs][$cc]][8] = $SelectArray[$s][5] ; available languages
 			$g_CentralArray[$g_TreeviewItem[$cs][$cc]][10] = 1 ; is subitem
 ; ---------------------------------------------------------------------------------------------
 ; MUC create a subtree-item since the component has it's own number (MUC-Select-Headlines are not counted as possible selections to [10][0])
 ; ---------------------------------------------------------------------------------------------
-		ElseIf $Setup[$s][0] = 'MUC'  Then
-			If $Setup[$s][3] = 'Init' Then
-				$g_TreeviewItem[$cs][$cc] = GUICtrlCreateTreeViewItem(StringRegExpReplace(_IniRead($ReadSection, '@'&$Setup[$s+1][3], ''), '\s?->.*\z', ''), $g_TreeviewItem[$cs][0]); create a treeviewitem (gui-element) for the component
+		ElseIf $SelectArray[$s][0] = 'MUC'  Then
+			If $SelectArray[$s][3] = 'Init' Then
+				$g_TreeviewItem[$cs][$cc] = GUICtrlCreateTreeViewItem(StringRegExpReplace(_IniRead($ReadSection, '@'&$SelectArray[$s+1][3], ''), '\s?->.*\z', ''), $g_TreeviewItem[$cs][0]); create a treeviewitem (gui-element) for the component
 				$g_CentralArray[0][0] = $g_TreeviewItem[$cs][$cc] ; last item in array
 				$g_CentralArray[$g_TreeviewItem[$cs][$cc]][0] = $g_CentralArray[$g_TreeviewItem[$cs][0]][0] ; setup-name
 				$g_CentralArray[$g_TreeviewItem[$cs][$cc]][2] = '+'
 				$g_CentralArray[$g_TreeviewItem[$cs][$cc]][4] = $g_CentralArray[$g_TreeviewItem[$cs][0]][4]
 				$g_CentralArray[$g_TreeviewItem[$cs][$cc]][5] = GUICtrlGetHandle($g_TreeviewItem[$cs][$cc]); handle
-				$g_CentralArray[$g_TreeviewItem[$cs][$cc]][8] = $Setup[$s][5]
+				$g_CentralArray[$g_TreeviewItem[$cs][$cc]][8] = $SelectArray[$s][5]
 				$g_CentralArray[$g_TreeviewItem[$cs][$cc]][9] = 0
 				$g_CentralArray[$g_TreeviewItem[$cs][$cc]][10] = 0
 				$g_CentralArray[$g_TreeviewItem[$cs][$cc]][11] = $g_CentralArray[$g_TreeviewItem[$cs][0]][11]
-				$g_CentralArray[$g_TreeviewItem[$cs][$cc]][12] = $Setup[$s][4]; pre-selection bits (0000 to 1111)
+				$g_CentralArray[$g_TreeviewItem[$cs][$cc]][12] = $SelectArray[$s][4]; pre-selection bits (0000 to 1111)
 				;$g_CentralArray[$g_TreeviewItem[$cs][$cc]][13] = $g_CentralArray[$g_TreeviewItem[$cs][0]][13]
 				$g_CentralArray[$g_TreeviewItem[$cs][0]][10]+=2; increase possible selections
 				$g_CentralArray[0][0] = $g_TreeviewItem[$cs][$cc] ; last item in array
 				$cc+=1
 				ContinueLoop
 			Else
-				$n = 1
-				While StringRegExp($Setup[$s-$n][3], '\A\d{1,}\z'); search backwards until the select-item
+				Local $n = 1
+				While StringRegExp($SelectArray[$s-$n][3], '\A\d{1,}\z'); search backwards until the select-item
 					$n+=1
 				WEnd
-				$g_TreeviewItem[$cs][$cc] = GUICtrlCreateTreeViewItem(_Tree_SetLength($Setup[$s][3])&': '&StringRegExpReplace($Dsc, '\A.*\s?->\s?', ''), $g_TreeviewItem[$cs][$cc-$n-1]); create a treeviewitem (gui-element) for the component
-				$g_CentralArray[$g_TreeviewItem[$cs][$cc]][8] = $Setup[$s][5]; language
+				$g_TreeviewItem[$cs][$cc] = GUICtrlCreateTreeViewItem(_Tree_SetLength($SelectArray[$s][3])&': '&StringRegExpReplace($Dsc, '\A.*\s?->\s?', ''), $g_TreeviewItem[$cs][$cc-$n-1]); create a treeviewitem (gui-element) for the component
+				$g_CentralArray[$g_TreeviewItem[$cs][$cc]][8] = $SelectArray[$s][5]; language
 				$g_CentralArray[$g_TreeviewItem[$cs][$cc]][10] = 1; this item is part of a subtree
 			EndIf
 ; ---------------------------------------------------------------------------------------------
 ; this is a normal component
 ; ---------------------------------------------------------------------------------------------
 		Else
-			$g_TreeviewItem[$cs][$cc] = GUICtrlCreateTreeViewItem(_Tree_SetLength($Setup[$s][3])&': ' &$Dsc, $g_TreeviewItem[$cs][0])
-			$g_CentralArray[$g_TreeviewItem[$cs][$cc]][8] = $Setup[$s][5]; possible languages
+			$g_TreeviewItem[$cs][$cc] = GUICtrlCreateTreeViewItem(_Tree_SetLength($SelectArray[$s][3])&': ' &$Dsc, $g_TreeviewItem[$cs][0])
+			$g_CentralArray[$g_TreeviewItem[$cs][$cc]][8] = $SelectArray[$s][5]; possible languages
 			$g_CentralArray[$g_TreeviewItem[$cs][$cc]][10] = 0; this item is _not_ part of a subtree
 			$g_CentralArray[$g_TreeviewItem[$cs][0]][10]+=1; increase possible selections
 		EndIf
@@ -488,32 +499,32 @@ Func _Tree_Populate($p_Show=1)
 ; ---------------------------------------------------------------------------------------------
 		$g_CentralArray[0][0] = $g_TreeviewItem[$cs][$cc] ; last item in array
 		$g_CentralArray[$g_TreeviewItem[$cs][$cc]][0] = $g_CentralArray[$g_TreeviewItem[$cs][0]][0] ; setup-name
-		$g_CentralArray[$g_TreeviewItem[$cs][$cc]][1] = $Setup[$s][8] ; tag
-		$g_CentralArray[$g_TreeviewItem[$cs][$cc]][2] = $Setup[$s][3] ; component number
+		$g_CentralArray[$g_TreeviewItem[$cs][$cc]][1] = $SelectArray[$s][8] ; tag
+		$g_CentralArray[$g_TreeviewItem[$cs][$cc]][2] = $SelectArray[$s][3] ; component number
 		$g_CentralArray[$g_TreeviewItem[$cs][$cc]][3] = $Dsc ; component description
-		$g_CentralArray[$g_TreeviewItem[$cs][$cc]][4] = $Setup[$s][7]; mod description
+		$g_CentralArray[$g_TreeviewItem[$cs][$cc]][4] = $SelectArray[$s][7]; mod description
 		$g_CentralArray[$g_TreeviewItem[$cs][$cc]][5] = GUICtrlGetHandle($g_TreeviewItem[$cs][$cc]); handle
-		$Test = _Depend_ItemGetConnections($g_Connections, $g_TreeviewItem[$cs][$cc], $Index[$Setup[$s][1]][2], $Setup[$s][2], $Setup[$s][3]); get dependencies and conflicts; takes 800 ms
+		$Test = _Depend_ItemGetConnections($g_Connections, $g_TreeviewItem[$cs][$cc], $Index[$SelectArray[$s][1]][1], $SelectArray[$s][2], $SelectArray[$s][3]); get dependencies and conflicts; parameters = rules array, treeview-item ID, array of indices to other rules in $g_Connections that might be connected to this treeview-item (based on its associated mod-setup-name, and pre-calculated by _Depend_PrepareBuildIndex), the mod-setup-name for this (sub-?)component, and finally the component number -- this might take some time (800ms last time it was measured, but we've changed code since then)
 		$g_CentralArray[$g_TreeviewItem[$cs][$cc]][11] = $g_CentralArray[$g_TreeviewItem[$cs][0]][11]
 		If $g_Flags[14]='BWP' Then; batch-install
 			$g_CentralArray[$g_TreeviewItem[$cs][$cc]][12] = $Type; set pre-selection bits based on mod Type ($Type is set earlier in this function)
 		ElseIf StringRegExp($g_CentralArray[$g_TreeviewItem[$cs][0]][11], '\A[^RST]+\z') Then; mod Type does not include 'R'ecommended, 'S' Maximized or 'T'actical
 			$g_CentralArray[$g_TreeviewItem[$cs][$cc]][12] = '0001'; mark the item Expert regardless of Select.txt
 		Else
-			$g_CentralArray[$g_TreeviewItem[$cs][$cc]][12] = $Setup[$s][4]; pre-selection bits (0000 to 1111) according to Setup.txt
+			$g_CentralArray[$g_TreeviewItem[$cs][$cc]][12] = $SelectArray[$s][4]; pre-selection bits (0000 to 1111) according to Setup.txt
 		EndIf
 		If $NotFixedItems <> '' Then; see if the item is among the 'not fixed' ones
-			$ItemIsNotFixed = StringRegExp($NotFixedItems, '(?i)(\A|\s)' & $Setup[$s][3] & '(\s|\z)'); Note: Not checking for SUBs here.
+			Local $ItemIsNotFixed = StringRegExp($NotFixedItems, '(?i)(\A|\s)' & $SelectArray[$s][3] & '(\s|\z)'); Note: Not checking for SUBs here.
 			If $ItemIsNotFixed Then $g_CentralArray[$g_TreeviewItem[$cs][$cc]][11]=StringRegExpReplace($g_CentralArray[$g_TreeviewItem[$cs][$cc]][11], '\AF,|,F', '')
 		EndIf
 		If $p_Show Then
-			$Ext = ''; _IniRead($ReadSection, 'E' & $Setup[$s][3], ''); read the components extended info ==> disabled since no info exists and it takes ~450 ms!!
+			Local $Ext = ''; _IniRead($ReadSection, 'E' & $SelectArray[$s][3], ''); read the components extended info ==> disabled since no info exists and it takes ~450 ms!!
 			If $Test <> '' Then
-				If $Ext <> '' Then
-					$g_CentralArray[$g_TreeviewItem[$cs][$cc]][6] =  $Ext & @CRLF & @CRLF & $ConnNote & $Test
-				Else
-					$g_CentralArray[$g_TreeviewItem[$cs][$cc]][6] =  $ConnNote & $Test
-				EndIf
+;				If $Ext <> '' Then
+;					$g_CentralArray[$g_TreeviewItem[$cs][$cc]][6] =  $Ext & @CRLF & @CRLF & $ConnNote & $Test
+;				Else
+					$g_CentralArray[$g_TreeviewItem[$cs][$cc]][6] = $ConnNote & $Test
+;				EndIf
 			Else
 				$g_CentralArray[$g_TreeviewItem[$cs][$cc]][6] = $Ext
 			EndIf
@@ -685,7 +696,7 @@ Func _Tree_PurgeUnNeeded()
 	If $g_BG1Dir = '-' Then $g_Skip&='|BGT'
 	If $g_BG1EEDir = '-' Then $g_Skip&='|EET'
 	If $g_Flags[14]='IWD1' Then $Version=StringReplace(FileGetVersion($g_IWD1Dir&'\idmain.exe'), '.', '\x2e') ; unicode full stop
-	$ReadSection=IniReadSection($g_GConfDir&'\Game.ini', 'Purge')
+	Local $ReadSection=IniReadSection($g_GConfDir&'\Game.ini', 'Purge')
 	; Keep this function consistent with _Test_Get_EET_Mods in Testing.au3
 	If IsArray($ReadSection) Then
 		For $r=1 to $ReadSection[0][0]
@@ -727,9 +738,9 @@ Func _Tree_PurgeUnNeeded()
 	If $g_BG1Dir <> '-' And $g_MLang[0] = 2 And $g_MLang[1] = 'GE' Then; second $g_MLang-entry is --
 		$g_Skip&='|BG1NPC|BG1NPCMusic'
 	ElseIf $g_BG1Dir <> '-' And $g_MLang[1] = 'GE' Then
-		$Trans=IniRead($g_ModIni, 'BG1NPC', 'Tra', ''); get other translations
+		Local $Trans=IniRead($g_ModIni, 'BG1NPC', 'Tra', ''); get other translations
 		Local $ReadSection[1]=[StringRegExpReplace($Trans, '(?i)\x2cGE\x3a\d{1,2}', '')]
-		$Test=_GetTra($ReadSection, 'T+')
+		Local $Test=_GetTra($ReadSection, 'T+')
 		If $Test <> 'EN' Then; user doesn't want mods in English
 			If $Test = '' Then; nothing would be installed, so purge them
 				$g_Skip&='|BG1NPC|BG1NPCMusic'
@@ -738,13 +749,13 @@ Func _Tree_PurgeUnNeeded()
 			EndIf
 		Else
 			If _IniRead($g_Order, 'Au3Select', 1) = 0 Then Return; no need to ask when reloading installation
-			$Answer=_Misc_MsgGUI(2, _GetTR($g_UI_Message, '0-T1'), _GetTR($g_UI_Message, '2-L10'), 2, _GetTR($g_UI_Message, '0-B1'), _GetTR($g_UI_Message, '0-B2')); => install unfinished BG1NPC translation
+			Local $Answer=_Misc_MsgGUI(2, _GetTR($g_UI_Message, '0-T1'), _GetTR($g_UI_Message, '2-L10'), 2, _GetTR($g_UI_Message, '0-B1'), _GetTR($g_UI_Message, '0-B2')); => install unfinished BG1NPC translation
 			_Misc_SetTab(9)
 			If $Answer = 1 Then; remove part-translation
 				IniWrite($g_ModIni, 'BG1NPC', 'Tra', $ReadSection[0])
 			Else; add if needed
 				If Not StringInStr($Trans, 'GE') Then
-					$Num=IniRead($g_GConfDir&'\WeiDU-GE.ini', 'BG1NPC', 'TRA', 3); get the translation-number
+					Local $Num=IniRead($g_GConfDir&'\WeiDU-GE.ini', 'BG1NPC', 'TRA', 3); get the translation-number
 					IniWrite($g_ModIni, 'BG1NPC', 'Tra', $Trans&',GE:'&$Num); append the translation again
 				EndIf
 			EndIf
@@ -779,21 +790,21 @@ Func _Tree_Reload($p_Show=1, $p_Hint=0, $p_Ini=$g_UsrIni)
 	GUICtrlSetData($g_UI_Interact[2][3], IniRead($g_UsrIni, 'Options', 'Download', GUICtrlRead($g_UI_Interact[2][3])))
 	Local $ModID = '', $ChapterID = '', $Tag = '', $Mod = 0, $Found = 0
 ; ---------------------------------------------------------------------------------------------
-; loop through the elemets of the main-array. We make heavy usage of the main-array here. Now you know why it's that important. :)
+; loop through the elements of the main-array. We make heavy usage of the main-array here. Now you know why it's that important. :)
 ; ---------------------------------------------------------------------------------------------
 	GUICtrlSetData($g_UI_Interact[9][1], 0)
 	GUICtrlSetData($g_UI_Static[9][2], '0 %')
-	_GUICtrlTreeView_BeginUpdate($g_UI_Handle[0]); speed up the update-process by tellig all the stuff at once later
+	_GUICtrlTreeView_BeginUpdate($g_UI_Handle[0]); speed up BWS by suppressing display of changes until we finish the update
 	GUICtrlSetData($g_UI_Menu[1][5], _GetTR($g_UI_Message, '4-M1')); => hide components
-	$Select = IniReadSection($p_Ini, 'Save')
+	Local $Select = IniReadSection($p_Ini, 'Save')
 	If @error Then $Select = IniReadSection($p_Ini, 'Current'); needed to still be able to load saves of older BWS-versions
-	$DeSelect = IniReadSection($p_Ini, 'DeSave')
+	Local $DeSelect = IniReadSection($p_Ini, 'DeSave')
 	If @error Then Local $DeSelect[1][1]
 	$g_GUIFold = 1
-	$Mark=_GetTR($g_UI_Message, '4-L17'); => New
-	$Token = ' ['&StringLeft($Mark, 1)&']'
-	$Mark=' ['&$Mark&']'
-	$Len = StringLen($Mark)
+	Local $Mark=_GetTR($g_UI_Message, '4-L17'); => NEW
+	Local $Token = ' ['&StringLeft($Mark, 1)&']'
+	$Mark = ' ['&$Mark&']'
+	Local $Text, $Len = StringLen($Mark)
 	For $m = $g_CentralArray[0][1] To $g_CentralArray[0][0]; strip old [NEW]-tags
  		$Text=GUICtrlRead($m, 1)
 		If StringInStr($Text, $Token) Then
@@ -821,8 +832,8 @@ Func _Tree_Reload($p_Show=1, $p_Hint=0, $p_Ini=$g_UsrIni)
 		$Mod += 1
 		If $g_CentralArray[$m][2] = '-' Then ; mods headline
 			_AI_SetMod_Disable($m); all are deselected at first
-			$Comp = _IniRead($Select, $g_CentralArray[$m][0], '-1'); read the selected components of the mod.
-			$DComp = _IniRead($DeSelect, $g_CentralArray[$m][0], '-1'); read the deselected components of the mod.
+			Local $Comp = _IniRead($Select, $g_CentralArray[$m][0], '-1'); read the selected components of the mod.
+			Local $DComp = _IniRead($DeSelect, $g_CentralArray[$m][0], '-1'); read the deselected components of the mod.
 			If $Comp = '-1' And $DComp = '-1' Then
 				GUICtrlSetData($m, GUICtrlRead($m, 1)&$Token); mark as a new mod
 				$g_CentralArray[$m][4]&=$Mark; add a mark that is searchable
@@ -836,7 +847,7 @@ Func _Tree_Reload($p_Show=1, $p_Hint=0, $p_Ini=$g_UsrIni)
 			$ModID = $m
 			ContinueLoop
 		EndIf
-		$ModCounter = $g_CentralArray[0][0] - $g_CentralArray[0][1]
+		Local $ModCounter = $g_CentralArray[0][0] - $g_CentralArray[0][1]
 		If _MathCheckDiv($m, 10) = 2 Then
 			GUICtrlSetData($g_UI_Interact[9][1], $Mod * 100 / $ModCounter); set progress
 			GUICtrlSetData($g_UI_Static[9][2], Round($Mod * 100 / $ModCounter, 0) & ' %')
@@ -877,7 +888,7 @@ Func _Tree_Reload($p_Show=1, $p_Hint=0, $p_Ini=$g_UsrIni)
 			If $p_Show Then __TristateTreeView_SetItemState($g_UI_Handle[0], $g_CentralArray[$m][5], 2+$g_CentralArray[$m][14])
 			If $g_CentralArray[$m][10] = 1 Then
 				If StringInStr($g_CentralArray[$m][2], '?') Then; it's a SUB-item
-					$Component=StringRegExpReplace($g_CentralArray[$m][2], '\x5f.*', '')
+					Local $Component=StringRegExpReplace($g_CentralArray[$m][2], '\x5f.*', ''); x5f = '_' (unicode low line); strip answer, keep 'comp-num?sub-comp-num' part
 					If $p_Show Then __TristateTreeView_SetItemState($g_UI_Handle[0], $g_CentralArray[_AI_GetStart($m, $Component)][5], 2+$g_CentralArray[$m][14])
 					$g_CentralArray[_AI_GetStart($m, $Component)][9] = 1
 				Else; it's a MUC-item
@@ -915,7 +926,7 @@ EndFunc   ;==>_Tree_Reload
 ; Take read selection-array and sort it theme-wise for the selection-screen
 ; ---------------------------------------------------------------------------------------------
 Func _Tree_SelectConvert($p_Array)
-	$Trans = StringSplit(IniRead($g_ProgDir & '\Config\Translation-EN.ini', 'UI-Buildtime', 'Menu[2][2]', ''), '|'); => translations for themes
+	Local $Trans = StringSplit(IniRead($g_ProgDir & '\Config\Translation-EN.ini', 'UI-Buildtime', 'Menu[2][2]', ''), '|'); => translations for themes
 	Dim $Theme[$Trans[0]]
 	For $a=1 to $p_Array[0][0]
 		$Theme[Number($p_Array[$a][8])]&='|'&$a; add index-numbers to a string that represents a theme
@@ -923,7 +934,7 @@ Func _Tree_SelectConvert($p_Array)
 	Local $Return[$p_Array[0][0]+1000][10]
 	For $t=0 to $Trans[0]-1
 		If $Theme[$t] = '' Then ContinueLoop; skip if nothing was assigned to the theme
-		$Index=StringSplit(StringTrimLeft($Theme[$t], 1), '|'); get index-numbers of the array assigned to the theme
+		Local $Index=StringSplit(StringTrimLeft($Theme[$t], 1), '|'); get index-numbers of the array assigned to the theme
 		Local $SameThemeMods[200][4], $Found=0; enable 200 additions
 		For $i=1 to $Index[0]
 			If StringRegExp($p_Array[$Index[$i]][3], '[0123456789]') Then; look for components
@@ -946,7 +957,7 @@ Func _Tree_SelectConvert($p_Array)
 			$SameThemeMods[$SameThemeMods[0][0]][2]=$Index[$i]; index (end)
 			$SameThemeMods[$SameThemeMods[0][0]][3]=_IniRead($g_Setups, $SameThemeMods[$SameThemeMods[0][0]][0], $SameThemeMods[$SameThemeMods[0][0]][0]); get the name of the mod
 		Next
-		_ArraySort($SameThemeMods, 0, 1, $SameThemeMods[0][0], 3); sort the same "themed" mods base on the mods names
+		_ArraySort($SameThemeMods, 0, 1, $SameThemeMods[0][0], 3); sort the same "themed" mods based on the mods names
 		For $s=1 to $SameThemeMods[0][0]; create output
 			For $a=$SameThemeMods[$s][1] to $SameThemeMods[$s][2]
 				$Return[0][0]+=1
@@ -960,7 +971,8 @@ Func _Tree_SelectConvert($p_Array)
 					$Return[0][1]+=1
 					$Return[0][2] = $Return[$Return[0][0]][2]
 				EndIf
-				$Return[$Return[0][0]][1]=$Return[0][1]; $Index-number (will be used for connections)
+				$Return[$Return[0][0]][1]=$Return[0][1]; index-number of this mod/component in the select-array (will be used for connections)
+				;											this is the same as $SelectArray[$s][1] in _Tree_Populate
 			Next
 		Next
 	Next
@@ -973,10 +985,10 @@ EndFunc   ;==>Tree_SelectConvert
 ; Read some parts of the select.txt-file for Batch-installations
 ; ---------------------------------------------------------------------------------------------
 Func _Tree_SelectReadForBatch()
-	$Array=StringSplit(StringStripCR(FileRead($g_GConfDir&'\Select.txt')), @LF); go through select.txt
-	Local $Return[$Array[0]][10], $Theme=-1
+	Local $Array=StringSplit(StringStripCR(FileRead($g_GConfDir&'\Select.txt')), @LF); go through select.txt
+	Local $Split, $Type, $Setup, $Return[$Array[0]][10], $Theme=-1
 	For $a=1 to $Array[0]
-		If StringLeft($Array[$a], 5) = 'ANN;#' Then $Theme+=1; don't read values because there are not consistent (usage of 5A)
+		If StringLeft($Array[$a], 5) = 'ANN;#' Then $Theme+=1; don't read values because they are not consistent (usage of 5A)
 		If StringRegExp($Array[$a], '(?i)\A(ANN|CMD|GRP)') Then ContinueLoop; skip annotations,commands,groups
 		If StringRegExp($Array[$a], '\A(\s.*\z|\z)') Then ContinueLoop; skip empty lines
 		If StringRegExp($Array[$a], '(?i);('&$g_Skip&');') Then ContinueLoop; skip mods that don't fit the selection
@@ -1001,7 +1013,7 @@ Func _Tree_SelectReadForBatch()
 		$Return[$Return[0][0]][1]=$Return[0][1]; $Index-number (will be used for connections)
 	Next
 	$Return[0][3]=$Theme
-	$Return[0][4]=$Return[0][0]+$Return[0][1]+$Return[0][3]+$g_UI_Menu[8][10]+10000; calculate Treeview-items: Items+Mods+Themes+GUI-items+Error-Margin for wrong calculation
+	$Return[0][4]=$Return[0][0]+$Return[0][1]+$Return[0][3]+$g_UI_Menu[8][10]+100; calculate Treeview-items: Items+Mods+Themes+GUI-items+Error-Margin for wrong calculation
 	Global $g_CentralArray[$Return[0][4]][16];set size for global array before running _Tree_Populate -- if BWS goes kaboom, recalculate this number...
 	ReDim $Return[$Return[0][0]+1][10]
 	Return $Return
@@ -1011,10 +1023,10 @@ EndFunc   ;==>_Tree_SelectReadForBatch
 ; Read the select.txt-file which contains the installation-procedure
 ; ---------------------------------------------------------------------------------------------
 Func _Tree_SelectRead($p_Admin=0)
-	$Array=StringSplit(StringStripCR(FileRead($g_GConfDir&'\Select.txt')), @LF)
-	Local $Return[$Array[0]+1][10]
+	Local $Array=StringSplit(StringStripCR(FileRead($g_GConfDir&'\Select.txt')), @LF)
+	Local $Split, $Return[$Array[0]+1][10]
 	For $a=1 to $Array[0]
-		If StringRegExp($Array[$a], '\A(\s.*\z|\z)') Then ContinueLoop; skip emtpty lines
+		If StringRegExp($Array[$a], '\A(\s.*\z|\z)') Then ContinueLoop; skip empty lines
 		If StringRegExp($Array[$a], '(?i)\A(ANN|CMD|GRP)') Then
 			If $p_Admin=0 Then
 				ContinueLoop; skip annotations,commands,groups
@@ -1032,20 +1044,20 @@ Func _Tree_SelectRead($p_Admin=0)
 		$Split=StringSplit($Array[$a], ';')
 		$Return[0][0]+=1
 		$Return[$Return[0][0]][0]=$Split[1]; linetype
-		;  1 >> Index
+		;  1 >> Index (points to the 'root'/'headline' of a sequential series of lines for the same mod)
 		$Return[$Return[0][0]][2]=$Split[2]; setup
 		$Return[$Return[0][0]][3]=$Split[3]; component
 		$Return[$Return[0][0]][4]=$Split[5]; defaults
 		;  5 >> Translation
 		$Return[$Return[0][0]][6]=$Split[6]; component requirements
-		;  7 >> Name
+		;  7 >> Name (is this GRP name / description for CMD/ANN lines?)
 		$Return[$Return[0][0]][8]=$Split[4]; theme
 		If $Return[$Return[0][0]][8] <> $Return[$Return[0][0]-1][8] Then $Return[0][3]+=1
-		If $Return[$Return[0][0]][2] <> $Return[0][2] Then
-			$Return[0][1]+=1
-			$Return[0][2] = $Return[$Return[0][0]][2]
+		If $Return[$Return[0][0]][2] <> $Return[0][2] Then; setup-name of previous line was different
+			$Return[0][1]+=1; increment highest index-number
+			$Return[0][2] = $Return[$Return[0][0]][2]; remember current line setup-name
 		EndIf
-		$Return[$Return[0][0]][1]=$Return[0][1]; $Index-number (will be used for connections)
+		$Return[$Return[0][0]][1]=$Return[0][1]; index-number (will be used for connections)
 	Next
 	$Return[0][4]=$Return[0][0]+$Return[0][1]+$Return[0][3]+$g_UI_Menu[8][10]+100; calculate Treeview-items: Items+Mods+Themes+GUI-items+Error-Margin for wrong calculation
 	Global $g_CentralArray[$Return[0][4]][16];set size for global array before running _Tree_Populate -- if BWS goes kaboom, recalculate this number...
@@ -1069,8 +1081,8 @@ EndFunc   ;==>_Tree_SetLength
 ; ---------------------------------------------------------------------------------------------
 Func _Tree_SetPreSelected($p_Num='')
 	_PrintDebug('+' & @ScriptLineNumber & ' Calling _Tree_SetPreSelected')
-	$Current = ''
-	$Type = _Selection_GetCurrentInstallType()
+	Local $Current = ''
+	Local $Type = _Selection_GetCurrentInstallType()
 	_Misc_ProgressGUI(_GetTR($g_UI_Message, '4-T1'), _GetTR($g_UI_Message, '4-L2')); => setting entries
 	If StringLen($Type)=2 then
 		_Tree_Reload(1, 0, $g_GConfDir&'\Preselection'&$Type&'.ini'); show reload the settings from a file without hints about new items
@@ -1085,13 +1097,12 @@ Func _Tree_SetPreSelected($p_Num='')
 EndFunc   ;==>_Tree_SetPreSelected
 
 ; ---------------------------------------------------------------------------------------------
-; (De)Select (mostly) all mods of a certain group/theme (Quest, NPC...) or special selections. $p_Num =
+; (De)Select (mostly) all mods of a certain group/theme (Quest, NPC...) or special selections
 ; ---------------------------------------------------------------------------------------------
 Func _Tree_SetSelectedGroup($p_Num, $p_State)
 	_PrintDebug('+' & @ScriptLineNumber & ' Calling _Tree_SetSelectedGroup')
-	Local $FirstModItem
 	_GUICtrlTreeView_BeginUpdate($g_UI_Handle[0])
-	$OldCompilation = $g_Compilation
+	Local $FirstModItem, $OldCompilation = $g_Compilation
 	If $p_Num > $g_UI_Menu[0][2]-2 Then; theme groups = menu - all + select entries
 		$FirstModItem = _Tree_SetSelectedGroup_Special($p_Num, $p_State)
 	Else
@@ -1111,7 +1122,7 @@ EndFunc   ;==>_Tree_SetSelectedGroup
 ; ---------------------------------------------------------------------------------------------
 Func _Tree_SetSelectedGroup_Request($p_Num)
 	_PrintDebug('+' & @ScriptLineNumber & ' Calling _Tree_SetSelectedGroup_Request')
-	Local $Array[750][2], $FirstModItem, $Compilation[5]=[4, 'R', 'S', 'T', 'E'], $OldCompilation = $g_Compilation
+	Local $Array[750][2], $FirstModItem, $Test, $Compilation[5]=[4, 'R', 'S', 'T', 'E'], $OldCompilation = $g_Compilation
 	For $c = $g_CentralArray[0][1] To $g_CentralArray[0][0]; loop through all mod-headlines and components
 		If $g_CentralArray[$c][2] = '' Then ContinueLoop
 		If $g_CentralArray[$c][2] <> '-' Then ContinueLoop
@@ -1125,6 +1136,7 @@ Func _Tree_SetSelectedGroup_Request($p_Num)
 		EndIf
 	Next
 	ReDim $Array[$Array[0][0]+1][2]
+	Local $Request
 	If $Array[0][1] <> '' Then
 		$Request = _Misc_MsgGUI(3, _GetTR($g_UI_Message, '0-T1'), $Array[0][1]&'|'&  _GetTR($g_UI_Message, '4-L7'), 3, _GetTR($g_UI_Message, '8-B1'), _GetTR($g_UI_Message, '8-B5'), _GetTR($g_UI_Message, '8-B2')); => select mods from other versions?
 		If $Request = 1 Then Return; user does not want to add this
@@ -1168,7 +1180,8 @@ Func _Tree_SetSelectedGroup_Special($p_Num, $p_State)
 	_PrintDebug('+' & @ScriptLineNumber & ' Calling _Tree_SetSelectedGroup_Special')
 	Local $FirstModItem
 	$g_Compilation = 'E'
-	$Num=$p_Num - ($g_UI_Menu[0][2]-2)
+	Local $Num=$p_Num - ($g_UI_Menu[0][2]-2)
+	Local $Mod, $RemoveMod, $Comp
 	For $c = $g_CentralArray[0][1] To $g_CentralArray[0][0]; loop through all mod-headlines and components
 		If $g_CentralArray[$c][2] = '' Then ContinueLoop
 		If $g_CentralArray[$c][2] <> '-' Then ContinueLoop

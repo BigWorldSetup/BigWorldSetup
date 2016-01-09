@@ -1293,7 +1293,7 @@ EndFunc   ;==>_Dep_ItemGetSel
 ; Save current entry
 ; ---------------------------------------------------------------------------------------------
 Func _Dep_ItemSave($p_Message, $p_Num)
-	Local $String='', $Error, $Output
+	Local $Rule='', $Error, $Output
 	$End=ControlListView($g_UI[0], '', $g_UI_Interact[13][3], 'GetItemCount')
 	Local $Array[$End+2][3]
 	For $i=0 to $End-1
@@ -1333,33 +1333,34 @@ Func _Dep_ItemSave($p_Message, $p_Num)
 	EndIf
 ; ============== no errors if we got here   ================
 	If $Type = 'DA' Then
-		$String='D:'&_Dep_Compact($Array, 'D', '&')
+		$Rule='D:'&_Dep_Compact($Array, 'D', '&')
 		$Long='D:'&_Dep_Compact($Array, 'D', '&', 0)
 	ElseIf $Type = 'C>' Then
 		For $a=1 to $Array[0][0]
-			$String&='>'&$Array[$a][0]&'('&$Array[$a][1]&')'
+			$Rule&='>'&$Array[$a][0]&'('&$Array[$a][1]&')'
 		Next
-		$String='C:'&StringTrimLeft($String, 1)
-		$Long=$String
+		$Rule='C:'&StringTrimLeft($Rule, 1)
+		$Long=$Rule
 	Else
-		$String=StringLeft($Type, 1)&':'&_Dep_Compact($Array, '', $Num)&':'&_Dep_Compact($Array, StringLeft($Type, 1), StringRight($Type, 1))
+		$Rule=StringLeft($Type, 1)&':'&_Dep_Compact($Array, '', $Num)&':'&_Dep_Compact($Array, StringLeft($Type, 1), StringRight($Type, 1))
 		$Long=StringLeft($Type, 1)&':'&_Dep_Compact($Array, '', $Num, 0)&':'&_Dep_Compact($Array, StringLeft($Type, 1), StringRight($Type, 1), 0)
 	EndIf
-	Dim $Text[2][2]=[[1], [1, $String]]
+	Dim $Text[2][2]=[[1], [1, $Rule]]
 	$Text=_Depend_PrepareBuildSentences($Text)
 	If $p_Num[2] = '' Then; add new item
 		$g_Connections[0][0]+=1
-		ReDim $g_Connections[$g_Connections[0][0]+1][4]
+		ReDim $g_Connections[$g_Connections[0][0]+1][5]
 		$p_Num[2]=$g_Connections[0][0]
-		GUICtrlCreateListViewItem($Desc&'|'&$Text[1][2]&'|'&$g_Connections[0][0], $g_UI_Interact[13][1])
+		GUICtrlCreateListViewItem($Desc&'|'&$Text[1][2]&'|'&$p_Num[2], $g_UI_Interact[13][1])
 	Else
 		GUICtrlSetData($p_Num[1], $Desc&'|'&$Text[1][2]&'|'&$p_Num[2])
 	EndIf
-	$g_Connections[$p_Num[2]][0]=$Desc
-	$g_Connections[$p_Num[2]][1]=$String
-	$g_Connections[$p_Num[2]][2]=$Text[1][2]
-	$g_Connections[$p_Num[2]][3]=$Long
-;~ 	$p_Num 0=Index, 1=ID, 2=Nummer
+	$g_Connections[$p_Num[2]][0]=$Desc; text describing the rule
+	$g_Connections[$p_Num[2]][1]=$Rule; the rule itself, e.g. D:a(-):b(-)|c(-)
+	$g_Connections[$p_Num[2]][2]=$Text[1][2]; sentence summarizing the rule, e.g. A depends on B or C
+	$g_Connections[$p_Num[2]][3]=$Long; long form of rule, with IDs instead of mod names and component numbers, e.g. D:123:456|789
+	$g_Connections[$p_Num[2]][4]=0; not a user-ignorable rule
+;~ 	$p_Num 0=Index, 1=ID, 2=Number of rules in $g_Connections now (also the index of this new entry)
 	Return 1
 EndFunc   ;==>_Dep_ItemSave
 

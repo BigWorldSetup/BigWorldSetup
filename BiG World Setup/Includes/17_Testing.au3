@@ -37,7 +37,7 @@ Func _Test_GetGamePath($p_Game, $p_Force=0)
 		If $Game[$g][0] = $p_Game Then ExitLoop
 	Next
 	If $p_Force = 0 Then
-		$Test=IniRead($g_UsrIni, 'Options', $p_Game, '')
+		Local $Test=IniRead($g_UsrIni, 'Options', $p_Game, '')
 		If ($p_Game = 'BG1' And $Test = '-') OR ($p_Game = 'BG1EE' And $Test = '-') Or ($Test <> '' And FileExists($Test&'\'&$Game[$g][3])) Then
 			Assign ('g_'&$p_Game&'Dir', $Test)
 			Return $Test
@@ -45,7 +45,8 @@ Func _Test_GetGamePath($p_Game, $p_Force=0)
 	EndIf
 	If StringInStr($p_Game, 'EE') Then
 		$Test=''
-		For $k= 1 to 1000
+		Local $key
+		For $k = 1 to 1000
 			$key = RegEnumKey("HKEY_LOCAL_MACHINE\SOFTWARE\Microsoft\Windows\CurrentVersion\Uninstall", $k)
 			If @error <> 0 then ExitLoop
 			$Name=RegRead('HKEY_LOCAL_MACHINE\SOFTWARE\Microsoft\Windows\CurrentVersion\Uninstall\'&$Key, 'DisplayName')
@@ -63,7 +64,9 @@ Func _Test_GetGamePath($p_Game, $p_Force=0)
 		$Test = RegRead('HKLM\SOFTWARE\Microsoft\Windows\CurrentVersion\App Paths\'&$Game[$g][1]&'.exe', 'Path')
 		$Test = StringRegExpReplace($Test, '(?i)\x5c{1,}\z', '')
 	EndIf
+	Local $Files
 	If $Test <> '' And FileExists($Test&'\'&$Game[$g][3]) Then
+		; fall through
 	ElseIf $p_Game = 'BG1EE' Then
 		$Test=''
 		$Files=_FileSearch(@ProgramFilesDir, "Baldur's Gate*Enhanced Edition")
@@ -100,7 +103,7 @@ Func _Test_GetGamePath($p_Game, $p_Force=0)
 		Assign ('g_'&$p_Game&'Dir', $Test)
 		Return $Test
 	Else
-		$SearchDir = $g_BaseDir
+		Local $SearchDir = $g_BaseDir
 		$Files=_FileSearch($SearchDir, '*')
 		For $f=1 to $Files[0]
 			If Not StringInStr(FileGetAttrib($SearchDir & '\' & $Files[$f]), 'D') Then ContinueLoop
@@ -115,6 +118,12 @@ Func _Test_GetGamePath($p_Game, $p_Force=0)
 			EndIf
 		Next
 	EndIf
+	; if we still didn't find a valid game path ...
+	If $p_Game = 'BG1' OR $p_Game = 'BG1EE' Then
+		IniWrite($g_UsrIni, 'Options', $p_Game, '-')
+		Assign ('g_'&$p_Game&'Dir', '-')
+		Return '-'
+	EndIf
 EndFunc   ;==>_Test_GetGamePath
 
 ; ---------------------------------------------------------------------------------------------
@@ -123,10 +132,10 @@ EndFunc   ;==>_Test_GetGamePath
 Func _Test_ACP()
 	_PrintDebug('+' & @ScriptLineNumber & ' Calling _Test_ACP')
 	If Not StringRegExp ($g_Flags[14], 'BWS|BWP') Then Return; mod was made for Baldurs Gate (ToB)
-	$Test = RegRead('HKEY_LOCAL_MACHINE\SYSTEM\CurrentControlSet\Control\Nls\CodePage', 'ACP')
+	Local $Test = RegRead('HKEY_LOCAL_MACHINE\SYSTEM\CurrentControlSet\Control\Nls\CodePage', 'ACP')
 	If $Test = '1252' Then Return; codepage fits
 	If $g_MLang[1] = 'RU' And $Test = '1251' Then Return; IA is converted for Russian translation, so Cyrillic codepage also fits
-	$Answer=_Misc_MsgGUI(1, _GetTR($g_UI_Message, '0-T1'), StringFormat(_GetTR($g_UI_Message, '2-L6'), $Test), 3, _GetTR($g_UI_Message, '0-B1'), _GetTR($g_UI_Message, '0-B2'), _GetTR($g_UI_Message, '0-B3')); => Hint / This may affect your programs
+	Local $Answer=_Misc_MsgGUI(1, _GetTR($g_UI_Message, '0-T1'), StringFormat(_GetTR($g_UI_Message, '2-L6'), $Test), 3, _GetTR($g_UI_Message, '0-B1'), _GetTR($g_UI_Message, '0-B2'), _GetTR($g_UI_Message, '0-B3')); => Hint / This may affect your programs
 	If $Answer = 1 Then
 		ShellExecute(IniRead($g_ModIni, 'infinityanimations', 'Link', 'http://www.spellholdstudios.net/ie/infinityanimations')); open the homepage if it is nursed
 		_Test_ACP()
@@ -169,13 +178,14 @@ Func _Test_ArchivesExist()
 		_Process_Gui_Delete(3, 3, 0)
 		Return
 	EndIf
-	$Keep = $g_pQuestion
+	Local $Keep = $g_pQuestion
 	$Prefixes[0] = ''
 	$Prefixes[1] = 'Add'
 	$Prefixes[2] = $g_ATrans[$g_ATNum] & '-Add'
 	If Not FileExists($g_RemovedDir) Then DirCreate($g_RemovedDir); create the folders
 	If Not FileExists($g_DownDir & '\Valid') Then DirCreate($g_DownDir & '\Valid')
 	If Not FileExists($g_DownDir & '\Not Valid') Then DirCreate($g_DownDir & '\Not Valid')
+	Local $ReadSection, $Save, $Tag, $INetSize, $RoundedINetSize, $FileSize
 	For $l = 1 To $List[0][0]; loop through
 		GUICtrlSetData($g_UI_Interact[6][1], 100 * $l / $List[0][0])
 		GUICtrlSetData($g_UI_Static[6][2], _GetTR($Message, 'L2') & ' ' & $List[$l][1] & ' ...'); => checking
@@ -232,7 +242,7 @@ Func _Test_ArchivesExist()
 	Next
 	FileMove($g_DownDir & '\*.*', $g_DownDir & '\Not Valid\'); move the rest to not valid
 	FileMove($g_DownDir & '\Valid\*.*', $g_DownDir & '\'); get the valid files back
-	$Num=DirGetSize($g_DownDir & '\Valid', 1)
+	Local $Num=DirGetSize($g_DownDir & '\Valid', 1)
 	If $Num[1] = 0 And $Num[2] = 0 Then DirRemove($g_DownDir & '\Valid', 1)
 	$Num=DirGetSize($g_DownDir & '\Not Valid', 1)
 	If $Num[1] <> 0 Then $Delete = 1; files are found
@@ -279,13 +289,13 @@ EndFunc   ;==>_Test_ArchivesExist
 ; Search if the german textpatch is needed
 ; ---------------------------------------------------------------------------------------------
 Func _Test_CheckBG1TP()
-	Local $CurrentVersion, $InstalledVersion
+	Local $CurrentVersion, $InstalledVersion, $Component
 	If Not StringRegExp($g_Flags[14], 'BWP|BWS') Then Return 1; no BWP/BWS-installation (BG1)
 	If $g_MLang[1] <> 'GE' Then Return 1
 	If $g_BG1Dir = '-' Then Return 1
 	$CurrentVersion=IniRead($g_ModIni, 'BG1TP', 'Rev', '')
 	If FileExists($g_BG1Dir&'\WeiDU.log') Then
-		$Array = StringSplit(StringStripCR(FileRead($g_BG1Dir & '\Weidu.log')), @LF)
+		Local $Array = StringSplit(StringStripCR(FileRead($g_BG1Dir & '\Weidu.log')), @LF)
 		For $a = $Array[0] To 1 Step -1
 			If StringRegExp($Array[$a], '(?i)\A~.{0,}(setup\x2d|\x2f|)bg1tp.tp2~\s#0\s#0') Then
 				$Component = StringRegExpReplace($Array[$a], '\A.*\s//\s', '')
@@ -321,7 +331,7 @@ EndFunc    ;==>_Test_CheckTotSCFiles_BG1
 ; ---------------------------------------------------------------------------------------------
 Func _Test_CheckRequiredFiles()
 	_PrintDebug('+' & @ScriptLineNumber & ' Calling _Test_CheckRequiredFiles')
-	Local $Error=0
+	Local $Return, $Error=0
 	If StringRegExp($g_Flags[14], 'BWS|BWP') Then; (BGT)
 		$Return = _Test_CheckRequiredFiles_BG1()
 		$Error += @error
@@ -396,7 +406,7 @@ Func _Test_CheckRequiredFiles_BG1()
 	If $Error <> '' Then
 		_Misc_MsgGUI(4, $g_ProgName, $Hint&$Error, 1)
 		Local $ret_Error=1, $ret_Extended=0, $Return = 1
-	ElseIf $Hint<> '' Then
+	ElseIf $Hint <> '' Then
 		$Return = _Misc_MsgGUI(3, $g_ProgName, $Hint, 2)
 		Local $ret_Error=0, $ret_Extended=1
 	Else
@@ -422,7 +432,7 @@ Func _Test_CheckRequiredFiles_BG2()
 		_Test_SetButtonColor(2, 1, 1)
 		Return SetError(1, 1, 1)
 	EndIf
-	$BG2AliasDir=IniRead($g_BG2Dir & '\baldur.ini', 'Alias', 'CD5:', $g_BG2Dir&'\CD5\')
+	Local $BG2AliasDir=IniRead($g_BG2Dir & '\baldur.ini', 'Alias', 'CD5:', $g_BG2Dir&'\CD5\')
 	If StringInStr($BG2AliasDir, ';') Then
 		$BG2AliasDir=StringSplit($BG2AliasDir, ';')
 		For $b=1 to $BG2AliasDir[0]
@@ -442,11 +452,12 @@ Func _Test_CheckRequiredFiles_BG2()
 	Else
 		$Error&=_GetTR($Message, 'L3')&@CRLF; => patch is missing
 	EndIf
-	$Path=StringLeft($g_BG2Dir, StringInStr($g_BG2Dir, '\', 1, -1)-1)
+	;why was this line here?  does nothing
+	;Local $Path=StringLeft($g_BG2Dir, StringInStr($g_BG2Dir, '\', 1, -1)-1)
 	If $Error <> '' Then
 		_Misc_MsgGUI(4, $g_ProgName, $Hint&$Error, 1)
 		Local $ret_Error=1, $ret_Extended=0, $Return = 1
-	ElseIf $Hint<> '' Then
+	ElseIf $Hint <> '' Then
 		$Return = _Misc_MsgGUI(3, $g_ProgName, StringRegExpReplace($Hint, '\A\r\n|\r\n\z', ''), 2)
 		Local $ret_Error=0, $ret_Extended=1
 	Else
@@ -462,19 +473,19 @@ EndFunc    ;==>_Test_CheckRequiredFiles_BG2
 Func _Test_CheckRequiredFiles_BG1EE()
 	Local $Message = IniReadSection($g_TRAIni, 'TE-BG1EE')
 	_PrintDebug('+' & @ScriptLineNumber & ' Calling _Test_CheckRequiredFiles_BG1EE')
-	Local $Missing='', $Hint='', $Error='', $Return, $Num=2
-	If $g_Flags[14] = 'BG2EE' Then $Num=1; use the upper group for the game since there are two games to select
+	Local $Missing='', $Hint='', $Error='', $Return, $Num=2; sync with BG1EE GUI adjustments in _Misc_SwitchGUIToInstallMethod
+	If $g_Flags[14] = 'BG2EE' Then $Num=1; EET - use the upper group for BG1EE since there are two games to select
 	If IniRead($g_BWSIni, 'Order', 'Au3Select', 0) = 1 Then
 		$g_BG1EEDir=GUICtrlRead($g_UI_Interact[2][$Num])
 		IniWrite($g_UsrIni, 'Options', 'BG1EE', $g_BG1EEDir)
 	EndIf
 	If $g_BG1EEDir = '-' And $g_Flags[14] = 'BG2EE' Then; this enables modding BG2EE without EET
-		_Test_SetButtonColor(1, 0, 0)
+		_Test_SetButtonColor(1, 0, 0); green
 		Return SetError(0, 0, 2)
 	EndIf
 	If Not FileExists($g_BG1EEDir) Or $g_BG1EEDir = '' Then
 		_Misc_MsgGUI(4, $g_ProgName, _GetTR($Message, 'L1'), 1); => folder does not exist
-		_Test_SetButtonColor($Num, 1, 1)
+		_Test_SetButtonColor($Num, 1, 1); red
 		Return SetError(1, 1, 1)
 	EndIf
 	If FileExists($g_BG1EEDir&'\lang\en_US') And FileExists($g_BG1EEDir&'\movies\mineflod.wbm') And FileExists($g_BG1EEDir&'\Baldur.exe') Then; BG1EE-directory structure
@@ -484,7 +495,7 @@ Func _Test_CheckRequiredFiles_BG1EE()
 	If $Error <> '' Then
 		_Misc_MsgGUI(4, $g_ProgName, $Hint&$Error, 1)
 		Local $ret_Error=1, $ret_Extended=0, $Return = 1
-	ElseIf $Hint<> '' Then
+	ElseIf $Hint <> '' Then
 		$Return = _Misc_MsgGUI(3, $g_ProgName, $Hint, 2)
 		Local $ret_Error=0, $ret_Extended=1
 	Else
@@ -517,7 +528,7 @@ Func _Test_CheckRequiredFiles_BG2EE()
 	If $Error <> '' Then
 		_Misc_MsgGUI(4, $g_ProgName, $Hint&$Error, 1)
 		Local $ret_Error=1, $ret_Extended=0, $Return = 1
-	ElseIf $Hint<> '' Then
+	ElseIf $Hint <> '' Then
 		$Return = _Misc_MsgGUI(3, $g_ProgName, $Hint, 2)
 		Local $ret_Error=0, $ret_Extended=1
 	Else
@@ -543,7 +554,7 @@ Func _Test_CheckRequiredFiles_IWD1()
 		_Test_SetButtonColor(2, 1, 1)
 		Return SetError(1, 1, 1)
 	EndIf
-	$Version=FileGetVersion($g_IWD1Dir&'\idmain.exe')
+	Local $Version=FileGetVersion($g_IWD1Dir&'\idmain.exe')
 	If $Version = '0.0.0.0' Then; unpatched IWD
 		$Error&=_GetTR($Message, 'L2')&@CRLF; => at least patch
 	ElseIf $Version = '1.3.0.1' Then; patched IWD1 1.06
@@ -552,13 +563,13 @@ Func _Test_CheckRequiredFiles_IWD1()
 		$Error&=_GetTR($Message, 'L4')&@CRLF; => at least patch
 	ElseIf $Version = '1.4.1.0' Then; patched IWD1 HoW 1.41
 		$Hint&=_GetTR($Message, 'L5')&@CRLF; => no current installation
-	ElseIf $Version = '1.4.2.0' Then; How with TotL
-
+	ElseIf $Version = '1.4.2.0' Then; HoW with TotL
+		; OK
 	EndIf
 	If $Error <> '' Then
 		_Misc_MsgGUI(4, $g_ProgName, $Hint&$Error, 1)
 		Local $ret_Error=1, $ret_Extended=0, $Return = 1
-	ElseIf $Hint<> '' Then
+	ElseIf $Hint <> '' Then
 		$Return = _Misc_MsgGUI(3, $g_ProgName, $Hint, 2)
 		Local $ret_Error=0, $ret_Extended=1
 	Else
@@ -591,7 +602,7 @@ Func _Test_CheckRequiredFiles_IWD2()
 	If $Error <> '' Then
 		_Misc_MsgGUI(4, $g_ProgName, $Hint&$Error, 1)
 		Local $ret_Error=1, $ret_Extended=0, $Return = 1
-	ElseIf $Hint<> '' Then
+	ElseIf $Hint <> '' Then
 		$Return = _Misc_MsgGUI(3, $g_ProgName, $Hint, 2)
 		Local $ret_Error=0, $ret_Extended=1
 	Else
@@ -624,7 +635,7 @@ Func _Test_CheckRequiredFiles_IWD1EE()
 	If $Error <> '' Then
 		_Misc_MsgGUI(4, $g_ProgName, $Hint&$Error, 1)
 		Local $ret_Error=1, $ret_Extended=0, $Return = 1
-	ElseIf $Hint<> '' Then
+	ElseIf $Hint <> '' Then
 		$Return = _Misc_MsgGUI(3, $g_ProgName, $Hint, 2)
 		Local $ret_Error=0, $ret_Extended=1
 	Else
@@ -655,14 +666,15 @@ Func _Test_CheckRequiredFiles_PST()
 	Else
 		$Error&=_GetTR($Message, 'L3')&@CRLF; => no current installation
 	EndIf
-	$ReadSection=IniReadSection($g_PSTDir&'\torment.ini', 'Alias')
-	$Test=1
+	Local $ReadSection=IniReadSection($g_PSTDir&'\torment.ini', 'Alias')
+	Local $Drive, $Test=1
 	For $r=1 to $ReadSection[0][0]
 		If StringLeft($ReadSection[$r][0], 2) = 'CD' Then
 			$Drive=StringLeft($ReadSection[$r][1], 2)
 			If StringRegExp(DriveGetFileSystem($Drive), '(?i)\A\z|CDFS|UDF') Then $Test=0
 		EndIf
 	Next
+	Local $Size, $List, $cSize, $FileSize, $Success
 	If $Test = 0 Then
 		$Test=_Misc_MsgGUI(2, $g_ProgName, _GetTR($Message, 'L2'), 2); => files on hdd
 		If $Test=1 Then
@@ -716,7 +728,7 @@ Func _Test_CheckRequiredFiles_PST()
 	If $Error <> '' Then
 		_Misc_MsgGUI(4, $g_ProgName, $Hint&$Error, 1)
 		Local $ret_Error=1, $ret_Extended=0, $Return = 1
-	ElseIf $Hint<> '' Then
+	ElseIf $Hint <> '' Then
 		$Return = _Misc_MsgGUI(3, $g_ProgName, $Hint, 2)
 		Local $ret_Error=0, $ret_Extended=1
 	Else
@@ -730,7 +742,7 @@ EndFunc    ;==>_Test_CheckRequiredFiles_PST
 ; Same as _Test_GetTP2, but always returns a hit for bgt-music and bgt-gui and considers wrong filenames
 ; ---------------------------------------------------------------------------------------------
 Func _Test_GetCustomTP2($p_Setup, $p_Dir='\')
-	$TP2 = _Test_GetTP2($p_Setup, $p_Dir)
+	Local $Rename, $TP2 = _Test_GetTP2($p_Setup, $p_Dir)
 	If $TP2 = '0' Then
 		$Rename = IniRead($g_MODIni, $p_Setup, 'REN', ''); look for some non-standard-filenames that will be renamed later
 		If $Rename <> '' Then $TP2 = _Test_GetTP2($Rename, $p_Dir)
@@ -749,17 +761,18 @@ EndFunc   ;==>_Test_GetCustomTP2
 
 ; ---------------------------------------------------------------------------------------------
 ; Check if EET will be used to install BG1 using the current selection, list BG1/BG2 mods
+;	Keep this function consistent with _Tree_PurgeUnNeeded in Select-Tree.au3
 ; ---------------------------------------------------------------------------------------------
 Func _Test_Get_EET_Mods(); called by _Tree_EndSelection() just before starting an installation
-	Local $BG1EE_Mods='WeiDU|eekeeper|bwinstallpack|bwfixpack|', $BG2EE_Mods='WeiDU|eekeeper|bwinstallpack|bwfixpack|', $EETMods, $DoBG1=0, $SplitPurgeLine
+	Local $BG1EE_Mods='WeiDU|eekeeper|bwinstallpack|bwfixpack|', $BG2EE_Mods='WeiDU|eekeeper|bwinstallpack|bwfixpack|'
 	$g_Flags[21]=''; will contain BG1-mods in EET -> Empty means no BG1-install
 	$g_Flags[22]=''; will contain BG2-mods in EET
 	If Not StringInStr($g_GConfDir, 'BG2EE') Then Return
-	$Current = IniReadSection($g_UsrIni, 'Current')
+	Local $Current = IniReadSection($g_UsrIni, 'Current')
 	If _IniRead($Current, 'EET', '') = '' Then Return
-	$Select=StringSplit(StringStripCR(FileRead($g_GConfDir&'\Select.txt')), @LF)
-	$Purge=IniReadSection($g_GConfDir&'\Game.ini', 'Purge')
-	; Keep this function consistent with _Tree_PurgeUnNeeded in Select-Tree.au3
+	Local $Select=StringSplit(StringStripCR(FileRead($g_GConfDir&'\Select.txt')), @LF)
+	Local $Purge=IniReadSection($g_GConfDir&'\Game.ini', 'Purge')
+	Local $SplitPurgeLine, $EETMods
 	If IsArray($Purge) Then
 		; We don't check for game type or BGT because we only use this function for BG2EE installs
 		For $p=1 to $Purge[0][0]
@@ -775,14 +788,15 @@ Func _Test_Get_EET_Mods(); called by _Tree_EndSelection() just before starting a
 			EndIf
 		Next
 	EndIf
-	$EETMods=StringTrimRight($EETMods, 1); remove trailing |
-;	IniWrite($g_UsrIni, 'Debug', 'EETMods', $EETMods)	
+	$EETMods=StringTrimRight($EETMods, 1); remove trailing '|'
+;	IniWrite($g_UsrIni, 'Debug', 'EETMods', $EETMods)
+	Local $Mod, $DoBG1=0
 	For $s=1 to $Select[0]
 		If StringRegExp($Select[$s], '(?i)\A(ANN|CMD|GRP);') Then ContinueLoop
 		$Mod=StringRegExpReplace($Select[$s], '\A...;|;.*\z', '')
 		If StringRegExp($Mod, '(?i)\A('&$EETMods&')\z') Then; it's depending on EET and it's installed before EET -> this is a BG1EE-mod
 			If StringRegExp($BG1EE_Mods, '(?i)(\A|\x7c)'&$Mod&'(\z|\x7c)') = 0 Then
-				If $DoBG1=0 And _IniRead($Current, $Mod, '') <> '' Then $DoBG1=1
+				If $DoBG1 = 0 And _IniRead($Current, $Mod, '') <> '' Then $DoBG1=1
 				$BG1EE_Mods&=$Mod&'|'
 				ContinueLoop
 			EndIf
@@ -803,7 +817,8 @@ EndFunc    ;==>_Test_Get_EET_Mods
 ; ---------------------------------------------------------------------------------------------
 Func _Test_GetModFolder($p_TP2)
 	If Not StringInStr($p_TP2, '.tp2') Then Return '0'
-	$Array = StringSplit(StringStripCR(FileRead($p_TP2)), @LF)
+	Local $Array = StringSplit(StringStripCR(FileRead($p_TP2)), @LF)
+	Local $Return, $Dir, $IsDir
 	For $a=1 to $Array[0]
 		If StringLeft($Array[$a], 6) = 'Backup' Then
 			$Return = StringSplit($Array[$a], '"\/~')
@@ -841,7 +856,7 @@ EndFunc   ;==>_Test_GetTP2
 ; ---------------------------------------------------------------------------------------------
 Func _Test_RejectPath($p_Num)
 	_PrintDebug('+' & @ScriptLineNumber & ' Calling _Test_RejectPath')
-	$Path = GUICtrlRead($g_UI_Interact[2][$p_Num])
+	Local $Path = GUICtrlRead($g_UI_Interact[2][$p_Num])
 	If $Path = '' Then
 		_Test_SetButtonColor($p_Num, 1, 1)
 		GUICtrlSetBkColor($g_UI_Interact[2][$p_Num], 0xff0000)

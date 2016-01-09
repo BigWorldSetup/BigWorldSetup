@@ -140,6 +140,7 @@ Func Au3BuildGUI($p_Num = 0)
 	GUICtrlSetFont(-1, 8, 800, 4, "MS Sans Serif")
 	$g_UI_Interact[4][2] = GUICtrlCreateEdit('', 15, 350, 720, 60, BitOR($SS_Left, $WS_VSCROLL, $WS_Border, $ES_READONLY), 0); Extended info
 	GUICtrlSetResizing(-1, 576)
+	GUICtrlSetFont(-1, 8, 400, 0, "Arial")
 	GUICtrlSetBkColor(-1, 0xFFFFFF)
 	$g_UI_Static[4][2] = GUICtrlCreateLabel('', 15, 60, 75, 20, BitOR($SS_Left, $SS_CENTERIMAGE)); options
 	$g_UI_Static[4][3] = GUICtrlCreateLabel('', 175, 60, 75, 20, BitOR($SS_CENTER, $SS_CENTERIMAGE)); add
@@ -488,9 +489,9 @@ Func Au3BuildGUI($p_Num = 0)
 #Region language-options - TAB
 	$g_UI_Seperate[15][0] = GUICtrlCreateTabItem('Language')
 	$g_UI_Interact[15][1] = GUICtrlCreateListView('1', 15, 65, 190, 175, $LVS_REPORT+$LVS_SORTASCENDING+$LVS_NOSORTHEADER, $LVS_EX_GRIDLINES + $LVS_EX_FULLROWSELECT + $LVS_EX_INFOTIP + $WS_Ex_Clientedge)
-	GUICtrlSetResizing(-1, 98)
+	;GUICtrlSetResizing(-1, 98)
 	$g_UI_Interact[15][2] = GUICtrlCreateListView('1', 225, 65, 190, 175, $LVS_REPORT+$LVS_NOSORTHEADER+$LVS_SINGLESEL, $LVS_EX_GRIDLINES + $LVS_EX_FULLROWSELECT + $LVS_EX_INFOTIP + $WS_Ex_Clientedge)
-	GUICtrlSetResizing(-1, 100)
+	;GUICtrlSetResizing(-1, 100)
 	$g_UI_Button[15][1] = GUICtrlCreateButton('', 15, 250, 90, 20)
 	$g_UI_Button[15][2] = GUICtrlCreateButton('', 115, 250, 90, 20)
 	$g_UI_Button[15][3] = GUICtrlCreateButton('',  225, 250, 90, 20)

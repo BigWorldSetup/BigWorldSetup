@@ -1,7 +1,5 @@
 #include-once
 
-Global $g_dependDebugFile ;= FileOpen('depend_debug.txt', 1); append
-
 ; Note that you have to edit the functions when doing changes:
 ; _Depend_AutoSolve => solve problems right from start or in the dependency/connections-screen
 ; _Depend_Contextmenu => start solving the problems in the dependency/connections-screen
@@ -14,40 +12,362 @@ Global $g_dependDebugFile ;= FileOpen('depend_debug.txt', 1); append
 ; Not used items from g_CentralArray: 5 - 6 - 7 - 8 - 11 - 12 - 14 - 15
 
 ;~ $g_CentralArray is an array of all mods/components from Select.txt, with the following fields:
-;     0: mod root (top level) control ID (index into $g_CentralArray for parent-child hierarchy)
-;     2: '-' for the root (top level) of a mod branch, '+' for the root of a multiple choice menu
+;     0: mod headline (top level) control ID (index into $g_CentralArray for parent-child hierarchy)
+;     2: '-' for the headline (top level) of a mod branch, '+' for the root of a multiple choice menu
 ;     3: component description (if 2 is '-' then this also will be '-')
 ;     4: name of the mod (from modname.ini) or '' if removed due to purge/translation
 ;     9: number of active components (0 or 1 for a component; can be > 1 for a mod branch)
 ;      : theme/category number (ex. NPCs, items, tweaks)
 ;    13: blank '' or comma separated list of sections if mod is installed in different places
+;
+;  _Tree_Populate calls _Tree_SelectRead or _Tree_SelectReadForBatch to initialize, then populates this array
 
-;~ $g_Connections is an array of rules entries (from Game.ini), with the following fields:
-;    0: inikey (rule text from before the = )
+;~ $g_Connections is an array of rules entries (derived from Game.ini), with the following fields:
+;    0: inikey (rule descriptive text from left side of the equal sign '=')
 ;    1: inivalue (the rule, like C:A(-):B(-))
 ;    2: converted sentence (A is preferred to B)
 ;    3: the rule with mod names and components replaced with IDs (C:123|456&789&101|202:645&8910)
-;         if user ignores this rule (via right-click menu), BWS will prefix this value with 'W'
-;    4: 0/1 - is the rule a CW: or DW: warning (ignorable by the user)?
+;         if user ignores this rule (via right-click menu), BWS will prefix this string with 'W'
+;    4: 0/1 - was the rule a CW: or DW: warning (ignorable by the user)?
+;
+;  _Tree_Populate initializes, then calls _Depend_PrepareBuildIndex, _Depend_PrepareBuildSentences, _Depend_PrepareToUseID to populate array
 
-;~ $g_ActiveConnections is an array of mod/component entries, with the following fields:
+;~ $g_ActiveConnections is an array of mod/component entries (derived by , with the following fields:
 ;    0: connection type ('C', 'DS', 'DO', 'DM')
 ;          C = this mod/component conflicts with all other mods/components in the array that have the same rule ID
-;         DS = this mod/component is active and "in need" of mods/components that are not active
-;         DO = this mod/component is inactive and "needed" but is OPTIONAL to satisfy the rule (has alternatives)
-;         DM = this mod/component is inactive and "needed" and is MANDATORY to satisfy the rule (no alternatives)
+;         DS = this mod/component is ACTIVE and is "in need" of other mods/components that are NOT active
+;         DO = this mod/component is NOT active and is "needed" but OPTIONAL to satisfy the rule (has alternatives)
+;         DM = this mod/component is NOT active and is "needed" and MANDATORY to satisfy the rule (no alternatives)
 ;    1: rule ID (index to the associated rule for this connection in $g_Connections)
 ;    2: control ID (index to the specific mod/component in $g_CentralArray for toggling status) or string if not found in Select.txt
 ;    3: sub-group (zero unless '&' for dependencies or ':' for conflicts splits the rule into non-zero 'sub-groups')
 ;
-;    this array is only for mods/components involved in rules with unsolved conflicts or missing dependencies
-;        connections for the same rule should be sequential in the array, "in need" followed by "needed"
-;        connections from rules that have been right-click ignored by user will not be added to this array
-;      mods/components that are "needed" (can satisfy missing dependencies) will be added only if they are INACTIVE
-;      mods/components that are "in need" (have missing dependencies) will be added only if they are ACTIVE
-;      mods/components that are in conflict with other mods in the rule will be added only if they are ACTIVE
-;    note: the same mod/component can be added to the array multiple times if it is involved in more than one rule
-;         - or (error case) if the same mod/component is on both sides of the rule - D:a(-):a(-) or C:b(-):b(-)
+;  various methods call _Depend_GetActiveConnections to clear and (re-)populate this array after changes to selection
+;
+;  this array is only for mods/components involved in rules with unsolved conflicts or missing dependencies
+;    connections for the same rule should be sequential in the array, "in need" followed by "needed"
+;    connections from rules that have been right-click ignored by user will not be added to this array
+;  note: the same mod/component can be added to the array multiple times if it is involved in more than one rule
+;        - or (error case) if the same mod/component is on both sides of the rule - D:a(-):a(-) or C:b(-):b(-)
+
+Func _Depend_PrepareBuildIndex($p_RuleLines, $p_Select)
+; ---------------------------------------------------------------------------------------------
+; Use install-order and assign the lines where the mod is mentioned in the [Connections]-section
+;  p_RuleLines = copy of _IniReadSection($g_ConnectionsConfDir&'\Game.ini', 'Connections')
+;					possibly after _Depend_TrimBWSConnections()
+;		p_RuleLines[0][0] = number of connections-rule lines
+;		p_RuleLines[N][0] = rule description text (inikey, left of =)
+;		p_RuleLines[N][1] = the rule itself (inivalue, right of =), e.g. DW:a(-)&b(1|2):c(3)|d(4&5)
+;  p_Select = output of _Tree_SelectRead or _Tree_SelectReadFromBatch - array of parsed lines from Select.txt, skipping ANN/CMD/GRP
+;		p_Select[0][0] = number of entries
+;		p_Select[0][1] = +1 each time the next line is a different mod (different mods or 1+ of mod's components installed separately)
+;		p_Select[0][3] = +1 each time the next line is a different theme
+;		p_Select[0][4] = number of tree-view items = Items+Mods+Themes+GUI-items+Error-Margin for wrong calculation
+;		p_Select[N][0] = linetype (STD/MUC/SUB)
+;		  1 >> Index (position of this line in the array, should always equal N in this case)
+;		p_Select[N][2] = mod-setup-name
+;		p_Select[N][3] = component number or sub-component answer
+;		p_Select[N][4] = default pre-selection bits (0000 to 1111)
+;		  5 >> Translation
+;		p_Select[N][6] = component requirements
+;		  7 >> Name
+;		p_Select[N][8] = theme
+;  $Return[0][0] = size of the index array (set to same size as $p_Select input array)
+;  $Return[N][0] = mod setup-name
+;  $Return[N][1] = '|'-separated list of mod setup-names or index-numbers
+; ---------------------------------------------------------------------------------------------
+	Local $p_Debug = 0
+	If $p_Debug Then FileWrite($g_LogFile, @CRLF&'_Depend_PrepareBuildIndex starting $p_RuleLines[0][0]='&$p_RuleLines[0][0]&@CRLF)
+	For $a=1 to $p_RuleLines[0][0]; create a list of the mod-setup-names listed in each rule from [Connections]-list (on either side)
+		If $p_Debug Then FileWrite($g_LogFile, '_Depend_PrepareBuildIndex $p_RuleLines['&$a&'][0] for rule '&$p_RuleLines[$a][0])
+		; replace p_RuleLines[$a][0] (rule description, left of '=' symbol) with p_RuleLines[$a][1] (rule itself, right of '=' symbol)
+		;	for this index, the rule description is not needed, and we will replace the second slot [1] with a count
+		; step 1 - trim rule type and first colon ':'									  DW:abc(-):def(1|3)&g(-) => abc(-):def(1|3)&g(-)
+		; step 2 - trim components (anything contained in parentheses x28='(', x29=')')		 abc(-):def(1|3)&g(-) => abc:def&g
+		; step 3 - replace any ':', '&' or '>' with '|' (x3a=':', x26='&', x3e='>')						abc:def&g => abc|def|g
+		; step 4 - surround the string with '|' vertical bars on both sides so that we always find at least two '|' in the next step     
+		$p_RuleLines[$a][0]='|'&StringRegExpReplace(StringRegExpReplace(StringRegExpReplace($p_RuleLines[$a][1], '\A.+?\x3a', ''), '\x28[^\x29]*\x29', ''), '\x3a|\x26|\x3e', '|')&'|'
+		If $p_Debug Then FileWrite($g_LogFile, ' => '&$p_RuleLines[$a][0]&@CRLF)
+		; step 5 - count the number of '|' (and subtract 1 because we added a trailing '|') to get the number of mod names in the rule
+		Local $Test=StringRegExp($p_RuleLines[$a][0], '\x7c', 3); x7c = '|', 3 = return array of global matches
+		$p_RuleLines[$a][1]=UBound($Test)-1; this is the number of mod-setup-names in the rule (the same name could be repeated multiple times)
+	Next
+	Local $Setups=$g_Setups; this is the array returned by _CreateList('s') defined in BiG World Setup.au3
+	;		Setups[N][0] = mod-setup-name (ex. 1pp)
+	;		Setups[N][1] = long mod name (ex. One Pixel Productions)
+	;		Setups[N][2] = after next step, a list of '|'-separated indices into p_RuleLines from every rule that includes THIS entry's mod-setup-name
+	;						indices into p_RuleLines are equivalent to indices into $g_Connections, i.e. pointers to conflict/dependency rules
+	Local $Index=_IniCreateIndex($Setups); create a lookup-index for all known mod-setup-names, keyed on first letter
+		; this index will point to the positions of the first and last mod-setup-name in $Setups that starts with the given letter
+	For $a=1 to $p_RuleLines[0][0]; for each of the rules in p_RuleLines...
+		Local $Mods=StringSplit($p_RuleLines[$a][0], '|'); split the mod-setup-names list from the previous step
+		For $m=1 to $Mods[0]; for each of those mod-setup-names...
+			If $Mods[$m]='' Then ContinueLoop; ignore blank mod-setup-names (shouldn't be any, but a typo in a rule could cause this)
+			Local $Char = Asc(StringLower(StringLeft($Mods[$m], 1))); ASCII-symbol value of the first character in the mod-setup-name
+			Local $Found=0
+			For $s = $Index[$Char][1] To $Index[$Char][2]; search in $Setups from index of first mod-setup-name starting with $Char to index of last
+				If $Setups[$s][0] = $Mods[$m] Then; if we found the same mod-setup-name in $Setups
+					$Setups[$s][2] &= '|'&$a; then add the index to that mod-setup-name in $Setups to $Setups[N][2]
+					$Found=1; we found a match for this mod-setup-name
+					ExitLoop; we are done with this mod-setup-name; stop searching after first match is found in case there are duplicates
+				EndIf
+			Next
+			If $p_Debug And Not $Found Then FileWrite($g_LogFile, '! _Depend_PrepareBuildIndex did not find ~'&$Mods[$m]&'~ in Select.txt'&@CRLF)
+		Next
+		If $p_Debug And StringInStr($p_RuleLines[$a][0], '||') Then FileWrite($g_LogFile, '!'&$p_RuleLines[$a][0]&' == '&$p_RuleLines[$a][1]&@CRLF)
+		If $p_Debug And $a = $p_RuleLines[0][0] Then; it's the last iteration and debugging is enabled
+			For $s = 1 To $Setups[0][0]; for each mod-setup-name from Select.txt that is in any rules, log the indices of the rules containing it
+				If $Setups[$s][2] Then FileWrite($g_LogFile, '_Depend_PrepareBuildIndex $Setups['&$s&']'&$Setups[$s][1]&'='&$Setups[$s][2]&@CRLF)
+			Next
+		EndIf
+	Next
+	Local $PrevSetup, $Return[$p_Select[0][0]+1][2]
+	For $a=1 to $p_Select[0][0]; scan through lines from Select.txt, copy mod setup-names into $Return[N][0]
+		If $p_Select[$a][2] = $PrevSetup Then
+			ContinueLoop
+		Else; copy setup-mod-name to the index (no harm if duplicates - we will ignore them later)
+			$Return[0][0] += 1
+			$Return[$Return[0][0]][0]=$p_Select[$a][2]; $Return[N][0] = mod setup-name
+			$PrevSetup = $p_Select[$a][2]
+		EndIf
+	Next
+	ReDim $Return[$Return[0][0]+1][2]; trim the array ...
+	If $p_Debug Then FileWrite($g_LogFile, '_Depend_PrepareBuildIndex $Return[0][0] = '&$Return[0][0]&@CRLF)
+	; at this point, $Return[N][0] contains an array all of mod-setup-names from Select.txt, with some duplicates
+	; at this point, $Setups[N][2] contains an '|'-separated array of indices into p_RuleLines for any mod-setup-names in a rule
+	; 	indices into p_RuleLines are equivalent to indices into $g_Connections, i.e. pointers to conflict/dependency rules
+	; goal is to identify connections (or better their index number) that may be connected to a mod into $Return[N][1]
+	; this index will be used to speed up finding rules associated with this mod
+	For $m = 1 to $Return[0][0]; for each mod-setup-name we copied from $p_Select...
+		GUICtrlSetData($g_UI_Interact[9][1], 20*$m/$Return[0][0]); update the progress bar
+		If _MathCheckDiv($m, 10) = 2 Then GUICtrlSetData($g_UI_Static[9][2], Round(20*$m/$Return[0][0], 0) & ' %'); update progress text
+		Local $Char = Asc(StringLower(StringLeft($Return[$m][0], 1))); ASCII-symbol value of the first character in the mod-setup-name
+		For $s = $Index[$Char][1] To $Index[$Char][2]; search in $Setups from index of first mod-setup-name starting with $Char to index of last
+			If $Setups[$s][0] = $Return[$m][0] Then; if we found the same mod-setup-name in $Setups
+				$Return[$m][1]=StringRegExpReplace($Setups[$s][2], '\A\x7c', ''); copy rule indices list and remove leading '|' if any
+				If $p_Debug Then FileWrite($g_LogFile, '_Depend_PrepareBuildIndex $Return['&$m&'][0] = '&$Return[$m][0]&@CRLF)
+				If $p_Debug Then FileWrite($g_LogFile, '_Depend_PrepareBuildIndex $Return['&$m&'][1] = '&$Return[$m][1]&@CRLF)
+				ExitLoop; we are done with this mod-setup-name; stop searching after first match is found in case there are duplicates
+			EndIf
+		Next
+	Next
+	; $Return[0][0] now contains the number of mod-setup-names in the index (there may be some duplicate mod-setup-names)
+	; $Return[N][0] now contains a mod-setup-name
+	; $Return[N][1] now contains a '|'-separated array of indices to rules in $g_Connections that may be connected to a mod
+	; 	(only the first entry for each mod-setup-name has a $Return[N][1] value, and only if that mod is part of some rules)
+	Return $Return
+EndFunc   ;==>_Depend_PrepareBuildIndex
+
+Func _Depend_PrepareBuildSentences($p_RuleLines); called by _Tree_Populate and _Dep_ItemSave
+; ---------------------------------------------------------------------------------------------
+; Build [Connections]-array, strip warnings and build sentences to display for each rule
+;  p_RuleLines = copy of _IniReadSection($g_ConnectionsConfDir&'\Game.ini', 'Connections')
+;					possibly after _Depend_TrimBWSConnections()
+;			or = [[1], [1, $Rule]] if called by _Dep_ItemSave
+;		p_RuleLines[0][0] = number of connections-rule lines
+;		p_RuleLines[N][0] = rule description text (inikey, left of =)
+;		p_RuleLines[N][1] = the rule itself (inivalue, right of =), ex. DW:a(-)&b(1|2):c(3)|d(4&5)
+;   Return[0][0] = number of rules entries
+;	Return[N][0] = rule description (inikey)
+;	Return[N][1] = rule itself, stripped of warning character (ex. DW:abc:def => D:abc:def)
+;   Return[N][2] = user-readable translated sentence describing the rule (X needs Y etc.)
+;		>> Return[N][3] = blank, will be filled by _Depend_PrepareToUseID
+;	Return[N][4] = 1 if the rule had a warning character (DW: or CW: prefix), otherwise 0
+; ---------------------------------------------------------------------------------------------
+	Local $Message = IniReadSection($g_TRAIni, 'DP-BuildSentences')
+	Local $Array, $LastMod='', $Return[$p_RuleLines[0][0]+1][5], $p_Debug = 0
+	If $p_Debug Then FileWrite($g_LogFile, '_Depend_PrepareBuildSentences $p_RuleLines[0][0] = '&$p_RuleLines[0][0]&@CRLF)
+	For $r=1 to $p_RuleLines[0][0]; for each rule in the array...
+		$Return[0][0] += 1
+		$Return[$r][0] = $p_RuleLines[$r][0]; copy rule description (inikey) from input array
+		$Return[$r][1] = $p_RuleLines[$r][1]; copy rule itself (inivalue) from input array
+		If StringMid($Return[$r][1], 2, 1) = 'W' Then; strip warning character (DW => D, CW => C)
+			$Return[$r][1]=StringLeft($Return[$r][1], 1)&StringMid($Return[$r][1], 3)
+			$Return[$r][4]=1; remember that this was a warning rule (user-ignorable)
+		EndIf
+		; convert a copy of the rule into a user-readable translated sentence for $Return[$r][2]
+		Local $String=StringTrimLeft($Return[$r][1], 2); first strip off the 'D:' or 'C:' prefix
+		Local $Number, $LastSymbol=-1; keep track of the last symbol we find
+		If StringLeft($Return[$r][1], 1) = 'C' Then; if it is a conflict rule...
+			Local $Number=UBound(StringRegExp($String, '\x3e', 3))-1; number of '>' symbols in the rule
+			If $Number > 0 Then
+				$LastSymbol = StringInStr($String, '>', 1, -1); position of the last '>' in the rule
+			EndIf
+		Else; if it is a dependency rule
+			Local $Number=UBound(StringRegExp($String, '(\x29\x7c)', 3))-1; number of x29=')', x7c='|' symbols
+			If $Number > 0 Then
+				$LastSymbol = StringInStr($String, ')|', 1, -1)+1; position of the last '|' in the rule 
+			Else
+				$Number=UBound(StringRegExp($String, '\x26', 3))-1
+				If $Number > 0 Then
+					$LastSymbol = StringInStr($String, '&', 1, -1); position of the last '&' in the rule
+				EndIf
+			EndIf
+		EndIf
+		Local $Array=StringSplit($String, '')
+		Local $Current=''
+		Local $FirstConflict=0
+		Local $Mod=0
+		For $a=1 to $Array[0]
+			If $Array[$a] = ':' And StringLeft($Return[$r][1], 1) = 'C' Then
+				If $FirstConflict = 0 Then
+					$Current &= ' '&_GetTR($Message, 'L5')&' '; => is preferred
+				Else
+					$Current &= ' '&_GetTR($Message, 'L6')&' '; => and
+				EndIf
+				$FirstConflict=1
+			ElseIf $Array[$a] = ':' Then
+				If $Mod = 1 Then
+					$Current &= ' '&_GetTR($Message, 'L1')&' '; => needs
+				Else
+					$Current &= ' '&_GetTR($Message, 'L2')&' '; => need
+				EndIf
+			ElseIf $Array[$a] = '(' Then
+				$Mod+=1
+				Local $Comp = ''
+				While $Array[$a] <> ')'
+					$a+=1
+					$Comp &= $Array[$a]
+				WEnd
+				$Number=StringRegExp($Comp, '\x7c', 3)
+				$Number=UBound($Number)-1
+				If $Number >=0 Then
+					If $Number > 0 Then $Comp=StringReplace($Comp, '|' , ', ', $Number)
+					$Comp=StringReplace($Comp, '|' , ' '&_GetTR($Message, 'L3')&' '); => or
+				EndIf
+				If $Comp <> '-)' Then $Current &= ' ('&_GetTR($Message, 'L4')&' '&$Comp; => is
+			ElseIf $Array[$a] = '>' Then
+				If $FirstConflict = 0 Then
+					$Current &= ' '&_GetTR($Message, 'L5')&' '; => is preferred (part I)
+					$FirstConflict = 1
+				Else
+					If $a=$LastSymbol Then
+						$Current &= ' '&_GetTR($Message, 'L6')&' '; => and
+					Else
+						$Current &= ', '
+					EndIf
+				EndIf
+			ElseIf $Array[$a] = '|' Then
+;				If $LastSymbol <> -1 Then
+;					If $a=$LastSymbol Then
+;						$Current &= ' '&_GetTR($Message, 'L3')&' '; => or
+;					Else
+;						$Current &= ', '
+;					EndIf
+;				Else
+					$Current &= ' '&_GetTR($Message, 'L3')&' '; => or
+;				EndIf
+			ElseIf $Array[$a] = '&' Then
+;				If $LastSymbol <> -1 Then
+;					If $a=$LastSymbol Then
+;						$Current &= ' '&_GetTR($Message, 'L6')&' '; => and
+;					Else
+;						$Current &= ', '
+;					EndIf
+;				Else
+					$Current &= ' '&_GetTR($Message, 'L6')&' '; => and
+;				EndIf
+			Else
+				$Current &= $Array[$a]
+			EndIf
+			If $a = $Array[0] Then
+				If StringInStr($String, '&') And Not StringInStr($String, ':') Then
+					$Current &= ' '&_GetTR($Message, 'L7'); => are installed together
+				ElseIf StringLeft($Return[$r][1], 1) = 'C' Then
+					If _GetTR($Message, 'L8') <> '.' Then $Current &= ' '&_GetTR($Message, 'L8'); => is preferred (part II)
+				EndIf
+				$Return[$r][2] = $Current&'.'
+				If $p_Debug Then FileWrite($g_LogFile, '_Depend_PrepareBuildSentences $Return['&$r&'][2] = '&$Return[$r][2]&@CRLF)
+			EndIf
+		Next
+	Next
+	Return $Return
+EndFunc   ;==>_Depend_PrepareBuildSentences
+
+Func _Depend_PrepareToUseID($p_Array)
+; ---------------------------------------------------------------------------------------------
+; Process $g_Connections and split "mod-name(component number)" sub-strings
+;   ex. C:modA(1|2|3):modB(1&2) => C:modA(1)|modA(2)|modA(3):modB(1)&modB(2)
+; ---------------------------------------------------------------------------------------------
+	Local $p_Debug = 0
+	For $p=1 to $p_Array[0][0]
+		Local $Bracket=StringRegExp($p_Array[$p][1], '\x28[^\x29]*\x29', 3); x28 = '(', x29=')'
+		; $Bracket now contains an array of all '(...)' sub-strings in the current rule
+		If Not IsArray($Bracket) Then
+			$p_Array[$p][3]=$p_Array[$p][1]
+			ContinueLoop
+		EndIf
+		For $b=0 To UBound($Bracket)-1
+			Local $Sign=StringRegExp($Bracket[$b], '\x7c|\x26', 3)
+			If Not IsArray($Sign) Then ContinueLoop
+			Local $a=StringInStr($p_Array[$p][1], $Bracket[$b])-1
+			Local $Mod='', $String='', $s=-1
+			Local $Array=StringSplit($p_Array[$p][1], '')
+			While Not StringRegExp($Array[$a], '\x3a|\x3e|\x7c|\x26') ; Get the :>|&
+				$Mod=$Array[$a]&$Mod
+				$a-=1
+			WEnd
+			Local $Num=StringSplit(StringRegExpReplace($Bracket[$b], '\A.|.\z', ''), '|&')
+			For $n=1 to $Num[0]
+				If $n <> 1 Then
+					$s+=1
+					$String &= $Sign[$s]&$Mod
+				EndIf
+				$String &= '('&$Num[$n]&')'
+			Next
+			$p_Array[$p][1]=StringReplace($p_Array[$p][1], $Bracket[$b], $String, 1)
+		Next
+		$p_Array[$p][3]=$p_Array[$p][1]
+		If $p_Debug Then FileWrite($g_LogFile, '_Depend_PrepareToUseID $p_Array['&$p&'][3]='&$p_Array[$p][3]&@CRLF)
+	Next
+	Return $p_Array
+EndFunc   ;==>_Depend_PrepareToUseID
+
+; ---------------------------------------------------------------------------------------------
+; 1. Prepare text listing all of the connections that are linked to a specific mod/component
+; 2. Replace '$p_Setup($p_Comp)' substrings in $g_Connections with $p_TreeviewItemIdx
+;	p_Array should be $g_Connections, passed by reference so we can modify it directly
+;	p_TreeviewItemIdx = index of entry in $g_CentralArray corresponding to a tree-view item
+;		this is $g_TreeviewItem[$cs][0] from _Tree_Populate
+;	p_String = Return[N][1] from _Depend_PrepareBuildIndex -- array of indices to $g_Connection
+;	  i.e., rules that might be connected to this mod/component = all rules that contain it
+;	p_Setup = mod-setup-name associated with the p_TreeviewItem
+;	p_Comp = list of '|'-separated components or '-' for any
+; for each rule index in $p_String, get the associated rule from $g_Connections
+;   then check if that rule contains $p_Setup with the specified component(s)
+;     if it does, add a newline and the 'converted rule sentence' for the rule to $Return
+;		also, if the rule is a warning rule (user ignorable), add ' **' after the sentence
+;     then replace each substring in the rule that matches 'mod-setup-name(component)'
+;       with the index of that mod/component in $g_CentralArray
+; finally, if $Return contains any lines ending with two asterisks, add translated note below:
+;	=> "** This is rather a notice of an inconsistency than a real issue/cause for bugs, so you may ignore this."
+; ---------------------------------------------------------------------------------------------
+Func _Depend_ItemGetConnections(ByRef $p_Array, $p_TreeviewItemIdx, $p_String, $p_Setup, $p_Comp='-')
+	Local $Test, $Return='', $p_Debug = 0
+	If $p_Debug Then FileWrite($g_LogFile, '_Depend_ItemGetConnections $p_TreeViewItemIdx='&$p_TreeViewItemIdx&', $p_String='&$p_String&', $p_Setup='&$p_Setup&', $p_Comp='&$p_Comp)
+	$p_String=StringSplit($p_String, '|')
+	Local $RegexComp = StringReplace($p_Comp, '?', '\x3f')
+	If $p_Debug Then FileWrite($g_LogFile, ', $RegexComp='&$RegExComp&@CRLF)
+	For $p=1 to $p_String[0]
+		Local $r=$p_String[$p]; index to a rule in $g_Connections, one of the list of '|'-separated indices in $p_String
+		If $p_Debug Then FileWrite($g_LogFile, ' $p_Array['&$r&'][3]='&$p_Array[$r][3]&@CRLF)
+		; replace question mark (representing SUB-component) with unicode equivalent (x3f) for proper regex matching
+		Local $Test=StringRegExp($p_Array[$r][3], '(?i)(\x3a|\x3e|\x7c|\x26)'&$p_Setup&'\x28'&$RegexComp&'\x29', 3); '\x3a|\x3e|\x7c|\x26' = :>|&
+		If IsArray($Test) Then
+			If $p_Debug Then FileWrite($g_LogFile, ' found '&UBound($Test)&' matches:'&@CRLF)
+			$Return &= @CRLF & $p_Array[$r][2]
+			If $p_Array[$r][4] = 1 Then $Return &= ' **'
+			For $t=0 to UBound($Test)-1
+				Local $PrevSymbol=StringLeft($Test[$t], 1)
+				$p_Array[$r][3]=StringReplace($p_Array[$r][3], $PrevSymbol&$p_Setup&'('&$p_Comp&')', $PrevSymbol&$p_TreeviewItemIdx, 1)
+			Next
+			If $p_Debug Then FileWrite($g_LogFile, ' $p_Array['&$r&'][3]='&$p_Array[$r][3]&@CRLF)
+		EndIf
+	Next
+	If StringRegExp($Return, '\x2a{2}(\z|\n)') Then $Return &= @CRLF&_GetTR($g_UI_Message, '4-L20')
+	If $p_Debug Then FileWrite($g_LogFile, '_Depend_ItemGetConnections $Return='&$Return&@CRLF)
+	Return $Return
+EndFunc   ;==>_Depend_ItemGetConnections
 
 ; ---------------------------------------------------------------------------------------------
 ; Add entries to the array of active problems
@@ -59,7 +379,7 @@ Func _Depend_ActiveAddItem($p_Type, $p_RuleID, $p_Setup, $SubGroup=0)
 	$g_ActiveConnections[$g_ActiveConnections[0][0]][1]=$p_RuleID
 	$g_ActiveConnections[$g_ActiveConnections[0][0]][2]=$p_Setup
 	$g_ActiveConnections[$g_ActiveConnections[0][0]][3]=$SubGroup
-	If $p_Debug Then FileWrite($g_dependDebugFile, '_Depend_ActiveAddItem:  p_Type='&$p_Type&', p_RuleID='&$p_RuleID&', p_Setup='&$p_Setup&', SubGroup='&$SubGroup&@CRLF)
+	If $p_Debug Then FileWrite($g_LogFile, '_Depend_ActiveAddItem:  p_Type='&$p_Type&', p_RuleID='&$p_RuleID&', p_Setup='&$p_Setup&', SubGroup='&$SubGroup&@CRLF)
 EndFunc   ;==>_Depend_ActiveAddItem
 
 ; ---------------------------------------------------------------------------------------------
@@ -72,6 +392,7 @@ Func _Depend_GetActiveConnections($p_Show=1)
 	$g_ActiveConnections[0][0] = 0; reset number of active connections counter to zero
 	If $p_Show=1 Then _GUICtrlListView_BeginUpdate($g_UI_Handle[1])
 	If $p_Show=1 Then _GUICtrlListView_DeleteAllItems($g_UI_Handle[1])
+	Local $String
 	For $c = 1 To $g_Connections[0][0]; loop through array of all Game.ini rules
 		If StringLeft ($g_Connections[$c][3], 1) = 'W' Then; skip rules that have been right-click ignored by user
 			ContinueLoop
@@ -122,13 +443,13 @@ EndFunc   ;==>_Depend_GetActiveConnections
 ;   called from 10_Misc-GUI.au3 and 16_Select-Tree.au3
 ; ---------------------------------------------------------------------------------------------
 Func _Depend_AutoSolve($p_Type, $p_State, $p_skipWarnings = 1)
-	Local $RuleID, $GroupID, $SubGroup, $Return[9999][4], $p_Debug=0
-	If $p_Debug Then FileWrite($g_dependDebugFile, 'starting _Depend_AutoSolve('&$p_Type&'_'&$p_State&'_'&$p_SkipWarnings&')'&@CRLF&@CRLF)
+	Local $Progress, $RuleID, $GroupID, $SubGroup, $Return[9999][4], $p_Debug=0
+	If $p_Debug Then FileWrite($g_LogFile, 'starting _Depend_AutoSolve('&$p_Type&'_'&$p_State&'_'&$p_SkipWarnings&')'&@CRLF&@CRLF)
 	_Depend_GetActiveConnections(0); build (or clear and rebuild) $g_ActiveConnections
 	$g_Flags[23] = $g_ActiveConnections[0][0]; save original number of active connections for progress bar
 	While 1
-		$Restart=0
-		If $p_Debug Then FileWrite($g_dependDebugFile, @CRLF&'rebuilding active connections'&@CRLF)
+		Local $Restart=0
+		If $p_Debug Then FileWrite($g_LogFile, @CRLF&'rebuilding active connections'&@CRLF)
 		$Progress = $g_Flags[23] - $g_ActiveConnections[0][0]; how many connections we have removed since the last check
 		If $Progress < 0 Then $g_Flags[23]=$g_ActiveConnections[0][0]; number of active connections has increased since we started -> use new count
 		If $Progress > 0 And $g_Flags[23] <> 0 Then; avoid displaying negative progress and avoid division by zero
@@ -138,23 +459,23 @@ Func _Depend_AutoSolve($p_Type, $p_State, $p_skipWarnings = 1)
 		EndIf
 		For $a=1 to $g_ActiveConnections[0][0]; OUTER LOOP - check connection entries (each representing a particular mod/component)
 			If $g_ActiveConnections[$a][0] <> $p_Type Then ContinueLoop; if the connection isn't the type we are looking for, skip it
-			$RuleID=$g_ActiveConnections[$a][1]; else, save the current connection's associated rule ID (index to $g_Connections)
+			Local $RuleID=$g_ActiveConnections[$a][1]; else, save the current connection's associated rule ID (index to $g_Connections)
 			If $p_skipWarnings And $g_Connections[$RuleID][4] = 1 Then ContinueLoop; optionally, skip if the rule is user-ignorable
-			$SubGroup=$g_ActiveConnections[$a][3]; save the current connection's 'and-group' number (zero unless the rule contains '&')
-			If $p_Debug Then FileWrite($g_dependDebugFile, @CRLF&'outer loop $a='&$a&' '&$g_ActiveConnections[$a][0]&' '&$g_ActiveConnections[$a][1]&' '&$g_ActiveConnections[$a][2]&' '&$SubGroup&' ~ '&$g_CentralArray[$g_ActiveConnections[$a][2]][4]&'('&$g_CentralArray[$g_ActiveConnections[$a][2]][3]&') rule('&$RuleID&'~'&$g_Connections[$RuleID][4]&')='&$g_Connections[$RuleID][1]&@CRLF)
+			Local $SubGroup=$g_ActiveConnections[$a][3]; save the current connection's 'and-group' number (zero unless the rule contains '&')
+			If $p_Debug Then FileWrite($g_LogFile, @CRLF&'outer loop $a='&$a&' '&$g_ActiveConnections[$a][0]&' '&$g_ActiveConnections[$a][1]&' '&$g_ActiveConnections[$a][2]&' '&$SubGroup&' ~ '&$g_CentralArray[$g_ActiveConnections[$a][2]][4]&'('&$g_CentralArray[$g_ActiveConnections[$a][2]][3]&') rule('&$RuleID&'~'&$g_Connections[$RuleID][4]&')='&$g_Connections[$RuleID][1]&@CRLF)
 			If $p_Type <> 'C' Then $a -= 1; for any connection type except conflict, back-step so the inner loop starts from current mod/component
 			While 1; INNER LOOP - iterate over following active connections (other mods/components)
 				$a += 1; advance inner loop
 				If $a > $g_ActiveConnections[0][0] Then ExitLoop ; we reached the end of the active connections array
 				If $g_ActiveConnections[$a][1] <> $RuleID Then; check this FIRST -- saved rule ID doesn't match the rule ID of 'this' connection
 					$a -= 1; we passed the last of the connections for the current rule - go back so outer loop (which steps +1) starts at this connection
-					If $p_Debug Then FileWrite($g_dependDebugFile, 'inner loop reached end of connections for rule '&$RuleID&@CRLF)
+					If $p_Debug Then FileWrite($g_LogFile, 'inner loop reached end of connections for rule '&$RuleID&@CRLF)
 					ExitLoop; stop the inner loop - we are done scanning connections for the current mod/component
 				EndIf
-				If $p_Debug Then FileWrite($g_dependDebugFile, 'inner loop $a='&$a&' '&$g_ActiveConnections[$a][0]&' '&$g_ActiveConnections[$a][1]&' '&$g_ActiveConnections[$a][2]&' '&$g_ActiveConnections[$a][3]&' ~ '&$g_CentralArray[$g_ActiveConnections[$a][2]][4]&'('&$g_CentralArray[$g_ActiveConnections[$a][2]][3]&')'&@CRLF)
+				If $p_Debug Then FileWrite($g_LogFile, 'inner loop $a='&$a&' '&$g_ActiveConnections[$a][0]&' '&$g_ActiveConnections[$a][1]&' '&$g_ActiveConnections[$a][2]&' '&$g_ActiveConnections[$a][3]&' ~ '&$g_CentralArray[$g_ActiveConnections[$a][2]][4]&'('&$g_CentralArray[$g_ActiveConnections[$a][2]][3]&')'&@CRLF)
 				If $g_ActiveConnections[$a][0] <> $p_Type Then ContinueLoop; skip connections of different types than the type we are looking for
 				If $p_Type = 'C' And $SubGroup <> 0 And $SubGroup = $g_ActiveConnections[$a][3] Then ContinueLoop; if multiple sub-groups, skip conflicts in same sub-group
-				If $p_Debug Then FileWrite($g_dependDebugFile, 'inner loop attempting to change status'&@CRLF)
+				If $p_Debug Then FileWrite($g_LogFile, 'inner loop attempting to change status'&@CRLF)
 				; if we reached this point, we found a connection for the 'saved' rule that has the type we want
 				If Not _Depend_SetModState($g_ActiveConnections[$a][2], $p_State) then ExitLoop; activate or deactivate the mod/component
 				; if we were unable to make a change, just keep going through other active connections (give up on automatically solving this one)
@@ -167,14 +488,14 @@ Func _Depend_AutoSolve($p_Type, $p_State, $p_skipWarnings = 1)
 				EndIf
 				$Restart=1; we made a change, so we will need to rebuild $g_ActiveConnections and loop around again
 				If $p_Type = 'DO' And $SubGroup <> 0 And $SubGroup = $g_ActiveConnections[$a][3] Then ContinueLoop; after a change, skip to next sub-group if any
-				If $p_Debug Then FileWrite($g_dependDebugFile, 'inner loop did not skip'&@CRLF)
+				If $p_Debug Then FileWrite($g_LogFile, 'inner loop did not skip'&@CRLF)
 			WEnd; INNER LOOP
 		Next; OUTER LOOP
 		; CHECK FOR COMPLETION
 		If $Restart = 0 Then ExitLoop; we reached the end of the active connections array without making any changes -> jump to FINAL
 ;		For $r = 1 to $Return[0][0]; Prevent crashes... What crashes?
 ;			If $Return[$r][1] = '' Then
-;				If $p_Debug Then FileWrite($g_dependDebugFile, 'ERROR -- one of the recorded component types was blank ~ '&$Return[$r][0]&' ~ '&$Return[$r][2]&' ~ '&$Return[$r][1]&' ~ '&$Return[$r][3]&@CRLF&@CRLF)
+;				If $p_Debug Then FileWrite($g_LogFile, 'ERROR -- one of the recorded component types was blank ~ '&$Return[$r][0]&' ~ '&$Return[$r][2]&' ~ '&$Return[$r][1]&' ~ '&$Return[$r][3]&@CRLF&@CRLF)
 ;				ExitLoop; one of the recorded component types was blank -> jump to FINAL
 ;			EndIf
 ;		Next
@@ -184,9 +505,7 @@ Func _Depend_AutoSolve($p_Type, $p_State, $p_skipWarnings = 1)
 	; FINAL
 	$g_Flags[23]=''; done with active connections count for progress bar
 	GUICtrlSetData($g_UI_Static[9][2], '100 %'); update progress bar text to 100%
-	If $p_Debug Then FileWrite($g_dependDebugFile, 'ending _Depend_AutoSolve('&$p_Type&'_'&$p_State&'_'&$p_SkipWarnings&')'&@CRLF&@CRLF)
-	If $p_Debug Then FileClose($g_dependDebugFile)
-	If $p_Debug Then $g_dependDebugFile=FileOpen('depend_debug.txt', 1); append
+	If $p_Debug Then FileWrite($g_LogFile, 'ending _Depend_AutoSolve('&$p_Type&'_'&$p_State&'_'&$p_SkipWarnings&')'&@CRLF&@CRLF)
 	ReDim $Return[$Return[0][0]+1][4]; trim any excess slots from the end of the return array
 	If $Return[0][0] = 0 Then Return $Return; if we made no changes, return the empty array
 	_Depend_CreateSortedOutput($Return); otherwise, sort the array of changes
@@ -209,52 +528,52 @@ Func _Depend_AutoSolveWarning($p_Type, $p_Force=0, $p_skipWarnings=1)
 	; resolve conflicts before dependencies if resolving both
 	If $p_Type = 1 or $p_Type = 3 Then; deactivate mods/components that conflict
 		$Return=_Depend_AutoSolve('C', 2, $p_skipWarnings)
-		If $Return[0][1] <> '' Then $Output &= _GetTR($Message, 'L3') & @CRLF & $Return[0][1] & @CRLF & @CRLF; => mod/component will be removed
+		If $Return[0][1] <> '' Then $Output &= _GetTR($Message, 'L3') & '|' & $Return[0][1] & '||'; => mod/component will be removed
 	EndIf
 	If $p_Type = 2 or $p_Type = 3 Then; activate mods/components that can satisfy missing dependencies
 		;$Test = $g_Compilation
 		;$g_Compilation = 'E'
 		$Return=_Depend_AutoSolve('DM', 1, $p_skipWarnings)
-		If $Return[0][1] <> '' Then $Output &= _GetTR($Message, 'L4') & @CRLF & $Return[0][1] & @CRLF & @CRLF; => mod/component will be added
+		If $Return[0][1] <> '' Then $Output &= _GetTR($Message, 'L4') & '|' & $Return[0][1] & '||'; => mod/component will be added
 		$Return=_Depend_AutoSolve('DO', 1, $p_skipWarnings)
-		If $Return[0][1] <> '' Then $Output &= _GetTR($Message, 'L4') & @CRLF & $Return[0][1] & @CRLF & @CRLF; => mod/component will be added
+		If $Return[0][1] <> '' Then $Output &= _GetTR($Message, 'L4') & '|' & $Return[0][1] & '||'; => mod/component will be added
 		;$g_Compilation = $Test
 	EndIf
 	If $p_Type = 3 Then; deactivate any "in need of" mods/components that are still missing dependencies
 		$Return=_Depend_AutoSolve('DS', 2, 1); never autosolve warning rules of this type
-		If $Return[0][1] <> '' Then $Output &= _GetTR($Message, 'L3') & @CRLF & $Return[0][1] & @CRLF & @CRLF; => mod/component will be removed
+		If $Return[0][1] <> '' Then $Output &= _GetTR($Message, 'L3') & '|' & $Return[0][1] & '||'; => mod/component will be removed
 	EndIf
 	If $Output <> '' Then
 		If $p_Force = 1 Then
-			$Output =  _GetTR($Message, 'L6')&@CRLF&$Output; => auto-solve forced
+			$Output =  _GetTR($Message, 'L6') & '|' & $Output; => auto-solve forced
 		Else
 			$Output &= _GetTR($Message, 'L5'); => proceed or go back?
 		EndIf
-		$Answer = _Misc_MsgGUI(2, _GetTR($g_UI_Message, '0-T1'), $Output, 2, _GetTR($g_UI_Message, '0-B1'), _GetTR($g_UI_Message, '0-B2')); => ok to continue with this result?
+		Local $Answer = _Misc_MsgGUI(2, _GetTR($g_UI_Message, '0-T1'), $Output, 2, _GetTR($g_UI_Message, '0-B1'), _GetTR($g_UI_Message, '0-B2')); => ok to continue with this result?
 		If $Answer = 1 Then
 			_Misc_SetTab(9); view progress-bar
 			_Tree_Reload(); reload saved settings
 			_Depend_GetActiveConnections(); reset view
 			_Misc_SetTab(10); view connections-screen
 			Return
+		Else
+			_Depend_GetActiveConnections(); just update connections list after changes
 		EndIf
 	Else; $Output = ''
 		_PrintDebug('AutoSolve did not change anything', 1)
 	EndIf
-	_Depend_GetActiveConnections()
 EndFunc   ;==>_Depend_AutoSolveWarning
 
 ; ---------------------------------------------------------------------------------------------
 ; Creates a context menu to solve dependencies and conflicts
 ; ---------------------------------------------------------------------------------------------
 Func _Depend_Contextmenu()
-	Local $Message = IniReadSection($g_TRAIni, 'DP-Msg')
-	Local $MenuItem[10]
-	$oldState = $g_Compilation
-	$g_Compilation = 'E'
+	Local $MenuItem[10], $Message = IniReadSection($g_TRAIni, 'DP-Msg')
+	Local $oldState = $g_Compilation; save current click-setting
+	$g_Compilation = 'E'; temporarily set click-setting to Expert
 	GUISetState(@SW_DISABLE); disable the GUI itself while selection is pending to avoid unwanted treeview-changes
 	$g_UI_Menu[0][4] = GUICtrlCreateContextMenu($g_UI_Menu[0][6]); create a context-menu on the clicked item
-	$MenuLabel = _GetTR($Message, 'L2'); => mod
+	Local $MenuLabel = _GetTR($Message, 'L2'); => mod
 	GUICtrlCreateMenuItem($g_CentralArray[$g_UI_Menu[0][9]][4] , $g_UI_Menu[0][4])
 	GUICtrlSetState(-1, $GUI_DISABLE)
 	If $g_CentralArray[$g_UI_Menu[0][9]][3] <> '-' Then
@@ -294,9 +613,10 @@ Func _Depend_Contextmenu()
 ; ---------------------------------------------------------------------------------------------
 ; Create another Msg-loop, since the GUI is disabled and only the menuitems should be available
 ; ---------------------------------------------------------------------------------------------
+	Local $Msg
 	While 1
 		$Msg = GUIGetMsg()
-		If $Msg = $MenuItem[0] And $MenuItem[0] <> '' Then
+		If $Msg = 	$MenuItem[0] And $MenuItem[0] <> '' Then
 			If $g_UI_Menu[0][7] = 'C' Then
 				_Depend_SetGroupByNumber($g_UI_Menu[0][8], 2, $g_UI_Menu[0][9]); item or mod: remove conflicts > others (local)
 			ElseIf $g_UI_Menu[0][7] = 'DS' Then
@@ -346,7 +666,7 @@ Func _Depend_Contextmenu()
 		EndIf
 		Sleep(10)
 	WEnd
-	$g_Compilation = $oldState
+	$g_Compilation = $oldState; restore saved click-setting
 	GUISetState(@SW_ENABLE); enable the GUI again
 	GUICtrlDelete($g_UI_Menu[0][4])
 	$g_Flags[16] = 0
@@ -369,22 +689,22 @@ Func _Depend_CreateSortedOutput(ByRef $p_Array)
 			_ArraySort($p_Array, 0, $p, 0)
 			ExitLoop
 		EndIf
-		$Complete&=$p_Array[$p][0]&'|'
+		$Complete &= $p_Array[$p][0]&'|'
 	Next
 	Local $Current=''
 	For $p=1 to $p_Array[0][0]
 		If $p_Array[$p][1] <> '' And StringInStr($Complete, '|'&$p_Array[$p][0]&'|') Then ContinueLoop; don't show component if mod is shown
 		If $Current <> $p_Array[$p][0] Then
-			$p_Array[0][1]&=@CRLF&$p_Array[$p][2]
+			$p_Array[0][1] &= @CRLF&$p_Array[$p][2]
 			If $p_Array[$p][1] = '' Then
-				$p_Array[0][1]&=@CRLF
+				$p_Array[0][1] &= @CRLF
 				ContinueLoop
 			Else
-				$p_Array[0][1]&=':'&@CRLF
+				$p_Array[0][1] &= ':'&@CRLF
 			EndIf
 			$Current = $p_Array[$p][0]
 		EndIf
-		$p_Array[0][1]&=_Tree_SetLength($p_Array[$p][1]) & ': '& $p_Array[$p][3] & @CRLF
+		$p_Array[0][1] &= _Tree_SetLength($p_Array[$p][1]) & ': '& $p_Array[$p][3] & @CRLF
 	Next
 EndFunc   ;==>_Depend_CreateSortedOutput
 
@@ -397,36 +717,36 @@ EndFunc   ;==>_Depend_CreateSortedOutput
 ; Dependency rules that do not contain any '&' will be silently ignored (e.g., D:a or D:a|b)
 ; ---------------------------------------------------------------------------------------------
 Func _Depend_GetActiveDependAll($p_String, $p_RuleID, $p_Show)
-	$Return=_Depend_ItemGetSelected($p_String)
+	Local $Return=_Depend_ItemGetSelected($p_String)
 	If $Return[0][1] = 0 or $Return[0][1] = $Return[0][0] Then Return; nothing selected or all selected
 	;check for a special case - game type can also be a dependency satisfying an OR condition
 	If StringRegExp($p_String, '\x7c('&$g_Flags[14]&')\b') Then Return; found OR '|' followed by game type in dependencies -> do nothing
-	;FileWrite($g_dependDebugFile, 'DependAll before = ' & $p_String & @CRLF)
+	;FileWrite($g_LogFile, 'DependAll before = ' & $p_String & @CRLF)
 	;eliminate any unresolved mod/component IDs from the rule (i.e., purged/missing translation/invalid)
 	$p_String=StringRegExpReplace($p_String, '(?i)(\A|\x7c|\x26)[[:alnum:]_]+\x28.*\x29|[[:alnum:]_]+\x28.*\x29(\x7c|\x26|\z)', ''); x7c = |, x26 = &, x28/29 = ()
-	;FileWrite($g_dependDebugFile, 'DependAll after = ' & $p_String & @CRLF)
-	$Parts=StringSplit($p_String, '&'); split the rule into '&'-subsets
+	;FileWrite($g_LogFile, 'DependAll after = ' & $p_String & @CRLF)
+	Local $Parts=StringSplit($p_String, '&'); split the rule into '&'-subsets
 	If @error Then Return; if no '&' in the rule then do nothing
 	For $SubGroup = 1 to $Parts[0]; this $SubGroup number is also used for adding dependency connections
-		$ThisPart=_Depend_ItemGetSelected($Parts[$SubGroup]); this is inefficient but simpler than reusing $Return
+		Local $ThisPart=_Depend_ItemGetSelected($Parts[$SubGroup]); this is inefficient but simpler than reusing $Return
 		If $ThisPart[0][1] > 0 Then; at least one active mod/component in this part -> call _Depend_GetActiveDependAdv
 			; for each part that is active, we treat it like an advanced rule of the form D:ThisPart:OtherParts
 			; 1&2&3&4 -> 1:2&3&4, 2:1&3&4, 3:1&2&4, 4:1&2&3
-			$OtherParts=''
+			Local $OtherParts=''
 			For $p=1 to $Parts[0]
 				If $p <> $SubGroup Then
 					$OtherParts &= $Parts[$p]&'&'
 				EndIf
 			Next
 			$OtherParts=StringTrimRight($OtherParts, 1); remove trailing '&'
-			$SubRule=$Parts[$SubGroup]&':'&$OtherParts
+			Local $SubRule=$Parts[$SubGroup]&':'&$OtherParts
 			_Depend_GetActiveDependAdv($SubRule, $p_RuleID, $p_Show)
 			;_PrintDebug('_Depend_GetActiveDependAll called _Depend_GetActiveDependAdv('&$SubRule&') for original rule '&$p_String)
 		EndIf
 	Next
 	Return; disable all code after this line
-	$Prefix = ''
-	$Warning = ''
+	Local $Prefix = ''
+	Local $Warning = ''
 	If $g_Connections[$p_RuleID][4]=1 Then $Warning=' **'
 	For $r=1 to $Return[0][0]; show selected items first
 		If $Return[$r][1]=1 Then
@@ -435,17 +755,17 @@ Func _Depend_GetActiveDependAll($p_String, $p_RuleID, $p_Show)
 			If $Prefix='' Then $Prefix='+ '
 		EndIf
 	Next
-	$Prefix = ''
+	$Prefix = ''; reset prefix
 	For $r=1 to $Return[0][0]; then show the missing ones
 		If $Return[$r][1]=0 Then
-			$Mod=$g_CentralArray[$Return[$r][0]][4]
-			If $Mod = '' Then
-				$Mod=$Return[$r][0]; mod setup-name & component ID string
-				$Comp=_GetTR($g_UI_Message, '10-L1'); => removed due to purge/translation/invalid
+			Local $CompDesc, $ModName=$g_CentralArray[$Return[$r][0]][4]
+			If $ModName = '' Then
+				$ModName=$Return[$r][0]; mod setup-name & component ID string
+				$CompDesc=_GetTR($g_UI_Message, '10-L1'); => removed due to purge/translation/invalid
 			Else
-				$Comp=$g_CentralArray[$Return[$r][0]][3]
+				$CompDesc=$g_CentralArray[$Return[$r][0]][3]
 			EndIf
-			If $p_Show=1 Then GUICtrlCreateListViewItem($Prefix&$Mod & '|' & $Comp, $g_UI_Interact[10][1])
+			If $p_Show=1 Then GUICtrlCreateListViewItem($Prefix&$ModName&'|'&$CompDesc, $g_UI_Interact[10][1])
 			_Depend_ActiveAddItem('DM', $p_RuleID, $Return[$r][0])
 			If $p_Show=1 Then GUICtrlSetBkColor(-1, 0xFFA500)
 			If $Prefix='' Then $Prefix='+ '
@@ -494,11 +814,11 @@ EndFunc    ;==>_Depend_GetActiveDependAll
 ; ---------------------------------------------------------------------------------------------
 Func _Depend_GetActiveDependAdv($p_String, $p_RuleID, $p_Show)
 	Local $p_Debug=0
-	If $p_Debug Then FileWrite($g_dependDebugFile, '_Depend_GADA_'&$p_RuleID&': $p_String = '&$p_String&' for '&$g_Connections[$p_RuleID][0]&'=D:'&$g_Connections[$p_RuleID][1]&@CRLF)
+	If $p_Debug Then FileWrite($g_LogFile, '_Depend_GADA_'&$p_RuleID&': $p_String = '&$p_String&' for '&$g_Connections[$p_RuleID][0]&'=D:'&$g_Connections[$p_RuleID][1]&@CRLF)
 	$p_String=StringSplit($p_String, ':'); p_String will be a dependency rule like "123&456:789" without the "D:" prefix
-	$Left=_Depend_ItemGetSelected($p_String[1]); otherwise, check which mods/components from the LEFT side of the dependency rule are active
+	Local $Left=_Depend_ItemGetSelected($p_String[1]); otherwise, check which mods/components from the LEFT side of the dependency rule are active
 	If $Left[0][1] = 0 Then Return; NOTHING on the LEFT side of the rule is active/selected, so the RIGHT side does not matter -> do nothing
-	$Right=_Depend_ItemGetSelected($p_String[2]); check which mods/components from the RIGHT side of the dependency rule are active
+	Local $Right=_Depend_ItemGetSelected($p_String[2]); check which mods/components from the RIGHT side of the dependency rule are active
 	If $Right[0][0] = $Right[0][1] Then Return; if ALL mods/components on the RIGHT side of the rule are active, the rule is satisfied -> do nothing
 	;check for a special case - game type can also be a dependency satisfying an OR condition
 	If StringRegExp($p_String[2], '\x7c('&$g_Flags[14]&')\b') Then Return; found OR '|' followed by game type in dependencies -> do nothing
@@ -508,17 +828,16 @@ Func _Depend_GetActiveDependAdv($p_String, $p_RuleID, $p_Show)
 	; we only have two operators (AND/OR) -- if we had more, we would need a parser (http://effbot.org/zone/simple-top-down-parsing.htm)
 	; to handle rules with combinations of AND/OR, we will split each side of the rule into parts separated by '&' operators
 	; we will do two passes through both sides of the rule because we need to check conditions on both sides before adding connections
-	Local $Warning = ''
+	Local $Prefix = '', $Warning = '', $foundMissingDependency=0
 	If $g_Connections[$p_RuleID][4]=1 Then $Warning=' **'; the rule we are checking is a 'CW' or 'DW'
-	Local $foundMissingDependency=0
 	For $secondPass = 0 to 1
 		; evaluate the rule to check if conditions on the LEFT are satisfied and conditions on the RIGHT are not satisfied
 		If $secondPass And $foundMissingDependency = 0 Then Return; first pass did not find any missing dependencies -> do nothing
 		For $s = 1 to 2; outer loop to check LEFT side (1) followed by RIGHT side (2)
 			$Prefix = ''; we need to clear the prefix (only used if $p_Show = 1) when we switch from LEFT side to RIGHT side
-			$Parts=StringSplit($p_String[$s], '&'); we split the rule into '&'-subsets (this also works on strings without '&')
+			Local $Parts=StringSplit($p_String[$s], '&'); we split the rule into '&'-subsets (this also works on strings without '&')
 			For $SubGroup = 1 to $Parts[0]; this $SubGroup number is also used for adding dependency connections
-				$ThisPart=_Depend_ItemGetSelected($Parts[$SubGroup]); this is inefficient but simpler than reusing $Left/$Right
+				Local $ThisPart=_Depend_ItemGetSelected($Parts[$SubGroup]); this is inefficient but simpler than reusing $Left/$Right
 				If $s = 1 Then; on the left side, we need at least one active mod in EVERY '&'-subset, else the entire rule does not apply
 					If $ThisPart[0][1] = 0 Then Return; left side, no active mods/components in this part (which needs at least one) -> do nothing
 					If $secondPass = 0 And $ThisPart[0][0] = $ThisPart[0][1] Then ContinueLoop; all mods/components are active -> check next part
@@ -529,7 +848,7 @@ Func _Depend_GetActiveDependAdv($p_String, $p_RuleID, $p_Show)
 							If $ThisPart[$t][1]=1 Then; only consider "in need" mods/components if they are ACTIVE
 								If $p_Show=1 Then GUICtrlCreateListViewItem($Prefix & $g_CentralArray[$ThisPart[$t][0]][4] & $Warning & '|' & $g_CentralArray[$ThisPart[$t][0]][3], $g_UI_Interact[10][1]); mod name, component description
 								_Depend_ActiveAddItem('DS', $p_RuleID, $ThisPart[$t][0]); add an "in need" connection from this mod/component
-								If $Prefix='' Then $Prefix='+ '
+								$Prefix='+ '
 							EndIf
 						Next
 					EndIf
@@ -537,36 +856,32 @@ Func _Depend_GetActiveDependAdv($p_String, $p_RuleID, $p_Show)
 					If $ThisPart[0][1] > 0 Then ContinueLoop; at least one active mod/component in this part -> skip to next part
 					$foundMissingDependency=1; else, we found at least one missing ('needed') dependency here
 					If $secondPass Then
-						$inActiveCount = $ThisPart[0][0]; - $ThisPart[0][1]; 'total in group' minus 'active in group' (we already checked none are active)
+						Local $inActiveCount = $ThisPart[0][0]; - $ThisPart[0][1]; 'total in group' minus 'active in group' (we already checked none are active)
 						For $t = 1 to $ThisPart[0][0]; iterate over inactive mods/components in this part
 							If StringRegExp($ThisPart[$t][0], 'BG1EE|BG2EE') Then ContinueLoop; don't add game type as a missing dependency!
+							Local $InSelection=1, $Prefix = '', $CompDesc, $ModName=$g_CentralArray[$ThisPart[$t][0]][4]; mod long-name
+							If $ModName = '' Then
+								$InSelection=0
+								$ModName=$ThisPart[$t][0]; mod setup-name & component ID string
+								$CompDesc=_GetTR($g_UI_Message, '10-L1'); => removed due to purge/translation/invalid
+							Else
+								$CompDesc=$g_CentralArray[$ThisPart[$t][0]][3]; component description
+							EndIf
 							If $inActiveCount = 1 Then; if it is the only missing dependency in this '&'-subset, it is MANDATORY
 								_Depend_ActiveAddItem('DM', $p_RuleID, $ThisPart[$t][0], $SubGroup); add MANDATORY connection for this mod/component
-								If $Prefix <> '' Then $Prefix='+ '
 								If $p_Show = 1 Then
-									$ModName=$g_CentralArray[$ThisPart[$t][0]][4]; mod name
-									If $ModName = '' Then
-										$ModName=$ThisPart[$t][0]; mod setup-name & component ID string
-										$CompDesc=_GetTR($g_UI_Message, '10-L1'); => removed due to purge/translation/invalid
-									Else
-										$CompDesc=$g_CentralArray[$ThisPart[$t][0]][3]; component description
-									EndIf
-									GUICtrlCreateListViewItem($Prefix&$ModName & '|' & $CompDesc, $g_UI_Interact[10][1])
+									$Prefix='+ '
+									GUICtrlCreateListViewItem($Prefix&$ModName&'|'&$CompDesc, $g_UI_Interact[10][1])
 									GUICtrlSetBkColor(-1, 0xFFA500)
 								EndIf
 							ElseIf $inActiveCount > 1 Then; if it is one of multiple missing dependencies in this '&'-subset, it is OPTIONAL
-								_Depend_ActiveAddItem('DO', $p_RuleID, $ThisPart[$t][0], $SubGroup); add OPTIONAL connection for this mod/component
-								If $Prefix <> '' Then $Prefix='/ '
-								If $p_Show = 1 Then
-									$ModName=$g_CentralArray[$ThisPart[$t][0]][4]; mod name
-									If $ModName = '' Then
-										$ModName=$ThisPart[$t][0]; mod setup-name & component ID string
-										$CompDesc=_GetTR($g_UI_Message, '10-L1'); => removed due to purge/translation/invalid
-									Else
-										$CompDesc=$g_CentralArray[$ThisPart[$t][0]][3]; component description
+								If $InSelection Then; for OPTIONAL connections, skip if not available for selection due to purge/translation/invalid
+									_Depend_ActiveAddItem('DO', $p_RuleID, $ThisPart[$t][0], $SubGroup); add OPTIONAL connection for this mod/component									
+									If $p_Show = 1 Then									
+										GUICtrlCreateListViewItem($Prefix&$ModName&'|'&$CompDesc, $g_UI_Interact[10][1])
+										GUICtrlSetBkColor(-1, 0xFFA500)
+										$Prefix='/ '
 									EndIf
-									GUICtrlCreateListViewItem($Prefix&$ModName & '|' & $CompDesc, $g_UI_Interact[10][1])
-									GUICtrlSetBkColor(-1, 0xFFA500)
 								EndIf
 							EndIf; else $inActiveCount is 0 (we never encounter this case because we check earlier and skip)
 						Next; LOOP: check next mod/component
@@ -582,9 +897,9 @@ EndFunc    ;==>_Depend_GetActiveDependAdv
 ; ---------------------------------------------------------------------------------------------
 Func _Depend_GetActiveConflictAdv($p_String, $p_RuleID, $p_Show)
 	Local $p_Debug=0
-	If $p_Debug Then FileWrite($g_dependDebugFile, '_Depend_GACA_'&$p_RuleID&': $p_String = '&$p_String&' for '&$g_Connections[$p_RuleID][0]&'=D:'&$g_Connections[$p_RuleID][1]&@CRLF)
+	If $p_Debug Then FileWrite($g_LogFile, '_Depend_GACA_'&$p_RuleID&': $p_String = '&$p_String&' for '&$g_Connections[$p_RuleID][0]&'=D:'&$g_Connections[$p_RuleID][1]&@CRLF)
 	$p_String=StringSplit($p_String, ':')
-	Local $Test[$p_String[0]+1][50]
+	Local $Active, $Test[$p_String[0]+1][50]
 	For $s=1 to $p_String[0]
 		$Active=_Depend_ItemGetSelected($p_String[$s])
 		For $r=1 to $Active[0][0]
@@ -594,11 +909,11 @@ Func _Depend_GetActiveConflictAdv($p_String, $p_RuleID, $p_Show)
 				$Test[$s][$Test[$s][0]]=$Active[$r][0]
 			EndIf
 		Next
-		If $Test[$s][0]<> 0 Then $Test[0][0]+=1
+		If $Test[$s][0] <> 0 Then $Test[0][0] += 1
 	Next
 	If $Test[0][0] <= 1 Then Return; no multiple conflicts were selected
 	Local $IsConflict = 0
-	$Warning = ''
+	Local $Warning = ''
 	If $g_Connections[$p_RuleID][4]=1 Then $Warning=' **'
 	For $s=1 to $p_String[0]
 		If $Test[$s][0] <> 0 Then
@@ -620,9 +935,9 @@ EndFunc    ;==>_Depend_GetActiveConflictAdv
 ; ---------------------------------------------------------------------------------------------
 Func _Depend_GetActiveConflictStd($p_String, $p_RuleID, $p_Show)
 	Local $IsConflict = 0
-	$Active=_Depend_ItemGetSelected($p_String)
+	Local $Active=_Depend_ItemGetSelected($p_String)
 	If $Active[0][1] = 0 or $Active[0][1] = 1 Then Return
-	$Warning = ''
+	Local $Warning = ''
 	If $g_Connections[$p_RuleID][4]=1 Then $Warning=' **'
 	For $r=1 to $Active[0][0]
 		If $Active[$r][1]=1 Then
@@ -700,28 +1015,6 @@ Func _Depend_GetUnsolved($p_Setup='', $p_Comp='')
 EndFunc   ;==>_Depend_GetUnsolved
 
 ; ---------------------------------------------------------------------------------------------
-; List all connections that are met/affected by a mod/component
-; ---------------------------------------------------------------------------------------------
-Func _Depend_ItemGetConnections(ByRef $p_Array, $p_RuleID, $p_String, $p_Setup, $p_Comp='-')
-	Local $Array, $LastMod='', $Return=''
-	$p_String=StringSplit($p_String, '|')
-	For $p=1 to $p_String[0]
-		$r=$p_String[$p]
-		$Test=StringRegExp($p_Array[$r][3], '(?i)(\x3a|\x3e|\x7c|\x26)'&$p_Setup&'\x28'&$p_Comp&'\x29', 3); '\x3a|\x3e|\x7c|\x26') ; Get the :>|&
-		If IsArray($Test) Then
-			$Return&=@CRLF & $p_Array[$r][2]
-			If $p_Array[$r][4] = 1 Then $Return&=' **'
-			For $t=0 to UBound($Test)-1
-				$Sign=StringLeft($Test[$t], 1)
-				$p_Array[$r][3]=StringReplace($p_Array[$r][3], $Sign&$p_Setup&'('&$p_Comp&')', $Sign&$p_RuleID, 1)
-			Next
-		EndIf
-	Next
-	If StringRegExp($Return, '\x2a{2}(\z|\n)') Then $Return&=@CRLF&@CRLF&_GetTR($g_UI_Message, '4-L20')
-	Return $Return
-EndFunc   ;==>_Depend_ItemGetConnections
-
-; ---------------------------------------------------------------------------------------------
 ; Expects a rule 
 ; Just return an array of mod/component IDs and whether they are selected (active) or not
 ;  Return[0][0] = total number of mod/component IDs in the array
@@ -730,6 +1023,7 @@ EndFunc   ;==>_Depend_ItemGetConnections
 ;  Return[N][1] = 0/1 active/inactive
 ; ---------------------------------------------------------------------------------------------
 Func _Depend_ItemGetSelected($p_String, $p_Debug=0)
+	Local $Array
 	If Not IsArray($p_String) Then
 		$Array=StringSplit($p_String, ':|&>')
 	Else
@@ -741,7 +1035,7 @@ Func _Depend_ItemGetSelected($p_String, $p_Debug=0)
 	If $Array[0] = 0 Then Return $Return; array is empty
 	For $a=1 to $Array[0]; loop
 		$Return[$a][0]=$Array[$a]; copy next mod/component ID from split array into return array
-		If $p_Debug Then FileWrite($g_dependDebugFile, '_Depend_ItemGetSelected:  Array['&$a&'] = ' & $Array[$a] & '#active: '&$g_CentralArray[$Array[$a]][9]&' ~ modname: '&$g_CentralArray[$Array[$a]][4]&' ~ component? '&$g_CentralArray[$Array[$a]][3]&' ~ multi-install? '&$g_CentralArray[$Array[$a]][13]&@CRLF)
+		If $p_Debug Then FileWrite($g_LogFile, '_Depend_ItemGetSelected:  Array['&$a&'] = ' & $Array[$a] & '#active: '&$g_CentralArray[$Array[$a]][9]&' ~ modname: '&$g_CentralArray[$Array[$a]][4]&' ~ component? '&$g_CentralArray[$Array[$a]][3]&' ~ multi-install? '&$g_CentralArray[$Array[$a]][13]&@CRLF)
 		If StringInStr($Array[$a], ')') Then; if item is not a number, it does not exist/is not available in this selection (might have been purged)
 			$Return[$a][1]=0; so just mark this element in the return array as not-active and continue
 		ElseIf $g_CentralArray[$Array[$a]][2] <> '-' Then; ID points to a single component (not a mod)
@@ -752,7 +1046,7 @@ Func _Depend_ItemGetSelected($p_String, $p_Debug=0)
 				$Return[$a][1]=1; 0 if not active, 1 if active - the mod is active, so 1
 				$Return[0][1]+=1; add to count of active mods/components found
 			ElseIf $g_CentralArray[$Array[$a]][13] <> '' Then; it is not active here, but components might be installed later in the installation
-				$Splitted=StringSplit($g_CentralArray[$Array[$a]][13], ','); get the other possible selections and check them, too
+				Local $Splitted=StringSplit($g_CentralArray[$Array[$a]][13], ','); get the other possible selections and check them, too
 				For $s=1 to $Splitted[0]
 					If $g_CentralArray[$Splitted[$s]][9] > 0 Then; we found an active selection
 						$Return[$a][1]=1
@@ -772,8 +1066,7 @@ EndFunc   ;==>_Depend_ItemGetSelected
 ; Returns a description-string
 ; ---------------------------------------------------------------------------------------------
 Func _Depend_ListInstallAddItem($p_Setup, $p_Comp='-', $p_Num = 1)
-	Local $Return
-	$Return = IniRead($g_MODIni, $p_Setup, 'Name', $p_Setup)
+	Local $Return = IniRead($g_MODIni, $p_Setup, 'Name', $p_Setup)
 	If $p_Comp <> '-' Then $Return &= @CRLF & _Tree_SetLength($p_Comp) & ': '& _GetTra($p_Setup, $p_Comp)
 	If $p_Num = 1 Then $Return &= ' ' & Chr(0xB9)
 	If $p_Num = 2 Then $Return &= ' ' & Chr(0xB2)
@@ -795,13 +1088,13 @@ Func _Depend_ListInstallConflicts($p_Setup, $p_Comp)
 		$Return &= $g_Connections[$g_ActiveConnections[$g][1]][2] & @CRLF
 		Local $Current = $g, $Prefix = ''
 		While $g_ActiveConnections[$g-1][1] = $g_ActiveConnections[$Current][1]; get to the starting-point
-			$g-= 1
+			$g -= 1
 		WEnd
 		While $g_ActiveConnections[$g+1][1] = $g_ActiveConnections[$Current][1]
-			$g+= 1
+			$g += 1
 			If $g > $g_ActiveConnections[0][0] Then Return $Return
 			If $g_CentralArray[$g_ActiveConnections[$g][2]][0] = $p_Setup And $g_CentralArray[$g_ActiveConnections[$g][2]][2] = $p_Comp Then ContinueLoop; don't display own component
-			$Return&=$Prefix&_Depend_ListInstallAddItem($g_CentralArray[$g_ActiveConnections[$g][2]][0], $g_CentralArray[$g_ActiveConnections[$g][2]][2], 2)
+			$Return &= $Prefix&_Depend_ListInstallAddItem($g_CentralArray[$g_ActiveConnections[$g][2]][0], $g_CentralArray[$g_ActiveConnections[$g][2]][2], 2)
 			If $Prefix='' Then $Prefix='+ '
 		WEnd
 	Next
@@ -824,214 +1117,14 @@ Func _Depend_ListInstallUnsolved($p_Setup, $p_Comp)
 		$Return &= $g_Connections[$g_ActiveConnections[$g][1]][2] & @CRLF
 		Local $Current = $g, $Prefix = ''
 		While $g_ActiveConnections[$g+1][1] = $g_ActiveConnections[$Current][1]
-			$g+= 1
+			$g += 1
 			If $g > $g_ActiveConnections[0][0] Then Return $Return
-			$Return&=$Prefix&_Depend_ListInstallAddItem($g_CentralArray[$g_ActiveConnections[$g][2]][0], $g_CentralArray[$g_ActiveConnections[$g][2]][2], 1)
+			$Return &= $Prefix&_Depend_ListInstallAddItem($g_CentralArray[$g_ActiveConnections[$g][2]][0], $g_CentralArray[$g_ActiveConnections[$g][2]][2], 1)
 			If $Prefix='' Then $Prefix='+ '
 		WEnd
 	Next
 	Return $Return
 EndFunc   ;==>_Depend_ListInstallUnsolved
-
-; ---------------------------------------------------------------------------------------------
-; Use install-order and assign the lines where the mod is mentioned in the [connections]-section
-; ---------------------------------------------------------------------------------------------
-Func _Depend_PrepareBuildIndex($p_Array, $p_Select)
-	Local $Return[9999][4], $OldSetup
-	For $a=1 to $p_Select[0][0]
-		If $p_Select[$a][2] <> $OldSetup Then
-			$Return[0][0]+=1
-			$Return[$Return[0][0]][1]=$p_Select[$a][2]; setup
-			$OldSetup = $p_Select[$a][2]
-		Else
-			ContinueLoop
-		EndIf
-	Next
-	Local $Setups=$g_Setups
-	$Index=_IniCreateIndex($Setups)
-	ReDim $Return[$Return[0][0]+1][4]
-	For $a=1 to $p_Array[0][0]; Create a shortened list of affected mods by removing components
-		$p_Array[$a][0]='|'&StringRegExpReplace(StringRegExpReplace(StringRegExpReplace($p_Array[$a][1], '\A.+?\x3a', ''), '\x28[^\x29]*\x29', ''), '\x3a|\x26|\x3e', '|')&'|' ; 28/29=(), :|&|>
-		$Test=StringRegExp($p_Array[$a][0], '\x7c', 3)
-		$p_Array[$a][1]=UBound($Test)-1
-	Next
-	For $a=1 to $p_Array[0][0]; Create a shortened list of affected mods by removing components
-		$Mods=StringSplit($p_Array[$a][0], '|')
-		For $m=1 to $Mods[0]
-			If $Mods[$m]='' Then ContinueLoop
-			$StartIdx=$Index[Asc(StringLower(StringLeft($Mods[$m], 1)))]
-			$Found=0
-			For $s=$StartIdx To $Setups[0][0]
-				If $Setups[$s][0] = $Mods[$m] Then
-					$Setups[$s][2]&='|'&$a
-					$Found=1
-					ExitLoop
-				EndIf
-			Next
-			If $Found=0 Then ConsoleWrite('!'&$Mods[$m]&@CRLF)
-		Next
-		If StringInStr($p_Array[$a][0], '||') Then ConsoleWrite('!'&$p_Array[$a][0]& ' == ' & $p_Array[$a][1] &@CRLF)
-	Next
-	; goal is to identify connections (or better their index number) that may be connected to a mod into $Return[$r][2]
-	For $r=1 to $Return[0][0]
-		GUICtrlSetData($g_UI_Interact[9][1], 20*$r/$Return[0][0]); update the progress bar
-		If _MathCheckDiv($r, 10) = 2 Then GUICtrlSetData($g_UI_Static[9][2], Round(20*$r/$Return[0][0], 0) & ' %'); update progress text
-		$Lines=''
-		$StartIdx=$Index[Asc(StringLower(StringLeft($Return[$r][1], 1)))]
-		For $s=$StartIdx To $Setups[0][0]
-			If $Setups[$s][0] = $Return[$r][1] Then
-				$Return[$r][2]=StringRegExpReplace($Setups[$s][2], '\A\x7c', '')
-				ExitLoop
-			EndIf
-		Next
-	Next
-	Return $Return
-EndFunc   ;==>_Depend_PrepareBuildIndex
-
-; ---------------------------------------------------------------------------------------------
-; Build resize [Connections]-array and append the sentences that are displayed for each line
-; ---------------------------------------------------------------------------------------------
-Func _Depend_PrepareBuildSentences($p_Array)
-	Local $Message = IniReadSection($g_TRAIni, 'DP-BuildSentences')
-	Local $Array, $LastMod='', $Return = $p_Array
-	ReDim $Return[$Return[0][0]+1][5]
-	For $r=1 to $Return[0][0]
-		If StringMid($Return[$r][1], 2, 1) = 'W' Then;Strip warning character
-			$Return[$r][1]=StringLeft($Return[$r][1], 1)&StringMid($Return[$r][1], 3)
-			$Return[$r][4]=1
-		EndIf
-		If StringLeft($Return[$r][1], 1) = 'C' Then
-			$String=StringTrimLeft($Return[$r][1], 2)
-			$LastConflict=-1
-			$Number=StringRegExp($String, '\x3e', 3)
-			$Number=UBound($Number)-1
-			If $Number >0 Then
-				$LastConflict = StringInStr($String, '>', 1, -1)
-			EndIf
-		Else
-			$String=StringTrimLeft($Return[$r][1], 2)
-			$LastConflict=-1
-			$Number=UBound(StringRegExp($String, '(\x29\x7c)', 3))-1
-			If $Number >0 Then
-				$LastConflict = StringInStr($String, ')|', 1, -1)+1
-			Else
-				$Number=UBound(StringRegExp($String, '\x26', 3))-1
-				If $Number >0 Then $LastConflict = StringInStr($String, '&', 1, -1)
-			EndIf
-		EndIf
-		$Array=StringSplit($String, '')
-		$Current=''
-		$FirstConflict=0
-		$Mod=0
-		For $a=1 to $Array[0]
-			If $Array[$a] = ':' And StringLeft($Return[$r][1], 1) = 'C' Then
-				If $FirstConflict = 0 Then
-					$Current&=' '&_GetTR($Message, 'L5')&' '; => is preferred
-				Else
-					$Current&=' '&_GetTR($Message, 'L6')&' '; => and
-				EndIf
-				$FirstConflict=1
-			ElseIf $Array[$a] = ':' Then
-				If $Mod = 1 Then
-					$Current&=' '&_GetTR($Message, 'L1')&' '; => needs
-				Else
-					$Current&=' '&_GetTR($Message, 'L2')&' '; => need
-				EndIf
-			ElseIf $Array[$a] = '(' Then
-				$Mod+=1
-				$Comp = ''
-				While $Array[$a] <> ')'
-					$a+=1
-					$Comp&=$Array[$a]
-				WEnd
-				$Number=StringRegExp($Comp, '\x7c', 3)
-				$Number=UBound($Number)-1
-				If $Number >=0 Then
-					If $Number > 0 Then $Comp=StringReplace($Comp, '|' , ', ', $Number)
-					$Comp=StringReplace($Comp, '|' , ' '&_GetTR($Message, 'L3')&' '); => or
-				EndIf
-				If $Comp <> '-)' Then $Current&=' ('&_GetTR($Message, 'L4')&' '&$Comp; => is
-			ElseIf $Array[$a] = '>' Then
-				If $FirstConflict = 0 Then
-					$Current&=' '&_GetTR($Message, 'L5')&' '; => is preferred (part I)
-					$FirstConflict = 1
-				Else
-					If $a=$LastConflict Then
-						$Current&=' '&_GetTR($Message, 'L6')&' '; => and
-					Else
-						$Current&=', '
-					EndIf
-				EndIf
-			ElseIf $Array[$a] = '|' Then
-				If $LastConflict <> -1 Then
-					If $a=$LastConflict Then
-						$Current&=' '&_GetTR($Message, 'L3')&' '; => or
-					Else
-						$Current&=', '
-					EndIf
-				Else
-					$Current&=' '&_GetTR($Message, 'L3')&' '; => or
-				EndIf
-			ElseIf $Array[$a] = '&' Then
-				If $LastConflict <> -1 Then
-					If $a=$LastConflict Then
-						$Current&=' '&_GetTR($Message, 'L6')&' '; => and
-					Else
-						$Current&=', '
-					EndIf
-				Else
-					$Current&=' '&_GetTR($Message, 'L6')&' '; => and
-				EndIf
-			Else
-				$Current&=$Array[$a]
-			EndIf
-		If $a = $Array[0] Then
-			If StringInStr($String, '&') And Not StringInStr($String, ':') Then
-				$Current&=' '&_GetTR($Message, 'L7'); => are installed togther
-			ElseIf StringLeft($Return[$r][1], 1) = 'C' Then
-				If _GetTR($Message, 'L8') <> '.' Then $Current&=' '&_GetTR($Message, 'L8'); => is preferred (part II)
-			EndIf
-			$Return[$r][2]=$Current&'.'
-		EndIf
-		Next
-	Next
-	Return $Return
-EndFunc   ;==>_Depend_PrepareBuildSentences
-
-; ---------------------------------------------------------------------------------------------
-; Replace multiple numbers in brackets
-; ---------------------------------------------------------------------------------------------
-Func _Depend_PrepareToUseID($p_Array)
-	For $p=1 to $p_Array[0][0]
-		$Bracket=StringRegExp($p_Array[$p][1], '\x28[^\x29]*\x29', 3)
-		If Not IsArray($Bracket) Then
-			$p_Array[$p][3]=$p_Array[$p][1]
-			ContinueLoop
-		EndIf
-		For $b=0 To UBound($Bracket)-1
-			$Sign=StringRegExp($Bracket[$b], '\x7c|\x26', 3)
-			If Not IsArray($Sign) Then ContinueLoop
-			$a=StringInStr($p_Array[$p][1], $Bracket[$b])-1
-			Local $Mod='', $String='', $s=-1
-			$Array=StringSplit($p_Array[$p][1], '')
-			While Not StringRegExp($Array[$a], '\x3a|\x3e|\x7c|\x26') ; Get the :>|&
-				$Mod=$Array[$a]&$Mod
-				$a-=1
-			WEnd
-			$Num=StringSplit(StringRegExpReplace($Bracket[$b], '\A.|.\z', ''), '|&')
-			For $n=1 to $Num[0]
-				If $n<> 1 Then
-					$s+=1
-					$String&=$Sign[$s]&$Mod
-				EndIf
-				$String&='('&$Num[$n]&')'
-			Next
-			$p_Array[$p][1]=StringReplace($p_Array[$p][1], $Bracket[$b], $String, 1)
-		Next
-		$p_Array[$p][3]=$p_Array[$p][1]
-	Next
-	Return $p_Array
-EndFunc   ;==>_Depend_PrepareToUseID
 
 ; ---------------------------------------------------------------------------------------------
 ; Remove some mods or components from the current-section
@@ -1049,18 +1142,18 @@ Func _Depend_RemoveFromCurrent($p_Array, $p_Comp=1)
 			IniWrite($g_UsrIni, 'RemovedFromCurrent', $p_Array[$a][0], $Return&' '&IniRead($g_UsrIni, 'Current', $p_Array[$a][0], '')); add to mods that are listed as not installed
 			IniDelete($g_UsrIni, 'Current', $p_Array[$a][0]); remove from current list of mods to install
 			IniDelete($g_BWSIni, 'Faults', $p_Array[$a][0]); remove faults
-			$String&='|'&$p_Array[$a][0]
+			$String &= '|'&$p_Array[$a][0]
 			$File=_Test_GetCustomTP2($p_Array[$a][0]); remove mods that are uninstallable
 			If FileExists($File) Then FileMove($File, $File&'.dlt', 1)
 		Else
 			$Return=IniRead($g_UsrIni, 'RemovedFromCurrent', $p_Array[$a][0], '')
-			If StringRegExp($Return, '(\A|\s)'&$p_Array[$a][1]&'(\s|\z)', ' ') = 0 Then $Return&=' '&$p_Array[$a][1]; add component if not included
+			If StringRegExp($Return, '(\A|\s)'&$p_Array[$a][1]&'(\s|\z)', ' ') = 0 Then $Return &= ' '&$p_Array[$a][1]; add component if not included
 			IniWrite($g_UsrIni, 'RemovedFromCurrent', $p_Array[$a][0], $Return)
 			$Return=IniRead($g_UsrIni, 'Current', $p_Array[$a][0], '')
 			$Return=StringStripWS(StringRegExpReplace($Return, '(\A|\s)'&$p_Array[$a][1]&'(\s|\z)', ' '), 3)
 			If $Return = '' Then; remove entry or write new value of mod
 				IniDelete($g_UsrIni, 'Current', $p_Array[$a][0])
-				$String&='|'&$p_Array[$a][0]
+				$String &= '|'&$p_Array[$a][0]
 			Else
 				IniWrite($g_UsrIni, 'Current', $p_Array[$a][0], $Return)
 				_Tree_Purge(0, $p_Array[$a][0], $p_Array[$a][1])
@@ -1090,7 +1183,7 @@ Func _Depend_ResolveGui($p_Solve=0)
 			_Misc_SetTab(2); back to folder-tab
 			Return 1
 		EndIf
-		$aMsg = GUIGetMsg()
+		Local $aMsg = GUIGetMsg()
 		If $g_Flags[16]=1 Then _Depend_Contextmenu()
 		Switch $aMsg
 			Case $g_UI_Button[0][3]; exit
@@ -1147,7 +1240,7 @@ Func _Depend_SetModState($p_ControlID, $p_State)
 	;ConsoleWrite(@ScriptLineNumber & ': '&$g_CentralArray[$p_ControlID][0] & ' - ' & $g_CentralArray[$p_ControlID][2] & ' - ' & $p_State & @CRLF)
 	If $g_CentralArray[$p_ControlID][2] = '-' Then
 		If $g_CentralArray[$p_ControlID][13] <> '' Then
-			$Splitted=StringSplit($g_CentralArray[$p_ControlID][13], ',')
+			Local $Splitted=StringSplit($g_CentralArray[$p_ControlID][13], ',')
 			For $s=1 to $Splitted[0]
 				_AI_SetClicked($Splitted[$s], $p_State)
 				;ConsoleWrite(@ScriptLineNumber & ': '&$g_CentralArray[$Splitted[$s]][0] & ' - ' & $g_CentralArray[$Splitted[$s]][2] & ' - ' & $p_State & @CRLF)
@@ -1168,14 +1261,14 @@ EndFunc   ;==>_Depend_SetModState
 ; Remove all items that have problems with a specific item or setup. Invert is possible.
 ; ---------------------------------------------------------------------------------------------
 Func _Depend_SolveConflict($p_Setup, $p_State, $p_Type=0)
-	Local $GroupID
+	Local $GroupID, $Test
 	For $a=1 to $g_ActiveConnections[0][0]
 		If $p_Type = 0 Then $Test = $g_ActiveConnections[$a][2]
 		If $p_Type = 1 Then $Test = $g_CentralArray[$g_ActiveConnections[$a][2]][0]
 		If $Test = $p_Setup Then
 			If $g_ActiveConnections[$a][0] <> 'C' Then ContinueLoop
-			$n=$a
 			$GroupID = $g_ActiveConnections[$a][3]
+			Local $n=$a
 			While $g_ActiveConnections[$n][1]=$g_ActiveConnections[$a][1]; get the beginning of the conflict
 				$n-=1
 			WEnd
@@ -1201,8 +1294,8 @@ EndFunc   ;==>_Depend_SolveConflict
 ; Switch help on / off on depend tab
 ; ---------------------------------------------------------------------------------------------
 Func _Depend_ToggleHelp()
-	$Pos=ControlGetPos($g_UI[0], '', $g_UI_Interact[10][1])
-	$State=GUICtrlGetState($g_UI_Interact[10][2])
+	Local $Pos=ControlGetPos($g_UI[0], '', $g_UI_Interact[10][1])
+	Local $State=GUICtrlGetState($g_UI_Interact[10][2])
 	If BitAND($State, $GUI_HIDE) Then
 		GUICtrlSetPos($g_UI_Interact[10][1], 15, 100, $Pos[2]-305, $Pos[3])
 		GUICtrlSetPos($g_UI_Button[10][4], $Pos[2]-290, 100, 15, $Pos[3])
@@ -1221,17 +1314,19 @@ EndFunc   ;==>_Depend_ToggleHelp
 
 ; ---------------------------------------------------------------------------------------------
 ; Removes lines which contain component-numbers / which are only used in BWS-installs
+;	p_Array is the output of _IniReadSection($g_ConnectionsConfDir&'\Game.ini', 'Connections')
+;		i.e. a two-dimensional array of inikey=inivalue pairs
 ; ---------------------------------------------------------------------------------------------
-Func _Depend_TrimBWSConnections()
-	Local $Return[$g_Connections[0][0]+1][2]
-	For $c=1 to $g_Connections[0][0]
-		If StringRegExp($g_Connections[$c][1], '\x28[1234567890\x7c]*\x29') = 1 Then ContinueLoop
-		$Return[0][0]+=1
-		$Return[$Return[0][0]][0]=$g_Connections[$c][0]
-		$Return[$Return[0][0]][1]=$g_Connections[$c][1]
+Func _Depend_TrimBWSConnections($p_Array)
+	Local $Return[$p_Array[0][0]+1][2]
+	For $c=1 to $p_Array[0][0]; copy lines without component numbers from p_Array to RuleLines
+		If StringRegExp($p_Array[$c][1], '\x28[1234567890\x7c]*\x29') = 1 Then ContinueLoop
+		$Return[0][0]+=1; we found a rule without component numbers
+		$Return[$Return[0][0]][0]=$p_Array[$c][0]; rule description (inikey, left of =)
+		$Return[$Return[0][0]][1]=$p_Array[$c][1]; the rule itself (inivalue, right of =)
 	Next
-	ReDim $Return[$Return[0][0]+1][2]
-	$g_Connections=$Return
+	ReDim $Return[$Return[0][0]+1][2]; trim the array because we (probably) removed entries
+	Return $Return
 EndFunc   ;==>_Depend_TrimBWSConnections
 
 ; ---------------------------------------------------------------------------------------------
@@ -1239,7 +1334,7 @@ EndFunc   ;==>_Depend_TrimBWSConnections
 ; ---------------------------------------------------------------------------------------------
 Func _Depend_WM_Notify($p_Handle, $iMsg, $iwParam, $ilParam)
 	#forceref $p_Handle, $iMsg, $iwParam
-	Local $HandleFrom, $iIDFrom, $iCode, $tNMHDR, $tInfo
+	Local $HandleFrom, $iIDFrom, $iCode, $tNMHDR, $tInfo, $Index, $String
 	$tNMHDR = DllStructCreate($tagNMHDR, $ilParam)
 	$HandleFrom = HWnd(DllStructGetData($tNMHDR, "hWndFrom"))
 	$iIDFrom = DllStructGetData($tNMHDR, "IDFrom")

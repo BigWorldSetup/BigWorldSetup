@@ -4,18 +4,18 @@
 ; Add a pause to the $g_CentralArray[$p_Num][15] or jump to the next component
 ; ---------------------------------------------------------------------------------------------
 Func _Selection_ContextMenu()
-	Local $FirstModItem, $NextModItem, $MenuItem[7]
-	$p_Num = GUICtrlRead($g_UI_Interact[4][1])
+	Local $State, $FirstModItem, $NextModItem, $MenuItem[7]
+	Local $p_Num = GUICtrlRead($g_UI_Interact[4][1])
 	If $p_Num >= $g_CentralArray[0][1] And $p_Num <= $g_CentralArray[0][0] Then; prevent crashes if $g_CentralArray is undefined
 		GUISetState(@SW_DISABLE); disable the GUI itself while selection is pending to avoid unwanted treeview-changes
-		$OldMode=AutoItSetOption('GUIOnEventMode')
+		Local $OldMode=AutoItSetOption('GUIOnEventMode')
 		If $OldMode Then AutoItSetOption('GUIOnEventMode', 0)
-		$Tree = GUICtrlRead($p_Num, 1)
-		$MenuString = $Tree
+		Local $Tree = GUICtrlRead($p_Num, 1)
+		Local $MenuString = $Tree
 		If $g_CentralArray[$p_Num][2] = '-' Then $MenuString = $g_CentralArray[$p_Num][4]
-		$IsPaused =  StringRegExp($Tree, '\s\x5bP\x5d\z')
+		Local $IsPaused =  StringRegExp($Tree, '\s\x5bP\x5d\z')
 		$g_UI_Menu[0][4] = GUICtrlCreateContextMenu($p_Num); create a context-menu on the clicked item
-		$MenuLabel = GUICtrlCreateMenuItem($MenuString, $g_UI_Menu[0][4])
+		Local $MenuLabel = GUICtrlCreateMenuItem($MenuString, $g_UI_Menu[0][4])
 		GUICtrlSetState(-1, $GUI_DISABLE)
 		GUICtrlCreateMenuItem('', $g_UI_Menu[0][4]); separator
 ; ---------------------------------------------------------------------------------------------
@@ -36,7 +36,7 @@ Func _Selection_ContextMenu()
 ; ---------------------------------------------------------------------------------------------
 ; See if the mod was splitted and enable to jump to the next chapter
 ; ---------------------------------------------------------------------------------------------
-		$Headline=_AI_GetStart($p_Num, '-')
+		Local $Splitted, $Headline=_AI_GetStart($p_Num, '-')
 		If $g_CentralArray[$Headline][13] <> '' Then
 			$Splitted=StringSplit($g_CentralArray[$Headline][13], ',')
 			$NextModItem=$Splitted[1]
@@ -71,6 +71,7 @@ Func _Selection_ContextMenu()
 ; ---------------------------------------------------------------------------------------------
 ; Create another Msg-loop, since the GUI is disabled and only the menuitems should be available
 ; ---------------------------------------------------------------------------------------------
+		Local $Msg, $Return
 		While 1
 			$Msg = GUIGetMsg()
 			Switch $Msg
@@ -159,11 +160,11 @@ Func _Selection_ExpertWarning()
 		If GUICtrlRead($w) = 0 Then ContinueLoop
 		If $g_CentralArray[$w][9] <> 0 And ($g_CentralArray[$w][11] = 'E' Or StringInStr($g_CentralArray[$w][11], 'W')) Then
 			; Only add mod once even if it appears in multiple theme sections
-			If Not StringInStr($Warning, $g_CentralArray[$w][4]&@CRLF) Then $Warning&=$g_CentralArray[$w][4]&@CRLF
+			If Not StringInStr($Warning, $g_CentralArray[$w][4]&@CRLF) Then $Warning&=$g_CentralArray[$w][4]&'|'
 		EndIf
 	Next
 	If $Warning = '' Then Return 2
-	$Test=_Misc_MsgGUI(3, _GetTR($g_UI_Message, '0-T1'), _GetTR($g_UI_Message, '8-L1')&$Warning, 2); => expert-warning
+	Local $Test=_Misc_MsgGUI(3, _GetTR($g_UI_Message, '0-T1'), _GetTR($g_UI_Message, '8-L1')&$Warning, 2); => expert-warning
 	Return $Test
 EndFunc    ;==>_Selection_ExpertWarning
 
@@ -172,11 +173,11 @@ EndFunc    ;==>_Selection_ExpertWarning
 ; ---------------------------------------------------------------------------------------------
 Func _Selection_GetCurrentInstallType()
 	_PrintDebug('+' & @ScriptLineNumber & ' Calling _Selection_GetCurrentInstallType')
-	$Array = StringSplit(_GetTR($g_UI_Message, '2-I1'), '|'); => versions
-	$Num = StringSplit($g_Flags[25], '|') 	; indices of available selections (00|01|02|03|04|05 ... |1|2|3|4|5)
+	Local $Array = StringSplit(_GetTR($g_UI_Message, '2-I1'), '|'); => versions
+	Local $Num = StringSplit($g_Flags[25], '|') 	; indices of available selections (00|01|02|03|04|05 ... |1|2|3|4|5)
 											; default pre-selections at the end are represented by single digits
-	$String = GUICtrlRead($g_UI_Interact[2][4]) ; current compilation/selection (from drop-down menu)
-	$Found=0
+	Local $String = GUICtrlRead($g_UI_Interact[2][4]) ; current compilation/selection (from drop-down menu)
+	Local $Found=0
 	For $a = 1 To $Array[0]
 		If $Array[$a] = $String Then
 			$Found=1
@@ -184,17 +185,17 @@ Func _Selection_GetCurrentInstallType()
 		EndIf
 	Next
 	If $Found = 0 Then; prevent crash if language has changed
-		If $g_Flags[14] = 'BWS' Then
-			$a=1; total happiness
-		Else
+;		If $g_Flags[14] = 'BWS' Then
+;			$a=1; total happiness
+;		Else
 			$a=2; recommended
-		EndIf
+;		EndIf
 	EndIf
-	$Compilation = StringSplit(IniRead($g_BWSIni, 'Options', 'Preselections', 'F,R,S,T,E'), ',') ; 'F,R,S,T,E' is default if Preselections is missing from Setup.ini
+	Local $ClickModes = StringSplit(IniRead($g_BWSIni, 'Options', 'ClickModes', 'F,R,S,T,E'), ',') ; 'F,R,S,T,E' is default if ClickModes is missing from Setup.ini
 	If StringLen($Num[$a]) > 1 Then; if custom selection, set "click mode" to tactical
 		$g_Compilation='T'
 	Else
-		$g_Compilation=$Compilation[$Num[$a]]
+		$g_Compilation=$ClickModes[$Num[$a]]
 	EndIf
 	IniWrite($g_UsrIni, 'Options', 'InstallType', $Num[$a])
 	Return $Num[$a]
@@ -204,8 +205,8 @@ EndFunc    ;==>_Selection_GetCurrentInstallType
 ; Open the homepage of the currently selected mod
 ; ---------------------------------------------------------------------------------------------
 Func _Selection_OpenPage($p_String='Link')
-	$i = GUICtrlRead($g_UI_Interact[4][1]); get the current selection
-	$HP=IniRead($g_ModIni, $g_CentralArray[$i][0], $p_String, '')
+	Local $i = GUICtrlRead($g_UI_Interact[4][1]); get the current selection
+	Local $HP=IniRead($g_ModIni, $g_CentralArray[$i][0], $p_String, '')
 	If $HP <> '' And $HP <> '-' Then
 		If $p_String = 'Wiki' Then $HP='http://kerzenburg.baldurs-gate.eu/wiki/'&$HP
 		ShellExecute($HP); open the homepage if it is nursed
@@ -216,8 +217,8 @@ EndFunc    ;==>_Selection_OpenHomePage
 ; Visit the download link of the currently selected mod
 ; ---------------------------------------------------------------------------------------------
 Func _Selection_Download_Manually($p_String='Down')
-	$i = GUICtrlRead($g_UI_Interact[4][1]); get the current selection
-	$Down=IniRead($g_ModIni, $g_CentralArray[$i][0], $p_String, '')
+	Local $i = GUICtrlRead($g_UI_Interact[4][1]); get the current selection
+	Local $Down=IniRead($g_ModIni, $g_CentralArray[$i][0], $p_String, '')
 	If $Down <> '' Then		
 		ShellExecute($Down); Open download link in default browser.
 	EndIf
@@ -236,7 +237,7 @@ Func _Selection_ReadWeidu($p_File)
 		If Not StringRegExp($p_File, '\A(//|~)') Then Return -1
 	EndIf
 	Local $Section[1000][2]
-	$Array=StringSplit(StringStripCR($p_File), @LF)
+	Local $Name, $Num, $Array=StringSplit(StringStripCR($p_File), @LF)
 	For $a=1 to $Array[0]
 		If Not StringRegExp($Array[$a], '\A~') Then ContinueLoop
 		$Name = StringRegExpReplace(StringRegExpReplace($Array[$a], '\A~|~.*\z', ''), '(?i)-{0,1}(setup)-{0,1}|\x2etp2\z|\A.*/', '')
@@ -266,10 +267,10 @@ Func _Selection_SearchColorItem($p_Num, $p_Color)
 				GUICtrlSetColor($p_Num, 0xad1414); repaint the item blue, since it's expert mod or a description
 			EndIf
 			If $g_CentralArray[$p_Num][2] = '-' And StringInStr($g_CentralArray[$p_Num][11], 'W') Then
-				GUICtrlSetBkColor($p_Num, 0xffff99); highlight the item, since it has a warning
+				GUICtrlSetBkColor($p_Num, 0xffff99); highlight the item background in yellow, since it has a warning
 			EndIf
 		Else
-			GUICtrlSetColor($p_Num, 0x000000); repaint the item black, it's just a component without infos
+			GUICtrlSetColor($p_Num, 0x000000); repaint the item black if it has no description
 		EndIf
 	EndIf
 EndFunc   ;==>_Selection_SearchColorItem
@@ -318,14 +319,14 @@ EndFunc   ;==>_Selection_SearchMultiGroup
 Func _Selection_SearchMultiSpecial($p_Type, $p_Color)
 	_PrintDebug('+' & @ScriptLineNumber & ' Calling _Selection_SearchMultiSpecial')
 	Local $FirstModItem
-	$Num=$p_Type - ($g_UI_Menu[0][2]-2)
+	Local $Num=$p_Type - ($g_UI_Menu[0][2]-2)
 	For $c = $g_CentralArray[0][1] To $g_CentralArray[0][0]; loop through all mod-headlines and components
 		If $g_CentralArray[$c][2] = '' Then ContinueLoop
 		If $g_CentralArray[$c][2] <> '-' Then ContinueLoop
 		If StringRegExp($g_Groups[$Num][1], '(?i)(\A|,)'&$g_CentralArray[$c][0]&'\x28') Then; is element selected?
-			$Mod=StringRegExp($g_Groups[$Num][1], '(?i)'&$g_CentralArray[$c][0]&'[^\x29]*\x29', 3)
+			Local $Mod=StringRegExp($g_Groups[$Num][1], '(?i)'&$g_CentralArray[$c][0]&'[^\x29]*\x29', 3)
 			If Not IsArray($Mod) Then ContinueLoop
-			$Comp=StringRegExpReplace($Mod[0], '\A[^\x28]*', '')
+			Local $Comp=StringRegExpReplace($Mod[0], '\A[^\x28]*', '')
 			If $Comp = '(-)' Then
 				If $FirstModItem = '' Then $FirstModItem = $g_CentralArray[$c][5]
 				If $p_Color Then _GUICtrlTreeView_SetState($g_UI_Handle[0], $g_CentralArray[$g_CHTreeviewItem[$g_CentralArray[$c][1]]][5], $TVIS_EXPANDED); expand the theme-tree
@@ -359,21 +360,22 @@ Func _Selection_SearchSingle($p_String, $p_Text)
 		_Selection_SearchMulti('', $g_Search[3])
 		$g_Search[0] = 'S'
 	EndIf
-	If $g_Search[1] <> $p_String Then; if the last search is diffrent from the new one
+	Local $Mod
+	If $g_Search[1] <> $p_String Then; if the last search is different from the new one
 		$Mod = 1; search from first entry
 	Else
 		$Mod = $g_Search[2] + 1; search from the next entry
 	EndIf
 	If $g_Search[2] <> '' Then; if an item was found before
-		If $g_CentralArray[$g_Search[2]][2] = '-' Then; if it's a headline continue to the next mod (saves you some clicks, since both the >>mods name<< and the component are search. Think about it. ;) )
+		If $g_CentralArray[$g_Search[2]][2] = '-' Then; if it's a headline skip to next mod (saves user some clicks, since both the >>mod name<< and the components are searched)
 			While $g_CentralArray[$Mod][2] <> '-'
 				$Mod = $Mod + 1
 			WEnd
 		EndIf
 		_Selection_SearchColorItem($g_Search[2], 0); reset the color of the last search
 	EndIf
-	$Last = $g_CentralArray[0][0]
-	$Run = 1
+	Local $Last = $g_CentralArray[0][0]
+	Local $Run = 1
 ; ---------------------------------------------------------------------------------------------
 ; loop through the elements of the main-array. We make heavy usage of the main-array here. Now you know why it's that important. :)
 ; ---------------------------------------------------------------------------------------------
@@ -401,8 +403,8 @@ EndFunc   ;==>_Selection_SearchSingle
 ; ---------------------------------------------------------------------------------------------
 Func _Selection_SetSize()
 	_PrintDebug('+' & @ScriptLineNumber & ' Calling _Selection_SetSize')
-	$Pos=ControlGetPos($g_UI[0], '', $g_UI_Interact[4][1])
-	$State=GUICtrlGetState($g_UI_Interact[4][4])
+	Local $Pos=ControlGetPos($g_UI[0], '', $g_UI_Interact[4][1])
+	Local $State=GUICtrlGetState($g_UI_Interact[4][4])
 	If BitAND($State, $GUI_HIDE) Then
 		GUICtrlSetPos($g_UI_Interact[4][1], 15, 85, $Pos[2]-305, $Pos[3])
 		GUICtrlSetPos($g_UI_Button[4][2], $Pos[2]-290, 85, 15, $Pos[3])
@@ -420,18 +422,18 @@ EndFunc   ;==>_Selection_SetSize
 ; Set the custom tooltip
 ; ---------------------------------------------------------------------------------------------
 Func _Selection_TipSetData($p_Num)
-	Local $Dsc
 	If $p_Num < $g_CentralArray[0][1] Then Return; make sure this does not crash the script after some tree-rebuilding
 	If $p_Num > $g_CentralArray[0][0] Then Return
-	$Num=StringSplit($g_CentralArray[$p_Num][1], ','); Translate numbers into something readable
+	Local $Dsc, $Num=StringSplit($g_CentralArray[$p_Num][1], ','); Translate numbers into something readable
 	For $n=1 to $Num[0]
-		$Dsc&=','&$g_Tags[$Num[$n]+3][1]
+		$Dsc &= ','&$g_Tags[$Num[$n]+3][1]
 	Next
 	$Dsc=StringTrimLeft($Dsc, 1)
+	Local $Headline
 	If $g_CentralArray[$p_Num][2] = '-' Then
-		$Headline=$Dsc & ' (v'& $g_CentralArray[$p_Num][15] & ' , ' & Round($g_CentralArray[$p_Num][7] / (1024 * 1024), 1) & ' MB, ' & $g_CentralArray[$p_Num][8] & ')'
+		$Headline = $Dsc & ' ('& $g_CentralArray[$p_Num][15] & ', ' & Round($g_CentralArray[$p_Num][7] / (1024 * 1024), 1) & ' MB, ' & $g_CentralArray[$p_Num][8] & ')'
 	Else
-		$Headline=$Dsc
+		$Headline = $Dsc
 	EndIf
 	GUICtrlSetData($g_UI_Static[4][1], $Headline)
 	GUICtrlSetData($g_UI_Interact[4][2], $g_CentralArray[$p_Num][6])
@@ -441,11 +443,12 @@ EndFunc   ;==>_Selection_TipSetData
 ; Sets the tip-data for Au3Select
 ; ---------------------------------------------------------------------------------------------
 Func _Selection_TipUpdate()
-	$hItem = __TreeItemFromPoint($g_UI_Handle[0])
+	Local $hItem = __TreeItemFromPoint($g_UI_Handle[0])
 	If Not WinActive($g_UI[0]) Then; the mouse is not over the treeview
 		$g_Flags[7] = ''; reset the old item to spawn again
 		Return
 	EndIf
+	Local $i
 	If $g_Flags[17] = 1 Then; label of a treeitem has been clicked
 		$i=GUICtrlRead($g_UI_Interact[4][1])
 		_Selection_TipSetData($i)

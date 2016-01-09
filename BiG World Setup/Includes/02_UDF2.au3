@@ -88,15 +88,15 @@ Func __StringSplit_ByLength($p_String, $p_Length, $p_Handle)
 		$p_Length = $p_Length[2]-10
 		If $p_Handle = ControlGetHandle($g_UI[0], "",$g_UI_Interact[6][2]) Then $p_Length -= 20; scrollbar is always visible
 	EndIf
-	$hDC = DLLCall("user32.dll","int","GetDC","hwnd",$p_Handle)
+	Local $hDC = DLLCall("user32.dll","int","GetDC","hwnd",$p_Handle)
 	$hDC = $hDC[0]
-	$hFont = DllCall("user32.dll", "ptr", "SendMessage", "hwnd", $p_Handle, "int", $WM_GETFONT, "int", 0, "int", 0)
+	Local $hFont = DllCall("user32.dll", "ptr", "SendMessage", "hwnd", $p_Handle, "int", $WM_GETFONT, "int", 0, "int", 0)
 	$hFont = $hFont[0]
-	$hOld = DllCall("gdi32.dll", "Hwnd", "SelectObject", "int", $hDC, "ptr", $hFont)
-	$struct_size = DllStructCreate("int;int")
+	Local $hOld = DllCall("gdi32.dll", "Hwnd", "SelectObject", "int", $hDC, "ptr", $hFont)
+	Local $struct_size = DllStructCreate("int;int")
 	$p_String=StringReplace($p_String, '|', ' '&@CRLF&' ')
 	$p_String=StringSplit($p_String, ' ')
-	Local $Out='', $Len=''
+	Local $Out='', $Len='', $Tmp2
 	For $t=1 to $p_String[0]
 		If $p_String[$t] = @CRLF Then; handle manual line-breaks
 			$Out=$Out & @CRLF
@@ -107,7 +107,7 @@ Func __StringSplit_ByLength($p_String, $p_Length, $p_Handle)
 		Else
 			$Tmp2=$Len & ' ' &$p_String[$t]
 		EndIf
-		$ret = DllCall("gdi32.dll", "int", "GetTextExtentPoint32", "int", $hDC, "str", $Tmp2, "long", StringLen($Tmp2), "ptr", DllStructGetPtr($struct_size))
+		Local $ret = DllCall("gdi32.dll", "int", "GetTextExtentPoint32", "int", $hDC, "str", $Tmp2, "long", StringLen($Tmp2), "ptr", DllStructGetPtr($struct_size))
 		$Tmp2 = DllStructGetData($struct_size,1)
 		If $Tmp2 > $p_Length Then
 			$Out=$Out & @CRLF &$p_String[$t]
@@ -144,7 +144,7 @@ Func __TristateTreeView_GetCursorPos($p_Handle)
 EndFunc   ;==>__TristateTreeView_GetCursorPos
 
 Func __TristateTreeView_GetWindowLong($p_Handle, $p_Index)
-	$s = DllCall("user32.dll", "int", "GetWindowLong", "hwnd", $p_Handle, "int", $p_Index)
+	Local $s = DllCall("user32.dll", "int", "GetWindowLong", "hwnd", $p_Handle, "int", $p_Index)
 	Return $s[0]
 EndFunc   ;==>__TristateTreeView_GetWindowLong
 
@@ -158,7 +158,7 @@ Func __TristateTreeView_InvalidateRect($p_Handle, $p_String, $p_Num)
 EndFunc   ;==>__TristateTreeView_InvalidateRect
 
 Func __TristateTreeView_LoadStateImage($p_Handle, $p_File); $a=handle; $b=file
-	$Tmp1 = __TristateTreeView_ImageList_LoadImage(0, $p_File, 16, 1, 0xFFFFFFFF, 0, BitOR(0x0010, 0x0020, 0x2000))
+	Local $Tmp1 = __TristateTreeView_ImageList_LoadImage(0, $p_File, 16, 1, 0xFFFFFFFF, 0, BitOR(0x0010, 0x0020, 0x2000))
 	__TristateTreeView_SendMessage($p_Handle, 0x1100 + 9, 2, $Tmp1)
 	__TristateTreeView_InvalidateRect($p_Handle, 0, 1)
 EndFunc   ;==>__TristateTreeView_LoadStateImage
@@ -168,7 +168,7 @@ Func __TristateTreeView_ScreenToClient($p_Handle, $p_String)
 EndFunc   ;==>__TristateTreeView_ScreenToClient
 
 Func __TristateTreeView_SendMessage($p_Handle, $p_Msg, $p_wParm, $p_lParm)
-	$s = DllCall("user32.dll", "int", "SendMessage", "hwnd", $p_Handle, "int", $p_Msg, "int", $p_wParm, "int", $p_lParm)
+	Local $s = DllCall("user32.dll", "int", "SendMessage", "hwnd", $p_Handle, "int", $p_Msg, "int", $p_wParm, "int", $p_lParm)
 	Return $s[0]
 EndFunc   ;==>__TristateTreeView_SendMessage
 

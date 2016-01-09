@@ -5,14 +5,14 @@
 ; ---------------------------------------------------------------------------------------------
 Func _CDTray($p_String)
 	_PrintDebug('+' & @ScriptLineNumber & ' Calling _CDTray')
-	Local $Ret = 0
+	Local $Status, $Ret = 0
 	For $c = 65 To 90
 		If DriveGetType(Chr($c) & ':\') = 'CDROM' Then; Chr converts an ascii-code to a string, here a-z
 			If $p_String = 'Open' Then
 				$Status=DriveStatus(Chr($c) & ':')
 				If $Status = 'Ready' Then
 					CDTray(Chr($c) & ':', $p_String)
-					$ret=1
+					$Ret=1
 				EndIf
 			Else
 				CDTray(Chr($c) & ':', $p_String)
@@ -25,8 +25,8 @@ EndFunc   ;==>_CDTray
 ; Replaces strings in a file
 ; ---------------------------------------------------------------------------------------------
 Func _FileReplace($p_File, $p_String, $p_Text)
-	$Text = StringReplace(FileRead($p_File), $p_String, $p_Text); read the file at once
-	$Handle = FileOpen($p_File, 2)
+	Local $Text = StringReplace(FileRead($p_File), $p_String, $p_Text); read the file at once
+	Local $Handle = FileOpen($p_File, 2)
 	FileWrite($Handle, $Text)
 	FileClose($Handle)
 EndFunc    ;==>_FileReplace
@@ -36,10 +36,10 @@ EndFunc    ;==>_FileReplace
 ; ---------------------------------------------------------------------------------------------
 Func _FileSearch($p_Dir, $p_String)
 	Local $Return[1] = [0]
-	$Search = FileFindFirstFile($p_Dir&'\'&$p_String)
+	Local $Search = FileFindFirstFile($p_Dir&'\'&$p_String)
 	If $Search = -1 Then Return SetError(1, 0, $Return)
-	$Ubound=1000
-	Local $Return[$Ubound]
+	Local $Ubound=1000
+	Local $File, $Return[$Ubound]
 	While 1
 		$File = FileFindNextFile($Search)
 		If @error Then ExitLoop
@@ -60,7 +60,7 @@ EndFunc    ;==>_FileSearch
 ; Searches for files with a certain pattern and deletes these
 ; ---------------------------------------------------------------------------------------------
 Func _FileSearchDelete($p_Dir, $p_String, $p_Attrib='F')
-	$Search = FileFindFirstFile($p_Dir&'\'&$p_String)
+	Local $File, $Search = FileFindFirstFile($p_Dir&'\'&$p_String)
 	If $Search = -1 Then Return
 	While 1
 		$File = FileFindNextFile($Search)
@@ -84,7 +84,7 @@ Func _GetArchiveSizes()
 		Local $InstSize[1][4]
 		Return $InstSize
 	EndIf
-	Local $InstSize[$Setups[0][0]*3][4]
+	Local $ReadSection, $Size, $InstSize[$Setups[0][0]*3][4]
 	For $s=1 to $Setups[0][0]
 		$InstSize[0][0] += 1
 		$ReadSection=IniReadSection($g_ModIni, $Setups[$s][0])
@@ -106,8 +106,9 @@ EndFunc    ;==>_GetArchiveSizes
 ; Get the possible list of games/flavours that can be installed
 ; ---------------------------------------------------------------------------------------------
 Func _GetGameList()
-	Local  $GameList[100][3]=[[0]], $Game
+	Local $GameList[100][3]=[[0]], $Game
 	$Game=_FileSearch($g_ProgDir & '\Config', '*')
+	Local $Contains, $Description
 	For $g=1 to $Game[0]
 		If StringRegExp($Game[$g], '(?i)\x2e|\AGlobal\z') Then ContinueLoop
 		$Contains=StringSplit(IniRead($g_ProgDir & '\Config\'&$Game[$g]&'\Game.ini', 'Options', 'Contains', ''), '|')
@@ -146,7 +147,7 @@ EndFunc    ;==>_GetGameName
 ; Just give me the requested translation-string
 ; ---------------------------------------------------------------------------------------------
 Func _GetTR($p_Handle, $p_Num)
-	$Value = _IniRead($p_Handle, $p_Num, '')
+	Local $Value = _IniRead($p_Handle, $p_Num, '')
 	If $Value = '' Then ConsoleWrite('! Missing: ' & $p_Num & ' for ' & $g_ATrans[$g_ATNum] & @CRLF)
 	Return $Value
 EndFunc   ;==>_GetTR
@@ -155,6 +156,7 @@ EndFunc   ;==>_GetTR
 ; Returns the WeiDU-file or a translation for a component of a mod. [0-9]*=component translation, R=Read section, S=XX:0-string, T=XX-token & converted -- to XX, T+=XX-token & --, W=Weidu-file
 ; ---------------------------------------------------------------------------------------------
 Func _GetTra($p_Setup, $p_Comp)
+	Local $Tra
 	If IsArray($p_Setup) Then
 		If UBound($p_Setup, 0) = 2 Then
 			$Tra=_IniRead($p_Setup, 'Tra', 'EN:0')
@@ -186,21 +188,33 @@ EndFunc   ;==>_GetTra
 ; Returns the splitted transplation-string
 ; ---------------------------------------------------------------------------------------------
 Func _GetSTR($p_Handle, $p_Num)
-	$Value = StringReplace(_GetTR($p_Handle, $p_Num), '|', @CRLF)
+	Local $Value = StringReplace(_GetTR($p_Handle, $p_Num), '|', @CRLF)
 	Return $Value
 EndFunc   ;==>_GetSTR
 
 ; ---------------------------------------------------------------------------------------------
-; Create an index which can be used to speed up searching through arrays
+; Create a first/last-occurrance lookup index to speed up searching through arrays
+;		this is usually used on arrays obtained from _IniRead (which are inikey, inivalue pairs)
+;	p_Handle[0][0] = number of items in p_Handle array
+;	p_Handle[N][0] = item (string) to be indexed
+;   Return[0][0] = number of entries in the index (always 255 for ASCII index)
+;	Return[0][1] = number of 
+;   Return[ASCII-symbol][0] = number of items in p_Handle whose strings start with ASCII-symbol
+;	Return[ASCII-symbol][1] = first index in p_Handle whose string starts with ASCII-symbol
+;   Return[ASCII-symbol][2] = last index in p_Handle whose string starts with ASCII-symbol
 ; ---------------------------------------------------------------------------------------------
 Func _IniCreateIndex($p_Handle)
-	Local $Return[256], $OldChar
-	$Return[0]=255
+	Local $Return[256][3], $Char;, $OldChar
+	$Return[0][0]=255
 	For $h=1 to $p_Handle[0][0]
-		$Char=Asc(StringLeft($p_Handle[$h][0], 1))
-		If $Char = $OldChar Then ContinueLoop
-		$Return[$Char]=$h
-		$OldChar=$Char
+		$Char=Asc(StringLeft($p_Handle[$h][0], 1)); ASCII-symbol of first character
+		If $Return[$Char][0] Then; already found first matching index for this ASCII-symbol		
+			$Return[$Char][2] = $h; update last matching index for this ASCII-symbol
+		Else
+			$Return[$Char][1] = $h; first matching index
+			$Return[$Char][2] = $h; is also last matching index (until another is found)
+		EndIf
+		$Return[$Char][0] += 1; count number of matches for this ASCII-symbol
 	Next
 	Return $Return
 EndFunc   ;==>_IniCreateIndex
@@ -225,14 +239,17 @@ Func _IniDelete(ByRef $p_Handle, $p_Key)
 EndFunc   ;==>_IniDelete
 
 ; ---------------------------------------------------------------------------------------------
-; Get items from an IniReadSection-array
+; Get the inivalue associated with p_Key from an IniReadSection-array
+;	if p_StartLine and p_EndLine are specified (optional), search within that range only
+;		_IniCreateIndex can be used to obtain these start and end points more efficiently
 ; ---------------------------------------------------------------------------------------------
-Func _IniRead($p_Handle, $p_Key, $p_Value, $p_Num=1);$p_Value=default
+Func _IniRead($p_Handle, $p_Key, $p_Value, $p_StartLine=1, $p_EndLine=0);$p_Value=default
 	If Not IsArray($p_Handle) Then
 		ConsoleWrite('! Handle not defined for '& $p_Key & ' ' & $p_Value & @CRLF)
 		Return SetError(-1, 0, $p_Value)
 	EndIf
-	For $h = $p_Num To $p_Handle[0][0]
+	If Not $p_EndLine Then $p_EndLine = $p_Handle[0][0]
+	For $h = $p_StartLine To $p_EndLine
 		If $p_Handle[$h][0] = $p_Key Then
 			Return SetError($h, 0, $p_Handle[$h][1])
 		EndIf
@@ -244,24 +261,31 @@ EndFunc   ;==>_IniRead
 ; Read a section that's too big for std-ini-function
 ; ---------------------------------------------------------------------------------------------
 Func _IniReadSection($p_File, $p_Section, $p_Sort=0)
+	Local $p_Debug = 0, $linecount = 0
 	Local $r, $Num, $ReadSection, $Return, $Text
 	$Text=@LF&StringStripCR(FileRead($p_File))&@LF&'['
 	; Search for: linefeed,possible whitespace,[,section,],possible whitespace,linefeed,something,linefeed,possible whitespace,[
-	Local $ReadSection=StringRegExp($Text, '(?is)\n\s{0,}\x5b'&$p_Section&'\x5d\s{0,}\n.*?\n\s{0,}\x5b', 1)
+	Local $ReadSection=StringRegExp($Text, '(?is)\n\s{0,}\x5b'&$p_Section&'\x5d\s{0,}\n.*?\n\s{0,}\x5b', 1); x5b = '[', x5d = ']'
 	If @error Then Return SetError(@error); nothing found => error out
+	If $p_Debug Then FileWrite($g_LogFile, '_IniReadSection $p_Section='&$p_Section&', $p_Sort='&$p_Sort);&') => '&$Text&@CRLF)
 	$ReadSection=StringSplit($ReadSection[0], @LF)
+;	If $p_Debug Then FileWrite($g_LogFile, '_IniReadSection $ReadSection[0]='&$ReadSection[0]&@CRLF)
 	Local $Return[$ReadSection[0]][2]
 	For $r=1 to $ReadSection[0]
+;		If $p_Debug Then FileWrite($g_LogFile, '_IniReadSection $ReadSection['&$r&']:  '&$ReadSection[$r]&@CRLF)
+		If $p_Debug Then $linecount += 1
 		$Num=StringInStr($ReadSection[$r], '=')
 		If $Num=0 Then ContinueLoop; skip lines that don't contain a = (ini-files delimiter)
-		If StringRegExp($ReadSection[$r], '\A\s{0,};') Then ContinueLoop; skip comments
+		If StringRegExp($ReadSection[$r], '\A\s{0,}\x3b') Then ContinueLoop; skip comments (semicolon ';')
 		$Return[0][0]+=1
 		$Return[$Return[0][0]][0]=StringStripWS(StringLeft($ReadSection[$r], $Num-1), 3)
 		If $p_Sort Then $Return[$Return[0][0]][0]=StringLower($Return[$Return[0][0]][0])
 		$Return[$Return[0][0]][1]=StringStripWS(StringMid($ReadSection[$r], $Num+1), 3)
+		If $p_Debug Then FileWrite($g_LogFile, $linecount & ': ' & $Return[$Return[0][0]][1]&@CRLF)
 	Next
 	ReDim $Return[$Return[0][0]+1][2]
 	If $p_Sort Then _ArraySort($Return, 0, 1)
+	If $p_Debug Then FileWrite($g_LogFile, '_IniReadSection $Return[0][0]='&$Return[0][0]&@CRLF)
 	Return $Return
 EndFunc    ;==>_IniReadSection
 
@@ -275,7 +299,7 @@ Func _IniWrite(ByRef $p_Handle, $p_Key, $p_Value, $p_Type='A'); $p_Handle=array,
 		$p_Handle[$p_Handle[0][0]][1]=$p_Value
 	Else
 		_IniRead($p_Handle, $p_Key, '')
-		$Num = @error
+		Local $Num = @error
 		If $Num Then
 			If $p_Type='A' Then
 				$p_Handle[$Num][1]=$p_Handle[$Num][1]&' '&$p_Value
@@ -296,8 +320,8 @@ EndFunc   ;==>_IniWrite
 ; Runs with stdout/err caption. Returns the output, writes it into a file
 ; ---------------------------------------------------------------------------------------------
 Func _RunSTD($p_File, $p_Dir = @ScriptDir, $p_Log = ''); $a=file, $b=dir, $c=log
-	Local $Return
-	$Stream = Run($p_File, $p_Dir, @SW_HIDE, $STDERR_CHILD + $STDOUT_CHILD); run hidden with stdout/err-read
+	Local $line, $Return
+	Local $Stream = Run($p_File, $p_Dir, @SW_HIDE, $STDERR_CHILD + $STDOUT_CHILD); run hidden with stdout/err-read
 	If @error Then Return 'ERROR'
 	While 1
 		$line = StdoutRead($Stream); capture while getting stream
@@ -342,8 +366,9 @@ EndFunc   ;==>_SplitComp
 ; Strip leading and trailing @CRLF
 ; ---------------------------------------------------------------------------------------------
 Func _StringStripCRLF($p_String, $p_Num=0)
-	$Lead='\A(\r\n|\r|\n){1,}'
-	$Trail='(\r\n|\r|\n){1,}\z'
+	Local $Lead='\A(\r\n|\r|\n){1,}'
+	Local $Trail='(\r\n|\r|\n){1,}\z'
+	Local $Exp
 	If $p_Num = 0 Then
 		$Exp=$Lead&'|'&$Trail
 	ElseIf $p_Num = 1 Then
@@ -358,7 +383,7 @@ EndFunc    ;==>_StringStripCRLF
 ; Test if the string contains other characters than standard-AscII. If it does, translate to dos-codepage
 ; ---------------------------------------------------------------------------------------------
 Func _StringVerifyAscII($p_String)
-	$Array = StringSplit($p_String, '')
+	Local $dosDir, $Array = StringSplit($p_String, '')
 	For $a = 1 To $Array[0]
 		If Asc($Array[$a]) > 126 Then
 			RunWait(@ComSpec&' /c echo '&$p_String&' > dospath.txt', $g_ProgDir, @SW_HIDE); translate into dos-readable-charakters (doh)

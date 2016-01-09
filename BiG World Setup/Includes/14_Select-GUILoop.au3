@@ -3,11 +3,11 @@
 Func Au3Select($p_Num = 0)
 	_PrintDebug('+' & @ScriptLineNumber & ' Calling Au3Select')
 	Local $MouseClicked, $SpaceClicked
-	$ReadSection = IniReadSection($g_UsrIni, 'Options')
+	Local $ReadSection = IniReadSection($g_UsrIni, 'Options')
 	Local $AccelKeys[1][2] = [["{F1}", $g_UI_Static[0][3]]]
 	GUISetAccelerators($AccelKeys)
 	GUISwitch($g_UI[0])
-	$Test=StringSplit(_IniRead($ReadSection, 'AppType', ''),':'); need correct gametype
+	Local $Test=StringSplit(_IniRead($ReadSection, 'AppType', ''),':'); need correct gametype
 	If $Test[0] = 2 Then
 		_Misc_Set_GConfDir($Test[1])
 		$g_Flags[14] = $Test[2]
@@ -26,6 +26,7 @@ Func Au3Select($p_Num = 0)
 	Else
 		GUICtrlSetState($g_UI_Interact[14][8], $GUI_UNCHECKED)
 	EndIf
+	Local $a, $Array, $Current
 	For $l=1 to 3; logics
 		$a=_IniRead($ReadSection, 'Logic'&$l, 1)
 		$Array = StringSplit(IniRead($g_TRAIni, 'UI-Buildtime', 'Interact[14]['&$l&']', $a), '|')
@@ -37,7 +38,7 @@ Func Au3Select($p_Num = 0)
 		GUICtrlSetState($g_UI_Interact[14][4], $GUI_UNCHECKED)
 	EndIf
 	If _IniRead($ReadSection, 'Beep', 0) = 1 Then GUICtrlSetState($g_UI_Interact[14][10], $GUI_CHECKED)
-	$WScreen = IniReadSection($g_UsrIni, 'Save'); looking for an old save
+	Local $WScreen = IniReadSection($g_UsrIni, 'Save'); looking for an old save
 	If @error Then; no selection found
 		If @DesktopWidth*3=@DesktopHeight*4 Then; this is a 4:3 res
 			$WScreen = ''; disable Widescreen by default
@@ -93,7 +94,8 @@ Func Au3Select($p_Num = 0)
 		$g_Flags[10] = 2
 		_Misc_SetTab(1)
 	EndIf
-	$s=0
+	Local $sMsg, $s=0
+	Local $WPos0, $CPos, $XControlOffSet, $YControlOffSet
 
 #cs
 	For $s=1 to 5
@@ -185,7 +187,7 @@ Func Au3Select($p_Num = 0)
 			_Misc_AboutGUI()
 		Case $g_UI_Button[0][1]; back
 			$Current = GUICtrlRead($g_UI_Seperate[0][0])+1
-			If StringRegExp($Current, '\A(4|15)\z') Then _Misc_SwitchWideScreen($g_Flags[22], $g_CentralArray[$g_Flags[22]][9])
+			If $g_Flags[22] And StringRegExp($Current, '\A(4|15)\z') Then _Misc_SwitchWideScreen($g_Flags[22], $g_CentralArray[$g_Flags[22]][9]); g_Flags[22] will be zero for games that have widescreen built in
 			If $Current = 14 Then
 				_Misc_SetTab(3)
 			ElseIf StringRegExp($Current, '\A(1|2)\z') Then
@@ -227,8 +229,7 @@ Func Au3Select($p_Num = 0)
 				_Process_Gui_Create(0, 0)
 				Return
 			EndIf
-			$Next = $Current + 1
-			If $Current < 6 Then _Misc_SetTab($Next)
+			If $Current < 6 Then _Misc_SetTab($Current + 1); next tab
 		Case $g_UI_Button[0][3]; exit
 			$Current = GUICtrlRead($g_UI_Seperate[0][0])+1
 			If $Current = 6 Then
@@ -238,7 +239,7 @@ Func Au3Select($p_Num = 0)
 				Sleep(1000)
 				GUICtrlSetState($g_UI_Static[6][1], $GUI_SHOW)
 				GUICtrlSetState($g_UI_Button[0][3], $GUI_DISABLE)
-			ElseIf $Current = 4 Then ; leaving 'choose mods and components' tree-view
+			ElseIf $Current = 4 Then; leaving 'choose mods and components' tree-view
 				_Misc_SwitchWideScreen($g_Flags[22], $g_CentralArray[$g_Flags[22]][9])
 				If _Depend_ResolveGui(0) = 0 Then ContinueLoop; _Depend_ResolveGui($p_Solve = 0)
 				If _Selection_ExpertWarning() = 1 Then ContinueLoop
@@ -251,7 +252,7 @@ Func Au3Select($p_Num = 0)
 ; ---------------------------------------------------------------------------------------------
 #Region welcome
 		Case $g_UI_Interact[1][2]; language selector
-			_Misc_SwichLang()
+			_Misc_SwitchLang()
 		Case $g_UI_Interact[1][3]; install method
 			_Misc_SetTip()
 #EndRegion welcome
@@ -329,10 +330,10 @@ Func Au3Select($p_Num = 0)
 		Case $g_UI_Menu[1][2]; save
 			_Tree_GetCurrentSelection(0)
 		Case $g_UI_Menu[1][3]; Import
-			$File = FileOpenDialog(_GetTR($g_UI_Message, '4-F1'), $g_ProgDir, 'Ini files (*.ini)', 1, 'BWS-Selection.ini', $g_UI[0]); => load selection from
+			Local $File = FileOpenDialog(_GetTR($g_UI_Message, '4-F1'), $g_ProgDir, 'Ini files (*.ini)', 1, 'BWS-Selection.ini', $g_UI[0]); => load selection from
 			If @error Then ContinueLoop
-			$Section = IniReadSectionNames($File)
-			$Success=0
+			Local $Section = IniReadSectionNames($File)
+			Local $Success=0
 			For $s=1 to $Section[0]
 				If $Section[$s] = 'Current' Then $Success = 1
 				If $Section[$s] = 'Save' Then $Success = 2
@@ -364,9 +365,9 @@ Func Au3Select($p_Num = 0)
 		Case $g_UI_Menu[1][10]; Expert-clicking-behaviour
 			_AI_SwitchComp(4, 1)
 		Case $g_UI_Menu[1][11]; Import from WeiDU
-			$File = FileOpenDialog(_GetTR($g_UI_Message, '4-F1'), $g_GameDir, 'WeiDu (WeiDU.log)', 1, 'WeiDU.log', $g_UI[0]); => load selection from
+			Local $File = FileOpenDialog(_GetTR($g_UI_Message, '4-F1'), $g_GameDir, 'WeiDu (WeiDU.log)', 1, 'WeiDU.log', $g_UI[0]); => load selection from
 			If @error Then ContinueLoop
-			$Array=_Selection_ReadWeidu($File)
+			Local $Array=_Selection_ReadWeidu($File)
 			If Not IsArray($Array) Then
 				ContinueLoop
 			ElseIf $Array[0][0] = 0 Then
@@ -409,7 +410,7 @@ Func Au3Select($p_Num = 0)
 ; ---------------------------------------------------------------------------------------------
 #Region contextmenu
 		Case Else; check menus
-			If  $g_Flags[8] = 0 Then ContinueLoop; don't loop if not in adv. sel. screen
+			If $g_Flags[8] = 0 Then ContinueLoop; don't loop if not in adv. sel. screen
 			If $sMsg < 1 Then ContinueLoop; add a search-pattern for the menu-area
 			For $t=2 to 4; >> add/remove/mark-menu
 				For $c = 1 To $g_Tags[0][0]

@@ -1072,7 +1072,7 @@ Func _Net_StartupUpdate()
 		_Process_SetScrollLog(_GetTR($Message, 'L5'), '', -1); => check link updates
 		_Process_Gui_Exit(1); exit on failure
 	ElseIf $Success = 1 Then
-		$g_Setups=_CreateList('s')
+		$g_Setups = _CreateList('s')
 	EndIf
 	AutoItSetOption('GUIOnEventMode', 0); exit event mode
 EndFunc   ;==>_Net_StartupUpdate
