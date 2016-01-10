@@ -929,7 +929,7 @@ Func _Misc_SwitchWideScreen($p_UserClicked = 0)
 	If StringInStr($g_Flags[14], 'EE') Then Return; Widescreen already built into BG1EE/BG2EE
 	Local $p_ID = $g_Flags[22]
 	Local $p_State = $g_CentralArray[$p_ID][9]
-	FileWrite($g_LogFile, '_Misc_SwitchWideScreen '&$p_UserClicked&' $p_State = '&$p_State&@CRLF)
+	;FileWrite($g_LogFile, '_Misc_SwitchWideScreen '&$p_UserClicked&' $p_State = '&$p_State&@CRLF)
 	If $p_UserClicked = 1 Then; read checkbox state and update the mod and UI appropriately
 		If GUICtrlRead($g_UI_Interact[14][5]) = $GUI_CHECKED Then
 			If $p_State = 0 Then _AI_SetSTD_Enable($p_ID)
