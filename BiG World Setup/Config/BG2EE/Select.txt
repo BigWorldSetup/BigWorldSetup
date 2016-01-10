@@ -267,6 +267,7 @@ MUC;BG_Travel;Init;09;0111;
 MUC;BG_Travel;66;09;0111;
 MUC;BG_Travel;661;09;0000;
 ANN;--- smaller BGEE NPCs ---
+CMD;IF EXIST "jklhel\Helarine_BGEE.Tp2" MOVE /Y "jklhel\Helarine_BGEE.Tp2" ".\setup-jklhel.tp2"
 STD;JklHel;0;06;0001;
 STD;margarita;0;06;0111;
 ANN;--- BGEE item tweaks ---

@@ -467,7 +467,7 @@ Func _Misc_SelectFolder($p_Type, $p_Text)
 		GUICtrlSetData($g_UI_Interact[2][3], $Folder)
 	Else
 		IniWrite($g_UsrIni, 'Options', $p_Type, $Folder)
-		If $p_Type = 'BG1' Or ($p_Type = 'BG1EE' And $g_Flags[14] = 'BG2EE') Then
+		If $p_Type = 'BG1' Or ($p_Type = 'BG1EE' And $g_Flags[14] = 'BG2EE') Then; BGT/EET
 			GUICtrlSetData($g_UI_Interact[2][1], $Folder)
 		Else
 			GUICtrlSetData($g_UI_Interact[2][2], $Folder)
@@ -802,13 +802,13 @@ Func _Misc_SwitchGUIToInstallMethod()
 	_Misc_Set_GConfDir($g_GameList[$g][0])
 	GUICtrlSetData($g_UI_Interact[1][3], $g_GameList[$g][2])
 	GUICtrlSetState($g_UI_Static[2][1], $GUI_HIDE)
-	GUICtrlSetState($g_UI_Interact[2][1], $GUI_HIDE); hide BG1/BG1EE folder by default
+	GUICtrlSetState($g_UI_Interact[2][1], $GUI_HIDE); hide BG1/BG1EE-for-BGT/EET-folder by default
 	GUICtrlSetState($g_UI_Button[2][1], $GUI_HIDE)
 	GUICtrlSetState($g_UI_Static[2][2], $GUI_SHOW)
-	GUICtrlSetState($g_UI_Interact[2][2], $GUI_SHOW); show BG2/BG2EE/IWD1/IWD2/PST folder by default
+	GUICtrlSetState($g_UI_Interact[2][2], $GUI_SHOW); show BG1EE/BG2/BG2EE/IWD1/IWD2/PST folder by default
 	GUICtrlSetState($g_UI_Button[2][2], $GUI_SHOW)
 	GUICtrlSetPos($g_UI_Static[2][1], 30, 85, 370, 15)
-	GUICtrlSetPos($g_UI_Interact[2][1], 30, 100, 300, 20); BG1/BG1EE folder default position (above BG2)
+	GUICtrlSetPos($g_UI_Interact[2][1], 30, 100, 300, 20); BG1/BG1EE-for-BGT/EET-folder default position
 	GUICtrlSetPos($g_UI_Button[2][1], 350, 100, 50, 20)
 	GUICtrlSetPos($g_UI_Static[2][2], 30, 135, 370, 15)
 	GUICtrlSetPos($g_UI_Interact[2][2], 30, 150, 300, 20); BG2/BG2EE/IWD1/IWD2/PST folder default position
@@ -826,7 +826,7 @@ Func _Misc_SwitchGUIToInstallMethod()
 			Else; EET is enabled
 				GUICtrlSetData($g_UI_Static[2][1], "Baldur's Gate I: Enhanced Edition, put '-' if you want only BG2:EE")
 				GUICtrlSetState($g_UI_Static[2][1], $GUI_SHOW)
-				GUICtrlSetState($g_UI_Interact[2][1], $GUI_SHOW); show BG1EE folder
+				GUICtrlSetState($g_UI_Interact[2][1], $GUI_SHOW); show BG1EE-for-EET folder
 				GUICtrlSetState($g_UI_Button[2][1], $GUI_SHOW)
 				_Test_GetGamePath('BG1EE')
 				GUICtrlSetData($g_UI_Interact[2][1], $g_BG1EEDir)
@@ -837,7 +837,7 @@ Func _Misc_SwitchGUIToInstallMethod()
 		Else; BWS/BWP - includes BGT
 			GUICtrlSetData($g_UI_Static[2][1], "Baldur's Gate I, put '-' if you want only BG2")
 			GUICtrlSetState($g_UI_Static[2][1], $GUI_SHOW)
-			GUICtrlSetState($g_UI_Interact[2][1], $GUI_SHOW); show BG1 folder
+			GUICtrlSetState($g_UI_Interact[2][1], $GUI_SHOW); show BG1-for-BGT folder
 			GUICtrlSetState($g_UI_Button[2][1], $GUI_SHOW)
 			_Test_GetGamePath('BG1')
 			_Test_GetGamePath('BG2')
@@ -854,23 +854,23 @@ Func _Misc_SwitchGUIToInstallMethod()
 			$g_Flags[21] = 0; sort components by theme
 			GUICtrlSetState($g_UI_Menu[1][16], $GUI_UNCHECKED)
 		EndIf
-	ElseIf $g_Flags[14] = 'BG1EE' Then; hide BG2EE folder and reposition GUI-controls
-		GUICtrlSetState($g_UI_Static[2][2], $GUI_HIDE)
-		GUICtrlSetState($g_UI_Interact[2][2], $GUI_HIDE); hide BG2EE folder
-		GUICtrlSetState($g_UI_Button[2][2], $GUI_HIDE)
-		GUICtrlSetData($g_UI_Interact[2][2], '-'); disable BG2EE-folder tests
-		GUICtrlSetPos($g_UI_Static[2][1], 30, 135, 370, 15)
-		GUICtrlSetPos($g_UI_Interact[2][1], 30, 150, 300, 20); move BG1EE folder down
-		GUICtrlSetPos($g_UI_Button[2][1], 350, 150, 50, 20)
-		GUICtrlSetData($g_UI_Static[2][1], "Baldur's Gate I: Enhanced Edition")
-		GUICtrlSetState($g_UI_Static[2][1], $GUI_SHOW)
-		GUICtrlSetState($g_UI_Interact[2][1], $GUI_SHOW); show BG1EE folder
-		GUICtrlSetState($g_UI_Button[2][1], $GUI_SHOW)
-		_Test_GetGamePath('BG1EE')
-		$g_GameDir = $g_BG1EEDir
-		GUICtrlSetData($g_UI_Interact[2][1], $g_BG1EEDir)
-	Else; for other game types, just disable BG1/BG1EE-folder tests
-		GUICtrlSetData($g_UI_Interact[2][1], '-'); disable BG1/BG1EE-folder tests
+;	ElseIf $g_Flags[14] = 'BG1EE' Then; hide BG2EE folder and reposition GUI-controls
+;		GUICtrlSetState($g_UI_Static[2][2], $GUI_HIDE)
+;		GUICtrlSetState($g_UI_Interact[2][2], $GUI_HIDE); hide BG2EE folder
+;		GUICtrlSetState($g_UI_Button[2][2], $GUI_HIDE)
+;		GUICtrlSetData($g_UI_Interact[2][2], '-'); disable BG2EE-folder tests
+;		GUICtrlSetPos($g_UI_Static[2][1], 30, 135, 370, 15)
+;		GUICtrlSetPos($g_UI_Interact[2][1], 30, 150, 300, 20); move BG1EE folder down
+;		GUICtrlSetPos($g_UI_Button[2][1], 350, 150, 50, 20)
+;		GUICtrlSetData($g_UI_Static[2][1], "Baldur's Gate I: Enhanced Edition")
+;		GUICtrlSetState($g_UI_Static[2][1], $GUI_SHOW)
+;		GUICtrlSetState($g_UI_Interact[2][1], $GUI_SHOW); show BG1EE folder
+;		GUICtrlSetState($g_UI_Button[2][1], $GUI_SHOW)
+;		_Test_GetGamePath('BG1EE')
+;		$g_GameDir = $g_BG1EEDir
+;		GUICtrlSetData($g_UI_Interact[2][1], $g_BG1EEDir)
+	Else; for other game types, just disable BG1/BG1EE-for-BGT/EET-folder tests
+		GUICtrlSetData($g_UI_Interact[2][1], '-'); disable BG1/BG1EE-for-BGT/EET-folder tests
 		_Test_GetGamePath($g_Flags[14])
 		$g_GameDir = Eval('g_' & $g_Flags[14] & 'Dir')
 		GUICtrlSetData($g_UI_Interact[2][2], $g_GameDir)

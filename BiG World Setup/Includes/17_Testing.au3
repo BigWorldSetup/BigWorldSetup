@@ -119,11 +119,9 @@ Func _Test_GetGamePath($p_Game, $p_Force=0)
 		Next
 	EndIf
 	; if we still didn't find a valid game path ...
-	If $p_Game = 'BG1' OR $p_Game = 'BG1EE' Then
-		IniWrite($g_UsrIni, 'Options', $p_Game, '-')
-		Assign ('g_'&$p_Game&'Dir', '-')
-		Return '-'
-	EndIf
+	IniWrite($g_UsrIni, 'Options', $p_Game, '-')
+	Assign ('g_'&$p_Game&'Dir', '-')
+	Return '-'
 EndFunc   ;==>_Test_GetGamePath
 
 ; ---------------------------------------------------------------------------------------------
@@ -621,7 +619,7 @@ Func _Test_CheckRequiredFiles_IWD1EE()
 	Local $Missing='', $Hint='', $Error='', $Return
 	If IniRead($g_BWSIni, 'Order', 'Au3Select', 0) = 1 Then
 		$g_IWD1EEDir=GUICtrlRead($g_UI_Interact[2][2])
-		IniWrite($g_UsrIni, 'Options', 'BG1EE', $g_IWD1EEDir)
+		IniWrite($g_UsrIni, 'Options', 'IWD1EE', $g_IWD1EEDir)
 	EndIf
 	If Not FileExists($g_IWD1EEDir) Or $g_IWD1EEDir = '' Then
 		_Misc_MsgGUI(4, $g_ProgName, _GetTR($Message, 'L1'), 1); => folder does not exist

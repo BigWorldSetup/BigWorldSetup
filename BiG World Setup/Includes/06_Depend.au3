@@ -828,11 +828,11 @@ Func _Depend_GetActiveDependAdv($p_String, $p_RuleID, $p_Show)
 	; we only have two operators (AND/OR) -- if we had more, we would need a parser (http://effbot.org/zone/simple-top-down-parsing.htm)
 	; to handle rules with combinations of AND/OR, we will split each side of the rule into parts separated by '&' operators
 	; we will do two passes through both sides of the rule because we need to check conditions on both sides before adding connections
-	Local $Prefix = '', $Warning = '', $foundMissingDependency=0
+	Local $Prefix = '', $Warning = '', $countMissingDependencies=0
 	If $g_Connections[$p_RuleID][4]=1 Then $Warning=' **'; the rule we are checking is a 'CW' or 'DW'
 	For $secondPass = 0 to 1
 		; evaluate the rule to check if conditions on the LEFT are satisfied and conditions on the RIGHT are not satisfied
-		If $secondPass And $foundMissingDependency = 0 Then Return; first pass did not find any missing dependencies -> do nothing
+		If $secondPass And $countMissingDependencies = 0 Then Return; first pass did not find any missing dependencies -> do nothing
 		For $s = 1 to 2; outer loop to check LEFT side (1) followed by RIGHT side (2)
 			$Prefix = ''; we need to clear the prefix (only used if $p_Show = 1) when we switch from LEFT side to RIGHT side
 			Local $Parts=StringSplit($p_String[$s], '&'); we split the rule into '&'-subsets (this also works on strings without '&')
@@ -854,21 +854,22 @@ Func _Depend_GetActiveDependAdv($p_String, $p_RuleID, $p_Show)
 					EndIf
 				Else;If $s = 2 Then; on the right side, we need at least one inactive mod in ANY '&'-subset, else no missing dependencies
 					If $ThisPart[0][1] > 0 Then ContinueLoop; at least one active mod/component in this part -> skip to next part
-					$foundMissingDependency=1; else, we found at least one missing ('needed') dependency here
-					If $secondPass Then
-						Local $inActiveCount = $ThisPart[0][0]; - $ThisPart[0][1]; 'total in group' minus 'active in group' (we already checked none are active)
-						For $t = 1 to $ThisPart[0][0]; iterate over inactive mods/components in this part
-							If StringRegExp($ThisPart[$t][0], '\b(BG1EE|BG2EE)\b') Then ContinueLoop; don't add game type as a missing dependency!
-							Local $InSelection=1, $Prefix = '', $CompDesc, $ModName=$g_CentralArray[$ThisPart[$t][0]][4]; mod long-name
-							If $ModName = '' Then
-								$InSelection=0
-								$ModName=$ThisPart[$t][0]; mod setup-name & component ID string
-								$CompDesc=_GetTR($g_UI_Message, '10-L1'); => removed due to purge/translation/invalid
-							Else
-								$CompDesc=$g_CentralArray[$ThisPart[$t][0]][3]; component description
-							EndIf
+					Local $inActiveCount = $ThisPart[0][0]; - $ThisPart[0][1]; 'total in group' minus 'active in group' (we already checked none are active)
+					$countMissingDependencies += $inActiveCount; we found at least one missing ('needed') dependency here
+					For $t = 1 to $ThisPart[0][0]; iterate over inactive mods/components in this part
+						If StringRegExp($ThisPart[$t][0], '\b(BG1EE|BG2EE)\b') Then ContinueLoop; don't add game type as a missing dependency!
+						Local $InSelection=1, $Prefix = '', $CompDesc, $ModName=$g_CentralArray[$ThisPart[$t][0]][4]; mod long-name
+						If $ModName = '' Then
+							$InSelection=0
+							$ModName=$ThisPart[$t][0]; mod setup-name & component ID string
+							$CompDesc=_GetTR($g_UI_Message, '10-L1'); => removed due to purge/translation/invalid
+							If $inActiveCount > 1 Or $Warning = ' **' Then $countMissingDependencies -= 1; don't count this one as a missing dependency
+						Else
+							$CompDesc=$g_CentralArray[$ThisPart[$t][0]][3]; component description
+						EndIf
+						If $secondPass Then
 							If $inActiveCount = 1 Then; if it is the only missing dependency in this '&'-subset, it is MANDATORY
-								If Not $InSelection And $Warning = ' **' Then ContinueLoop; skip if warning rule and not available due to purge/translation/invalid
+								If Not $InSelection And $Warning = ' **' Then ContinueLoop; skip if warning and not available due to purge/translation/invalid
 								_Depend_ActiveAddItem('DM', $p_RuleID, $ThisPart[$t][0], $SubGroup); add MANDATORY dependency for this mod/component
 								If $p_Show = 1 Then
 									$Prefix='+ '
@@ -885,8 +886,8 @@ Func _Depend_GetActiveDependAdv($p_String, $p_RuleID, $p_Show)
 									EndIf
 								EndIf
 							EndIf; else $inActiveCount is 0 (we never encounter this case because we check earlier and skip)
-						Next; LOOP: check next mod/component
-					EndIf; secondPass
+						EndIf; secondPass
+					Next; LOOP: check next mod/component
 				Endif; left/right side
 			Next; LOOP: check next '&'-subset 
 		Next; LOOP: left side -> right side
