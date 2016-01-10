@@ -267,8 +267,8 @@ MUC;BG_Travel;Init;09;0111;
 MUC;BG_Travel;66;09;0111;
 MUC;BG_Travel;661;09;0000;
 ANN;--- smaller BGEE NPCs ---
-CMD;IF EXIST "jklhel\Helarine_BGEE.Tp2" MOVE /Y "jklhel\Helarine_BGEE.Tp2" ".\setup-jklhel.tp2"
-STD;JklHel;0;06;0001;
+CMD;IF EXIST "jklhel\Helarine_BGEE.Tp2" REN "jklhel\Helarine_BGEE.Tp2" "jklhel.tp2"
+STD;JklHel;0;06;0111;
 STD;margarita;0;06;0111;
 ANN;--- BGEE item tweaks ---
 STD;MSFM;0;10;0111;
@@ -1326,7 +1326,7 @@ STD;stratagems;4130;09;0001;
 STD;stratagems;4140;09;0001;
 MUC;stratagems;Init;09;0001;
 MUC;stratagems;4145;09;0001;
-MUC;stratagems;4146;09;0000; 
+MUC;stratagems;4146;09;0000;
 STD;stratagems;4150;09;1111;
 ANN;magic license cost
 MUC;stratagems;Init;09;1111;

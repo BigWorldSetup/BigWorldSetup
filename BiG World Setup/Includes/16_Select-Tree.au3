@@ -436,8 +436,17 @@ Func _Tree_Populate($p_Show=1)
 			While StringInStr($SelectArray[$s-$n][3], '?')
 				$n += 1
 			WEnd
+			;$SelectArray[$s-$n] / $g_TreeviewItem[$cs][$cc - $n] is the first line before this without a '?' in its component string, i.e., should be the component to which this subcomponent belongs
+			If $SelectArray[$s-$n][2] <> $SelectArray[$s][2] Then; different setup-name
+				ContinueLoop; mistake or was purged - skip this subcomponent
+			EndIf
+			Local $Pos=StringInStr($SelectArray[$s][3], '?', 0, 1)
+			Local $ComponentNum = StringLeft($SelectArray[$s][3], $Pos-1)
+			If $SelectArray[$s-$n][3] <> $ComponentNum Then; different component number
+				ContinueLoop; mistake or was purged - skip this subcomponent
+			EndIf
 			Local $SubPrefix
-			Local $Pos=StringInStr($SelectArray[$s][3], '_', 0, -1)
+			Local $Pos=StringInStr($SelectArray[$s][3], '_', 0, 1)
 			Local $Definition=_IniRead($EditSubs, $SelectArray[$s][2]&';'&StringLeft($SelectArray[$s][3], $Pos-1), '')
 			If $Definition <> '' Then
 				$SubPrefix=_GetTR($g_UI_Message, '4-L23')&' '; => Suggested answer:
@@ -460,6 +469,9 @@ Func _Tree_Populate($p_Show=1)
 ; ---------------------------------------------------------------------------------------------
 		ElseIf $SelectArray[$s][0] = 'MUC'  Then
 			If $SelectArray[$s][3] = 'Init' Then
+				If $SelectArray[$s+1][0] <> 'MUC' Or ($SelectArray[$s+1][2] <> $SelectArray[$s][2]) Then; next line is not MUC or is a different setup-name
+					ContinueLoop; mistake or all choices were purged - skip this entry
+				EndIf
 				$g_TreeviewItem[$cs][$cc] = GUICtrlCreateTreeViewItem(StringRegExpReplace(_IniRead($ReadSection, '@'&$SelectArray[$s+1][3], ''), '\s?->.*\z', ''), $g_TreeviewItem[$cs][0]); create a treeviewitem (gui-element) for the component
 				$g_CentralArray[0][0] = $g_TreeviewItem[$cs][$cc] ; last item in array
 				$g_CentralArray[$g_TreeviewItem[$cs][$cc]][0] = $g_CentralArray[$g_TreeviewItem[$cs][0]][0] ; setup-name
@@ -486,9 +498,12 @@ Func _Tree_Populate($p_Show=1)
 				$g_CentralArray[$g_TreeviewItem[$cs][$cc]][10] = 1; this item is part of a subtree
 			EndIf
 ; ---------------------------------------------------------------------------------------------
-; this is a normal component
+; this is a normal component or the main component of a series of SUB-component entries
 ; ---------------------------------------------------------------------------------------------
 		Else
+			If $SelectArray[$s][0] = 'SUB' And ($SelectArray[$s+1][0] <> 'SUB' Or $SelectArray[$s+1][2] <> $SelectArray[$s][2]) Then; next line is not a SUB or is a different setup-name
+				ContinueLoop; mistake or all choices were purged - skip this entry
+			EndIf
 			$g_TreeviewItem[$cs][$cc] = GUICtrlCreateTreeViewItem(_Tree_SetLength($SelectArray[$s][3])&': ' &$Dsc, $g_TreeviewItem[$cs][0])
 			$g_CentralArray[$g_TreeviewItem[$cs][$cc]][8] = $SelectArray[$s][5]; possible languages
 			$g_CentralArray[$g_TreeviewItem[$cs][$cc]][10] = 0; this item is _not_ part of a subtree

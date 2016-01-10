@@ -289,8 +289,8 @@ MUC;7c#sartweak;101;09;0111;
 MUC;7c#sartweak;Init;09;0111;
 MUC;7c#sartweak;250;09;0111;
 ANN;--- smaller NPCs ---
-CMD;IF EXIST "jklhel\Helarine_BGEE.tp2" move /Y "jklhel\Helarine_BGEE.tp2" ".\setup-jklhel.tp2"
-STD;JklHel;0;06;0001;
+CMD;IF EXIST "jklhel\Helarine_BGEE.Tp2" REN "jklhel\Helarine_BGEE.Tp2" "jklhel.tp2"
+STD;JklHel;0;06;0111;
 STD;margarita;0;06;0111;
 ANN;#2 crossmod needs other NPCs installed first
 STD;ACBre;2;05;0111;
