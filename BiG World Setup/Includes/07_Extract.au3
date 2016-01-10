@@ -277,7 +277,7 @@ Func Au3ExFix($p_Num)
 		If FileExists($g_BG1EEDir&'\Helarine Mod') Then
 			FileWrite($g_LogFile, '>Helarine Mod\JklHel\* .' & @CRLF)
 			_Extract_MoveMod('Helarine Mod')
-			FileMove($g_BG1EEDir&'\JklHel\Helarine_BGEE.tp2', $g_BG1EEDir&'\JklHel\JklHel.tp2')
+;			FileMove($g_BG1EEDir&'\JklHel\Helarine_BGEE.tp2', $g_BG1EEDir&'\JklHel\JklHel.tp2') ; now renamed after BWFixpack
 		EndIf
 		If FileExists($g_BG1EEDir&'\setup-bpseries.exe') Then
 			If FileExists($g_BG1EEDir&'\WeiDU') And StringInStr(FileGetAttrib($g_BG1EEDir&'\WeiDU'), 'D') Then IniDelete($g_BWSIni, 'Faults', 'BPSeries')
