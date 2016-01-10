@@ -925,15 +925,20 @@ EndFunc   ;==>_Misc_SwitchLang
 ; ---------------------------------------------------------------------------------------------
 ; Enable or disable Widescreen checkbox if mod is deselected and vice versa
 ; ---------------------------------------------------------------------------------------------
-Func _Misc_SwitchWideScreen($p_ID, $p_State = -1)
+Func _Misc_SwitchWideScreen($p_UserClicked = 0)
 	If StringInStr($g_Flags[14], 'EE') Then Return; Widescreen already built into BG1EE/BG2EE
-	If $p_State = -1 Then
+	Local $p_ID = $g_Flags[22]
+	Local $p_State = $g_CentralArray[$p_ID][9]
+	FileWrite($g_LogFile, '_Misc_SwitchWideScreen '&$p_UserClicked&' $p_State = '&$p_State&@CRLF)
+	If $p_UserClicked = 1 Then; read checkbox state and update the mod and UI appropriately
 		If GUICtrlRead($g_UI_Interact[14][5]) = $GUI_CHECKED Then
+			If $p_State = 0 Then _AI_SetSTD_Enable($p_ID)
 			$p_State = 1
-		Else
+		Else;If GUICtrlRead($g_UI_Interact[14][5]) = $GUI_UNCHECKED Then
+			If $p_State = 1 Then _AI_SetSTD_Disable($p_ID)
 			$p_State = 0
 		EndIf
-	ElseIf $p_State = 0 Then
+	ElseIf $p_State = 0 Then; update checkbox state to match the mod state
 		GUICtrlSetState($g_UI_Interact[14][5], $GUI_UNCHECKED)
 	Else
 		GUICtrlSetState($g_UI_Interact[14][5], $GUI_CHECKED)
@@ -945,10 +950,8 @@ Func _Misc_SwitchWideScreen($p_ID, $p_State = -1)
 			If GUICtrlRead($g_UI_Interact[14][6]) = '' Then GUICtrlSetData($g_UI_Interact[14][6], @DesktopWidth)
 			If GUICtrlRead($g_UI_Interact[14][7]) = '' Then GUICtrlSetData($g_UI_Interact[14][7], @DesktopHeight)
 		EndIf
-		If $g_CentralArray[$p_ID][9] = 0 Then _AI_SetSTD_Enable($p_ID)
-	ElseIf $p_State = 0 Then
+	Else;If $p_State = 0 Then
 		GUICtrlSetState($g_UI_Interact[14][6], $GUI_DISABLE)
 		GUICtrlSetState($g_UI_Interact[14][7], $GUI_DISABLE)
-		If $g_CentralArray[$p_ID][9] = 1 Then _AI_SetSTD_Disable($p_ID)
 	EndIf
 EndFunc   ;==>_Misc_SwitchWideScreen

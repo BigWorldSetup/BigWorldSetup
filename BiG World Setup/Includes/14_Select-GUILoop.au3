@@ -187,7 +187,7 @@ Func Au3Select($p_Num = 0)
 			_Misc_AboutGUI()
 		Case $g_UI_Button[0][1]; back
 			$Current = GUICtrlRead($g_UI_Seperate[0][0])+1
-			If $g_Flags[22] And StringRegExp($Current, '\A(4|15)\z') Then _Misc_SwitchWideScreen($g_Flags[22], $g_CentralArray[$g_Flags[22]][9]); g_Flags[22] will be zero for games that have widescreen built in
+			If StringRegExp($Current, '\A(4|15)\z') Then _Misc_SwitchWideScreen(); toggle the widescreen checkbox if necessary
 			If $Current = 14 Then
 				_Misc_SetTab(3)
 			ElseIf StringRegExp($Current, '\A(1|2)\z') Then
@@ -240,7 +240,7 @@ Func Au3Select($p_Num = 0)
 				GUICtrlSetState($g_UI_Static[6][1], $GUI_SHOW)
 				GUICtrlSetState($g_UI_Button[0][3], $GUI_DISABLE)
 			ElseIf $Current = 4 Then; leaving 'choose mods and components' tree-view
-				_Misc_SwitchWideScreen($g_Flags[22], $g_CentralArray[$g_Flags[22]][9])
+				_Misc_SwitchWideScreen(); toggle the widescreen checkbox if necessary
 				If _Depend_ResolveGui(0) = 0 Then ContinueLoop; _Depend_ResolveGui($p_Solve = 0)
 				If _Selection_ExpertWarning() = 1 Then ContinueLoop
 				_Misc_SetTab(2)
@@ -404,8 +404,8 @@ Func Au3Select($p_Num = 0)
 #EndRegion advsel
 ; ---------------------------------------------------------------------------------------------
 #Region install opts
-		Case $g_UI_Interact[14][5]; toggle widescreen
-			_Misc_SwitchWideScreen($g_Flags[22])
+		Case $g_UI_Interact[14][5]; toggle widescreen (user command)
+			_Misc_SwitchWideScreen(1); toggle widescreen mod and checkbox if game type uses it
 #EndRegion install opts
 ; ---------------------------------------------------------------------------------------------
 #Region contextmenu
