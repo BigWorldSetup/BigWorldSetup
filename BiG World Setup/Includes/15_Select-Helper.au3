@@ -431,9 +431,20 @@ Func _Selection_TipSetData($p_Num)
 	$Dsc=StringTrimLeft($Dsc, 1)
 	Local $Headline
 	If $g_CentralArray[$p_Num][2] = '-' Then
-		$Headline = $Dsc & ': ' & $g_CentralArray[$p_Num][0] & ' ('
-		If $g_CentralArray[$p_Num][15] Then $Headline &= $g_CentralArray[$p_Num][15] & ', '; revision/version
-		$Headline &= Round($g_CentralArray[$p_Num][7] / (1024 * 1024), 1) & ' MB, ' & $g_CentralArray[$p_Num][8] & ')'; size and language
+		Local $SetupName=$g_CentralArray[$p_Num][0]
+		Local $Rev=$g_CentralArray[$p_Num][15]
+		Local $Size=$g_CentralArray[$p_Num][8]		
+		Local $Lang=$g_CentralArray[$p_Num][8]
+		$Headline = $Dsc&': '&$SetupName&' ('
+		If StringRegExp($Rev, '\A\d') Then
+			$Headline &= 'v'&$Rev&', '; revision/version starts with digit
+		ElseIf $Rev Then;
+			$Headline &= $Rev&', '; non-digit revision/version
+		EndIf
+		If $Size <> 0 Then
+			$Headline &= Round($Size/(1024 * 1024), 1)&' MB, '
+		EndIf
+		$Headline &= $Lang&')'
 	Else
 		$Headline = $Dsc
 	EndIf
