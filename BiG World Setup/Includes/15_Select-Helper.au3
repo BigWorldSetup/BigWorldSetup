@@ -432,7 +432,7 @@ Func _Selection_TipSetData($p_Num)
 	Local $Headline
 	If $g_CentralArray[$p_Num][2] = '-' Then
 		$Headline = $Dsc & ': ' & $g_CentralArray[$p_Num][0] & ' ('
-		If $g_CentralArray[$p_Num][15] Then $Headlines &= $g_CentralArray[$p_Num][15] & ', '; revision/version
+		If $g_CentralArray[$p_Num][15] Then $Headline &= $g_CentralArray[$p_Num][15] & ', '; revision/version
 		$Headline &= Round($g_CentralArray[$p_Num][7] / (1024 * 1024), 1) & ' MB, ' & $g_CentralArray[$p_Num][8] & ')'; size and language
 	Else
 		$Headline = $Dsc
