@@ -12,13 +12,21 @@
 ; Not used items from g_CentralArray: 5 - 6 - 7 - 8 - 11 - 12 - 14 - 15
 
 ;~ $g_CentralArray is an array of all mods/components from Select.txt, with the following fields:
-;     0: mod headline (top level) control ID (index into $g_CentralArray for parent-child hierarchy)
-;     2: '-' for the headline (top level) of a mod branch, '+' for the root of a multiple choice menu
+;     0: mod setup-name
+;     1: tag (theme/category number)
+;     2: '-' for the headline (top level) of a mod, '+' for the top of a multiple choice menu, '!' for a chapter headline
 ;     3: component description (if 2 is '-' then this also will be '-')
 ;     4: name of the mod (from modname.ini) or '' if removed due to purge/translation
-;     9: number of active components (0 or 1 for a component; can be > 1 for a mod branch)
-;      : theme/category number (ex. NPCs, items, tweaks)
+;     5: tree-view-item GUI handle
+;     6: extended description of the mod (displayed below tree-view)
+;     7: size (in bytes) of the mod, from mod.ini
+;     8: language of the mod
+;     9: number of active items (0 or 1 for a component; can be > 1 for a mod/chapter headline as it includes children)
+;    10: for chapter headings, mods per chapter counter / else 1 = part of a sub-tree, 0 = not part of a sub-tree
+;    11: type of the mod, from mod.ini
+;    12: pre-selection bits (0000 to 1111)
 ;    13: blank '' or comma separated list of sections if mod is installed in different places
+;    15: 'rev'ision of the mod, from mod.ini
 ;
 ;  _Tree_Populate calls _Tree_SelectRead or _Tree_SelectReadForBatch to initialize, then populates this array
 
@@ -480,7 +488,7 @@ Func _Depend_AutoSolve($p_Type, $p_State, $p_skipWarnings = 1)
 				If Not _Depend_SetModState($g_ActiveConnections[$a][2], $p_State) then ExitLoop; activate or deactivate the mod/component
 				; if we were unable to make a change, just keep going through other active connections (give up on automatically solving this one)
 				$Return[0][0]+=1; else, the change succeeded -> record the change we just made
-				$Return[$Return[0][0]][0]=$g_CentralArray[$g_ActiveConnections[$a][2]][0]; record mod ID
+				$Return[$Return[0][0]][0]=$g_CentralArray[$g_ActiveConnections[$a][2]][0]; record mod setup-name
 				$Return[$Return[0][0]][2]=$g_CentralArray[$g_ActiveConnections[$a][2]][4]; record mod name
 				If $g_CentralArray[$g_ActiveConnections[$a][2]][2] <> '-' Then
 					$Return[$Return[0][0]][1]=$g_CentralArray[$g_ActiveConnections[$a][2]][2]; record component type (MUC +, SUB ?)
@@ -1266,7 +1274,7 @@ Func _Depend_SolveConflict($p_Setup, $p_State, $p_Type=0)
 	Local $GroupID, $Test
 	For $a=1 to $g_ActiveConnections[0][0]
 		If $p_Type = 0 Then $Test = $g_ActiveConnections[$a][2]
-		If $p_Type = 1 Then $Test = $g_CentralArray[$g_ActiveConnections[$a][2]][0]
+		If $p_Type = 1 Then $Test = $g_CentralArray[$g_ActiveConnections[$a][2]][0]; setup-name
 		If $Test = $p_Setup Then
 			If $g_ActiveConnections[$a][0] <> 'C' Then ContinueLoop
 			$GroupID = $g_ActiveConnections[$a][3]
@@ -1278,7 +1286,7 @@ Func _Depend_SolveConflict($p_Setup, $p_State, $p_Type=0)
 				$n+=1
 				If $g_ActiveConnections[$n][1]<>$g_ActiveConnections[$a][1] Then ExitLoop; continue to the next possible step or exit
 				If $p_Type = 0 Then $Test = $g_ActiveConnections[$n][2]
-				If $p_Type = 1 Then $Test = $g_CentralArray[$g_ActiveConnections[$n][2]][0]
+				If $p_Type = 1 Then $Test = $g_CentralArray[$g_ActiveConnections[$n][2]][0]; setup-name
 				If $p_State = 1 Then
 					If $GroupID <> '' And $GroupID = $g_ActiveConnections[$n][3] Then ContinueLoop
 					If $Test <> $p_Setup Then _Depend_SetModState($g_ActiveConnections[$n][2], 2); remove the item if it is not the setup itself

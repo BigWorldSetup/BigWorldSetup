@@ -351,7 +351,7 @@ Func _Tree_Populate($p_Show=1)
 					$g_CHTreeviewItem[$SelectArray[$s][8]] = $g_UI_Interact[4][1]
 				EndIf
 				GUICtrlSetState($g_CHTreeviewItem[$SelectArray[$s][8]], $GUI_DEFBUTTON); only set the chapter-line bold
-				$g_CentralArray[$g_CHTreeviewItem[$SelectArray[$s][8]]][1]= $SelectArray[$s][8]; tag
+				$g_CentralArray[$g_CHTreeviewItem[$SelectArray[$s][8]]][1]= $SelectArray[$s][8]; tag/theme/category
 				$g_CentralArray[$g_CHTreeviewItem[$SelectArray[$s][8]]][2]= '!'; tag as no component
 				$g_CentralArray[$g_CHTreeviewItem[$SelectArray[$s][8]]][5] = GUICtrlGetHandle($g_CHTreeviewItem[$SelectArray[$s][8]]); handle
 				$g_CentralArray[$g_CHTreeviewItem[$SelectArray[$s][8]]][9]= 0; set "current selected mods per chapter" counter
@@ -436,13 +436,10 @@ Func _Tree_Populate($p_Show=1)
 			While StringInStr($SelectArray[$s-$n][3], '?')
 				$n += 1
 			WEnd
-			;$SelectArray[$s-$n] / $g_TreeviewItem[$cs][$cc - $n] is the first line before this without a '?' in its component string, i.e., should be the component to which this subcomponent belongs
-			If $SelectArray[$s-$n][2] <> $SelectArray[$s][2] Then; different setup-name
-				ContinueLoop; mistake or was purged - skip this subcomponent
-			EndIf
+			;$SelectArray[$s-$n] / $g_TreeviewItem[$cs][$cc - $n] is now the first line/item preceding this line without a '?' in its component string, i.e., the component to which this subcomponent belongs
 			Local $Pos=StringInStr($SelectArray[$s][3], '?', 0, 1)
 			Local $ComponentNum = StringLeft($SelectArray[$s][3], $Pos-1)
-			If $SelectArray[$s-$n][3] <> $ComponentNum Then; different component number
+			If $SelectArray[$s-$n][2] <> $SelectArray[$s][2] Or $SelectArray[$s-$n][3] <> $ComponentNum Then; different setup-name or component-number than the first preceding line without a '?' in its component string
 				ContinueLoop; mistake or was purged - skip this subcomponent
 			EndIf
 			Local $SubPrefix
@@ -469,8 +466,10 @@ Func _Tree_Populate($p_Show=1)
 ; ---------------------------------------------------------------------------------------------
 		ElseIf $SelectArray[$s][0] = 'MUC'  Then
 			If $SelectArray[$s][3] = 'Init' Then
-				If $SelectArray[$s+1][0] <> 'MUC' Or ($SelectArray[$s+1][2] <> $SelectArray[$s][2]) Then; next line is not MUC or is a different setup-name
-					ContinueLoop; mistake or all choices were purged - skip this entry
+				If $s = $SelectArray[0][0] Then; no lines after this
+					ContinueLoop; mistake or all choices in this MUC sub-tree were purged - skip this MUC-headline
+				ElseIf $SelectArray[$s+1][0] <> 'MUC' Or $SelectArray[$s+1][3] = 'Init' Or $SelectArray[$s+1][2] <> $SelectArray[$s][2] Then; next line is not a MUC or is another MUC Init or belongs to a different setup-name
+					ContinueLoop; mistake or all choices in this MUC sub-tree were purged - skip this MUC-headline
 				EndIf
 				$g_TreeviewItem[$cs][$cc] = GUICtrlCreateTreeViewItem(StringRegExpReplace(_IniRead($ReadSection, '@'&$SelectArray[$s+1][3], ''), '\s?->.*\z', ''), $g_TreeviewItem[$cs][0]); create a treeviewitem (gui-element) for the component
 				$g_CentralArray[0][0] = $g_TreeviewItem[$cs][$cc] ; last item in array
@@ -488,21 +487,30 @@ Func _Tree_Populate($p_Show=1)
 				$g_CentralArray[0][0] = $g_TreeviewItem[$cs][$cc] ; last item in array
 				$cc+=1
 				ContinueLoop
-			Else
+			Else; MUC component, not Init
 				Local $n = 1
-				While StringRegExp($SelectArray[$s-$n][3], '\A\d{1,}\z'); search backwards until the select-item
+				While $n < $s And $SelectArray[$s-$n][3] <> 'Init'; search backwards until the select-item
+;				StringRegExp($SelectArray[$s-$n][3], '\A\d{1,}\z'); search backwards until the select-item
 					$n+=1
 				WEnd
+				If $n = $s Or $SelectArray[$s-$n][2] <> $SelectArray[$s][2] Then; MUC Init not found or belongs to a different setup-name
+					_PrintDebug('MUC Init not found before '&$SelectArray[$s][2]&';'&$SelectArray[$s][3], 1)
+					ContinueLoop; mistake
+				EndIf
 				$g_TreeviewItem[$cs][$cc] = GUICtrlCreateTreeViewItem(_Tree_SetLength($SelectArray[$s][3])&': '&StringRegExpReplace($Dsc, '\A.*\s?->\s?', ''), $g_TreeviewItem[$cs][$cc-$n-1]); create a treeviewitem (gui-element) for the component
 				$g_CentralArray[$g_TreeviewItem[$cs][$cc]][8] = $SelectArray[$s][5]; language
 				$g_CentralArray[$g_TreeviewItem[$cs][$cc]][10] = 1; this item is part of a subtree
 			EndIf
 ; ---------------------------------------------------------------------------------------------
-; this is a normal component or the main component of a series of SUB-component entries
+; this is a normal component (STD) without subcomponents or a normal component (SUB) expected to be followed by at least one SUB-component
 ; ---------------------------------------------------------------------------------------------
 		Else
-			If $SelectArray[$s][0] = 'SUB' And ($SelectArray[$s+1][0] <> 'SUB' Or $SelectArray[$s+1][2] <> $SelectArray[$s][2]) Then; next line is not a SUB or is a different setup-name
-				ContinueLoop; mistake or all choices were purged - skip this entry
+			If $SelectArray[$s][0] = 'SUB' Then; we expect this component to be followed by at least one SUB-component
+				If $s = $SelectArray[0][0] Then; no lines after this
+					ContinueLoop; mistake or all SUB lines for this component were purged - skip this component
+				ElseIf ($SelectArray[$s+1][0] <> 'SUB' Or $SelectArray[$s+1][2] <> $SelectArray[$s][2]) Then; next line is not a SUB or is a different setup-name
+					ContinueLoop; mistake or all SUB lines after this component were purged - skip this component
+				EndIf
 			EndIf
 			$g_TreeviewItem[$cs][$cc] = GUICtrlCreateTreeViewItem(_Tree_SetLength($SelectArray[$s][3])&': ' &$Dsc, $g_TreeviewItem[$cs][0])
 			$g_CentralArray[$g_TreeviewItem[$cs][$cc]][8] = $SelectArray[$s][5]; possible languages
@@ -1057,12 +1065,16 @@ Func _Tree_SelectRead($p_Admin=0)
 		EndIf
 		If $p_Admin = 0 And StringRegExp($Array[$a], '(?i);('&$g_Skip&');') Then ContinueLoop; skip mods that don't fit the selection
 		$Split=StringSplit($Array[$a], ';')
+		If $Split[0] < 6 Then; five semicolons = 6 split sections (LineType;Setup-Name;Component;Theme-Tag;Preselection-Bits;)
+			_PrintDebug('Expected at least five semicolons on Select.txt line '&$a&': '&$Array[$a], 1)
+			Exit
+		EndIf
 		$Return[0][0]+=1
 		$Return[$Return[0][0]][0]=$Split[1]; linetype
 		;  1 >> Index (points to the 'root'/'headline' of a sequential series of lines for the same mod)
 		$Return[$Return[0][0]][2]=$Split[2]; setup
 		$Return[$Return[0][0]][3]=$Split[3]; component
-		$Return[$Return[0][0]][4]=$Split[5]; defaults
+		$Return[$Return[0][0]][4]=$Split[5]; pre-selection bits
 		;  5 >> Translation
 		$Return[$Return[0][0]][6]=$Split[6]; component requirements
 		;  7 >> Name (is this GRP name / description for CMD/ANN lines?)

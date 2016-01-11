@@ -387,7 +387,7 @@ Func _AI_SetInMUC_Disable($p_Num, $p_First=0)
 EndFunc    ;==>_AI_SetInMUC_Disable
 
 ; ---------------------------------------------------------------------------------------------
-; Enable a MUC-component. Disable others. Enable MUCtree if needed. Start wit a MUC-component.
+; Enable a MUC-component. Disable others. Enable MUCtree if needed. Start with a MUC-component.
 ; ---------------------------------------------------------------------------------------------
 Func _AI_SetInMUC_Enable($p_Num, $p_First = 0)
 	;_PrintDebug('+' & @ScriptLineNumber & ' Calling _AI_SetInMUC_Enable')

@@ -376,45 +376,43 @@ MUC;w_packmule;3;10;0000;
 ANN;--- item revisions v4 ---
 STD;item_rev;1;09;0111;
 MUC;item_rev;Init;09;0111;
-MUC;item_rev;2;09;0000;
-MUC;item_rev;3;09;0111;
-MUC;item_rev;4;09;0000;
-MUC;item_rev;5;09;0000;
-MUC;item_rev;Init;09;0011;
-MUC;item_rev;1040;09;0000;
-MUC;item_rev;6;09;0000;
-MUC;item_rev;1041;09;0000;
-MUC;item_rev;1042;09;0000;
-MUC;item_rev;7;09;0000;
-MUC;item_rev;8;09;0011;
-MUC;item_rev;1043;09;0000;
+MUC;item_rev;2;09;0011;
+MUC;item_rev;3;09;0100;
+ANN;#4, 5 removed in IRv4
+MUC;item_rev;Init;09;0111;
+MUC;item_rev;1040;09;0011;
+ANN;#6, 1041 removed in IRv4
+MUC;item_rev;1042;09;0100;
+ANN;#7, 8, 1043 removed in IRv4
 MUC;item_rev;Init;09;0111;
 MUC;item_rev;9;09;0000;
 MUC;item_rev;1101;09;0111;
-STD;item_rev;1020;09;0111;
+ANN;#1020 removed in IRv4
 STD;item_rev;1030;09;0111;
-STD;item_rev;1050;09;0111;
+ANN;#1050 removed in IRv4
 STD;item_rev;10;09;0111;
 STD;item_rev;11;09;0111;
 STD;item_rev;12;09;0111;
-STD;item_rev;13;09;0111;
+ANN;#13 removed in IRv4
+MUC;item_rev;Init;09;0000;
+MUC;item_rev;15;09;0000;
+MUC;item_rev;16;09;0000;
+STD;item_rev;17;09;0111;
+MUC;item_rev;Init;09;0111;
+MUC;item_rev;18;09;0000;
+MUC;item_rev;19;09;0111;
+MUC;item_rev;20;09;0000;
 MUC;item_rev;Init;09;0000;
 MUC;item_rev;1090;09;0000;
 MUC;item_rev;1091;09;0000;
 MUC;item_rev;1092;09;0000;
 MUC;item_rev;1093;09;0000;
-MUC;item_rev;Init;09;0000;
-MUC;item_rev;15;09;0000;
-MUC;item_rev;16;09;0000;
 STD;item_rev;1060;09;0111;
 STD;item_rev;1070;09;0111;
-STD;item_rev;17;09;0111;
-STD;item_rev;1080;09;0011;
-MUC;item_rev;Init;09;0111;
-MUC;item_rev;18;09;0000;
-MUC;item_rev;19;09;0111;
-MUC;item_rev;20;09;0000;
+STD;item_rev;1080;09;0111;
 STD;item_rev;1200;09;0011;
+ANN;#1300 is not enabled yet in IRv4
+ANN;item_rev;1300;09;0011;
 ANN;--- new spells ---
 MUC;Divine_Remix;Init;09;0111;
 MUC;Divine_Remix;10;09;0001;
@@ -443,8 +441,6 @@ STD;Divine_Remix;412;12;0111;
 STD;Divine_Remix;415;12;0111;
 STD;Divine_Remix;600;12;0001;
 STD;Divine_Remix;610;12;0001;
-ANN;#1000 is sphere system
-STD;Divine_Remix;1000;09;0001;
 STD;song_and_silence;0;12;0111;
 STD;song_and_silence;1;10;0111;
 STD;song_and_silence;2;12;0111;
@@ -659,6 +655,8 @@ STD;Derats_kits;6;12;0111;
 STD;Derats_kits;7;12;0000;
 STD;Derats_kits;8;12;0000;
 STD;A7#ImprovedArcher;0;12;0111;
+ANN;#1000 is sphere system, should be installed after all divine kits
+STD;Divine_Remix;1000;09;0001;
 ANN;FnP should be installed after all divine kits
 SUB;f_n_p;102;12;0001;
 SUB;f_n_p;102?1_1;12;0001;
@@ -1131,27 +1129,33 @@ DWN;BG1EEGUITweaksB;0;13;0111;
 DWN;BG1EEGUITweaksWE;0;13;0111;
 DWN;BG2EEGUITweaksFSWM;0;13;0111;
 DWN;BG2EEGUITweaksFSWMNM;0;13;0111;
-STD;LightingPack;0;13;0000;
-STD;LightingPack;1;13;0000;
-STD;LightingPack;2;13;1111;
-STD;LightingPack;3;13;0000;
-STD;LightingPack;4;13;0000;
-STD;LightingPack;5;13;0000;
-STD;LightingPack;6;13;0000;
-STD;LightingPack;7;13;0000;
-STD;LightingPack;8;13;0000;
-STD;LightingPack;9;13;0000;
-STD;LightingPack;10;13;0000;
-STD;LightingPack;11;13;0000;
-STD;LightingPack;12;13;0000;
-STD;LightingPack;13;13;0000;
-STD;LightingPack;14;13;0000;
-STD;LightingPack;15;13;0000;
-STD;LightingPack;16;13;0000;
-STD;LightingPack;17;13;0000;
-STD;LightingPack;18;13;0000;
-STD;LightingPack;19;13;0000;
-STD;LightingPack;20;13;0000;
+MUC;LightingPack;Init;13;1111;
+MUC;LightingPack;0;13;0000;
+MUC;LightingPack;1;13;0000;
+MUC;LightingPack;2;13;1111;
+MUC;LightingPack;3;13;0000;
+MUC;LightingPack;4;13;0000;
+MUC;LightingPack;5;13;0000;
+MUC;LightingPack;6;13;0000;
+MUC;LightingPack;7;13;0000;
+MUC;LightingPack;8;13;0000;
+MUC;LightingPack;9;13;0000;
+MUC;LightingPack;10;13;0000;
+MUC;LightingPack;11;13;0000;
+MUC;LightingPack;12;13;0000;
+MUC;LightingPack;13;13;0000;
+MUC;LightingPack;14;13;0000;
+MUC;LightingPack;15;13;0000;
+MUC;LightingPack;16;13;0000;
+MUC;LightingPack;17;13;0000;
+MUC;LightingPack;18;13;0000;
+MUC;LightingPack;19;13;0000;
+MUC;LightingPack;20;13;0000;
+MUC;LightingPack;21;13;0000;
+SUB;LightingPack;21?1_1;13;0000;
+SUB;LightingPack;21?2_0;13;0000;
+SUB;LightingPack;21?3_1;13;0000;
+SUB;LightingPack;21?4_y;13;0000;
 ANN;--- optional fixes ---
 STD;apr_fix;0;01;0111;
 ANN;--- portraits ---
