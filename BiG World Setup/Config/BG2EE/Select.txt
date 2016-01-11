@@ -624,7 +624,8 @@ STD;BP;2400;08;0011;
 STD;BP;2500;08;0011;
 STD;BP;2600;08;0011;
 ANN;--- BG2EE NPCs ---
-ANN;Kelsey after (BP) Ascension
+ANN;Kelsey and Solaufein after (BP) Ascension
+STD;Solaufein;0;12;0111;
 STD;Kelsey;0;05;1111;
 ANN;Kelsey portraits moved down
 STD;Keto;0;05;0111;
@@ -803,9 +804,9 @@ STD;d0questpack;10;03;0111;
 ANN;Improved Oasis II
 MUC;d0questpack;Init;08;1111;
 ANN;#11 -> Tactical (Combat path)
-MUC;d0questpack;11;08;0011;
+MUC;d0questpack;11;08;0001;
 ANN;#12 -> Recommended (Dialogue path)
-MUC;d0questpack;12;08;1100;
+MUC;d0questpack;12;08;1110;
 STD;d0questpack;13;03;0111;
 STD;d0questpack;14;03;0111;
 STD;d0questpack;15;03;0111;
@@ -986,6 +987,7 @@ STD;Divine_Remix;610;12;0111;
 ANN;#1000 is sphere system
 STD;Divine_Remix;1000;09;0001;
 STD;song_and_silence;0;12;0111;
+STD;song_and_silence;1;10;0111;
 STD;song_and_silence;2;12;0111;
 STD;song_and_silence;3;12;0111;
 STD;song_and_silence;4;12;0111;
