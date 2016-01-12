@@ -1067,7 +1067,6 @@ Func _Tree_SelectRead($p_Admin=0)
 				ContinueLoop
 			EndIf
 		EndIf
-		If $p_Admin = 0 And StringRegExp($Array[$a], '(?i);('&$g_Skip&');') Then ContinueLoop; skip mods that don't fit the selection
 		$Split=StringSplit($Array[$a], ';')
 		If $Split[0] < 6 Then; five semicolons = 6 split sections (LineType;Setup-Name;Component;Theme-Tag;Preselection-Bits;)
 			_PrintDebug('Expected at least five semicolons on Select.txt line '&$a&': '&$Array[$a], 1)
@@ -1085,6 +1084,7 @@ Func _Tree_SelectRead($p_Admin=0)
 			_PrintDebug('Sub-component line '&$Array[$a]&' does not match last full component theme '&$LastFullComp[1], 1)
 			$Split[4] = $LastFullComp[1]
 		EndIf
+		If $p_Admin = 0 And StringRegExp($Array[$a], '(?i);('&$g_Skip&');') Then ContinueLoop; skip mods that don't fit the selection
 		$Return[0][0]+=1
 		$Return[$Return[0][0]][0]=$Split[1]; linetype
 		;  1 >> Index (points to the 'root'/'headline' of a sequential series of lines for the same mod)
