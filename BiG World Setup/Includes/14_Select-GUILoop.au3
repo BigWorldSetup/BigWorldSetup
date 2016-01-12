@@ -331,8 +331,12 @@ Func Au3Select($p_Num = 0)
 			_Tree_GetCurrentSelection(0)
 		Case $g_UI_Menu[1][3]; Import
 			Local $File = FileOpenDialog(_GetTR($g_UI_Message, '4-F1'), $g_ProgDir, 'Ini files (*.ini)', 1, 'BWS-Selection.ini', $g_UI[0]); => load selection from
-			If @error Then ContinueLoop
+			If @error Then ContinueLoop; user clicked cancel button or escape key or some error occurred trying to load the chosen file
 			Local $Section = IniReadSectionNames($File)
+			If @error Then; IniReadSectionNames did not return a valid array
+				_PrintDebug(_GetTR($g_UI_Message, '4-F3'), 1); => The selected file was not in the expected format.
+				ContinueLoop
+			EndIf
 			Local $Success=0
 			For $s=1 to $Section[0]
 				If $Section[$s] = 'Current' Then $Success = 1
@@ -369,8 +373,10 @@ Func Au3Select($p_Num = 0)
 			If @error Then ContinueLoop
 			Local $Array=_Selection_ReadWeidu($File)
 			If Not IsArray($Array) Then
+				_PrintDebug(_GetTR($g_UI_Message, '4-F3'), 1); => The selected file was not in the expected format.
 				ContinueLoop
 			ElseIf $Array[0][0] = 0 Then
+				_PrintDebug(_GetTR($g_UI_Message, '4-F3'), 1); => The selected file was not in the expected format.
 				ContinueLoop
 			Else
 				IniWriteSection($g_UsrIni, 'Current', $Array)

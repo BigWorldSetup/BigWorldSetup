@@ -421,9 +421,9 @@ Func _Tree_Populate($p_Show=1)
 				EndIf
 			EndIf
 			$cc = 0
-		Else
-			$SelectArray[$s][5]=$SelectArray[$s-1][5]
-			$SelectArray[$s][7]=$SelectArray[$s-1][7]
+		Else ; If $SelectArray[$s][2] = $SelectArray[$s-1][2] Then
+			$SelectArray[$s][5]=$SelectArray[$s-1][5]; preselection bits
+			$SelectArray[$s][7]=$SelectArray[$s-1][7]; mod description
 		EndIf
 		$cc+=1
 		Local $Dsc = _IniRead($ReadSection, '@' & $SelectArray[$s][3], $Compnote)
@@ -431,20 +431,20 @@ Func _Tree_Populate($p_Show=1)
 ; ---------------------------------------------------------------------------------------------
 ; SUB: A selectable sub-component/question  (SUB-Selections are counted as possible selections to [10][0])
 ; ---------------------------------------------------------------------------------------------
-		If StringInStr($SelectArray[$s][3], '?') Then
+		Local $Pos=StringInStr($SelectArray[$s][3], '?', 0, 1)
+		If $Pos > 0 Then
+			Local $ComponentNum = StringLeft($SelectArray[$s][3], $Pos-1); number on left side of '?' in component string
 			Local $n = 1
-			While StringInStr($SelectArray[$s-$n][3], '?')
+			While $n < $s And StringInStr($SelectArray[$s-$n][3], '?'); search backwards until first non-sub-component (in current theme chapter)
 				$n += 1
 			WEnd
-			;$SelectArray[$s-$n] / $g_TreeviewItem[$cs][$cc - $n] is now the first line/item preceding this line without a '?' in its component string, i.e., the component to which this subcomponent belongs
-			Local $Pos=StringInStr($SelectArray[$s][3], '?', 0, 1)
-			Local $ComponentNum = StringLeft($SelectArray[$s][3], $Pos-1)
-			If $SelectArray[$s-$n][2] <> $SelectArray[$s][2] Or $SelectArray[$s-$n][3] <> $ComponentNum Then; different setup-name or component-number than the first preceding line without a '?' in its component string
-				ContinueLoop; mistake or was purged - skip this subcomponent
+			;$SelectArray[$s-$n] / $g_TreeviewItem[$cs][$cc - $n] is now the first line/item preceding this line without a '?' in its component string, i.e., the full component to which this subcomponent belongs
+			If $SelectArray[$s-$n][2] <> $SelectArray[$s][2] Or $SelectArray[$s-$n][3] <> $ComponentNum Then; this sub-component has a setup-name or component-number different from the first preceding full component
+				ContinueLoop; mistake or was purged - skip this sub-component
 			EndIf
 			Local $SubPrefix
 			Local $Pos=StringInStr($SelectArray[$s][3], '_', 0, 1)
-			Local $Definition=_IniRead($EditSubs, $SelectArray[$s][2]&';'&StringLeft($SelectArray[$s][3], $Pos-1), '')
+			Local $Definition=_IniRead($EditSubs, $SelectArray[$s][2]&';'&$ComponentNum, '')
 			If $Definition <> '' Then
 				$SubPrefix=_GetTR($g_UI_Message, '4-L23')&' '; => Suggested answer:
 			Else
@@ -455,6 +455,10 @@ Func _Tree_Populate($p_Show=1)
 				$g_CentralArray[$g_TreeviewItem[$cs][$cc - $n]][10] = 2; this item has its own subtree now
 				Local $t = $s-$n+1
 				While StringInStr($SelectArray[$t+1][3], '?')
+					If $SelectArray[$t+1][2] <> $SelectArray[$s][2] Then
+						_PrintDebug('! Found a different mod while searching for sub-components below '&$SelectArray[$s][2]&';'&$SelectArray[$s][3], 1)
+						Exit
+					EndIf
 					$t += 1
 				WEnd
 				$g_CentralArray[$g_TreeviewItem[$cs][0]][10]+=Number(StringRegExpReplace($SelectArray[$t][3], '\A\d{1,}\x3f|\x5f.*', '')); increase the possible selection
@@ -1047,7 +1051,7 @@ EndFunc   ;==>_Tree_SelectReadForBatch
 ; ---------------------------------------------------------------------------------------------
 Func _Tree_SelectRead($p_Admin=0)
 	Local $Array=StringSplit(StringStripCR(FileRead($g_GConfDir&'\Select.txt')), @LF)
-	Local $Split, $Return[$Array[0]+1][10]
+	Local $LastFullComp[2], $Split, $Return[$Array[0]+1][10]
 	For $a=1 to $Array[0]
 		If StringRegExp($Array[$a], '\A(\s.*\z|\z)') Then ContinueLoop; skip empty lines
 		If StringRegExp($Array[$a], '(?i)\A(ANN|CMD|GRP)') Then
@@ -1068,6 +1072,18 @@ Func _Tree_SelectRead($p_Admin=0)
 		If $Split[0] < 6 Then; five semicolons = 6 split sections (LineType;Setup-Name;Component;Theme-Tag;Preselection-Bits;)
 			_PrintDebug('Expected at least five semicolons on Select.txt line '&$a&': '&$Array[$a], 1)
 			Exit
+		EndIf
+		; make sure any sub-components match the full components that precede them
+		Local $Pos=StringInStr($Split[3], '?', 0, 1); position of first '?' in component, or zero if not found (first character position is 1)
+		If $Pos < 2 Then; line is not a sub-component
+			$LastFullComp[0] = $Split[3]; component number
+			$LastFullComp[1] = $Split[4]; theme
+		ElseIf StringLeft($Split[3], $Pos-1) <> $LastFullComp[0] Then; line is a sub-component without a preceding full component
+			_PrintDebug('Sub-component line '&$Array[$a]&' does not match last full component number '&$LastFullComp[0], 1)
+			Exit
+		ElseIf $Split[4] <> $LastFullComp[1] Then; line is a sub-component with a different theme
+			_PrintDebug('Sub-component line '&$Array[$a]&' does not match last full component theme '&$LastFullComp[1], 1)
+			$Split[4] = $LastFullComp[1]
 		EndIf
 		$Return[0][0]+=1
 		$Return[$Return[0][0]][0]=$Split[1]; linetype

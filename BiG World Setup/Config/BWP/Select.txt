@@ -3767,7 +3767,7 @@ ANN;-- FPS without audio skip --
 SUB;eet_tweaks;11;16;0111;
 SUB;eet_tweaks;11?1_1;16;0000;
 SUB;eet_tweaks;11?1_2;16;0111;
-SUB;eet_tweaks;11?1_3;09;0000;
+SUB;eet_tweaks;11?1_3;16;0000;
 ANN;-- no hostile charm reaction --
 STD;eet_tweaks;20;16;0111;
 STD;Virtue;0;16;0001;

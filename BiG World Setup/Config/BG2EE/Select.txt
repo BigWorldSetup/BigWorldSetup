@@ -834,8 +834,8 @@ SUB;ACBre;0?1_2;05;0000;
 SUB;ACBre;0?1_3;05;0000;
 SUB;ACBre;0?1_4;05;0000;
 SUB;ACBre;0?1_5;05;0000;
-SUB;ACBre;0?2_1;13;0111;
-SUB;ACBre;0?2_2;13;0000;
+SUB;ACBre;0?2_1;05;0111;
+SUB;ACBre;0?2_2;05;0000;
 ANN;#2 crossmod needs other NPCs installed first
 STD;ACBre;2;05;0111;
 ANN;--- BG2EE kit changes ---

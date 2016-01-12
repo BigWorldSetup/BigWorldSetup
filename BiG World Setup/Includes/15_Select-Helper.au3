@@ -227,6 +227,7 @@ EndFunc    ;==>_Selection_Download_Manually
 ; ---------------------------------------------------------------------------------------------
 ; Convert the WeiDU.log into a two-dimensional array
 ; Sample: ~BG2FIXPACK/SETUP-BG2FIXPACK.TP2~ #3 #0 // BG2 Fixpack - Hauptteil reparieren
+;     or: ~TP2_File~ #language_number #component_number
 ; ---------------------------------------------------------------------------------------------
 Func _Selection_ReadWeidu($p_File)
 	If StringRegExp($p_File, '\A\D:') Then
@@ -236,13 +237,14 @@ Func _Selection_ReadWeidu($p_File)
 		If $p_File = '' Then $p_File = ClipGet()
 		If Not StringRegExp($p_File, '\A(//|~)') Then Return -1
 	EndIf
-	Local $Section[1000][2]
+	Local $Section[5000][2]
 	Local $Name, $Num, $Array=StringSplit(StringStripCR($p_File), @LF)
+	If $Array[0] = 0 Then Return -1
 	For $a=1 to $Array[0]
 		If Not StringRegExp($Array[$a], '\A~') Then ContinueLoop
-		$Name = StringRegExpReplace(StringRegExpReplace($Array[$a], '\A~|~.*\z', ''), '(?i)-{0,1}(setup)-{0,1}|\x2etp2\z|\A.*/', '')
-		$Num = StringRegExp($Array[$a], '\d{1,}\s//', 3)
-		If IsArray($Num) Then _IniWrite($Section, $Name, StringTrimRight($Num[0], 3))
+		$Name = StringRegExpReplace(StringRegExpReplace($Array[$a], '\A~|~.*\z', ''), '(?i)-{0,1}(setup)-{0,1}|\x2etp2.*\z|\A.*/', '')
+		$Num = StringRegExp($Array[$a], '(?:\A~.+~ #[^#]+#)(\d+)', 1)
+		If IsArray($Num) Then _IniWrite($Section, $Name, $Num[0])
 	Next
 	ReDim $Section[$Section[0][0]+1][2]
 	Return $Section
