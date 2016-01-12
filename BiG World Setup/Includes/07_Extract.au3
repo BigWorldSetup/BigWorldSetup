@@ -142,7 +142,7 @@ Func Au3ExFix($p_Num)
 	Local $Message = IniReadSection($g_TRAIni, 'Ex-Au3Extract')
 	_PrintDebug('+' & @ScriptLineNumber & ' Calling Au3ExFix')
 	$g_LogFile = $g_LogDir & '\BiG World Extract Debug.txt'
-	$g_CurrentPackages = _GetCurrent(); May be needed if BWS is restartet during fixing
+	$g_CurrentPackages = _GetCurrent(); May be needed if BWS is restarted during fixing
 	$g_Flags[0] = 1
 	_Process_SwitchEdit(0, 0)
 	GUICtrlSetData($g_UI_Interact[6][4], _GetSTR($Message, 'H1')); => help text
@@ -273,7 +273,7 @@ Func Au3ExFix($p_Num)
 			FileClose($Handle)
 		EndIf
 	EndIf
-	If $g_Flags[14] = 'BG1EE' Then
+	If StringRegExp($g_Flags[14], 'BG[1-2]EE') Then
 		If FileExists($g_BG1EEDir&'\Helarine Mod') Then
 			FileWrite($g_LogFile, '>Helarine Mod\JklHel\* .' & @CRLF)
 			_Extract_MoveMod('Helarine Mod')
@@ -286,7 +286,7 @@ Func Au3ExFix($p_Num)
 		If FileExists($g_BG1EEDir&'\kitpack.tp2') Then DirCreate($g_BG1EEDir&'\SBACKUP')
 	EndIf
 ; ==============    create the mods folder so the tp2-test will not fail   ============
-	If StringRegExp($g_Flags[14], 'BWP|BWS|BG1EE|BG2EE') And FileExists($g_GameDir&'\stratagems') Then DirCreate($g_GameDir&'\stratagems_external')
+	If StringRegExp($g_Flags[14], 'BWP|BWS|BG[1-2]EE') And FileExists($g_GameDir&'\stratagems') Then DirCreate($g_GameDir&'\stratagems_external')
 	If StringRegExp($g_Flags[14], 'BWP|BWS|BG2EE') And FileExists($g_GameDir&'\wheels') Then DirCreate($g_GameDir&'\stratagems_external')
 	If StringRegExp($g_Flags[14], 'BWP|BWS|BG2') Then
 		If FileExists($g_BG2Dir&'\setup-aurora.exe') Then DirCreate($g_BG2Dir&'\aurpatch')
@@ -568,6 +568,12 @@ Func _Extract_7z($p_File, $p_Dir, $p_String = ''); $a=archive; $b=outputdir; $c=
 		If StringInStr($Summary[$s], 'Processing archive') Then ExitLoop
 		If StringInStr($Summary[$s], 'Everything is Ok') Then $Found = 1
 	Next
+	If $Found = 1 And StringRegExp($p_File, '-master.zip\z') Then; special treatment for Git master branch archives
+		Local $Pos = StringInStr($p_File, '\', 0, -1); last '\' in folder name (ex. C:\Black Isle Games\BG2\generalized_biffing-master.zip)
+		Local $OutsideFolder = StringTrimRight(StringTrimLeft($p_File, $Pos), 4)
+		FileWrite($g_LogFile, @CRLF & $OutsideFolder & '>' & $p_Dir & '\* .' & @CRLF)
+		$Found = _Extract_MoveMod($OutsideFolder); extract inside-subfolder from outside folder
+	EndIf
 	If $Found = 1 Then
 		_Process_SetConsoleLog(@CRLF & $p_String & ' ' & _GetTR($Message, 'L2') & @CRLF); => success
 		Sleep(1000)
@@ -578,8 +584,8 @@ Func _Extract_7z($p_File, $p_Dir, $p_String = ''); $a=archive; $b=outputdir; $c=
 			ConsoleWrite('['&$s&'] '&  $Summary[$s] & @CRLF)
 		Next
 		ConsoleWrite('---------------------------' & @CRLF)
-		_Process_SetConsoleLog(_GetTR($Message, 'E1') & @CRLF & '"' & $7za & '" x "' & $p_File & '" -aoa -o"' & $p_Dir & '"' & @CRLF & _GetTR($Message, 'E2') & @CRLF); => failed due to unknow reasons
-		ConsoleWrite(_GetTR($Message, 'E1') & @CRLF & '"' & $7za & '" x "' & $p_File & '" -aoa -o"' & $p_Dir & '"' & @CRLF & _GetTR($Message, 'E2') & @CRLF); => failed due to unknow reasons
+		_Process_SetConsoleLog(_GetTR($Message, 'E1') & @CRLF & '"' & $7za & '" x "' & $p_File & '" -aoa -o"' & $p_Dir & '"' & @CRLF & _GetTR($Message, 'E2') & @CRLF); => failed due to unknown reasons
+		ConsoleWrite(_GetTR($Message, 'E1') & @CRLF & '"' & $7za & '" x "' & $p_File & '" -aoa -o"' & $p_Dir & '"' & @CRLF & _GetTR($Message, 'E2') & @CRLF); => failed due to unknown reasons
 		GUICtrlSetColor($g_UI_Interact[6][3], 0xff0000); paint the item red
 		Sleep(1000)
 		GUICtrlSetColor($g_UI_Interact[6][3], 0x000000); paint the item black again
@@ -638,7 +644,7 @@ Func _Extract_CheckMod($p_File, $p_Dir, $p_Setup); $a=file, $b=dir, $c=mod
 		$iSize = Round(FileGetSize($p_Dir & '\' & $p_File) / (1024 * 1024), 1)
 		If $iSize = '0.0' Then $iSize = '0.1'
 		GUICtrlSetData($g_UI_Static[6][2], _GetTR($Message, 'L1') & ' ' & $p_Setup & ' (' & $iSize & ' MB)'); => extracting
-		_Process_SetConsoleLog(_GetTR($Message, 'L1') & ' ' & $p_File & ' (' & $iSize & ' MB)' & @CRLF); => extratcting
+		_Process_SetConsoleLog(_GetTR($Message, 'L1') & ' ' & $p_File & ' (' & $iSize & ' MB)' & @CRLF); => extracting
 		$Success = _Extract_7z($p_Dir & '\' & $p_File, $g_GameDir, $p_File); call another function
 		Return $Success
 		;_CleanupExtract($g_CurrentPackages[$p_Dir][0]);~ fix some little glitches
@@ -707,7 +713,7 @@ Func _Extract_ListMissing()
 		Local $Dependent[1][4] = [[0, '', 0, 0]]
 		Return $Dependent
 	EndIf
-	_Process_SetScrollLog(_GetTR($Message, 'L1')); => could not extract...
+	_Process_SetScrollLog(_GetTR($Message, 'L1')); => The extraction of the following mod(s) failed:
 	For $f=1 to $Fault[0][0]
 		$ReadSection=IniReadSection($g_MODIni, $Fault[$f][0])
 		$Mod = _IniRead($ReadSection, 'Name', $Fault[$f][0])
@@ -816,10 +822,14 @@ EndFunc    ;==>_Extract_MissingBG1
 ; ---------------------------------------------------------------------------------------------
 Func _Extract_MoveMod($p_Dir)
 	Local $Success=0
-	FileMove($g_GameDir & '\' & $p_Dir & '\*', $g_GameDir & '\', 1)
 	$Files=_FileSearch($g_GameDir & '\' & $p_Dir, '*')
 	For $f=1 to $Files[0]
-		DirMove($g_GameDir & '\' & $p_Dir & '\' & $Files[$f], $g_GameDir & '\', 1)
+		If StringInStr(FileGetAttrib($g_GameDir & '\' & $p_Dir & '\' & $Files[$f]), "D") Then
+			$Success = DirMove($g_GameDir & '\' & $p_Dir & '\' & $Files[$f], $g_GameDir & '\', 1)
+		Else
+			$Success = FileMove($g_GameDir & '\' & $p_Dir & '\' & $Files[$f], $g_GameDir & '\', 1)
+		EndIf
+		If $Success = 0 Then Return 0
 	Next
 	$Success = DirRemove($g_GameDir & '\' & $p_Dir, 1)
 	Return $Success
