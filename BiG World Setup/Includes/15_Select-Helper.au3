@@ -175,7 +175,7 @@ Func _Selection_GetCurrentInstallType()
 	_PrintDebug('+' & @ScriptLineNumber & ' Calling _Selection_GetCurrentInstallType')
 	Local $Array = StringSplit(_GetTR($g_UI_Message, '2-I1'), '|'); => versions
 	Local $Num = StringSplit($g_Flags[25], '|') 	; indices of available selections (00|01|02|03|04|05 ... |1|2|3|4|5)
-											; default pre-selections at the end are represented by single digits
+													; default pre-selections at the end are represented by single digits
 	Local $String = GUICtrlRead($g_UI_Interact[2][4]) ; current compilation/selection (from drop-down menu)
 	Local $Found=0
 	For $a = 1 To $Array[0]
@@ -192,8 +192,8 @@ Func _Selection_GetCurrentInstallType()
 ;		EndIf
 	EndIf
 	Local $ClickModes = StringSplit(IniRead($g_BWSIni, 'Options', 'ClickModes', 'F,R,S,T,E'), ',') ; 'F,R,S,T,E' is default if ClickModes is missing from Setup.ini
-	If StringLen($Num[$a]) > 1 Then; if custom selection, set "click mode" to tactical
-		$g_Compilation='T'
+	If StringLen($Num[$a]) > 1 Then; if custom selection (including saved user selection), reset "click mode" to recommended
+		$g_Compilation='R'
 	Else
 		$g_Compilation=$ClickModes[$Num[$a]]
 	EndIf

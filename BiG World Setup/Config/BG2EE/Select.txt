@@ -838,6 +838,17 @@ SUB;ACBre;0?2_1;05;0111;
 SUB;ACBre;0?2_2;05;0000;
 ANN;#2 crossmod needs other NPCs installed first
 STD;ACBre;2;05;0111;
+MUC;DjinniCompanion;Init;05;0111;
+MUC;DjinniCompanion;0;05;0111;
+MUC;DjinniCompanion;1;05;0000;
+MUC;DjinniCompanion;Init;05;0000;
+MUC;DjinniCompanion;101;05;0000;
+MUC;DjinniCompanion;102;05;0000;
+MUC;DjinniCompanion;103;05;0000;
+MUC;DjinniCompanion;104;05;0000;
+MUC;DjinniCompanion;105;05;0000;
+STD;DjinniCompanion;200;05;0000;
+STD;DjinniCompanion;300;05;0111;
 ANN;--- BG2EE kit changes ---
 STD;npckit;30;12;0001;
 STD;npckit;31;12;0001;
@@ -898,18 +909,6 @@ STD;iwdification;60;10;0111;
 MUC;w_packmule;Init;10;0111;
 MUC;w_packmule;2;10;0111;
 MUC;w_packmule;3;10;0000;
-ANN;--- BG2EE smaller NPCs ---
-MUC;DjinniCompanion;Init;06;0111;
-MUC;DjinniCompanion;0;06;0111;
-MUC;DjinniCompanion;1;06;0000;
-MUC;DjinniCompanion;Init;06;0000;
-MUC;DjinniCompanion;101;06;0000;
-MUC;DjinniCompanion;102;06;0000;
-MUC;DjinniCompanion;103;06;0000;
-MUC;DjinniCompanion;104;06;0000;
-MUC;DjinniCompanion;105;06;0000;
-STD;DjinniCompanion;200;06;0000;
-ANN;DjinniCompanion portrait moved down
 ANN;--- item revisions v4 ---
 STD;item_rev;1;09;0111;
 MUC;item_rev;Init;09;0111;
@@ -1311,7 +1310,8 @@ ANN;--- SCS gameplay tweaks ---
 STD;stratagems;4000;09;1111;
 STD;stratagems;4010;09;1111;
 STD;stratagems;4020;09;1111;
-STD;stratagems;4030;09;1111;
+ANN;#4030 shapeshifting fix unnecessary for EE per http://gibberlings3.net/forums/index.php?showtopic=27681&p=240795
+ANN;stratagems;4030;09;0001;
 STD;stratagems;4040;09;1111;
 MUC;stratagems;Init;09;1111;
 MUC;stratagems;4050;09;0000;
@@ -1654,7 +1654,7 @@ STD;aTweaks;160;09;1111;
 STD;aTweaks;180;09;1111;
 STD;aTweaks;185;09;1111;
 STD;aTweaks;186;09;1111;
-STD;aTweaks;190;09;1111;
+STD;aTweaks;190;09;0001;
 STD;aTweaks;191;09;1111;
 STD;aTweaks;200;09;1111;
 STD;aTweaks;201;09;1111;
@@ -2089,7 +2089,6 @@ STD;bg1npc;4;13;1111;
 STD;bg1npc;5;13;1111;
 STD;bg1npc;6;13;1111;
 STD;bg1npc;7;13;1111;
-STD;DjinniCompanion;300;13;0111;
 MUC;gavin;Init;13;1111;
 MUC;gavin;4;13;1111;
 MUC;gavin;5;13;0000;
