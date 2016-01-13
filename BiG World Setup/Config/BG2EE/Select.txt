@@ -914,43 +914,42 @@ MUC;w_packmule;Init;10;0111;
 MUC;w_packmule;2;10;0111;
 MUC;w_packmule;3;10;0000;
 ANN;--- item revisions v4 ---
-STD;item_rev;1;09;0111;
-MUC;item_rev;Init;09;0111;
-MUC;item_rev;2;09;0011;
-MUC;item_rev;3;09;0100;
-ANN;#4, 5 removed in IRv4
+STD;item_rev;1030;09;0111;
 MUC;item_rev;Init;09;0111;
 MUC;item_rev;1040;09;0011;
 ANN;#6, 1041 removed in IRv4
 MUC;item_rev;1042;09;0100;
 ANN;#7, 8, 1043 removed in IRv4
 MUC;item_rev;Init;09;0111;
+MUC;item_rev;2;09;0011;
+MUC;item_rev;3;09;0100;
+ANN;#4, 5 removed in IRv4
+MUC;item_rev;Init;09;0111;
 MUC;item_rev;9;09;0000;
 MUC;item_rev;1101;09;0111;
 ANN;#1020 removed in IRv4
-STD;item_rev;1030;09;0111;
 ANN;#1050 removed in IRv4
 STD;item_rev;10;09;0111;
-STD;item_rev;11;09;0111;
-STD;item_rev;12;09;0111;
-ANN;#13 removed in IRv4
-MUC;item_rev;Init;09;0000;
-MUC;item_rev;15;09;0000;
-MUC;item_rev;16;09;0000;
 STD;item_rev;17;09;0111;
+STD;item_rev;1080;09;0111;
+STD;item_rev;11;09;0111;
 MUC;item_rev;Init;09;0111;
 MUC;item_rev;18;09;0000;
 MUC;item_rev;19;09;0111;
 MUC;item_rev;20;09;0000;
+STD;item_rev;1200;09;0011;
+STD;item_rev;12;09;0111;
+ANN;#13 removed in IRv4
 MUC;item_rev;Init;09;0000;
 MUC;item_rev;1090;09;0000;
 MUC;item_rev;1091;09;0000;
 MUC;item_rev;1092;09;0000;
 MUC;item_rev;1093;09;0000;
+MUC;item_rev;Init;09;0000;
+MUC;item_rev;15;09;0000;
+MUC;item_rev;16;09;0000;
 STD;item_rev;1060;09;0111;
 STD;item_rev;1070;09;0111;
-STD;item_rev;1080;09;0111;
-STD;item_rev;1200;09;0011;
 ANN;#1300 is not enabled yet in IRv4
 ANN;item_rev;1300;09;0011;
 ANN;--- NPC kit changes ---
@@ -1892,12 +1891,17 @@ SUB;eet_tweaks;3?1_1;09;0000;
 SUB;eet_tweaks;3?1_2;09;0000;
 SUB;eet_tweaks;3?1_3;09;1111;
 SUB;eet_tweaks;3?1_4;09;0000;
+SUB;eet_tweaks;3?2_10000000;09;0000;
 SUB;eet_tweaks;4;09;0011;
 SUB;eet_tweaks;4?1_1;09;0000;
 SUB;eet_tweaks;4?1_2;09;0011;
+SUB;eet_tweaks;4?1_3;09;0000;
+SUB;eet_tweaks;4?2_200000;09;0000;
 SUB;eet_tweaks;5;09;0011;
 SUB;eet_tweaks;5?1_1;09;0011;
 SUB;eet_tweaks;5?1_2;09;0000;
+SUB;eet_tweaks;5?1_3;09;0000;
+SUB;eet_tweaks;5?2_4000000;09;0000;
 ANN;-- XP for locks, traps, spells
 SUB;eet_tweaks;6;09;1111;
 SUB;eet_tweaks;6?1_1;09;0000;
@@ -1905,6 +1909,7 @@ SUB;eet_tweaks;6?1_2;09;0000;
 SUB;eet_tweaks;6?1_3;09;1111;
 SUB;eet_tweaks;6?1_4;09;0000;
 SUB;eet_tweaks;6?1_5;09;0000;
+SUB;eet_tweaks;6?2_50;09;0000;
 ANN;-- XP for killing creatures --
 SUB;eet_tweaks;7;09;1111;
 SUB;eet_tweaks;7?1_1;09;0000;
@@ -1914,6 +1919,7 @@ SUB;eet_tweaks;7?1_4;09;0000;
 SUB;eet_tweaks;7?1_5;09;0000;
 SUB;eet_tweaks;7?1_6;09;0000;
 SUB;eet_tweaks;7?1_7;09;0000;
+SUB;eet_tweaks;7?2_100;09;0000;
 ANN;-- XP for completing quests --
 SUB;eet_tweaks;8;09;1111;
 SUB;eet_tweaks;8?1_1;09;0000;
@@ -1923,6 +1929,7 @@ SUB;eet_tweaks;8?1_4;09;0000;
 SUB;eet_tweaks;8?1_5;09;0000;
 SUB;eet_tweaks;8?1_6;09;0000;
 SUB;eet_tweaks;8?1_7;09;0000;
+SUB;eet_tweaks;8?2_100;09;0000;
 ANN;-- proportional quest XP --
 STD;eet_tweaks;9;09;0011;
 ANN;-- 3E sneak attacks (flanking) --
@@ -1932,6 +1939,7 @@ SUB;eet_tweaks;11;09;1111;
 SUB;eet_tweaks;11?1_1;09;0000;
 SUB;eet_tweaks;11?1_2;09;1111;
 SUB;eet_tweaks;11?1_3;09;0000;
+SUB;eet_tweaks;11?2_50;09;0000;
 STD;eet_tweaks;12;09;1111;
 ANN;#13 no conflict with 7c#sartweak
 STD;eet_tweaks;13;09;1111;
@@ -1943,24 +1951,32 @@ SUB;eet_tweaks;16?1_2;09;0000;
 SUB;eet_tweaks;16?1_3;09;0000;
 SUB;eet_tweaks;16?1_4;09;0000;
 SUB;eet_tweaks;16?1_5;09;0000;
+SUB;eet_tweaks;16?1_6;09;0000;
+SUB;eet_tweaks;16?2_75;09;0000;
 SUB;eet_tweaks;17;09;0000;
 SUB;eet_tweaks;17?1_1;09;0000;
 SUB;eet_tweaks;17?1_2;09;0000;
 SUB;eet_tweaks;17?1_3;09;0000;
 SUB;eet_tweaks;17?1_4;09;0000;
 SUB;eet_tweaks;17?1_5;09;0000;
+SUB;eet_tweaks;17?1_6;09;0000;
+SUB;eet_tweaks;17?2_75;09;0000;
 SUB;eet_tweaks;18;09;0000;
 SUB;eet_tweaks;18?1_1;09;0000;
 SUB;eet_tweaks;18?1_2;09;0000;
 SUB;eet_tweaks;18?1_3;09;0000;
 SUB;eet_tweaks;18?1_4;09;0000;
 SUB;eet_tweaks;18?1_5;09;0000;
+SUB;eet_tweaks;18?1_6;09;0000;
+SUB;eet_tweaks;18?2_75;09;0000;
 SUB;eet_tweaks;19;09;0000;
 SUB;eet_tweaks;19?1_1;09;0000;
 SUB;eet_tweaks;19?1_2;09;0000;
 SUB;eet_tweaks;19?1_3;09;0000;
 SUB;eet_tweaks;19?1_4;09;0000;
 SUB;eet_tweaks;19?1_5;09;0000;
+SUB;eet_tweaks;19?1_6;09;0000;
+SUB;eet_tweaks;19?2_75;09;0000;
 ANN;-- no hostile charm reaction --
 STD;eet_tweaks;20;09;1111;
 SUB;eet_tweaks;21;09;1111;
@@ -1969,6 +1985,7 @@ SUB;eet_tweaks;21?1_2;09;1100;
 SUB;eet_tweaks;21?1_3;09;0000;
 SUB;eet_tweaks;21?1_4;09;0000;
 SUB;eet_tweaks;21?1_5;09;0000;
+SUB;eet_tweaks;21?2_5;09;0000;
 STD;eet_tweaks;23;13;0000;
 STD;eet_tweaks;24;13;0000;
 STD;eet_tweaks;27;09;0111;

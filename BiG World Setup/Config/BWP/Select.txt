@@ -3739,12 +3739,15 @@ SUB;eet_tweaks;3?1_1;16;0000;
 SUB;eet_tweaks;3?1_2;16;0000;
 SUB;eet_tweaks;3?1_3;16;0111;
 SUB;eet_tweaks;3?1_4;16;0000;
+SUB;eet_tweaks;3?2_10000000;16;0000;
 ANN;-- XP for locks, traps, spells
 SUB;eet_tweaks;6;16;0111;
 SUB;eet_tweaks;6?1_1;16;0000;
 SUB;eet_tweaks;6?1_2;16;0000;
 SUB;eet_tweaks;6?1_3;16;0100;
 SUB;eet_tweaks;6?1_4;16;0011;
+SUB;eet_tweaks;6?1_5;16;0000;
+SUB;eet_tweaks;6?2_50;16;0000;
 ANN;-- XP for killing creatures --
 SUB;eet_tweaks;7;16;0000;
 SUB;eet_tweaks;7?1_1;16;0000;
@@ -3753,6 +3756,8 @@ SUB;eet_tweaks;7?1_3;16;0000;
 SUB;eet_tweaks;7?1_4;16;0000;
 SUB;eet_tweaks;7?1_5;16;0000;
 SUB;eet_tweaks;7?1_6;16;0000;
+SUB;eet_tweaks;7?1_7;16;0000;
+SUB;eet_tweaks;7?2_100;16;0000;
 ANN;-- XP for completing quests --
 SUB;eet_tweaks;8;16;0000;
 SUB;eet_tweaks;8?1_1;16;0000;
@@ -3761,6 +3766,8 @@ SUB;eet_tweaks;8?1_3;16;0000;
 SUB;eet_tweaks;8?1_4;16;0000;
 SUB;eet_tweaks;8?1_5;16;0000;
 SUB;eet_tweaks;8?1_6;16;0000;
+SUB;eet_tweaks;8?1_7;16;0000;
+SUB;eet_tweaks;8?2_100;16;0000;
 ANN;-- proportional quest XP --
 STD;eet_tweaks;9;16;0011;
 ANN;-- FPS without audio skip --
@@ -3768,6 +3775,7 @@ SUB;eet_tweaks;11;16;0111;
 SUB;eet_tweaks;11?1_1;16;0000;
 SUB;eet_tweaks;11?1_2;16;0111;
 SUB;eet_tweaks;11?1_3;16;0000;
+SUB;eet_tweaks;11?2_50;16;0000;
 ANN;-- no hostile charm reaction --
 STD;eet_tweaks;20;16;0111;
 STD;Virtue;0;16;0001;
