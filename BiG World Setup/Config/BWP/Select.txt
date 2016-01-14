@@ -2834,7 +2834,7 @@ ANN;--- SCS gameplay tweaks ---
 STD;stratagems;4000;16;1111;
 STD;stratagems;4010;16;1111;
 STD;stratagems;4020;16;1111;
-STD;stratagems;4030;16;1111;
+STD;stratagems;4030;16;0000;
 STD;stratagems;4040;16;1111;
 MUC;stratagems;Init;16;1111;
 MUC;stratagems;4050;16;0000;
