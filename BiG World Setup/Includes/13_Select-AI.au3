@@ -55,7 +55,7 @@ EndFunc   ;==>_AI_GetModState
 Func _AI_GetSelect($p_Num, $p_Type=0)
 	Local $Num=0
 	If $g_CentralArray[$p_Num][12] = '' Then Return 0
-	Local $String = StringSplit($g_CentralArray[$p_Num][12], '');RSTE
+	Local $String = StringSplit($g_CentralArray[$p_Num][12], '');pre-selection bits, 0000 to 1111 (RSTE)
 	If StringInStr($g_CentralArray[$p_Num][11], 'F') Then
 		$Num=1
 	ElseIf $g_Compilation = 'R' Then

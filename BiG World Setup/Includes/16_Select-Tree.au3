@@ -414,7 +414,7 @@ Func _Tree_Populate($p_Show=1)
 				; If a mod ini has 'W' or 'M' in its comma-separated Type list, highlight the background of the mod name
 				; This is purely cosmetic to encourage users to read the mod description, which should explain the warning
 				If StringInStr($g_CentralArray[$g_TreeviewItem[$cs][0]][11], 'W') Then
-					If $g_Flags[14]='BWP' Then $Type='0000'; don't select warning mods by default for batch install
+;					If $g_Flags[14]='BWP' Then $Type='0000'; don't select warning mods by default for batch install
 					GUICtrlSetBkColor($g_TreeviewItem[$cs][0], 0xffff99); yellow background = warning
 				ElseIf StringInStr($g_CentralArray[$g_TreeviewItem[$cs][0]][11], 'M') Then
 					GUICtrlSetBkColor($g_TreeviewItem[$cs][0], 0xdddddd); light grey background = manual download
@@ -535,7 +535,7 @@ Func _Tree_Populate($p_Show=1)
 		$g_CentralArray[$g_TreeviewItem[$cs][$cc]][11] = $g_CentralArray[$g_TreeviewItem[$cs][0]][11]
 		If $g_Flags[14]='BWP' Then; batch-install
 			$g_CentralArray[$g_TreeviewItem[$cs][$cc]][12] = $Type; set pre-selection bits based on mod Type ($Type is set earlier in this function)
-		ElseIf StringRegExp($g_CentralArray[$g_TreeviewItem[$cs][0]][11], '\A[^RST]+\z') Then; mod Type does not include 'R'ecommended, 'S' Maximized or 'T'actical
+		ElseIf StringRegExp($g_CentralArray[$g_TreeviewItem[$cs][0]][11], '\A[^FRST]+\z') Then; mod Type does not include 'F'ixed, 'R'ecommended, Maximi'S'ed or 'T'actical
 			$g_CentralArray[$g_TreeviewItem[$cs][$cc]][12] = '0001'; mark the item Expert regardless of Select.txt
 		Else
 			$g_CentralArray[$g_TreeviewItem[$cs][$cc]][12] = $SelectArray[$s][4]; pre-selection bits (0000 to 1111) according to Setup.txt

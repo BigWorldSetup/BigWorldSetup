@@ -189,6 +189,10 @@ Func _Depend_PrepareBuildSentences($p_RuleLines); called by _Tree_Populate and _
 		$Return[0][0] += 1
 		$Return[$r][0] = $p_RuleLines[$r][0]; copy rule description (inikey) from input array
 		$Return[$r][1] = $p_RuleLines[$r][1]; copy rule itself (inivalue) from input array
+		If StringInStr($Return[$r][1], ' ') Then
+			_PrintDebug('! Error ! Invalid rule (whitespace) found in Connections section of '&$g_ConnectionsConfDir&'\Game.ini: '&$Return[$r][0]&'='&$Return[$r][1], 1)
+			Exit
+		EndIf
 		If StringMid($Return[$r][1], 2, 1) = 'W' Then; strip warning character (DW => D, CW => C)
 			$Return[$r][1]=StringLeft($Return[$r][1], 1)&StringMid($Return[$r][1], 3)
 			$Return[$r][4]=1; remember that this was a warning rule (user-ignorable)
@@ -469,9 +473,10 @@ Func _Depend_AutoSolve($p_Type, $p_State, $p_skipWarnings = 1)
 			If $g_ActiveConnections[$a][0] <> $p_Type Then ContinueLoop; if the connection isn't the type we are looking for, skip it
 			Local $RuleID=$g_ActiveConnections[$a][1]; else, save the current connection's associated rule ID (index to $g_Connections)
 			If $p_skipWarnings And $g_Connections[$RuleID][4] = 1 Then ContinueLoop; optionally, skip if the rule is user-ignorable
-			Local $SubGroup=$g_ActiveConnections[$a][3]; save the current connection's 'and-group' number (zero unless the rule contains '&')
+			Local $SubGroup=0
 			If $p_Debug Then FileWrite($g_LogFile, @CRLF&'outer loop $a='&$a&' '&$g_ActiveConnections[$a][0]&' '&$g_ActiveConnections[$a][1]&' '&$g_ActiveConnections[$a][2]&' '&$SubGroup&' ~ '&$g_CentralArray[$g_ActiveConnections[$a][2]][4]&'('&$g_CentralArray[$g_ActiveConnections[$a][2]][3]&') rule('&$RuleID&'~'&$g_Connections[$RuleID][4]&')='&$g_Connections[$RuleID][1]&@CRLF)
 			If $p_Type <> 'C' Then $a -= 1; for any connection type except conflict, back-step so the inner loop starts from current mod/component
+			; because if it is a conflict, we never want to disable the first conflict (that's the preferred one), but if it is a dependency, we might
 			While 1; INNER LOOP - iterate over following active connections (other mods/components)
 				$a += 1; advance inner loop
 				If $a > $g_ActiveConnections[0][0] Then ExitLoop ; we reached the end of the active connections array
@@ -482,7 +487,8 @@ Func _Depend_AutoSolve($p_Type, $p_State, $p_skipWarnings = 1)
 				EndIf
 				If $p_Debug Then FileWrite($g_LogFile, 'inner loop $a='&$a&' '&$g_ActiveConnections[$a][0]&' '&$g_ActiveConnections[$a][1]&' '&$g_ActiveConnections[$a][2]&' '&$g_ActiveConnections[$a][3]&' ~ '&$g_CentralArray[$g_ActiveConnections[$a][2]][4]&'('&$g_CentralArray[$g_ActiveConnections[$a][2]][3]&')'&@CRLF)
 				If $g_ActiveConnections[$a][0] <> $p_Type Then ContinueLoop; skip connections of different types than the type we are looking for
-				If $p_Type = 'C' And $SubGroup <> 0 And $SubGroup = $g_ActiveConnections[$a][3] Then ContinueLoop; if multiple sub-groups, skip conflicts in same sub-group
+				If $p_Type = 'C' And $SubGroup <> 0 And $SubGroup = $g_ActiveConnections[$a][3] Then ContinueLoop; if multiple sub-groups, ignore conflicts within same sub-group
+				If $p_Type = 'DO' And $SubGroup <> 0 And $SubGroup = $g_ActiveConnections[$a][3] Then ContinueLoop; after a change, skip to next sub-group if any
 				If $p_Debug Then FileWrite($g_LogFile, 'inner loop attempting to change status'&@CRLF)
 				; if we reached this point, we found a connection for the 'saved' rule that has the type we want
 				If Not _Depend_SetModState($g_ActiveConnections[$a][2], $p_State) then ExitLoop; activate or deactivate the mod/component
@@ -495,7 +501,7 @@ Func _Depend_AutoSolve($p_Type, $p_State, $p_skipWarnings = 1)
 					$Return[$Return[0][0]][3]=$g_CentralArray[$g_ActiveConnections[$a][2]][3]; record component description
 				EndIf
 				$Restart=1; we made a change, so we will need to rebuild $g_ActiveConnections and loop around again
-				If $p_Type = 'DO' And $SubGroup <> 0 And $SubGroup = $g_ActiveConnections[$a][3] Then ContinueLoop; after a change, skip to next sub-group if any
+				$SubGroup=$g_ActiveConnections[$a][3]; save the changed connection's 'sub-group' number for skipping purposes
 				If $p_Debug Then FileWrite($g_LogFile, 'inner loop did not skip'&@CRLF)
 			WEnd; INNER LOOP
 		Next; OUTER LOOP
@@ -553,7 +559,7 @@ Func _Depend_AutoSolveWarning($p_Type, $p_Force=0, $p_skipWarnings=1)
 	EndIf
 	If $Output <> '' Then
 		If $p_Force = 1 Then
-			$Output =  _GetTR($Message, 'L6') & '|' & $Output; => auto-solve forced
+			$Output =  _GetTR($Message, 'L6') & '||' & $Output; => auto-solve forced
 		Else
 			$Output &= _GetTR($Message, 'L5'); => proceed or go back?
 		EndIf
@@ -577,7 +583,7 @@ EndFunc   ;==>_Depend_AutoSolveWarning
 ; ---------------------------------------------------------------------------------------------
 Func _Depend_Contextmenu()
 	Local $MenuItem[10], $Message = IniReadSection($g_TRAIni, 'DP-Msg')
-	Local $oldState = $g_Compilation; save current click-setting
+	Local $ClickSetting = $g_Compilation; save current click-setting
 	$g_Compilation = 'E'; temporarily set click-setting to Expert
 	GUISetState(@SW_DISABLE); disable the GUI itself while selection is pending to avoid unwanted treeview-changes
 	$g_UI_Menu[0][4] = GUICtrlCreateContextMenu($g_UI_Menu[0][6]); create a context-menu on the clicked item
@@ -613,14 +619,15 @@ Func _Depend_Contextmenu()
 	ElseIf StringRegExp($g_UI_Menu[0][7], 'D(M|O)') Then; missing dependencies
 		$MenuItem[0] = GUICtrlCreateMenuItem(StringFormat(_GetTR($Message, 'M5'), $MenuLabel), $g_UI_Menu[0][4]); => install the item
 	EndIf
-	If $g_Connections[$g_UI_Menu[0][8]][4]=1 Then; this is rather a notice/warning than a conflict
+	If $g_Connections[$g_UI_Menu[0][8]][4]=1 Or $g_UI_Menu[0][7] = 'C' Then; if this is a dependency/conflict warning or a normal conflict
 		GUICtrlCreateMenuItem('', $g_UI_Menu[0][4])
 		$MenuItem[6] = GUICtrlCreateMenuItem(_GetTR($Message, 'M8'), $g_UI_Menu[0][4]); => ignore this problem
-	EndIf
+	EndIf; we are not allowing users to ignore normal dependency rules (D without W)
 	__ShowContextMenu($g_UI[0], $g_UI_Menu[0][6], $g_UI_Menu[0][4])
 ; ---------------------------------------------------------------------------------------------
 ; Create another Msg-loop, since the GUI is disabled and only the menuitems should be available
 ; ---------------------------------------------------------------------------------------------
+	$g_Flags[9] = 1; window is locked
 	Local $Msg
 	While 1
 		$Msg = GUIGetMsg()
@@ -657,9 +664,19 @@ Func _Depend_Contextmenu()
 		ElseIf $Msg =  $MenuItem[5] And $MenuItem[5] <> '' Then
 			_Depend_SetModState(_AI_GetStart($g_UI_Menu[0][9], '-'), 2); mod: remove conflicts > itself (local)
 			_Depend_GetActiveConnections()
-		ElseIf $Msg =  $MenuItem[6] And $MenuItem[6] <> '' Then
-			$g_Connections[$g_UI_Menu[0][8]][3]= 'W'&$g_Connections[$g_UI_Menu[0][8]][3]; make the warning disappear
-			_Depend_GetActiveConnections()
+		ElseIf $Msg =  $MenuItem[6] And $MenuItem[6] <> '' Then; user wants to ignore this warning
+			If $g_Connections[$g_UI_Menu[0][8]][4] = 0 Then; rule is not a notice/warning
+				Local $Answer = _Misc_MsgGUI(3, _GetTR($g_UI_Message, '0-T1'), _GetTR($Message, 'L7'), 2, _GetTR($g_UI_Message, '0-B1'), _GetTR($g_UI_Message, '0-B2')); => Warning icon / Warning title / You have chosen to ignore a rule that is NOT marked as notice/warning. This could break the game! Unless you know exactly what you are doing, you should not ignore this rule. Are you absolutely sure you want to ignore this rule? / No / Yes
+				If $Answer = 1 Then ExitLoop; 1 = No, 2 = Yes
+				If $ClickSetting <> 'E' Then
+					_Misc_MsgGUI(4, _GetTR($g_UI_Message, '0-T1'), _GetTR($Message, 'L8'), 1, _GetTR($g_UI_Message, '8-B2')); => Error icon / Warning title / You must go back and change your click-properties to Expert before you can ignore rules that are not marked as notice/warning. / Cancel
+					ExitLoop
+				Else
+					FileWrite($g_LogFile, 'WARNING ! User chose to ignore the following rule: '&$g_Connections[$g_UI_Menu[0][8]][3]&@CRLF)
+				EndIf
+			EndIf
+			$g_Connections[$g_UI_Menu[0][8]][3]= 'W'&$g_Connections[$g_UI_Menu[0][8]][3]; mark the rule as ignored
+			_Depend_GetActiveConnections(); rebuild active connections (this rule will be skipped)
 			ExitLoop
 		ElseIf _IsPressed('01', $g_UDll) Then; react to a left mouseclick outside of the menu
 			While _IsPressed('01', $g_UDll)
@@ -674,10 +691,11 @@ Func _Depend_Contextmenu()
 		EndIf
 		Sleep(10)
 	WEnd
-	$g_Compilation = $oldState; restore saved click-setting
+	$g_Compilation = $ClickSetting; restore saved click-setting
 	GUISetState(@SW_ENABLE); enable the GUI again
 	GUICtrlDelete($g_UI_Menu[0][4])
-	$g_Flags[16] = 0
+	$g_Flags[16] = 0; 16=admin-lv has focus/treeicon clicked
+	$g_Flags[9] = 0; 9=window is locked
 EndFunc   ;==>_Depend_Contextmenu
 
 ; ---------------------------------------------------------------------------------------------
@@ -719,24 +737,51 @@ EndFunc   ;==>_Depend_CreateSortedOutput
 ; ---------------------------------------------------------------------------------------------
 ; Handle dependency rules without a ':' delimiter
 ; This is usually for rules like D:modA(1|2)&modB(3)|modC(-)
-; We interpret this to mean that all parts are "needed" ONLY if at least one part is active
-; Effectively this is equivalent to D:modA(1|2):modB(3)|modC(-) and D:modB(3)|modC(-):modA(1|2)
-; Therefore, to avoid duplication of parsing logic, we reuse the advanced parsing method
-; Dependency rules that do not contain any '&' will be silently ignored (e.g., D:a or D:a|b)
+;   We interpret these to mean that ALL parts are "needed" ONLY if at least one part is ACTIVE
+;     The example is equivalent to D:modA(1|2):modB(3)|modC(-) and D:modB(3)|modC(-):modA(1|2)
+;     Therefore, to avoid duplication of parsing logic, we reuse the advanced parsing method
+; Another case is dependency rules without '&' that contain '|', like D:a|b
+;   For these rules, we interpret the rule to mean that at least one part is ALWAYS "needed"
+; The third case is dependency rules without '&' or '|' - a single mod/component
+;   Such rules are not considered valid so we print an error and exit BWS in this case
 ; ---------------------------------------------------------------------------------------------
 Func _Depend_GetActiveDependAll($p_String, $p_RuleID, $p_Show)
-	Local $Return=_Depend_ItemGetSelected($p_String)
-	If $Return[0][1] = 0 or $Return[0][1] = $Return[0][0] Then Return; nothing selected or all selected
 	;check for a special case - game type can also be a dependency satisfying an OR condition
-	If StringRegExp($p_String, '\x7c('&$g_Flags[14]&')\b') Then Return; found OR '|' followed by game type in dependencies -> do nothing
+	If StringRegExp($p_String, '\x7c('&$g_Flags[14]&')\b') Then Return; found OR '|' followed by current game type -> do nothing
 	;FileWrite($g_LogFile, 'DependAll before = ' & $p_String & @CRLF)
-	;eliminate any unresolved mod/component IDs from the rule (i.e., purged/missing translation/invalid)
+	If Not StringRegExp($p_String, '\x7c|\x26') Then; rule has neither '|' nor '&' (we must check this before we remove purged mods/components)
+		_PrintDebug('! Error ! Invalid rule (only one mod/component) found in Connections section of '&$g_ConnectionsConfDir&'\Game.ini: '&$g_Connections[$p_RuleID][0]&'='&$g_Connections[$p_RuleID][1], 1)
+		Exit
+	EndIf
+	;eliminate from the rule any mod/components that haven't been converted to IDs (i.e., purged/missing translation/invalid)
 	$p_String=StringRegExpReplace($p_String, '(?i)(\A|\x7c|\x26)[[:alnum:]_]+\x28.*\x29|[[:alnum:]_]+\x28.*\x29(\x7c|\x26|\z)', ''); x7c = |, x26 = &, x28/29 = ()
+	If $p_String = '' Then Return; rule was completely purged -> not applicable to this game type
 	;FileWrite($g_LogFile, 'DependAll after = ' & $p_String & @CRLF)
+	If Not StringInStr($p_String, '&') And StringInStr($p_String, '|') Then; rule has only '|' -> at least one part is ALWAYS "needed"
+		Local $ModComps=StringSplit($p_String, '|'); get array of individual mods/components separated by '|'
+		For $m = 1 to $ModComps[0]; we are looking for any ACTIVE mod
+			Local $ModCompState=_Depend_ItemGetSelected($ModComps[$m])
+			If $ModCompState[0][1] <> 0 Then Return; if we found an ACTIVE mod/component -> this rule is satisfied
+		Next
+		Local $Prefix = '', $Warning = ''
+		If $g_Connections[$p_RuleID][4]=1 Then $Warning=' **'; the rule we are checking is a 'DW'
+		For $m = 1 to $ModComps[0]; else, we found no ACTIVE mods, so we need to add all as 'optional' dependencies
+			If $p_Show=1 Then GUICtrlCreateListViewItem($Prefix & $g_CentralArray[$ModComps[$m]][4] & $Warning & '|' & $g_CentralArray[$ModComps[$m]][3], $g_UI_Interact[10][1]); mod name, component description
+			If $p_Show=1 Then GUICtrlSetBkColor(-1, 0xFFA500)
+			$Prefix = '/ '
+			_Depend_ActiveAddItem('DO', $p_RuleID, $ModComps[$m], 1); only one subgroup so autosolve will change first only
+		Next
+		Return; we are done with this rule type
+	EndIf
 	Local $Parts=StringSplit($p_String, '&'); split the rule into '&'-subsets
 	If @error Then Return; if no '&' in the rule then do nothing
+	If $Parts[0] = 1 Then Return; only one part left in the rule (other parts were purged) -> rule is not applicable
+	Local $Return=_Depend_ItemGetSelected($p_String)
+	If $Return[0][1] = 0 Then Return; no parts are active -> rule is not applicable
+	If $Return[0][1] = $Return[0][0] Then Return; all selected -> rule is satisfied
+	; rule has only '&' -> ALL parts are "needed" ONLY if at least one part is ACTIVE
 	For $SubGroup = 1 to $Parts[0]; this $SubGroup number is also used for adding dependency connections
-		Local $ThisPart=_Depend_ItemGetSelected($Parts[$SubGroup]); this is inefficient but simpler than reusing $Return
+		Local $ThisPart=_Depend_ItemGetSelected($Parts[$SubGroup])
 		If $ThisPart[0][1] > 0 Then; at least one active mod/component in this part -> call _Depend_GetActiveDependAdv
 			; for each part that is active, we treat it like an advanced rule of the form D:ThisPart:OtherParts
 			; 1&2&3&4 -> 1:2&3&4, 2:1&3&4, 3:1&2&4, 4:1&2&3
@@ -752,7 +797,7 @@ Func _Depend_GetActiveDependAll($p_String, $p_RuleID, $p_Show)
 			;_PrintDebug('_Depend_GetActiveDependAll called _Depend_GetActiveDependAdv('&$SubRule&') for original rule '&$p_String)
 		EndIf
 	Next
-	Return; disable all code after this line
+	Return; disable all code after this line -- old implementation
 	Local $Prefix = ''
 	Local $Warning = ''
 	If $g_Connections[$p_RuleID][4]=1 Then $Warning=' **'
@@ -886,7 +931,7 @@ Func _Depend_GetActiveDependAdv($p_String, $p_RuleID, $p_Show)
 								EndIf
 							ElseIf $inActiveCount > 1 Then; if it is one of multiple missing dependencies in this '&'-subset, it is OPTIONAL
 								If $InSelection Then; for OPTIONAL connections, skip if not available for selection due to purge/translation/invalid
-									_Depend_ActiveAddItem('DO', $p_RuleID, $ThisPart[$t][0], $SubGroup); add OPTIONAL dependency for this mod/component									
+									_Depend_ActiveAddItem('DO', $p_RuleID, $ThisPart[$t][0], $SubGroup); add OPTIONAL dependency for this mod/component
 									If $p_Show = 1 Then									
 										GUICtrlCreateListViewItem($Prefix&$ModName&'|'&$CompDesc, $g_UI_Interact[10][1])
 										GUICtrlSetBkColor(-1, 0xFFA500)
@@ -1187,7 +1232,7 @@ Func _Depend_ResolveGui($p_Solve=0)
 		_Depend_AutoSolve('DS', 2, 1); disable mods/components with missing dependencies (but skip warning rules)
 	EndIf
 	If $g_ActiveConnections[0][0] <> 0 Then _Misc_SetTab(10); dependencies-tab
-	$g_Flags[16] = 0
+	$g_Flags[16] = 0; 16=admin-lv has focus/treeicon clicked
 	While 1
 		If $g_ActiveConnections[0][0] = 0 Then
 			_Misc_SetTab(2); back to folder-tab
@@ -1353,7 +1398,7 @@ Func _Depend_WM_Notify($p_Handle, $iMsg, $iwParam, $ilParam)
 		Case $g_UI_Handle[1]
 			Switch $iCode
 				Case $NM_RCLICK ; Sent by a list-view control when the user clicks an item with the right mouse button
-					$g_Flags[16] = 1; enable the building of menu-entries now
+					$g_Flags[16] = 1; enable the building of menu-entries now	($g_Flags[16]=admin-lv has focus/treeicon clicked)
 					$tInfo = DllStructCreate($tagNMITEMACTIVATE, $ilParam)
 					$Index = DllStructGetData($tInfo, "Index"); get the zero-based index
 					$g_UI_Menu[0][6] = GUICtrlRead($g_UI_Interact[10][1], $Index); get the handle
