@@ -14,7 +14,8 @@
 ;~ $g_CentralArray is an array of all mods/components from Select.txt, with the following fields:
 ;     0: mod setup-name
 ;     1: tag (theme/category number)
-;     2: '-' for the headline (top level) of a mod, '+' for the top of a multiple choice menu, '!' for a chapter headline
+;     2: '-' for the headline (top level) of a mod, '+' for the top of a multiple choice menu,
+;		 '!' for a chapter headline, '####' comp-num for a component
 ;     3: component description (if 2 is '-' then this also will be '-')
 ;     4: name of the mod (from modname.ini) or '' if removed due to purge/translation
 ;     5: tree-view-item GUI handle
@@ -1443,3 +1444,17 @@ Func _Depend_WM_Notify($p_Handle, $iMsg, $iwParam, $ilParam)
 	EndSwitch
 	Return $GUI_RUNDEFMSG
 EndFunc   ;==>_Depend_WM_Notify
+
+; ---------------------------------------------------------------------------------------------
+; Write dummy WeiDU components to a tp2 file so they will appear in users' WeiDU.log
+; ---------------------------------------------------------------------------------------------
+Func _Depend_LogToWeiDU($p_File)
+	Local $c = 0
+	For $r = 1 to $g_Connections[0][0]; process all rules for the current game type
+		If StringLeft($g_Connections[$r][3], 1) = 'W' Then; this rule was ignored by the user
+			FileWriteLine($p_File, 'BEGIN ~User Ignored Rule: '&$g_Connections[$r][1]&'~')
+			$c += 1; count number of components added to TP2 file
+		EndIf
+	Next
+	Return $c; return number of components added to TP2 file
+EndFunc   ;==>_Depend_IgnoredRulesList

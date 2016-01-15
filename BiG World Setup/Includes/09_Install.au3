@@ -1,5 +1,7 @@
 #include-once
 
+Global $g_WeiDUQuickLog = ''; '--quick-log'
+
 ; ---------------------------------------------------------------------------------------------
 ; Set some options, start test-run, exit if not successfull, make WeiDU-backups
 ; ---------------------------------------------------------------------------------------------
@@ -18,6 +20,7 @@ Func Au3PrepInst($p_Num = 0)
 		IniWrite($g_BG2Dir & '\baldur.ini', 'Program Options', 'Logging On', 1); enable crash-logs
 		IniWrite($g_BG2Dir & '\baldur.ini', 'Program Options', 'Debug Mode', 1); enable cheats
 		IniWrite($g_BG2Dir & '\baldur.ini', 'Game Options', 'Memory Access', 100); enable blood
+		IniWrite($g_BG2Dir & '\baldur.ini', 'Game Options', 'Use 3d Animations', 1); enable 3D animations
 ; entries from Ini_Settings.bat
 #cs
 		IniWrite($g_BG2Dir & '\baldur.ini', 'Program Options', 'Path Search Nodes', 400000)
@@ -317,7 +320,7 @@ Func Au3Install($p_Num = 0)
 			EndIf
 			$Group = StringTrimLeft($Group, 1)
 			$Setup[0]='Setup-'&$Setup[2]&'.exe'
-			$InstallString=$Setup[0]&' --no-exit-pause --noautoupdate --language '&StringTrimLeft($Setup[5], 3) &' --skip-at-view --quick-log --force-install-list '&$Group&' --logapp'
+			$InstallString=$Setup[0]&' --no-exit-pause --noautoupdate --language '&StringTrimLeft($Setup[5], 3) &' --skip-at-view '&$g_WeiDUQuickLog&' --force-install-list '&$Group&' --logapp'
 			_Install_ManageDebug($Setup[2], 1); clean old debug
 			_Install_UpdateWeiDU($Setup[0], $Ref)
 			_Install_SetPrompt($Setup[9], StringTrimLeft($Setup[5], 3)); adjust keywords for debugging-output
@@ -329,7 +332,7 @@ Func Au3Install($p_Num = 0)
 				$Setup[3]=$Test[$t]
 				$Setup[8]=IniRead($g_GConfDir&'\WeiDU-'&StringLeft($Setup[5],2)&'.ini', $Setup[2], '@' & $Setup[3], ''); component-description
 				If _Install_TestInstalled($Setup, $DebugTest, $Logic, $t, $TMessage) = 1 Then; user selected to try again
-					$InstallString = $Setup[0]&' --no-exit-pause --noautoupdate --language '&StringTrimLeft($Setup[5], 3) &' --skip-at-view --quick-log --force-uninstall-list '&$Group&' --logapp'; uninstall group
+					$InstallString = $Setup[0]&' --no-exit-pause --noautoupdate --language '&StringTrimLeft($Setup[5], 3) &' --skip-at-view '&$g_WeiDUQuickLog&' --force-uninstall-list '&$Group&' --logapp'; uninstall group
 					_Process_Run($InstallString, $Setup[0])
 					While 1; search for for first installed component
 						$Split=StringSplit($Array[$a], ';')
@@ -437,16 +440,16 @@ Func Au3Install($p_Num = 0)
 			$Setup[0]='Setup-'&$Setup[2]&'.exe'
 			If $Sub = 0 Then
 				If $Setup[2] = 'BGT' Then; add bg1-param
-					$InstallString=$Setup[0]&' --no-exit-pause --noautoupdate --language '&StringTrimLeft($Setup[5], 3) &' --skip-at-view --quick-log --args-list ops "'&$g_BG1Dir&'" --force-install-list '&$Setup[3]&' --logapp'
+					$InstallString=$Setup[0]&' --no-exit-pause --noautoupdate --language '&StringTrimLeft($Setup[5], 3) &' --skip-at-view '&$g_WeiDUQuickLog&' --args-list ops "'&$g_BG1Dir&'" --force-install-list '&$Setup[3]&' --logapp'
 				ElseIf $Setup[2] = 'BGT-NPCSound' Then; hide the output
-					$InstallString=$Setup[0]&' --no-exit-pause --noautoupdate --language '&StringTrimLeft($Setup[5], 3) &' --skip-at-view --quick-log --force-install-list '&$Setup[3]&' --logapp 2>nul 1>nul'
+					$InstallString=$Setup[0]&' --no-exit-pause --noautoupdate --language '&StringTrimLeft($Setup[5], 3) &' --skip-at-view '&$g_WeiDUQuickLog&' --force-install-list '&$Setup[3]&' --logapp 2>nul 1>nul'
 				ElseIf $Setup[2] = 'EET' Then; add bg1ee-param
-					$InstallString=$Setup[0]&' --no-exit-pause --noautoupdate --language '&StringTrimLeft($Setup[5], 3) &' --skip-at-view --quick-log --args-list p "'&$g_BG1EEDir&'" --force-install-list '&$Setup[3]&' --logapp'
+					$InstallString=$Setup[0]&' --no-exit-pause --noautoupdate --language '&StringTrimLeft($Setup[5], 3) &' --skip-at-view '&$g_WeiDUQuickLog&' --args-list p "'&$g_BG1EEDir&'" --force-install-list '&$Setup[3]&' --logapp'
 				Else
-					$InstallString=$Setup[0]&' --no-exit-pause --noautoupdate --language '&StringTrimLeft($Setup[5], 3) &' --skip-at-view --quick-log --force-install-list '&$Setup[3]&' --logapp'
+					$InstallString=$Setup[0]&' --no-exit-pause --noautoupdate --language '&StringTrimLeft($Setup[5], 3) &' --skip-at-view '&$g_WeiDUQuickLog&' --force-install-list '&$Setup[3]&' --logapp'
 				EndIf
 			Else
-				$InstallString='type BWS_SUB.nul | '&$Setup[0]&' --no-exit-pause --noautoupdate --language '&StringTrimLeft($Setup[5], 3) &' --skip-at-view --quick-log --force-install-list '&$Setup[3]&' --logapp'
+				$InstallString='type BWS_SUB.nul | '&$Setup[0]&' --no-exit-pause --noautoupdate --language '&StringTrimLeft($Setup[5], 3) &' --skip-at-view '&$g_WeiDUQuickLog&' --force-install-list '&$Setup[3]&' --logapp'
 			EndIf
 			_Install_UpdateWeiDU($Setup[0], $Ref)
 			_Install_ManageDebug($Setup[2], 1); clean old debug
@@ -480,7 +483,7 @@ Func Au3Install($p_Num = 0)
 		EndIf
 	Next
 	$g_FItem = 1
-	_Install_CreateTP2Entry('BWS_Final', 'Make quick-logged WeiDU-entries visible'); use a dummy install/uninstall without --quick-log to add details from previous WeiDU setups that used --quick-log
+	_Install_CreateTP2Entry('BWS_Final', 'Make quick-logged WeiDU-entries visible'); use a dummy install/uninstall without '&$g_WeiDUQuickLog&' to add details from previous WeiDU setups that used '&$g_WeiDUQuickLog&'
 	_Process_Run('WeiDU.exe "Setup-BWS_Final.tp2" --no-exit-pause --game "." --language 0 --force-uninstall-list 0 --log "Setup-BWS_Final.Debug"', 'WeiDU.exe')
 	FileClose(FileOpen($g_GameDir&'\WeiDU\BWP_Backup\0\MAPPINGS.0', 9))
 	If StringInStr($g_GConfDir, 'BG2EE') And $g_Flags[14] = 'BG1EE' Then; this is the end of the BG1EE install, now install BG2EE and import BG1EE with EET
@@ -837,6 +840,7 @@ EndFunc   ;==>_Install_CompressLog
 ; ---------------------------------------------------------------------------------------------
 Func _Install_CreateTP2Entry($p_Setup, $p_Text, $p_Process=1, $p_File=''); $a=tp2-name; $b=component-name; $c=execute, $d=at_now-cmd
 	Local $Handle=FileOpen($g_GameDir&'\Setup-'&$p_Setup&'.tp2', 2) ;overwrite
+	Local $c=0
 	If $Handle=-1 Then
 		$Type=StringRegExpReplace($g_Flags[14], '(?i)BWS|BWP', 'BG2')
 		_Misc_MsgGUI(4, _GetTR($g_UI_Message, '0-T1'), StringFormat(_GetTR($g_UI_Message, '8-L2'), $Type, @AutoItExe), 1, _GetTR($g_UI_Message, '8-B3')); => don't have write-permission -> exit
@@ -853,6 +857,31 @@ Func _Install_CreateTP2Entry($p_Setup, $p_Text, $p_Process=1, $p_File=''); $a=tp
 		FileWriteLine($Handle, '    REPLACE_TEXTUALLY ~0[ %TAB%]+ANYONE~ ~~')
 		FileWriteLine($Handle, '  BUT_ONLY')
 		FileWriteLine($Handle, 'END')
+		If $g_Compilation = 'E' Then
+			FileWriteLine($Handle, 'BEGIN "Expert Click-Properties Selected"')
+			$c += 1
+		EndIf
+		$c += _Depend_LogToWeiDU($Handle)
+		Local $LoggedMods = ''
+		For $w = $g_CentralArray[0][1] To $g_CentralArray[0][0]
+			If GUICtrlRead($w) = 0 Then ContinueLoop; not sure why we need this
+			If $g_CentralArray[$w][9] = 0 Then ContinueLoop; skip not selected
+			If $g_CentralArray[$w][2] = '-' Then; this is a mod headline
+				If $g_CentralArray[$w][11] = 'E' Then
+					; Only add mod once even if it appears in multiple theme sections
+					If Not StringInStr($LoggedMods, '|'&$g_CentralArray[$w][0]&'|') Then
+						$LoggedMods &= '|'&$g_CentralArray[$w][0]&'|'; remember this line
+						FileWriteLine($Handle, 'BEGIN ~Expert Mod In Selection: '&$g_CentralArray[$w][0]&'~')
+						$c += 1
+					EndIf
+				EndIf
+			ElseIf StringInStr($LoggedMods, '|'&$g_CentralArray[$w][0]&'|') Then
+				ContinueLoop; we already logged the mod headline, so skip its components
+			ElseIf $g_CentralArray[$w][12] = '0001' Then; this is an Expert pre-selection-only component
+				FileWriteLine($Handle, 'BEGIN ~Expert Component In Selection: '&$g_CentralArray[$w][0]&'('&$g_CentralArray[$w][2]&')~')
+				$c += 1
+			EndIf
+		Next
 		FileClose($Handle)
 		RunWait(@ComSpec&' /c echo BEGIN "'&$p_Text&' (installation date %DATE%)" >> Setup-BWS.tp2', $g_gameDir, @SW_HIDE)
 	Else ;important assumption -- Setup-BWS.tp2 will never have $p_File <> '' -- if it does, this function needs rewrite
@@ -861,7 +890,11 @@ Func _Install_CreateTP2Entry($p_Setup, $p_Text, $p_Process=1, $p_File=''); $a=tp
 		FileClose($Handle)
 	EndIf
 	If Not FileExists($g_GameDir&'\WeiDU.log') Then FileClose(FileOpen($g_GameDir&'\WeiDU.log', 2))
-	If $p_Process = 1 Then _Process_Run('WeiDU.exe "Setup-'&$p_Setup&'.tp2" --game "." --language 0 --force-install-list 0 --quick-log --log "Setup-'&$p_Setup&'.Debug"', 'WeiDU.exe')
+	Local $Components = '0'
+	For $x = 1 To $c
+		$Components &= ' '&$x
+	Next
+	If $p_Process = 1 Then _Process_Run('WeiDU.exe "Setup-'&$p_Setup&'.tp2" --game "." --language 0 --force-install-list '&$Components&' '&$g_WeiDUQuickLog&' --log "Setup-'&$p_Setup&'.Debug"', 'WeiDU.exe')
 EndFunc   ;==>_Install_CreateTP2Entry
 
 ; ---------------------------------------------------------------------------------------------

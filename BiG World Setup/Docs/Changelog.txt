@@ -1000,3 +1000,6 @@ Updated: Documentation. Speedup tree creation process.
 Added: Added context menu option to visit a mods download link manually from the Selection screen. [_Selection_Download_Manually]
 20151129 - Updated by AL|EN
 Added: simple git-based auto-update
+20160114 - Updated by agb1
+Removed: disabled WeiDU quick-logging during install
+Added: log selected expert mods and components and user-ignored rules via setup-bws.tp2

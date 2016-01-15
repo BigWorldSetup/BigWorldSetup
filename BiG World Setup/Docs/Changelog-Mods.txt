@@ -526,3 +526,4 @@ Updated: Almateria's Restoration Project v8.2.3, BP-BGT Worldmap v10.2b1, Deidre
 20150812 - Updated by Silent
 Fixed: Adjusted dependencies.
 Updated: Return to Faerun v1.07 beta, Sandrah NPC v1.07 beta, WTP Familiars for Throne of Bhaal v1.5.
+20160114 - Updated by agb1
