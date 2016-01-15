@@ -867,7 +867,7 @@ Func _Install_CreateTP2Entry($p_Setup, $p_Text, $p_Process=1, $p_File=''); $a=tp
 			If GUICtrlRead($w) = 0 Then ContinueLoop; not sure why we need this
 			If $g_CentralArray[$w][9] = 0 Then ContinueLoop; skip not selected
 			If $g_CentralArray[$w][2] = '-' Then; this is a mod headline
-				If $g_CentralArray[$w][11] = 'E' Then
+				If StringInStr($g_CentralArray[$w][11], 'E') And Not StringRegExp($g_CentralArray[$w][11], '[FRST]') Then
 					; Only add mod once even if it appears in multiple theme sections
 					If Not StringInStr($LoggedMods, '|'&$g_CentralArray[$w][0]&'|') Then
 						$LoggedMods &= '|'&$g_CentralArray[$w][0]&'|'; remember this line
@@ -878,8 +878,10 @@ Func _Install_CreateTP2Entry($p_Setup, $p_Text, $p_Process=1, $p_File=''); $a=tp
 			ElseIf StringInStr($LoggedMods, '|'&$g_CentralArray[$w][0]&'|') Then
 				ContinueLoop; we already logged the mod headline, so skip its components
 			ElseIf $g_CentralArray[$w][12] = '0001' Then; this is an Expert pre-selection-only component
-				FileWriteLine($Handle, 'BEGIN ~Expert Component In Selection: '&$g_CentralArray[$w][0]&'('&$g_CentralArray[$w][2]&')~')
-				$c += 1
+				If Not StringInStr($LoggedMods, '|'&$g_CentralArray[$w][0]&'|') Then
+					FileWriteLine($Handle, 'BEGIN ~Expert Component In Selection: '&$g_CentralArray[$w][0]&'('&$g_CentralArray[$w][2]&')~')
+					$c += 1
+				EndIf
 			EndIf
 		Next
 		FileClose($Handle)

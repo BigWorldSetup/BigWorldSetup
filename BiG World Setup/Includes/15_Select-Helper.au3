@@ -154,17 +154,32 @@ EndFunc    ;==>_Selection_ContextMenu
 ; ---------------------------------------------------------------------------------------------
 Func _Selection_ExpertWarning()
 	_PrintDebug('+' & @ScriptLineNumber & ' Calling _Selection_ExpertWarning')
-	Local $Warning
+	Local $Expert, $Warning
 	For $w = $g_CentralArray[0][1] To $g_CentralArray[0][0]
-		If $g_CentralArray[$w][2] <> '-' Then ContinueLoop; only got interest in headlines
-		If GUICtrlRead($w) = 0 Then ContinueLoop
-		If $g_CentralArray[$w][9] <> 0 And ($g_CentralArray[$w][11] = 'E' Or StringInStr($g_CentralArray[$w][11], 'W')) Then
-			; Only add mod once even if it appears in multiple theme sections
-			If Not StringInStr($Warning, $g_CentralArray[$w][4]&'|') Then $Warning&=$g_CentralArray[$w][4]&'|'
+		If GUICtrlRead($w) = 0 Then ContinueLoop; not sure why we need this
+		If $g_CentralArray[$w][9] = 0 Then ContinueLoop; skip not selected
+		If $g_CentralArray[$w][2] = '-' Then; this is a mod headline
+			If StringInStr($g_CentralArray[$w][11], 'E') And Not StringRegExp($g_CentralArray[$w][11], '[FRST]') Then
+				; Only add mod once even if it appears in multiple theme sections
+				If Not StringInStr($Expert, 'E: '&$g_CentralArray[$w][4]&'|') Then
+					$Expert &= 'E: '&$g_CentralArray[$w][4]&'|'
+				EndIf
+			ElseIf StringInStr($g_CentralArray[$w][11], 'W') Then
+				; Only add mod once even if it appears in multiple theme sections
+				If Not StringInStr($Warning, 'W: '&$g_CentralArray[$w][4]&'|') Then
+					$Warning &= 'W: '&$g_CentralArray[$w][4]&'|'
+				EndIf
+			EndIf
+		ElseIf StringInStr($Expert, $g_CentralArray[$w][4]&'|') Then
+			ContinueLoop; we already logged the mod headline, so skip its components
+		ElseIf $g_CentralArray[$w][12] = '0001' Then; this is an Expert pre-selection-only component
+			If Not StringInStr($Expert, 'E: '&$g_CentralArray[$w][4]&'|') Then
+				$Expert &= 'E: '&$g_CentralArray[$w][4]&'('&$g_CentralArray[$w][3]&')|'
+			EndIf
 		EndIf
 	Next
-	If $Warning = '' Then Return 2
-	Local $Test=_Misc_MsgGUI(3, _GetTR($g_UI_Message, '0-T1'), _GetTR($g_UI_Message, '8-L1')&$Warning, 2); => expert-warning
+	If $Expert = '' And $Warning = '' Then Return 2
+	Local $Test=_Misc_MsgGUI(3, _GetTR($g_UI_Message, '0-T1'), _GetTR($g_UI_Message, '8-L1')&$Expert&$Warning, 2); => expert-warning
 	Return $Test
 EndFunc    ;==>_Selection_ExpertWarning
 
