@@ -878,10 +878,8 @@ Func _Install_CreateTP2Entry($p_Setup, $p_Text, $p_Process=1, $p_File=''); $a=tp
 			ElseIf StringInStr($LoggedMods, '|'&$g_CentralArray[$w][0]&'|') Then
 				ContinueLoop; we already logged the mod headline, so skip its components
 			ElseIf $g_CentralArray[$w][12] = '0001' Then; this is an Expert pre-selection-only component
-				If Not StringInStr($LoggedMods, '|'&$g_CentralArray[$w][0]&'|') Then
-					FileWriteLine($Handle, 'BEGIN ~Expert Component In Selection: '&$g_CentralArray[$w][0]&'('&$g_CentralArray[$w][2]&')~')
-					$c += 1
-				EndIf
+				FileWriteLine($Handle, 'BEGIN ~Expert Component In Selection: '&$g_CentralArray[$w][0]&'('&$g_CentralArray[$w][2]&')~')
+				$c += 1
 			EndIf
 		Next
 		FileClose($Handle)

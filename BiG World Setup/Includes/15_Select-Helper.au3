@@ -170,12 +170,10 @@ Func _Selection_ExpertWarning()
 					$Warning &= 'W: '&$g_CentralArray[$w][4]&'|'
 				EndIf
 			EndIf
-		ElseIf StringInStr($Expert, $g_CentralArray[$w][4]&'|') Then
+		ElseIf StringInStr($Expert, 'E: '&$g_CentralArray[$w][4]&'|') Then
 			ContinueLoop; we already logged the mod headline, so skip its components
 		ElseIf $g_CentralArray[$w][12] = '0001' Then; this is an Expert pre-selection-only component
-			If Not StringInStr($Expert, 'E: '&$g_CentralArray[$w][4]&'|') Then
-				$Expert &= 'E: '&$g_CentralArray[$w][4]&'('&$g_CentralArray[$w][3]&')|'
-			EndIf
+			$Expert &= 'E: '&$g_CentralArray[$w][4]&'('&$g_CentralArray[$w][3]&')|'
 		EndIf
 	Next
 	If $Expert = '' And $Warning = '' Then Return 2
