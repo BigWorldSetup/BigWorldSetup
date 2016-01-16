@@ -433,6 +433,10 @@ Func _Tree_Populate($p_Show=1)
 ; ---------------------------------------------------------------------------------------------
 		Local $Pos=StringInStr($SelectArray[$s][3], '?', 0, 1)
 		If $Pos > 0 Then
+			If $SelectArray[$s][0] <> 'SUB' Then
+				_PrintDebug('! Error - non-SUB with ? component in Select.txt: '&$SelectArray[$s][0]&';'&$SelectArray[$s][2]&';'&$SelectArray[$s][3], 1)
+				Exit
+			EndIf
 			Local $ComponentNum = StringLeft($SelectArray[$s][3], $Pos-1); number on left side of '?' in component string
 			Local $n = 1
 			While $n < $s And StringInStr($SelectArray[$s-$n][3], '?'); search backwards until first non-sub-component (in current theme chapter)

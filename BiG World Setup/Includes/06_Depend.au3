@@ -191,7 +191,10 @@ Func _Depend_PrepareBuildSentences($p_RuleLines); called by _Tree_Populate and _
 		$Return[$r][0] = $p_RuleLines[$r][0]; copy rule description (inikey) from input array
 		$Return[$r][1] = $p_RuleLines[$r][1]; copy rule itself (inivalue) from input array
 		If StringInStr($Return[$r][1], ' ') Then
-			_PrintDebug('! Error ! Invalid rule (whitespace) found in Connections section of '&$g_ConnectionsConfDir&'\Game.ini: '&$Return[$r][0]&'='&$Return[$r][1], 1)
+			_PrintDebug('! Error ! Invalid rule (whitespace) in Connections section of '&$g_ConnectionsConfDir&'\Game.ini: '&$Return[$r][0]&'='&$Return[$r][1], 1)
+			Exit
+		ElseIf StringInStr($Return[$r][1], '()') Then
+			_PrintDebug('! Error ! Invalid rule (empty parentheses) in Connections section of '&$g_ConnectionsConfDir&'\Game.ini: '&$Return[$r][0]&'='&$Return[$r][1], 1)
 			Exit
 		EndIf
 		If StringMid($Return[$r][1], 2, 1) = 'W' Then; strip warning character (DW => D, CW => C)
@@ -751,7 +754,7 @@ Func _Depend_GetActiveDependAll($p_String, $p_RuleID, $p_Show)
 	If StringRegExp($p_String, '\x7c('&$g_Flags[14]&')\b') Then Return; found OR '|' followed by current game type -> do nothing
 	;FileWrite($g_LogFile, 'DependAll before = ' & $p_String & @CRLF)
 	If Not StringRegExp($p_String, '\x7c|\x26') Then; rule has neither '|' nor '&' (we must check this before we remove purged mods/components)
-		_PrintDebug('! Error ! Invalid rule (only one mod/component) found in Connections section of '&$g_ConnectionsConfDir&'\Game.ini: '&$g_Connections[$p_RuleID][0]&'='&$g_Connections[$p_RuleID][1], 1)
+		_PrintDebug('! Error ! Invalid rule (only one mod/component) in Connections section of '&$g_ConnectionsConfDir&'\Game.ini: '&$g_Connections[$p_RuleID][0]&'='&$g_Connections[$p_RuleID][1], 1)
 		Exit
 	EndIf
 	;eliminate from the rule any mod/components that haven't been converted to IDs (i.e., purged/missing translation/invalid)
@@ -953,7 +956,11 @@ EndFunc    ;==>_Depend_GetActiveDependAdv
 ; ---------------------------------------------------------------------------------------------
 Func _Depend_GetActiveConflictAdv($p_String, $p_RuleID, $p_Show)
 	Local $p_Debug=0
-	If $p_Debug Then FileWrite($g_LogFile, '_Depend_GACA_'&$p_RuleID&': $p_String = '&$p_String&' for '&$g_Connections[$p_RuleID][0]&'=D:'&$g_Connections[$p_RuleID][1]&@CRLF)
+	If $p_Debug Then FileWrite($g_LogFile, '_Depend_GACA_'&$p_RuleID&': $p_String = '&$p_String&' for '&$g_Connections[$p_RuleID][0]&'=C:'&$g_Connections[$p_RuleID][1]&@CRLF)
+	If StringInStr($p_String, '>') Then
+		_PrintDebug("! Error ! Invalid conflict rule (contains both '>' and ':') in Connections section of "&$g_ConnectionsConfDir&'\Game.ini: '&$Return[$r][0]&'='&$Return[$r][1], 1)
+		Exit
+	EndIf
 	$p_String=StringSplit($p_String, ':')
 	Local $Active, $Test[$p_String[0]+1][50]
 	For $s=1 to $p_String[0]
@@ -1376,7 +1383,7 @@ EndFunc   ;==>_Depend_ToggleHelp
 Func _Depend_TrimBWSConnections($p_Array)
 	Local $Return[$p_Array[0][0]+1][2]
 	For $c=1 to $p_Array[0][0]; copy lines without component numbers from p_Array to RuleLines
-		If StringRegExp($p_Array[$c][1], '\x28[1234567890\x7c]*\x29') = 1 Then ContinueLoop
+		If StringRegExp($p_Array[$c][1], '\x28[\d\x7c\x26]+\x29') Then ContinueLoop
 		$Return[0][0]+=1; we found a rule without component numbers
 		$Return[$Return[0][0]][0]=$p_Array[$c][0]; rule description (inikey, left of =)
 		$Return[$Return[0][0]][1]=$p_Array[$c][1]; the rule itself (inivalue, right of =)

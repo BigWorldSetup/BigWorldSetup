@@ -369,9 +369,6 @@ Func Au3Install($p_Num = 0)
 				$Setup[7]=IniRead($g_MODIni, $Setup[2], 'Name', $Setup[2]); Modname
 				If $EET_Mods <> '' And StringRegExp($EET_Mods, '(?i)(\A|\x7c)'&$Setup[2]&'(\z|\x7c)') = 0 Then ContinueLoop; this mod should not be installed now
 				If IniRead($g_UsrIni, 'Current', $Setup[2], '') = '' Then ContinueLoop; the user did not select the mod at all
-; ---------------------------------------------------------------------------------------------
-; ask what to do if the mod is missing
-; ---------------------------------------------------------------------------------------------
 				$Setup[9]=_Test_GetCustomTP2($Setup[2])
 				$Error=@error
 				_Process_SetConsoleLog(@CRLF&@CRLF&'##### ' & $Setup[7] & ' #####')
@@ -379,6 +376,9 @@ Func Au3Install($p_Num = 0)
 					;mod found
 				Else
 					If StringRegExp(IniRead($g_UsrIni, 'Pause', $Setup[2], ''), '(\A|\s)'&$Setup[3]&'(\z|\s)') Then _Process_Pause($Setup[7]); pause due to preselection
+; ---------------------------------------------------------------------------------------------
+; ask what to do if the mod is missing
+; ---------------------------------------------------------------------------------------------
 					_Process_SetConsoleLog(_GetTR($Message, 'L3')); => mod not found
 					$Dependent=_Depend_GetUnsolved($Setup[2], '-'); $Dependent[0][unsolved, output, missing + unsolved]
 					If $Dependent[0][0] <> 0 Then

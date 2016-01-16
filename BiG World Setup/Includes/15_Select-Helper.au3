@@ -161,19 +161,19 @@ Func _Selection_ExpertWarning()
 		If $g_CentralArray[$w][2] = '-' Then; this is a mod headline
 			If StringInStr($g_CentralArray[$w][11], 'E') And Not StringRegExp($g_CentralArray[$w][11], '[FRST]') Then
 				; Only add mod once even if it appears in multiple theme sections
-				If Not StringInStr($Expert, 'E: '&$g_CentralArray[$w][4]&'|') Then
-					$Expert &= 'E: '&$g_CentralArray[$w][4]&'|'
+				If Not StringInStr($Expert, $g_CentralArray[$w][4]&'|') Then
+					$Expert &= $g_CentralArray[$w][4]&'|'
 				EndIf
 			ElseIf StringInStr($g_CentralArray[$w][11], 'W') Then
 				; Only add mod once even if it appears in multiple theme sections
-				If Not StringInStr($Warning, 'W: '&$g_CentralArray[$w][4]&'|') Then
-					$Warning &= 'W: '&$g_CentralArray[$w][4]&'|'
+				If Not StringInStr($Warning, '|** '&$g_CentralArray[$w][4]) Then
+					$Warning &= '|** '&$g_CentralArray[$w][4]
 				EndIf
 			EndIf
-		ElseIf StringInStr($Expert, 'E: '&$g_CentralArray[$w][4]&'|') Then
+		ElseIf StringInStr($Expert, $g_CentralArray[$w][4]&'|') Then
 			ContinueLoop; we already logged the mod headline, so skip its components
 		ElseIf $g_CentralArray[$w][12] = '0001' Then; this is an Expert pre-selection-only component
-			$Expert &= 'E: '&$g_CentralArray[$w][4]&'('&$g_CentralArray[$w][3]&')|'
+			$Expert &= $g_CentralArray[$w][4]&'('&$g_CentralArray[$w][3]&')|'
 		EndIf
 	Next
 	If $Expert = '' And $Warning = '' Then Return 2

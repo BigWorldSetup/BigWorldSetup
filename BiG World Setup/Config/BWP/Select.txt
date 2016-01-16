@@ -1,4 +1,4 @@
-ANN;# Conversion of polish BGMain.exe from "Saga Baldur's Gate" edition for all mods that modiffiyng BGMain.exe
+ANN;# Conversion of polish BGMain.exe from "Saga Baldur's Gate" edition for all mods that modify BGMain.exe
 CMD;Call BGMain-BG2-PolishSagaBGConversion.bat
 ANN;Turambar Fixes and Tweaks: Fix for the "System" attribute
 CMD;IF EXIST Turambar_fixes_tweaks\Italiano\setup-osx.tra attrib -S Turambar_fixes_tweaks\Italiano\setup-osx.tra
