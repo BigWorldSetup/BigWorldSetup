@@ -568,12 +568,6 @@ Func _Extract_7z($p_File, $p_Dir, $p_String = ''); $a=archive; $b=outputdir; $c=
 		If StringInStr($Summary[$s], 'Processing archive') Then ExitLoop
 		If StringInStr($Summary[$s], 'Everything is Ok') Then $Found = 1
 	Next
-	If $Found = 1 And StringRegExp($p_File, '-master.zip\z') Then; special treatment for Git master branch archives
-		Local $Pos = StringInStr($p_File, '\', 0, -1); last '\' in folder name (ex. C:\Black Isle Games\BG2\generalized_biffing-master.zip)
-		Local $OutsideFolder = StringTrimRight(StringTrimLeft($p_File, $Pos), 4)
-		FileWrite($g_LogFile, @CRLF & $OutsideFolder & '>' & $p_Dir & '\* .' & @CRLF)
-		$Found = _Extract_MoveMod($OutsideFolder); extract inside-subfolder from outside folder
-	EndIf
 	If $Found = 1 Then
 		_Process_SetConsoleLog(@CRLF & $p_String & ' ' & _GetTR($Message, 'L2') & @CRLF); => success
 		Sleep(1000)
