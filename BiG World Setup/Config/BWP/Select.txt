@@ -649,7 +649,7 @@ STD;ts25mini;2;10;0111;
 STD;ts25mini;3;10;0111;
 STD;ts25mini;4;10;0111;
 STD;ts25mini;5;10;0111;
-STD;Devin;0;10;0001;
+STD;Devin;0;10;0111;
 STD;Eilistraee;0;10;0111;
 MUC;Eilistraee;Init;10;0111;
 MUC;Eilistraee;1;10;0000;
