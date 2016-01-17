@@ -1,8 +1,8 @@
 ANN;Added due to patching
 ANN;--- BWS starts in BG1EE folder if EET is selected, so all following lines until EET are applied to BG1EE ---
 ANN;--- if EET is not selected, we use the Game.ini purge section to hide all the BG1EE-exclusive mods below ---
-ANN;--- we use ;;;;D:EET(0) for CMD lines applicable to BG1EE to suppress them if EET is not being installed ---
-CMD;IF NOT EXIST ".\BWS_workspace\override" MD ".\BWS_workspace\override";D:EET(0)
+ANN;--- we use ;;;;;D:EET(0) for CMD lines applicable to BG1EE to suppress them if EET is not being installed ---
+CMD;IF NOT EXIST ".\BWS_workspace\override" MD ".\BWS_workspace\override";;;;;D:EET(0)
 DWN;WeiDU;0;00;1111;
 DWN;eekeeper;0;00;1111;
 ANN;--- BGEE + BG2EE patches ---
@@ -10,7 +10,10 @@ DWN;bwinstallpack;0;00;1111;
 DWN;bwfixpack;0;00;1111;
 ANN;special case - BWS has code in Testing.au3 that will apply the lines above in both BG1EE and BG2EE directory if EET is selected
 ANN;--- BGEE patches ---
-CMD;IF EXIST "BiG World Fixpack" IF NOT EXIST BWP_Fixpack.installed Call "BiG World Fixpack.bat";;;;D:EET(0)
+CMD;IF EXIST ".\BiG World Installpack\BiG World Smoothpack" move ".\BiG World Installpack\BiG World Smoothpack\_modify\*.*" ".";;;;;D:EET(0)
+CMD;IF EXIST "BiG World Fixpack" IF NOT EXIST BWP_Fixpack.installed Call "BiG World Fixpack.bat";;;;;D:EET(0)
+CMD;IF NOT EXIST BWP_Smoothpack.installed Call ".\BiG World Installpack\BiG World Smoothpack.bat";;;;;D:EET(0)
+CMD;IF EXIST ".\BiG World Installpack\BWP_Smoothpack.installed" copy ".\BiG World Installpack\BWP_Smoothpack.installed" ".";;;;;D:EET(0)
 STD;BGEE_PL;0;0;1111;
 STD;BGEE_PL;1;0;1111;
 DWN;BGEE-Polish;0;00;1111;
@@ -22,9 +25,9 @@ SUB;bgeegraphics;0?1_2;13;0000;
 DWN;bgeegraphics_part2;0;13;0001;
 DWN;bgeegraphics_part3;0;13;0001;
 ANN;Removing corrupted .wed
-ANN;CMD;IF EXIST setup-bgeegraphics.exe IF EXIST ".\override\ar4300.wed" move ".\override\ar4300.wed" ".\BWS_workspace\override";;;;D:EET(0)
+ANN;CMD;IF EXIST setup-bgeegraphics.exe IF EXIST ".\override\ar4300.wed" move ".\override\ar4300.wed" ".\BWS_workspace\override";;;;;D:EET(0)
 ANN;Removing .are because of corrupted .wed
-ANN;CMD;IF EXIST setup-bgeegraphics.exe IF EXIST ".\override\ar3000n.wed" move ".\override\ar3000.are" ".\BWS_workspace\override";;;;D:EET(0)
+ANN;CMD;IF EXIST setup-bgeegraphics.exe IF EXIST ".\override\ar3000n.wed" move ".\override\ar3000.are" ".\BWS_workspace\override";;;;;D:EET(0)
 ANN;--- BGEE "big mods" ---
 STD;DarkHorizonsBGee;0;02;0011;
 STD;dsotscBGEE;5;02;0111;
@@ -34,7 +37,7 @@ MUC;drizztsaga;1;02;0011;
 ANN;pointless to change XP cap before EET
 ANN;STD;drizztsaga;2;02;0000;
 STD;drizztsaga;3;02;0011;
-CMD;IF EXIST setup-drizztsaga.exe echo.>> Worldmap/map_mods_links.tbl;;;;D:EET(0)
+CMD;IF EXIST setup-drizztsaga.exe echo.>> Worldmap/map_mods_links.tbl;;;;;D:EET(0)
 ANN;--- BGEE quests ---
 STD;bgqe;0;03;1111;
 STD;bgqe;1;03;1111;
@@ -267,7 +270,7 @@ MUC;BG_Travel;Init;09;0111;
 MUC;BG_Travel;66;09;0111;
 MUC;BG_Travel;661;09;0000;
 ANN;--- smaller BGEE NPCs ---
-CMD;IF EXIST "jklhel\Helarine_BGEE.Tp2" REN "jklhel\Helarine_BGEE.Tp2" "jklhel.tp2"
+CMD;IF EXIST "jklhel\Helarine_BGEE.Tp2" REN "jklhel\Helarine_BGEE.Tp2" "jklhel.tp2";;;;;D:JklHel(0)
 STD;JklHel;0;06;0111;
 STD;margarita;0;06;0111;
 ANN;--- BGEE item tweaks ---
@@ -822,9 +825,9 @@ STD;d0questpack;20;03;0111;
 STD;d0questpack;21;03;0111;
 ANN;--- BG2EE minimods ---
 STD;wheels;0;04;1111;
-ANN;BP and BPSeries AI need the following IDS entry
 ANN;For some reason Wheels of Prophecy removes this entry (but exclusively for EE) so we add it back only if WoP is installed
-CMD;IF EXIST setup-wheels.exe IF EXIST "override\spell.IDS" echo 2302 WIZARD_REMOVE_MAGIC >> override\spell.IDS
+ANN;BP and BPSeries AI need the following IDS entry
+CMD;IF EXIST setup-wheels.exe IF EXIST "override\spell.IDS" echo 2302 WIZARD_REMOVE_MAGIC >> override\spell.IDS;;;;;D:wheels(0)
 ANN;--- BG2EE minimods ---
 STD;G3Anniversary;0;04;0111;
 ANN;--- BG2EE NPCs ---
@@ -951,7 +954,10 @@ MUC;item_rev;16;09;0000;
 STD;item_rev;1060;09;0111;
 STD;item_rev;1070;09;0111;
 ANN;#1300 is not enabled yet in IRv4
+ANN;workaround for Amber NPC's pirate bandanna having NULL animation instead of "  " (two spaces) - https://github.com/Gibberlings3/ItemRevisions/issues/11
+CMD;IF EXIST ".\override\M#PIRBAN.ITM" MOVE ".\override\M#PIRBAN.ITM" ".\BWS_workspace\override";;;;;D:item_rev(1300)
 ANN;item_rev;1300;09;0011;
+CMD;IF EXIST ".\BWS_workspace\override\M#PIRBAN.ITM" MOVE ".\BWS_workspace\override\M#PIRBAN.ITM" ".\override";;;;;D:item_rev(1300)
 ANN;--- NPC kit changes ---
 MUC;LaViconia;Init;07;0000;
 MUC;LaViconia;0;07;0000;
@@ -1165,7 +1171,8 @@ ANN;#3200 sellable items 0000
 STD;BG2_Tweaks;3200;09;1111;
 STD;BG2_Tweaks;3210;09;0000;
 STD;BG2_Tweaks;4010;09;1111;
-STD;BG2_Tweaks;4020;09;0111;
+ANN;reported 
+STD;BG2_Tweaks;4020;09;0001;
 MUC;BG2_Tweaks;Init;09;1111;
 MUC;BG2_Tweaks;4030;09;0000;
 MUC;BG2_Tweaks;4031;09;1111;
@@ -1194,9 +1201,9 @@ STD;scales_of_balance;600;09;0111;
 ANN;Refinements goes here for compatibility with Scales of Balance
 STD;scales_of_balance;580;09;0111;
 STD;might_and_guile;100;09;0111;
-ANN;CMD;IF EXIST ".\override\C#AJAN16.CRE" move ".\override\C#AJAN16.CRE" ".\BWS_workspace\override"
+ANN;CMD;IF EXIST ".\override\C#AJAN16.CRE" move ".\override\C#AJAN16.CRE" ".\BWS_workspace\override";;;;;D:might_and_guile(120)
 STD;might_and_guile;120;09;0111;
-ANN;CMD;IF EXIST ".\BWS_workspace\override\C#AJAN16.CRE" move ".\BWS_workspace\override\C#AJAN16.CRE" ".\override"
+ANN;CMD;IF EXIST ".\BWS_workspace\override\C#AJAN16.CRE" move ".\BWS_workspace\override\C#AJAN16.CRE" ".\override";;;;;D:might_and_guile(120)
 ANN;might_and_guile;140;09;0001;placeholder
 ANN;might_and_guile;150;09;0001;placeholder
 STD;might_and_guile;160;09;0111;
@@ -1614,7 +1621,7 @@ STD;BP;1675;08;0011;
 STD;BP;1700;08;0011;
 STD;BP;1750;08;0011;
 STD;BP;1800;08;0011;
-CMD;IF EXIST "override\stats.IDS" echo 134 STATE_DISEASED_FIX >> override\stats.IDS;;;;D:BPSeries(100)
+CMD;IF EXIST "override\stats.IDS" echo 134 STATE_DISEASED_FIX >> override\stats.IDS;;;;;D:BPSeries(100)
 ANN;BPSeries Core (detectable spells v3)
 STD;BPSeries;0;11;1111;
 ANN;BPSeries Innate Fix -> Recommended
@@ -2007,17 +2014,17 @@ ANN;We must install PaintBG before generalized biffing so that we can append to 
 ANN;PaintBG for EE is just .bmp files, so install first to allow other mods to overwrite
 DWN;paintbg;0;13;0000;
 ANN;Standardize PaintBG directory name to simplify scripting
-CMD;IF EXIST "PaintBG*(EE)" MOVE /Y "PAINTBG*(EE)" "PaintBG";;;;D:paintbg(0)
+CMD;IF EXIST "PaintBG*(EE)" MOVE /Y "PAINTBG*(EE)" "PaintBG";;;;;D:paintbg(0)
 ANN;Add PaintBG CHARNAME portraits to bgee.sql so they can be selected during character creation
-CMD;IF EXIST "PaintBG" IF EXIST "override\bgee.sql" ECHO INSERT INTO portraits ROWS >> "override\bgee.sql" && ECHO ( >> "override\bgee.sql";;;;D:paintbg(0)
+CMD;IF EXIST "PaintBG" IF EXIST "override\bgee.sql" ECHO INSERT INTO portraits ROWS >> "override\bgee.sql" && ECHO ( >> "override\bgee.sql";;;;;D:paintbg(0)
 ANN;Make male CHARNAME portraits selectable
-CMD;IF EXIST "PaintBG" IF EXIST "override\bgee.sql" FOR %%F IN ("PaintBG\PA#Ma*L.bmp") DO cmd /v:on /c "set trunc=%%%%~nF & echo '!trunc:~0,-2!', 1, >> override\bgee.sql";;;;D:paintbg(0)
+CMD;IF EXIST "PaintBG" IF EXIST "override\bgee.sql" FOR %%F IN ("PaintBG\PA#Ma*L.bmp") DO cmd /v:on /c "set trunc=%%%%~nF & echo '!trunc:~0,-2!', 1, >> override\bgee.sql";;;;;D:paintbg(0)
 ANN;Make female CHARNAME portraits selectable
-CMD;IF EXIST "PaintBG" IF EXIST "override\bgee.sql" FOR %%F IN ("PaintBG\PA#Wo*L.bmp") DO cmd /v:on /c "set trunc=%%%%~nF & echo '!trunc:~0,-2!', 2, >> override\bgee.sql";;;;D:paintbg(0)
+CMD;IF EXIST "PaintBG" IF EXIST "override\bgee.sql" FOR %%F IN ("PaintBG\PA#Wo*L.bmp") DO cmd /v:on /c "set trunc=%%%%~nF & echo '!trunc:~0,-2!', 2, >> override\bgee.sql";;;;;D:paintbg(0)
 ANN;Close off the selectable portraits list
-CMD;IF EXIST "PaintBG" IF EXIST "override\bgee.sql" ECHO )\; >> "override\bgee.sql";;;;D:paintbg(0)
+CMD;IF EXIST "PaintBG" IF EXIST "override\bgee.sql" ECHO )\; >> "override\bgee.sql";;;;;D:paintbg(0)
 ANN;Copy over all the portraits and remove the PaintBG directory
-CMD;IF EXIST "PaintBG" XCOPY /Y /I "PaintBG\*.bmp" "characters" && RMDIR /S /Q "PaintBG";;;;D:paintbg(0)
+CMD;IF EXIST "PaintBG" XCOPY /Y /I "PaintBG\*.bmp" "characters" && RMDIR /S /Q "PaintBG";;;;;D:paintbg(0)
 ANN;--- lolfixer not yet ready for EE, marked as expert ---
 STD;lolfixer;0;01;0001;
 STD;lolfixer;1;01;0001;
@@ -2036,8 +2043,9 @@ STD;lolfixer;13;01;0001;
 STD;lolfixer;14;01;0001;
 STD;lolfixer;15;01;0001;
 ANN;--- hotfixes ---
+ANN;shouldn't these fixes be applied earlier?
 ANN;trim leading and trailing spaces, remove duplicates
-CMD;Call ".\BiG World Installpack\trim_IDS.bat" 
+CMD;Call ".\BiG World Installpack\trim_IDS.bat"
 ANN;correct some possibly corrupted IDS files
 CMD;Call ".\BiG World Installpack\trim_KitIDS.bat"
 SUB;generalized_biffing;0;00;1111;
