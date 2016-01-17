@@ -4145,7 +4145,7 @@ MUC;1pp_hq_music_BGT;3;20;0000;
 STD;1pp_hq_music_BGT;4;20;0000;
 DWN;1pp_hq_music_ToSC;0;20;0001;
 DWN;1pp_hq_music_II;0;20;0001;
-STD;crefixer;0;01;0000;
+STD;crefixer;0;01;1111;
 CMD;IF EXIST ".\override\ahjon.BCS" move ".\override\ahjon.BCS" ".\BWP_workspace\override";;;;D:LongerRoad(0)
 STD;Innate_Fix;0;01;0000;
 CMD;IF EXIST ".\BWP_workspace\override\ahjon.BCS" move ".\BWP_workspace\override\ahjon.BCS" ".\override";;;;D:LongerRoad(0)
@@ -4174,7 +4174,7 @@ CMD;IF EXIST ".\BWP_workspace\override\F_6666.ARE" move ".\BWP_workspace\overrid
 STD;lolfixer;1;01;1111;
 STD;lolfixer;2;01;1111;
 STD;lolfixer;3;01;1111;
-STD;lolfixer;4;01;1111;
+STD;lolfixer;4;01;0001;
 STD;lolfixer;5;01;1111;
 STD;lolfixer;6;01;1111;
 STD;lolfixer;7;01;1111;
