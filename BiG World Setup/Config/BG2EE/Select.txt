@@ -954,10 +954,7 @@ MUC;item_rev;16;09;0000;
 STD;item_rev;1060;09;0111;
 STD;item_rev;1070;09;0111;
 ANN;#1300 is not enabled yet in IRv4
-ANN;workaround for Amber NPC's pirate bandanna having NULL animation instead of "  " (two spaces) - https://github.com/Gibberlings3/ItemRevisions/issues/11
-CMD;IF EXIST ".\override\M#PIRBAN.ITM" MOVE ".\override\M#PIRBAN.ITM" ".\BWS_workspace\override";;;;;D:item_rev(1300)
 ANN;item_rev;1300;09;0011;
-CMD;IF EXIST ".\BWS_workspace\override\M#PIRBAN.ITM" MOVE ".\BWS_workspace\override\M#PIRBAN.ITM" ".\override";;;;;D:item_rev(1300)
 ANN;--- NPC kit changes ---
 MUC;LaViconia;Init;07;0000;
 MUC;LaViconia;0;07;0000;
