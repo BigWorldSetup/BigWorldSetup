@@ -5,7 +5,6 @@ DWN;eekeeper;0;00;1111;
 ANN;--- patches ---
 DWN;bwinstallpack;0;00;1111;
 DWN;bwfixpack;0;00;1111;
-CMD;IF EXIST ".\BiG World Installpack\BiG World Smoothpack" move ".\BiG World Installpack\BiG World Smoothpack\_modify\*.*" "."
 CMD;IF EXIST "BiG World Fixpack" xcopy /Y /S /E ".\BiG World Fixpack\_Lolfixer\*.*" "."
 CMD;IF EXIST "BiG World Fixpack" xcopy /Y /S /E ".\BiG World Fixpack\_resfixer_v1\*.*" "."
 CMD;IF EXIST "BiG World Fixpack\item_rev" rmdir /s /q "BiG World Fixpack\item_rev"
@@ -42,7 +41,7 @@ MUC;drizztsaga;0;02;0000;
 MUC;drizztsaga;1;02;0011;
 STD;drizztsaga;2;02;0011;
 STD;drizztsaga;3;02;0011;
-CMD;IF EXIST setup-drizztsaga.exe echo.>> Worldmap/map_mods_links.tbl
+CMD;echo.>> Worldmap/map_mods_links.tbl;;;;D:drizztsaga(1)
 ANN;--- quests ---
 STD;bgqe;0;03;1111;
 STD;bgqe;1;03;1111;
