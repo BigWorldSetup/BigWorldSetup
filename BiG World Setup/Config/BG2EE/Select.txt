@@ -1239,6 +1239,8 @@ STD;might_and_guile;480;12;0111;
 STD;might_and_guile;490;12;0111;
 STD;might_and_guile;500;09;0111;
 ANN;--- add and revise kits ---
+ANN;Don't worry about the "WARNING: cannot find block matching [pcvamp/BCS/priest.bcs]"; the code block to be replaced is not existing in these files.
+STD;pcvamp;0;12;0111;
 STD;Derats_kits;0;12;0111;
 STD;Derats_kits;1;12;0111;
 STD;Derats_kits;2;12;0111;
