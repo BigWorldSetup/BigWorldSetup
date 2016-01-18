@@ -1065,8 +1065,8 @@ Func _Tree_SelectRead($p_Admin=0)
 				$Split=StringSplit($Array[$a], ';')
 				$Return[0][0]+=1
 				$Return[$Return[0][0]][0]=$Split[1]; linetype
-				$Return[$Return[0][0]][7]=$Split[2]; description
-				If $Split[0]>5 Then $Return[$Return[0][0]][6]=$Split[6]; component requirements
+				$Return[$Return[0][0]][7]=$Split[2]; annotation/command-line/start-stop
+				If $Split[0]>2 Then $Return[$Return[0][0]][6]=$Split[$Split[0]]; take whatever follows final semicolon as component requirements
 ;~ 				ConsoleWrite($Array[$a] & @CRLF)
 				ContinueLoop
 			EndIf
