@@ -4172,9 +4172,9 @@ CMD;IF EXIST ".\BWP_workspace\override\ISHXAR9.wav" move ".\BWP_workspace\overri
 CMD;IF EXIST ".\BWP_workspace\override\DGMAIN.wav" move ".\BWP_workspace\override\DGMAIN.wav" ".\override"
 CMD;IF EXIST ".\BWP_workspace\override\F_6666.ARE" move ".\BWP_workspace\override\F_6666.ARE" ".\override"
 STD;lolfixer;1;01;1111;
-STD;lolfixer;2;01;1111;
+STD;lolfixer;2;01;0000;
 STD;lolfixer;3;01;1111;
-STD;lolfixer;4;01;0001;
+STD;lolfixer;4;01;1111;
 STD;lolfixer;5;01;1111;
 STD;lolfixer;6;01;1111;
 STD;lolfixer;7;01;1111;
