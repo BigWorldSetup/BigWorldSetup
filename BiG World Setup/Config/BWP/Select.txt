@@ -3584,8 +3584,8 @@ CMD;IF EXIST "override\spell.IDS" echo 4732 HELM_TRUE_SIGHT >> override\spell.ID
 CMD;IF EXIST "override\specific.IDS" echo 201 NEEDS_BREACH >> override\specific.IDS
 CMD;IF EXIST "override\gtimes.IDS" echo 3600 SHROM_TIMER >> override\gtimes.IDS
 GRP;Start
-SUB;SandrahNPC;0;12;0111;
-SUB;SandrahNPC;0?0_1;12;0111;
+SUB;SandrahNPC;0;12;0000;
+SUB;SandrahNPC;0?0_1;12;0000;
 SUB;SandrahNPC;0?0_2;12;0000;
 STD;SandrahNPC;1;12;0111;
 STD;SandrahNPC;2;12;0111;
