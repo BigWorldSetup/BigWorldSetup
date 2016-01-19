@@ -641,6 +641,7 @@ SUB;WhiteQueen;0;10;1111;
 SUB;WhiteQueen;0?1_1;10;0000;
 SUB;WhiteQueen;0?1_2;10;1111;
 STD;Rukrakia;0;10;0000;
+STD;Reunion;0;10;0111;
 STD;isnf;0;10;1111;
 STD;ts25mini;0;10;0111;
 STD;ts25mini;1;10;0111;

@@ -357,6 +357,7 @@ MUC;Innershade;5;03;0000;
 SUB;WhiteQueen;0;03;1111;
 SUB;WhiteQueen;0?1_1;03;0000;
 SUB;WhiteQueen;0?1_2;03;1111;
+STD;Reunion;0;3;0111;
 STD;isnf;0;03;1111;
 STD;Eilistraee;0;03;0111;
 MUC;Eilistraee;Init;03;0111;
