@@ -531,3 +531,46 @@ Added: Sirene NPC v1 for BG:EE and EET, Neera Banters (pre-release) for BG:EE an
 Added: White Agnus' Mur'Neth String Fixer (for German language only) for BG:EE, BGT, EET
 Added: Mulgore and Xavia NPCs for BG:EE and EET (BWFixpack'd by White Agnus)
 Added: Huple NPC for BG:EE and EET (BWFixpack'd by White Agnus)
+20160120 - Updated by agb1
+* Rule:  Warning if installing Sandrah NPC with EET Tweaks #0 (teleport spell for EET)
+* Rule:  Might & Guile #200 (revised stats) conflicts with Victor's Improvements Pack #0
+* Rule:  Ding0's Tweaks #17 (sensible lore table) conflicts with Victor's Improvements Pack #1
+* Rule:  EET Tweaks #7, 8 preferred over Ding0 Experience Fixer
+* Rule:  "Choose one" BG Graphics Overhaul variant (BGT now has choice of old or new version)
+* Rule:  NPC Strongholds (still not Recommended) preferred over all other Strongholds tweaks
+* Rule:  BG2 Tweaks #3080,3090,3100,3110 (unlimited stacking) preferred over Difficulty and Tweak mod
+* Rule:  "Choose one fix for imprisonment breaking romances" - Spell Revisions or The Bigg's Tweaks #150 vs. Victor's Improvements Pack #6
+* Rule:  Bard song changes conflict - RR #4 or Bard Song Switching (Icewind Mode) vs. Victor's Improvements Pack #10
+
+* Updated:  Teleport mod description, Sandrah mod description (moved note about teleport spells to Sandrah mod)
+* Updated:  Item Randomiser component 510 description now has reminder to edit percentage chance below
+* Updated:  Item Randomiser component 510 default percentage chance to NOT randomize changed from 10% to 90%
+* Updated:  Ascension component 104, 105 descriptions (clarified that they apply to Bioware and Beamdog NPCs)
+
+* Selection:  EET Tweaks #11 (FPS increase without audio skipping) disabled by default for all pre-selections
+* Selection:  EET Tweaks #14 (protagonist can die) disabled by default for all pre-selections (was Tactical)
+* Selection:  BG2 Tweaks #3080,3090,3100,3110 (unlimited item stacking) enabled by default for all pre-selections
+* Selection:  Difficulty and Tweak tactical components marked as such for BG:EE (consistent with other game types)
+
+* Added:  Baldur's Gate Graphics Overhaul for EET and BGT (updated by White Agnus)
+
+* Removed:  Mur'Neth German String Fixer (HANDLE_CHARSETS is BWPFixpack'd for Mur'Neth NPC, so fix is not needed)
+
+* Level1NPCs individual NPC components moved from Kits to BG1 / BG2 NPC-Related
+* FinnJO's Subrace Mod moved from Kits to Tweaks
+* Faiths and Powers moved from Kits to Tweaks
+
+* Recommended -> Stable:
+1. Ding0's Experience Fixer (EET Tweaks patches additional file types)
+
+* Stable -> Recommended:
+1. Almateria's Restoration Project for BG2EE/EET (already Recommended for BG2/BGT)
+2. EET Tweaks (XP tweaks and disable hostile charm reaction)
+3. Keto NPC
+4. Nephele NPC
+5. Thalantyr Item Upgrade for BG:EE/EET (already Recommended for BGT)
+6. Valerie NPC (BGT transition issue BWPFixpack'd)
+
+* Expert -> Stable:
+1. Victor's Improvements Pack (some components are still Tactical/Expert)
+2. DungeonBeGone for BG2EE/EET

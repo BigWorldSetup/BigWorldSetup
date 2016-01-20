@@ -27,6 +27,9 @@ ANN;Removing corrupted .wed
 ANN;CMD;IF EXIST setup-bgeegraphics.exe IF EXIST ".\override\ar4300.wed" move ".\override\ar4300.wed" ".\BWS_workspace\override"
 ANN;Removing .are because of corrupted .wed
 ANN;CMD;IF EXIST setup-bgeegraphics.exe IF EXIST ".\override\ar3000n.wed" move ".\override\ar3000.are" ".\BWS_workspace\override"
+MUC;bggoEET;Init;13;0111;
+MUC;bggoEET;0;13;0111;
+MUC;bggoEET;1;13;0000;
 ANN;--- BGEE "big mods" ---
 STD;DarkHorizonsBGee;0;02;0011;
 STD;dsotscBGEE;5;02;0111;
@@ -58,7 +61,7 @@ STD;wbgtap;1;03;0111;
 STD;karatur;0;03;0111;
 ANN;--- BGEE stores and items ---
 STD;bg1aerie;0;10;0111;
-STD;thalan;0;10;0111;
+STD;thalan;0;10;1111;
 STD;BGeeAR;0;10;0111;
 STD;BGeeW;0;10;0111;
 STD;Animus;0;10;0111;
@@ -141,7 +144,6 @@ MUC;BG1NPCMusic;4;07;0000;
 MUC;BG1NPCMusic;5;07;0000;
 STD;IndiNPC;0;05;0111;
 STD;Mur'Neth;0;05;0111;
-STD;MurNethStringFixer;0;01;0111;
 STD;MulgoreXaviaNPC;0;05;0111;
 STD;XanBG1Friend;0;07;1111;
 STD;coranbgfriend;0;07;1111;
@@ -158,10 +160,10 @@ SUB;gavin;1?1_5;05;0000;
 STD;gavin;2;05;1111;
 ANN;gavin portraits moved down
 STD;gavin;13;13;1111;
-STD;valerie;0;05;0111;
+STD;valerie;0;05;1111;
 STD;isra;0;05;1111;
 ANN;#1,2 crossmod valerie,gavin
-STD;isra;1;05;0111;
+STD;isra;1;05;1111;
 STD;isra;2;05;1111;
 STD;sirene;0;05;0111;
 STD;Huple_NPC;0;05;0000;
@@ -610,23 +612,23 @@ ANN;--- BG2EE minimods ---
 STD;slandor;0;04;1111;
 STD;derats_ogre;0;04;0111;
 ANN;--- BG2EE tweaks ---
-STD;DungeonBeGone;0;09;0001;
+STD;DungeonBeGone;0;09;0111;
 STD;Teleport;0;09;0111;
 STD;Teleport;1;09;0111;
-STD;arestorationp;0;09;0111;
-STD;arestorationp;1;09;0111;
-STD;arestorationp;2;09;0111;
-STD;arestorationp;3;09;0111;
-STD;arestorationp;4;09;0111;
-STD;arestorationp;5;09;0111;
-STD;arestorationp;6;09;0111;
-STD;arestorationp;7;09;0111;
-STD;arestorationp;8;09;0111;
-ANN;arestorationp;10;09;0111;Made obsolete by BG2EE patch 1.3
-STD;arestorationp;11;09;0111;
+STD;arestorationp;0;09;1111;
+STD;arestorationp;1;09;1111;
+STD;arestorationp;2;09;1111;
+STD;arestorationp;3;09;1111;
+STD;arestorationp;4;09;1111;
+STD;arestorationp;5;09;1111;
+STD;arestorationp;6;09;1111;
+STD;arestorationp;7;09;1111;
+STD;arestorationp;8;09;1111;
+ANN;arestorationp;10;09;0000;Made obsolete by BG2EE patch 1.3
+STD;arestorationp;11;09;1111;
 ANN;#12 alternate slayer change -> tactical
 STD;arestorationp;12;09;0011;
-STD;arestorationp;13;09;0111;
+STD;arestorationp;13;09;1111;
 ANN;BP needs res_fixer (at least BGT version does)
 STD;res_fixer;0;01;0001;
 ANN;#0 is detectable spells v3 and other patches
@@ -651,9 +653,9 @@ ANN;Kelsey and Solaufein after (BP) Ascension
 STD;Solaufein;0;05;0111;
 STD;Kelsey;0;05;1111;
 ANN;Kelsey portraits moved down
-STD;Keto;0;05;0111;
+STD;Keto;0;05;1111;
 ANN;#1 Keto/Kelsey crossmod
-STD;Keto;1;05;0111;
+STD;Keto;1;05;1111;
 STD;Nathaniel;0;05;0111;
 MUC;Nathaniel;Init;13;0111;
 MUC;Nathaniel;1;13;0111;
@@ -741,8 +743,8 @@ STD;RE;52;07;0111;
 STD;RE;53;07;0111;
 STD;RE;54;07;0111;
 STD;haerdalisromance;0;07;0111;
-STD;nephele;0;05;0111;
-STD;nephele;1;05;0111;
+STD;nephele;0;05;1111;
+STD;nephele;1;05;1111;
 STD;Faren;0;05;0111;
 MUC;Faren;Init;05;0111;
 MUC;Faren;1;05;0000;
@@ -1141,10 +1143,10 @@ MUC;BG2_Tweaks;3070;09;0000;
 MUC;BG2_Tweaks;3071;09;0000;
 MUC;BG2_Tweaks;3072;09;0000;
 MUC;BG2_Tweaks;3073;09;0000;
-STD;BG2_Tweaks;3080;09;0000;
-STD;BG2_Tweaks;3090;09;0000;
-STD;BG2_Tweaks;3100;09;0000;
-STD;BG2_Tweaks;3110;09;0000;
+STD;BG2_Tweaks;3080;09;1111;
+STD;BG2_Tweaks;3090;09;1111;
+STD;BG2_Tweaks;3100;09;1111;
+STD;BG2_Tweaks;3110;09;1111;
 MUC;BG2_Tweaks;Init;09;1111;
 MUC;BG2_Tweaks;3120;09;0000;
 MUC;BG2_Tweaks;3121;09;1111;
@@ -1269,29 +1271,29 @@ STD;eet_tweaks;26;12;0111;
 ANN;#1000 is sphere system, should be installed after all divine kits
 STD;Divine_Remix;1000;09;0001;
 ANN;FnP should be installed after all divine kits
-STD;f_n_p;102;12;0001;
-STD;f_n_p;200;12;0001;
-STD;f_n_p;212;12;0001;
-STD;f_n_p;219;12;0001;
-STD;f_n_p;234;12;0001;
-STD;f_n_p;239;12;0001;
-STD;f_n_p;244;12;0001;
-STD;f_n_p;265;12;0001;
-STD;f_n_p;283;12;0001;
-STD;f_n_p;284;12;0001;
-STD;f_n_p;285;12;0001;
-STD;f_n_p;300;12;0001;
-STD;f_n_p;302;12;0001;
-STD;f_n_p;303;12;0001;
-STD;f_n_p;304;12;0001;
-STD;f_n_p;305;12;0001;
-STD;f_n_p;306;12;0001;
-STD;f_n_p;307;12;0001;
-STD;f_n_p;308;12;0001;
-STD;f_n_p;311;12;0001;
-STD;f_n_p;332;12;0001;
-STD;f_n_p;363;12;0001;
-STD;f_n_p;500;12;0001;
+STD;f_n_p;102;09;0001;
+STD;f_n_p;200;09;0001;
+STD;f_n_p;212;09;0001;
+STD;f_n_p;219;09;0001;
+STD;f_n_p;234;09;0001;
+STD;f_n_p;239;09;0001;
+STD;f_n_p;244;09;0001;
+STD;f_n_p;265;09;0001;
+STD;f_n_p;283;09;0001;
+STD;f_n_p;284;09;0001;
+STD;f_n_p;285;09;0001;
+STD;f_n_p;300;09;0001;
+STD;f_n_p;302;09;0001;
+STD;f_n_p;303;09;0001;
+STD;f_n_p;304;09;0001;
+STD;f_n_p;305;09;0001;
+STD;f_n_p;306;09;0001;
+STD;f_n_p;307;09;0001;
+STD;f_n_p;308;09;0001;
+STD;f_n_p;311;09;0001;
+STD;f_n_p;332;09;0001;
+STD;f_n_p;363;09;0001;
+STD;f_n_p;500;09;0001;
 ANN;--- SCS core ---
 STD;stratagems;1000;09;1111;
 ANN;--- SCS spell tweaks ---
@@ -1827,7 +1829,7 @@ MUC;DiffTweak;32;09;0000;
 MUC;DiffTweak;33;09;0000;
 MUC;DiffTweak;34;09;0000;
 MUC;DiffTweak;Init;09;0011;
-MUC;DiffTweak;35;09;0000;
+MUC;DiffTweak;35;09;0011;
 MUC;DiffTweak;36;09;0000;
 MUC;DiffTweak;37;09;0000;
 MUC;DiffTweak;38;09;0000;
@@ -1839,7 +1841,7 @@ STD;fullplate;1;09;0111;
 STD;fullplate;102;09;0111;
 STD;fullplate;204;09;0000;
 SUB;randomiser;510;09;0000;
-SUB;randomiser;510?1_10;09;0000;
+SUB;randomiser;510?1_90;09;0000;
 STD;randomiser;520;09;0011;
 STD;randomiser;530;09;0111;
 STD;randomiser;540;09;0111;
@@ -1957,15 +1959,15 @@ STD;eet_tweaks;9;09;0011;
 ANN;-- 3E sneak attacks (flanking) --
 STD;eet_tweaks;10;09;0000;
 ANN;-- FPS without audio skip --
-SUB;eet_tweaks;11;09;1111;
+SUB;eet_tweaks;11;09;0000;
 SUB;eet_tweaks;11?1_1;09;0000;
-SUB;eet_tweaks;11?1_2;09;1111;
+SUB;eet_tweaks;11?1_2;09;0000;
 SUB;eet_tweaks;11?1_3;09;0000;
 SUB;eet_tweaks;11?2_50;09;0000;
 STD;eet_tweaks;12;09;1111;
 ANN;#13 no conflict with 7c#sartweak
 STD;eet_tweaks;13;09;1111;
-STD;eet_tweaks;14;09;0011;
+STD;eet_tweaks;14;09;0000;
 STD;eet_tweaks;15;09;0000;
 SUB;eet_tweaks;16;09;0000;
 SUB;eet_tweaks;16?1_1;09;0000;
