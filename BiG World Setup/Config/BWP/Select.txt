@@ -386,6 +386,7 @@ MUC;ImoenRomance;1;14;0111;
 MUC;ImoenRomance;2;14;0000;
 STD;IndiNPC;0;04;0111;
 STD;Mur'Neth;0;04;0111;
+STD;MurNethStringFixer;0;01;0111;
 STD;MulgoreXaviaNPC;0;04;0111;
 STD;XanBG1Friend;0;05;1111;
 STD;coranbgfriend;0;05;1111;
