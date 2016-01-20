@@ -1177,6 +1177,30 @@ SUB;LightingPack;21?4_y;13;0000;
 ANN;--- optional fixes ---
 STD;apr_fix;0;01;0111;
 ANN;--- portraits ---
+ANN;NSCPortraits;0;13;1111; currently works for BGT only
+STD;NSCPortraits;10;13;1111;
+ANN;NToTSC not yet available for EE
+ANN;NSCPortraits;20;13;1111;
+ANN;NSCPortraits;21;13;1111;
+ANN;SoBH not yet available for EE
+ANN;NSCPortraits;30;13;1111;
+STD;NSCPortraits;50;13;1111;
+STD;NSCPortraits;300;13;1111;
+STD;NSCPortraits;305;13;1111;
+ANN;TGC1e not yet available for EE
+ANN;NSCPortraits;310;13;1111;
+STD;NSCPortraits;1780;13;1111;
+ANN;BP
+ANN;NSCPortraits;1340;13;1111;
+STD;NSCPortraits;1370;13;1111;
+STD;NSCPortraits;1380;13;1111;
+STD;NSCPortraits;1450;13;1111;
+STD;NSCPortraits;1490;13;1111;
+STD;NSCPortraits;1540;13;1111;
+ANN;Sandrah not yet available for EE
+ANN;NSCPortraits;1600;13;1111;
+STD;NSCPortraits;5000;13;1111;
+STD;NSCPortraits;5010;13;1111;
 DWN;ThePictureStandardBGEE;0;13;0111;
 STD;Isandir;0;13;0000;
 STD;Isandir;1;13;0000;

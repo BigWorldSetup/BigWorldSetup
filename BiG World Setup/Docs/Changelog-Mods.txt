@@ -527,7 +527,7 @@ Updated: Almateria's Restoration Project v8.2.3, BP-BGT Worldmap v10.2b1, Deidre
 Fixed: Adjusted dependencies.
 Updated: Return to Faerun v1.07 beta, Sandrah NPC v1.07 beta, WTP Familiars for Throne of Bhaal v1.5.
 20160119 - Updated by agb1
-Added: Sirene NPC v1 for BG:EE and EET, Neera Banters (pre-release) for BG:EE and EET, Multiclass Multikits (pre-release) for BG2/BGT/BGEE/BG2EE/EET, Gerris BGT NPC Portraits v3.0 for BG2EE
+Added: Sirene NPC v1 for BG:EE and EET, Neera Banters (pre-release) for BG:EE and EET, Multiclass Multikits (pre-release) for BG2/BGT/BGEE/BG2EE/EET, Gerris BGT NPC Portraits v3.0 for BG:EE and BG2EE
 Added: White Agnus' Mur'Neth String Fixer (for German language only) for BG:EE, BGT, EET
 Added: Mulgore and Xavia NPCs for BG:EE and EET (BWFixpack'd by White Agnus)
 Added: Huple NPC for BG:EE and EET (BWFixpack'd by White Agnus)
