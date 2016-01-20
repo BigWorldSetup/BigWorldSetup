@@ -138,7 +138,7 @@ Func Au3BuildGUI($p_Num = 0)
 	$g_UI_Static[4][1] = GUICtrlCreateLabel('', 60, 330, 675, 20, BitOR($SS_Left, $SS_CENTERIMAGE)); Modgroup, size, translation
 	GUICtrlSetResizing(-1, 832)
 	GUICtrlSetFont(-1, 8, 800, 4, "MS Sans Serif")
-	$g_UI_Interact[4][2] = GUICtrlCreateEdit('', 15, 350, 720, 60, BitOR($SS_Left, $WS_VSCROLL, $WS_Border, $ES_READONLY), 0); Extended info
+	$g_UI_Interact[4][2] = GUICtrlCreateEdit('', 15, 350, 720, 70, BitOR($SS_Left, $WS_VSCROLL, $WS_Border, $ES_READONLY), 0); Extended info
 	GUICtrlSetResizing(-1, 576)
 	GUICtrlSetFont(-1, 8, 400, 0, "Arial")
 	GUICtrlSetBkColor(-1, 0xFFFFFF)

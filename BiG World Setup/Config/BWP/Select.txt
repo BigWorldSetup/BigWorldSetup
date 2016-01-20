@@ -4340,4 +4340,7 @@ ANN;CMD;IF EXIST "BiG World Textpack GERMAN" ren ".\BiG World Installpack\SR_con
 ANN;CMD;".\BiG World Installpack\SR_consistence.js" ".\BWP_workspace\dialog.tra"
 ANN;CMD;WeiDU.exe --make-tlk .\BWP_workspace\dialog.tra dialog.tlk
 ANN;CMD;IF EXIST dialogF.tlk WeiDU.exe --make-tlk .\BWP_workspace\dialog.tra dialogF.tlk
+STD;m7multikit;10;19;0111;
+STD;m7multikit;11;19;0111;
+STD;m7multikit;13;19;0111;
 ANN;Added due to patching

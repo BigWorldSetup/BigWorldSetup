@@ -441,6 +441,7 @@ Func _Selection_TipSetData($p_Num)
 	If $p_Num > $g_CentralArray[0][0] Then Return
 	Local $Dsc, $Num=StringSplit($g_CentralArray[$p_Num][1], ','); Translate numbers into something readable
 	For $n=1 to $Num[0]
+		If $Num[$n]+3 > $g_Tags[0][0] Then ContinueLoop; prevent crashes if tag/theme number exceeds valid range
 		$Dsc &= ','&$g_Tags[$Num[$n]+3][1]
 	Next
 	$Dsc=StringTrimLeft($Dsc, 1)

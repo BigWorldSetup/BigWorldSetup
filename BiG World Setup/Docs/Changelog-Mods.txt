@@ -526,4 +526,5 @@ Updated: Almateria's Restoration Project v8.2.3, BP-BGT Worldmap v10.2b1, Deidre
 20150812 - Updated by Silent
 Fixed: Adjusted dependencies.
 Updated: Return to Faerun v1.07 beta, Sandrah NPC v1.07 beta, WTP Familiars for Throne of Bhaal v1.5.
-20160114 - Updated by agb1
+20160119 - Updated by agb1
+Added: Sirene NPC v1 for BG:EE and EET, Neera Banters (pre-release) for BG:EE and EET, Multiclass Multikits (pre-release) for BG2/BGT/BGEE/BG2EE/EET, Gerris BGT NPC Portraits v3.0 for BG2EE
