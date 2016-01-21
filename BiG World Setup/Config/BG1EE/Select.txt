@@ -67,7 +67,7 @@ STD;thalan;0;10;1111;
 STD;BGeeAR;0;10;0111;
 STD;BGeeW;0;10;0111;
 STD;Animus;0;10;0111;
-STD;ConvinientAmmunition;0;10;0111;
+STD;ConvinientAmmunition;0;10;1111;
 STD;WandCase;0;10;0111;
 STD;wmart;0;10;0111;
 ANN;--- NPCs ---
@@ -1195,10 +1195,7 @@ ANN;NSCPortraits;1340;13;1111;
 STD;NSCPortraits;1370;13;1111;
 STD;NSCPortraits;1380;13;1111;
 STD;NSCPortraits;1450;13;1111;
-STD;NSCPortraits;1490;13;1111;
 STD;NSCPortraits;1540;13;1111;
-ANN;Sandrah not yet available for EE
-ANN;NSCPortraits;1600;13;1111;
 STD;NSCPortraits;5000;13;1111;
 STD;NSCPortraits;5010;13;1111;
 DWN;ThePictureStandardBGEE;0;13;0111;

@@ -65,7 +65,7 @@ STD;thalan;0;10;1111;
 STD;BGeeAR;0;10;0111;
 STD;BGeeW;0;10;0111;
 STD;Animus;0;10;0111;
-STD;ConvinientAmmunition;0;10;0111;
+STD;ConvinientAmmunition;0;10;1111;
 STD;wmart;0;10;0111;
 ANN;--- BGEE NPCs ---
 STD;bg1npc;0;07;1111;
@@ -369,10 +369,10 @@ SUB;WhiteQueen;0?1_1;03;0000;
 SUB;WhiteQueen;0?1_2;03;1111;
 STD;Reunion;0;3;0111;
 STD;isnf;0;03;1111;
-STD;Eilistraee;0;03;0111;
-MUC;Eilistraee;Init;03;0111;
+STD;Eilistraee;0;03;1111;
+MUC;Eilistraee;Init;03;1111;
 MUC;Eilistraee;1;03;0000;
-MUC;Eilistraee;2;03;0111;
+MUC;Eilistraee;2;03;1111;
 MUC;Eilistraee;3;03;0000;
 STD;c#sb_silber;0;04;1111;
 ANN;--- BG2EE tactical encounters ---
@@ -2105,7 +2105,7 @@ SUB;LightingPack;21?4_y;13;0000;
 ANN;--- optional fixes ---
 STD;apr_fix;0;01;0111;
 ANN;--- portraits ---
-ANN;NSCPortraits;0;13;1111; currently works for BGT only
+STD;NSCPortraits;0;13;1111;
 STD;NSCPortraits;1;13;1111;
 STD;NSCPortraits;10;13;1111;
 STD;NSCPortraits;20;13;1111;
