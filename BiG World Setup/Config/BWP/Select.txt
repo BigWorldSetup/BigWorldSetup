@@ -2696,7 +2696,7 @@ STD;scales_of_balance;532;19;0111;
 STD;scales_of_balance;540;19;0111;
 STD;scales_of_balance;586;19;0001;
 STD;scales_of_balance;588;19;0111;
-STD;scales_of_balance;600;16;0111;
+STD;scales_of_balance;600;16;0001;
 CMD;IF EXIST "override\kit.IDS" type B#BLADEstring.txt >> override\kit.IDS;;;;D:RevisedBattles(24)
 STD;refinements;10;16;1111;
 MUC;refinements;Init;16;1111;

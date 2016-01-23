@@ -531,6 +531,7 @@ Added: Sirene NPC v1 for BG:EE and EET, Neera Banters (pre-release) for BG:EE an
 Added: White Agnus' Mur'Neth String Fixer (for German language only) for BG:EE, BGT, EET
 Added: Mulgore and Xavia NPCs for BG:EE and EET (BWFixpack'd by White Agnus)
 Added: Huple NPC for BG:EE and EET (BWFixpack'd by White Agnus)
+
 20160120 - Updated by agb1
 * Rule:  Warning if installing Sandrah NPC with EET Tweaks #0 (teleport spell for EET)
 * Rule:  Might & Guile #200 (revised stats) conflicts with Victor's Improvements Pack #0
@@ -553,24 +554,17 @@ Added: Huple NPC for BG:EE and EET (BWFixpack'd by White Agnus)
 * Selection:  Difficulty and Tweak tactical components marked as such for BG:EE (consistent with other game types)
 
 * Added:  Baldur's Gate Graphics Overhaul for EET and BGT (updated by White Agnus)
-
 * Removed:  Mur'Neth German String Fixer (HANDLE_CHARSETS is BWPFixpack'd for Mur'Neth NPC, so fix is not needed)
 
 * Level1NPCs individual NPC components moved from Kits to BG1 / BG2 NPC-Related
 * FinnJO's Subrace Mod moved from Kits to Tweaks
 * Faiths and Powers moved from Kits to Tweaks
 
-* Recommended -> Stable:
-1. Ding0's Experience Fixer (EET Tweaks patches additional file types)
+* Recommended -> Stable:  Ding0's Experience Fixer (EET Tweaks patches additional file types)
+* Stable -> Recommended:  Almateria's Restoration Project for BG2EE/EET (already Recommended for BG2/BGT), EET Tweaks (XP tweaks and disable hostile charm reaction), Keto NPC, Nephele NPC, Thalantyr Item Upgrade for BG:EE/EET (already Recommended for BGT), Valerie NPC (BGT transition issue BWPFixpack'd)
+* Expert -> Stable:  Victor's Improvements Pack (some components are still Tactical/Expert), DungeonBeGone for BG2EE/EET
 
-* Stable -> Recommended:
-1. Almateria's Restoration Project for BG2EE/EET (already Recommended for BG2/BGT)
-2. EET Tweaks (XP tweaks and disable hostile charm reaction)
-3. Keto NPC
-4. Nephele NPC
-5. Thalantyr Item Upgrade for BG:EE/EET (already Recommended for BGT)
-6. Valerie NPC (BGT transition issue BWPFixpack'd)
-
-* Expert -> Stable:
-1. Victor's Improvements Pack (some components are still Tactical/Expert)
-2. DungeonBeGone for BG2EE/EET
+20160123 - Updated by agb1
+* BG:EE/BG2:EE:  Re-categorized Neera Expansion #6,7 and all NPC_EE components as NPC-Related
+* Added Tome and Blood 0.5 to BG:EE, BG2:EE selection (still marked Expert, and not advisable to use except for testing - there are known problems and a new version is in the works)
+* Scales of Balance #600 marked Expert because problems have been reported (https://forums.beamdog.com/discussion/33657/scales-of-balance-post-hac-kits-and-tweaks/p34)
