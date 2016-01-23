@@ -4169,7 +4169,6 @@ STD;lolfixer;12;01;0000;
 STD;lolfixer;13;01;1111;
 STD;lolfixer;14;01;1111;
 STD;lolfixer;15;01;1111;
-STD;SandrahItem;0;01;1111;
 ANN;--- hotfixes ---
 ANN;trim leading and trailing spaces, remove duplicates
 CMD;Call ".\BiG World Installpack\trim_IDS.bat" 
