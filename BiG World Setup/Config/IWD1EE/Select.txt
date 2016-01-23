@@ -287,7 +287,7 @@ STD;scales_of_balance;532;12;0111;
 STD;scales_of_balance;540;12;0111;
 STD;scales_of_balance;586;12;0111;
 STD;scales_of_balance;588;12;0111;
-STD;scales_of_balance;600;09;0111;
+STD;scales_of_balance;600;09;0001;
 STD;scales_of_balance;580;09;0111;
 STD;might_and_guile;100;09;0111;
 STD;might_and_guile;120;09;0111;
