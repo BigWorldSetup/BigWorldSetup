@@ -27,9 +27,6 @@ ANN;Removing corrupted .wed
 ANN;CMD;IF EXIST setup-bgeegraphics.exe IF EXIST ".\override\ar4300.wed" move ".\override\ar4300.wed" ".\BWS_workspace\override"
 ANN;Removing .are because of corrupted .wed
 ANN;CMD;IF EXIST setup-bgeegraphics.exe IF EXIST ".\override\ar3000n.wed" move ".\override\ar3000.are" ".\BWS_workspace\override"
-MUC;bggoEET;Init;13;0111;
-MUC;bggoEET;0;13;0111;
-MUC;bggoEET;1;13;0000;
 ANN;--- BGEE "big mods" ---
 STD;DarkHorizonsBGee;0;02;0011;
 STD;dsotscBGEE;5;02;0111;
@@ -313,6 +310,9 @@ CMD;IF EXIST ".\BiG World Installpack\BWP_Smoothpack.installed" copy ".\BiG Worl
 STD;BG2EE_PL;0;0;1111;
 STD;BG2EE_PL;1;0;1111;
 DWN;BG2EE-Polish;0;00;1111;
+MUC;bggoEET;Init;13;0111;
+MUC;bggoEET;0;13;0111;
+MUC;bggoEET;1;13;0000;
 SUB;bg2eetp;0;00;1111;
 SUB;bg2eetp;0?1_1;00;1111;
 SUB;bg2eetp;0?1_2;00;1111;
