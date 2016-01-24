@@ -3760,6 +3760,7 @@ SUB;eet_tweaks;11?1_3;16;0000;
 SUB;eet_tweaks;11?2_50;16;0000;
 ANN;-- no hostile charm reaction --
 STD;eet_tweaks;20;16;1111;
+STD;eet_tweaks;30;16;0111;
 STD;Virtue;0;16;0001;
 STD;gloran;1;12;0001;
 STD;sarerestore;0;14;0111;

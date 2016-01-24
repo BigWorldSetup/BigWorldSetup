@@ -2033,8 +2033,7 @@ STD;eet_tweaks;24;13;0000;
 STD;eet_tweaks;27;09;0111;
 STD;eet_tweaks;28;09;1111;
 STD;eet_tweaks;29;09;0111;
-ANN;-- ironman mode --
-STD;eet_tweaks;30;09;0000;
+STD;eet_tweaks;30;09;0111;
 ANN;worldmap after all mods that use it
 SUB;BP-BGT-Worldmap;0;13;1111;
 SUB;BP-BGT-Worldmap;0?1_1;13;1111;

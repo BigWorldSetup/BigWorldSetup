@@ -864,7 +864,7 @@ Func _Extract_OverwriteFiles()
 	Else
 		Local $gameType = $g_Flags[14]
 	EndIf
-	Local $overwriteDir=$g_BaseDir&'\'&'OverwriteFiles'&'\'&$gameType
+	Local $overwriteDir=$g_ProgDir&'\'&'OverwriteFiles'&'\'&$gameType
 	If StringInStr(FileGetAttrib($overwriteDir), 'D') Then; directory exists
 		Local $Success=0
 		Local $Files=_FileSearch($overwriteDir&'\', '*')

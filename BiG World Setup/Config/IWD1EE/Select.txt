@@ -388,8 +388,7 @@ SUB;eet_tweaks;11?1_3;09;0000;
 SUB;eet_tweaks;11?2_50;09;0000;
 ANN;-- no hostile charm reaction --
 STD;eet_tweaks;20;09;1111;
-ANN;-- ironman mode --
-STD;eet_tweaks;30;09;0000;
+STD;eet_tweaks;30;09;0111;
 STD;minornpcportraitsforiwdee;0;13;1111;
 STD;LightingPack;0;13;0000;
 STD;LightingPack;1;13;0000;
