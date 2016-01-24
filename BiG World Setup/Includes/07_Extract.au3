@@ -361,6 +361,7 @@ Func Au3ExFix($p_Num)
 			EndIf
 		Next
 	EndIf
+	_Extract_OverwriteFiles()
 	IniWrite($g_BWSIni, 'Order', 'Au3ExFix', 0); Skip this one if the Setup is rerun
 	$g_FItem = 1
 	Return
@@ -819,7 +820,7 @@ Func _Extract_MoveMod($p_Dir)
 	$Files=_FileSearch($g_GameDir & '\' & $p_Dir, '*')
 	For $f=1 to $Files[0]
 		If StringInStr(FileGetAttrib($g_GameDir & '\' & $p_Dir & '\' & $Files[$f]), "D") Then
-			$Success = DirMove($g_GameDir & '\' & $p_Dir & '\' & $Files[$f], $g_GameDir & '\', 1)
+			$Success = DirMove($g_GameDir & '\' & $p_Dir & '\' & $Files[$f], $g_GameDir, 1)
 		Else
 			$Success = FileMove($g_GameDir & '\' & $p_Dir & '\' & $Files[$f], $g_GameDir & '\', 1)
 		EndIf
@@ -852,3 +853,27 @@ Func _Extract_TestIntegrity($p_File)
 	If StringInStr($Output, 'Everything is Ok') Then Return 1
 	Return 0
 EndFunc    ;==>_Extract_TestIntegrity
+
+; ---------------------------------------------------------------------------------------------
+; If there are files in a directory in the BWS folder named OverwriteFiles\<current game type>\
+; then copy those files to the current game folder, overwriting any existing files there
+; ---------------------------------------------------------------------------------------------
+Func _Extract_OverwriteFiles()
+	Local $overwriteDir=$g_BaseDir&'\'&'OverwriteFiles'&'\'&$g_Flags[14]
+	If StringInStr(FileGetAttrib($overwriteDir), 'D') Then; directory exists
+		Local $Success=0
+		Local $Files=_FileSearch($overwriteDir&'\', '*')
+		For $f=1 to $Files[0]
+			If StringInStr(FileGetAttrib($overwriteDir&'\'&$Files[$f]), 'D') Then
+				$Success = DirCopy($overwriteDir&'\'&$Files[$f], $g_GameDir, 1); overwrite
+			Else
+				$Success = FileCopy($overwriteDir&'\'&$Files[$f], $g_GameDir&'\', 1); overwrite
+			EndIf
+			If $Success Then
+				FileWrite($g_LogFile, 'Copied '&$overwriteDir&'\'&$Files[$f]&' to '&$g_GameDir&@CRLF)
+			Else
+				FileWrite($g_LogFile, '_Extract_OverwriteFiles encountered error copying'&$overwriteDir&'\'&$Files[$f]&' to '&$g_GameDir&@CRLF)
+			EndIf
+		Next
+	EndIf
+EndFunc    ;==>_Extract_OverwriteFiles
