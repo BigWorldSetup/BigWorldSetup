@@ -859,7 +859,12 @@ EndFunc    ;==>_Extract_TestIntegrity
 ; then copy those files to the current game folder, overwriting any existing files there
 ; ---------------------------------------------------------------------------------------------
 Func _Extract_OverwriteFiles()
-	Local $overwriteDir=$g_BaseDir&'\'&'OverwriteFiles'&'\'&$g_Flags[14]
+	If $g_Flags[14] = 'BWS' Then
+		Local $gameType = 'BWP'
+	Else
+		Local $gameType = $g_Flags[14]
+	EndIf
+	Local $overwriteDir=$g_BaseDir&'\'&'OverwriteFiles'&'\'&$gameType
 	If StringInStr(FileGetAttrib($overwriteDir), 'D') Then; directory exists
 		Local $Success=0
 		Local $Files=_FileSearch($overwriteDir&'\', '*')
