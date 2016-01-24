@@ -867,7 +867,7 @@ Func _Extract_OverwriteFiles()
 	Local $overwriteDir=$g_ProgDir&'\'&'OverwriteFiles'&'\'&$gameType
 	If StringInStr(FileGetAttrib($overwriteDir), 'D') Then; directory exists
 		Local $Success=0
-		Local $Files=_FileSearch($overwriteDir&'\', '*')
+		Local $Files=_FileSearch($overwriteDir, '*')
 		For $f=1 to $Files[0]
 			If StringInStr(FileGetAttrib($overwriteDir&'\'&$Files[$f]), 'D') Then
 				$Success = DirCopy($overwriteDir&'\'&$Files[$f], $g_GameDir, 1); overwrite
