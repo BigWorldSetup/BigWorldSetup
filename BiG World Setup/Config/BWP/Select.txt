@@ -2379,9 +2379,10 @@ STD;sword_and_fist;1;16;0111;
 STD;sword_and_fist;30;19;0111;
 STD;sword_and_fist;31;19;0111;
 STD;sword_and_fist;32;19;0111;
-ANN;CMD;IF EXIST Setup-Spell_Rev.exe IF EXIST ".\override\SPPR107.SPL" move ".\override\SPPR107.SPL" ".\BWP_workspace\override"
+CMD;IF EXIST Setup-Spell_Rev.exe IF EXIST ".\override\SPPR107.SPL" move ".\override\SPPR107.SPL" ".\BWP_workspace\override"
+ANN;ERROR: illegal 2-byte read from offset 15458 of 15410-byte file SPPR107.spl
 STD;sword_and_fist;33;19;0111;
-ANN;CMD;IF EXIST Setup-Spell_Rev.exe IF EXIST ".\BWP_workspace\override\SPPR107.SPL" move ".\BWP_workspace\override\SPPR107.SPL" ".\override"
+CMD;IF EXIST Setup-Spell_Rev.exe IF EXIST ".\BWP_workspace\override\SPPR107.SPL" copy ".\BWP_workspace\override\SPPR107.SPL" ".\override"
 STD;sword_and_fist;34;19;0111;
 STD;RR;0;16;1111;
 STD;RR;1;16;1111;
@@ -3245,7 +3246,10 @@ ANN;This component might crash the game!
 ANN;d0tweak;3;16;0001;
 STD;d0tweak;4;16;0111;
 STD;d0tweak;5;16;0111;
+CMD;IF EXIST "override\belt05.itm" move "override\belt05.itm" "BWS_workspace\override"
+ANN;ERROR: illegal 4-byte read from offset 358 of 258-byte file BELT05.ITM
 STD;d0tweak;6;16;0111;
+CMD;IF EXIST "BWS_workspace\override\belt05.itm" copy "BWS_workspace\override\belt05.itm" "override"
 STD;d0tweak;7;16;0111;
 STD;d0tweak;9;16;0000;
 STD;d0tweak;11;16;0000;
