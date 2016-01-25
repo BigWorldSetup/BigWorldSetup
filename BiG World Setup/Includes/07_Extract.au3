@@ -854,6 +854,77 @@ Func _Extract_TestIntegrity($p_File)
 	Return 0
 EndFunc    ;==>_Extract_TestIntegrity
 
+; #FUNCTION# ========================================================================================================================
+; Name...........: _FileListToArray
+; Description ...: Lists files and\or folders in a specified path (Similar to using Dir with the /B Switch)
+; Syntax.........: _FileListToArray($sPath[, $sFilter = "*"[, $iFlag = 0]])
+; Parameters ....: $sPath   - Path to generate filelist for.
+;                 $sFilter - Optional the filter to use, default is *. (Multiple filter groups such as "All "*.png|*.jpg|*.bmp") Search the Autoit3 helpfile for the word "WildCards" For details.
+;                 $iFlag   - Optional: specifies whether to return files folders or both Or Full Path (add the flags together for multiple operations):
+;                 |$iFlag = 0 (Default) Return both files and folders
+;                 |$iFlag = 1 Return files only
+;                 |$iFlag = 2 Return Folders only
+;                 |$iFlag = 4 Search subdirectory
+;                 |$iFlag = 8 Return Full Path
+; Return values .: @Error - 1 = Path not found or invalid
+;                 |2 = Invalid $sFilter
+;                 |3 = Invalid $iFlag
+;                 |4 = No File(s) Found
+; Author ........: SolidSnake <MetalGX91 at GMail dot com>
+; Modified.......:
+; Remarks .......: The array returned is one-dimensional and is made up as follows:
+;                               $array[0] = Number of Files\Folders returned
+;                               $array[1] = 1st File\Folder
+;                               $array[2] = 2nd File\Folder
+;                               $array[3] = 3rd File\Folder
+;                               $array[n] = nth File\Folder
+; Related .......:
+; Link ..........:
+; Example .......: Yes
+; Note ..........: Special Thanks to Helge and Layer for help with the $iFlag update speed optimization by code65536, pdaughe
+;                 Update By DXRW4E
+; ===================================================================================================================================
+Func _FileListToArrayEx($sPath, $sFilter = "*", $iFlag = 0)
+    Local $hSearch, $sFile, $sFileList, $iFlags = StringReplace(BitAND($iFlag, 1) + BitAND($iFlag, 2), "3", "0"), $sSDir = BitAND($iFlag, 4), $FPath = "", $sDelim = "|", $sSDirFTMP = $sFilter
+    $sPath = StringRegExpReplace($sPath, "[\\/]+\z", "") & "\" ; ensure single trailing backslash
+    If Not FileExists($sPath) Then Return SetError(1, 1, "")
+    If BitAND($iFlag, 8) Then $FPath = $sPath
+    If StringRegExp($sFilter, "[\\/:><]|(?s)\A\s*\z") Then Return SetError(2, 2, "")
+    If Not ($iFlags = 0 Or $iFlags = 1 Or $iFlags = 2 Or $sSDir = 4 Or $FPath <> "") Then Return SetError(3, 3, "")
+    $hSearch = FileFindFirstFile($sPath & "*")
+    If @error Then Return SetError(4, 4, "")
+    Local $hWSearch = $hSearch, $hWSTMP = $hSearch, $SearchWD, $sSDirF[3] = [0, StringReplace($sSDirFTMP, "*", ""), "(?i)(" & StringRegExpReplace(StringRegExpReplace(StringRegExpReplace(StringRegExpReplace(StringRegExpReplace(StringRegExpReplace("|" & $sSDirFTMP & "|", '\|\h*\|[\|\h]*', "\|"), '[\^\$\(\)\+\[\]\{\}\,\.\=]', "\\$0"), "\|([^\*])", "\|^$1"), "([^\*])\|", "$1\$\|"), '\*', ".*"), '^\||\|$', "") & ")"]
+    While 1
+        $sFile = FileFindNextFile($hWSearch)
+        If @error Then
+            If $hWSearch = $hSearch Then ExitLoop
+            FileClose($hWSearch)
+            $hWSearch -= 1
+            $SearchWD = StringLeft($SearchWD, StringInStr(StringTrimRight($SearchWD, 1), "\", 1, -1))
+        ElseIf $sSDir Then
+            $sSDirF[0] = @extended
+            If ($iFlags + $sSDirF[0] <> 2) Then
+                If $sSDirF[1] Then
+                    If StringRegExp($sFile, $sSDirF[2]) Then $sFileList &= $sDelim & $FPath & $SearchWD & $sFile
+                Else
+                    $sFileList &= $sDelim & $FPath & $SearchWD & $sFile
+                EndIf
+            EndIf
+            If Not $sSDirF[0] Then ContinueLoop
+            $hWSTMP = FileFindFirstFile($sPath & $SearchWD & $sFile & "\*")
+            If $hWSTMP = -1 Then ContinueLoop
+            $hWSearch = $hWSTMP
+            $SearchWD &= $sFile & "\"
+        Else
+            If ($iFlags + @extended = 2) Or StringRegExp($sFile, $sSDirF[2]) = 0 Then ContinueLoop
+            $sFileList &= $sDelim & $FPath & $sFile
+        EndIf
+    WEnd
+    FileClose($hSearch)
+    If Not $sFileList Then Return SetError(4, 4, "")
+    Return StringSplit(StringTrimLeft($sFileList, 1), "|")
+EndFunc
+
 ; ---------------------------------------------------------------------------------------------
 ; If there are files in a directory in the BWS folder named OverwriteFiles\<current game type>\
 ; then copy those files to the current game folder, overwriting any existing files there
@@ -864,15 +935,16 @@ Func _Extract_OverwriteFiles()
 	Else
 		Local $gameType = $g_Flags[14]
 	EndIf
-	Local $overwriteDir=$g_ProgDir&'\'&'OverwriteFiles'&'\'&$gameType
+	Local $overwriteDir = $g_BaseDir&'\'&'OverwriteFiles'&'\'&$gameType
 	If StringInStr(FileGetAttrib($overwriteDir), 'D') Then; directory exists
-		Local $Success=0
-		Local $Files=_FileSearch($overwriteDir, '*')
-		For $f=1 to $Files[0]
+		Local $Success = 0
+		Local $Files = _FileListToArrayEx($overwriteDir, "*", 0)
+		MsgBox($Files[4], "asd",$overwriteDir&'\'&$Files[4])
+		For $f = 1 to UBound($Files) - 1
 			If StringInStr(FileGetAttrib($overwriteDir&'\'&$Files[$f]), 'D') Then
 				$Success = DirCopy($overwriteDir&'\'&$Files[$f], $g_GameDir, 1); overwrite
-			Else
-				$Success = FileCopy($overwriteDir&'\'&$Files[$f], $g_GameDir&'\', 1); overwrite
+			Else 
+				$Success = FileCopy($overwriteDir&'\'&$Files[$f], $g_GameDir&'\', 8); overwrite
 			EndIf
 			If $Success Then
 				FileWrite($g_LogFile, 'Copied '&$overwriteDir&'\'&$Files[$f]&' to '&$g_GameDir&@CRLF)
@@ -880,5 +952,6 @@ Func _Extract_OverwriteFiles()
 				FileWrite($g_LogFile, '_Extract_OverwriteFiles encountered error copying'&$overwriteDir&'\'&$Files[$f]&' to '&$g_GameDir&@CRLF)
 			EndIf
 		Next
+		_kill()
 	EndIf
 EndFunc    ;==>_Extract_OverwriteFiles
