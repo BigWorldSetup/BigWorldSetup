@@ -570,8 +570,17 @@ Added: Huple NPC for BG:EE and EET (BWFixpack'd by White Agnus)
 * Scales of Balance #600 marked Expert because problems have been reported (https://forums.beamdog.com/discussion/33657/scales-of-balance-post-hac-kits-and-tweaks/p34)
 * Divine Remix #600 and #610 (assign kits to Branwen and Viconia) marked Expert for BG2:EE (http://gibberlings3.net/forums/index.php?showtopic=26824&p=232340)
 
+20160125 - Updated by Quiet
+ 
+* BG2EE/EET: Added dependence Full Fixed Russian Translation from BG:EE from BG1EE/EET
+* BG2EE/BGT: Slightly changed installation order (nothing matter)
+* BGT: Removed dependence Tortured Souls v7.0.4 from Baldurdash v1.73 (it needs v1.68 only)
+* Updated A Frosty Journey: The IWDEE Kitpack to v2.8.1
+* Updated file size of some mods (although this is not necessary)
+ 
 20160125 - Updated by agb1
+ 
+* Moved Generalized Biffing to Expert for EE games due to reports that it is unnecessary with the new engine
 * Disabled conflict rule between Might & Guile #265 (monk tweaks) and monk tweaks from other mods
-* Added purge rule for BGEE Text Pack (Russian localization) for BG2EE installs without EET
 * BGEE/BG2EE/IWDEE:  Updated Tome and Blood from version 0.5 to 0.6 (complete overhaul of components)
-* BGT:  Added Tome and Blood 0.6 to selection (only components #0-5 and 20 -- #6,9,10-13 are EE-exclusive)
+* BG2/BGT:  Added Tome and Blood 0.6 to selection (only components #0-5 and 20 -- #6,9,10-13 are EE-exclusive)
