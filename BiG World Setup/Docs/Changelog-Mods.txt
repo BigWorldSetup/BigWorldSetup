@@ -569,3 +569,9 @@ Added: Huple NPC for BG:EE and EET (BWFixpack'd by White Agnus)
 * Added Tome and Blood 0.5 to BG:EE, BG2:EE selection (still marked Expert, and not advisable to use except for testing - there are known problems and a new version is in the works)
 * Scales of Balance #600 marked Expert because problems have been reported (https://forums.beamdog.com/discussion/33657/scales-of-balance-post-hac-kits-and-tweaks/p34)
 * Divine Remix #600 and #610 (assign kits to Branwen and Viconia) marked Expert for BG2:EE (http://gibberlings3.net/forums/index.php?showtopic=26824&p=232340)
+
+20160125 - Updated by agb1
+* Disabled conflict rule between Might & Guile #265 (monk tweaks) and monk tweaks from other mods
+* Added purge rule for BGEE Text Pack (Russian localization) for BG2EE installs without EET
+* BGEE/BG2EE/IWDEE:  Updated Tome and Blood from version 0.5 to 0.6 (complete overhaul of components)
+* BGT:  Added Tome and Blood 0.6 to selection (only components #0-5 and 20 -- #6,9,10-13 are EE-exclusive)
