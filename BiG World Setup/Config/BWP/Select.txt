@@ -2740,6 +2740,14 @@ STD;might_and_guile;470;19;0111;
 STD;might_and_guile;480;19;0111;
 STD;might_and_guile;490;19;0111;
 STD;might_and_guile;500;16;0111;
+STD;TomeAndBlood;0;09;0000;
+STD;TomeAndBlood;1;09;0000;
+STD;TomeAndBlood;2;09;0000;
+STD;TomeAndBlood;3;09;0000;
+STD;TomeAndBlood;4;09;0000;
+STD;TomeAndBlood;5;09;0000;
+ANN;#6,9,10-13 are EE-only
+STD;TomeAndBlood;20;09;0000;
 STD;RPG-KP;0;19;0111;
 STD;RPG-KP;1;19;0000;
 STD;RPG-KP;2;19;0111;

@@ -1269,23 +1269,23 @@ STD;A7#ImprovedArcher;100;10;0111;
 STD;eet_tweaks;25;12;0111;
 STD;eet_tweaks;26;12;0111;
 STD;TomeAndBlood;0;09;0000;
+STD;TomeAndBlood;1;09;0000;
 STD;TomeAndBlood;2;09;0000;
 STD;TomeAndBlood;3;09;0000;
 STD;TomeAndBlood;4;09;0000;
 STD;TomeAndBlood;5;09;0000;
-STD;TomeAndBlood;6;12;0000;
-STD;TomeAndBlood;8;12;0000;
-STD;TomeAndBlood;9;12;0000;
+STD;TomeAndBlood;6;09;0000;
+STD;TomeAndBlood;8;09;0000;
+STD;TomeAndBlood;9;09;0000;
+STD;TomeAndBlood;20;09;0000;
+ANN;#10-13 are new classes/kits
 STD;TomeAndBlood;10;12;0000;
 STD;TomeAndBlood;11;12;0000;
-ANN;12-14 need EET
-STD;TomeAndBlood;12;07;0000;
-MUC;TomeAndBlood;Init;07;0000;
-MUC;TomeAndBlood;13;07;0000;
-MUC;TomeAndBlood;14;07;0000;
-MUC;TomeAndBlood;Init;07;0000;
-MUC;TomeAndBlood;15;07;0000;
-MUC;TomeAndBlood;16;07;0000;
+STD;TomeAndBlood;12;12;0000;
+STD;TomeAndBlood;13;12;0000;
+ANN;30-31 are BG1 NPC tweaks
+STD;TomeAndBlood;30;07;0000;
+STD;TomeAndBlood;31;07;0000;
 ANN;#1000 is sphere system, should be installed after all divine kits
 STD;Divine_Remix;1000;09;0001;
 ANN;FnP should be installed after all divine kits
