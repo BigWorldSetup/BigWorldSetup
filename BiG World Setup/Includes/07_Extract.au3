@@ -936,22 +936,9 @@ Func _Extract_OverwriteFiles()
 		Local $gameType = $g_Flags[14]
 	EndIf
 	Local $overwriteDir = $g_BaseDir&'\'&'OverwriteFiles'&'\'&$gameType
-	If StringInStr(FileGetAttrib($overwriteDir), 'D') Then; directory exists
-		Local $Success = 0
-		Local $Files = _FileListToArrayEx($overwriteDir, "*", 0)
-		MsgBox($Files[4], "asd",$overwriteDir&'\'&$Files[4])
-		For $f = 1 to UBound($Files) - 1
-			If StringInStr(FileGetAttrib($overwriteDir&'\'&$Files[$f]), 'D') Then
-				$Success = DirCopy($overwriteDir&'\'&$Files[$f], $g_GameDir, 1); overwrite
-			Else 
-				$Success = FileCopy($overwriteDir&'\'&$Files[$f], $g_GameDir&'\', 8); overwrite
-			EndIf
-			If $Success Then
-				FileWrite($g_LogFile, 'Copied '&$overwriteDir&'\'&$Files[$f]&' to '&$g_GameDir&@CRLF)
-			Else
-				FileWrite($g_LogFile, '_Extract_OverwriteFiles encountered error copying'&$overwriteDir&'\'&$Files[$f]&' to '&$g_GameDir&@CRLF)
-			EndIf
-		Next
-		_kill()
-	EndIf
+    Local $Success = 0
+    Local $ProcID = Run(@ComSpec & ' /c xcopy /H /Y /C /Q /R /E "' & $overwriteDir & '" "' & $g_GameDir & '"', "", @SW_HIDE)
+    Do
+        Sleep(100)
+    Until NOT ProcessExists($ProcID)
 EndFunc    ;==>_Extract_OverwriteFiles
