@@ -349,6 +349,7 @@ ANN;therefore SR #0 early also
 STD;spell_rev;0;09;0111;
 STD;item_rev;0;09;0111;
 ANN;--- BG2EE quests ---
+STD;c#sb_silber;0;04;1111;
 STD;TOD;0;03;1111;
 STD;TOD;1;03;0011;
 STD;TOD;2;03;0011;
@@ -356,6 +357,7 @@ STD;DC;0;03;1111;
 STD;Assassinations;0;03;1111;
 STD;BackBrynnlaw;0;03;1111;
 STD;Sellswords;0;03;1111;
+STD;Reunion;0;03;0111;
 STD;TotDG;0;03;1111;
 STD;TotDG;1;03;1111;
 STD;TotDG;2;03;1111;
@@ -367,14 +369,12 @@ MUC;Innershade;5;03;0000;
 SUB;WhiteQueen;0;03;1111;
 SUB;WhiteQueen;0?1_1;03;0000;
 SUB;WhiteQueen;0?1_2;03;1111;
-STD;Reunion;0;3;0111;
 STD;isnf;0;03;1111;
 STD;Eilistraee;0;03;1111;
 MUC;Eilistraee;Init;03;1111;
 MUC;Eilistraee;1;03;0000;
 MUC;Eilistraee;2;03;1111;
 MUC;Eilistraee;3;03;0000;
-STD;c#sb_silber;0;04;1111;
 ANN;--- BG2EE tactical encounters ---
 STD;com_encounters;0;08;0011;
 STD;com_encounters;1;08;0011;
