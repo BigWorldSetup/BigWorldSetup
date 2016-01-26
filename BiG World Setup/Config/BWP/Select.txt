@@ -2709,9 +2709,9 @@ STD;scales_of_balance;580;16;0111;
 CMD;IF EXIST ".\override\XXX009.ITM" move ".\override\XXX009.ITM" ".\BWP_workspace\override"
 STD;might_and_guile;100;16;0111;
 CMD;IF EXIST ".\BWP_workspace\override\XXX009.ITM" move ".\BWP_workspace\override\XXX009.ITM" ".\override"
-CMD;IF EXIST ".\override\C#AJAN16.CRE" move ".\override\C#AJAN16.CRE" ".\BWP_workspace\override"
+ANN;CMD;IF EXIST ".\override\C#AJAN16.CRE" move ".\override\C#AJAN16.CRE" ".\BWP_workspace\override"
 STD;might_and_guile;120;16;0111;
-CMD;IF EXIST ".\BWP_workspace\override\C#AJAN16.CRE" move ".\BWP_workspace\override\C#AJAN16.CRE" ".\override"
+ANN;CMD;IF EXIST ".\BWP_workspace\override\C#AJAN16.CRE" move ".\BWP_workspace\override\C#AJAN16.CRE" ".\override"
 ANN;might_and_guile;140;09;0001;placeholder
 ANN;might_and_guile;150;09;0001;placeholder
 STD;might_and_guile;160;16;0111;

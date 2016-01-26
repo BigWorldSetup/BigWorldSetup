@@ -584,3 +584,6 @@ Added: Huple NPC for BG:EE and EET (BWFixpack'd by White Agnus)
 * Disabled conflict rule between Might & Guile #265 (monk tweaks) and monk tweaks from other mods
 * BGEE/BG2EE/IWDEE:  Updated Tome and Blood from version 0.5 to 0.6 (complete overhaul of components)
 * BG2/BGT:  Added Tome and Blood 0.6 to selection (only components #0-5 and 20 -- #6,9,10-13 are EE-exclusive)
+* Added rule:  aTweaks' Hit Dice of Elemental Princes needs PnP Elementals (191 needs 190)
+* BG2EE:  moved Might and Guile after SCS in installation order due to SCS warnings applying general AI to SENANI04 and SENDRO04
+* BG2/BGT:  disabled C#AJAN16.CRE install error workaround for Might and Guile #120
