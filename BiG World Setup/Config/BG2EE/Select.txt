@@ -410,7 +410,7 @@ SUB;StuffofTheMagi;0?2_1;10;0011;
 SUB;StuffofTheMagi;0?2_2;10;0100;
 ANN;--- BG2EE NPCs ---
 STD;Amber;0;05;1111;
-STD;Amber;1;05;0000;
+STD;Amber;1;05;1111;
 ANN;--- BG2EE stores and items ---
 STD;WandCase;0;10;0111;
 ANN;--- BG2EE NPCs ---
@@ -589,9 +589,9 @@ STD;7C-Yoshi;0;07;0111;
 STD;YoshimoRomance;0;07;0111;
 STD;YoshimoRomance;1;07;0111;
 STD;YoshimoRomance;4;07;0111;
-STD;EdwinRomance;0;07;0001;
+STD;EdwinRomance;0;07;0111;
 ANN;#1 portrait moved down
-STD;EdwinRomance;2;07;0001;
+STD;EdwinRomance;2;07;0111;
 STD;EdwinRomance;3;07;0111;
 STD;Tsujatha;0;05;0111;
 STD;imoenfriendship;0;07;1111;
@@ -841,6 +841,45 @@ STD;d0questpack;18;03;0111;
 STD;d0questpack;19;03;0111;
 STD;d0questpack;20;03;0111;
 STD;d0questpack;21;03;0111;
+STD;eetact2;0;08;0011;
+STD;eetact2;10;08;0011;
+STD;eetact2;11;08;0011;
+STD;eetact2;12;08;0011;
+STD;eetact2;13;08;0011;
+STD;eetact2;14;08;0011;
+STD;eetact2;15;08;0011;
+STD;eetact2;16;08;0011;
+STD;eetact2;17;08;0011;
+STD;eetact2;18;08;0011;
+STD;eetact2;19;08;0011;
+STD;eetact2;20;08;0011;
+STD;eetact2;21;08;0011;
+STD;eetact2;22;08;0011;
+STD;eetact2;23;08;0011;
+STD;eetact2;24;08;0011;
+STD;eetact2;25;08;0011;
+STD;eetact2;26;08;0011;
+STD;eetact2;27;08;0011;
+STD;eetact2;28;08;0011;
+STD;eetact2;29;11;0011;
+STD;eetact2;30;11;0011;
+STD;eetact2;31;11;0011;
+STD;eetact2;32;11;0011;
+STD;eetact2;33;11;0011;
+STD;eetact2;34;11;0011;
+STD;eetact2;35;11;0011;
+STD;eetact2;36;11;0011;
+STD;eetact2;37;08;0011;
+STD;eetact2;38;08;0011;
+STD;eetact2;39;08;0011;
+STD;eetact2;40;08;0011;
+STD;eetact2;41;08;0011;
+STD;eetact2;42;11;0011;
+STD;eetact2;43;08;0011;
+STD;eetact2;44;11;0011;
+STD;eetact2;45;11;0011;
+STD;eetact2;46;12;0111;
+STD;eetact2;47;12;0111;
 ANN;--- BG2EE minimods ---
 STD;wheels;0;04;1111;
 ANN;For some reason Wheels of Prophecy removes this entry (but exclusively for EE) so we add it back only if WoP is installed
@@ -1230,9 +1269,9 @@ STD;Derats_kits;5;12;0111;
 STD;Derats_kits;6;12;0111;
 STD;Derats_kits;7;12;0000;
 STD;Derats_kits;8;12;0000;
-ANN;jkits was incorrectly placed before EET and categorized as small NPC
 STD;jkits;0;12;0111;
 STD;jkits;1;12;0111;
+STD;jkits;2;12;0111;
 STD;A7#ImprovedArcher;0;12;0111;
 STD;A7#ImprovedArcher;100;10;0111;
 STD;eet_tweaks;25;12;0111;
