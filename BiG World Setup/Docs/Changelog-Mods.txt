@@ -594,3 +594,4 @@ Added: Huple NPC for BG:EE and EET (BWFixpack'd by White Agnus)
 * Updated JKits to version 6, added to BG:EE selection and added new component (#2 - Amazon kit)
 * Moved Edwin Romance out of Expert status due to recent version update
 * Added Tactics EE 0.62 alpha (pre-release)
+* Updated Tactics EE to 0.63 alpha (pre-release)
