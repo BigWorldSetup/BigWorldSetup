@@ -2757,7 +2757,7 @@ ANN;might_and_guile;140;09;0001;placeholder
 ANN;might_and_guile;150;09;0001;placeholder
 STD;might_and_guile;160;16;0111;
 ANN;#180 MRO is installed later
-STD;might_and_guile;200;16;0111;
+ANN;#200 Stats Revision is installed later
 STD;might_and_guile;205;16;0111;
 STD;might_and_guile;210;16;0111;
 STD;might_and_guile;215;16;0111;
@@ -3766,8 +3766,10 @@ MUC;BP-Balancer;Init;16;1111;
 MUC;BP-Balancer;29;16;0000;
 MUC;BP-Balancer;30;16;1111;
 MUC;BP-Balancer;31;16;0000;
-ANN;Magic Resistance Overhaul
+ANN;Magic Resistance Overhaul needs to install late
 STD;might_and_guile;180;16;0000;
+ANN;Stats Revision needs to install after SCS
+STD;might_and_guile;200;16;0111;
 ANN;-- adjust total XP cap --
 SUB;eet_tweaks;3;16;0111;
 SUB;eet_tweaks;3?1_1;16;0000;

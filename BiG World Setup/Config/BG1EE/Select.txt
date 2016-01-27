@@ -632,8 +632,8 @@ STD;might_and_guile;120;09;0001;
 ANN;might_and_guile;140;09;0001;
 ANN;might_and_guile;150;09;0001;
 STD;might_and_guile;160;09;0001;
-STD;might_and_guile;180;09;0001;
-STD;might_and_guile;200;09;0111;
+ANN;#180 MRO is installed later
+ANN;#200 Stats Revision is installed later
 STD;might_and_guile;205;09;0111;
 STD;might_and_guile;210;09;0111;
 STD;might_and_guile;215;09;0111;
@@ -1065,6 +1065,10 @@ STD;A7NoEENPCs;105;09;0000;
 STD;A7NoEENPCs;4;09;0000;
 STD;A7NoEENPCs;201;09;0000;
 STD;A7NoEENPCs;203;09;0000;
+ANN;Magic Resistance Overhaul needs to install late
+STD;might_and_guile;180;09;0000;
+ANN;Stats Revision needs to install after SCS
+STD;might_and_guile;200;09;0111;
 SUB;eet_tweaks;3;09;1111;
 SUB;eet_tweaks;3?1_1;09;0000;
 SUB;eet_tweaks;3?1_2;09;0000;
