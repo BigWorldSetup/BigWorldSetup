@@ -2,6 +2,8 @@
 
 Big World Setup (BWS): Mod Manager for Baldur's Gate / Enhanced Edition (Trilogy) by dabus
 
+**Download: https://bitbucket.org/BigWorldSetup/bigworldsetup/get/master.zip**
+
 Discussion SHS Forum: http://www.shsforums.net/topic/56670-big-world-setup-an-attempt-to-update-the-program/
 
 Discussion Beamdog  : https://forums.beamdog.com/post/editdiscussion/44476
