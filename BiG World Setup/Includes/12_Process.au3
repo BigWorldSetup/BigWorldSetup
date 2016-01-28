@@ -302,6 +302,12 @@ Func _Process_Run($p_String, $p_File, $p_Answer = ''); $p_String=complete call, 
 		$g_Flags[19]=0; enable to start a new process
 		_Process_StartCmd(); launch
 	EndIf
+	If StringRight($p_File, 3) <> 'exe' Then; it's NOT an executable - therefore it is a done-marker file
+		If FileExists($g_GameDir & '\' & $p_File) Then
+			$Success = FileDelete($g_GameDir & '\' & $p_File)
+			If $Success = 0 Then ConsoleWrite('!This is bad' & @CRLF)
+		EndIf
+	EndIf
 	$PIDExist = 0
 	$g_ConsoleOutput = $g_ConsoleOutput & @CRLF
 	StdinWrite($g_STDStream, $p_String & @CRLF); write the command into the console
@@ -324,10 +330,6 @@ Func _Process_Run($p_String, $p_File, $p_Answer = ''); $p_String=complete call, 
 				Return 1
 			EndIf
 		Else; it's a batch, so just go ahead
-			If FileExists($g_GameDir & '\' & $p_File) Then
-				$Success = FileDelete($g_GameDir & '\' & $p_File)
-				If $Success = 0 Then ConsoleWrite('!This is bad' & @CRLF)
-			EndIf
 			While Not FileExists($g_GameDir & '\' & $p_File); loop til the file appears
 				_Process_Read($p_Answer)
 				Sleep(750)
