@@ -2225,6 +2225,7 @@ ANN;Kim NPC not yet available for EE
 ANN;NSCPortraits;3010;13;1111;
 STD;NSCPortraits;5000;13;1111;
 STD;NSCPortraits;5010;13;1111;
+DWN;ThePictureStandardBGEE;0;13;0111;
 STD;Isandir;0;13;0000;
 STD;Isandir;1;13;0000;
 STD;Ascension;101;13;0111;
