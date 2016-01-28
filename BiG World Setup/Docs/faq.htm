@@ -142,7 +142,7 @@ Open the BiG World Setup\Config\Setup.ini. The section [Order] shows the steps t
 
 <p>
 Open the BiG World Setup\Config\[GAME]\Select.txt. This file contains all orders to install the BWP. They are executed line after line.
-There are several type of lines. Annotations, commands, downloads, standard, multiple choice-, sub-components and groups. 
+There are several type of lines. Annotations, commands, downloads, standard, multiple choice-, sub-components and groups.
 </p>
 <pre class="code text">ANN;Solve the issue with Cespy Audio</pre>
 <p>
@@ -249,9 +249,11 @@ A minimalistic one looks like this:
 <pre class="ini code ini" style="font-family:monospace;"><span class="re0"><span class="br0">&#91;</span>A6XPPATCH<span class="br0">&#93;</span></span>
 @0<span class="sy0">=</span><span class="re2">Correct reporting of experience <span class="br0">&#40;</span>EXE patch<span class="br0">&#41;</span></span>
 @<span class="nu0">1</span><span class="sy0">=</span><span class="re2">Remove <span class="nu0">110</span>% scaling of some experience <span class="br0">&#40;</span>EXE patch<span class="br0">&#41;</span></span>
-<span class="re1">Tra</span><span class="sy0">=</span><span class="re2">0</span></pre>
+<span class="re1">Tra</span><span class="sy0">=</span><span class="re2">0</span>
+</pre>
 <p>
-The name of each [section] is the setups name. As you might guess, the lines beginning with the @ are translations for the mods component 0 and 1. It is the text that is displayed in the WeiDU.log. You might want to shorten very long texts so you don&#039;t have to scroll so much in the selection-screen. If you wish extended / more detailed information, add a line with an <strong>E</strong> at the beginning instead of the <strong>@</strong>. <strong>Tra</strong> contains the number that WeiDU uses for that translation.</p>
+The name of each [section] is the setups name. As you might guess, the lines beginning with the @ are translations for the mods component 0 and 1. It is the text that is displayed in the WeiDU.log. You might want to shorten very long texts so you don&#039;t have to scroll so much in the selection-screen. If you wish extended / more detailed information, add a line with an <strong>E</strong> at the beginning instead of the <strong>@</strong>. <strong>Tra</strong> contains the number that WeiDU uses for that translation.
+</p>
 <p>
 Please note that you have to edit the Mod.ini if you did not find an existing section and added a new translation for a mod.
 </p>
@@ -282,6 +284,7 @@ Please select:
 <p>
 Lets take a look at an example from the mod.ini first:
 </p>
+<p>
 <pre class="ini code ini" style="font-family:monospace;"><span class="re0"><span class="br0">&#91;</span>A6XPPATCH<span class="br0">&#93;</span></span>
 <span class="re1">Name</span><span class="sy0">=</span><span class="re2">Experience Corrections <span class="br0">&#40;</span>BG2 XP Patch<span class="br0">&#41;</span> v2</span>
 <span class="re1">Type</span><span class="sy0">=</span><span class="re2">R,S,T,E,F</span>
@@ -290,10 +293,11 @@ Lets take a look at an example from the mod.ini first:
 <span class="re1">Save</span><span class="sy0">=</span><span class="re2">A6XPPatch_v2.rar</span>
 <span class="re1">Size</span><span class="sy0">=</span><span class="re2">561656</span>
 <span class="re1">Tra</span><span class="sy0">=</span><span class="re2">EN:0,GE:<span class="nu0">1</span>,SP:<span class="nu0">2</span>,IT:<span class="nu0">3</span>,FR:<span class="nu0">4</span>,--:0</span>
+</pre>
 </p>
 <p>
 The <strong>[section]</strong>-name is the name of the setup. The <strong>name</strong> is not translated and fixed for all translations. <strong>Type</strong> lists the pre-selections that this mod will be included in or at least be selectable (remember that you read about
-pre-selections). <strong>Link</strong> is the <acronym title="Uniform Resource Locator">URL</acronym> to the homepage that will be opened when you click on the button above the description (at the bottom of the selection-screen). 
+pre-selections). <strong>Link</strong> is the <acronym title="Uniform Resource Locator">URL</acronym> to the homepage that will be opened when you click on the button above the description (at the bottom of the selection-screen).
 </p>
 
 <p>
@@ -313,7 +317,7 @@ Seldom used <strong>Ren</strong>-keys are for mods that may be renamed to its va
 </p>
 
 <p>
-<strong>NotFixed</strong>-keys are used to remove the fixed-flag from components of a fixed mod. Eg. 
+<strong>NotFixed</strong>-keys are used to remove the fixed-flag from components of a fixed mod. Eg.
 </p>
 <pre class="code ini"><span class="re1">NotFixed</span><span class="sy0">=</span><span class="re2"><span class="nu0">3</span> 10</span></pre>
 <p>
@@ -338,7 +342,7 @@ You might have noticed that there's still no description for the mod. This is pu
 
 <p>
 Keep in mind that other files than mods have an additional exception.
-There are two types: Files that need to be downloaded (like a <acronym title="Portable Document Format">PDF</acronym>-file) and files that need to be fetched and extracted (like the BiG World archives). 
+There are two types: Files that need to be downloaded (like a <acronym title="Portable Document Format">PDF</acronym>-file) and files that need to be fetched and extracted (like the BiG World archives).
 Since you don&#039;t have a setup-name as a reference, jut be creative and invent a new name. Add this name to the value of the <strong>DownloadOnly</strong>- or <strong>ExtractOnly</strong>-key in
 the Game.inis [Options]-section.
 
@@ -401,10 +405,10 @@ One mod needs another - not vise versa.
 <p>
 
 Advanced conflict - check
-Splits String by &#039;:&#039; (lets call it area). 
+Splits String by &#039;:&#039; (lets call it area).
 If one of the items is selected (or all of a group if &#039;&amp;&#039; is used), it&#039;s displayed as a conflict.
-Advantage to normal conflicts: 
-*Mods in an area are not treated as conflicts. 
+Advantage to normal conflicts:
+*Mods in an area are not treated as conflicts.
 *Mods can have conflicts in groups. So if two combined mods have a conflict with a third one, this is the ways to go.
 </p>
 
@@ -511,7 +515,7 @@ If mods would use too much memory, they are added to the EndGroupInstall-key und
 <div class="level1">
 
 <p>
-The BWS will try to update the mods data when it starts a BWP install. This is done by looking for some files hosted in the internet. The BWS (which uses the AutoIt3.exe) will attempt to fetch these files from the servers and continue. No personal data is collected. 
+The BWS will try to update the mods data when it starts a BWP install. This is done by looking for some files hosted in the internet. The BWS (which uses the AutoIt3.exe) will attempt to fetch these files from the servers and continue. No personal data is collected.
 </p>
 
 <!-- SECTION "BWS/AutoIt3 goes online" [15096-15738] -->
@@ -519,7 +523,7 @@ The BWS will try to update the mods data when it starts a BWP install. This is d
 <div class="level1">
 
 <p>
-Every time the BWS is asked to check for a link, it will fetch the file-name and the size of the file provided by this <acronym title="Uniform Resource Locator">URL</acronym>. This way it verifies that the download is 
+Every time the BWS is asked to check for a link, it will fetch the file-name and the size of the file provided by this <acronym title="Uniform Resource Locator">URL</acronym>. This way it verifies that the download is
 available during the link-check (right after you started the installation) and during the download-process.
 </p>
 
@@ -537,7 +541,7 @@ These checks are made with wget,which loads the http-header of the URLs to deter
 </p>
 
 <p>
-The download itself will be made with wget. The main reason for that is the capability of fetching and resume downloads. So if your data-line is a bit unstable or you get disconnected, the wget-utility will still try to fetch the rest of the file another 2 times. 
+The download itself will be made with wget. The main reason for that is the capability of fetching and resume downloads. So if your data-line is a bit unstable or you get disconnected, the wget-utility will still try to fetch the rest of the file another 2 times.
 Resuming a download will also work if you did download a part of a file with the BWS and the file on the internet did not change since then. It will not work if you throw in some partial downloads that the BWS did not log itself.
 Those are deleted before a download is started. This is because some files are named the same even if the version has changed and we don&#039;t want to have 50 <acronym title="Megabyte">MB</acronym> of version A and 40 of version B.
 </p>
@@ -561,13 +565,13 @@ Missing files and components with open dependencies will be removed from further
 <div class="level1">
 
 <p>
-All the files that are required by the mods that were selected and downloaded are processed. 
+All the files that are required by the mods that were selected and downloaded are processed.
 It is checked if the file is a package create by INNO or NSIS installers. Those are handled by passing some parameters so the install correctly. NSIS installers come with this "Do you want to install" message-box which cannot be suppressed, so to avoid annoying popups, those are put at the end of the extraction-process.
 </p>
 
 <p>
 Other files are extracted by 7zip, which unpacks the files into the installation-folder. All existing files are overwritten. After that, the BWS will look for the tp2-file and the mods directory. (Or other files that should exist now if the package does not contain a WeiDU-installer.)
-If they are not found, potential sub-folders are searched for them. If found, the content is moved, otherwise archives that were put into the current one are unpacked afterwards. 
+If they are not found, potential sub-folders are searched for them. If found, the content is moved, otherwise archives that were put into the current one are unpacked afterwards.
 </p>
 
 <p>
@@ -595,7 +599,7 @@ If you want to extract them yourself, the files are executed and your default pr
 <div class="level1">
 
 <p>
-All actions are listed in the BiG World Setup\Config\[GAME]\Select.txt (See the third section of this page for details) 
+All actions are listed in the BiG World Setup\Config\[GAME]\Select.txt (See the third section of this page for details)
 They are executed line by line. CMD-lines are always executed. Lines that install components are checked if those should be executed. If already installed, the component will be skipped. If the dependencies are met and conflicts don&#039;t exist the component will be installed. Otherwise you can select to either give it a try or skip that installation.
 </p>
 
