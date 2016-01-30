@@ -864,6 +864,27 @@ SUB;ACBre;0?2_1;05;0111;
 SUB;ACBre;0?2_2;05;0000;
 ANN;#2 crossmod needs other NPCs installed first
 STD;ACBre;2;05;0111;
+ANN;Eternal Imoen after all mods that interact with Imoen in Irenicus Dungeon
+STD;EternalImoen;0;14;0111;
+STD;EternalImoen;1;14;0000;
+ANN;Rjali's Preliminary Setup
+STD;rjali;0;12;0111;
+ANN;Talk Timing Adjustments
+MUC;rjali;Init;12;0111;
+MUC;rjali;1;12;0111;
+MUC;rjali;2;12;0000;
+MUC;rjali;3;12;0000;
+ANN;Enable Multiple Romances
+STD;rjali;4;12;0111;
+ANN;Rjali NPC and Rjali Romance
+STD;rjali;5;12;0111;
+MUC;rjali;Init;12;0111;
+ANN;Rjali as Cleric/Thief
+MUC;rjali;6;12;0111;
+ANN;Rjali as Sorcerer
+MUC;rjali;7;12;0000;
+ANN;Rjali's Equipment (cheat mode)
+STD;rjali;8;12;0000;
 MUC;DjinniCompanion;Init;05;0111;
 MUC;DjinniCompanion;0;05;0111;
 MUC;DjinniCompanion;1;05;0000;
@@ -2076,6 +2097,7 @@ STD;eet_tweaks;27;09;0111;
 STD;eet_tweaks;28;09;1111;
 STD;eet_tweaks;29;09;0111;
 STD;eet_tweaks;30;09;0111;
+STD;eet_tweaks;31;09;0111;
 ANN;worldmap after all mods that use it
 SUB;BP-BGT-Worldmap;0;13;1111;
 SUB;BP-BGT-Worldmap;0?1_1;13;1111;

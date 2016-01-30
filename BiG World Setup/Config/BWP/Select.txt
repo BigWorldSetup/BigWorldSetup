@@ -158,6 +158,7 @@ STD;bg2fixpack;113;01;1111;
 STD;bg2fixpack;114;01;1111;
 STD;bg2fixpack;115;01;1111;
 STD;bg2fixpack;116;01;1111;
+ANN;Baldurdash modified by BWP Fixpack
 STD;BDToBv168;0;01;0111;
 STD;BDToBv168;2;01;0111;
 STD;BDToBv168;3;01;0111;
@@ -1714,7 +1715,29 @@ STD;SmilingImpCrossBanterMod;227;20;0000;
 STD;SmilingImpCrossBanterMod;228;20;0000;
 STD;SmilingImpCrossBanterMod;229;20;0000;
 STD;SmilingImpCrossBanterMod;230;20;0000;
+ANN;#2 crossmod needs other NPCs installed first
 STD;ACBre;2;14;0111;
+ANN;Eternal Imoen after all mods that interact with Imoen in Irenicus Dungeon
+STD;EternalImoen;0;14;0111;
+STD;EternalImoen;1;14;0000;
+ANN;Rjali's Preliminary Setup
+STD;rjali;0;12;0111;
+ANN;Talk Timing Adjustments
+MUC;rjali;Init;12;0111;
+MUC;rjali;1;12;0111;
+MUC;rjali;2;12;0000;
+MUC;rjali;3;12;0000;
+ANN;Enable Multiple Romances
+STD;rjali;4;12;0111;
+ANN;Rjali NPC and Rjali Romance
+STD;rjali;5;12;0111;
+MUC;rjali;Init;12;0111;
+ANN;Rjali as Cleric/Thief
+MUC;rjali;6;12;0111;
+ANN;Rjali as Sorcerer
+MUC;rjali;7;12;0000;
+ANN;Rjali's Equipment (cheat mode)
+STD;rjali;8;12;0000;
 ANN;#19. BG2 RULES, TWEAKS AND SPELLS
 STD;w_3kradziej;0;16;0111;
 STD;w_3kradziej;1;16;0111;
@@ -4374,18 +4397,18 @@ STD;level1npcs;4830;14;0000;
 STD;level1npcs;4900;14;0000;
 STD;level1npcs;4910;14;0000;
 STD;level1npcs;4920;14;0000;
-DWN;multiinstalltool;0;00;0000;
-ANN;Correction misspellings in the game including mods (under development -- disabled for now)
-ANN;CMD;WeiDU.exe --traify-tlk --out .\BWP_workspace\dialog.tra
-ANN;CMD;copy dialog.tlk .\BWP_workspace\dialog.bak
-ANN;CMD;IF EXIST dialogF.tlk copy dialogF.tlk .\BWP_workspace\dialogF.bak
-ANN;CMD;copy .\BWP_workspace\dialog.tra .\BWP_workspace\dialog.tra.bak
-ANN;CMD;IF EXIST "BiG World Textpack ENGLISH" ren ".\BiG World Installpack\SR_consistence_catalog_English.txt" "SR_consistence_catalog.txt"
-ANN;CMD;IF EXIST "BiG World Textpack GERMAN" ren ".\BiG World Installpack\SR_consistence_catalog_German.txt" "SR_consistence_catalog.txt"
-ANN;CMD;".\BiG World Installpack\SR_consistence.js" ".\BWP_workspace\dialog.tra"
-ANN;CMD;WeiDU.exe --make-tlk .\BWP_workspace\dialog.tra dialog.tlk
-ANN;CMD;IF EXIST dialogF.tlk WeiDU.exe --make-tlk .\BWP_workspace\dialog.tra dialogF.tlk
 STD;m7multikit;10;19;0111;
 STD;m7multikit;11;19;0111;
 STD;m7multikit;13;19;0111;
+DWN;multiinstalltool;0;00;0000;
+ANN;Correct strings in the game including strings from mods
+CMD;WeiDU.exe --traify-tlk --out .\BWP_workspace\dialog.tra
+CMD;copy /Y dialog.tlk .\BWP_workspace\dialog.bak
+CMD;IF EXIST dialogF.tlk copy /Y dialogF.tlk .\BWP_workspace\dialogF.bak
+CMD;copy /Y .\BWP_workspace\dialog.tra .\BWP_workspace\dialog.tra.bak
+CMD;IF EXIST "BiG World Textpack ENGLISH" ren ".\BiG World Installpack\SR_consistence_catalog_English.txt" "SR_consistence_catalog.txt"
+CMD;IF EXIST "BiG World Textpack GERMAN" ren ".\BiG World Installpack\SR_consistence_catalog_German.txt" "SR_consistence_catalog.txt"
+CMD;".\BiG World Installpack\SR_consistence.js" ".\BWP_workspace\dialog.tra"
+CMD;WeiDU.exe --make-tlk .\BWP_workspace\dialog.tra dialog.tlk
+CMD;IF EXIST dialogF.tlk WeiDU.exe --make-tlk .\BWP_workspace\dialog.tra dialogF.tlk
 ANN;Added due to patching
