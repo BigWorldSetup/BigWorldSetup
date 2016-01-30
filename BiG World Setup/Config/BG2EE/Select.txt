@@ -865,26 +865,26 @@ SUB;ACBre;0?2_2;05;0000;
 ANN;#2 crossmod needs other NPCs installed first
 STD;ACBre;2;05;0111;
 ANN;Eternal Imoen after all mods that interact with Imoen in Irenicus Dungeon
-STD;EternalImoen;0;14;0111;
-STD;EternalImoen;1;14;0000;
+STD;EternalImoen;0;06;0111;
+STD;EternalImoen;1;06;0000;
 ANN;Rjali's Preliminary Setup
-STD;rjali;0;12;0111;
+STD;rjali;0;05;0111;
 ANN;Talk Timing Adjustments
-MUC;rjali;Init;12;0111;
-MUC;rjali;1;12;0111;
-MUC;rjali;2;12;0000;
-MUC;rjali;3;12;0000;
+MUC;rjali;Init;05;0111;
+MUC;rjali;1;05;0111;
+MUC;rjali;2;05;0000;
+MUC;rjali;3;05;0000;
 ANN;Enable Multiple Romances
-STD;rjali;4;12;0111;
+STD;rjali;4;05;0111;
 ANN;Rjali NPC and Rjali Romance
-STD;rjali;5;12;0111;
-MUC;rjali;Init;12;0111;
+STD;rjali;5;05;0111;
+MUC;rjali;Init;05;0111;
 ANN;Rjali as Cleric/Thief
-MUC;rjali;6;12;0111;
+MUC;rjali;6;05;0111;
 ANN;Rjali as Sorcerer
-MUC;rjali;7;12;0000;
+MUC;rjali;7;05;0000;
 ANN;Rjali's Equipment (cheat mode)
-STD;rjali;8;12;0000;
+STD;rjali;8;05;0000;
 MUC;DjinniCompanion;Init;05;0111;
 MUC;DjinniCompanion;0;05;0111;
 MUC;DjinniCompanion;1;05;0000;

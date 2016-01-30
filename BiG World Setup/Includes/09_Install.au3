@@ -792,7 +792,7 @@ Func _Install_CheckCondition($p_String)
 	Else
 		$Result = 0
 	EndIf
-	If StringLeft($p_String, 1) = 'C' Then; revert the result because it's a conflict
+	If StringLeft($p_String, 1) = 'C' Then; invert the result because it's a conflict
 		If $Result=0 Then
 			Return 1
 		Else
