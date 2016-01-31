@@ -128,6 +128,8 @@ STD;tobex;121;01;1111;
 STD;tobex;122;01;1111;
 STD;tobex;123;01;1111;
 STD;tobex;124;01;1111;
+ANN;Enable Spell Immunity in Sequencers/Triggers (TobEx)
+STD;jimfix;1;16;0111;
 STD;ascension;0;15;1111;
 STD;ascension;1;15;0011;
 STD;ascension;2;15;0011;
@@ -185,6 +187,11 @@ STD;BDToBv173;6;16;0111;
 ANN;#5, 8, 12 are item restorations - after item revisions
 ANN;#9 is improved nymph AI
 STD;BDToBv173;9;18;0011;
+ANN;Fix Sunfire power levels (install this early)
+STD;jimfix;0;01;0111;
+ANN;Check for and fix incorrect spell animations (install this early)
+STD;jimfix;100;01;0111;
+ANN;iikeyNames can only be installed as long as the 2da files are three-columned, that means only before the big BG2 mods
 STD;iiKeyNames;2001;16;0111;
 STD;1pp;101;20;1111;
 SUB;1pp;114;20;1111;
@@ -3060,6 +3067,16 @@ STD;stratagems;8160;15;1111;
 STD;stratagems;8170;15;1111;
 STD;stratagems;8180;15;1111;
 STD;stratagems;8190;15;1100;
+ANN;Shield of Reflection works on SCS Flame Arrows
+STD;jimfix;2;01;0111;
+ANN;Fix SCS Smarter Abazigal
+STD;jimfix;3;01;0111;
+ANN;Fix SCS Smarter Irenicus at the Throne
+STD;jimfix;4;01;0111;
+ANN;Remove SCS entourage from Ascension Fallen Solars
+STD;jimfix;5;01;0111;
+ANN;Prevent SCS Smarter Mages from silently prebuffing
+STD;jimfix;400;16;0111;
 STD;multistronghold;10;16;0111;
 STD;multistronghold;20;16;0111;
 STD;multistronghold;30;16;0111;
@@ -3386,6 +3403,15 @@ MUC;NMRF-PC;0;18;0111;
 MUC;NMRF-PC;1;18;0000;
 STD;NMRF-PC;2;18;0111;
 STD;NMRF-PC;3;18;0111;
+ANN;Add spell school notifications to the combat log
+MUC;jimfix;Init;16;0111;
+MUC;jimfix;201;16;0111;
+MUC;jimfix;202;16;0000;
+MUC;jimfix;203;16;0000;
+MUC;jimfix;204;16;0000;
+MUC;jimfix;205;16;0000;
+ANN;Add expiration notifications for buffs
+STD;jimfix;300;16;0111;
 MUC;DiffTweak;Init;16;0111;
 MUC;DiffTweak;0;16;0000;
 MUC;DiffTweak;1;16;0000;

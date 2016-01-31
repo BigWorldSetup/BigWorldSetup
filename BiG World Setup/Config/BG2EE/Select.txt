@@ -319,6 +319,12 @@ SUB;bg2eetp;0?1_2;00;1111;
 SUB;bg2eetp;0?1_3;00;1111;
 SUB;bg2eetp;0?1_4;00;1111;
 STD;BG2EE_GA;0;00;1111;
+ANN;Enable Spell Immunity in Sequencers/Triggers (TobEx)
+STD;jimfix;1;09;0001;
+ANN;Fix Sunfire power levels (install this early)
+STD;jimfix;0;01;0111;
+ANN;Check for and fix incorrect spell animations (install this early)
+STD;jimfix;100;01;0111;
 ANN;--- Ascension 1.5 BETA ---
 MUC;Ascension;Init;08;0111;
 MUC;Ascension;0;08;0111;
@@ -1565,6 +1571,16 @@ STD;stratagems;8160;08;0011;
 STD;stratagems;8170;08;0011;
 STD;stratagems;8180;08;0011;
 STD;stratagems;8190;08;0011;
+ANN;Shield of Reflection works on SCS Flame Arrows
+STD;jimfix;2;01;0111;
+ANN;Fix SCS Smarter Abazigal
+STD;jimfix;3;01;0111;
+ANN;Fix SCS Smarter Irenicus at the Throne
+STD;jimfix;4;01;0111;
+ANN;Remove SCS entourage from Ascension Fallen Solars
+STD;jimfix;5;01;0111;
+ANN;Prevent SCS Smarter Mages from silently prebuffing
+STD;jimfix;400;09;0111;
 SUB;BGEESpawn;101;08;0111;
 SUB;BGEESpawn;101?1_0;08;0000;
 SUB;BGEESpawn;101?1_1;08;0000;
@@ -1816,14 +1832,12 @@ STD;klatu;2050;09;1111;
 STD;klatu;2060;09;1111;
 STD;klatu;2070;09;1111;
 STD;klatu;2080;09;1111;
-SUB;klatu;2090;09;1111;
-SUB;klatu;2090?1_1;09;1111;
-SUB;klatu;2090?1_2;09;0000;
-SUB;klatu;2090?2_10;09;0000;
-SUB;klatu;2090?3_1;09;1111;
-SUB;klatu;2090?3_2;09;0000;
-SUB;klatu;2090?4_10;09;0000;
-SUB;klatu;2090?5_1;09;1111;
+SUB;klatu;2090;09;0001;
+SUB;klatu;2090?1_2;09;0001;
+SUB;klatu;2090?2_10;09;0001;
+SUB;klatu;2090?3_2;09;0001;
+SUB;klatu;2090?4_10;09;0001;
+SUB;klatu;2090?5_1;09;0001;
 STD;klatu;2110;09;1111;
 STD;klatu;2120;09;1111;
 STD;klatu;2130;09;1111;
@@ -1867,6 +1881,15 @@ MUC;klatu;3062;09;0000;
 MUC;klatu;3063;09;0000;
 MUC;klatu;3064;09;0000;
 MUC;klatu;3065;09;0000;
+ANN;Add spell school notifications to the combat log
+MUC;jimfix;Init;09;0111;
+MUC;jimfix;201;09;0111;
+MUC;jimfix;202;09;0000;
+MUC;jimfix;203;09;0000;
+MUC;jimfix;204;09;0000;
+MUC;jimfix;205;09;0000;
+ANN;Add expiration notifications for buffs
+STD;jimfix;300;09;0111;
 MUC;DiffTweak;Init;09;0111;
 MUC;DiffTweak;0;09;0000;
 MUC;DiffTweak;1;09;0000;
