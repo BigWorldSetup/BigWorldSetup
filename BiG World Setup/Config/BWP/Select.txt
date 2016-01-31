@@ -163,7 +163,6 @@ STD;bg2fixpack;116;01;1111;
 ANN;Baldurdash modified by BWP Fixpack
 STD;BDToBv168;0;01;0111;
 STD;BDToBv168;2;01;0111;
-STD;BDToBv168;3;01;0111;
 STD;BDToBv168;5;01;0011;
 STD;BDToBv168;7;01;0011;
 ANN;Baldurdash v1.7.3 renumbered some components
@@ -544,6 +543,7 @@ STD;ktweaks;301;08;1111;
 STD;item_rev;0;16;1111;
 STD;item_rev;1;16;1111;
 STD;item_rev_shatterfix;0;01;1111;
+STD;BDToBv168;3;01;0111;
 STD;BDToBv168;6;01;0111;
 ANN;#5, 8, 12 are item restorations - after item revisions
 STD;BDToBv173;5;17;0111;
