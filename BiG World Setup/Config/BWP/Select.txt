@@ -1472,7 +1472,7 @@ STD;RevisedBattles;3;15;0011;
 STD;RevisedBattles;4;15;0011;
 STD;RevisedBattles;5;15;0011;
 STD;RevisedBattles;6;15;0011;
-STD;RevisedBattles;7;15;0011;
+STD;RevisedBattles;7;15;0001;
 STD;RevisedBattles;8;15;0011;
 STD;RevisedBattles;9;15;0011;
 STD;RevisedBattles;10;15;0000;
