@@ -325,12 +325,6 @@ STD;wmart;0;08;0111;
 ANN;#8. BG1 NPC MODS
 STD;bg1npc;0;05;1111;
 STD;bg1npc;1;05;1111;
-STD;bg1npc;2;20;1111;
-STD;bg1npc;3;20;1111;
-STD;bg1npc;4;20;1111;
-STD;bg1npc;5;20;1111;
-STD;bg1npc;6;20;1111;
-STD;bg1npc;7;20;1111;
 STD;bg1npc;8;05;1111;
 SUB;bg1npc;9;05;1111;
 SUB;bg1npc;9?1_1;05;1111;
@@ -381,6 +375,13 @@ MUC;bg1npc;Init;05;1111;
 MUC;bg1npc;31;05;1111;
 MUC;bg1npc;32;05;0000;
 STD;bg1npc;200;05;1111;
+ANN;-- patch NPCs to use BG1 portrait filenames --
+STD;bg1npc;2;20;1111;
+STD;bg1npc;3;20;1111;
+STD;bg1npc;4;20;1111;
+STD;bg1npc;5;20;1111;
+STD;bg1npc;6;20;1111;
+STD;bg1npc;7;20;1111;
 MUC;BG1NPCMusic;Init;05;1111;
 MUC;BG1NPCMusic;0;05;1111;
 MUC;BG1NPCMusic;1;05;0000;
@@ -3250,16 +3251,17 @@ STD;RezMod;1;11;0111;
 STD;RezMod;2;11;0111;
 STD;RezMod;3;11;0111;
 STD;RezMod;4;11;0111;
-STD;RezMod;100;11;0111;
-STD;RezMod;101;11;0111;
-STD;RezMod;102;11;0111;
-STD;RezMod;103;11;0111;
-STD;RezMod;104;11;0111;
-STD;RezMod;105;11;0111;
-STD;RezMod;106;11;0111;
-STD;RezMod;107;11;0111;
-STD;RezMod;108;11;0111;
 STD;RezMod;109;11;0111;
+ANN;-- patch NPCs to use BG2 portrait filenames --
+STD;RezMod;100;20;0111;
+STD;RezMod;101;20;0111;
+STD;RezMod;102;20;0111;
+STD;RezMod;103;20;0111;
+STD;RezMod;104;20;0111;
+STD;RezMod;105;20;0111;
+STD;RezMod;106;20;0111;
+STD;RezMod;107;20;0111;
+STD;RezMod;108;20;0111;
 STD;JA#BGT_Tweak;0;16;0001;
 STD;JA#BGT_Tweak;2;16;0001;
 STD;JA#BGT_Tweak;3;16;0001;
@@ -3853,6 +3855,7 @@ MUC;infinityanimations;9500;20;0000;
 MUC;infinityanimations;9510;20;0000;
 MUC;infinityanimations;9520;20;0111;
 CMD;copy /Y ".\BiG World Fixpack\_override\infinityanimations\*.*" ".\override";;;;D:infinityanimations(0)
+ANN;--- pre biffing portraits ---
 STD;NSCPortraits;0;20;1111;
 STD;NSCPortraits;1;20;1111;
 STD;NSCPortraits;10;20;1111;
@@ -4244,11 +4247,10 @@ CMD;copy /Y ".\BiG World Fixpack\_Hotfixes\RoT\dltcepsmithy\*.*" ".\override";;;
 CMD;IF EXIST Setup-1pp.exe copy /Y ".\1pp\backup\114\SPMAGGLO.BAM" ".\override";;;;D:SPELLPACKB6(1116)
 CMD;IF EXIST Setup-1pp.exe copy /Y ".\1pp\backup\114\SPMAGGLO.VVC" ".\override";;;;D:SPELLPACKB6(1116)
 STD;korekta_przedmiotow;0;01;1111;
+ANN;--- generalized biffing ---
 SUB;generalized_biffing;0;00;1111;
 SUB;generalized_biffing;0?1_0;00;0000;
 SUB;generalized_biffing;0?1_1;00;1111;
-ANN;--- optional fixes ---
-STD;apr_fix;0;01;0111;
 ANN;--- UI, graphics ---
 MUC;GUI;Init;20;1111;
 MUC;GUI;0;20;0000;
@@ -4272,6 +4274,8 @@ MUC;W_GUI;13;20;0000;
 MUC;W_GUI;14;20;0000;
 MUC;W_GUI;15;20;0000;
 STD;widescreen;0;20;1111;
+ANN;--- experimental tweaks ---
+STD;apr_fix;0;01;0111;
 ANN;--- NPC kit changes ---
 STD;level1npcs;1201;14;0000;
 STD;level1npcs;1202;14;0000;

@@ -73,12 +73,6 @@ STD;wmart;0;10;0111;
 ANN;--- NPCs ---
 STD;bg1npc;0;07;1111;
 STD;bg1npc;1;07;1111;
-STD;bg1npc;2;07;0000;
-STD;bg1npc;3;07;0000;
-STD;bg1npc;4;07;0000;
-STD;bg1npc;5;07;0000;
-STD;bg1npc;6;07;0000;
-STD;bg1npc;7;07;0000;
 STD;bg1npc;8;07;1111;
 SUB;bg1npc;9;07;1111;
 SUB;bg1npc;9?1_1;07;1111;
@@ -144,6 +138,13 @@ MUC;bg1npc;Init;07;1111;
 MUC;bg1npc;31;07;1111;
 MUC;bg1npc;32;07;0000;
 STD;bg1npc;200;07;1111;
+ANN;-- patch NPCs to use BG1 portrait filenames --
+STD;bg1npc;2;13;1111;
+STD;bg1npc;3;13;1111;
+STD;bg1npc;4;13;1111;
+STD;bg1npc;5;13;1111;
+STD;bg1npc;6;13;1111;
+STD;bg1npc;7;13;1111;
 MUC;BG1NPCMusic;Init;07;1111;
 MUC;BG1NPCMusic;0;07;1111;
 MUC;BG1NPCMusic;1;07;0000;
@@ -175,7 +176,16 @@ SUB;gavin;1?1_3;05;0000;
 SUB;gavin;1?1_4;05;0000;
 SUB;gavin;1?1_5;05;0000;
 STD;gavin;2;05;1111;
-ANN;portraits moved down
+MUC;gavin;Init;13;1111;
+MUC;gavin;4;13;1111;
+MUC;gavin;5;13;0000;
+MUC;gavin;6;13;0000;
+MUC;gavin;7;13;0000;
+MUC;gavin;8;13;0000;
+MUC;gavin;9;13;0000;
+MUC;gavin;10;13;0000;
+MUC;gavin;11;13;0000;
+MUC;gavin;12;13;0000;
 STD;gavin;13;05;1111;
 STD;valerie;0;05;1111;
 STD;isra;0;05;1111;
@@ -1119,22 +1129,6 @@ SUB;BP-BGT-Worldmap;0?1_1;13;1111;
 SUB;BP-BGT-Worldmap;0?1_2;13;0000;
 SUB;BP-BGT-Worldmap;0?2_1;13;0000;
 SUB;BP-BGT-Worldmap;0?2_2;13;1111;
-ANN;--- PaintBG portraits ---
-ANN;We must install PaintBG before generalized biffing so that we can append to BGEE.SQL
-ANN;PaintBG for EE is just .bmp files, so install first to allow other mods to overwrite
-DWN;paintbg;0;13;0000;
-ANN;Standardize PaintBG directory name to simplify scripting
-CMD;IF EXIST "PaintBG*(EE)" MOVE /Y "PAINTBG*(EE)" "PaintBG"
-ANN;Add PaintBG CHARNAME portraits to bgee.sql so they can be selected during character creation
-CMD;IF EXIST "PaintBG" IF EXIST "override\bgee.sql" ECHO INSERT INTO portraits ROWS >> "override\bgee.sql" && ECHO ( >> "override\bgee.sql"
-ANN;Make male CHARNAME portraits selectable
-CMD;IF EXIST "PaintBG" IF EXIST "override\bgee.sql" FOR %%F IN ("PaintBG\PA#Ma*L.bmp") DO cmd /v:on /c "set trunc=%%%%~nF & echo '!trunc:~0,-2!', 1, >> override\bgee.sql"
-ANN;Make female CHARNAME portraits selectable
-CMD;IF EXIST "PaintBG" IF EXIST "override\bgee.sql" FOR %%F IN ("PaintBG\PA#Wo*L.bmp") DO cmd /v:on /c "set trunc=%%%%~nF & echo '!trunc:~0,-2!', 2, >> override\bgee.sql"
-ANN;Close off the selectable portraits list
-CMD;IF EXIST "PaintBG" IF EXIST "override\bgee.sql" ECHO )\; >> "override\bgee.sql"
-ANN;Copy over all the portraits and remove the PaintBG directory
-CMD;IF EXIST "PaintBG" XCOPY /Y /I "PaintBG\*.bmp" "characters" && RMDIR /S /Q "PaintBG"
 ANN;--- lolfixer not yet ready for EE, marked as expert ---
 STD;lolfixer;1;01;0001;
 STD;lolfixer;2;01;0001;
@@ -1156,6 +1150,137 @@ ANN;trim leading and trailing spaces, remove duplicates
 CMD;Call ".\BiG World Installpack\trim_IDS.bat" 
 ANN;correct some possibly corrupted IDS files
 CMD;Call ".\BiG World Installpack\trim_KitIDS.bat"
+ANN;--- pre-biffing portrait packs ---
+MUC;thepicturestandard;Init;13;1111;
+ANN;Main -> Vanilla
+MUC;thepicturestandard;1000;13;1111;
+ANN;Main -> Lore Alternative
+MUC;thepicturestandard;1500;13;0000;
+MUC;thepicturestandard;Init;13;1111;
+ANN;Followers -> Vanilla
+MUC;thepicturestandard;2000;13;1111;
+ANN;Followers -> Variant A
+MUC;thepicturestandard;2300;13;0000;
+ANN;Followers -> Variant B
+MUC;thepicturestandard;2600;13;0000;
+MUC;thepicturestandard;Init;13;1111;
+ANN;BG1NPC -> Vanilla
+MUC;thepicturestandard;3000;13;1111;
+ANN;BG1NPC -> Lore Alternative
+MUC;thepicturestandard;3500;13;0000;
+MUC;thepicturestandard;Init;13;1111;
+ANN;Dark Horizons -> Vanilla
+MUC;thepicturestandard;4000;13;1111;
+ANN;Dark Horizons -> Lore Alternative
+MUC;thepicturestandard;4500;13;0000;
+MUC;thepicturestandard;Init;13;1111;
+ANN;Drizzt Saga -> Vanilla
+MUC;thepicturestandard;5000;13;1111;
+ANN;Drizzt Saga -> Lore Alternative
+MUC;thepicturestandard;5500;13;0000;
+MUC;thepicturestandard;Init;13;1111;
+ANN;Dark Side of the Sword Coast -> Vanilla
+MUC;thepicturestandard;6000;13;1111;
+ANN;Dark Side of the Sword Coast -> Lore Alternative
+MUC;thepicturestandard;6500;13;0000;
+MUC;thepicturestandard;Init;13;1111;
+ANN;Rogue Rebalancing -> Vanilla
+MUC;thepicturestandard;10000;13;1111;
+ANN;Rogue Rebalancing -> Lore Alternative
+MUC;thepicturestandard;10500;13;0000;
+MUC;thepicturestandard;Init;13;1111;
+ANN;T'was A Slow Boat
+STD;thepicturestandard;13000;13;1111;
+MUC;thepicturestandard;Init;13;1111;
+ANN;Finch -> Vanilla
+MUC;thepicturestandard;14000;13;1111;
+ANN;Finch -> Alternative
+MUC;thepicturestandard;14500;13;0000;
+ANN;Gavin
+STD;thepicturestandard;15000;13;1111;
+ANN;Indira
+STD;thepicturestandard;16000;13;1111;
+ANN;Isra
+STD;thepicturestandard;17000;13;1111;
+ANN;Valerie
+STD;thepicturestandard;18000;13;1111;
+MUC;thepicturestandard;Init;13;0000;
+ANN;Standardized Edwin -> BG1 Edwin
+MUC;thepicturestandard;19000;13;0000;
+ANN;Standardized Edwin -> BG2 Edwin
+MUC;thepicturestandard;19300;13;0000;
+ANN;Standardized Edwin -> Variant
+MUC;thepicturestandard;19600;13;0000;
+MUC;thepicturestandard;Init;13;0000;
+ANN;Standardized Imoen -> BG1 Imoen
+MUC;thepicturestandard;20000;13;0000;
+ANN;Standardized Imoen -> BG2 Imoen
+MUC;thepicturestandard;20200;13;0000;
+ANN;Standardized Imoen -> Variant A
+MUC;thepicturestandard;20400;13;0000;
+ANN;Standardized Imoen -> Variant B
+MUC;thepicturestandard;20600;13;0000;
+ANN;Standardized Imoen -> Immersive Imoen Variant A+B
+MUC;thepicturestandard;20800;13;0000;
+MUC;thepicturestandard;Init;13;0000;
+ANN;Standardized Jaheira -> BG1 Jaheira
+MUC;thepicturestandard;21000;13;0000;
+ANN;Standardized Jaheira -> BG2 Jaheira
+MUC;thepicturestandard;21300;13;0000;
+ANN;Standardized Jaheira -> Variant
+MUC;thepicturestandard;21600;13;0000;
+MUC;thepicturestandard;Init;13;0000;
+ANN;Standardized Minsc -> BG1 Minsc
+MUC;thepicturestandard;22000;13;0000;
+ANN;Standardized Minsc -> BG2 Minsc
+MUC;thepicturestandard;22500;13;0000;
+MUC;thepicturestandard;Init;13;0000;
+ANN;Standardized Viconia -> BG1 Viconia
+MUC;thepicturestandard;23000;13;0000;
+ANN;Standardized Viconia -> BG2 Viconia
+MUC;thepicturestandard;23300;13;0000;
+ANN;Standardized Viconia -> Variant
+MUC;thepicturestandard;23600;13;0000;
+STD;Isandir;0;13;0000;
+STD;Isandir;1;13;0000;
+ANN;NSCPortraits;0;13;1111; currently works for BGT only
+STD;NSCPortraits;10;13;1111;
+ANN;NToTSC not yet available for EE
+ANN;NSCPortraits;20;13;1111;
+ANN;NSCPortraits;21;13;1111;
+ANN;SoBH not yet available for EE
+ANN;NSCPortraits;30;13;1111;
+STD;NSCPortraits;50;13;1111;
+STD;NSCPortraits;300;13;1111;
+STD;NSCPortraits;305;13;1111;
+ANN;TGC1e not yet available for EE
+ANN;NSCPortraits;310;13;1111;
+STD;NSCPortraits;1780;13;1111;
+ANN;BP
+ANN;NSCPortraits;1340;13;1111;
+STD;NSCPortraits;1370;13;1111;
+STD;NSCPortraits;1380;13;1111;
+STD;NSCPortraits;1450;13;1111;
+STD;NSCPortraits;1540;13;1111;
+STD;NSCPortraits;5000;13;1111;
+STD;NSCPortraits;5010;13;1111;
+ANN;--- PaintBG portraits ---
+ANN;We must install PaintBG before generalized biffing so that we can append to BGEE.SQL
+ANN;PaintBG for EE is just .bmp files, so install first to allow other mods to overwrite
+DWN;paintbg;0;13;0000;
+ANN;Standardize PaintBG directory name to simplify scripting
+CMD;IF EXIST "PaintBG*(EE)" MOVE /Y "PAINTBG*(EE)" "PaintBG"
+ANN;Add PaintBG CHARNAME portraits to bgee.sql so they can be selected during character creation
+CMD;IF EXIST "PaintBG" IF EXIST "override\bgee.sql" ECHO INSERT INTO portraits ROWS >> "override\bgee.sql" && ECHO ( >> "override\bgee.sql"
+ANN;Make male CHARNAME portraits selectable
+CMD;IF EXIST "PaintBG" IF EXIST "override\bgee.sql" FOR %%F IN ("PaintBG\PA#Ma*L.bmp") DO cmd /v:on /c "set trunc=%%%%~nF & echo '!trunc:~0,-2!', 1, >> override\bgee.sql"
+ANN;Make female CHARNAME portraits selectable
+CMD;IF EXIST "PaintBG" IF EXIST "override\bgee.sql" FOR %%F IN ("PaintBG\PA#Wo*L.bmp") DO cmd /v:on /c "set trunc=%%%%~nF & echo '!trunc:~0,-2!', 2, >> override\bgee.sql"
+ANN;Close off the selectable portraits list
+CMD;IF EXIST "PaintBG" IF EXIST "override\bgee.sql" ECHO )\; >> "override\bgee.sql"
+ANN;Copy over all the portraits and remove the PaintBG directory
+CMD;IF EXIST "PaintBG" XCOPY /Y /I "PaintBG\*.bmp" "characters" && RMDIR /S /Q "PaintBG"
+ANN;--- generalized biffing ---
 SUB;generalized_biffing;0;00;1111;
 SUB;generalized_biffing;0?1_0;00;0000;
 SUB;generalized_biffing;0?1_1;00;1111;
@@ -1200,33 +1325,7 @@ SUB;LightingPack;21?1_1;13;0000;
 SUB;LightingPack;21?2_0;13;0000;
 SUB;LightingPack;21?3_1;13;0000;
 SUB;LightingPack;21?4_y;13;0000;
-ANN;--- optional fixes ---
-STD;apr_fix;0;01;0111;
 ANN;--- portraits ---
-ANN;NSCPortraits;0;13;1111; currently works for BGT only
-STD;NSCPortraits;10;13;1111;
-ANN;NToTSC not yet available for EE
-ANN;NSCPortraits;20;13;1111;
-ANN;NSCPortraits;21;13;1111;
-ANN;SoBH not yet available for EE
-ANN;NSCPortraits;30;13;1111;
-STD;NSCPortraits;50;13;1111;
-STD;NSCPortraits;300;13;1111;
-STD;NSCPortraits;305;13;1111;
-ANN;TGC1e not yet available for EE
-ANN;NSCPortraits;310;13;1111;
-STD;NSCPortraits;1780;13;1111;
-ANN;BP
-ANN;NSCPortraits;1340;13;1111;
-STD;NSCPortraits;1370;13;1111;
-STD;NSCPortraits;1380;13;1111;
-STD;NSCPortraits;1450;13;1111;
-STD;NSCPortraits;1540;13;1111;
-STD;NSCPortraits;5000;13;1111;
-STD;NSCPortraits;5010;13;1111;
-DWN;ThePictureStandardBGEE;0;13;0111;
-STD;Isandir;0;13;0000;
-STD;Isandir;1;13;0000;
 SUB;ajantisportraitpack;0;13;0000;
 SUB;ajantisportraitpack;0?1_1;13;0000;
 SUB;ajantisportraitpack;0?1_2;13;0000;
@@ -1245,16 +1344,8 @@ SUB;ajantisportraitpack;0?1_14;13;0000;
 SUB;ajantisportraitpack;0?1_15;13;0000;
 SUB;ajantisportraitpack;0?1_16;13;0000;
 SUB;ajantisportraitpack;0?1_17;13;0000;
-MUC;gavin;Init;13;1111;
-MUC;gavin;4;13;1111;
-MUC;gavin;5;13;0000;
-MUC;gavin;6;13;0000;
-MUC;gavin;7;13;0000;
-MUC;gavin;8;13;0000;
-MUC;gavin;9;13;0000;
-MUC;gavin;10;13;0000;
-MUC;gavin;11;13;0000;
-MUC;gavin;12;13;0000;
+ANN;--- experimental tweaks ---
+STD;apr_fix;0;01;0111;
 ANN;--- NPC class changes ---
 ANN;Imoen
 MUC;npc_ee;Init;07;0111;
