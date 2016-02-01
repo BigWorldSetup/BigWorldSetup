@@ -1055,7 +1055,8 @@ EndFunc   ;==>_Tree_SelectReadForBatch
 ; ---------------------------------------------------------------------------------------------
 Func _Tree_SelectRead($p_Admin=0)
 	Local $Array=StringSplit(StringStripCR(FileRead($g_GConfDir&'\Select.txt')), @LF)
-	Local $LastFullComp[2], $Split, $Return[$Array[0]+1][10]
+	Local $LastFullComp[3], $Split, $Return[$Array[0]+1][10]
+	;FileWriteLine($g_LogFile, $g_Skip)
 	For $a=1 to $Array[0]
 		If StringRegExp($Array[$a], '\A(\s.*\z|\z)') Then ContinueLoop; skip empty lines
 		If StringRegExp($Array[$a], '(?i)\A(ANN|CMD|GRP)') Then
@@ -1079,14 +1080,19 @@ Func _Tree_SelectRead($p_Admin=0)
 		; make sure any sub-components match the full components that precede them
 		Local $Pos=StringInStr($Split[3], '?', 0, 1); position of first '?' in component, or zero if not found (first character position is 1)
 		If $Pos < 2 Then; line is not a sub-component
-			$LastFullComp[0] = $Split[3]; component number
-			$LastFullComp[1] = $Split[4]; theme
-		ElseIf StringLeft($Split[3], $Pos-1) <> $LastFullComp[0] Then; line is a sub-component without a preceding full component
-			_PrintDebug('Sub-component line '&$Array[$a]&' does not match last full component number '&$LastFullComp[0], 1)
-			Exit
-		ElseIf $Split[4] <> $LastFullComp[1] Then; line is a sub-component with a different theme
-			_PrintDebug('Sub-component line '&$Array[$a]&' does not match last full component theme '&$LastFullComp[1], 1)
-			$Split[4] = $LastFullComp[1]
+			$LastFullComp[0] = $Array[$a]; Select.txt line
+			$LastFullComp[1] = $Split[3]; component number
+			$LastFullComp[2] = $Split[4]; theme/category/tag
+			;FileWriteLine($g_LogFile, '$LastFullComp = '&$Array[$a])
+		ElseIf StringLeft($Split[3], $Pos-1) <> $LastFullComp[1] Then; line is a sub-component without a preceding full component
+			_PrintDebug('Sub-component line '&$Array[$a]&' does not match last full component number '&$LastFullComp[1], 1)
+			Exit; error - this Select.txt is invalid and needs to be fixed manually
+		ElseIf $Split[4] <> $LastFullComp[2] Then; line is a sub-component with a different theme
+			_PrintDebug('Sub-component line '&$Array[$a]&' does not match last full component theme '&$LastFullComp[2], 1)
+			$Split[4] = $LastFullComp[2]; change theme of subcomponent to match preceding full component and continue
+		ElseIf $p_Admin = 0 And StringRegExp($LastFullComp[0], '(?i);('&$g_Skip&');') Then
+			;FileWriteLine($g_LogFile, '_Tree_SelectRead() skipped '&$Array[$a]&' because preceding component '&$LastFullComp[0]&' was purged')
+			ContinueLoop; skip subcomponents if the preceding full component was purged
 		EndIf
 		If $p_Admin = 0 And StringRegExp($Array[$a], '(?i);('&$g_Skip&');') Then ContinueLoop; skip mods that don't fit the selection
 		$Return[0][0]+=1
