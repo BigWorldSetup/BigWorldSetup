@@ -12,6 +12,7 @@ Else
 	wshShell.Run "AutoUpdate\git stash",1,1
     wshShell.Run "AutoUpdate\git pull --rebase",1,1
     wshShell.Run "AutoUpdate\git stash pop",1,1
+    wshShell.Run "AutoUpdate\git rev-parse HEAD > BWS-version.txt",1,1
   Else
     Wscript.Echo "Updating without overwrite is only possible after you run Full Update at least once."
   End If
