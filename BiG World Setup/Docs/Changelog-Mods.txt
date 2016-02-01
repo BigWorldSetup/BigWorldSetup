@@ -595,3 +595,16 @@ Added: Huple NPC for BG:EE and EET (BWFixpack'd by White Agnus)
 * Moved Edwin Romance out of Expert status due to recent version update
 * Added Tactics EE 0.62 alpha (pre-release)
 * Updated Tactics EE to 0.63 alpha (pre-release)
+
+20160201 - Updated by agb1
+
+* Updated The Picture Standard to 0.6.6
+* Generalized Biffing is now Recommended (not Minimal) for BG2/BGT/BG:EE/BG2:EE
+* Updated many portrait dependency and conflict rules
+
+* Updated README.md
+* Added AutoUpdate folder with a copy of git.exe
+* AutoIt3.exe moved to Tools and marked as a hidden file
+* BiG World Setup-DebugMode marked as a hidden file
+* BiG World Setup.vbs is the recommended way to start BWS (auto-update and preserve local changes)
+* BiG World Setup-Full-Update.vbs must be run at least once (auto-update and discard local changes)
