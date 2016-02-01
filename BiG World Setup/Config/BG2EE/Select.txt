@@ -2249,6 +2249,11 @@ ANN;Tales Of The Deep Gardens -> Vanilla
 MUC;thepicturestandard;12000;13;1111;
 ANN;Tales Of The Deep Gardens -> Lore Alternative
 MUC;thepicturestandard;12500;13;0000;
+MUC;thepicturestandard;Init;13;1111;
+ANN;The White Queen -> Vanilla
+MUC;thepicturestandard;24000;13;1111;
+ANN;The White Queen -> Lore Alternative
+MUC;thepicturestandard;24500;13;0000;
 ANN;T'was A Slow Boat
 STD;thepicturestandard;13000;13;1111;
 MUC;thepicturestandard;Init;13;1111;
