@@ -45,8 +45,7 @@ BTW: We need a new logo that covers all of the games we support
 2. Disable User Account Control (if you don't do this, the automated installation can get stuck!)
 3. Download Big World Setup zip archive and extract it anywhere you want (but not in your game folder!)
 4. Execute "BiG World Setup.vbs" (this will auto-update to the latest version without overwriting local changes)
-
-        or "BiG World Setup-Full-Update.vbs" (this will auto-update and destroy all local changes - be careful!)
+5. Optional: "BiG World Setup-Full-Update.vbs" (this will auto-update and destroy all local changes - be careful!)
 
 ### How do I contribute? ###
 
