@@ -366,12 +366,6 @@ MUC;7c#sartweak;Init;07;0111;
 MUC;7c#sartweak;250;07;0100;
 ANN;#251 with EET and Ascension
 MUC;7c#sartweak;251;07;0011;
-ANN;--- item revisions core, spell revisions core ---
-ANN;IR #0 as early as possible so other mods can overwrite
-ANN;IR #0 is aware of SR #0 so should follow it
-ANN;therefore SR #0 early also
-STD;spell_rev;0;09;0111;
-STD;item_rev;0;09;0111;
 ANN;--- BG2EE quests ---
 STD;c#sb_silber;0;04;1111;
 STD;TOD;0;03;1111;
@@ -966,6 +960,7 @@ STD;iwdification;10;09;0111;
 ANN;#20 is commoners use drab colors
 STD;iwdification;20;09;0000;
 ANN;--- BG2EE spells ---
+STD;spell_rev;0;09;0111;
 STD;spell_rev;10;09;0111;
 STD;spell_rev;20;09;0111;
 STD;spell_rev;30;09;0111;
@@ -986,6 +981,7 @@ MUC;w_packmule;Init;10;0111;
 MUC;w_packmule;2;10;0111;
 MUC;w_packmule;3;10;0000;
 ANN;--- item revisions v4 ---
+STD;item_rev;0;09;0111;
 STD;item_rev;1030;09;0111;
 MUC;item_rev;Init;09;0111;
 MUC;item_rev;1040;09;0011;

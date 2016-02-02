@@ -230,6 +230,10 @@ Func _CreateList($p_Num = 's')
 			For $a = 1 To $Array[0]
 				If StringLeft($Array[$a], 1) = '[' Then
 					$Setups[0][0] = $Setups[0][0] + 1
+					If UBound($Setups) < $Setups[0][0] Or UBound($SectionNames) < $Setups[0][0] Then
+						_PrintDebug('Improperly formatted mod ini file: '&$g_ModIni, 1)
+						Exit
+					EndIf
 					$Setups[$Setups[0][0]][0] = StringLower($SectionNames[$Setups[0][0]])
 					For $a = $a To $Array[0]
 						If StringLeft($Array[$a], 5) = 'Name=' Then
