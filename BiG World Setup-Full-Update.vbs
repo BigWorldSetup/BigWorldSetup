@@ -6,20 +6,25 @@ Else
   oShell.CurrentDirectory = CreateObject("Scripting.FileSystemObject").GetParentFolderName(WScript.ScriptFullName)
   Set wshShell = WScript.CreateObject ("wscript.shell")
   
+  On Error Resume Next
+    wshShell.Run "git version", 1, True
+  If Err.Number <> 0 Then
+    WScript.Echo "Install Git for Windows (http://git-scm.com/download/win) to enable automatic updates."
+    WScript.Quit
+  End If
+  On Error Goto 0
+  
   Set objFSO = CreateObject("Scripting.FileSystemObject")
   If objFSO.FolderExists(".git") Then
-    'Wscript.Echo "Folder exists."
-    wshShell.Run "AutoUpdate\git reset --hard",1,1
-    wshShell.Run "AutoUpdate\git pull --rebase",1,1
-    wshShell.Run "AutoUpdate\git rev-parse HEAD > BWS-version.txt",1,1
+    'WScript.Echo "Folder exists."
+    wshShell.Run "%comspec% /k git reset --hard & pull --rebase & pause & exit", 1, True
   Else
-    'Wscript.Echo "Folder does not exist."
-    wshShell.Run "AutoUpdate\git init .",1,1
-    wshShell.Run "AutoUpdate\git remote add -f origin https://bitbucket.org/BigWorldSetup/BigWorldSetup",1,1
-    wshShell.Run "AutoUpdate\git branch --track master origin/master",1,1
-    wshShell.Run "AutoUpdate\git reset --hard origin/master",1,1
-    wshShell.Run "AutoUpdate\git rev-parse HEAD > BWS-version.txt",1,1
+    'WScript.Echo "Folder does not exist."
+    wshShell.Run "%comspec% /k git init . & " &_
+                 "git remote add -f origin https://bitbucket.org/BigWorldSetup/BigWorldSetup & " &_
+                 "git branch --track master origin/master & " &_
+                 "git reset --hard origin/master & pause & exit", 1, True
   End If
-  wshShell.run """BiG World Setup\Tools\AutoIt3.exe""" &" " & """BiG World Setup\BiG World Setup.au3""", 6, True
+  wshShell.Run "git rev-parse HEAD > ""BiG World Setup Version.txt""", 1, True
   Set wshShell = nothing
 End If
