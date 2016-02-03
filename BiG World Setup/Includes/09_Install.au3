@@ -883,7 +883,13 @@ Func _Install_CreateTP2Entry($p_Setup, $p_Text, $p_Process=1, $p_File=''); $a=tp
 			EndIf
 		Next
 		FileClose($Handle)
-		RunWait(@ComSpec&' /c echo BEGIN "'&$p_Text&' (installation date %DATE%)" >> Setup-BWS.tp2', $g_gameDir, @SW_HIDE)
+		Local $BWS_ver = 'BWS-Version.txt not found'
+		$Handle = FileOpen($g_BaseDir & '\BWS-Version.txt', 1); read-only
+		If Not @error Then
+			$BWS_ver = 'BWS version ' & FileReadLine($Handle)
+			FileClose($Handle)
+		EndIf
+		RunWait(@ComSpec&' /c echo BEGIN ~'&$p_Text&' ('&$BWS_ver&', installation started %DATE%)~ >> Setup-BWS.tp2', $g_gameDir, @SW_HIDE)
 	Else ;important assumption -- Setup-BWS.tp2 will never have $p_File <> '' -- if it does, this function needs rewrite
 		FileWriteLine($Handle, 'BEGIN "'&$p_Text&'"')
 		If $p_File <> '' Then FileWriteLine($Handle, 'AT_NOW ~'&$p_File&'~'); execute this windows-command

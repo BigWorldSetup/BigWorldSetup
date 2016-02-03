@@ -27,7 +27,7 @@ Else
                               "git branch --track master origin/master & " &_
                               "git reset --hard origin/master & pause & exit", 1, True
   End If
-  wshShell.Run "git rev-parse HEAD > ""BiG World Setup Version.txt""", 7, True
-  'wshShell.run """BiG World Setup\Tools\AutoIt3.exe""" &" " & """BiG World Setup\BiG World Setup.au3""", 6, True
+  wshShell.Run "git rev-parse HEAD > BWS-Version.txt", 7, True
+  wshShell.run """BiG World Setup\Tools\AutoIt3.exe""" &" " & """BiG World Setup\BiG World Setup.au3""", 6, True
   Set wshShell = nothing
 End If
