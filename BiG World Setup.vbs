@@ -9,10 +9,11 @@ Else
   Set objFSO = CreateObject("Scripting.FileSystemObject")
   If objFSO.FolderExists(".git") Then
     'Wscript.Echo "Folder exist."
-	wshShell.Run "AutoUpdate\git stash",1,1
-    wshShell.Run "AutoUpdate\git pull --rebase",1,1
-    wshShell.Run "AutoUpdate\git stash pop",1,1
-    wshShell.Run "AutoUpdate\git rev-parse HEAD > BWS-version.txt",1,1
+	wshShell.Run """BiG World Setup\Tools\1.bat""" & " 3 2",1,1
+	wshShell.Run """BiG World Setup\Tools\git.exe""" & " stash",1,1
+    wshShell.Run """BiG World Setup\Tools\git.exe""" & " pull --rebase",1,1
+    wshShell.Run """BiG World Setup\Tools\git.exe""" & " stash pop",1,1
+    wshShell.Run """BiG World Setup\Tools\git.exe""" & " rev-parse HEAD > BWS-version.txt",1,1
   Else
     Wscript.Echo "Updating without overwrite is only possible after you run Full Update at least once."
   End If
