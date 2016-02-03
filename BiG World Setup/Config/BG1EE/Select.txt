@@ -395,6 +395,9 @@ STD;iwdification;50;09;0000;
 ANN;--- items ---
 ANN;#60 is IWD axe pack -> stores and items
 STD;iwdification;60;10;0111;
+MUC;EE_content_tweaks;Init;10;0111;
+MUC;EE_content_tweaks;0;10;0111;
+MUC;EE_content_tweaks;1;10;0000;
 MUC;w_packmule;Init;10;0111;
 MUC;w_packmule;2;10;0111;
 MUC;w_packmule;3;10;0000;
