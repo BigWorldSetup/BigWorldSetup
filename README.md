@@ -32,8 +32,6 @@ Mod Request Template     : http://www.shsforums.net/topic/58006-big-world-setup-
 - Planescape: Torment
 - Classic Adventures
 
-BTW: We need a new logo that covers all of the games we support
-
 ### Supported mods ###
 
 - Almost all of them! (use the Mod Request Template link above if there is a mod you want added)
