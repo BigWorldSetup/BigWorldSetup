@@ -1,7 +1,6 @@
-![gRmfnLY[1].png](https://bitbucket.org/repo/kKX5Xg/images/3720385461-gRmfnLY%5B1%5D.png)
-### What is this repository for? ###
+**Big World Setup (BWS) : Mod Manager for Infinity Engine Games and Baldur's Gate/Enhanced Edition Trilogy by dabus**
 
-Big World Setup (BWS)    : Mod Manager for Infinity Engine Games and Baldur's Gate/Enhanced Edition Trilogy by dabus
+![gRmfnLY[1].png](https://bitbucket.org/repo/kKX5Xg/images/3720385461-gRmfnLY%5B1%5D.png)
 
 Download                 : https://bitbucket.org/BigWorldSetup/bigworldsetup/get/master.zip
 
