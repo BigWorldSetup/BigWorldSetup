@@ -17,7 +17,8 @@ Else
   Set objFSO = CreateObject("Scripting.FileSystemObject")
   If objFSO.FolderExists(".git") Then
     'WScript.Echo "Folder exists."
-    wshShell.Run "%comspec% /k git reset --hard & pull --rebase & pause & exit", 1, True
+    wshShell.Run "%comspec% /k git reset --hard & " &_
+                              "git pull --rebase & pause & exit", 1, True
   Else
     'WScript.Echo "Folder does not exist."
     wshShell.Run "%comspec% /k git init . & " &_
