@@ -9,7 +9,6 @@ Else
   Set objFSO = CreateObject("Scripting.FileSystemObject")
   If objFSO.FolderExists(".git") Then
     'Wscript.Echo "Folder exist."
-	wshShell.Run """BiG World Setup\Tools\1.bat""" & " 3 2",1,1
 	wshShell.Run """BiG World Setup\Tools\git.exe""" & " stash",1,1
     wshShell.Run """BiG World Setup\Tools\git.exe""" & " pull --rebase",1,1
     wshShell.Run """BiG World Setup\Tools\git.exe""" & " stash pop",1,1
