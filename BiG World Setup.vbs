@@ -19,23 +19,15 @@ Else
     'WScript.Echo "Folder exists."
     wshShell.Run "%comspec% /k git stash & " &_
                               "git pull --rebase & " &_
-<<<<<<< Updated upstream
-                              "git stash pop & exit", 1, True
-=======
                               "git stash pop & " &_
                               "timeout 3 & exit", 1, True
->>>>>>> Stashed changes
   Else
     'WScript.Echo "Folder does not exist."
     wshShell.Run "%comspec% /k git init . & " &_
                               "git remote add -f origin https://bitbucket.org/BigWorldSetup/BigWorldSetup & " &_
                               "git branch --track master origin/master & " &_
-<<<<<<< Updated upstream
-                              "git reset --hard origin/master & exit", 1, True
-=======
                               "git reset --hard origin/master & " &_
                               "pause & exit", 1, True
->>>>>>> Stashed changes
   End If
   wshShell.Run "%comspec% /k git rev-parse HEAD > BWS-Version.txt", 7, True
   wshShell.Run """BiG World Setup\Tools\AutoIt3.exe""" &" " & """BiG World Setup\BiG World Setup.au3""", 6, True
