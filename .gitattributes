@@ -13,3 +13,4 @@
 *.png binary
 *.exe binary
 *.dll binary
+/*/Tools/Git/**/* binary
