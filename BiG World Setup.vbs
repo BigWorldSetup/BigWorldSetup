@@ -13,10 +13,7 @@ Else
     Set objFSO = CreateObject("Scripting.FileSystemObject")
     If objFSO.FolderExists(".git") Then
       'WScript.Echo "Folder exists."
-      wshShell.Run "%comspec% /k git stash & " &_
-                                "git pull --rebase & " &_
-                                "git stash pop & " &_
-                                "timeout 5 & exit", 1, True
+      wshShell.Run "autoupdate.bat", 1, True
     Else
       'WScript.Echo "Folder does not exist."
       wshShell.Run "%comspec% /k git init . & " &_
