@@ -1,0 +1,4 @@
+[user]
+	email = you@example.com
+[http]
+	sslCAinfo = /bin/curl-ca-bundle.crt
