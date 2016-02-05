@@ -15,7 +15,7 @@ Else
     If objFSO.FolderExists(".git") Then
       'WScript.Echo "Folder exists."
         wshShell.Run """BiG World Setup\Tools\Git\bin\git.exe""" & " reset --hard", 1, True
-        wshShell.Run """BiG World Setup\Tools\Git\bin\git.exe""" & " --rebase", 1, True
+        wshShell.Run """BiG World Setup\Tools\Git\bin\git.exe""" & " pull --rebase", 1, True
 		wshShell.Run "pause & exit", 1, True
     Else
       'WScript.Echo "Folder does not exist."
