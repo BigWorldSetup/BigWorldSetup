@@ -25,7 +25,7 @@ Else
         wshShell.Run """BiG World Setup\Tools\Git\bin\git.exe""" & " reset --hard origin/master", 1, True
         wshShell.Run "pause & exit", 1, True
     End If
-    wshShell.Run "%comspec% /k git rev-parse HEAD > BWS-Version.txt & exit", 7, True
+    wshShell.Run """BiG World Setup\Tools\Git\bin\git.exe""" & " rev-parse HEAD > BWS-Version.txt", 7, True
   End If
   Err.Clear
   On Error Goto 0
