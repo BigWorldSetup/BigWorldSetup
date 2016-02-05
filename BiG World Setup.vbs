@@ -22,7 +22,7 @@ Else
         wshShell.Run """BiG World Setup\Tools\Git\bin\git.exe""" & " remote add -f origin https://bitbucket.org/BigWorldSetup/BigWorldSetup", 1, True
         wshShell.Run """BiG World Setup\Tools\Git\bin\git.exe""" & " branch --track master origin/master", 1, True
         wshShell.Run """BiG World Setup\Tools\Git\bin\git.exe""" & " reset --hard origin/master", 1, True
-        wshShell.Run "pause & exit", 1, True
+        'wshShell.Run "pause & exit", 1, True
       End If
       wshShell.Run """BiG World Setup\Tools\Git\bin\git.exe""" & " rev-parse HEAD > BWS-Version.txt", 7, True
     'End If
