@@ -1,4 +1,23 @@
-[user]
-	email = you@example.com
+[core]
+	symlinks = false
+	autocrlf = false
+[color]
+	diff = auto
+	status = auto
+	branch = auto
+	interactive = true
+[pack]
+	packSizeLimit = 2g
+[help]
+	format = html
 [http]
 	sslCAinfo = /bin/curl-ca-bundle.crt
+[sendemail]
+	smtpserver = /bin/msmtp.exe
+
+[diff "astextplain"]
+	textconv = astextplain
+[rebase]
+	autosquash = true
+[user]
+	email = you@example.com
