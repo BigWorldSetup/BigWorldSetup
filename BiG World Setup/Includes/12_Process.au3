@@ -302,10 +302,11 @@ Func _Process_Run($p_String, $p_File, $p_Answer = ''); $p_String=complete call, 
 		$g_Flags[19]=0; enable to start a new process
 		_Process_StartCmd(); launch
 	EndIf
-	If StringRight($p_File, 3) <> 'exe' Then; it's NOT an executable - therefore it is a done-marker file
+	; remove old task-done marker file if not an exe
+	If StringRight($p_File, 3) <> 'exe' Then
 		If FileExists($g_GameDir & '\' & $p_File) Then
 			$Success = FileDelete($g_GameDir & '\' & $p_File)
-			If $Success = 0 Then ConsoleWrite('!This is bad' & @CRLF)
+			If $Success = 0 Then FileWriteLine($g_LogFile, 'Process-Error: Could not delete file '& $p_File)
 		EndIf
 	EndIf
 	$PIDExist = 0

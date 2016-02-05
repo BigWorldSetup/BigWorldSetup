@@ -431,6 +431,7 @@ Func _Misc_ReBuildTreeView($p_Save = 0)
 	_Selection_GetCurrentInstallType()
 	_Misc_SetAvailableSelection()
 	_Tree_Populate(1 + $p_Save); rebuild Arrays, GUI and so on
+	_Depend_AutoSolve('DS', 2, 1); disable mods/components with unsatisfied dependencies, skip warning rules
 	_Depend_AutoSolve('C', 2, 1); disable conflict losers, skip warning rules
 	_Depend_AutoSolve('DS', 2, 1); disable mods/components with unsatisfied dependencies, skip warning rules
 	;$g_Flags[23]=''; reset progress bar

@@ -886,7 +886,7 @@ Func _Install_CreateTP2Entry($p_Setup, $p_Text, $p_Process=1, $p_File=''); $a=tp
 		Local $BWS_ver = 'BWS-Version.txt not found'
 		$Handle = FileOpen($g_BaseDir & '\BWS-Version.txt', 1); read-only
 		If Not @error Then
-			$BWS_ver = 'BWS version ' & FileReadLine($Handle)
+			$BWS_ver = 'BWS version ' & StringStripWS(StringLeft(FileReadLine($Handle),7),8)
 			FileClose($Handle)
 		EndIf
 		RunWait(@ComSpec&' /c echo BEGIN ~'&$p_Text&' ('&$BWS_ver&', installation started %DATE%)~ >> Setup-BWS.tp2', $g_gameDir, @SW_HIDE)
