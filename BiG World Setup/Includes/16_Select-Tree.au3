@@ -1144,6 +1144,7 @@ Func _Tree_SetPreSelected($p_Num='')
 		_AI_SetDefaults()
 		_GUICtrlTreeView_EndUpdate($g_UI_Handle[0])
 	EndIf
+	_Depend_AutoSolve('DS', 2, 1); disable mods/components with unsatisfied dependencies, skip warning rules
 	_Depend_AutoSolve('C', 2, 1); disable conflict losers, skip warning rules
 	_Depend_AutoSolve('DS', 2, 1); disable mods/components with unsatisfied dependencies, skip warning rules
 	If $p_Num <> '' Then _Misc_SetTab($p_Num); selected another version on selection-tab 2
