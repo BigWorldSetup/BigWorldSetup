@@ -959,6 +959,10 @@ ANN;#10 is IWD casting graphics
 STD;iwdification;10;09;0111;
 ANN;#20 is commoners use drab colors
 STD;iwdification;20;09;0000;
+STD;sentrizeal_aa_pack;0;13;0111;
+STD;sentrizeal_aa_pack;1;13;0111;
+STD;sentrizeal_aa_pack;2;13;0111;
+STD;sentrizeal_aa_pack;3;13;0111;
 ANN;--- BG2EE spells ---
 STD;spell_rev;0;09;0111;
 STD;spell_rev;10;09;0111;
