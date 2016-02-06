@@ -671,8 +671,6 @@ STD;dq;0;10;0111;
 STD;dq;1;10;0111;
 STD;dq;2;10;0111;
 ANN;#11. BG2 Tactical Encounters
-ANN;RevisedBattles #15 - Improved Trademeet Crypt - will not install after AzenMod #0
-STD;RevisedBattles;15;15;0011;
 STD;AzenMOD;0;15;0011;
 STD;AzenMOD;1;15;0011;
 STD;AzenMOD;2;15;0011;
@@ -1481,6 +1479,7 @@ STD;RevisedBattles;11;15;0000;
 STD;RevisedBattles;12;15;0000;
 STD;RevisedBattles;13;15;0011;
 STD;RevisedBattles;14;15;0011;
+STD;RevisedBattles;15;15;0011;
 STD;RevisedBattles;16;15;0011;
 STD;RevisedBattles;17;15;0011;
 STD;RevisedBattles;18;15;0011;
@@ -1731,24 +1730,6 @@ STD;ACBre;2;14;0111;
 ANN;Eternal Imoen after all mods that interact with Imoen in Irenicus Dungeon
 STD;EternalImoen;0;14;0111;
 STD;EternalImoen;1;14;0000;
-ANN;Rjali's Preliminary Setup
-STD;rjali;0;12;0111;
-ANN;Talk Timing Adjustments
-MUC;rjali;Init;12;0111;
-MUC;rjali;1;12;0111;
-MUC;rjali;2;12;0000;
-MUC;rjali;3;12;0000;
-ANN;Enable Multiple Romances
-STD;rjali;4;12;0111;
-ANN;Rjali NPC and Rjali Romance
-STD;rjali;5;12;0111;
-MUC;rjali;Init;12;0111;
-ANN;Rjali as Cleric/Thief
-MUC;rjali;6;12;0111;
-ANN;Rjali as Sorcerer
-MUC;rjali;7;12;0000;
-ANN;Rjali's Equipment (cheat mode)
-STD;rjali;8;12;0000;
 ANN;#19. BG2 RULES, TWEAKS AND SPELLS
 STD;w_3kradziej;0;16;0111;
 STD;w_3kradziej;1;16;0111;
