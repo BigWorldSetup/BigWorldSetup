@@ -1196,15 +1196,20 @@ MUC;thepicturestandard;10000;13;1111;
 ANN;Rogue Rebalancing -> Lore Alternative
 MUC;thepicturestandard;10500;13;0000;
 MUC;thepicturestandard;Init;13;1111;
-ANN;T'was A Slow Boat
-STD;thepicturestandard;13000;13;1111;
+ANN;T'was A Slow Boat -> Vanilla
+MUC;thepicturestandard;13000;13;1111;
+ANN;T'was A Slow Boat -> Lore Alternative
+MUC;thepicturestandard;13500;13;1111;
 MUC;thepicturestandard;Init;13;1111;
 ANN;Finch -> Vanilla
 MUC;thepicturestandard;14000;13;1111;
 ANN;Finch -> Alternative
 MUC;thepicturestandard;14500;13;0000;
-ANN;Gavin
-STD;thepicturestandard;15000;13;1111;
+MUC;thepicturestandard;Init;13;1111;
+ANN;Gavin -> Vanilla
+MUC;thepicturestandard;15000;13;1111;
+ANN;Gavin -> Alternative
+MUC;thepicturestandard;15500;13;1111;
 ANN;Indira
 STD;thepicturestandard;16000;13;1111;
 ANN;Isra
@@ -1246,8 +1251,10 @@ ANN;Standardized Viconia -> BG1 Viconia
 MUC;thepicturestandard;23000;13;0000;
 ANN;Standardized Viconia -> BG2 Viconia
 MUC;thepicturestandard;23300;13;0000;
-ANN;Standardized Viconia -> Variant
+ANN;Standardized Viconia -> Variant A
 MUC;thepicturestandard;23600;13;0000;
+ANN;Standardized Viconia -> Variant B
+MUC;thepicturestandard;23800;13;0000;
 STD;Isandir;0;13;0000;
 STD;Isandir;1;13;0000;
 ANN;NSCPortraits;0;13;1111; currently works for BGT only
