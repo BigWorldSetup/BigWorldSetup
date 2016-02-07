@@ -2030,6 +2030,7 @@ STD;A7NoEENPCs;201;09;0000;
 STD;A7NoEENPCs;202;09;0000;
 STD;A7NoEENPCs;203;09;0000;
 STD;A7NoEENPCs;204;09;0000;
+STD;A7NoEENPCs;301;09;0000;
 ANN;Magic Resistance Overhaul needs to install late
 STD;might_and_guile;180;09;0000;
 ANN;Stats Revision needs to install after SCS
