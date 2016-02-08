@@ -2762,9 +2762,8 @@ STD;TomeAndBlood;0;09;0000;
 STD;TomeAndBlood;1;09;0000;
 STD;TomeAndBlood;2;09;0000;
 STD;TomeAndBlood;3;09;0000;
-STD;TomeAndBlood;4;09;0000;
 STD;TomeAndBlood;5;09;0000;
-ANN;#6,9,10-13 are EE-only
+ANN;#4,6,9,10-13 are EE-only
 STD;TomeAndBlood;20;09;0000;
 STD;RPG-KP;0;19;0111;
 STD;RPG-KP;1;19;0000;
@@ -3230,6 +3229,9 @@ STD;Turambar_fixes_tweaks;5007;19;0000;
 MUC;Turambar_fixes_tweaks;Init;19;0000;
 MUC;Turambar_fixes_tweaks;5010;19;0000;
 MUC;Turambar_fixes_tweaks;5011;19;0000;
+SUB;Turambar_fixes_tweaks;5011?1_1;19;0000;
+SUB;Turambar_fixes_tweaks;5011?1_2;19;0000;
+SUB;Turambar_fixes_tweaks;5011?1_n;19;0000;
 STD;Turambar_fixes_tweaks;5012;19;0000;
 STD;Turambar_fixes_tweaks;5013;19;0000;
 STD;RezMod;0;11;0111;
