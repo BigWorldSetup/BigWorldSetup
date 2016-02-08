@@ -15,7 +15,7 @@
 ;     0: mod setup-name
 ;     1: tag (theme/category number)
 ;     2: '-' for the headline (top level) of a mod, '+' for the top of a multiple choice menu,
-;		 '!' for a chapter headline, '####' comp-num for a component
+;        '!' for a chapter headline, '####' comp-num for a component
 ;     3: component description (if 2 is '-' then this also will be '-')
 ;     4: name of the mod (from modname.ini) or '' if removed due to purge/translation
 ;     5: tree-view-item GUI handle
@@ -477,10 +477,11 @@ Func _Depend_AutoSolve($p_Type, $p_State, $p_skipWarnings = 1)
 			If $g_ActiveConnections[$a][0] <> $p_Type Then ContinueLoop; if the connection isn't the type we are looking for, skip it
 			Local $RuleID=$g_ActiveConnections[$a][1]; else, save the current connection's associated rule ID (index to $g_Connections)
 			If $p_skipWarnings And $g_Connections[$RuleID][4] = 1 Then ContinueLoop; optionally, skip if the rule is user-ignorable
-			Local $SubGroup=0
+			Local $SubGroup=$g_ActiveConnections[$a][3]; save the current connection's subgroup number (if any)
 			If $p_Debug Then FileWrite($g_LogFile, @CRLF&'outer loop $a='&$a&' '&$g_ActiveConnections[$a][0]&' '&$g_ActiveConnections[$a][1]&' '&$g_ActiveConnections[$a][2]&' '&$SubGroup&' ~ '&$g_CentralArray[$g_ActiveConnections[$a][2]][4]&'('&$g_CentralArray[$g_ActiveConnections[$a][2]][3]&') rule('&$RuleID&'~'&$g_Connections[$RuleID][4]&')='&$g_Connections[$RuleID][1]&@CRLF)
 			If $p_Type <> 'C' Then $a -= 1; for any connection type except conflict, back-step so the inner loop starts from current mod/component
 			; because if it is a conflict, we never want to disable the first conflict (that's the preferred one), but if it is a dependency, we might
+			Local $change_within_subgroup = 0
 			While 1; INNER LOOP - iterate over following active connections (other mods/components)
 				$a += 1; advance inner loop
 				If $a > $g_ActiveConnections[0][0] Then ExitLoop ; we reached the end of the active connections array
@@ -492,11 +493,15 @@ Func _Depend_AutoSolve($p_Type, $p_State, $p_skipWarnings = 1)
 				If $p_Debug Then FileWrite($g_LogFile, 'inner loop $a='&$a&' '&$g_ActiveConnections[$a][0]&' '&$g_ActiveConnections[$a][1]&' '&$g_ActiveConnections[$a][2]&' '&$g_ActiveConnections[$a][3]&' ~ '&$g_CentralArray[$g_ActiveConnections[$a][2]][4]&'('&$g_CentralArray[$g_ActiveConnections[$a][2]][3]&')'&@CRLF)
 				If $g_ActiveConnections[$a][0] <> $p_Type Then ContinueLoop; skip connections of different types than the type we are looking for
 				If $p_Type = 'C' And $SubGroup <> 0 And $SubGroup = $g_ActiveConnections[$a][3] Then ContinueLoop; if multiple sub-groups, ignore conflicts within same sub-group
-				If $p_Type = 'DO' And $SubGroup <> 0 And $SubGroup = $g_ActiveConnections[$a][3] Then ContinueLoop; after a change, skip to next sub-group if any
+				If $p_Type = 'DO' And $change_within_subgroup And $SubGroup = $g_ActiveConnections[$a][3] Then
+					$change_within_subgroup  = 0
+					ContinueLoop; after changing the first optional dependency in a sub-group, skip to the next sub-group if any
+				EndIf
 				If $p_Debug Then FileWrite($g_LogFile, 'inner loop attempting to change status'&@CRLF)
 				; if we reached this point, we found a connection for the 'saved' rule that has the type we want
 				If Not _Depend_SetModState($g_ActiveConnections[$a][2], $p_State) then ExitLoop; activate or deactivate the mod/component
 				; if we were unable to make a change, just keep going through other active connections (give up on automatically solving this one)
+				$change_within_subgroup = 1
 				$Return[0][0]+=1; else, the change succeeded -> record the change we just made
 				$Return[$Return[0][0]][0]=$g_CentralArray[$g_ActiveConnections[$a][2]][0]; record mod setup-name
 				$Return[$Return[0][0]][2]=$g_CentralArray[$g_ActiveConnections[$a][2]][4]; record mod name
@@ -936,7 +941,7 @@ Func _Depend_GetActiveDependAdv($p_String, $p_RuleID, $p_Show)
 							ElseIf $inActiveCount > 1 Then; if it is one of multiple missing dependencies in this '&'-subset, it is OPTIONAL
 								If $InSelection Then; for OPTIONAL connections, skip if not available for selection due to purge/translation/invalid
 									_Depend_ActiveAddItem('DO', $p_RuleID, $ThisPart[$t][0], $SubGroup); add OPTIONAL dependency for this mod/component
-									If $p_Show = 1 Then									
+									If $p_Show = 1 Then
 										GUICtrlCreateListViewItem($Prefix&$ModName&'|'&$CompDesc, $g_UI_Interact[10][1])
 										GUICtrlSetBkColor(-1, 0xFFA500)
 										$Prefix='/ '

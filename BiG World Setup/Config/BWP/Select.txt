@@ -1782,8 +1782,6 @@ STD;ImprovedSummons;9;16;0011;
 STD;ImprovedSummons;10;16;0011;
 STD;fairydragon;0;16;0000;
 STD;semi_multi_clerics;0;16;0001;
-ANN;These files seem to be corrupt and they prevent to install the Hypnotic Pattern component.
-CMD;IF EXIST Setup-TheUndying.exe IF EXIST ".\override\SPWI231*.BAM" move ".\override\SPWI231*.BAM" ".\BWP_workspace\override"
 GRP;Start
 STD;SpellPackB6;1105;16;0111;
 STD;SpellPackB6;1106;16;0111;
@@ -1921,7 +1919,6 @@ STD;SpellPackB6;2912;16;0111;
 STD;SpellPackB6;2913;16;0111;
 STD;SpellPackB6;2915;16;0111;
 GRP;Stop
-CMD;IF EXIST Setup-TheUndying.exe IF EXIST ".\BWP_workspace\override\SPWI231*.BAM" move ".\BWP_workspace\override\SPWI231*.BAM" ".\override"
 STD;Spell50;0;16;0001;
 STD;Spell50;1;16;0001;
 STD;Spell50;2;16;0001;
@@ -2726,9 +2723,7 @@ STD;scales_of_balance;580;16;0111;
 CMD;IF EXIST ".\override\XXX009.ITM" move ".\override\XXX009.ITM" ".\BWP_workspace\override"
 STD;might_and_guile;100;16;0111;
 CMD;IF EXIST ".\BWP_workspace\override\XXX009.ITM" move ".\BWP_workspace\override\XXX009.ITM" ".\override"
-ANN;CMD;IF EXIST ".\override\C#AJAN16.CRE" move ".\override\C#AJAN16.CRE" ".\BWP_workspace\override"
 STD;might_and_guile;120;16;0111;
-ANN;CMD;IF EXIST ".\BWP_workspace\override\C#AJAN16.CRE" move ".\BWP_workspace\override\C#AJAN16.CRE" ".\override"
 ANN;might_and_guile;140;09;0001;placeholder
 ANN;might_and_guile;150;09;0001;placeholder
 STD;might_and_guile;160;16;0111;
@@ -3634,14 +3629,6 @@ STD;tobaurora;0;12;0111;
 SUB;tobaurora;1;12;0000;
 SUB;tobaurora;1?1_1;12;0000;
 SUB;tobaurora;1?1_2;12;0000;
-CMD;IF EXIST Setup-SandrahNPC.exe copy /Y ".\BiG World Fixpack\_override\worldmap\*.*" ".\override"
-CMD;IF EXIST "override\stats.IDS" echo 162 WIZARD_SPELL_TURNING >> override\stats.IDS
-CMD;IF EXIST "override\stats.IDS" echo 164 WIZARD_SPELL_TRAP >> override\stats.IDS
-CMD;IF EXIST "override\stats.IDS" echo 177 WIZARD_SPELL_SHIELD >> override\stats.IDS
-CMD;IF EXIST "override\spell.IDS" echo 3201 INNATE_NEUTRALIZE_POISON >> override\spell.IDS
-CMD;IF EXIST "override\spell.IDS" echo 4732 HELM_TRUE_SIGHT >> override\spell.IDS
-CMD;IF EXIST "override\specific.IDS" echo 201 NEEDS_BREACH >> override\specific.IDS
-CMD;IF EXIST "override\gtimes.IDS" echo 3600 SHROM_TIMER >> override\gtimes.IDS
 SUB;SandrahNPC;0;12;0000;
 SUB;SandrahNPC;0?0_1;12;0000;
 SUB;SandrahNPC;0?0_2;12;0000;
