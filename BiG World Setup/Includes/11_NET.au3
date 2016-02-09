@@ -874,6 +874,7 @@ Func _Net_ListMissing()
 				$Mark=''
 			EndIf
 			_Process_SetScrollLog(_IniRead($ReadSection, 'Name', $Fault[$f][0])&': '&$Hint &' ('&_IniRead($ReadSection, $Prefix[$Type]&'Save', '')&')'&$Mark); tell what's missing
+			_Process_SetScrollLog('    '&_IniRead($ReadSection, $Prefix[$Type]&'Down', '')); download link
 		Next
 	Next
 	$Dependent=_Depend_GetUnsolved('', ''); $Dependent[0][unsolved, output, missing + unsolved]
