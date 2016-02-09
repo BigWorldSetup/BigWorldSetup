@@ -13,12 +13,11 @@ Else
     Else
       'WScript.Echo "Folder does not exist."
       WScript.Echo "This message will only be displayed once.  BWS has an auto-update feature that will synchronize your local copy of BWS with the latest online version each time you run this script.  If you want to disable the auto-update feature, delete autoupdate.bat from this folder.  To restore it, run the Full Update script in this folder."
-      wshShell.Run "%comspec% /k RMDIR /S /Q .\Git & MOVE /Y ""BiG World Setup\Tools\Git"" . & exit", 7, True
-      wshShell.Run "%comspec% /k "".\Git\bin\git.exe"" init . & " &_
-                                """.\Git\bin\git.exe"" remote add -f origin https://bitbucket.org/BigWorldSetup/BigWorldSetup & " &_
-                                """.\Git\bin\git.exe"" branch --track master origin/master & " &_
-                                """.\Git\bin\git.exe"" reset --hard origin/master & pause & exit", 1, True
-      wshShell.Run "%comspec% /k RMDIR /S /Q .\Git & exit", 7, True
+      wshShell.Run "%comspec% /k XCOPY /S /Q /Y /I ""BiG World Setup\Tools\Git"" "".\Git"" & exit", 7, True
+      wshShell.Run """.\Git\bin\git.exe"" init .", 1, True
+      wshShell.Run """.\Git\bin\git.exe"" remote add -f origin https://bitbucket.org/BigWorldSetup/BigWorldSetup", 1, True
+      wshShell.Run """.\Git\bin\git.exe"" branch --track master origin/master", 1, True
+      wshShell.Run """.\Git\bin\git.exe"" reset --hard origin/master", 1, True
     End If
     wshShell.Run """BiG World Setup\Tools\Git\bin\git.exe"" rev-parse HEAD > BWS-Version.txt", 7, True
   End If
