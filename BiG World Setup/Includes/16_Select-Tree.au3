@@ -79,8 +79,39 @@ Func _Tree_Export($p_File='')
 	EndIf
 	IniWriteSection($File, 'Save', IniReadSection($g_UsrIni, 'Save'))
 	IniWriteSection($File, 'DeSave', IniReadSection($g_UsrIni, 'DeSave'))
+	IniWriteSection($File, 'Edit', IniReadSection($g_UsrIni, 'Edit'))
 	$g_Flags[24]=0
 EndFunc   ;==>_Tree_Export
+
+; ---------------------------------------------------------------------------------------------
+; save/export the current selection
+; ---------------------------------------------------------------------------------------------
+Func _Tree_Import($p_File)
+	Local $Section = IniReadSectionNames($p_File)
+	If @error Then; IniReadSectionNames did not return a valid array
+		_PrintDebug(_GetTR($g_UI_Message, '4-F3'), 1); => The selected file was not in the expected format
+		Return -1
+	EndIf
+	Local $Success=0
+	For $s=1 to $Section[0]
+		If $Section[$s] = 'Current' Then $Success = 1
+		If $Section[$s] = 'Save' Then $Success = 2
+	Next
+	If $Success=0 Then
+		_PrintDebug(_GetTR($g_UI_Message, '4-F3'), 1); => The selected file was not in the expected format
+		Return -1
+	ElseIf $Success = 1 Then
+		IniWriteSection($g_UsrIni, 'Current', IniReadSection($p_File, 'Current'))
+		IniWriteSection($g_UsrIni, 'Save', IniReadSection($p_File, 'Current'))
+		IniDelete($g_UsrIni, 'DeSave')
+	ElseIf $Success = 2 Then
+		IniWriteSection($g_UsrIni, 'Current', IniReadSection($p_File, 'Save'))
+		IniWriteSection($g_UsrIni, 'Save', IniReadSection($p_File, 'Save'))
+		IniWriteSection($g_UsrIni, 'DeSave', IniReadSection($p_File, 'DeSave'))
+	EndIf
+	IniWriteSection($g_UsrIni, 'Edit', IniReadSection($p_File, 'Edit')); import any saved Edits
+	Return 0
+EndFunc   ;==>_Tree_Import
 
 ; ---------------------------------------------------------------------------------------------
 ; Get the list of current selected components
@@ -448,7 +479,7 @@ Func _Tree_Populate($p_Show=1)
 			EndIf
 			Local $SubPrefix
 			Local $Pos=StringInStr($SelectArray[$s][3], '_', 0, 1)
-			Local $Definition=_IniRead($EditSubs, $SelectArray[$s][2]&';'&$ComponentNum, '')
+			Local $Definition=_IniRead($EditSubs, $SelectArray[$s][2]&';'&StringLeft($SelectArray[$s][3], $Pos-1), '')
 			If $Definition <> '' Then
 				$SubPrefix=_GetTR($g_UI_Message, '4-L23')&' '; => Suggested answer:
 			Else
@@ -831,6 +862,8 @@ Func _Tree_Reload($p_Show=1, $p_Hint=0, $p_Ini=$g_UsrIni)
 	If @error Then $Select = IniReadSection($p_Ini, 'Current'); needed to still be able to load saves of older BWS-versions
 	Local $DeSelect = IniReadSection($p_Ini, 'DeSave')
 	If @error Then Local $DeSelect[1][1]
+	Local $UserEdits=IniReadSection($p_Ini, 'Edit')
+	If @error Then Local $UserEdits[1][1]
 	$g_GUIFold = 1
 	Local $Mark=_GetTR($g_UI_Message, '4-L17'); => NEW
 	Local $Token = ' ['&StringLeft($Mark, 1)&']'
@@ -915,10 +948,14 @@ Func _Tree_Reload($p_Show=1, $p_Hint=0, $p_Ini=$g_UsrIni)
 			EndIf
 			If $p_Show Then __TristateTreeView_SetItemState($g_UI_Handle[0], $g_CentralArray[$m][5], 1+$g_CentralArray[$m][14])
 			$g_CentralArray[$m][9] = 0
-		ElseIf StringRegExp($Comp, '(?i)(\A|\s)' & StringReplace($g_CentralArray[$m][2], '?', '\x3f') & '(\s|\z)') Then; if the component-number of the current mod was selected. Use StringReplace since RegExp has it's own thoughts of a ?.
+		ElseIf StringRegExp($Comp, '(?i)(\A|\s)' & StringReplace($g_CentralArray[$m][2], '?', '\x3f') & '(\s|\z)') Then; if the component-number of the current mod was selected. Use StringReplace since RegExp has it's own thoughts of a ? -- exact match for SUB answers to avoid selecting multiple SUBs with same comp-num?sub-comp-num part
 			If $p_Show Then __TristateTreeView_SetItemState($g_UI_Handle[0], $g_CentralArray[$m][5], 2+$g_CentralArray[$m][14])
 			If $g_CentralArray[$m][10] = 1 Then
 				If StringInStr($g_CentralArray[$m][2], '?') Then; it's a SUB-item
+					Local $UserEditedValue=_IniRead($UserEdits, $g_CentralArray[$m][0]&';'&$g_CentralArray[$m][2], '')
+					If $UserEditedValue <> '' Then
+						GUICtrlSetData($m, $g_CentralArray[$m][3]&' => '&_GetTR($g_UI_Message, '4-L21')&' '&$UserEditedValue); => Your edited value is:
+					EndIf
 					Local $Component=StringRegExpReplace($g_CentralArray[$m][2], '\x5f.*', ''); x5f = '_' (unicode low line); strip answer, keep 'comp-num?sub-comp-num' part
 					If $p_Show Then __TristateTreeView_SetItemState($g_UI_Handle[0], $g_CentralArray[_AI_GetStart($m, $Component)][5], 2+$g_CentralArray[$m][14])
 					$g_CentralArray[_AI_GetStart($m, $Component)][9] = 1

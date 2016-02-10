@@ -116,8 +116,9 @@ Func _Selection_ContextMenu()
 				$Return=InputBox($g_ProgName, _GetTR($g_UI_Message, '4-L2'), StringMid($g_CentralArray[$p_Num][2], $Pos+1), '', -1, -1, Default, Default, 0, $g_UI[0])
 				If $Return <> '' Then
 					If StringRegExp($Return, '\A'&$Definition&'\z') = 1 Then
-						$g_CentralArray[$p_Num][2]=StringLeft($g_CentralArray[$p_Num][2], $Pos)&$Return
-						GUICtrlSetData($p_Num, _GetTR($g_UI_Message, '4-L21')&' '&$Return)
+						IniWrite($g_UsrIni, 'Edit', $g_CentralArray[$p_Num][0]&';'&$g_CentralArray[$p_Num][2], $Return)
+						;$g_CentralArray[$p_Num][2]=StringLeft($g_CentralArray[$p_Num][2], $Pos)&$Return
+						GUICtrlSetData($p_Num, $g_CentralArray[$p_Num][3]&' => '&_GetTR($g_UI_Message, '4-L21')&' '&$Return)
 					Else
 						GUISetState(@SW_ENABLE); enable the GUI again
 						_Misc_MsgGUI(4, _GetTR($g_UI_Message, '4-L2'), _GetTR($g_UI_Message, '4-L22')&@CRLF&@CRLF&$Definition)

@@ -713,7 +713,14 @@ Func _Install_BuildSubcmd($p_Setup, $p_Comp)
 	$Components=_SplitComp($Components)
 	$Handle=FileOpen($g_GameDir&'\BWS_Sub.nul', 2)
 	For $c=1 to $Components[0]
-		If StringInStr($Components[$c], $p_Comp&'?') Then FileWriteLine($Handle, StringRegExpReplace($Components[$c], '\A.*_', ''))
+		If StringInStr($Components[$c], $p_Comp&'?') Then
+			$UserEditedValue = IniRead($g_UsrIni, 'Edit', $p_Setup&';'&$Components[$c], '')
+			If $UserEditedValue <> '' Then
+				FileWriteLine($Handle, $UserEditedValue)
+			Else
+				FileWriteLine($Handle, StringRegExpReplace($Components[$c], '\A.*_', ''))
+			EndIf
+		EndIf
 	Next
 	FileClose($Handle)
 	Return 1

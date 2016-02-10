@@ -319,7 +319,7 @@ Func Au3Net($p_Num = 0)
 				EndIf
 			EndIf
 		Next
-		Sleep(100)
+		;Sleep(10)
 		$Loop+=1
 		If $Loop=6 Then
 			$Loop=0; reset loop
@@ -390,7 +390,7 @@ Func Au3NetTest($p_Num = 0)
 	Local $Prefix[4] = [3, '', 'Add', $g_ATrans[$g_ATNum] & '-Add']
 	Local $Down=0
 ; ---------------------------------------------------------------------------------------------
-; Add faults for missing files that don't have a download-link
+; Add faults for missing files that have a download-link (Down= in mod.ini is not 'Manual')
 ; ---------------------------------------------------------------------------------------------
 	For $c=1 to $g_CurrentPackages[0][0]
 		$ReadSection=IniReadSection($g_MODIni, $g_CurrentPackages[$c][0])
@@ -400,7 +400,7 @@ Func Au3NetTest($p_Num = 0)
 			If $File = 'Manual' Then ContinueLoop
 			$expectedSize = _IniRead($ReadSection, $Prefix[$p]&'Size', -1)
 			$localSize = FileGetSize($g_DownDir & '\' & $File)
-			If $expectedSize <> $localSize Then
+			If $expectedSize <> 0 And $expectedSize <> $localSize Then; if Size=0 then we always download, so not a fault
 				$Error=IniRead($g_BWSIni, 'Faults', $g_CurrentPackages[$c][0], '')
 				If Not StringInStr($Error, $p) Then IniWrite($g_BWSIni, 'Faults', $g_CurrentPackages[$c][0], $Error & $p); save the error
 			EndIf
@@ -565,7 +565,7 @@ Func _Net_DownloadStart($p_URL, $p_File, $p_Setup, $p_Prefix, $p_String); Link, 
 		If $expectedSize = $localSize And FileExists($g_DownDir & '\' & $p_File) Then; expected file was found
 			FileWrite($g_LogFile, '<= '& $p_File & ' = ' & $localSize & @CRLF)
 			_Process_SetConsoleLog($p_File & ' ' & _GetTR($Message, 'L7')); => downloaded before
-			Sleep(100)
+			;Sleep(10)
 			Return SetError(0, $Loaded, 2)
 		ElseIf FileExists($g_DownDir & '\' & $p_File) Then
 			FileWrite($g_LogFile, '<= '& $p_File & ' <> ' & $localSize & @CRLF)
@@ -612,7 +612,7 @@ Func _Net_DownloadStop($p_URL, $p_File, $p_Setup, $p_Prefix, $p_expectSize)
 		$localSize = FileGetSize($g_DownDir & '\' & $p_File)
 		If $p_expectSize = $localSize Or $p_expectSize = 0-$localSize Then; file has expected size (second version is for problematic servers)
 			_Process_SetConsoleLog(StringFormat(_GetTR($Message, 'L5'), $p_File)); => download successful
-			Sleep(100)
+			;Sleep(10)
 		ElseIf $localSize = 0 Then
 			FileDelete($g_DownDir & '\' & $p_File)
 			$Result='Fault'
@@ -622,13 +622,13 @@ Func _Net_DownloadStop($p_URL, $p_File, $p_Setup, $p_Prefix, $p_expectSize)
 		ElseIf $p_expectSize <= 0 Then; save new size for following sessions
 			IniWrite($g_MODIni, $p_Setup, $p_Prefix&'Size', $localSize)
 			_Process_SetConsoleLog(StringFormat(_GetTR($Message, 'L5'), $p_File)); => download successful
-			Sleep(100)
+			;Sleep(10)
 		EndIf
 	EndIf
 	_Process_SetConsoleLog('')
 	If $Result<>'Fault' Then Return SetError(0, 1, 1)
 	_Process_SetConsoleLog(StringFormat(_GetTR($Message, 'L3'), $p_File, $p_URL)); => file not found
-	Sleep(100)
+	;Sleep(10)
 	Return SetError(1, 1, 0)
 EndFunc   ;==>_Net_DownloadStop
 
@@ -682,7 +682,7 @@ Func _Net_LinkList($p_Num = 0)
 	While 1
 		If $g_Flags[0] = 0 Or $g_Flags[11] = 1 Or $g_Flags[12] = 1 Then ExitLoop
 		If $g_pQuestion <> 'Need4Answer' Then _Net_LinkListUpdate($List)
-		Sleep(100)
+		;Sleep(10)
 	WEnd
 	Local $List = ''
 	GUICtrlSetData($g_UI_Interact[6][5], IniRead($g_TRAIni, 'UI-Buildtime', 'Interact[6][5]', '%URL%'))
@@ -768,7 +768,7 @@ Func _Net_LinkGetInfo($p_URL, $p_Debug=0)
 			For $i=1 to 5
 				If FileExists(@TempDir&'\'&$Return[1]) Then
 					FileDelete(@TempDir&'\'&$Return[1])
-					Sleep(50)
+					;Sleep(5)
 				EndIf
 			Next
 			$Return[0] = 0
@@ -961,7 +961,7 @@ Func _Net_LinkTest($p_Num = 0)
 					$Fault = $Fault & '|' & $List[$l][1]; collect wrong sizes
 					_Process_SetScrollLog(_GetTR($Message, 'L3')); => not found
 					GUICtrlSetColor($g_UI_Interact[6][2], 0xff0000); paint the item red
-					Sleep(100)
+					Sleep(500)
 					GUICtrlSetColor($g_UI_Interact[6][2], 0x000000); paint the item black
 					$TestedBefore = 0
 				EndIf
@@ -1298,7 +1298,7 @@ Func _Net_WGetShow($p_PID, $p_Num)
 		If $DoUpdate Then FileRead($g_DownDir&'\'&$g_Down[$p_Num][0], 1); files are not updated on windows 7. Use this as a workaround.
 		$localSize=FileGetSize($g_DownDir&'\'&$g_Down[$p_Num][0])
 		GUICtrlSetData($g_UI_Interact[6][1], $localSize*100/$g_Down[$p_Num][1])
-		Sleep(750)
+		Sleep(75)
 	WEnd
 	GUICtrlSetData($g_UI_Interact[6][1], 0)
 	GUICtrlSetData($g_UI_Static[6][2], '')

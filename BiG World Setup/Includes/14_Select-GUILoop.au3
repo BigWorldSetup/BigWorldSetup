@@ -332,27 +332,7 @@ Func Au3Select($p_Num = 0)
 		Case $g_UI_Menu[1][3]; Import
 			Local $File = FileOpenDialog(_GetTR($g_UI_Message, '4-F1'), $g_ProgDir, 'Ini files (*.ini)', 1, 'BWS-Selection.ini', $g_UI[0]); => load selection from
 			If @error Then ContinueLoop; user clicked cancel button or escape key or some error occurred trying to load the chosen file
-			Local $Section = IniReadSectionNames($File)
-			If @error Then; IniReadSectionNames did not return a valid array
-				_PrintDebug(_GetTR($g_UI_Message, '4-F3'), 1); => The selected file was not in the expected format.
-				ContinueLoop
-			EndIf
-			Local $Success=0
-			For $s=1 to $Section[0]
-				If $Section[$s] = 'Current' Then $Success = 1
-				If $Section[$s] = 'Save' Then $Success = 2
-			Next
-			If $Success=0 Then
-				ContinueLoop
-			ElseIf $Success = 1 Then
-				IniWriteSection($g_UsrIni, 'Current', IniReadSection($File, 'Current'))
-				IniWriteSection($g_UsrIni, 'Save', IniReadSection($File, 'Current'))
-				IniDelete($g_UsrIni, 'DeSave')
-			ElseIf $Success = 2 Then
-				IniWriteSection($g_UsrIni, 'Current', IniReadSection($File, 'Save'))
-				IniWriteSection($g_UsrIni, 'Save', IniReadSection($File, 'Save'))
-				IniWriteSection($g_UsrIni, 'DeSave', IniReadSection($File, 'DeSave'))
-			EndIf
+			If _Tree_Import($File) = -1 Then ContinueLoop; in this case the function printed => The selected file was not in the expected format
 			_Misc_ProgressGUI(_GetTR($g_UI_Message, '4-T1'), _GetTR($g_UI_Message, '4-L2')); => setting entries
 			_Tree_Reload(1, 1)
 			_Misc_SetTab(4)
@@ -382,6 +362,7 @@ Func Au3Select($p_Num = 0)
 				IniWriteSection($g_UsrIni, 'Current', $Array)
 				IniWriteSection($g_UsrIni, 'Save', $Array)
 				IniDelete($g_UsrIni, 'DeSave')
+				IniDelete($g_UsrIni, 'Edit')
 			EndIf
 			_Misc_ProgressGUI(_GetTR($g_UI_Message, '4-T1'), _GetTR($g_UI_Message, '4-L2')); => setting entries
 			_Tree_Reload(1, 1)
