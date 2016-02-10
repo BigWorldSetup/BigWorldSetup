@@ -4,7 +4,7 @@ DWN;WeiDU;0;00;1111;
 STD;pst-drawfix;0;01;1111;
 STD;pst-drawfix;1;01;1111;
 STD;psttp;0;01;1111;
-SUB;widescreen;0;13;1111;
+STD;widescreen;0;13;1111;
 STD;GhostDog's-PST-UI;0;13;1111;
 MUC;GhostDog's-PST-UI;Init;13;0000;
 MUC;GhostDog's-PST-UI;1;13;0000;
