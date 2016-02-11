@@ -3629,6 +3629,7 @@ STD;tobaurora;0;12;0111;
 SUB;tobaurora;1;12;0000;
 SUB;tobaurora;1?1_1;12;0000;
 SUB;tobaurora;1?1_2;12;0000;
+CMD;IF EXISTS "BiG World Fixpack\_override\worldmap.wmp" COPY /Y "BiG World Fixpack\_override\worldmap.wmp" "override\worldmap.wmp"
 SUB;SandrahNPC;0;12;0000;
 SUB;SandrahNPC;0?0_1;12;0000;
 SUB;SandrahNPC;0?0_2;12;0000;
