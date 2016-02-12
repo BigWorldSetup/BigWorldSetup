@@ -631,11 +631,12 @@ MUC;BG2_Tweaks;4071;09;1111;
 STD;BG2_Tweaks;4080;09;0000;
 STD;BG2_Tweaks;4090;09;0000;
 STD;BG2_Tweaks;4110;09;1111;
-STD;might_and_guile;160;09;0000;
-STD;might_and_guile;215;09;0111;
+ANN;--- add and revise kits ---
 STD;might_and_guile;220;09;0111;
+STD;might_and_guile;225;09;0111;
+STD;might_and_guile;230;09;0111;
+STD;might_and_guile;235;09;0111;
 STD;might_and_guile;250;09;0111;
-STD;might_and_guile;255;09;0111;
 STD;might_and_guile;260;09;0111;
 STD;might_and_guile;265;09;0111;
 STD;might_and_guile;270;09;0111;
@@ -654,7 +655,6 @@ STD;might_and_guile;470;12;0111;
 STD;might_and_guile;480;12;0111;
 STD;might_and_guile;490;12;0111;
 STD;might_and_guile;500;09;0111;
-ANN;--- add and revise kits ---
 STD;Derats_kits;0;12;0111;
 STD;Derats_kits;1;12;0111;
 STD;Derats_kits;2;12;0111;

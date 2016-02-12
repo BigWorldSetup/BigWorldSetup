@@ -1253,11 +1253,12 @@ MUC;BG2_Tweaks;Init;09;1111;
 MUC;BG2_Tweaks;4070;09;0000;
 MUC;BG2_Tweaks;4071;09;1111;
 STD;BG2_Tweaks;4100;09;1111;
-STD;might_and_guile;160;09;0000;
-STD;might_and_guile;215;09;0111;
+ANN;--- add and revise kits ---
 STD;might_and_guile;220;09;0111;
+STD;might_and_guile;225;09;0111;
+STD;might_and_guile;230;09;0111;
+STD;might_and_guile;235;09;0111;
 STD;might_and_guile;250;09;0111;
-STD;might_and_guile;255;09;0111;
 STD;might_and_guile;260;09;0111;
 STD;might_and_guile;265;09;0111;
 STD;might_and_guile;270;09;0111;
@@ -1276,7 +1277,6 @@ STD;might_and_guile;470;12;0111;
 STD;might_and_guile;480;12;0111;
 STD;might_and_guile;490;12;0111;
 STD;might_and_guile;500;09;0111;
-ANN;--- add and revise kits ---
 ANN;BWFixpack disables pcvamp conditional patch (only if Weimer's Valen mod was installed first)
 ANN;that patch resulted in several "WARNING: cannot find block matching [pcvamp/BCS/priest.bcs]"
 ANN;to solve this problem for now, BWFixpack has merged pcvamp's patch into the Valen mod itself
