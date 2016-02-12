@@ -2701,17 +2701,6 @@ STD;BG2_Tweaks;4080;16;0111;
 STD;BG2_Tweaks;4090;16;1111;
 STD;BG2_Tweaks;4100;16;1111;
 STD;BG2_Tweaks;4110;16;1111;
-STD;scales_of_balance;500;16;0111;
-STD;scales_of_balance;510;19;0111;
-STD;scales_of_balance;512;19;0111;
-STD;scales_of_balance;520;19;0111;
-STD;scales_of_balance;526;19;0111;
-STD;scales_of_balance;530;19;0111;
-STD;scales_of_balance;532;19;0111;
-STD;scales_of_balance;540;19;0111;
-STD;scales_of_balance;586;19;0001;
-STD;scales_of_balance;588;19;0111;
-STD;scales_of_balance;600;16;0111;
 CMD;IF EXIST "override\kit.IDS" type B#BLADEstring.txt >> override\kit.IDS;;;;D:RevisedBattles(24)
 STD;refinements;10;16;1111;
 MUC;refinements;Init;16;1111;
@@ -2719,18 +2708,7 @@ MUC;refinements;30;16;1111;
 MUC;refinements;31;16;0000;
 STD;refinements;40;16;1111;
 STD;refinements;50;19;0111;
-STD;scales_of_balance;580;16;0111;
-CMD;IF EXIST ".\override\XXX009.ITM" move ".\override\XXX009.ITM" ".\BWP_workspace\override"
-STD;might_and_guile;100;16;0111;
-CMD;IF EXIST ".\BWP_workspace\override\XXX009.ITM" move ".\BWP_workspace\override\XXX009.ITM" ".\override"
-STD;might_and_guile;120;16;0111;
-ANN;might_and_guile;140;09;0001;placeholder
-ANN;might_and_guile;150;09;0001;placeholder
-STD;might_and_guile;160;16;0111;
-ANN;#180 MRO is installed later
-ANN;#200 Stats Revision is installed later
-STD;might_and_guile;205;16;0111;
-STD;might_and_guile;210;16;0111;
+STD;might_and_guile;160;16;0000;
 STD;might_and_guile;215;16;0111;
 STD;might_and_guile;220;16;0111;
 STD;might_and_guile;250;16;0111;
@@ -3754,10 +3732,16 @@ MUC;BP-Balancer;Init;16;1111;
 MUC;BP-Balancer;29;16;0000;
 MUC;BP-Balancer;30;16;1111;
 MUC;BP-Balancer;31;16;0000;
-ANN;Magic Resistance Overhaul needs to install late
-STD;might_and_guile;180;16;0000;
-ANN;Stats Revision needs to install after SCS
-STD;might_and_guile;200;16;0111;
+STD;scales_of_balance;101;16;0000;
+STD;scales_of_balance;102;16;0000;
+STD;scales_of_balance;103;16;0000;
+STD;scales_of_balance;121;16;0000;
+STD;scales_of_balance;122;16;0000;
+STD;scales_of_balance;123;16;0000;
+STD;scales_of_balance;180;16;0000;
+STD;scales_of_balance;200;16;0000;
+STD;scales_of_balance;205;16;0000;
+STD;scales_of_balance;210;16;0000;
 ANN;-- adjust total XP cap --
 SUB;eet_tweaks;3;16;0111;
 SUB;eet_tweaks;3?1_1;16;0000;
