@@ -168,7 +168,8 @@ STD;BDToBv168;7;01;0011;
 ANN;Baldurdash v1.7.3 renumbered some components
 ANN;#2, 17, 18 are outdated - skip
 STD;BDToBv173;0;01;0111;
-STD;BDToBv173;10;01;0111;
+STD;BDToBv173;4;01;0111;
+STD;BDToBv173;10;01;0000;
 STD;BDToBv173;11;01;0111;
 STD;BDToBv173;16;01;0111;
 ANN;#15 is quest extension
@@ -176,8 +177,7 @@ STD;BDToBv173;15;10;0111;
 ANN;#13, 14 are NPC tweaks
 STD;BDToBv173;13;14;0111;
 STD;BDToBv173;14;14;0111;
-ANN;#4, 7 are tactical encounters
-STD;BDToBv173;4;15;0011;
+ANN;#7 is tactical encounter
 STD;BDToBv173;7;15;0011;
 ANN;#1, 3, 6 are rule tweaks
 STD;BDToBv173;1;16;0111;
