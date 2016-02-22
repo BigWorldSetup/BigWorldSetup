@@ -153,7 +153,7 @@ EndFunc    ;==>_Selection_ContextMenu
 ; ---------------------------------------------------------------------------------------------
 ; Warn if expert mods or mods with warnings are going to be installed
 ; ---------------------------------------------------------------------------------------------
-Func _Selection_ExpertWarning()
+Func _Selection_ExpertWarning($p_Buttons = 2)
 	_PrintDebug('+' & @ScriptLineNumber & ' Calling _Selection_ExpertWarning')
 	Local $Expert, $Warning
 	For $w = $g_CentralArray[0][1] To $g_CentralArray[0][0]
@@ -174,11 +174,11 @@ Func _Selection_ExpertWarning()
 		ElseIf StringInStr($Expert, $g_CentralArray[$w][4]&'|') Then
 			ContinueLoop; we already logged the mod headline, so skip its components
 		ElseIf $g_CentralArray[$w][12] = '0001' Then; this is an Expert pre-selection-only component
-			$Expert &= $g_CentralArray[$w][4]&'('&$g_CentralArray[$w][3]&')|'
+			$Expert &= $g_CentralArray[$w][4]&'('&$g_CentralArray[$w][2]&'): '&$g_CentralArray[$w][3]&'|'
 		EndIf
 	Next
 	If $Expert = '' And $Warning = '' Then Return 2
-	Local $Test=_Misc_MsgGUI(3, _GetTR($g_UI_Message, '0-T1'), _GetTR($g_UI_Message, '8-L1')&$Expert&$Warning, 2); => expert-warning
+	Local $Test=_Misc_MsgGUI(3, _GetTR($g_UI_Message, '0-T1'), _GetTR($g_UI_Message, '8-L1')&$Expert&$Warning, $p_Buttons); => expert-warning
 	Return $Test
 EndFunc    ;==>_Selection_ExpertWarning
 

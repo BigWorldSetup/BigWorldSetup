@@ -355,7 +355,7 @@ Func _Misc_MsgGUI($p_Icon, $p_Title, $p_Text, $p_Button = 1, $p_Text1 = '', $p_T
 	; Display the message
 	; ---------------------------------------------------------------------------------------------
 	GUICtrlSetData($g_UI_Seperate[8][1], $p_Title); hint
-	If $String[1] > 10 Then
+	If $String[1] >= 10 Then
 		GUICtrlSetState($g_UI_Static[8][2], $GUI_HIDE)
 		GUICtrlSetState($g_UI_Interact[8][1], $GUI_SHOW)
 		GUICtrlSetData($g_UI_Interact[8][1], $p_Text); message
@@ -430,10 +430,10 @@ Func _Misc_ReBuildTreeView($p_Save = 0)
 	_GUICtrlListView_DeleteAllItems($g_UI_Handle[1]); delete dependencies
 	_Selection_GetCurrentInstallType()
 	_Misc_SetAvailableSelection()
-	_Tree_Populate(1 + $p_Save); rebuild Arrays, GUI and so on
-	_Depend_AutoSolve('DS', 2, 1); disable mods/components with unsatisfied dependencies, skip warning rules
-	_Depend_AutoSolve('C', 2, 1); disable conflict losers, skip warning rules
-	_Depend_AutoSolve('DS', 2, 1); disable mods/components with unsatisfied dependencies, skip warning rules
+	_Tree_Populate(1 + $p_Save); rebuild Arrays, GUI and so on (_Tree_Populate will call _Tree_SetPreSelected UNLESS $p_Save = 1)
+	;_Depend_AutoSolve('DS', 2, 1); disable mods/components with unsatisfied dependencies, skip warning rules
+	;_Depend_AutoSolve('C', 2, 1); disable conflict losers, skip warning rules
+	;_Depend_AutoSolve('DS', 2, 1); disable mods/components with unsatisfied dependencies, skip warning rules
 	;$g_Flags[23]=''; reset progress bar
 	If $p_Save Then _Tree_Reload(1, 1, @TempDir & '\BWS_Reload.ini')
 	;GUICtrlSetData($g_UI_Static[9][2], '100 %')
@@ -522,7 +522,7 @@ Func _Misc_SetAvailableSelection()
 		If $InstallType > UBound($Split) - 1 Then
 			$InstallType = 1
 		ElseIf $InstallType = '00' And FileExists($g_GConfDir & '\Preselection00.ini') Then
-			$InstallType = '01' ; if available, reload auto-export (user-customized selection)
+			$InstallType = 1 ; if available, reload auto-export (user-customized selection)
 		EndIf
 		$InstallType = $Split[$InstallType]
 	EndIf

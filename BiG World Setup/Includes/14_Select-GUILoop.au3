@@ -222,8 +222,7 @@ Func Au3Select($p_Num = 0)
 ; Install-Opts: Final actions
 ; ---------------------------------------------------------------------------------------------
 			ElseIf $Current = 14 Then
-				$Test=_Selection_ExpertWarning()
-				If $Test = 1 Then ContinueLoop
+				If _Selection_ExpertWarning(2) = 1 Then ContinueLoop
 				_Tree_EndSelection()
 				If IniRead($g_UsrIni, 'Options', 'Logic1', 1) = 4 Then IniWrite($g_BWSIni, 'Order', 'Au3Net', 0); skip download-checks and download
 				_Process_Gui_Create(0, 0)
@@ -241,8 +240,8 @@ Func Au3Select($p_Num = 0)
 				GUICtrlSetState($g_UI_Button[0][3], $GUI_DISABLE)
 			ElseIf $Current = 4 Then; leaving 'choose mods and components' tree-view
 				_Misc_SwitchWideScreen(); toggle the widescreen checkbox if necessary
-				If _Depend_ResolveGui(0) = 0 Then ContinueLoop; _Depend_ResolveGui($p_Solve = 0)
-				If _Selection_ExpertWarning() = 1 Then ContinueLoop
+				If _Selection_ExpertWarning(2) = 1 Then ContinueLoop
+				If _Depend_ResolveGui() = 0 Then ContinueLoop
 				_Misc_SetTab(2)
 			Else
 				If $g_Flags[24]=1 Then _Tree_Export($g_GConfDir&'\PreSelection00.ini')

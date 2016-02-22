@@ -1234,16 +1234,10 @@ EndFunc   ;==>_Depend_RemoveFromCurrent
 ; ---------------------------------------------------------------------------------------------
 ; this function displays and handles the UI for the 'resolve conflicts and dependencies' screen
 ; checks the mods from the connections-array (Select-GUILoop calls this when leaving tree-view)
-;   p_Solve = auto-solve (deactivate) conflict losers and missing dependencies first?
-;       this option is currently not used anywhere in BWS
 ; ---------------------------------------------------------------------------------------------
 Func _Depend_ResolveGui($p_Solve=0)
 	_PrintDebug('+' & @ScriptLineNumber & ' Calling _Depend_ResolveGui')
 	_Depend_GetActiveConnections()
-	If $p_Solve = 1 Then
-		_Depend_AutoSolve('C', 2, 1); disable all conflict losers (but skip warning rules)
-		_Depend_AutoSolve('DS', 2, 1); disable mods/components with missing dependencies (but skip warning rules)
-	EndIf
 	If $g_ActiveConnections[0][0] <> 0 Then _Misc_SetTab(10); dependencies-tab
 	$g_Flags[16] = 0; 16=admin-lv has focus/treeicon clicked
 	While 1

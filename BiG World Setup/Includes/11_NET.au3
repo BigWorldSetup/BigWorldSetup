@@ -280,15 +280,16 @@ Func Au3Net($p_Num = 0)
 					GUICtrlSetData($g_UI_Interact[5][1], ($Sizes[0][2] * 100) / $Sizes[0][1])
 					$DSlot[$d]=''
 				ElseIf $Result = 0 Then; fault
-					_Process_SetConsoleLog(_GetTR($Message, 'L9')); => fetching update...
-					If StringRegExp(_Net_SingleLinkUpdate($DArray[$DSlot[$d]][2]), '(?i)(\A|\x2c)'&$DArray[$DSlot[$d]][3]&'Down(\z|\x2c)') Then
-						_Process_SetConsoleLog(_GetTR($Message, 'L10')); => ...was a success, checking again
-						$ReadSection = IniReadSection($g_MODIni, $DArray[$DSlot[$d]][2])
-						$DArray[$DSlot[$d]][0]=_IniRead($ReadSection, $DArray[$DSlot[$d]][3]&'Down', 'Manual')
-						$DArray[$DSlot[$d]][1]=_IniRead($ReadSection, $DArray[$DSlot[$d]][3]&'Save', '')
-						$DpS[$DArray[$DSlot[$d]][6]][1]&=$d&'|'; add the download to the queue for a later retry
-						ContinueLoop
-					EndIf
+					;_Net_SingleLinkUpdate has been deprecated
+					;_Process_SetConsoleLog(_GetTR($Message, 'L9')); => fetching update...
+					;If StringRegExp(_Net_SingleLinkUpdate($DArray[$DSlot[$d]][2]), '(?i)(\A|\x2c)'&$DArray[$DSlot[$d]][3]&'Down(\z|\x2c)') Then
+					;	_Process_SetConsoleLog(_GetTR($Message, 'L10')); => ...was a success, checking again
+					;	$ReadSection = IniReadSection($g_MODIni, $DArray[$DSlot[$d]][2])
+					;	$DArray[$DSlot[$d]][0]=_IniRead($ReadSection, $DArray[$DSlot[$d]][3]&'Down', 'Manual')
+					;	$DArray[$DSlot[$d]][1]=_IniRead($ReadSection, $DArray[$DSlot[$d]][3]&'Save', '')
+					;	$DpS[$DArray[$DSlot[$d]][6]][1]&=$d&'|'; add the download to the queue for a later retry
+					;	ContinueLoop
+					;EndIf
 					$DpS[$DArray[$DSlot[$d]][6]][1]=StringReplace($DpS[$DArray[$DSlot[$d]][6]][1], '|'&$DSlot[$d]&'|', '|'); remove from queue
 					$Error=IniRead($g_BWSIni, 'Faults', $DArray[$DSlot[$d]][2], '')
 					If Not StringInStr($Error, $DArray[$DSlot[$d]][8]) Then IniWrite($g_BWSIni, 'Faults', $DArray[$DSlot[$d]][2], $Error & $DArray[$DSlot[$d]][8])
@@ -942,21 +943,22 @@ Func _Net_LinkTest($p_Num = 0)
 			Else
 				$NetInfo = _Net_LinkUpdateInfo($Down, $Save, $List[$l][0], $Prefix[$p])
 				$Extended = @extended
-				If $NetInfo[0] = 0 And $TestedBefore = 0 Then
-					_Process_SetScrollLog(_GetTR($Message, 'L11')); => try to update...
-					If StringRegExp(_Net_SingleLinkUpdate($List[$l][0]), '(?i)(\A|\x2c)'&$Prefix[$p]&'down(\z|\x2c)') Then
-						_Process_SetScrollLog(_GetTR($Message, 'L12')); => ... was a success, try again
-						$TestedBefore=1
-						$p-=1
-						ContinueLoop
-					EndIf
-				Else
+				;_Net_SingleLinkUpdate has been deprecated
+				;If $NetInfo[0] = 0 And $TestedBefore = 0 Then
+				;	_Process_SetScrollLog(_GetTR($Message, 'L11')); => try to update...
+				;	If StringRegExp(_Net_SingleLinkUpdate($List[$l][0]), '(?i)(\A|\x2c)'&$Prefix[$p]&'down(\z|\x2c)') Then
+				;		_Process_SetScrollLog(_GetTR($Message, 'L12')); => ... was a success, try again
+				;		$TestedBefore=1
+				;		$p-=1
+				;		ContinueLoop
+				;	EndIf
+				;Else
 					If $Extended Then _Process_SetScrollLog(StringFormat(_GetTR($Message, 'L10'), $Save & ' > ' & $NetInfo[1])); => hint that this is a new version
 					If $NetInfo[2] < 0 Then $NetInfo[2] = -$NetInfo[2]
 					$Size = Round($NetInfo[2]/1048576, 2)
 					If $Size = '0' Then $Size='0,01'
 					_Process_SetScrollLog(StringFormat(_GetTR($Message, 'L4'), $Size)); => archive found
-				EndIf
+				;EndIf
 				If $NetInfo[0] = 0 Then
 					$Fault = $Fault & '|' & $List[$l][1]; collect wrong sizes
 					_Process_SetScrollLog(_GetTR($Message, 'L3')); => not found
@@ -1017,7 +1019,9 @@ EndFunc   ;==>_Net_RemoveFixedFaults
 ; ---------------------------------------------------------------------------------------------
 ; checks for updates for a single mod
 ; ---------------------------------------------------------------------------------------------
-Func _Net_SingleLinkUpdate($p_Setup, $p_Update = 0 )
+Func _Net_SingleLinkUpdate($p_Setup, $p_Update = 0)
+	_PrintDebug('_Net_SingleLinkUpdate has been deprecated - this message should never be seen', 1)
+	Return
 	Local $Result = '', $UpdateIni = $g_ProgDir & '\Update\Mod.ini'
 ;	If Not StringRegExp($g_Flags[14], 'BWP|BWS') Then Return; currently no updates for other games than BWP
 	Return; new string
@@ -1082,6 +1086,8 @@ EndFunc   ;==>_Net_StartupUpdate
 ; Updates the names, homepages and links via build package at http://baldurs-gate.eu/bws/mod.ini.gz
 ; ---------------------------------------------------------------------------------------------
 Func _Net_Update_Link($p_Show = 0); Show GUI
+	_PrintDebug('_Net_Update_Link has been deprecated - this message should never be seen', 1)
+	Return
 	_PrintDebug('+' & @ScriptLineNumber & ' Calling _Net_Update_Link')
 	Local $Message = IniReadSection($g_TRAIni, 'Nt-LinkUpdate')
 	Local $Extract, $Fetch, $n, $Entry
