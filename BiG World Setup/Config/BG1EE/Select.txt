@@ -1209,8 +1209,10 @@ ANN;Standardized Edwin -> BG1 Edwin
 MUC;thepicturestandard;19000;13;0000;
 ANN;Standardized Edwin -> BG2 Edwin
 MUC;thepicturestandard;19300;13;0000;
-ANN;Standardized Edwin -> Variant
+ANN;Standardized Edwin -> Variant A
 MUC;thepicturestandard;19600;13;0000;
+ANN;Standardized Edwin -> Variant B
+MUC;thepicturestandard;19900;13;0000;
 MUC;thepicturestandard;Init;13;0000;
 ANN;Standardized Imoen -> BG1 Imoen
 MUC;thepicturestandard;20000;13;0000;
