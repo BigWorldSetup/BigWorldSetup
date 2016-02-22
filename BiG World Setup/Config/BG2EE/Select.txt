@@ -444,8 +444,8 @@ SUB;ajantisbg2;0?3_1;05;1111;
 SUB;ajantisbg2;0?3_2;05;0000;
 ANN;ajantisportraitpack moved down
 MUC;Tashia;Init;05;0111;
-MUC;Tashia;0;05;0001;
-MUC;Tashia;1;05;0110;
+MUC;Tashia;0;05;0111;
+MUC;Tashia;1;05;0000;
 MUC;Tashia;Init;05;0111;
 MUC;Tashia;2;05;0111;
 MUC;Tashia;3;05;0000;

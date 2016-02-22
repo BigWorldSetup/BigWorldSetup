@@ -871,9 +871,8 @@ SUB;ajantisportraitpack;0?1_15;20;0000;
 SUB;ajantisportraitpack;0?1_16;20;0000;
 SUB;ajantisportraitpack;0?1_17;20;0000;
 MUC;Tashia;Init;12;0111;
-ANN;#0 temporarily 0111 to 0001 - http://www.shsforums.net/topic/58474-tashia-mod-conflict-with-imoen-romance-mod/#entry584449
-MUC;Tashia;0;12;0001;
-MUC;Tashia;1;12;0110;
+MUC;Tashia;0;12;0111;
+MUC;Tashia;1;12;0000;
 MUC;Tashia;Init;12;0111;
 MUC;Tashia;2;12;0111;
 MUC;Tashia;3;12;0000;
