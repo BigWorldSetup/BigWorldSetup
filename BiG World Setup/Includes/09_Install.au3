@@ -1007,6 +1007,10 @@ Func _Install_ModifyForGroupInstall($p_Array, $p_Debug=0)
 	For $a = 1 To $p_Array[0]
 		If StringRegExp($p_Array[$a], '(?i)\A(DWN|ANN|GRP)') Then ContinueLoop
 		$Split=StringSplit($p_Array[$a], ';')
+		If $Split[0] < 2 Then
+			_PrintDebug('Cannot parse setup line '&$p_Array[$a]&' - please report this error to the BWS maintainers', 1)
+			Exit
+		EndIf
 		$Mod=$Split[2]; SetupName
 		$Comp=''
 		$n+=1
