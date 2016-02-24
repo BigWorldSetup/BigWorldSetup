@@ -443,12 +443,6 @@ SUB;ajantisbg2;0?2_5;05;0000;
 SUB;ajantisbg2;0?3_1;05;1111;
 SUB;ajantisbg2;0?3_2;05;0000;
 ANN;ajantisportraitpack moved down
-MUC;Tashia;Init;05;0111;
-MUC;Tashia;0;05;0111;
-MUC;Tashia;1;05;0000;
-MUC;Tashia;Init;05;0111;
-MUC;Tashia;2;05;0111;
-MUC;Tashia;3;05;0000;
 STD;Kivan;100;05;1111;
 MUC;Kivan;Init;05;1111;
 MUC;Kivan;200;05;1111;
@@ -659,15 +653,21 @@ ANN;#50,60 is level 50 rules, grandmastery
 STD;BP;50;09;0111;
 STD;BP;60;09;0111;
 ANN;--- BP Ascension ---
-STD;BP;2000;08;0111;
-STD;BP;2100;08;0011;
-STD;BP;2200;08;0011;
-STD;BP;2300;08;0011;
-STD;BP;2400;08;0011;
-STD;BP;2500;08;0011;
-STD;BP;2600;08;0011;
+STD;BP;2000;08;0001;
+STD;BP;2100;08;0001;
+STD;BP;2200;08;0001;
+STD;BP;2300;08;0001;
+STD;BP;2400;08;0001;
+STD;BP;2500;08;0001;
+STD;BP;2600;08;0001;
 ANN;--- BG2EE NPCs ---
-ANN;Kelsey and Solaufein after (BP) Ascension
+ANN;Tashia and Kelsey and Solaufein after (BP) Ascension
+MUC;Tashia;Init;05;0111;
+MUC;Tashia;0;05;0111;
+MUC;Tashia;1;05;0000;
+MUC;Tashia;Init;05;0111;
+MUC;Tashia;2;05;0111;
+MUC;Tashia;3;05;0000;
 STD;Solaufein;0;05;0111;
 STD;Kelsey;0;05;1111;
 MUC;Kelsey;Init;13;0000;
