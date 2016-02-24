@@ -1008,7 +1008,13 @@ Func _Install_ModifyForGroupInstall($p_Array, $p_Debug=0)
 		If StringRegExp($p_Array[$a], '(?i)\A(DWN|ANN|GRP)') Then ContinueLoop
 		$Split=StringSplit($p_Array[$a], ';')
 		If $Split[0] < 2 Then
-			_PrintDebug('Cannot parse setup line '&$p_Array[$a]&' - please report this error to the BWS maintainers', 1)
+			Local $ErrorText = ''
+			For $b = 1 to $p_Array[0]
+				$ErrorText &= @CRLF&$p_Array[$b]
+			Next
+			$ErrorText = 'Error in _Install_ModifyForGroupInstall - "'&$p_Array[$a]&'" does not match expected format - please report this error to the BWS maintainers'&@CRLF&'input array: '&$ErrorText
+			_PrintDebug($ErrorText, 1)
+			FileWriteLine($g_LogFile, $ErrorText)
 			Exit
 		EndIf
 		$Mod=$Split[2]; SetupName
