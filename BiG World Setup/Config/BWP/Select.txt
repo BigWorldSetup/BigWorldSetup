@@ -1727,7 +1727,7 @@ STD;SmilingImpCrossBanterMod;230;20;0000;
 ANN;#2 crossmod needs other NPCs installed first
 STD;ACBre;2;14;0111;
 ANN;Eternal Imoen after all mods that interact with Imoen in Irenicus Dungeon
-STD;EternalImoen;0;14;0111;
+STD;EternalImoen;0;14;0001;
 STD;EternalImoen;1;14;0000;
 ANN;#19. BG2 RULES, TWEAKS AND SPELLS
 STD;w_3kradziej;0;16;0111;
@@ -3292,7 +3292,7 @@ STD;aTweaks;101;16;1111;
 STD;aTweaks;102;16;1111;
 STD;aTweaks;103;16;1111;
 STD;aTweaks;104;16;1111;
-STD;aTweaks;105;16;0001;
+STD;aTweaks;105;16;0000;
 STD;aTweaks;110;16;1111;
 MUC;aTweaks;Init;16;1111;
 MUC;aTweaks;115;16;1111;

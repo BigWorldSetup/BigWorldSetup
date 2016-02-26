@@ -853,8 +853,7 @@ STD;aTweaks;101;09;1111;
 STD;aTweaks;102;09;1111;
 STD;aTweaks;103;09;1111;
 STD;aTweaks;104;09;1111;
-ANN;#105 PnP Dimension Door -> Expert
-STD;aTweaks;105;09;0001;
+STD;aTweaks;105;09;0000;
 MUC;aTweaks;Init;09;1111;
 MUC;aTweaks;115;09;1111;
 MUC;aTweaks;117;09;0000;
