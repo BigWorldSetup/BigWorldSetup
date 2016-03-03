@@ -1005,18 +1005,9 @@ Func _Install_ModifyForGroupInstall($p_Array, $p_Debug=0)
 	Local $n=0, $Open=0, $OldMod
 	Local $EndGroupInstall=StringRegExpReplace(IniRead($g_GConfDir&'\Game.ini', 'Options', 'EndGroupInstall', ''), ',|&', '|')
 	For $a = 1 To $p_Array[0]
+		If StringRegExp($Array[$a], '\A(\s.*\z|\z)') Then ContinueLoop; skip empty lines
 		If StringRegExp($p_Array[$a], '(?i)\A(DWN|ANN|GRP)') Then ContinueLoop
 		$Split=StringSplit($p_Array[$a], ';')
-		If $Split[0] < 2 Then
-			Local $ErrorText = ''
-			For $b = 1 to $p_Array[0]
-				$ErrorText &= @CRLF&$p_Array[$b]
-			Next
-			$ErrorText = 'Error in _Install_ModifyForGroupInstall - "'&$p_Array[$a]&'" does not match expected format - please report this error to the BWS maintainers'&@CRLF&'input array: '&$ErrorText
-			_PrintDebug($ErrorText, 1)
-			FileWriteLine($g_LogFile, $ErrorText)
-			Exit
-		EndIf
 		$Mod=$Split[2]; SetupName
 		$Comp=''
 		$n+=1

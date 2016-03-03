@@ -1186,7 +1186,7 @@ MUC;thepicturestandard;Init;13;1111;
 ANN;T'was A Slow Boat -> Vanilla
 MUC;thepicturestandard;13000;13;1111;
 ANN;T'was A Slow Boat -> Lore Alternative
-MUC;thepicturestandard;13500;13;1111;
+MUC;thepicturestandard;13500;13;0000;
 MUC;thepicturestandard;Init;13;1111;
 ANN;Finch -> Vanilla
 MUC;thepicturestandard;14000;13;1111;
@@ -1196,7 +1196,7 @@ MUC;thepicturestandard;Init;13;1111;
 ANN;Gavin -> Vanilla
 MUC;thepicturestandard;15000;13;1111;
 ANN;Gavin -> Alternative
-MUC;thepicturestandard;15500;13;1111;
+MUC;thepicturestandard;15500;13;0000;
 ANN;Indira
 STD;thepicturestandard;16000;13;1111;
 ANN;Isra
