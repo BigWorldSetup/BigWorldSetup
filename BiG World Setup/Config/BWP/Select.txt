@@ -64,6 +64,9 @@ CMD;IF EXIST "BiG World Fixpack\_iwditemfix" xcopy /Y /S /E ".\BiG World Fixpack
 CMD;IF EXIST "BiG World Fixpack\_shatterfix" xcopy /Y /S /E ".\BiG World Fixpack\_shatterfix\*.*" "."
 ANN;For some foreign languages this adds English text files to the mods as a substitute to prevent that the installation fails because of missing files
 CMD;IF EXIST "BiG World Textpack GERMAN" xcopy /Y /S /E ".\BiG World Textpack GERMAN\_English_files" ".\BiG World Textpack GERMAN"
+ANN;Remove outdated v3 fixes as we are now using IR v4 and SR v4
+CMD;IF EXIST "BiG World Fixpack\item_rev" rmdir /s /q "BiG World Fixpack\item_rev"
+CMD;IF EXIST "BiG World Fixpack\spell_rev" rmdir /s /q "BiG World Fixpack\spell_rev"
 ANN;Set up workspace
 CMD;IF NOT EXIST ".\BWP_workspace\override" MD ".\BWP_workspace\override"
 CMD;IF EXIST tisunpack.exe copy tisunpack.exe ".\BWP_workspace\override"
@@ -192,17 +195,6 @@ ANN;Check for and fix incorrect spell animations (install this early)
 STD;jimfix;100;01;0111;
 ANN;iikeyNames can only be installed as long as the 2da files are three-columned, that means only before the big BG2 mods
 STD;iiKeyNames;2001;16;0111;
-STD;1pp;101;20;1111;
-SUB;1pp;114;20;1111;
-SUB;1pp;114?1_1;20;1111;
-SUB;1pp;114?1_2;20;0000;
-SUB;1pp;114?2_1;20;1111;
-SUB;1pp;114?2_2;20;0000;
-SUB;1pp;114?3_1;20;1111;
-SUB;1pp;114?3_2;20;0000;
-SUB;1pp;200;20;1111;
-SUB;1pp;200?1_1;20;0000;
-SUB;1pp;200?1_2;20;1111;
 ANN;#2. BIG BG2 MODS PRE BGT
 STD;SOS;0;09;0111;
 STD;CtB;0;09;0111;
@@ -541,15 +533,6 @@ STD;ktweaks;1;08;1111;
 STD;ktweaks;2;08;1111;
 STD;ktweaks;3;08;1111;
 STD;ktweaks;301;08;1111;
-STD;item_rev;0;16;1111;
-STD;item_rev;1;16;1111;
-STD;item_rev_shatterfix;0;01;1111;
-STD;BDToBv168;3;01;0111;
-STD;BDToBv168;6;01;0111;
-ANN;#5, 8, 12 are item restorations - after item revisions
-STD;BDToBv173;5;17;0111;
-STD;BDToBv173;8;17;0111;
-STD;BDToBv173;12;17;0111;
 GRP;Start
 STD;kittomes;0;19;0111;
 MUC;kittomes;Init;19;0111;
@@ -1762,12 +1745,13 @@ STD;Vic;10;16;0111;
 STD;Vic;11;15;0001;
 STD;Vic;12;10;0001;
 STD;fadingpromises;0;10;1111;
-STD;spell_rev;0;16;1111;
-STD;spell_rev;10;16;1111;
-STD;spell_rev;20;16;1111;
-STD;spell_rev;30;16;1111;
-STD;spell_rev;40;16;1111;
-STD;spell_rev;50;16;1111;
+STD;spell_rev;0;16;0111;
+STD;spell_rev;10;16;0111;
+STD;spell_rev;20;16;0111;
+STD;spell_rev;30;16;0111;
+STD;spell_rev;40;16;0111;
+STD;spell_rev;50;16;0111;
+STD;spell_rev;55;16;0111;
 STD;ImprovedSummons;0;16;0011;
 STD;ImprovedSummons;1;16;0011;
 STD;ImprovedSummons;2;16;0011;
@@ -2136,16 +2120,17 @@ STD;BGII-Subrace;2;16;0001;
 STD;BGII-Subrace;3;16;0111;
 STD;tb#kits;0;19;0000;
 ANN;#21. TWEAKS AND HLA-TABLES CHANGING MODS
+STD;1pp;101;20;1111;
 MUC;1pp;Init;20;1111;
 MUC;1pp;102;20;0000;
 MUC;1pp;103;20;1111;
-SUB;1pp;104;20;0000;
-SUB;1pp;104?1_1;20;0000;
+SUB;1pp;104;20;0111;
+SUB;1pp;104?1_1;20;0111;
 SUB;1pp;104?1_2;20;0000;
 SUB;1pp;104?2_1;20;0000;
-SUB;1pp;104?2_2;20;0000;
+SUB;1pp;104?2_2;20;0111;
 SUB;1pp;104?3_1;20;0000;
-SUB;1pp;104?3_2;20;0000;
+SUB;1pp;104?3_2;20;0111;
 STD;1pp;105;20;1111;
 MUC;1pp;Init;20;1111;
 MUC;1pp;106;20;1111;
@@ -2156,7 +2141,16 @@ MUC;1pp;Init;20;1111;
 MUC;1pp;110;20;0000;
 MUC;1pp;111;20;1111;
 MUC;1pp;112;20;0000;
-STD;1pp;113;20;1111;
+SUB;1pp;114;20;1111;
+SUB;1pp;114?1_1;20;1111;
+SUB;1pp;114?1_2;20;0000;
+SUB;1pp;114?2_1;20;1111;
+SUB;1pp;114?2_2;20;0000;
+SUB;1pp;114?3_1;20;1111;
+SUB;1pp;114?3_2;20;0000;
+SUB;1pp;200;20;1111;
+SUB;1pp;200?1_1;20;0000;
+SUB;1pp;200?1_2;20;1111;
 STD;1pp;201;20;1111;
 STD;1pp;203;20;1111;
 STD;1pp;204;20;1111;
@@ -2203,10 +2197,17 @@ SUB;1pp;400?12_2;20;1111;
 SUB;1pp;400?13_1;20;0000;
 SUB;1pp;400?13_2;20;1111;
 STD;1pp;401;20;1111;
+ANN;1pp unrelated extras
 SUB;1pp;300;20;1111;
 SUB;1pp;300?1_1;20;1111;
 SUB;1pp;300?1_2;20;0000;
 STD;1pp;301;20;1111;
+ANN;1pp Spell Tweaks after IWDification and after RR 7
+SUB;1pp;202;20;1111;
+SUB;1pp;202?1_1;20;0000;
+SUB;1pp;202?1_2;20;1111;
+SUB;1pp;202?2_1;20;1111;
+SUB;1pp;202?2_2;20;0000;
 STD;infinityanimations;0;20;1111;
 STD;infinityanimations;25;20;1111;
 STD;infinityanimations;50;20;1111;
@@ -2404,15 +2405,6 @@ STD;RR;4;16;1111;
 STD;RR;6;16;1111;
 STD;RR;7;17;1111;
 STD;RR;8;17;1111;
-ANN;CMD;IF EXIST Setup-SpellPackB6.exe IF EXIST ".\override\SPPR342.SPL" move ".\override\SPPR342.SPL" ".\BWP_workspace\override"
-ANN;CMD;IF EXIST setup-divine_remix.exe IF EXIST ".\override\SPPR342.SPL" move ".\override\SPPR342.SPL" ".\BWP_workspace\override"
-SUB;1pp;202;20;1111;
-SUB;1pp;202?1_1;20;0000;
-SUB;1pp;202?1_2;20;1111;
-SUB;1pp;202?2_1;20;1111;
-SUB;1pp;202?2_2;20;0000;
-ANN;CMD;IF EXIST Setup-SpellPackB6.exe IF EXIST ".\BWP_workspace\override\SPPR342.SPL" move ".\BWP_workspace\override\SPPR342.SPL" ".\override"
-ANN;CMD;IF EXIST setup-divine_remix.exe IF EXIST ".\BWP_workspace\override\SPPR342.SPL" move ".\BWP_workspace\override\SPPR342.SPL" ".\override"
 STD;ashesofembers;0;16;0001;
 STD;ashesofembers;2;16;0001;
 STD;ashesofembers;3;16;0001;
@@ -2466,57 +2458,66 @@ STD;Item_Pack;6;17;1111;
 STD;Item_Pack;7;17;1111;
 STD;Item_Pack;8;17;1111;
 STD;Item_Pack;9;17;1111;
-CMD;IF EXIST Setup-DungeonBeGone.exe IF EXIST ".\override\FWJASSY.CRE" move ".\override\FWJASSY.CRE" ".\BWP_workspace\override"
 SUB;iiItemMod;1;17;0111;
 SUB;iiItemMod;1?1_0;17;0111;
 SUB;iiItemMod;1?1_1;17;0000;
-CMD;IF EXIST Setup-DungeonBeGone.exe IF EXIST ".\BWP_workspace\override\FWJASSY.CRE" move ".\BWP_workspace\override\FWJASSY.CRE" ".\override"
-MUC;item_rev;Init;16;0011;
-MUC;item_rev;2;16;0000;
-MUC;item_rev;3;16;0011;
-MUC;item_rev;4;16;0000;
-MUC;item_rev;5;16;0000;
-MUC;item_rev;Init;16;0011;
-MUC;item_rev;1040;16;0000;
-MUC;item_rev;6;16;0000;
-MUC;item_rev;1041;16;0000;
-MUC;item_rev;1042;16;0000;
-MUC;item_rev;7;16;0000;
-MUC;item_rev;8;16;0011;
-MUC;item_rev;1043;16;0000;
-MUC;item_rev;Init;16;0011;
+ANN;Cursed Items before Item Revisions
+STD;cursed_items;0;16;0111;
+STD;cursed_items;10;16;0111;
+ANN;--- item revisions v4 ---
+STD;item_rev;0;16;0111;
+STD;item_rev;1030;16;0111;
+MUC;item_rev;Init;16;0111;
+MUC;item_rev;1040;16;0011;
+ANN;#6, 1041 removed in IRv4
+MUC;item_rev;1042;16;0100;
+ANN;#7, 8, 1043 removed in IRv4
+MUC;item_rev;Init;16;0111;
+MUC;item_rev;2;16;0011;
+MUC;item_rev;3;16;0100;
+ANN;#4, 5 removed in IRv4
+MUC;item_rev;Init;16;0111;
 MUC;item_rev;9;16;0000;
-MUC;item_rev;1101;16;0011;
-STD;item_rev;1020;16;1111;
-STD;item_rev;1030;16;1111;
-STD;item_rev;1050;16;1111;
-STD;item_rev;10;16;1111;
-STD;item_rev;11;16;1111;
-STD;item_rev;12;16;1111;
-STD;item_rev;13;16;1111;
-MUC;item_rev;Init;16;1000;
+MUC;item_rev;1101;16;0111;
+ANN;#1020 removed in IRv4
+ANN;#1050 removed in IRv4
+STD;item_rev;10;16;0111;
+STD;item_rev;17;16;0111;
+STD;item_rev;1080;16;0111;
+STD;item_rev;11;16;0111;
+MUC;item_rev;Init;16;0111;
+MUC;item_rev;18;16;0000;
+MUC;item_rev;19;16;0111;
+MUC;item_rev;20;16;0000;
+STD;item_rev;1200;16;0011;
+STD;item_rev;12;16;0111;
+ANN;#13 removed in IRv4
+MUC;item_rev;Init;16;0000;
 MUC;item_rev;1090;16;0000;
 MUC;item_rev;1091;16;0000;
 MUC;item_rev;1092;16;0000;
-MUC;item_rev;1093;16;1000;
-MUC;item_rev;Init;16;1111;
-MUC;item_rev;15;16;1111;
+MUC;item_rev;1093;16;0000;
+MUC;item_rev;Init;16;0000;
+MUC;item_rev;15;16;0000;
 MUC;item_rev;16;16;0000;
-STD;item_rev;1060;16;0000;
-STD;item_rev;1070;16;0000;
-STD;item_rev;17;16;1111;
-STD;item_rev;1080;16;0111;
-MUC;item_rev;Init;16;1111;
-MUC;item_rev;18;16;1100;
-MUC;item_rev;19;16;0000;
-MUC;item_rev;20;16;0011;
-ANN;CMD;IF EXIST "override\spell.IDS" echo 1413 CLERIC_NEGATIVE_PLANE_PROTECTION >> override\spell.IDS
+STD;item_rev;1060;16;0111;
+STD;item_rev;1070;16;0111;
+ANN;#1300 is not enabled yet in IRv4
+ANN;item_rev;1300;16;0011;
+ANN;after IR main component
+STD;1pp;113;20;1111;
+ANN;#3 of 1.68 is restored hindo's doom - after item revisions
+STD;BDToBv168;3;16;0111;
+ANN;#6 of 1.68 is restored dakkon's blade - after item revisions
+STD;BDToBv168;6;16;0111;
+ANN;#5, 8, 12 of 1.73 are item restorations - after item revisions
+STD;BDToBv173;5;16;0111;
+STD;BDToBv173;8;16;0111;
+STD;BDToBv173;12;16;0111;
 MUC;UniqueArtifacts;Init;16;0001;
 MUC;UniqueArtifacts;1;16;0000;
 MUC;UniqueArtifacts;2;16;0001;
 CMD;IF EXIST Setup-UniqueArtifacts.exe copy /Y ".\uniqueartifacts\backup\2\TASLGURK.CRE" ".\override"
-STD;cursed_items;0;16;0111;
-STD;cursed_items;10;16;0111;
 STD;freeact;10;16;1111;
 STD;freeact;50;16;1111;
 STD;Z#Misc;1;16;0001;
@@ -2765,7 +2766,8 @@ STD;Derats_kits;7;19;0111;
 STD;Derats_kits;8;19;0111;
 STD;A7#ImprovedArcher;0;19;0111;
 STD;A7#ImprovedArcher;100;17;0111;
-STD;spell_rev;60;16;1111;
+ANN;update spellbooks of joinable NPCs
+STD;spell_rev;60;16;0111;
 ANN;DR sphere system should be installed after all divine kits
 STD;Divine_Remix;1000;19;0001;
 ANN;FnP should be installed after all divine kits
