@@ -1005,7 +1005,7 @@ Func _Install_ModifyForGroupInstall($p_Array, $p_Debug=0)
 	Local $n=0, $Open=0, $OldMod
 	Local $EndGroupInstall=StringRegExpReplace(IniRead($g_GConfDir&'\Game.ini', 'Options', 'EndGroupInstall', ''), ',|&', '|')
 	For $a = 1 To $p_Array[0]
-		If StringRegExp($Array[$a], '\A(\s.*\z|\z)') Then ContinueLoop; skip empty lines
+		If StringRegExp($p_Array[$a], '\A(\s.*\z|\z)') Then ContinueLoop; skip empty lines
 		If StringRegExp($p_Array[$a], '(?i)\A(DWN|ANN|GRP)') Then ContinueLoop
 		$Split=StringSplit($p_Array[$a], ';')
 		$Mod=$Split[2]; SetupName
