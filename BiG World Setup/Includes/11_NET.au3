@@ -400,8 +400,9 @@ Func Au3NetTest($p_Num = 0)
 			$File = _IniRead($ReadSection, $Prefix[$p]&'Down', 'Manual')
 			If $File = 'Manual' Then ContinueLoop
 			$expectedSize = _IniRead($ReadSection, $Prefix[$p]&'Size', -1)
+			If $expectedSize = 0 Then ContinueLoop; if Size=0 then we always download, so not a fault
 			$localSize = FileGetSize($g_DownDir & '\' & $File)
-			If $expectedSize <> 0 And $expectedSize <> $localSize Then; if Size=0 then we always download, so not a fault
+			If $expectedSize <> $localSize Then
 				$Error=IniRead($g_BWSIni, 'Faults', $g_CurrentPackages[$c][0], '')
 				If Not StringInStr($Error, $p) Then IniWrite($g_BWSIni, 'Faults', $g_CurrentPackages[$c][0], $Error & $p); save the error
 			EndIf
@@ -622,6 +623,7 @@ Func _Net_DownloadStop($p_URL, $p_File, $p_Setup, $p_Prefix, $p_expectSize)
 			$Result='Fault'
 		ElseIf $p_expectSize <= 0 Then; save new size for following sessions
 			IniWrite($g_MODIni, $p_Setup, $p_Prefix&'Size', $localSize)
+			IniWrite($g_ProgDir&'\Config\Global\'&$p_Setup&'.ini', 'Mod', $p_Prefix&'Size', $localSize)
 			_Process_SetConsoleLog(StringFormat(_GetTR($Message, 'L5'), $p_File)); => download successful
 			;Sleep(10)
 		EndIf
@@ -659,6 +661,7 @@ Func _Net_FixSHSAttachment($p_Mod, $p_Prefix='')
 		FileDelete(@TempDir&'\'&$Save); remove backup
 		$Size=FileGetSize($g_DownDir&'\'&$Save)
 		IniWrite($g_ModIni, $p_Mod, $p_Prefix&'Size', $Size); adjust the filesize
+		IniWrite($g_ProgDir&'\Config\Global\'&$p_Mod&'.ini', 'Mod', $p_Prefix&'Size', $Size)
 		Return 1
 	Else
 		FileCopy(@TempDir&'\'&$Save, $g_DownDir&'\'&$Save, 1); restore backup
@@ -769,7 +772,7 @@ Func _Net_LinkGetInfo($p_URL, $p_Debug=0)
 			For $i=1 to 5
 				If FileExists(@TempDir&'\'&$Return[1]) Then
 					FileDelete(@TempDir&'\'&$Return[1])
-					;Sleep(5)
+					Sleep(5)
 				EndIf
 			Next
 			$Return[0] = 0
@@ -962,9 +965,9 @@ Func _Net_LinkTest($p_Num = 0)
 				If $NetInfo[0] = 0 Then
 					$Fault = $Fault & '|' & $List[$l][1]; collect wrong sizes
 					_Process_SetScrollLog(_GetTR($Message, 'L3')); => not found
-					GUICtrlSetColor($g_UI_Interact[6][2], 0xff0000); paint the item red
-					Sleep(500)
-					GUICtrlSetColor($g_UI_Interact[6][2], 0x000000); paint the item black
+					;GUICtrlSetColor($g_UI_Interact[6][2], 0xff0000); paint the item red
+					;Sleep(500)
+					;GUICtrlSetColor($g_UI_Interact[6][2], 0x000000); paint the item black
 					$TestedBefore = 0
 				EndIf
 			EndIf

@@ -680,7 +680,7 @@ EndFunc   ;==>_Install_BG1Textpatch
 Func _Install_BuildSubcmd($p_Setup, $p_Comp)
 	$Components=IniRead($g_UsrIni, 'Current', $p_Setup, $p_Comp)
 	If Not StringRegExp($Components, '(\A|\s)'&$p_Comp&'\x3f') Then Return 0
-	If $p_Setup = 'BG2_Tweaks' Then
+	If $p_Setup = 'BG2_Tweaks' Or $p_Setup = 'cdtweaks' Then
 		If StringInStr($Components, '3183?') And StringInStr($Components, '3183?3_b') Then ; RomanceCheats: Remove Nothing kills romances? - selection if "Allow multiple romances" was not selected before.
 			$Components=StringRegExpReplace($Components, '3183\x3f4_\D\s', '')
 		EndIf

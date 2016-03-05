@@ -161,7 +161,7 @@ EndFunc    ;==>_Test_ACP
 Func _Test_ArchivesExist()
 	_PrintDebug('+' & @ScriptLineNumber & ' Calling _Test_ArchivesExist')
 	$g_LogFile = $g_LogDir & '\BiG World Checking Debug.txt'
-	Local $Prefixes[3], $Fault = '', $Delete = 0
+	Local $Prefixes[3], $Fault = '';, $Delete = 0
 	Local $Message = IniReadSection($g_TRAIni, 'TE-ArchivesExist')
 	GUICtrlSetData($g_UI_Interact[6][4], _GetSTR($Message, 'H1')); => help text
 	AutoItSetOption('GUIOnEventMode', 1)
@@ -170,19 +170,19 @@ Func _Test_ArchivesExist()
 	_Process_Gui_Create(1, 0)
 	Local $List = _Tree_GetCurrentList()
 	GUICtrlSetData($g_UI_Static[6][1], _GetTR($Message, 'L1')); => watch progress
-	_Process_SetScrollLog(_GetTR($Message, 'L14'), 1, -1); => what to do with unused files
-	_Process_Question('r|m|k|c', _GetTR($Message, 'L15'), _GetTR($Message, 'Q1'),  4); => remove/move/keep/close
-	If $g_pQuestion = 'c' Then
-		_Process_Gui_Delete(3, 3, 0)
-		Return
-	EndIf
-	Local $Keep = $g_pQuestion
+;	_Process_SetScrollLog(_GetTR($Message, 'L14'), 1, -1); => what to do with unused files
+;	_Process_Question('r|m|k|c', _GetTR($Message, 'L15'), _GetTR($Message, 'Q1'),  4); => remove/move/keep/close
+;	If $g_pQuestion = 'c' Then
+;		_Process_Gui_Delete(3, 3, 0)
+;		Return
+;	EndIf
+;	Local $Keep = $g_pQuestion
 	$Prefixes[0] = ''
 	$Prefixes[1] = 'Add'
 	$Prefixes[2] = $g_ATrans[$g_ATNum] & '-Add'
-	If Not FileExists($g_RemovedDir) Then DirCreate($g_RemovedDir); create the folders
-	If Not FileExists($g_DownDir & '\Valid') Then DirCreate($g_DownDir & '\Valid')
-	If Not FileExists($g_DownDir & '\Not Valid') Then DirCreate($g_DownDir & '\Not Valid')
+;	If Not FileExists($g_RemovedDir) Then DirCreate($g_RemovedDir); create the folders
+;	If Not FileExists($g_DownDir & '\Valid') Then DirCreate($g_DownDir & '\Valid')
+;	If Not FileExists($g_DownDir & '\Not Valid') Then DirCreate($g_DownDir & '\Not Valid')
 	Local $ReadSection, $Save, $Tag, $INetSize, $RoundedINetSize, $FileSize
 	For $l = 1 To $List[0][0]; loop through
 		GUICtrlSetData($g_UI_Interact[6][1], 100 * $l / $List[0][0])
@@ -219,11 +219,12 @@ Func _Test_ArchivesExist()
 			Else
 				$Tag = ' ('&_GetTR($Message, 'L13')&')'; => translation
 			EndIf
+			$INetSize = _IniRead($ReadSection, $Prefix & 'Size', '')
+			If $INetSize = 0 Then ContinueLoop; if Size=0 in mod ini then we always download, so don't check for local copy
 			If FileExists($g_DownDir & '\' & $Save) Then
-				$INetSize = _IniRead($ReadSection, $Prefix & 'Size', '')
 				$FileSize = FileGetSize($g_DownDir & '\' & $Save)
 				If $FileSize = $INetSize Then
-					FileMove($g_DownDir & '\' & $Save, $g_DownDir & '\Valid\'); move the file to valid if size is as expected
+;					FileMove($g_DownDir & '\' & $Save, $g_DownDir & '\Valid\'); move the file to valid if size is as expected
 					$RoundedINetSize = Round($INetSize / 1048576, 1)
 					If $RoundedINetSize = '0' Then $RoundedINetSize = '0.1'
 					_Process_SetScrollLog(StringFormat(_GetTR($Message, 'L4'), $RoundedINetSize)); => matching archive found
@@ -238,34 +239,34 @@ Func _Test_ArchivesExist()
 			_Process_SetScrollLog('')
 		Next
 	Next
-	FileMove($g_DownDir & '\*.*', $g_DownDir & '\Not Valid\'); move the rest to not valid
-	FileMove($g_DownDir & '\Valid\*.*', $g_DownDir & '\'); get the valid files back
-	Local $Num=DirGetSize($g_DownDir & '\Valid', 1)
-	If $Num[1] = 0 And $Num[2] = 0 Then DirRemove($g_DownDir & '\Valid', 1)
-	$Num=DirGetSize($g_DownDir & '\Not Valid', 1)
-	If $Num[1] <> 0 Then $Delete = 1; files are found
-	If $Num[2] <> 0 Then $Delete = 1; dirs are found
-	If $Delete = 1 Then
-		If $Keep = 'r' Then; remove files
-			; ask
-			_Process_SetScrollLog(_GetTR($Message, 'L17'), 1, -1); => really delete files
-			_Process_Question('y|n',_GetTR($Message, 'L18'), _GetTR($Message, 'Q2'), 2); => yes/no
-			If $g_pQuestion = 'y' Then
-				DirRemove($g_DownDir & '\Not Valid', 1)
-			Else
-				FileMove($g_DownDir & '\Not Valid\*.*', $g_DownDir & '\')
-				DirRemove($g_DownDir & '\Not Valid', 1)
-			EndIf
-		ElseIf $Keep = 'm' Then; move files
-			If Not FileExists($g_RemovedDir) Then DirCreate($g_RemovedDir)
-			DirMove($g_DownDir & '\Not Valid', $g_RemovedDir & '\BiG World Downloads-'&@YEAR&@MON&@MDAY, 1)
-			_Process_SetScrollLog(StringFormat(_GetTR($Message, 'L16'), $g_RemovedDir & '\BiG World Downloads-'&@YEAR&@MON&@MDAY)); => files can be found at X
-		Else; restore files
-			FileMove($g_DownDir & '\Not Valid\*.*', $g_DownDir & '\')
-		EndIf
-	Else
-		DirRemove($g_DownDir & '\Not Valid')
-	EndIf
+;	FileMove($g_DownDir & '\*.*', $g_DownDir & '\Not Valid\'); move the rest to not valid
+;	FileMove($g_DownDir & '\Valid\*.*', $g_DownDir & '\'); get the valid files back
+;	Local $Num=DirGetSize($g_DownDir & '\Valid', 1)
+;	If $Num[1] = 0 And $Num[2] = 0 Then DirRemove($g_DownDir & '\Valid', 1)
+;	$Num=DirGetSize($g_DownDir & '\Not Valid', 1)
+;	If $Num[1] <> 0 Then $Delete = 1; files are found
+;	If $Num[2] <> 0 Then $Delete = 1; dirs are found
+;	If $Delete = 1 Then
+;		If $Keep = 'r' Then; remove files
+;			; ask
+;			_Process_SetScrollLog(_GetTR($Message, 'L17'), 1, -1); => really delete files
+;			_Process_Question('y|n',_GetTR($Message, 'L18'), _GetTR($Message, 'Q2'), 2); => yes/no
+;			If $g_pQuestion = 'y' Then
+;				DirRemove($g_DownDir & '\Not Valid', 1)
+;			Else
+;				FileMove($g_DownDir & '\Not Valid\*.*', $g_DownDir & '\')
+;				DirRemove($g_DownDir & '\Not Valid', 1)
+;			EndIf
+;		ElseIf $Keep = 'm' Then; move files
+;			If Not FileExists($g_RemovedDir) Then DirCreate($g_RemovedDir)
+;			DirMove($g_DownDir & '\Not Valid', $g_RemovedDir & '\BiG World Downloads-'&@YEAR&@MON&@MDAY, 1)
+;			_Process_SetScrollLog(StringFormat(_GetTR($Message, 'L16'), $g_RemovedDir & '\BiG World Downloads-'&@YEAR&@MON&@MDAY)); => files can be found at X
+;		Else; restore files
+;			FileMove($g_DownDir & '\Not Valid\*.*', $g_DownDir & '\')
+;		EndIf
+;	Else
+;		DirRemove($g_DownDir & '\Not Valid')
+;	EndIf
 	GUICtrlSetData($g_UI_Interact[6][1], 100)
 	_Process_SetScrollLog(_GetTR($Message, 'L7')); => summary
 	If $Fault = '' Then

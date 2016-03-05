@@ -680,8 +680,6 @@ Func _Depend_Contextmenu()
 				If $ClickSetting <> 'E' Then
 					_Misc_MsgGUI(4, _GetTR($g_UI_Message, '0-T1'), _GetTR($Message, 'L8'), 1, _GetTR($g_UI_Message, '8-B2')); => Error icon / Warning title / You must go back and change your click-properties to Expert before you can ignore rules that are not marked as notice/warning. / Cancel
 					ExitLoop
-				Else
-					FileWrite($g_LogFile, 'WARNING ! User chose to ignore the following rule: '&$g_Connections[$g_UI_Menu[0][8]][3]&@CRLF)
 				EndIf
 			EndIf
 			$g_Connections[$g_UI_Menu[0][8]][3]= 'W'&$g_Connections[$g_UI_Menu[0][8]][3]; mark the rule as ignored
