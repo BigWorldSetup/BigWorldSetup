@@ -679,7 +679,6 @@ ANN;#10-13 are new classes/kits
 STD;TomeAndBlood;10;12;0000;
 STD;TomeAndBlood;11;12;0000;
 STD;TomeAndBlood;12;12;0000;
-STD;TomeAndBlood;13;12;0000;
 ANN;30-31 are BG1 NPC tweaks
 STD;TomeAndBlood;30;07;0000;
 STD;TomeAndBlood;31;07;0000;
