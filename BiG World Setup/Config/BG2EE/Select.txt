@@ -29,7 +29,7 @@ ANN;Removing .are because of corrupted .wed
 ANN;CMD;IF EXIST setup-bgeegraphics.exe IF EXIST ".\override\ar3000n.wed" move ".\override\ar3000.are" ".\BWS_workspace\override"
 ANN;--- BGEE "big mods" ---
 STD;DarkHorizonsBGee;0;02;0011;
-STD;dsotscBGEE;5;02;0111;
+STD;dsotscBGEE;0;02;0111;
 MUC;drizztsaga;Init;02;0011;
 MUC;drizztsaga;0;02;0000;
 MUC;drizztsaga;1;02;0011;
