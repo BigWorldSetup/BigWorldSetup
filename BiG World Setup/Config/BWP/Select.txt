@@ -3850,11 +3850,12 @@ SUB;tobaurora;1;12;0000;
 SUB;tobaurora;1?1_1;12;0000;
 SUB;tobaurora;1?1_2;12;0000;
 CMD;IF EXISTS "BiG World Fixpack\_override\worldmap.wmp" COPY /Y "BiG World Fixpack\_override\worldmap.wmp" "override\worldmap.wmp"
-SUB;SandrahNPC;0;12;0000;
-SUB;SandrahNPC;0?0_1;12;0000;
-SUB;SandrahNPC;0?0_2;12;0000;
-STD;SandrahRtF;0;09;0111;
-STD;SandrahToT;0;09;0111;
+ANN;Will return in EET
+ANN;SUB;SandrahNPC;0;12;0000;
+ANN;SUB;SandrahNPC;0?0_1;12;0000;
+ANN;SUB;SandrahNPC;0?0_2;12;0000;
+ANN;STD;SandrahRtF;0;09;0111;
+ANN;STD;SandrahToT;0;09;0111;
 STD;HardTimes;0;07;0011;
 STD;HardTimes;1;06;0011;
 STD;polytweak;50;16;1111;
