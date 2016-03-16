@@ -132,7 +132,7 @@ STD;tobex;122;01;1111;
 STD;tobex;123;01;1111;
 STD;tobex;124;01;1111;
 ANN;Enable Spell Immunity in Sequencers/Triggers (TobEx)
-STD;jimfix;1;16;0111;
+STD;jimfix;1;16;1111;
 STD;ascension;0;15;1111;
 STD;ascension;1;15;0011;
 STD;ascension;2;15;0011;
@@ -190,11 +190,11 @@ ANN;#5, 8, 12 are item restorations - after item revisions
 ANN;#9 is improved nymph AI
 STD;BDToBv173;9;18;0011;
 ANN;Fix Sunfire power levels (install this early)
-STD;jimfix;0;01;0111;
+STD;jimfix;0;01;1111;
 ANN;Check for and fix incorrect spell animations (install this early)
-STD;jimfix;100;01;0111;
+STD;jimfix;100;01;1111;
 ANN;iikeyNames can only be installed as long as the 2da files are three-columned, that means only before the big BG2 mods
-STD;iiKeyNames;2001;16;0111;
+STD;iiKeyNames;2001;16;1111;
 ANN;#2. BIG BG2 MODS PRE BGT
 STD;SOS;0;09;0111;
 STD;CtB;0;09;0111;
@@ -307,9 +307,9 @@ ANN;#7. BG1 STORES AND ITEMS
 STD;BW_Herbs;0;08;0111;
 STD;thalan;0;08;1111;
 STD;LostItems;0;08;1111;
-STD;LostItems;1;07;1111;
+STD;LostItems;1;05;1111;
 STD;LostItems;2;16;1111;
-STD;LostItems;4;07;0000;
+STD;LostItems;4;05;0000;
 STD;BGeeAR;0;08;0111;
 STD;BGeeW;0;08;0111;
 STD;Animus;0;08;0111;
@@ -610,7 +610,7 @@ STD;tb#quest;1;10;0011;
 STD;tb#quest;2;10;0111;
 STD;tb#quest;3;10;0111;
 STD;BWQuest;0;10;0111;
-STD;c#sb_silber;0;11;1111;
+STD;c#sb_silber;0;10;1111;
 STD;spgaunt;0;10;0111;
 STD;spgaunt;1;10;0111;
 STD;spgaunt;3;10;0111;
@@ -718,12 +718,12 @@ STD;Ruad;1;17;0111;
 STD;Tzshop01;0;17;0111;
 STD;AbyStore;0;17;0111;
 STD;Underrep;0;17;0111;
-MUC;ItemUpgrade;Init;17;0111;
+MUC;ItemUpgrade;Init;17;1111;
 MUC;ItemUpgrade;0;17;0000;
-MUC;ItemUpgrade;10;17;0111;
-MUC;ItemUpgrade;Init;17;0111;
+MUC;ItemUpgrade;10;17;1111;
+MUC;ItemUpgrade;Init;17;1111;
 MUC;ItemUpgrade;1;17;0000;
-MUC;ItemUpgrade;11;17;0111;
+MUC;ItemUpgrade;11;17;1111;
 STD;SPItems;2;17;0001;
 STD;SPItems;3;17;0001;
 MUC;cliffkey;Init;17;0111;
@@ -2738,7 +2738,7 @@ STD;cdtweaks;1140;16;0011;
 STD;cdtweaks;1150;16;0000;
 MUC;cdtweaks;Init;16;1111;
 MUC;cdtweaks;1160;16;0000;
-MUC;cdtweaks;1161;16;1111;
+MUC;cdtweaks;1161;16;0000;
 STD;cdtweaks;1170;16;1111;
 STD;cdtweaks;1180;16;1111;
 STD;cdtweaks;1210;16;0000;
@@ -3269,15 +3269,15 @@ STD;stratagems;8170;15;1111;
 STD;stratagems;8180;15;1111;
 STD;stratagems;8190;15;1100;
 ANN;Shield of Reflection works on SCS Flame Arrows
-STD;jimfix;2;01;0111;
+STD;jimfix;2;01;1111;
 ANN;Fix SCS Smarter Abazigal
-STD;jimfix;3;01;0111;
+STD;jimfix;3;01;1111;
 ANN;Fix SCS Smarter Irenicus at the Throne
-STD;jimfix;4;01;0111;
+STD;jimfix;4;01;1111;
 ANN;Remove SCS entourage from Ascension Fallen Solars
-STD;jimfix;5;01;0111;
+STD;jimfix;5;01;1111;
 ANN;Prevent SCS Smarter Mages from silently prebuffing
-STD;jimfix;400;16;0111;
+STD;jimfix;400;16;1111;
 STD;multistronghold;10;16;0111;
 STD;multistronghold;20;16;0111;
 STD;multistronghold;30;16;0111;
@@ -3286,8 +3286,8 @@ STD;multistronghold;50;16;0111;
 STD;multistronghold;60;16;0111;
 STD;multistronghold;70;16;0111;
 STD;multistronghold;80;16;0111;
-STD;NPC_Strongholds;0;16;0111;
-STD;NPC_Strongholds;1;16;0111;
+STD;NPC_Strongholds;0;16;1111;
+STD;NPC_Strongholds;1;16;1111;
 STD;Volcano;0;17;0111;
 STD;BuTcHeRy;0;15;0011;
 STD;BuTcHeRy;1;15;0011;
@@ -3609,14 +3609,14 @@ MUC;NMRF-PC;1;18;0000;
 STD;NMRF-PC;2;18;0111;
 STD;NMRF-PC;3;18;0111;
 ANN;Add spell school notifications to the combat log
-MUC;jimfix;Init;16;0111;
-MUC;jimfix;201;16;0111;
+MUC;jimfix;Init;16;1111;
+MUC;jimfix;201;16;1111;
 MUC;jimfix;202;16;0000;
 MUC;jimfix;203;16;0000;
 MUC;jimfix;204;16;0000;
 MUC;jimfix;205;16;0000;
 ANN;Add expiration notifications for buffs
-STD;jimfix;300;16;0111;
+STD;jimfix;300;16;1111;
 MUC;DiffTweak;Init;16;1111;
 MUC;DiffTweak;0;16;0000;
 MUC;DiffTweak;1;16;0000;
@@ -3707,9 +3707,9 @@ MUC;randomiser;10100;16;0000;
 MUC;randomiser;10200;16;0011;
 STD;randomiser;10210;17;0111;
 STD;randomiser;10300;16;0111;
-STD;tb#tweaks;100;16;0111;
-STD;tb#tweaks;150;16;0111;
-STD;tb#tweaks;200;16;0111;
+STD;tb#tweaks;100;16;1111;
+STD;tb#tweaks;150;16;1111;
+STD;tb#tweaks;200;16;1111;
 STD;tb#tweaks;300;16;0111;
 MUC;tb#tweaks;Init;16;0111;
 MUC;tb#tweaks;1200;16;0111;
