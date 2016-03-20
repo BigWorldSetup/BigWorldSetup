@@ -189,6 +189,7 @@ STD;bdtobv174;6;16;0111;
 ANN;#5, 8, 12 are item restorations - after item revisions
 ANN;#9 is improved nymph AI
 STD;bdtobv174;9;18;0011;
+STD;bdtobv174;9;19;0011;
 ANN;Fix Sunfire power levels (install this early)
 STD;jimfix;0;01;1111;
 ANN;Check for and fix incorrect spell animations (install this early)
