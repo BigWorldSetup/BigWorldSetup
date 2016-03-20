@@ -243,8 +243,8 @@ if ( $_.Count -eq 1 ) {
 		}
 	}
 if ( $_.Count -ge 2 ) {
-	#Write-Host "MUC;$($mod.tp2);Init;$($mod.category);0000;"
-	$iniSelect += "MUC;$($mod.tp2);Init;$($mod.category);0000;"
+	#Write-Host "MUC;$($mod.tp2);Init;$($mod.Cat);0000;"
+	$iniSelect += "MUC;$($mod.tp2);Init;$($mod.Cat);0000;"
 	$_.Group | % {
 		#Write-Host "MUC;$($mod.tp2);$($_.Number);$($mod.Cat);0000;"
 		$iniSelect += "MUC;$($mod.tp2);$($_.Number);$($mod.Cat);0000;"
