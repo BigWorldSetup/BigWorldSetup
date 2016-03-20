@@ -882,6 +882,7 @@ STD;d0questpack;18;03;0111;
 STD;d0questpack;19;03;0111;
 STD;d0questpack;20;03;0111;
 STD;d0questpack;21;03;0111;
+STD;Turnabout;0;08;0111;
 ANN;--- BG2EE minimods ---
 STD;wheels;0;04;1111;
 ANN;For some reason Wheels of Prophecy removes this entry (but exclusively for EE) so we add it back only if WoP is installed
