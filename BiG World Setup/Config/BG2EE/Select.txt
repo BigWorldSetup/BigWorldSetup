@@ -2572,6 +2572,10 @@ ANN;Standardized Viconia -> Variant A
 MUC;thepicturestandard;23600;13;0000;
 ANN;Standardized Viconia -> Variant B
 MUC;thepicturestandard;23800;13;0000;
+ANN;The Darkest Day -> Vanilla
+MUC;thepicturestandard;25000;13;0000;
+ANN;;The Darkest Day -> Lore Alternative
+MUC;thepicturestandard;25500;13;0000;
 STD;Isandir;0;13;0000;
 STD;Isandir;1;13;0000;
 STD;NSCPortraits;0;13;1111;

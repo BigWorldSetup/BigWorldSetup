@@ -3271,7 +3271,7 @@ STD;stratagems;8190;15;1100;
 ANN;Shield of Reflection works on SCS Flame Arrows
 STD;jimfix;2;01;1111;
 ANN;Fix SCS Smarter Abazigal
-STD;jimfix;3;01;1111;
+STD;jimfix;3;01;0011;
 ANN;Fix SCS Smarter Irenicus at the Throne
 STD;jimfix;4;01;1111;
 ANN;Remove SCS entourage from Ascension Fallen Solars
