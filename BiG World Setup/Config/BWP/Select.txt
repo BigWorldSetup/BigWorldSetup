@@ -171,6 +171,7 @@ ANN;STD;BDToBv168;7;01;0011;
 ANN;Baldurdash 1.74 renumbered some components
 ANN;#2, 17, 18 are outdated - skip
 STD;bdtobv174;0;01;0111;
+STD;bdtobv174;2;01;0111;
 STD;bdtobv174;4;01;0111;
 STD;bdtobv174;10;01;0000;
 STD;bdtobv174;11;01;0111;
