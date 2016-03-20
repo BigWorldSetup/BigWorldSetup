@@ -43,7 +43,7 @@ if ( $modPath -eq $null ) {
     $tp2Path = $tp2File.Directory
     $tp2FullPath = $tp2File.FullName
     } else {
-	Write-Warning "Put this script inside mod directory or provide path to it."
+	Write-Warning "Put this tool to the directory where <modname>.tp2 file is located."
 	Write-Warning 'Example: .\BWS.ps1 -Path "D:\Downloads\ModDirectory"'
 	break }
 	} else {
