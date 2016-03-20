@@ -170,25 +170,25 @@ STD;BDToBv168;5;01;0011;
 STD;BDToBv168;7;01;0011;
 ANN;Baldurdash v1.7.3 renumbered some components
 ANN;#2, 17, 18 are outdated - skip
-STD;BDToBv173;0;01;0111;
-STD;BDToBv173;4;01;0111;
-STD;BDToBv173;10;01;0000;
-STD;BDToBv173;11;01;0111;
-STD;BDToBv173;16;01;0111;
+STD;bdtobv174;0;01;0111;
+STD;bdtobv174;4;01;0111;
+STD;bdtobv174;10;01;0000;
+STD;bdtobv174;11;01;0111;
+STD;bdtobv174;16;01;0111;
 ANN;#15 is quest extension
-STD;BDToBv173;15;10;0111;
+STD;bdtobv174;15;10;0111;
 ANN;#13, 14 are NPC tweaks
-STD;BDToBv173;13;14;0111;
-STD;BDToBv173;14;14;0111;
+STD;bdtobv174;13;14;0111;
+STD;bdtobv174;14;14;0111;
 ANN;#7 is tactical encounter
-STD;BDToBv173;7;15;0011;
+STD;bdtobv174;7;15;0011;
 ANN;#1, 3, 6 are rule tweaks
-STD;BDToBv173;1;16;0111;
-STD;BDToBv173;3;16;0111;
-STD;BDToBv173;6;16;0111;
+STD;bdtobv174;1;16;0111;
+STD;bdtobv174;3;16;0111;
+STD;bdtobv174;6;16;0111;
 ANN;#5, 8, 12 are item restorations - after item revisions
 ANN;#9 is improved nymph AI
-STD;BDToBv173;9;18;0011;
+STD;bdtobv174;9;18;0011;
 ANN;Fix Sunfire power levels (install this early)
 STD;jimfix;0;01;1111;
 ANN;Check for and fix incorrect spell animations (install this early)
@@ -2514,9 +2514,9 @@ STD;BDToBv168;3;16;0111;
 ANN;#6 of 1.68 is restored dakkon's blade - after item revisions
 STD;BDToBv168;6;16;0111;
 ANN;#5, 8, 12 of 1.73 are item restorations - after item revisions
-STD;BDToBv173;5;16;0111;
-STD;BDToBv173;8;16;0111;
-STD;BDToBv173;12;16;0111;
+STD;bdtobv174;5;16;0111;
+STD;bdtobv174;8;16;0111;
+STD;bdtobv174;12;16;0111;
 MUC;UniqueArtifacts;Init;16;0001;
 MUC;UniqueArtifacts;1;16;0000;
 MUC;UniqueArtifacts;2;16;0001;
