@@ -164,11 +164,11 @@ STD;bg2fixpack;114;01;1111;
 STD;bg2fixpack;115;01;1111;
 STD;bg2fixpack;116;01;1111;
 ANN;Baldurdash modified by BWP Fixpack
-STD;BDToBv168;0;01;0111;
-STD;BDToBv168;2;01;0111;
-STD;BDToBv168;5;01;0011;
-STD;BDToBv168;7;01;0011;
-ANN;Baldurdash v1.7.3 renumbered some components
+ANN;STD;BDToBv168;0;01;0111;
+ANN;STD;BDToBv168;2;01;0111;
+ANN;STD;BDToBv168;5;01;0011;
+ANN;STD;BDToBv168;7;01;0011;
+ANN;Baldurdash 1.74 renumbered some components
 ANN;#2, 17, 18 are outdated - skip
 STD;bdtobv174;0;01;0111;
 STD;bdtobv174;4;01;0111;
@@ -2511,9 +2511,9 @@ ANN;item_rev;1300;16;0011;
 ANN;after IR main component
 STD;1pp;113;20;1111;
 ANN;#3 of 1.68 is restored hindo's doom - after item revisions
-STD;BDToBv168;3;16;0111;
+ANN;STD;BDToBv168;3;16;0111;
 ANN;#6 of 1.68 is restored dakkon's blade - after item revisions
-STD;BDToBv168;6;16;0111;
+ANN;STD;BDToBv168;6;16;0111;
 ANN;#5, 8, 12 of 1.73 are item restorations - after item revisions
 STD;bdtobv174;5;16;0111;
 STD;bdtobv174;8;16;0111;
