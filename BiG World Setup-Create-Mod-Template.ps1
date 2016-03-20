@@ -43,7 +43,7 @@ if ( $modPath -eq $null ) {
     $tp2Path = $tp2File.Directory
     $tp2FullPath = $tp2File.FullName
     } else {
-	Write-Warning "Put this script inside mod directory or provide path to it."
+	Write-Warning "Put this tool to the directory where <modname>.tp2 file is located."
 	Write-Warning 'Example: .\BWS.ps1 -Path "D:\Downloads\ModDirectory"'
 	break }
 	} else {
@@ -243,8 +243,8 @@ if ( $_.Count -eq 1 ) {
 		}
 	}
 if ( $_.Count -ge 2 ) {
-	#Write-Host "MUC;$($mod.tp2);Init;$($mod.category);0000;"
-	$iniSelect += "MUC;$($mod.tp2);Init;$($mod.category);0000;"
+	#Write-Host "MUC;$($mod.tp2);Init;$($mod.Cat);0000;"
+	$iniSelect += "MUC;$($mod.tp2);Init;$($mod.Cat);0000;"
 	$_.Group | % {
 		#Write-Host "MUC;$($mod.tp2);$($_.Number);$($mod.Cat);0000;"
 		$iniSelect += "MUC;$($mod.tp2);$($_.Number);$($mod.Cat);0000;"
