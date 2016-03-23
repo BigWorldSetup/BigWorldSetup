@@ -926,11 +926,11 @@ Func _FileListToArrayEx($sPath, $sFilter = "*", $iFlag = 0)
 EndFunc
 
 ; ---------------------------------------------------------------------------------------------
-; If there are files in a directory in the BWS folder named OverwriteFiles\<current game type>\
+; If there are files in a directory in the BGT folder named OverwriteFiles\<current game type>\
 ; then copy those files to the current game folder, overwriting any existing files there
 ; ---------------------------------------------------------------------------------------------
 Func _Extract_OverwriteFiles()
-	If $g_Flags[14] = 'BWS' Then
+	If $g_Flags[14] = 'BGT' Then
 		Local $gameType = 'BWP'
 	Else
 		Local $gameType = $g_Flags[14]
