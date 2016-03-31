@@ -308,7 +308,6 @@ MUC;BGEEClassicMovies;0;13;0000;
 MUC;BGEEClassicMovies;1;13;0000;
 STD;BGEEClassicMovies;2;13;0000;
 ANN;--- end BGEE, start EET / BG2EE ---
-DWN;EET-patches-for-BG2EE-mods;0;00;1111;
 STD;EET;0;00;1111;
 ANN;--- BWS switches from BG1EE folder to BG2EE folder after this line ---
 CMD;IF NOT EXIST ".\BWS_workspace\override" MD ".\BWS_workspace\override"
