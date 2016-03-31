@@ -8,8 +8,10 @@ DWN;eekeeper;0;00;1111;
 ANN;--- BGEE + BG2EE patches ---
 DWN;bwinstallpack;0;00;1111;
 DWN;bwfixpack;0;00;1111;
+CMD;echo.>> _Test-BG1EE-BG2EE.txt
 ANN;special case - BWS has code in Testing.au3 that will apply the lines above in both BG1EE and BG2EE directory if EET is selected
 ANN;--- BGEE patches ---
+CMD;echo.>> _Test-BG1EE.txt
 CMD;IF EXIST "BiG World Fixpack" IF NOT EXIST BWP_Fixpack.installed Call "BiG World Fixpack.bat"
 CMD;IF NOT EXIST BWP_Smoothpack.installed Call ".\BiG World Installpack\BiG World Smoothpack.bat"
 CMD;IF EXIST ".\BiG World Installpack\BWP_Smoothpack.installed" copy ".\BiG World Installpack\BWP_Smoothpack.installed" "."
@@ -308,6 +310,7 @@ MUC;BGEEClassicMovies;0;13;0000;
 MUC;BGEEClassicMovies;1;13;0000;
 STD;BGEEClassicMovies;2;13;0000;
 ANN;--- end BGEE, start EET / BG2EE ---
+DWN;EET-patches-for-BG2EE-mods;0;00;1111;
 STD;EET;0;00;1111;
 ANN;--- BWS switches from BG1EE folder to BG2EE folder after this line ---
 CMD;IF NOT EXIST ".\BWS_workspace\override" MD ".\BWS_workspace\override"
@@ -324,6 +327,7 @@ CMD;IF EXIST ".\BiG World Installpack\BWP_Smoothpack.installed" copy ".\BiG Worl
 STD;BG2EE_PL;0;0;1111;
 STD;BG2EE_PL;1;0;1111;
 DWN;BG2EE-Polish;0;00;1111;
+CMD;echo.>> _Test-BG2EE.txt
 MUC;bggoEET;Init;13;0111;
 MUC;bggoEET;0;13;0111;
 MUC;bggoEET;1;13;0000;
