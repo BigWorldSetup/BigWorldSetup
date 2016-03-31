@@ -229,10 +229,6 @@ Func Au3ExFix($p_Num)
 		FileWrite($g_LogFile, '>Keenmarker\* .' & @CRLF)
 		_Extract_MoveMod('Keenmarker')
 	EndIf
-	If StringRegExp($g_Flags[14], 'BG1EE|BG2EE') And FileExists($g_GameDir&'\EET-patches-for-BG2EE-mods-master') Then
-		FileWrite($g_LogFile, '>EET-patches-for-BG2EE-mods-master\* .' & @CRLF)
-		_Extract_MoveMod('EET-patches-for-BG2EE-mods-master')
-	EndIf
 	If StringRegExp($g_Flags[14], 'BWP|BWS|BG1EE|BG2EE') And FileExists($g_GameDir&'\BiG-World-Fixpack-master') Then
 		FileWrite($g_LogFile, '>BiG-World-Fixpack-master\* .' & @CRLF)
 		_Extract_MoveMod('BiG-World-Fixpack-master')
@@ -364,6 +360,12 @@ Func Au3ExFix($p_Num)
 				If FileExists($g_GameDir&'\'&$Test[1]) And StringRegExp($Test[1], '\A[^.]{1,}\x2e') <> '' Then FileDelete($g_GameDir&'\'&$Test[1])
 			EndIf
 		Next
+	EndIf
+
+; Special case, EET-patches-for-BG2EE-mods-master must be extracted after all mods, before files from OverwriteFiles (_Extract_OverwriteFiles()) and before BiG World Fixpack
+	If StringRegExp($g_Flags[14], 'BG1EE|BG2EE') And FileExists($g_GameDir&'\EET-patches-for-BG2EE-mods-master') Then
+		FileWrite($g_LogFile, '>EET-patches-for-BG2EE-mods-master\* .' & @CRLF)
+		_Extract_MoveModEx('EET-patches-for-BG2EE-mods-master')
 	EndIf
 	_Extract_OverwriteFiles()
 	IniWrite($g_BWSIni, 'Order', 'Au3ExFix', 0); Skip this one if the Setup is rerun
