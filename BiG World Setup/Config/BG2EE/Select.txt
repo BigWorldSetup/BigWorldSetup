@@ -30,13 +30,7 @@ ANN;Removing corrupted .wed
 ANN;CMD;IF EXIST setup-bgeegraphics.exe IF EXIST ".\override\ar4300.wed" move ".\override\ar4300.wed" ".\BWS_workspace\override"
 ANN;Removing .are because of corrupted .wed
 ANN;CMD;IF EXIST setup-bgeegraphics.exe IF EXIST ".\override\ar3000n.wed" move ".\override\ar3000.are" ".\BWS_workspace\override"
-ANN;--- item revisions core, spell revisions core ---
-ANN;IR #0 as early as possible so other mods can overwrite
-ANN;IR #0 is aware of SR #0 so should follow it
-ANN;therefore SR #0 early also
-STD;spell_rev;0;09;0111;
-STD;item_rev;0;09;0111;
-ANN;--- "big mods" ---
+ANN;--- "BG1EE big mods" ---
 STD;DarkHorizonsBGee;0;02;0011;
 STD;dsotscBGEE;0;02;0111;
 MUC;drizztsaga;Init;02;0011;
@@ -1001,7 +995,12 @@ STD;sentrizeal_aa_pack;0;13;0111;
 STD;sentrizeal_aa_pack;1;13;0111;
 STD;sentrizeal_aa_pack;2;13;0111;
 STD;sentrizeal_aa_pack;3;13;0111;
-ANN;--- BG2EE spells --- STD;spell_rev;0;09;0111; moved before EET
+ANN;--- BG2EE spells ---
+ANN;--- item revisions core, spell revisions core ---
+ANN;IR #0 as early as possible so other mods can overwrite
+ANN;IR #0 is aware of SR #0 so should follow it
+ANN;therefore SR #0 early also
+STD;spell_rev;0;09;0111;
 STD;spell_rev;10;09;0111;
 STD;spell_rev;20;09;0111;
 STD;spell_rev;30;09;0111;
@@ -1021,7 +1020,8 @@ STD;iwdification;60;10;0111;
 MUC;w_packmule;Init;10;0111;
 MUC;w_packmule;2;10;0111;
 MUC;w_packmule;3;10;0000;
-ANN;--- item revisions v4 --- STD;item_rev;0;09;0111; moved before EET
+ANN;--- item revisions v4 --- 
+STD;item_rev;0;09;0111;
 STD;item_rev;1030;09;0111;
 MUC;item_rev;Init;09;0111;
 MUC;item_rev;1040;09;0011;
