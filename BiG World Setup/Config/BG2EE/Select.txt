@@ -8,8 +8,10 @@ DWN;eekeeper;0;00;1111;
 ANN;--- BGEE + BG2EE patches ---
 DWN;bwinstallpack;0;00;1111;
 DWN;bwfixpack;0;00;1111;
+CMD;echo.>> _Test-BG1EE-BG2EE.txt
 ANN;special case - BWS has code in Testing.au3 that will apply the lines above in both BG1EE and BG2EE directory if EET is selected
 ANN;--- BGEE patches ---
+CMD;echo.>> _Test-BG1EE.txt
 CMD;IF EXIST "BiG World Fixpack" IF NOT EXIST BWP_Fixpack.installed Call "BiG World Fixpack.bat"
 CMD;IF NOT EXIST BWP_Smoothpack.installed Call ".\BiG World Installpack\BiG World Smoothpack.bat"
 CMD;IF EXIST ".\BiG World Installpack\BWP_Smoothpack.installed" copy ".\BiG World Installpack\BWP_Smoothpack.installed" "."
@@ -323,6 +325,7 @@ MUC;BGEEClassicMovies;0;13;0000;
 MUC;BGEEClassicMovies;1;13;0000;
 STD;BGEEClassicMovies;2;13;0000;
 ANN;--- end BGEE, start EET / BG2EE ---
+DWN;EET-patches-for-BG2EE-mods;0;00;1111;
 STD;EET;0;00;1111;
 ANN;--- BWS switches from BG1EE folder to BG2EE folder after this line ---
 CMD;IF NOT EXIST ".\BWS_workspace\override" MD ".\BWS_workspace\override"
@@ -339,6 +342,7 @@ CMD;IF EXIST ".\BiG World Installpack\BWP_Smoothpack.installed" copy ".\BiG Worl
 STD;BG2EE_PL;0;0;1111;
 STD;BG2EE_PL;1;0;1111;
 DWN;BG2EE-Polish;0;00;1111;
+CMD;echo.>> _Test-BG2EE.txt
 MUC;bggoEET;Init;13;0111;
 MUC;bggoEET;0;13;0111;
 MUC;bggoEET;1;13;0000;
@@ -1598,29 +1602,39 @@ STD;TomeAndBlood;31;07;0000;
 ANN;#1000 is sphere system, should be installed after all divine kits
 STD;Divine_Remix;1000;09;0001;
 ANN;FnP should be installed after all divine kits
-STD;f_n_p;102;09;0001;
-STD;f_n_p;200;09;0001;
-STD;f_n_p;212;09;0001;
-STD;f_n_p;219;09;0001;
-STD;f_n_p;234;09;0001;
-STD;f_n_p;239;09;0001;
-STD;f_n_p;244;09;0001;
-STD;f_n_p;265;09;0001;
-STD;f_n_p;283;09;0001;
-STD;f_n_p;284;09;0001;
-STD;f_n_p;285;09;0001;
-STD;f_n_p;300;09;0001;
-STD;f_n_p;302;09;0001;
-STD;f_n_p;303;09;0001;
-STD;f_n_p;304;09;0001;
-STD;f_n_p;305;09;0001;
-STD;f_n_p;306;09;0001;
-STD;f_n_p;307;09;0001;
-STD;f_n_p;308;09;0001;
-STD;f_n_p;311;09;0001;
-STD;f_n_p;332;09;0001;
-STD;f_n_p;363;09;0001;
-STD;f_n_p;500;09;0001;
+MUC;Faiths_and_Powers;Init;09;0001;
+MUC;Faiths_and_Powers;101;09;0001;
+MUC;Faiths_and_Powers;102;09;0001;
+MUC;Faiths_and_Powers;103;09;0001;
+STD;Faiths_and_Powers;105;09;0001;
+STD;Faiths_and_Powers;200;09;0001;
+STD;Faiths_and_Powers;201;09;0001;
+STD;Faiths_and_Powers;204;09;0001;
+STD;Faiths_and_Powers;205;09;0001;
+STD;Faiths_and_Powers;208;09;0001;
+STD;Faiths_and_Powers;210;09;0001;
+STD;Faiths_and_Powers;212;09;0001;
+STD;Faiths_and_Powers;219;09;0001;
+STD;Faiths_and_Powers;244;09;0001;
+STD;Faiths_and_Powers;252;09;0001;
+STD;Faiths_and_Powers;259;09;0001;
+STD;Faiths_and_Powers;260;09;0001;
+STD;Faiths_and_Powers;275;09;0001;
+STD;Faiths_and_Powers;283;09;0001;
+STD;Faiths_and_Powers;284;09;0001;
+STD;Faiths_and_Powers;285;09;0001;
+STD;Faiths_and_Powers;300;09;0001;
+STD;Faiths_and_Powers;302;09;0001;
+STD;Faiths_and_Powers;303;09;0001;
+STD;Faiths_and_Powers;304;09;0001;
+STD;Faiths_and_Powers;305;09;0001;
+STD;Faiths_and_Powers;306;09;0001;
+STD;Faiths_and_Powers;307;09;0001;
+STD;Faiths_and_Powers;308;09;0001;
+STD;Faiths_and_Powers;311;09;0001;
+STD;Faiths_and_Powers;332;09;0001;
+STD;Faiths_and_Powers;363;09;0001;
+STD;Faiths_and_Powers;500;09;0001;
 ANN;--- SCS core ---
 STD;stratagems;1000;09;1111;
 ANN;--- SCS spell tweaks ---
@@ -2302,9 +2316,12 @@ STD;scales_of_balance;122;09;0000;
 STD;scales_of_balance;123;09;0000;
 STD;scales_of_balance;124;09;0000;
 STD;scales_of_balance;125;09;0000;
+STD;scales_of_balance;160;09;0000;
 STD;scales_of_balance;180;09;0000;
 STD;scales_of_balance;200;09;0000;
-STD;scales_of_balance;205;09;0000;
+MUC;scales_of_balance;Init;09;0000;
+MUC;scales_of_balance;206;09;0000;
+MUC;scales_of_balance;207;09;0000;
 STD;scales_of_balance;210;09;0000;
 ANN;-- teleport spell --
 STD;eet_tweaks;0;09;0111;

@@ -763,7 +763,7 @@ EndFunc   ;==>_Test_GetCustomTP2
 ;	Keep this function consistent with _Tree_PurgeUnNeeded in Select-Tree.au3
 ; ---------------------------------------------------------------------------------------------
 Func _Test_Get_EET_Mods(); called by _Tree_EndSelection() just before starting an installation
-	Local $BG1EE_Mods='WeiDU|eekeeper|bwinstallpack|bwfixpack|', $BG2EE_Mods='WeiDU|eekeeper|bwinstallpack|bwfixpack|'
+	Local $BG1EE_Mods='WeiDU|eekeeper|bwinstallpack|bwfixpack|', $BG2EE_Mods='WeiDU|eekeeper|bwinstallpack|bwfixpack|EET-patches-for-BG2EE-mods-master'
 	$g_Flags[21]=''; will contain BG1-mods in EET -> Empty means no BG1-install
 	$g_Flags[22]=''; will contain BG2-mods in EET
 	If Not StringInStr($g_GConfDir, 'BG2EE') Then Return

@@ -361,6 +361,12 @@ Func Au3ExFix($p_Num)
 			EndIf
 		Next
 	EndIf
+
+; Special case, EET-patches-for-BG2EE-mods-master must be extracted after all mods, before files from OverwriteFiles (_Extract_OverwriteFiles()) and before BiG World Fixpack
+	If StringRegExp($g_Flags[14], 'BG1EE|BG2EE') And FileExists($g_GameDir&'\EET-patches-for-BG2EE-mods-master') Then
+		FileWrite($g_LogFile, '>EET-patches-for-BG2EE-mods-master\* .' & @CRLF)
+		_Extract_MoveModEx('EET-patches-for-BG2EE-mods-master')
+	EndIf
 	_Extract_OverwriteFiles()
 	IniWrite($g_BWSIni, 'Order', 'Au3ExFix', 0); Skip this one if the Setup is rerun
 	$g_FItem = 1
