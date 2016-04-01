@@ -2303,9 +2303,12 @@ STD;scales_of_balance;122;09;0000;
 STD;scales_of_balance;123;09;0000;
 STD;scales_of_balance;124;09;0000;
 STD;scales_of_balance;125;09;0000;
+STD;scales_of_balance;160;09;0000;
 STD;scales_of_balance;180;09;0000;
 STD;scales_of_balance;200;09;0000;
-STD;scales_of_balance;205;09;0000;
+MUC;scales_of_balance;Init;09;0000;
+MUC;scales_of_balance;206;09;0000;
+MUC;scales_of_balance;207;09;0000;
 STD;scales_of_balance;210;09;0000;
 ANN;-- teleport spell --
 STD;eet_tweaks;0;09;0111;
