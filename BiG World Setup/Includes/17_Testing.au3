@@ -487,7 +487,7 @@ Func _Test_CheckRequiredFiles_BG1EE()
 		_Test_SetButtonColor($Num, 1, 1); red
 		Return SetError(1, 1, 1)
 	EndIf
-	If FileExists($g_BG1EEDir&'\lang\en_US') And FileExists($g_BG1EEDir&'\movies\mineflod.wbm') And FileExists($g_BG1EEDir&'\Baldur.exe') Then; BG1EE-directory structure
+	If FileExists($g_BG1EEDir&'\lang\en_US') And FileExists($g_BG1EEDir&'\movies\mineflod.wbm') And (FileExists($g_BG1EEDir&'\Baldur.exe') or FileExists($g_BG1EEDir&'\SiegeOfDragonspear.exe')) Then; BG1EE-directory structure
 	Else
 		$Error&=_GetTR($Message, 'L2')&@CRLF; => structure not valid
 	EndIf
