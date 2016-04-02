@@ -836,6 +836,21 @@ Func _Extract_MoveMod($p_Dir)
 	Return $Success
 EndFunc   ;==>_Extract_MoveMod
 
+Func _Extract_MoveModEx($p_Dir)
+	Local $Success=0
+	$Files=_FileSearch($g_GameDir & '\' & $p_Dir, '*')
+	For $f=1 to $Files[0]
+		If StringInStr(FileGetAttrib($g_GameDir & '\' & $p_Dir & '\' & $Files[$f]), "D") Then
+			$Success = DirCopy($g_GameDir & '\' & $p_Dir & '\' & $Files[$f], $g_GameDir & '\' & $Files[$f], 1)
+		Else
+			$Success = FileCopy($g_GameDir & '\' & $p_Dir & '\' & $Files[$f], $g_GameDir & '\' & $Files[$f], 1)
+		EndIf
+		If $Success = 0 Then Return 0
+	Next
+	$Success = DirRemove($g_GameDir & '\' & $p_Dir, 1)
+	Return $Success
+EndFunc   ;==>_Extract_MoveModEx
+
 ; ---------------------------------------------------------------------------------------------
 ; Little filetests for some content of addtional archives
 ; ---------------------------------------------------------------------------------------------
