@@ -363,6 +363,7 @@ Func Au3ExFix($p_Num)
 	EndIf
 
 ; Special case, EET-patches-for-BG2EE-mods-master must be extracted after all mods, before files from OverwriteFiles (_Extract_OverwriteFiles()) and before BiG World Fixpack
+; Use Experimental function which fix DirMove "ub\ub" problem. Used only with EET Patches for Mods to minimalize new bugs
 	If StringRegExp($g_Flags[14], 'BG1EE|BG2EE') And FileExists($g_GameDir&'\EET-patches-for-BG2EE-mods-master') Then
 		FileWrite($g_LogFile, '>EET-patches-for-BG2EE-mods-master\* .' & @CRLF)
 		_Extract_MoveModEx('EET-patches-for-BG2EE-mods-master')
