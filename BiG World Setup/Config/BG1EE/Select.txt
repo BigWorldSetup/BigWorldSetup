@@ -389,7 +389,8 @@ ANN;--- new kits ---
 STD;Px_Chantelame;0;12;0111;
 STD;duskblade;0;12;0111;
 STD;WarslingSniperKit;0;12;0111;
-STD;eet_tweaks;25;12;0111;
+ANN;already included after patch 2.0
+ANN;STD;eet_tweaks;25;12;0111;
 STD;eet_tweaks;26;12;0111;
 STD;jkits;0;12;0111;
 STD;jkits;1;12;0111;

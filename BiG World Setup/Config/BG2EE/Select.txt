@@ -1579,7 +1579,8 @@ STD;jkits;1;12;0111;
 STD;jkits;2;12;0111;
 STD;A7#ImprovedArcher;0;12;0111;
 STD;A7#ImprovedArcher;100;10;0111;
-STD;eet_tweaks;25;12;0111;
+ANN;already included after patch 2.0
+ANN;STD;eet_tweaks;25;12;0111;
 STD;eet_tweaks;26;12;0111;
 STD;TomeAndBlood;0;09;0000;
 STD;TomeAndBlood;1;09;0000;
