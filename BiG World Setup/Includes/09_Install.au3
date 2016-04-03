@@ -928,7 +928,7 @@ Func _Install_GetEELang($p_String='', $p_Version=1)
 				ExitLoop
 			EndIf
 		Next
-	Else; no ini found -> game not started
+	Else; no lua found -> game not started
 		_Misc_MsgGUI(4, $g_ProgName, $p_String); => start the game and choose a language
 		Exit
 	EndIf
