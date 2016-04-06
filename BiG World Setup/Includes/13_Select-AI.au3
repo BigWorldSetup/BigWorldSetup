@@ -552,7 +552,7 @@ EndFunc    ;==>_AI_SetMUC_Disable
 ; ---------------------------------------------------------------------------------------------
 ; Enable a MUC-Headline. Start with the subtree-headline.
 ; ---------------------------------------------------------------------------------------------
-Func _AI_SetMUC_Enable($p_Num, $p_First=0, $p_Silent=0)
+Func _AI_SetMUC_Enable($p_Num, $p_First=0, $p_Silent=1)
 	;_PrintDebug('+' & @ScriptLineNumber & ' Calling _AI_SetMUC_Enable')
 	Local $ChapterID=_AI_GetStart($p_Num, '!')
 	If $p_First = 0 Then $p_First = _AI_GetStart($p_Num, '-')
@@ -629,7 +629,7 @@ EndFunc    ;==>_AI_SetSUB_Disable
 ; ---------------------------------------------------------------------------------------------
 ; Enable a SUB-Component. Start with a component.
 ; ---------------------------------------------------------------------------------------------
-Func _AI_SetSUB_Enable($p_Num, $p_First=0, $p_Silent=0)
+Func _AI_SetSUB_Enable($p_Num, $p_First=0, $p_Silent=1)
 	;_PrintDebug('+' & @ScriptLineNumber & ' Calling _AI_SetSUB_Enable')
 	Local $CurrentSub=''
 	If $p_First = 0 Then $p_First=_AI_GetStart($p_Num, '-')
