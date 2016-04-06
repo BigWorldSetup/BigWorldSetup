@@ -1273,8 +1273,8 @@ ANN;#3200 sellable items 0000
 STD;BG2_Tweaks;3200;09;1111;
 STD;BG2_Tweaks;3210;09;0000;
 STD;BG2_Tweaks;4010;09;1111;
-ANN;reported 
-STD;BG2_Tweaks;4020;09;0001;
+ANN;Not needed after 2.0
+ANN;STD;BG2_Tweaks;4020;09;0001;
 MUC;BG2_Tweaks;Init;09;1111;
 MUC;BG2_Tweaks;4030;09;0000;
 MUC;BG2_Tweaks;4031;09;1111;
