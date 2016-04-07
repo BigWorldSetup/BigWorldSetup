@@ -2545,11 +2545,6 @@ MUC;thepicturestandard;12000;13;1111;
 ANN;Tales Of The Deep Gardens -> Lore Alternative
 MUC;thepicturestandard;12500;13;0000;
 MUC;thepicturestandard;Init;13;1111;
-ANN;The White Queen -> Vanilla
-MUC;thepicturestandard;24000;13;1111;
-ANN;The White Queen -> Lore Alternative
-MUC;thepicturestandard;24500;13;0000;
-MUC;thepicturestandard;Init;13;1111;
 ANN;T'was A Slow Boat -> Vanilla
 MUC;thepicturestandard;13000;13;1111;
 ANN;T'was A Slow Boat -> Lore Alternative
@@ -2570,51 +2565,73 @@ ANN;Isra
 STD;thepicturestandard;17000;13;1111;
 ANN;Valerie
 STD;thepicturestandard;18000;13;1111;
+MUC;thepicturestandard;Init;13;1111;
+ANN;The White Queen -> Vanilla
+MUC;thepicturestandard;19000;13;1111;
+ANN;The White Queen -> Lore Alternative
+MUC;thepicturestandard;19500;13;0000;
+MUC;thepicturestandard;Init;13;1111;
+ANN;The Darkest Day -> Vanilla
+MUC;thepicturestandard;20000;13;1111;
+ANN;The Darkest Day -> Lore Alternative
+MUC;thepicturestandard;20500;13;0000;
+ANN;Tower of Deception
+STD;thepicturestandard;21000;13;1111;
+MUC;thepicturestandard;Init;13;1111;
+ANN;Siege of Dragonspear -> Vanilla
+MUC;thepicturestandard;22000;13;1111;
+ANN;Siege of Dragonspear -> Lore Alternative
+MUC;thepicturestandard;22500;13;0000;
+MUC;thepicturestandard;Init;13;1111;
+ANN;Tortured Souls -> Vanilla
+MUC;thepicturestandard;23000;13;1111;
+ANN;Tortured Souls -> Lore Alternative
+MUC;thepicturestandard;23500;13;0000;
 MUC;thepicturestandard;Init;13;0000;
 ANN;Standardized Edwin -> BG1 Edwin
-MUC;thepicturestandard;19000;13;0000;
+MUC;thepicturestandard;80000;13;0000;
 ANN;Standardized Edwin -> BG2 Edwin
-MUC;thepicturestandard;19300;13;0000;
+MUC;thepicturestandard;80300;13;0000;
 ANN;Standardized Edwin -> Variant A
-MUC;thepicturestandard;19600;13;0000;
+MUC;thepicturestandard;80600;13;0000;
 ANN;Standardized Edwin -> Variant B
-MUC;thepicturestandard;19900;13;0000;
+MUC;thepicturestandard;80900;13;0000;
 MUC;thepicturestandard;Init;13;0000;
 ANN;Standardized Imoen -> BG1 Imoen
-MUC;thepicturestandard;20000;13;0000;
+MUC;thepicturestandard;81000;13;0000;
 ANN;Standardized Imoen -> BG2 Imoen
-MUC;thepicturestandard;20200;13;0000;
+MUC;thepicturestandard;81100;13;0000;
+ANN;Standardized Imoen -> SoD Imoen
+MUC;thepicturestandard;81200;13;0000;
 ANN;Standardized Imoen -> Variant A
-MUC;thepicturestandard;20400;13;0000;
+MUC;thepicturestandard;81300;13;0000;
 ANN;Standardized Imoen -> Variant B
-MUC;thepicturestandard;20600;13;0000;
+MUC;thepicturestandard;81400;13;0000;
 ANN;Standardized Imoen -> Immersive Imoen Variant A+B
-MUC;thepicturestandard;20800;13;0000;
+MUC;thepicturestandard;81500;13;0000;
 MUC;thepicturestandard;Init;13;0000;
 ANN;Standardized Jaheira -> BG1 Jaheira
-MUC;thepicturestandard;21000;13;0000;
+MUC;thepicturestandard;82000;13;0000;
 ANN;Standardized Jaheira -> BG2 Jaheira
-MUC;thepicturestandard;21300;13;0000;
+MUC;thepicturestandard;82300;13;0000;
 ANN;Standardized Jaheira -> Variant
-MUC;thepicturestandard;21600;13;0000;
+MUC;thepicturestandard;82600;13;0000;
 MUC;thepicturestandard;Init;13;0000;
 ANN;Standardized Minsc -> BG1 Minsc
-MUC;thepicturestandard;22000;13;0000;
+MUC;thepicturestandard;83000;13;0000;
 ANN;Standardized Minsc -> BG2 Minsc
-MUC;thepicturestandard;22500;13;0000;
+MUC;thepicturestandard;83500;13;0000;
 MUC;thepicturestandard;Init;13;0000;
 ANN;Standardized Viconia -> BG1 Viconia
-MUC;thepicturestandard;23000;13;0000;
+MUC;thepicturestandard;84000;13;0000;
 ANN;Standardized Viconia -> BG2 Viconia
-MUC;thepicturestandard;23300;13;0000;
+MUC;thepicturestandard;84100;13;0000;
+ANN;Standardized Viconia -> SoD Viconia
+MUC;thepicturestandard;84200;13;0000;
 ANN;Standardized Viconia -> Variant A
-MUC;thepicturestandard;23600;13;0000;
+MUC;thepicturestandard;84300;13;0000;
 ANN;Standardized Viconia -> Variant B
-MUC;thepicturestandard;23800;13;0000;
-ANN;The Darkest Day -> Vanilla
-MUC;thepicturestandard;25000;13;0000;
-ANN;;The Darkest Day -> Lore Alternative
-MUC;thepicturestandard;25500;13;0000;
+MUC;thepicturestandard;84400;13;0000;
 STD;Isandir;0;13;0000;
 STD;Isandir;1;13;0000;
 STD;NSCPortraits;0;13;1111;
