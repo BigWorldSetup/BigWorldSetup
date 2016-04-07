@@ -93,7 +93,7 @@ Func _Tree_Import($p_File)
 		Return -1
 	EndIf
 	Local $Success=0
-	For $s=1 to $Section[0]
+	For $s=1 to $Section[0]; backward compatibility format check (1=old, 2=new)
 		If $Section[$s] = 'Current' Then $Success = 1
 		If $Section[$s] = 'Save' Then $Success = 2
 	Next
@@ -155,7 +155,7 @@ Func _Tree_GetCurrentSelection($p_Show = 0, $p_Write=''); $a=hide seletion-GUI
 	Local $Comp = '', $DComp = ''
 	Local $Setup = $g_CentralArray[$g_CentralArray[0][1]][0]
 ; ---------------------------------------------------------------------------------------------
-; loop through the elemets of the main-array. We make heavy usage of the main-array here. Now you know why it's that important. :)
+; loop through the elements of the main-array. We make heavy usage of the main-array here. Now you know why it's that important. :)
 ; ---------------------------------------------------------------------------------------------
 	For $m = $g_CentralArray[0][1] To $g_CentralArray[0][0]
 		If $g_CentralArray[$m][2] = '-' Then ContinueLoop; no interest in headlines
@@ -414,8 +414,8 @@ Func _Tree_Populate($p_Show=1)
 			EndIf
 			$g_CentralArray[$g_TreeviewItem[$cs][0]][7] = _IniRead($ReadSection, 'Size', '102400'); get the size of the mod
 			$g_CentralArray[$g_TreeviewItem[$cs][0]][8] = $SelectArray[$s][5] ; get the language of the mod
-			$g_CentralArray[$g_TreeviewItem[$cs][0]][9] = 0
-			$g_CentralArray[$g_TreeviewItem[$cs][0]][10] = 0
+			$g_CentralArray[$g_TreeviewItem[$cs][0]][9] = 0; number of selected/active components counter (changes when components are toggled)
+			$g_CentralArray[$g_TreeviewItem[$cs][0]][10] = 0; number of components total (includes both active and inactive components)
 			$g_CentralArray[$g_TreeviewItem[$cs][0]][11] = _IniRead($ReadSection, 'Type', '')
 			$g_CentralArray[$g_TreeviewItem[$cs][0]][12] = $SelectArray[$s][4]; pre-selection bits (0000 to 1111)
 			$g_CentralArray[$g_TreeviewItem[$cs][0]][15] = _IniRead($ReadSection, 'Rev', '')
@@ -499,7 +499,7 @@ Func _Tree_Populate($p_Show=1)
 				$g_CentralArray[$g_TreeviewItem[$cs][0]][10]+=Number(StringRegExpReplace($SelectArray[$t][3], '\A\d{1,}\x3f|\x5f.*', '')); increase the possible selection
 			EndIf
 			$g_CentralArray[$g_TreeviewItem[$cs][$cc]][8] = $SelectArray[$s][5] ; available languages
-			$g_CentralArray[$g_TreeviewItem[$cs][$cc]][10] = 1 ; is subitem
+			$g_CentralArray[$g_TreeviewItem[$cs][$cc]][10] = 1; is subitem
 ; ---------------------------------------------------------------------------------------------
 ; MUC create a subtree-item since the component has it's own number (MUC-Select-Headlines are not counted as possible selections to [10][0])
 ; ---------------------------------------------------------------------------------------------
@@ -880,6 +880,7 @@ Func _Tree_Reload($p_Show=1, $p_Hint=0, $p_Ini=$g_UsrIni)
 			EndIf
 		EndIf
 	Next
+	Local $Comp='-1', $DComp='-1'
 	For $m = $g_CentralArray[0][1] To $g_CentralArray[0][0]
 		If $g_CentralArray[$m][2] = '!' Then; chapters headline
 			If $p_Show = 1 Then
@@ -894,10 +895,10 @@ Func _Tree_Reload($p_Show=1, $p_Hint=0, $p_Ini=$g_UsrIni)
 			ContinueLoop
 		EndIf
 		$Mod += 1
-		If $g_CentralArray[$m][2] = '-' Then ; mods headline
+		If $g_CentralArray[$m][2] = '-' Then; mods headline
 			_AI_SetMod_Disable($m); all are deselected at first
-			Local $Comp = _IniRead($Select, $g_CentralArray[$m][0], '-1'); read the selected components of the mod.
-			Local $DComp = _IniRead($DeSelect, $g_CentralArray[$m][0], '-1'); read the deselected components of the mod.
+			$Comp = _IniRead($Select, $g_CentralArray[$m][0], '-1'); read the selected components of the mod.
+			$DComp = _IniRead($DeSelect, $g_CentralArray[$m][0], '-1'); read the deselected components of the mod.
 			If $Comp = '-1' And $DComp = '-1' Then
 				GUICtrlSetData($m, GUICtrlRead($m, 1)&$Token); mark as a new mod
 				$g_CentralArray[$m][4]&=$Mark; add a mark that is searchable
@@ -916,10 +917,10 @@ Func _Tree_Reload($p_Show=1, $p_Hint=0, $p_Ini=$g_UsrIni)
 			GUICtrlSetData($g_UI_Interact[9][1], $Mod * 100 / $ModCounter); set progress
 			GUICtrlSetData($g_UI_Static[9][2], Round($Mod * 100 / $ModCounter, 0) & ' %')
 		EndIf
-		If StringInStr($g_CentralArray[$m][11], 'F') Then
+		If StringInStr($g_CentralArray[$m][11], 'F') Then; special handling for fixed mods (note components still might be not-fixed)
 			If StringRegExp($DComp, '(?i)(\A|\s)' & StringReplace($g_CentralArray[$m][2], '?', '\x3f') & '(\s|\z)') Then; if the component-number of the current mod was deselected
 				; do nothing :D
-			ElseIf $g_CentralArray[$m][10] = 2 Then; enable the standards of an item which has SUBs (useful for new defaults)
+			ElseIf $g_CentralArray[$m][10] = 2 Then; enable the standards of an item which has its own sub-tree (useful for new defaults)
 				_AI_SetSUB_Enable($m, 0, 1)
 			ElseIf StringInStr($g_CentralArray[$m][2], '?') Then; set the subs that were selected
 				If StringRegExp($Comp, '(?i)(\A|\s)' & StringReplace($g_CentralArray[$m][2], '?', '\x3f') & '(\s|\z)') Then _AI_SetInSUB_Enable($m)
@@ -932,14 +933,14 @@ Func _Tree_Reload($p_Show=1, $p_Hint=0, $p_Ini=$g_UsrIni)
 			EndIf
 			ContinueLoop
 		EndIf
-		If Not IsDeclared('Comp') Then
-			ConsoleWrite($m & ': '& $g_CentralArray[$m][0] & ' == ' &  $g_CentralArray[$m][2] & @CRLF)
-			ConsoleWrite(GUICtrlRead($m) & @CRLF)
-			ContinueLoop
-		EndIf
-		If $Comp = '-1' Then; mod was not selected
-			If StringRegExp($DComp, '(?i)(\A|\s)' & StringReplace($g_CentralArray[$m][2], '?', '\x3f') & '(\s|\z)') = 0 Then
-				If $g_CentralArray[$m][2] <> '+' Then
+;		If Not IsDeclared('Comp') Then; this code is legacy and can never execute
+;			ConsoleWrite($m & ': '& $g_CentralArray[$m][0] & ' == ' &  $g_CentralArray[$m][2] & @CRLF)
+;			ConsoleWrite(GUICtrlRead($m) & @CRLF)
+;			ContinueLoop
+;		EndIf
+		If $Comp = '-1' Then; entire mod was not selected
+			If $g_CentralArray[$m][2] <> '+' Then; if it's not a tree heading, then check if it's a known component (even though it's not selected)
+				If StringRegExp($DComp, '(?i)(\A|\s)' & StringReplace($g_CentralArray[$m][2], '?', '\x3f') & '(\s|\z)') = 0 Then; not a known component
 					GUICtrlSetData($m, GUICtrlRead($m, 1)&$Token); mark as a new component
 					$g_CentralArray[$m][3]&=$Mark; add a mark that is searchable
 					$Found += 1
@@ -948,26 +949,30 @@ Func _Tree_Reload($p_Show=1, $p_Hint=0, $p_Ini=$g_UsrIni)
 			EndIf
 			If $p_Show Then __TristateTreeView_SetItemState($g_UI_Handle[0], $g_CentralArray[$m][5], 1+$g_CentralArray[$m][14])
 			$g_CentralArray[$m][9] = 0
-		ElseIf StringRegExp($Comp, '(?i)(\A|\s)' & StringReplace($g_CentralArray[$m][2], '?', '\x3f') & '(\s|\z)') Then; if the component-number of the current mod was selected. Use StringReplace since RegExp has it's own thoughts of a ? -- exact match for SUB answers to avoid selecting multiple SUBs with same comp-num?sub-comp-num part
-			If $p_Show Then __TristateTreeView_SetItemState($g_UI_Handle[0], $g_CentralArray[$m][5], 2+$g_CentralArray[$m][14])
-			If $g_CentralArray[$m][10] = 1 Then
+		ElseIf StringRegExp($Comp, '(?i)(\A|\s)' & StringReplace($g_CentralArray[$m][2], '?', '\x3f') & '(\s|\z)') Then; this matches all selected STD/MUC/SUB - in case of SUBs we use StringReplace since RegExp has it's own thoughts of a ? -- exact match for SUB in case multiple SUBs have same comp-num?sub-comp-num part but different answers
+			;If $p_Show Then __TristateTreeView_SetItemState($g_UI_Handle[0], $g_CentralArray[$m][5], 2+$g_CentralArray[$m][14])
+			If $g_CentralArray[$m][10] = 1 Then; component is member of a sub-tree (either SUB or MUC)
 				If StringInStr($g_CentralArray[$m][2], '?') Then; it's a SUB-item
 					Local $UserEditedValue=_IniRead($UserEdits, $g_CentralArray[$m][0]&';'&$g_CentralArray[$m][2], '')
 					If $UserEditedValue <> '' Then
 						GUICtrlSetData($m, $g_CentralArray[$m][3]&' => '&_GetTR($g_UI_Message, '4-L21')&' '&$UserEditedValue); => Your edited value is:
 					EndIf
-					Local $Component=StringRegExpReplace($g_CentralArray[$m][2], '\x5f.*', ''); x5f = '_' (unicode low line); strip answer, keep 'comp-num?sub-comp-num' part
-					If $p_Show Then __TristateTreeView_SetItemState($g_UI_Handle[0], $g_CentralArray[_AI_GetStart($m, $Component)][5], 2+$g_CentralArray[$m][14])
-					$g_CentralArray[_AI_GetStart($m, $Component)][9] = 1
+					_AI_SetInSUB_Enable($m); safer to use this function instead of code below, in case mod components were renumbered after selection was saved
+					;Local $Component=StringRegExpReplace($g_CentralArray[$m][2], '\x5f.*', ''); x5f = '_' (unicode low line); strip answer, keep 'comp-num?sub-comp-num' part
+					;If $p_Show Then __TristateTreeView_SetItemState($g_UI_Handle[0], $g_CentralArray[_AI_GetStart($m, $Component)][5], 2+$g_CentralArray[$m][14])
+					;$g_CentralArray[_AI_GetStart($m, $Component)][9] = 1
 				Else; it's a MUC-item
-					If $p_Show Then __TristateTreeView_SetItemState($g_UI_Handle[0], $g_CentralArray[_AI_GetStart($m, '+')][5], 2+$g_CentralArray[$m][14])
-					$g_CentralArray[_AI_GetStart($m, '+')][9] = 1
-					$g_CentralArray[$ModID][9] += 1; increase due to the selected subtree
+					_AI_SetInMUC_Enable($m); safer to use this function instead of code below, in case mod components were renumbered after selection was saved
+					;If $p_Show Then __TristateTreeView_SetItemState($g_UI_Handle[0], $g_CentralArray[_AI_GetStart($m, '+')][5], 2+$g_CentralArray[$m][14])
+					;$g_CentralArray[_AI_GetStart($m, '+')][9] = 1
+					;$g_CentralArray[$ModID][9] += 1; increase due to the selected subtree
 				EndIf
+			Else; not member of a sub-tree, so it's a STD-item
+				_AI_SetSTD_Enable($m); safer to use this function instead of code below, in case mod components were renumbered after selection was saved
 			EndIf
-			$g_CentralArray[$m][9] = 1
-			$g_CentralArray[$ModID][9] += 1
-		Else
+			;$g_CentralArray[$m][9] = 1
+			;$g_CentralArray[$ModID][9] += 1
+		Else; component is not selected
 			If $DComp = '-1' Or StringRegExp($DComp, '(?i)(\A|\s)' & StringReplace($g_CentralArray[$m][2], '?', '\x3f') & '(\s|\z)') = 0 Then
 				If $g_CentralArray[$m][2] <> '+' Then
 					GUICtrlSetData($m, GUICtrlRead($m, 1)&$Token); if component was selected before and is not listed as deselected, mark as new

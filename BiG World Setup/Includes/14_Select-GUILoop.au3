@@ -118,15 +118,16 @@ Func Au3Select($p_Num = 0)
 ; Monitor changes of treeviewitems.
 ; ---------------------------------------------------------------------------------------------
 			If $g_Flags[16] = 1 Then; tv-icon is clicked
-				$MouseClicked = 1
-				$sMsg = GUICtrlRead($g_UI_Interact[4][1])
+				$MouseClicked = 1; this also catches the spacebar!
+				$sMsg = GUICtrlRead($g_UI_Interact[4][1]); control ID of selected tree-view item
 				$g_Flags[16] = 0
-			ElseIf _IsPressed('20', $g_UDll) Then; space was pressed
-				While _IsPressed('20', $g_UDll)
-					Sleep(10)
-				WEnd
-				$MouseClicked = 1
-				$SpaceClicked = 1
+			;ElseIf _IsPressed('20', $g_UDll) Then; space was pressed -- but this code is unnecessary and caused bugs!
+			;	While _IsPressed('20', $g_UDll)
+			;		Sleep(10)
+			;	WEnd
+			;	$MouseClicked = 1
+			;	$SpaceClicked = 1
+			;	$sMsg = GUICtrlRead($g_UI_Interact[4][1]); control ID of selected tree-view item
 			ElseIf $g_Flags[16] = 2 Then; tvitem is right-clicked
 				_Selection_ContextMenu()
 			EndIf
@@ -135,7 +136,7 @@ Func Au3Select($p_Num = 0)
 					ControlFocus($g_UI[0], '', $g_UI_Interact[4][2]); focus a dummy to block keystrokes during actions
 					WinSetState($g_UI[0], '', @SW_DISABLE); disable the GUI to block mouse-clicks
 					$g_Flags[9]=1
-					_AI_SetClicked($sMsg, 0, $SpaceClicked)
+					_AI_SetClicked($sMsg, 0, $SpaceClicked); spaceclicked always zero .. legacy code .. we treat mouse-click and spacebar the same now
 					WinSetState($g_UI[0], '', @SW_ENABLE)
 					$g_Flags[9]=0
 					ControlFocus($g_UI[0], '', $g_UI_Interact[4][1])

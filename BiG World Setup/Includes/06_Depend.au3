@@ -23,7 +23,9 @@
 ;     7: size (in bytes) of the mod, from mod.ini
 ;     8: language of the mod
 ;     9: number of active items (0 or 1 for a component; can be > 1 for a mod/chapter headline as it includes children)
-;    10: for chapter headings, mods per chapter counter / else 1 = part of a sub-tree, 0 = not part of a sub-tree
+;    10: for chapter headings, mods per chapter counter
+;      / for mods, number of active components counter
+;      / for components, 1 = member of a sub-tree, 0 = not member of a sub-tree, 2 = item is parent of its own sub-tree
 ;    11: type of the mod, from mod.ini
 ;    12: pre-selection bits (0000 to 1111)
 ;    13: blank '' or comma separated list of sections if mod is installed in different places

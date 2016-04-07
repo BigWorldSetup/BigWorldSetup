@@ -145,19 +145,19 @@ Func _AI_Installs($p_Num)
 EndFunc    ;==>_AI_Installs
 
 ; ---------------------------------------------------------------------------------------------
-; Detect wheather the item is in a subtree
+; Detect whether the item is in a subtree
 ; ---------------------------------------------------------------------------------------------
 Func _AI_IsInSubtree($p_Num)
 	If StringRegExp($g_CentralArray[$p_Num][2], '\x21|-') Then Return 0; chapters and mods are not good
-	If StringInStr($g_CentralArray[$p_Num][2], '?')	Then Return 2; enable changes in SUB
-	If $g_CentralArray[$p_Num][10] = 1	Then Return 1; enable changes in MUC
+	If StringInStr($g_CentralArray[$p_Num][2], '?') Then Return 2; enable changes in SUB
+	If $g_CentralArray[$p_Num][10] = 1 Then Return 1; enable changes in MUC
 	Return 0
 EndFunc    ;==>_AI_IsInSubtree
 
 ; ---------------------------------------------------------------------------------------------
 ; Sets the checkboxes of the selection-gui. $a=guictrlhandle; $b=force state
 ; ---------------------------------------------------------------------------------------------
-Func _AI_SetClicked($p_Num, $p_Type = 0, $p_Key=0); $a=itemnumber; $p_Type=0(identify)/True(force checked)/False(force unchecked)
+Func _AI_SetClicked($p_Num, $p_Type = 0, $p_Key=0); $a=itemnumber; $p_Type=0(toggle)/True(force checked)/False(force unchecked)
 	Local $SetState, $ForceAll, $OldCompilation, $Compilation[5]=[4, 'R', 'S', 'T', 'E']
 	If $p_Num < $g_CentralArray[0][1]-1 Or $p_Num > $g_CentralArray[0][0] Then Return; prevent crashes if $g_CentralArray is undefined
 	$g_Flags[24]=1
@@ -213,7 +213,7 @@ Func _AI_SetClicked($p_Num, $p_Type = 0, $p_Key=0); $a=itemnumber; $p_Type=0(ide
 		Else
 			$SetState = 0
 		EndIf
-		If $p_Key = 1 Then $SetState = Not $SetState
+		;If $p_Key = 1 Then $SetState = Not $SetState (entering from Select-GUILoop with spacebar [not mouse click] triggered this .. why?)
 	EndIf
 ; ---------------------------------------------------------------------------------------------
 ;  don't allow mod-components to be changed if restrictions are on and comp or type are not matched
@@ -286,7 +286,7 @@ Func _AI_SetClicked($p_Num, $p_Type = 0, $p_Key=0); $a=itemnumber; $p_Type=0(ide
 ; ---------------------------------------------------------------------------------------------
 ; it's a component of a MUC subtree
 ; ---------------------------------------------------------------------------------------------
-	ElseIf $g_CentralArray[$p_Num][10] = 1	Then
+	ElseIf $g_CentralArray[$p_Num][10] = 1 Then
 		If $SetState = 0 Then
 			_AI_SetInMUC_Disable($p_Num)
 		Else
@@ -340,6 +340,7 @@ Func _AI_SetModStateIcon($p_Num, $p_First = '-'); $p_Num=TVitemID; $p_First=firs
 	If $p_First == '-' Then Return; no intention to adjust chapter-icons
 	If $p_First > 0 Then $p_First = 1
 	If $p_First = $Now Then Return; no need to do chapter-updates
+	; do chapter icon update
 	Local $Num = $g_CHTreeviewItem[$g_CentralArray[$p_Num][1]]; this is the ControlID of the chapter
 	If $p_First = 1 Then; old State was selected, now deselected
 		$g_CentralArray[$Num][9]-=1; decrease counter
@@ -433,7 +434,7 @@ Func _AI_SetInSUB_Enable($p_Num, $p_First=0)
 	If $p_First = 0 Then $p_First = _AI_GetStart($p_Num, '-')
 	Local $FirstIconState=_AI_GetModState($p_First)
 	Local $Current=$p_Num
-	Local $Component=StringRegExpReplace($g_CentralArray[$Current][2], '\x5f.*', '')
+	Local $Component=StringRegExpReplace($g_CentralArray[$Current][2], '\x5f.*', ''); x5f = '_' (unicode low line); strip answer, keep 'comp-num?sub-comp-num' part
 	While $g_CentralArray[$p_Num][10] <> 2; get the item with the SUBs
 		$p_Num -= 1
 	WEnd
