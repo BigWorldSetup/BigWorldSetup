@@ -1167,8 +1167,16 @@ Func _Install_SetPrompt($p_TP2, $p_Num)
 					EndIf
 				Next
 			Else
+				If UBound($Array) = $a Then
+					_PrintDebug('Error1: _Install_SetPrompt unexpectedly reached end of file '&$p_TP2, 1)
+					Exit
+				EndIf
 				While StringRegExp($Array[$a+1], '(?i)\ALANGUAGE') = 0
 					$a+=1
+					If UBound($Array) < $a Then
+						_PrintDebug('Error2: _Install_SetPrompt unexpectedly reached end of file '&$p_TP2, 1)
+						Exit
+					EndIf
 					If StringRegExp($Array[$a], '(?i)\ABEGIN') Then Return 1
 					If StringRegExp($Array[$a], '\x2f|\x5c') Then
 						$Folder=$g_GameDir&'\'&StringReplace(StringRegExpReplace($Array[$a], '\A\s{0,}~|/[^/]*\z', ''), '/', '\')
