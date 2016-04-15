@@ -482,12 +482,20 @@ Func _Test_CheckRequiredFiles_BG1EE()
 		_Test_SetButtonColor(1, 0, 0); green
 		Return SetError(0, 0, 2)
 	EndIf
-	If Not FileExists($g_BG1EEDir) Or $g_BG1EEDir = '' Then
+    
+	If FileExists($g_BG1EEDir&'\sod-dlc.zip') Or FileExists($g_BG1EEDir&'\dlc\sod-dlc.zip') Then; GoG/Steam Editions are NOT SUPPORTED
+        $Error&=_GetTR($Message, 'L3')&@CRLF; => structure not valid
+        _Misc_MsgGUI(4, $g_ProgName, _GetTR($Message, 'L3'), 1); => structure not valid
+		_Test_SetButtonColor($Num, 1, 1); red
+		Return SetError(1, 1, 1)
+	EndIf
+    
+    If Not FileExists($g_BG1EEDir) Or $g_BG1EEDir = '' Then
 		_Misc_MsgGUI(4, $g_ProgName, _GetTR($Message, 'L1'), 1); => folder does not exist
 		_Test_SetButtonColor($Num, 1, 1); red
 		Return SetError(1, 1, 1)
 	EndIf
-	If FileExists($g_BG1EEDir&'\lang\en_US') And FileExists($g_BG1EEDir&'\movies\mineflod.wbm') And (FileExists($g_BG1EEDir&'\Baldur.exe') or FileExists($g_BG1EEDir&'\SiegeOfDragonspear.exe')) Then; BG1EE-directory structure
+	If FileExists($g_BG1EEDir&'\lang\en_US') And FileExists($g_BG1EEDir&'\movies\mineflod.wbm') And ((FileExists($g_BG1EEDir&'\Baldur.exe') or FileExists($g_BG1EEDir&'\SiegeOfDragonspear.exe'))) Then; BG1EE-directory structure
 	Else
 		$Error&=_GetTR($Message, 'L2')&@CRLF; => structure not valid
 	EndIf
