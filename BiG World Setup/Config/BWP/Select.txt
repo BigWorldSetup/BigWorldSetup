@@ -2789,7 +2789,7 @@ STD;cdtweaks;2200;16;0111;
 MUC;cdtweaks;Init;16;0000;
 MUC;cdtweaks;2210;16;0000;
 MUC;cdtweaks;2211;16;0000;
-STD;cdtweaks;2220;16;1111;
+STD;cdtweaks;2220;16;0001;
 STD;cdtweaks;2240;16;1111;
 STD;cdtweaks;2250;16;1111;
 MUC;cdtweaks;Init;16;1000;

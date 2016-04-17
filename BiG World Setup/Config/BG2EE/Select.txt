@@ -1364,7 +1364,7 @@ STD;cdtweaks;2200;09;0111;
 MUC;cdtweaks;Init;09;0000;
 MUC;cdtweaks;2210;09;0000;
 MUC;cdtweaks;2211;09;0000;
-STD;cdtweaks;2220;09;1111;
+STD;cdtweaks;2220;09;0001;
 STD;cdtweaks;2240;09;1111;
 STD;cdtweaks;2250;09;1111;
 MUC;cdtweaks;Init;09;1000;
