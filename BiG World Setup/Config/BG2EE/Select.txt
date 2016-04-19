@@ -1557,7 +1557,8 @@ STD;might_and_guile;322;12;0111;
 STD;might_and_guile;324;12;0111;
 STD;might_and_guile;350;12;0111;
 STD;might_and_guile;360;12;0111;
-STD;might_and_guile;390;12;0111;
+ANN;Bugged for BG2EE, possible future fix 
+ANN;STD;might_and_guile;390;12;0111;
 STD;might_and_guile;410;12;0111;
 STD;might_and_guile;420;12;0111;
 STD;might_and_guile;450;12;0111;
