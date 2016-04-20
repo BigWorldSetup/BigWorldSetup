@@ -270,7 +270,6 @@ STD;NTotSC;0;02;0111;
 STD;NTotSCv171;0;01;0111;
 STD;NTotSC-Natalin-fix;0;01;1111;
 STD;Bonehillv275;0;02;0111;
-STD;SoBH-part2-fix;0;01;1111;
 MUC;drizztsaga;Init;02;0011;
 MUC;drizztsaga;0;02;0000;
 MUC;drizztsaga;1;02;0011;

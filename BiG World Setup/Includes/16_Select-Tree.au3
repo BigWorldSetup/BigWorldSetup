@@ -826,10 +826,10 @@ Func _Tree_PurgeUnNeeded()
 ;	IniWrite($g_UsrIni, 'Debug', 'g_Skip', $g_Skip)
 	If StringInStr($g_Flags[14], 'BWS') And $g_MLang[1] = 'PO' Then; user is installing 'BWS' and user selected language is Polish
 		IniWrite($g_ConnectionsConfDir&'\Game.ini', 'Connections', 'NTotSC Natalin fix by dradiel is required for NTotSC but only for Polish', 'D:NTotSC(-)&NTotSC-Natalin-fix(-)')
-		IniWrite($g_ConnectionsConfDir&'\Game.ini', 'Connections', 'SoBH Part II fix by dradiel is required for SoBH but only for Polish', 'D:BoneHillv275(-)&sobh-part2-fix(-)')
+		
 	Else; remove special case rules (language + game type specific)
 		IniDelete($g_ConnectionsConfDir&'\Game.ini', 'Connections','NTotSC Natalin fix by dradiel is required for NTotSC but only for Polish')
-		IniDelete($g_ConnectionsConfDir&'\Game.ini', 'Connections','SoBH Part II fix by dradiel is required for SoBH but only for Polish')
+		
 	EndIf
 EndFunc   ;==>_Tree_PurgeUnNeeded
 
