@@ -1622,6 +1622,34 @@ STD;TomeAndBlood;13;12;0000;
 ANN;30-31 are BG1 NPC tweaks
 STD;TomeAndBlood;30;07;0000;
 STD;TomeAndBlood;31;07;0000;
+MUC;refinements;Init;09;1111;
+MUC;refinements;10;09;1111;
+MUC;refinements;11;09;0000;
+MUC;refinements;Init;09;0000;
+MUC;refinements;20;09;0000;
+MUC;refinements;21;09;0000;
+MUC;refinements;22;09;0000;
+MUC;refinements;Init;09;0000;
+MUC;refinements;30;09;0000;
+MUC;refinements;31;09;0000;
+STD;refinements;40;09;0000;
+MUC;refinements;Init;09;0000;
+MUC;refinements;70;09;0000;
+MUC;refinements;71;09;0000;
+MUC;refinements;72;09;0000;
+MUC;refinements;73;09;0000;
+MUC;refinements;74;09;0000;
+MUC;refinements;75;09;0000;
+STD;refinements;101;09;0000;
+STD;refinements;102;09;0000;
+STD;refinements;103;09;0000;
+STD;refinements;104;09;0000;
+STD;refinements;105;09;0000;
+STD;refinements;106;09;0000;
+STD;refinements;107;09;0000;
+STD;refinements;108;09;0000;
+STD;refinements;109;09;0000;
+STD;refinements;110;09;0000;
 ANN;#1000 is sphere system, should be installed after all divine kits
 STD;Divine_Remix;1000;09;0001;
 ANN;FnP should be installed after all divine kits
