@@ -875,9 +875,9 @@ ANN;#4 conflict with SCS
 MUC;d0questpack;4;03;0000;
 MUC;d0questpack;401;03;0111;
 STD;d0questpack;5;03;0001;
-STD;d0questpack;6;03;0111;
+STD;d0questpack;6;03;0001;
 STD;d0questpack;7;03;0111;
-STD;d0questpack;8;03;0111;
+STD;d0questpack;8;03;0001;
 STD;d0questpack;9;03;0111;
 STD;d0questpack;10;03;0111;
 ANN;Improved Oasis II
@@ -892,7 +892,7 @@ STD;d0questpack;15;03;0111;
 STD;d0questpack;16;03;0111;
 STD;d0questpack;17;03;0111;
 STD;d0questpack;18;03;0111;
-STD;d0questpack;19;03;0111;
+STD;d0questpack;19;03;0001;
 STD;d0questpack;20;03;0111;
 STD;d0questpack;21;03;0111;
 STD;Turnabout;0;08;0111;
