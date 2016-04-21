@@ -394,6 +394,19 @@ STD;eet_tweaks;26;12;0111;
 STD;jkits;0;12;0111;
 STD;jkits;1;12;0111;
 STD;jkits;2;12;0111;
+STD;Eldritch_Magic;0;12;0001;
+STD;Eldritch_Magic;1;12;0001;
+STD;Eldritch_Magic;3;12;0001;
+STD;Eldritch_Magic;5;12;0001;
+STD;Eldritch_Magic;8;12;0001;
+STD;Eldritch_Magic;9;12;0001;
+STD;Eldritch_Magic;11;12;0001;
+STD;Eldritch_Magic;12;12;0001;
+STD;Eldritch_Magic;13;12;0001;
+STD;Eldritch_Magic;14;12;0001;
+STD;Eldritch_Magic;15;12;0001;
+STD;Eldritch_Magic;16;12;0001;
+STD;Eldritch_Magic;22;12;0001;
 ANN;--- cosmetic tweaks ---
 ANN;#10 is IWD casting graphics
 STD;iwdification;10;09;0111;

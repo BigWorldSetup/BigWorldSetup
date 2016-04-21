@@ -875,9 +875,9 @@ ANN;#4 conflict with SCS
 MUC;d0questpack;4;03;0000;
 MUC;d0questpack;401;03;0111;
 STD;d0questpack;5;03;0001;
-STD;d0questpack;6;03;0001;
+STD;d0questpack;6;03;0111;
 STD;d0questpack;7;03;0111;
-STD;d0questpack;8;03;0001;
+STD;d0questpack;8;03;0111;
 STD;d0questpack;9;03;0111;
 STD;d0questpack;10;03;0111;
 ANN;Improved Oasis II
@@ -892,7 +892,7 @@ STD;d0questpack;15;03;0111;
 STD;d0questpack;16;03;0111;
 STD;d0questpack;17;03;0111;
 STD;d0questpack;18;03;0111;
-STD;d0questpack;19;03;0001;
+STD;d0questpack;19;03;0111;
 STD;d0questpack;20;03;0111;
 STD;d0questpack;21;03;0111;
 STD;Turnabout;0;08;0111;
@@ -986,6 +986,22 @@ ANN;--- BG2EE new kits ---
 STD;Px_Chantelame;0;12;0111;
 STD;duskblade;0;12;0111;
 STD;WarslingSniperKit;0;12;0111;
+STD;Eldritch_Magic;0;12;0001;
+STD;Eldritch_Magic;1;12;0001;
+STD;Eldritch_Magic;3;12;0001;
+STD;Eldritch_Magic;5;12;0001;
+STD;Eldritch_Magic;8;12;0001;
+STD;Eldritch_Magic;9;12;0001;
+STD;Eldritch_Magic;11;12;0001;
+STD;Eldritch_Magic;12;12;0001;
+STD;Eldritch_Magic;13;12;0001;
+STD;Eldritch_Magic;14;12;0001;
+MUC;Eldritch_Magic;Init;12;0001;
+MUC;Eldritch_Magic;17;12;0001;
+MUC;Eldritch_Magic;18;12;0001;
+MUC;Eldritch_Magic;19;12;0001;
+MUC;Eldritch_Magic;20;12;0001;
+STD;Eldritch_Magic;22;12;0001;
 ANN;--- BG2EE cosmetic tweaks ---
 ANN;#10 is IWD casting graphics
 STD;iwdification;10;09;0111;
