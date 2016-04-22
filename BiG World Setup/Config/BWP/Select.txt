@@ -2465,11 +2465,15 @@ STD;Item_Pack;9;17;1111;
 SUB;iiItemMod;1;17;0111;
 SUB;iiItemMod;1?1_0;17;0111;
 SUB;iiItemMod;1?1_1;17;0000;
-ANN;Cursed Items before Item Revisions
-STD;cursed_items;0;16;0111;
-STD;cursed_items;10;16;0111;
 ANN;--- item revisions v4 ---
 STD;item_rev;0;16;0111;
+MUC;UniqueArtifacts;Init;16;0001;
+MUC;UniqueArtifacts;1;16;0000;
+MUC;UniqueArtifacts;2;16;0001;
+CMD;IF EXIST Setup-UniqueArtifacts.exe copy /Y ".\uniqueartifacts\backup\2\TASLGURK.CRE" ".\override"
+ANN;Cursed Items: Install Item Revision's main component BEFORE Cursed Items 
+STD;cursed_items;0;16;0111;
+STD;cursed_items;10;16;0111;
 STD;item_rev;1030;16;0111;
 MUC;item_rev;Init;16;0111;
 MUC;item_rev;1040;16;0011;
@@ -2518,10 +2522,7 @@ ANN;#5, 8, 12 of 1.73 are item restorations - after item revisions
 STD;bdtobv174;5;16;0111;
 STD;bdtobv174;8;16;0111;
 STD;bdtobv174;12;16;0111;
-MUC;UniqueArtifacts;Init;16;0001;
-MUC;UniqueArtifacts;1;16;0000;
-MUC;UniqueArtifacts;2;16;0001;
-CMD;IF EXIST Setup-UniqueArtifacts.exe copy /Y ".\uniqueartifacts\backup\2\TASLGURK.CRE" ".\override"
+ANN;Unique Artifacts moved before Cursed Items Revisons
 STD;freeact;10;16;1111;
 STD;freeact;50;16;1111;
 STD;Z#Misc;1;16;0001;
