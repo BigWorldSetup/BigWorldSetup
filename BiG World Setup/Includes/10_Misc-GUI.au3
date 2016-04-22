@@ -796,7 +796,7 @@ Func _Misc_SwitchGUIToInstallMethod()
 	_PrintDebug('+' & @ScriptLineNumber & ' Calling _Misc_SwitchGUIToInstallMethod')
 	Local $Message = IniReadSection($g_TRAIni, 'UI-Buildtime')
 	Local $State = $GUI_ENABLE
-	Local $HideEET = 0; set this to 0 to enable EET
+	Local $HideEET = 1; set this to 0 to enable EET
 	For $g = 1 To $g_GameList[0][0]
 		If $g_Flags[14] = $g_GameList[$g][1] Then ExitLoop
 	Next
