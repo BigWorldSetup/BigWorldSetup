@@ -1,0 +1,6 @@
+BACKUP ~mod-main-folder/backup/~
+AUTHOR ~BWS~
+VERSION ~1.1~
+BEGIN ~some-mod~
+// custom code
+END
