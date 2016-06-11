@@ -928,15 +928,17 @@ Func _Net_LinkTest($p_Num = 0)
 	GUICtrlSetState($g_UI_Interact[6][5], $GUI_DISABLE)
 	$g_LogFile = $g_LogDir & '\BiG World Link Debug.txt'
 	FileClose(FileOpen($g_LogFile, 2))
+	Local $TestedBefore = 0, $Fault = ''
 	For $l = 1 To $List[0][0]; loop through the list
 		GUICtrlSetData($g_UI_Static[6][2], _GetTR($Message, 'L2') & ' ' & $List[$l][1] & ' ...'); => checking
 		If $g_Flags[0] = 0 Or $g_Flags[11] = 1 Or $g_Flags[12] = 1 Then ExitLoop
 		If $List[$l][0] = $List[$l - 1][0] Then ContinueLoop; don't show links twice
-		$ReadSection=IniReadSection($g_ModIni, $List[$l][0])
-		$Prefix[3] = _GetTra($ReadSection, 'T')&'-Add'; adjust the language-addon
+		Local $ReadSection=IniReadSection($g_ModIni, $List[$l][0])
+		Local $Prefix[3] = _GetTra($ReadSection, 'T')&'-Add'; adjust the language-addon
 		For $p=1 to 3
-			$Down = _IniRead($ReadSection, $Prefix[$p]&'Down', '')
-			$Save = _IniRead($ReadSection, $Prefix[$p]&'Save', '')
+			Local $Down = _IniRead($ReadSection, $Prefix[$p]&'Down', '')
+			Local $Save = _IniRead($ReadSection, $Prefix[$p]&'Save', '')
+			Local $ExpectedSize = _IniRead($ReadSection, $Prefix[$p]&'Size', -1)
 			If $Down = '' Then ContinueLoop; if no additional stuff is found, skip forward
 			If $Down <> '' Then
 				If $TestedBefore = 0 Then _Process_SetScrollLog($List[$l][1])
@@ -948,8 +950,8 @@ Func _Net_LinkTest($p_Num = 0)
 			ElseIf StringRegExp($Down, 'mediafire.com|clandlan.net|zippyshare.com') Then; these servers need some manual interaction
 				_Process_SetScrollLog($NeedInteract); => Download needs interaction
 			Else
-				$NetInfo = _Net_LinkUpdateInfo($Down, $Save, $List[$l][0], $Prefix[$p])
-				$Extended = @extended
+				Local $NetInfo = _Net_LinkUpdateInfo($Down, $Save, $List[$l][0], $Prefix[$p])
+				Local $Extended = @extended
 				;_Net_SingleLinkUpdate has been deprecated
 				;If $NetInfo[0] = 0 And $TestedBefore = 0 Then
 				;	_Process_SetScrollLog(_GetTR($Message, 'L11')); => try to update...
@@ -960,8 +962,8 @@ Func _Net_LinkTest($p_Num = 0)
 				;		ContinueLoop
 				;	EndIf
 				;Else
-					If $Extended Then _Process_SetScrollLog(StringFormat(_GetTR($Message, 'L10'), $Save & ' > ' & $NetInfo[1])); => hint that this is a new version
-					If $NetInfo[2] < 0 Then $NetInfo[2] = -$NetInfo[2]
+					If $NetInfo[2] < 0 Then $NetInfo[2] = 0-$NetInfo[2]
+					If $Extended Then _Process_SetScrollLog(StringFormat(_GetTR($Message, 'L10'), $Save & ', ' & $ExpectedSize & ' > ' & $NetInfo[1] & ', ' & $NetInfo[2])); => hint that this is a new version
 					$Size = Round($NetInfo[2]/1048576, 2)
 					If $Size = '0' Then $Size='0,01'
 					_Process_SetScrollLog(StringFormat(_GetTR($Message, 'L4'), $Size)); => archive found
