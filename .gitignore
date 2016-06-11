@@ -1,15 +1,15 @@
-/OverwriteFiles/
-/BiG World Downloads/
-/BiG World Backup/
-/BiG World Setup/Logs/
-/BiG World Setup/OverwriteFiles/
-/BiG World Setup/Config/User.ini
-/BiG World Setup/Config/Setup.ini
-/BiG World Setup/BWS-Selection.ini
-/BiG World Setup/Includes_Traced/
-/BiG World Setup/Traced.au3
-/BiG World Setup/Tools/Git/
-/BWS-Version.txt
+OverwriteFiles/
+BiG World Downloads/
+BiG World Backup/
+BiG World Setup/Logs/
+BiG World Setup/OverwriteFiles/
+BiG World Setup/Config/User.ini
+BiG World Setup/Config/Setup.ini
+BiG World Setup/BWS-Selection.ini
+BiG World Setup/Includes_Traced/
+BiG World Setup/Traced.au3
+BiG World Setup/Tools/Git/
+BWS-Version.txt
 **/PreSelection00.ini
 **/Mod.ini
 **/Mod-*.ini
