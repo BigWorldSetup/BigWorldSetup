@@ -9,6 +9,7 @@ Else
   wshShell.Run "%comspec% /k XCOPY /S /Q /Y /I ""BiG World Setup\Tools\Git"" "".\Git"" & exit", 7, True
   If objFSO.FolderExists(".git") Then
     'WScript.Echo "Folder exists."	
+    wshShell.Run """.\Git\bin\git.exe"" fetch", 1, True
     wshShell.Run """.\Git\bin\git.exe"" reset --hard origin/master", 1, True
   Else
     'WScript.Echo "Folder does not exist."
