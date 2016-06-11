@@ -556,15 +556,20 @@ Func _Net_DownloadStart($p_URL, $p_File, $p_Setup, $p_Prefix, $p_String); Link, 
 		Return SetError(1, 1, 0)
 	Else; file found
 		If $Changed Then _Process_SetConsoleLog(_GetTR($Message, 'L8')); => hint that this is a new version
-		If $Changed Then $p_File = $NetInfo[1]; update filename
-		If $NetInfo[2] < 0 Then; server did return an 0-byte filesize or no info at all
+		If $Changed And $p_File <> $NetInfo[1] Then; update filename only if changed (might be just size)
+			$p_File = $NetInfo[1]
+			; save new file name for following sessions
+			IniWrite($g_MODIni, $p_Setup, $p_Prefix&'Save', $p_File)
+			IniWrite($g_ProgDir&'\Config\Global\'&$p_Setup&'.ini', 'Mod', $p_Prefix&'Save', $p_File)
+		EndIf
+		If $NetInfo[2] < 0 Then; server returned a 0-byte filesize or no info at all
 			_Process_SetConsoleLog(StringFormat(_GetTR($Message, 'L11'), $p_File)); => server did not return valid filesize, use old value
-			$expectedSize = -$NetInfo[2]; reload the old existing value
+			$expectedSize = 0-$NetInfo[2]; reload the old existing value
 		Else
 			$expectedSize = $NetInfo[2]
 		EndIf
 		$localSize = FileGetSize($g_DownDir & '\' & $p_File)
-		If $expectedSize = $localSize And FileExists($g_DownDir & '\' & $p_File) Then; expected file was found
+		If $expectedSize = $localSize And FileExists($g_DownDir & '\' & $p_File) Then; expected file was found locally
 			FileWrite($g_LogFile, '<= '& $p_File & ' = ' & $localSize & @CRLF)
 			_Process_SetConsoleLog($p_File & ' ' & _GetTR($Message, 'L7')); => downloaded before
 			;Sleep(10)
@@ -574,7 +579,7 @@ Func _Net_DownloadStart($p_URL, $p_File, $p_Setup, $p_Prefix, $p_String); Link, 
 			$Text=FileRead($g_LogFile)
 			If StringInStr($Text, _GetTR($Message, 'L4') & ' ' & $p_File) And StringInStr($Text, '= '&$p_File&' = '&$expectedSize) Then; => fetching - loading logged with same name and size before
 			Else; not able to resume
-				FileDelete($g_DownDir & '\' & $p_File); delete old files
+				FileDelete($g_DownDir & '\' & $p_File); delete old copy of file
 			EndIf
 		Else
 			FileWrite($g_LogFile, '<= NA'& @CRLF)
@@ -594,7 +599,7 @@ Func _Net_DownloadStart($p_URL, $p_File, $p_Setup, $p_Prefix, $p_String); Link, 
 			$PID=Run('"' & $g_ProgDir & '\Tools\wget.exe" '&$Referer&' --no-passive-ftp --no-check-certificate --connect-timeout=20 --tries=3 --continue --progress=dot:mega --output-document="' & $g_DownDir & '\' & $p_File & '" "' & $p_URL & '"', @ScriptDir, @SW_HIDE, 9)
 		EndIf
 	EndIf
-	If $NetInfo[2] < 0 Then $expectedSize = $NetInfo[2]; return problematic size
+	If $NetInfo[2] < 0 Then $expectedSize = $NetInfo[2]; if we did not get a valid size from the server, return negative of size to inform calling function of this
 	Local $Return[4]=[$PID, $p_File, $expectedSize, $NetInfo[3]]
 	Return $Return
 EndFunc   ;==>_Net_DownloadStart
@@ -612,8 +617,10 @@ Func _Net_DownloadStop($p_URL, $p_File, $p_Setup, $p_Prefix, $p_expectSize)
 		$Result='Fault'
 	Else
 		$localSize = FileGetSize($g_DownDir & '\' & $p_File)
-		If $p_expectSize = $localSize Or $p_expectSize = 0-$localSize Then; file has expected size (second version is for problematic servers)
+		If $p_expectSize = $localSize Or $p_expectSize = 0-$localSize Then; local file has expected size (second case is for problematic servers - wget timed out, but we got size info another way)
 			_Process_SetConsoleLog(StringFormat(_GetTR($Message, 'L5'), $p_File)); => download successful
+			IniWrite($g_MODIni, $p_Setup, $p_Prefix&'Size', $localSize); save file size for following sessions (might be unchanged: this is a catch-all)
+			IniWrite($g_ProgDir&'\Config\Global\'&$p_Setup&'.ini', 'Mod', $p_Prefix&'Size', $localSize)
 			;Sleep(10)
 		ElseIf $localSize = 0 Then
 			FileDelete($g_DownDir & '\' & $p_File)
@@ -621,10 +628,10 @@ Func _Net_DownloadStop($p_URL, $p_File, $p_Setup, $p_Prefix, $p_expectSize)
 		ElseIf Not FileExists($g_DownDir & '\' & $p_File) Then; broken download
 			_Process_SetConsoleLog(StringFormat(_GetTR($Message, 'L6'), $p_File)); => an error occurred. network problems?
 			$Result='Fault'
-		ElseIf $p_expectSize <= 0 Then; save new size for following sessions
+		ElseIf $p_expectSize <= 0 Then; no expected size in mod ini or actual file size does not match server info; save actual size for following sessions
+			_Process_SetConsoleLog(StringFormat(_GetTR($Message, 'L5'), $p_File)); => download successful
 			IniWrite($g_MODIni, $p_Setup, $p_Prefix&'Size', $localSize)
 			IniWrite($g_ProgDir&'\Config\Global\'&$p_Setup&'.ini', 'Mod', $p_Prefix&'Size', $localSize)
-			_Process_SetConsoleLog(StringFormat(_GetTR($Message, 'L5'), $p_File)); => download successful
 			;Sleep(10)
 		EndIf
 	EndIf
@@ -798,45 +805,42 @@ Func _Net_LinkUpdateInfo($p_URL, $p_File, $p_Setup, $p_Prefix)
 		FileWrite($g_LogFile, '= NA' & @CRLF)
 		Return SetError(1, 0, $Return)
 	EndIf
-	If $Return[0] = 2 Then; wget-failure/inetget-fallback-mode
-		$Size=IniRead($g_MODIni, $p_Setup, $p_Prefix&'Size', -1)
-		If $Size=$Return[2] Then; if size matches...
+	Local $ExpectedSize=IniRead($g_MODIni, $p_Setup, $p_Prefix&'Size', -1)
+	If $Return[0] = 2 Then; wget-timeout ... inetgetsize-fallback-mode (wget timed out but we got size info from the server using another method)
+		If $Return[2] = $ExpectedSize Then; size info from server matches expected size info in our mod ini file 
 			$Return[0]=1; ...assume that this is fine
 			$Return[1]=$p_File
-			FileWrite($g_LogFile, '= FB'); fallback to local file
-		Else ; size does not match
+			FileWrite($g_LogFile, '= FB'); fallback to local copy of file, if available
+		Else ; size info from server does not match expected size info in our mod ini file
 			$Return[0]=0; mark as error
-			FileWrite($g_LogFile, '= FB = NA' & @CRLF); fallback, size did not match
+			FileWrite($g_LogFile, '= FB = NA' & @CRLF); fallback size does not match, cannot proceed
 			Return SetError(1, 0, $Return)
 		EndIf
 	EndIf
 	$Return[1]=StringReplace(StringReplace($Return[1], '%20', ' '), '\', ''); set correct space
 	If StringLower($Return[1]) <> StringLower($p_File) Then; name changed
-		FileWrite($g_LogFile, '> '&$Return[1]&' ')
 		If StringRegExp($p_URL, 'lynxlynx') Then ; http://lynxlynx.info/ie/modhub.php?AstroBryGuy/bg1ub -> AstroBryGuy-bg1ub-???.zip
-			; a different filename is expected each time there is a new commit; don't change the 'Save' entry in the mod ini file
+			; zip file name will change each time there is a new commit; to avoid accumulating copies, reuse 'Save' name from mod ini
 			; also don't set $Extended to 1 because of this (we might still set it later because of different filesize, which is fine)
 			; N.B. $Extended = 1 is indication to the caller of this function that the filename or filesize does not match the mod ini
-		Else ; for any other URL, update the filename in mod ini to match what was found
-			$Extended=1
-			IniWrite($g_MODIni, $p_Setup, $p_Prefix&'Save', $Return[1]); save for following sessions
+			$Return[1] = $p_File
+		Else ; for any other URL, upon starting download we will save to the filename given by the server
+			FileWrite($g_LogFile, '> '&$Return[1]&' ')
+			$Extended = 1
 		EndIf
 	Else
 		FileWrite($g_LogFile, '= '&$Return[1]&' ')
 	EndIf
-	If $Return[2] <> 0 Then; update the filesize if it is not set to zero in mod ini
-		$Size=IniRead($g_MODIni, $p_Setup, $p_Prefix&'Size', -1)
-		If $Return[2] <> $Size Then
+	If $Return[2] <> 0 Then; got size info from server
+		If $Return[2] <> $ExpectedSize Then
 			FileWrite($g_LogFile, '> '&$Return[2] & @CRLF)
 			$Extended = 1
-			IniWrite($g_MODIni, $p_Setup, $p_Prefix&'Size', $Return[2])
 		Else
 			FileWrite($g_LogFile, '= '&$Return[2] & @CRLF)
 		EndIf
-	Else; don't change the filesize if it is set to zero in mod ini (i.e., always try to download again)
-		$Size=IniRead($g_MODIni, $p_Setup, $p_Prefix&'Size', 1)
-		FileWrite($g_LogFile, '= NA > ' & $Size & @CRLF)
-		$Return[2]=-$Size
+	Else; did not get size info from server
+		FileWrite($g_LogFile, '= NA > ' & $ExpectedSize & @CRLF)
+		$Return[2] = 0-$ExpectedSize; negative value indicates no size info from server
 	EndIf
 	Return SetError(0, $Extended, $Return)
 EndFunc	   ;==>_Net_LinkUpdateInfo
@@ -936,7 +940,7 @@ Func _Net_LinkTest($p_Num = 0)
 			If $Down = '' Then ContinueLoop; if no additional stuff is found, skip forward
 			If $Down <> '' Then
 				If $TestedBefore = 0 Then _Process_SetScrollLog($List[$l][1])
-				_Process_SetScrollLog($Down)
+				If $Down <> 'Manual' Then _Process_SetScrollLog($Down) ; suppress unnecessary logging of 'Manual' line for downloads that are included in another archive
 			EndIf
 			If $Down = 'Manual' Then
 				$TestedBefore=0; resetting
@@ -963,7 +967,7 @@ Func _Net_LinkTest($p_Num = 0)
 					_Process_SetScrollLog(StringFormat(_GetTR($Message, 'L4'), $Size)); => archive found
 				;EndIf
 				If $NetInfo[0] = 0 Then
-					$Fault = $Fault & '|' & $List[$l][1]; collect wrong sizes
+					$Fault = $Fault & '|' & $List[$l][1]; collect list of files that weren't found (or had wrong sizes)
 					_Process_SetScrollLog(_GetTR($Message, 'L3')); => not found
 					;GUICtrlSetColor($g_UI_Interact[6][2], 0xff0000); paint the item red
 					;Sleep(500)
