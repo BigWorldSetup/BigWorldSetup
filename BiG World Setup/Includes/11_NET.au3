@@ -934,7 +934,7 @@ Func _Net_LinkTest($p_Num = 0)
 		If $g_Flags[0] = 0 Or $g_Flags[11] = 1 Or $g_Flags[12] = 1 Then ExitLoop
 		If $List[$l][0] = $List[$l - 1][0] Then ContinueLoop; don't show links twice
 		Local $ReadSection=IniReadSection($g_ModIni, $List[$l][0])
-		Local $Prefix[3] = _GetTra($ReadSection, 'T')&'-Add'; adjust the language-addon
+		$Prefix[3] = _GetTra($ReadSection, 'T')&'-Add'; adjust the language-addon
 		For $p=1 to 3
 			Local $Down = _IniRead($ReadSection, $Prefix[$p]&'Down', '')
 			Local $Save = _IniRead($ReadSection, $Prefix[$p]&'Save', '')
