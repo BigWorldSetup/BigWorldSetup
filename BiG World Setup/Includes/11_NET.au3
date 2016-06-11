@@ -568,21 +568,23 @@ Func _Net_DownloadStart($p_URL, $p_File, $p_Setup, $p_Prefix, $p_String); Link, 
 		Else
 			$expectedSize = $NetInfo[2]
 		EndIf
-		$localSize = FileGetSize($g_DownDir & '\' & $p_File)
-		If $expectedSize = $localSize And FileExists($g_DownDir & '\' & $p_File) Then; expected file was found locally
-			FileWrite($g_LogFile, '<= '& $p_File & ' = ' & $localSize & @CRLF)
-			_Process_SetConsoleLog($p_File & ' ' & _GetTR($Message, 'L7')); => downloaded before
-			;Sleep(10)
-			Return SetError(0, $Loaded, 2)
-		ElseIf FileExists($g_DownDir & '\' & $p_File) Then
-			FileWrite($g_LogFile, '<= '& $p_File & ' <> ' & $localSize & @CRLF)
-			$Text=FileRead($g_LogFile)
-			If StringInStr($Text, _GetTR($Message, 'L4') & ' ' & $p_File) And StringInStr($Text, '= '&$p_File&' = '&$expectedSize) Then; => fetching - loading logged with same name and size before
-			Else; not able to resume
-				FileDelete($g_DownDir & '\' & $p_File); delete old copy of file
+		If FileExists($g_DownDir & '\' & $p_File) Then
+			$localSize = FileGetSize($g_DownDir & '\' & $p_File)
+			If $expectedSize = $localSize Then; local file has expected size
+				FileWrite($g_LogFile, '<= '& $p_File & ' = ' & $localSize & @CRLF)
+				_Process_SetConsoleLog($p_File & ' ' & _GetTR($Message, 'L7')); => downloaded before
+				;Sleep(10)
+				Return SetError(0, $Loaded, 2)
+			Else ; local file does not have expected size
+				FileWrite($g_LogFile, '<= '& $p_File & ' <> ' & $localSize & @CRLF)
+				$Text=FileRead($g_LogFile)
+				If StringInStr($Text, _GetTR($Message, 'L4') & ' ' & $p_File) And StringInStr($Text, '= '&$p_File&' = '&$expectedSize) Then; => fetching - loading logged with same name and size before
+				Else; not able to resume
+					FileDelete($g_DownDir & '\' & $p_File); delete old copy of file
+				EndIf
 			EndIf
-		Else
-			FileWrite($g_LogFile, '<= NA'& @CRLF)
+		Else ; no local copy of the file
+			FileWrite($g_LogFile, '<= NA' & @CRLF)
 		EndIf
 		GUICtrlSetData($g_UI_Static[5][2], _GetTR($Message, 'L4') & ' ' & $p_String & ' (' & Round($expectedSize/1048576, 2) & ' MB)'); => fetching
 		_Process_SetConsoleLog(_GetTR($Message, 'L4') & ' ' & $p_File); => Fetching
@@ -799,7 +801,7 @@ EndFunc   ;==>_Net_LinkGetInfo
 ; ---------------------------------------------------------------------------------------------
 Func _Net_LinkUpdateInfo($p_URL, $p_File, $p_Setup, $p_Prefix)
 	Local $Extended
-	FileWrite($g_LogFile, $p_Setup&'['&$p_Prefix&']')
+	FileWrite($g_LogFile, $p_Setup&'['&$p_Prefix&'] ')
 	$Return = _Net_LinkGetInfo($p_URL)
 	If $Return[0] = 0 Then
 		FileWrite($g_LogFile, '= NA' & @CRLF)
@@ -823,17 +825,18 @@ Func _Net_LinkUpdateInfo($p_URL, $p_File, $p_Setup, $p_Prefix)
 			; zip file name will change each time there is a new commit; to avoid accumulating copies, reuse 'Save' name from mod ini
 			; also don't set $Extended to 1 because of this (we might still set it later because of different filesize, which is fine)
 			; N.B. $Extended = 1 is indication to the caller of this function that the filename or filesize does not match the mod ini
+			FileWrite($g_LogFile, '~ '&$Return[1]&' ')
 			$Return[1] = $p_File
 		Else ; for any other URL, upon starting download we will save to the filename given by the server
-			FileWrite($g_LogFile, '> '&$Return[1]&' ')
+			FileWrite($g_LogFile, & '> '&$Return[1] & ' on server <> ' & $p_File &' expected ')
 			$Extended = 1
 		EndIf
 	Else
 		FileWrite($g_LogFile, '= '&$Return[1]&' ')
 	EndIf
-	If $Return[2] <> 0 Then; got size info from server
+	If $Return[2] <> 0 Then; got size info from server, one way or another
 		If $Return[2] <> $ExpectedSize Then
-			FileWrite($g_LogFile, '> '&$Return[2] & @CRLF)
+			FileWrite($g_LogFile, '> '&$Return[2] & ' on server <> ' & $ExpectedSize & ' expected ' & @CRLF)
 			$Extended = 1
 		Else
 			FileWrite($g_LogFile, '= '&$Return[2] & @CRLF)
@@ -874,15 +877,15 @@ Func _Net_ListMissing()
 			EndIf
 			If StringRegExp($g_fLock, '(?i)(\A|\x2c)'&$Fault[$f][0]&'(\z|\x2c)') Then; if mod is fixed, mark as missing essential
 				$FNum=1
-				$Mark='*'
+				$Mark='*  '
 			ElseIf StringRegExp(_IniRead($ReadSection, $Prefix[$Type]&'Down', ''), 'mediafire.com|clandlan.net|zippyshare.com') Then; these servers need some manual interaction
 				$Host=1
-				$Mark='**'
+				$Mark='** '
 			Else
-				$Mark=''
+				$Mark='   '
 			EndIf
-			_Process_SetScrollLog(_IniRead($ReadSection, 'Name', $Fault[$f][0])&': '&$Hint &' ('&_IniRead($ReadSection, $Prefix[$Type]&'Save', '')&')'&$Mark); tell what's missing
-			_Process_SetScrollLog('    '&_IniRead($ReadSection, $Prefix[$Type]&'Down', '')); download link
+			_Process_SetScrollLog($Mark&_IniRead($ReadSection, 'Name', $Fault[$f][0])&': '&$Hint &' ('&_IniRead($ReadSection, $Prefix[$Type]&'Save', '')&')'); tell what's missing
+			_Process_SetScrollLog('          '&_IniRead($ReadSection, $Prefix[$Type]&'Down', '')); download link
 		Next
 	Next
 	$Dependent=_Depend_GetUnsolved('', ''); $Dependent[0][unsolved, output, missing + unsolved]
@@ -963,7 +966,7 @@ Func _Net_LinkTest($p_Num = 0)
 				;	EndIf
 				;Else
 					If $NetInfo[2] < 0 Then $NetInfo[2] = 0-$NetInfo[2]
-					If $Extended Then _Process_SetScrollLog(StringFormat(_GetTR($Message, 'L10'), $Save & ', ' & $ExpectedSize & ' > ' & $NetInfo[1] & ', ' & $NetInfo[2])); => hint that this is a new version
+					If $Extended Then _Process_SetScrollLog(StringFormat(_GetTR($Message, 'L10'), $Save & ' / ' & $ExpectedSize & ' > ' & $NetInfo[1] & ' / ' & $NetInfo[2])); => hint that this is a new version
 					$Size = Round($NetInfo[2]/1048576, 2)
 					If $Size = '0' Then $Size='0,01'
 					_Process_SetScrollLog(StringFormat(_GetTR($Message, 'L4'), $Size)); => archive found
@@ -1024,6 +1027,135 @@ Func _Net_RemoveFixedFaults()
 		EndIf
 	Next
 EndFunc   ;==>_Net_RemoveFixedFaults
+
+; ---------------------------------------------------------------------------------------------
+; Function called by AdLib that updates download-progressbars. Otherwise updates would be less frequently
+; ---------------------------------------------------------------------------------------------
+Func _Net_Update_Progress()
+	$DoUpdate=StringRegExp(@OSVersion, 'WIN_VISTA|WIN_7|WIN_2008|WIN_2008R2')
+	For $d=1 to 5
+		If $g_Down[$d][0] <> '' Then
+			If $DoUpdate Then FileRead($g_DownDir&'\'&$g_Down[$d][0], 1); files are not updated on windows 7. Use this as a workaround.
+			$localSize=FileGetSize($g_DownDir&'\'&$g_Down[$d][0])
+			GUICtrlSetData($g_UI_Interact[5][$d+1], $localSize*100/$g_Down[$d][1])
+		EndIf
+	Next
+EndFunc   ;==>_Net_Update_Progress
+
+; ---------------------------------------------------------------------------------------------
+; Shows and updates WGET-output (you can interact)
+; ---------------------------------------------------------------------------------------------
+Func _Net_WGetShow($p_PID, $p_Num)
+	Local $State[5]=[$g_STDStream, 0, 0, 0, GUICtrlGetState($g_UI_Interact[6][4])]; save current settings
+	Local $p_Answer[1]=[0]
+	For $s=1 to 3
+		$State[$s] = GUICtrlGetState($g_UI_Button[0][$s])
+	Next
+	GUICtrlSetState($g_UI_Interact[6][2], $GUI_SHOW); show scroll-screen
+	GUICtrlSetState($g_UI_Interact[6][3], $GUI_HIDE)
+	$g_STDStream=$p_PID; use PID, peak from it for initial stdout, scroll to bottom
+	$Text=StdoutRead($p_PID, True)
+	$OldNum=StringLen($Text)
+	$Text = StringRegExpReplace(_StringVerifyExtAscII($Text), '\r\n|\x7c|\r\|\n', @CRLF)
+	$Line = @extended
+	_GUICtrlEdit_AppendText($g_UI_Interact[6][2], $Text)
+	_GUICtrlEdit_LineScroll($g_UI_Interact[6][2], 0, 1 + $Line)
+	If BitAND($State[4], $GUI_SHOW) Then _Process_SetSize(2); hide help
+	_Process_EnableBackButtonOnly(); disable pause
+	GUICtrlSetData($g_UI_Button[0][3],  IniRead($g_TRAIni, 'UI-Buildtime', 'Button[0][1]', 'Back'))
+	GUICtrlSetState($g_UI_Seperate[6][0], $GUI_SHOW)
+	While 1
+		$Text=StdoutRead($p_PID, True); peek for new output and append new text
+		$Num=StringLen($Text)
+		If $Num <> $OldNum Then
+			$NewText = StringRegExpReplace(_StringVerifyExtAscII(StringMid($Text, $OldNum+1)), '\r\n|\x7c|\r\|\n', @CRLF)
+			$Line = @extended
+			_GUICtrlEdit_AppendText($g_UI_Interact[6][2], $NewText)
+			_GUICtrlEdit_LineScroll($g_UI_Interact[6][2], 0, 1 + $Line)
+			$OldNum=$Num
+		EndIf
+		If $g_Flags[13] = 1 Or ProcessExists($p_PID) = 0 Then
+			$g_Flags[13] = 0; disable exit -> we just want to leave the current screen
+			If BitAND($State[4], $GUI_SHOW) Then _Process_SetSize(1); show help again if needed
+			For $s=1 to 3
+				If BitAND($State[$s], $GUI_ENABLE) Then GUICtrlSetState($g_UI_Button[0][$s], $GUI_ENABLE)
+			Next
+			$g_STDStream=$State[0]; reset PID
+			GUICtrlSetData($g_UI_Button[0][3],  IniRead($g_TRAIni, 'UI-Buildtime', 'Button[0][3]', 'Exit'))
+			GUICtrlSetState($g_UI_Seperate[5][0], $GUI_SHOW)
+			ExitLoop
+		EndIf
+		$DoUpdate=StringRegExp(@OSVersion, 'WIN_VISTA|WIN_7|WIN_2008|WIN_2008R2')
+		If $DoUpdate Then FileRead($g_DownDir&'\'&$g_Down[$p_Num][0], 1); files are not updated on windows 7. Use this as a workaround.
+		$localSize=FileGetSize($g_DownDir&'\'&$g_Down[$p_Num][0])
+		GUICtrlSetData($g_UI_Interact[6][1], $localSize*100/$g_Down[$p_Num][1])
+		Sleep(75)
+	WEnd
+	GUICtrlSetData($g_UI_Interact[6][1], 0)
+	GUICtrlSetData($g_UI_Static[6][2], '')
+	$g_Flags[23]=''
+EndFunc   ;==>_Net_WGetShow
+
+; ---------------------------------------------------------------------------------------------
+; Use wget to get the filesize of a download
+; ---------------------------------------------------------------------------------------------
+Func _Net_WGetSize($p_URL)
+	Local $Name='', $Return[4] = [-1, '', 0, 0], $param
+	If StringLeft($p_URL, 6) <> 'ftp://' Then $param='--no-check-certificate --server-response'
+	$PID = Run('"'&$g_ProgDir&'\Tools\wget.exe" --no-passive-ftp --connect-timeout=20 --tries=1 '&$param&' --spider "'&$p_URL&'"', $g_ProgDir&'\Tools', @SW_HIDE, 8)
+	$Success=ProcessWaitClose($PID, 20); wait for 20 seconds -- some servers are slow, e.g. eros.gram.pl
+	If $Success=0 Then; timeout was reached
+		ProcessClose($PID); close wget (possible hangup)
+		$Return[2] = InetGetSize($p_URL)
+		If $Return[2] <> 0 Then $Return[0] = 2; mark as fallback-check
+		If StringLeft($p_URL, 3) = 'ftp' Then $Return[3]=1
+		Return $Return
+	EndIf
+	$Allines=StdoutRead($PID)
+	$Allines&=StderrRead($PID)
+	;ConsoleWrite($Allines & @CRLF&@CRLF); remove for debugging
+	If StringInStr($Allines, 'unable to resolve') Then Return $Return; unable to get IP
+	If StringRegExp(StringStripCR($Allines), '\nGiving up.\n') Or StringRegExp($Allines, '\sERROR\s') Then Return $Return
+	If StringLeft($p_URL, 3) = 'ftp' Then; handle ftp-requests
+		$Return[3]=1
+		If StringRegExp(StringStripCR($Allines), '==> SIZE.*done\x2e\n|No such directory') Then Return $Return; file is not in folder/folder does not exist
+		$Size=StringRegExp(StringStripCR($Allines), '\n==> SIZE.*\n', 3)
+		If IsArray($Size) Then
+			$Return[2]=StringRegExpReplace(StringReplace($Size[0], @LF, ''), '\A.*\s', '')
+			$Return[1] = StringRegExpReplace($p_URL, '\A.*\x2f', '')
+		EndIf
+	Else
+		If StringInStr($Allines, '[text/html]') Then Return $Return; this is a plain html-page, file was removed
+		If StringInStr($Allines, 'broken link') Then Return $Return; file does not exist
+		$Return[0]=0; set "file-exists-guess" (used if size is not specified) to unsure
+		If StringInStr($Allines, 'Content-disposition:') Then
+			$Return[0]=1
+			$Tmp = StringRegExp($Allines, "(?i)Content-disposition: (.*?)" & @CRLF, 3)
+			If StringInStr($Tmp[0], '=') Then; skip false/empty declarations
+				$Tmp = StringRegExpReplace($Tmp[0], "\A[^=]*=|\x22", '')
+				$Return[1] = StringRegExpReplace($Tmp, "\AUTF-8''", ''); remove UTF-8-coding of filenames on foreign servers
+				$Return[1] = StringRegExpReplace($Return[1], '\;.*\z', ''); remove UTF-8-coding of filenames on dropbox servers
+			EndIf
+		EndIf
+		If StringInStr($Allines, 'Location:') And $Return[1] = '' Then
+			$Tmp = StringRegExp($Allines, "(?i)Location\x3a\s[^\x5b\r]*\r", 3); use server-response. Skip spider-output by using [ in regexp
+			If IsArray($Tmp) Then
+				$Return[1] = StringRegExpReplace($Tmp[UBound($Tmp)-1], '\A.*\x2f|\r\z', '')
+			EndIf
+		EndIf
+		If Not StringInStr($p_URL, '?') And $Return[1] = '' Then $Return[1] = StringRegExpReplace($p_URL, '\A.*\x2f', '')
+		$Size=StringRegExp(StringStripCR($Allines), '\nLength.*\n', 3)
+		If IsArray($Size) Then
+			$Return[2]=StringReplace(StringRegExpReplace($Size[0], 'Length\x3a\s|\x2c|\x0a|\s\x5b.*|\s\x28.*', ''), 'unspecified', 0)
+		EndIf
+		If StringInStr($Allines, "HTTP/1.1 206 Partial Content") Or _
+			StringInStr($Allines, "Accept-Ranges:") Then $Return[3]=1 ; Resume supported
+		If $Return[3]=0 Then ConsoleWrite('!No Resume for '&$p_URL&@CRLF)
+	EndIf
+	$Return[1]=StringReplace($Return[1], '\', ''); remove backslashes (like from \' )
+	Return $Return
+EndFunc   ;==>_Net_WGetSize
+
 
 ; ---------------------------------------------------------------------------------------------
 ; checks for updates for a single mod
@@ -1251,131 +1383,3 @@ Func _Net_Update_Link($p_Show = 0); Show GUI
 		If StringInStr($p_Show, 1) Then _Process_Gui_Delete(3, 3, 1)
 	EndIf
 EndFunc   ;==>_Net_Update_Link
-
-; ---------------------------------------------------------------------------------------------
-; Function called by AdLib that updates download-progressbars. Otherwise updates would be less frequently
-; ---------------------------------------------------------------------------------------------
-Func _Net_Update_Progress()
-	$DoUpdate=StringRegExp(@OSVersion, 'WIN_VISTA|WIN_7|WIN_2008|WIN_2008R2')
-	For $d=1 to 5
-		If $g_Down[$d][0] <> '' Then
-			If $DoUpdate Then FileRead($g_DownDir&'\'&$g_Down[$d][0], 1); files are not updated on windows 7. Use this as a workaround.
-			$localSize=FileGetSize($g_DownDir&'\'&$g_Down[$d][0])
-			GUICtrlSetData($g_UI_Interact[5][$d+1], $localSize*100/$g_Down[$d][1])
-		EndIf
-	Next
-EndFunc   ;==>_Net_Update_Progress
-
-; ---------------------------------------------------------------------------------------------
-; Shows and updates WGET-output (you can interact)
-; ---------------------------------------------------------------------------------------------
-Func _Net_WGetShow($p_PID, $p_Num)
-	Local $State[5]=[$g_STDStream, 0, 0, 0, GUICtrlGetState($g_UI_Interact[6][4])]; save current settings
-	Local $p_Answer[1]=[0]
-	For $s=1 to 3
-		$State[$s] = GUICtrlGetState($g_UI_Button[0][$s])
-	Next
-	GUICtrlSetState($g_UI_Interact[6][2], $GUI_SHOW); show scroll-screen
-	GUICtrlSetState($g_UI_Interact[6][3], $GUI_HIDE)
-	$g_STDStream=$p_PID; use PID, peak from it for initial stdout, scroll to bottom
-	$Text=StdoutRead($p_PID, True)
-	$OldNum=StringLen($Text)
-	$Text = StringRegExpReplace(_StringVerifyExtAscII($Text), '\r\n|\x7c|\r\|\n', @CRLF)
-	$Line = @extended
-	_GUICtrlEdit_AppendText($g_UI_Interact[6][2], $Text)
-	_GUICtrlEdit_LineScroll($g_UI_Interact[6][2], 0, 1 + $Line)
-	If BitAND($State[4], $GUI_SHOW) Then _Process_SetSize(2); hide help
-	_Process_EnableBackButtonOnly(); disable pause
-	GUICtrlSetData($g_UI_Button[0][3],  IniRead($g_TRAIni, 'UI-Buildtime', 'Button[0][1]', 'Back'))
-	GUICtrlSetState($g_UI_Seperate[6][0], $GUI_SHOW)
-	While 1
-		$Text=StdoutRead($p_PID, True); peek for new output and append new text
-		$Num=StringLen($Text)
-		If $Num <> $OldNum Then
-			$NewText = StringRegExpReplace(_StringVerifyExtAscII(StringMid($Text, $OldNum+1)), '\r\n|\x7c|\r\|\n', @CRLF)
-			$Line = @extended
-			_GUICtrlEdit_AppendText($g_UI_Interact[6][2], $NewText)
-			_GUICtrlEdit_LineScroll($g_UI_Interact[6][2], 0, 1 + $Line)
-			$OldNum=$Num
-		EndIf
-		If $g_Flags[13] = 1 Or ProcessExists($p_PID) = 0 Then
-			$g_Flags[13] = 0; disable exit -> we just want to leave the current screen
-			If BitAND($State[4], $GUI_SHOW) Then _Process_SetSize(1); show help again if needed
-			For $s=1 to 3
-				If BitAND($State[$s], $GUI_ENABLE) Then GUICtrlSetState($g_UI_Button[0][$s], $GUI_ENABLE)
-			Next
-			$g_STDStream=$State[0]; reset PID
-			GUICtrlSetData($g_UI_Button[0][3],  IniRead($g_TRAIni, 'UI-Buildtime', 'Button[0][3]', 'Exit'))
-			GUICtrlSetState($g_UI_Seperate[5][0], $GUI_SHOW)
-			ExitLoop
-		EndIf
-		$DoUpdate=StringRegExp(@OSVersion, 'WIN_VISTA|WIN_7|WIN_2008|WIN_2008R2')
-		If $DoUpdate Then FileRead($g_DownDir&'\'&$g_Down[$p_Num][0], 1); files are not updated on windows 7. Use this as a workaround.
-		$localSize=FileGetSize($g_DownDir&'\'&$g_Down[$p_Num][0])
-		GUICtrlSetData($g_UI_Interact[6][1], $localSize*100/$g_Down[$p_Num][1])
-		Sleep(75)
-	WEnd
-	GUICtrlSetData($g_UI_Interact[6][1], 0)
-	GUICtrlSetData($g_UI_Static[6][2], '')
-	$g_Flags[23]=''
-EndFunc   ;==>_Net_WGetShow
-
-; ---------------------------------------------------------------------------------------------
-; Use wget to get the filesize of a download
-; ---------------------------------------------------------------------------------------------
-Func _Net_WGetSize($p_URL)
-	Local $Name='', $Return[4] = [-1, '', 0, 0], $param
-	If StringLeft($p_URL, 6) <> 'ftp://' Then $param='--no-check-certificate --server-response'
-	$PID = Run('"'&$g_ProgDir&'\Tools\wget.exe" --no-passive-ftp --connect-timeout=20 --tries=1 '&$param&' --spider "'&$p_URL&'"', $g_ProgDir&'\Tools', @SW_HIDE, 8)
-	$Success=ProcessWaitClose($PID, 20); wait for 20 seconds -- some servers are slow, e.g. eros.gram.pl
-	If $Success=0 Then; timeout was reached
-		ProcessClose($PID); close wget (possible hangup)
-		$Return[2] = InetGetSize($p_URL)
-		If $Return[2] <> 0 Then $Return[0] = 2; mark as fallback-check
-		If StringLeft($p_URL, 3) = 'ftp' Then $Return[3]=1
-		Return $Return
-	EndIf
-	$Allines=StdoutRead($PID)
-	$Allines&=StderrRead($PID)
-	;ConsoleWrite($Allines & @CRLF&@CRLF); remove for debugging
-	If StringInStr($Allines, 'unable to resolve') Then Return $Return; unable to get IP
-	If StringRegExp(StringStripCR($Allines), '\nGiving up.\n') Or StringRegExp($Allines, '\sERROR\s') Then Return $Return
-	If StringLeft($p_URL, 3) = 'ftp' Then; handle ftp-requests
-		$Return[3]=1
-		If StringRegExp(StringStripCR($Allines), '==> SIZE.*done\x2e\n|No such directory') Then Return $Return; file is not in folder/folder does not exist
-		$Size=StringRegExp(StringStripCR($Allines), '\n==> SIZE.*\n', 3)
-		If IsArray($Size) Then
-			$Return[2]=StringRegExpReplace(StringReplace($Size[0], @LF, ''), '\A.*\s', '')
-			$Return[1] = StringRegExpReplace($p_URL, '\A.*\x2f', '')
-		EndIf
-	Else
-		If StringInStr($Allines, '[text/html]') Then Return $Return; this is a plain html-page, file was removed
-		If StringInStr($Allines, 'broken link') Then Return $Return; file does not exist
-		$Return[0]=0; set "file-exists-guess" (used if size is not specified) to unsure
-		If StringInStr($Allines, 'Content-disposition:') Then
-			$Return[0]=1
-			$Tmp = StringRegExp($Allines, "(?i)Content-disposition: (.*?)" & @CRLF, 3)
-			If StringInStr($Tmp[0], '=') Then; skip false/empty declarations
-				$Tmp = StringRegExpReplace($Tmp[0], "\A[^=]*=|\x22", '')
-				$Return[1] = StringRegExpReplace($Tmp, "\AUTF-8''", ''); remove UTF-8-coding of filenames on foreign servers
-				$Return[1] = StringRegExpReplace($Return[1], '\;.*\z', ''); remove UTF-8-coding of filenames on dropbox servers
-			EndIf
-		EndIf
-		If StringInStr($Allines, 'Location:') And $Return[1] = '' Then
-			$Tmp = StringRegExp($Allines, "(?i)Location\x3a\s[^\x5b\r]*\r", 3); use server-response. Skip spider-output by using [ in regexp
-			If IsArray($Tmp) Then
-				$Return[1] = StringRegExpReplace($Tmp[UBound($Tmp)-1], '\A.*\x2f|\r\z', '')
-			EndIf
-		EndIf
-		If Not StringInStr($p_URL, '?') And $Return[1] = '' Then $Return[1] = StringRegExpReplace($p_URL, '\A.*\x2f', '')
-		$Size=StringRegExp(StringStripCR($Allines), '\nLength.*\n', 3)
-		If IsArray($Size) Then
-			$Return[2]=StringReplace(StringRegExpReplace($Size[0], 'Length\x3a\s|\x2c|\x0a|\s\x5b.*|\s\x28.*', ''), 'unspecified', 0)
-		EndIf
-		If StringInStr($Allines, "HTTP/1.1 206 Partial Content") Or _
-			StringInStr($Allines, "Accept-Ranges:") Then $Return[3]=1 ; Resume supported
-		If $Return[3]=0 Then ConsoleWrite('!No Resume for '&$p_URL&@CRLF)
-	EndIf
-	$Return[1]=StringReplace($Return[1], '\', ''); remove backslashes (like from \' )
-	Return $Return
-EndFunc   ;==>_Net_WGetSize
