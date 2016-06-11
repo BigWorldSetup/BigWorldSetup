@@ -828,7 +828,7 @@ Func _Net_LinkUpdateInfo($p_URL, $p_File, $p_Setup, $p_Prefix)
 			FileWrite($g_LogFile, '~ '&$Return[1]&' ')
 			$Return[1] = $p_File
 		Else ; for any other URL, upon starting download we will save to the filename given by the server
-			FileWrite($g_LogFile, & '> '&$Return[1] & ' on server <> ' & $p_File &' expected ')
+			FileWrite($g_LogFile, '> '&$Return[1] & ' on server <> ' & $p_File &' expected ')
 			$Extended = 1
 		EndIf
 	Else
