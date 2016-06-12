@@ -890,7 +890,7 @@ Func _Net_ListMissing()
 			If StringRegExp($g_fLock, '(?i)(\A|\x2c)'&$Fault[$f][0]&'(\z|\x2c)') Then; if mod is fixed, mark as missing essential
 				$FNum=1
 				$Mark='*  '
-			ElseIf StringRegExp(_IniRead($ReadSection, $Prefix[$Type]&'Down', ''), 'mediafire.com|clandlan.net|zippyshare.com') Then; these servers need some manual interaction
+			ElseIf StringRegExp(_IniRead($ReadSection, $Prefix[$Type]&'Down', ''), 'mediafire.com|clandlan.net|zippyshare.com|sentrizeal.com') Then; these servers need some manual interaction
 				$Host=1
 				$Mark='** '
 			Else
@@ -905,11 +905,12 @@ Func _Net_ListMissing()
 		_Process_SetScrollLog('|'& _GetTR($g_UI_Message, '6-L6'), 1, -1); => mods cannot be installed due to dependencies
 		_Process_SetScrollLog($Dependent[0][1])
 	EndIf
+	_Process_SetScrollLog('')
 	If $FNum = 1 Then
-		_Process_SetScrollLog(_GetTR($Message, 'L5')); => this is essential mod
+		_Process_SetScrollLog(_GetTR($Message, 'L5')); => * = this is essential mod
 		$Dependent[0][3] = 1
 	EndIf
-	If $Host = 1 Then _Process_SetScrollLog(_GetTR($Message, 'L6')); => the website requires manual interaction
+	If $Host = 1 Then _Process_SetScrollLog(_GetTR($Message, 'L6')); => ** = the website requires manual interaction
 	_Process_SetScrollLog('')
 	Return $Dependent
 EndFunc   ;==>_Net_ListMissing
