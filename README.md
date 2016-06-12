@@ -1,4 +1,4 @@
-**Big World Setup (BWS) : Mod Manager for Infinity Engine Games and Baldur's Gate/Enhanced Edition Trilogy by dabus**
+﻿**Big World Setup (BWS) : Mod Manager for Infinity Engine Games and Baldur's Gate/Enhanced Edition Trilogy by dabus**
 
 ![gRmfnLY[1].png](https://bitbucket.org/repo/kKX5Xg/images/3720385461-gRmfnLY%5B1%5D.png)
 
@@ -36,14 +36,16 @@ Mod Request Template     : http://www.shsforums.net/topic/58006-big-world-setup-
 
 - Almost all of them! (use the Mod Request Template link above if there is a mod you want added)
 
-### Installation Steps (also in the tool - read carefully!) ###
+### Getting started ###
 
-0. Quit all games and game editors
-1. Disable your antivirus (only while you are installing - don't forget to re-enable it after!)
-2. Disable User Account Control (if you don't do this, the automated installation can get stuck!)
-3. Download Big World Setup zip archive and extract it anywhere you want (but not in your game folder!)
-4. Execute "BiG World Setup.vbs" (this will auto-update to the latest version without overwriting local changes)
-5. Optional: "BiG World Setup-Full-Update.vbs" (this will auto-update and destroy all local changes - be careful!)
+0. Download Big World Setup zip archive and extract it anywhere you want (but not in your game folder!)
+1. Close any open games and game editors to avoid interference with the installation process
+2. Disable your antivirus (only while you are installing - don't forget to re-enable it after!)
+3. Disable User Account Control (if you don't do this, the automated installation can get stuck!)
+4. Execute "Start BiG World Setup - Update If Needed.vbs" (this is the usual way to start the program)
+5. Optional: "Start BiG World Setup-Full - Without Update.vbs" (this will skip the auto-update feature)
+
+NOTE:  "Update If Needed" will download any updates to the program and revert any local changes you have made.  If you are in the middle of an installation, it is safest to use "Without Update", but at all other times you should use "Update If Needed".
 
 ### How do I contribute? ###
 
