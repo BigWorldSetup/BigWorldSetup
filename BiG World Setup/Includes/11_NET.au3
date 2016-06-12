@@ -294,7 +294,7 @@ Func Au3Net($p_Num = 0)
 					$Error=IniRead($g_BWSIni, 'Faults', $DArray[$DSlot[$d]][2], '')
 					If Not StringInStr($Error, $DArray[$DSlot[$d]][8]) Then
 						IniWrite($g_BWSIni, 'Faults', $DArray[$DSlot[$d]][2], $Error & $DArray[$DSlot[$d]][8])
-						FileWrite($g_LogFile, '!0 Need archive for '&$DArray[$DSlot[$d]][2]&' '&$DArray[$DSlot[$d]][8]&@CRLF)
+						;FileWrite($g_LogFile, '!0 Need archive for '&$DArray[$DSlot[$d]][2]&' '&$DArray[$DSlot[$d]][8]&@CRLF)
 					EndIf
 					$DSlot[$d]=''
 				EndIf
@@ -311,7 +311,7 @@ Func Au3Net($p_Num = 0)
 						$Error=IniRead($g_BWSIni, 'Faults', $DArray[$DSlot[$d]][2], '')
 						If Not StringInStr($Error, $DArray[$DSlot[$d]][8]) Then
 							IniWrite($g_BWSIni, 'Faults', $DArray[$DSlot[$d]][2], $Error & $DArray[$DSlot[$d]][8])
-							FileWrite($g_LogFile, '!1 Need archive for '&$DArray[$DSlot[$d]][2]&' '&$DArray[$DSlot[$d]][8]&@CRLF)
+							;FileWrite($g_LogFile, '!1 Need archive for '&$DArray[$DSlot[$d]][2]&' '&$DArray[$DSlot[$d]][8]&@CRLF)
 						EndIf
 					EndIf
 					GUICtrlSetData($g_UI_Static[5][$d+2], ''); clear data of the download-slot
@@ -412,7 +412,7 @@ Func Au3NetTest($p_Num = 0)
 				$Error=IniRead($g_BWSIni, 'Faults', $g_CurrentPackages[$c][0], '')
 				If Not StringInStr($Error, $p) Then
 					IniWrite($g_BWSIni, 'Faults', $g_CurrentPackages[$c][0], $Error & $p); save the error
-					FileWrite($g_LogFile, 'Need archive for '&$g_CurrentPackages[$c][0]&' '& $Error & $p &@CRLF)
+					;FileWrite($g_LogFile, 'Need archive for '&$g_CurrentPackages[$c][0]&' '& $Error & $p &@CRLF)
 				EndIf
 			EndIf
 		Next
@@ -1033,7 +1033,7 @@ Func _Net_RemoveFixedFaults()
 			EndIf
 		Next
 		If $Fault[$f][1] = '' Then; faults got solved -> remove entries for mod
-			FileWrite($g_LogFile, 'Got all missing files for '&$Fault[$f][0]&@CRLF)
+			;FileWrite($g_LogFile, 'Got all missing files for '&$Fault[$f][0]&@CRLF)
 			IniDelete($g_BWSIni, 'Faults', $Fault[$f][0])
 		Else
 			IniWrite($g_BWSIni, 'Faults', $Fault[$f][0], $Fault[$f][1])
