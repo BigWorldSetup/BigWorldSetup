@@ -292,7 +292,10 @@ Func Au3Net($p_Num = 0)
 					;EndIf
 					$DpS[$DArray[$DSlot[$d]][6]][1]=StringReplace($DpS[$DArray[$DSlot[$d]][6]][1], '|'&$DSlot[$d]&'|', '|'); remove from queue
 					$Error=IniRead($g_BWSIni, 'Faults', $DArray[$DSlot[$d]][2], '')
-					If Not StringInStr($Error, $DArray[$DSlot[$d]][8]) Then IniWrite($g_BWSIni, 'Faults', $DArray[$DSlot[$d]][2], $Error & $DArray[$DSlot[$d]][8])
+					If Not StringInStr($Error, $DArray[$DSlot[$d]][8]) Then
+						IniWrite($g_BWSIni, 'Faults', $DArray[$DSlot[$d]][2], $Error & $DArray[$DSlot[$d]][8])
+						FileWrite($g_LogFile, '!0 Need archive for '&$DArray[$DSlot[$d]][2]&' '&$DArray[$DSlot[$d]][8]&@CRLF)
+					EndIf
 					$DSlot[$d]=''
 				EndIf
 				$Loop=0
@@ -306,7 +309,10 @@ Func Au3Net($p_Num = 0)
 					$Result=_Net_DownloadStop($DArray[$DSlot[$d]][0], $DArray[$DSlot[$d]][1], $DArray[$DSlot[$d]][2], $DArray[$DSlot[$d]][3], $DArray[$DSlot[$d]][5]); URL, filename, setup/ini-name, prefix, expected size
 					If $Result=0 Then; checking the saved file revealed an error
 						$Error=IniRead($g_BWSIni, 'Faults', $DArray[$DSlot[$d]][2], '')
-						If Not StringInStr($Error, $DArray[$DSlot[$d]][8]) Then IniWrite($g_BWSIni, 'Faults', $DArray[$DSlot[$d]][2], $Error & $DArray[$DSlot[$d]][8])
+						If Not StringInStr($Error, $DArray[$DSlot[$d]][8]) Then
+							IniWrite($g_BWSIni, 'Faults', $DArray[$DSlot[$d]][2], $Error & $DArray[$DSlot[$d]][8])
+							FileWrite($g_LogFile, '!1 Need archive for '&$DArray[$DSlot[$d]][2]&' '&$DArray[$DSlot[$d]][8]&@CRLF)
+						EndIf
 					EndIf
 					GUICtrlSetData($g_UI_Static[5][$d+2], ''); clear data of the download-slot
 					GUICtrlSetCursor($g_UI_Static[5][$d+2], -1)
@@ -404,7 +410,10 @@ Func Au3NetTest($p_Num = 0)
 			$localSize = FileGetSize($g_DownDir & '\' & $File)
 			If $expectedSize <> $localSize Then
 				$Error=IniRead($g_BWSIni, 'Faults', $g_CurrentPackages[$c][0], '')
-				If Not StringInStr($Error, $p) Then IniWrite($g_BWSIni, 'Faults', $g_CurrentPackages[$c][0], $Error & $p); save the error
+				If Not StringInStr($Error, $p) Then
+					IniWrite($g_BWSIni, 'Faults', $g_CurrentPackages[$c][0], $Error & $p); save the error
+					FileWrite($g_LogFile, 'Need archive for '&$g_CurrentPackages[$c][0]&' '& $Error & $p &@CRLF)
+				EndIf
 			EndIf
 		Next
 	Next
@@ -573,9 +582,12 @@ Func _Net_DownloadStart($p_URL, $p_File, $p_Setup, $p_Prefix, $p_String); Link, 
 			If $expectedSize = $localSize Then; local file has expected size
 				FileWrite($g_LogFile, '<= '& $p_File & ' = ' & $localSize & @CRLF)
 				_Process_SetConsoleLog($p_File & ' ' & _GetTR($Message, 'L7')); => downloaded before
+				; the ini update here is necessary to recognize new local copies that are properly sized according to server info but don't match ini size
+				IniWrite($g_MODIni, $p_Setup, $p_Prefix&'Size', $localSize); save file size for following sessions (might be unchanged: this is a catch-all)
+				IniWrite($g_ProgDir&'\Config\Global\'&$p_Setup&'.ini', 'Mod', $p_Prefix&'Size', $localSize)
 				;Sleep(10)
 				Return SetError(0, $Loaded, 2)
-			Else ; local file does not have expected size
+			Else ; local file does not have expected size, so we will try to download it
 				FileWrite($g_LogFile, '<= '& $p_File & ' <> ' & $localSize & @CRLF)
 				$Text=FileRead($g_LogFile)
 				If StringInStr($Text, _GetTR($Message, 'L4') & ' ' & $p_File) And StringInStr($Text, '= '&$p_File&' = '&$expectedSize) Then; => fetching - loading logged with same name and size before
@@ -1021,6 +1033,7 @@ Func _Net_RemoveFixedFaults()
 			EndIf
 		Next
 		If $Fault[$f][1] = '' Then; faults got solved -> remove entries for mod
+			FileWrite($g_LogFile, 'Got all missing files for '&$Fault[$f][0]&@CRLF)
 			IniDelete($g_BWSIni, 'Faults', $Fault[$f][0])
 		Else
 			IniWrite($g_BWSIni, 'Faults', $Fault[$f][0], $Fault[$f][1])
