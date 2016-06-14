@@ -4100,6 +4100,7 @@ STD;sentrizeal_aa_pack;0;20;0111;
 STD;sentrizeal_aa_pack;1;20;0111;
 STD;sentrizeal_aa_pack;2;20;0111;
 STD;sentrizeal_aa_pack;3;20;0111;
+STD;sentrizeal_aa_pack;4;20;0111;
 ANN;--- pre biffing portraits ---
 STD;NSCPortraits;0;20;1111;
 STD;NSCPortraits;1;20;1111;

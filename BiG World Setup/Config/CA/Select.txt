@@ -218,6 +218,7 @@ STD;sentrizeal_aa_pack;0;13;0111;
 STD;sentrizeal_aa_pack;1;13;0111;
 STD;sentrizeal_aa_pack;2;13;0111;
 STD;sentrizeal_aa_pack;3;13;0111;
+STD;sentrizeal_aa_pack;4;13;0111;
 STD;aurora;0;05;1111;
 MUC;aurora;Init;05;1111;
 MUC;aurora;10;05;1111;

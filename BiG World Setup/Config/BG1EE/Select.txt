@@ -54,8 +54,8 @@ STD;bgqe;7;03;1111;
 STD;bgqe;8;03;1111;
 STD;bgqe;9;03;1111;
 STD;bgqe;10;03;1111;
-MUC;TGC1E;Init;03;1111;
-MUC;TGC1E;0;03;1111;
+MUC;TGC1E;Init;03;0111;
+MUC;TGC1E;0;03;0111;
 MUC;TGC1E;1;03;0000;
 STD;SirinesCall;0;03;1111;
 MUC;soa;Init;03;1111;
@@ -418,6 +418,7 @@ STD;sentrizeal_aa_pack;0;13;0111;
 STD;sentrizeal_aa_pack;1;13;0111;
 STD;sentrizeal_aa_pack;2;13;0111;
 STD;sentrizeal_aa_pack;3;13;0111;
+STD;sentrizeal_aa_pack;4;13;0111;
 ANN;--- spells ---
 STD;spell_rev;10;09;0111;
 STD;spell_rev;20;09;0111;
