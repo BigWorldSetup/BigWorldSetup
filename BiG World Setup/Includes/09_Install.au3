@@ -1167,7 +1167,7 @@ Func _Install_SetPrompt($p_TP2, $p_Num)
 					EndIf
 				Next
 			Else
-				If UBound($Array) = $a Then
+				If UBound($Array) <= $a Then
 					_PrintDebug('Error1: _Install_SetPrompt unexpectedly reached end of file '&$p_TP2, 1)
 					Exit
 				EndIf
@@ -1184,7 +1184,7 @@ Func _Install_SetPrompt($p_TP2, $p_Num)
 						If FileExists($Prompt) Then ExitLoop 2
 						$Prompt = ''
 					EndIf
-					If UBound($Array) = $a Then
+					If UBound($Array) <= $a Then
 						_PrintDebug('Error2: _Install_SetPrompt unexpectedly reached end of file '&$p_TP2, 1)
 						Exit
 					EndIf
