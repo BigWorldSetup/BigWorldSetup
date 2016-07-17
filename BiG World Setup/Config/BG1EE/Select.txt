@@ -717,7 +717,6 @@ STD;cdtweaks;2030;09;0000;
 STD;cdtweaks;2035;09;0000;
 STD;cdtweaks;2040;09;1111;
 STD;cdtweaks;2060;09;0111;
-STD;cdtweaks;2080;09;0011;
 MUC;cdtweaks;Init;09;1111;
 MUC;cdtweaks;2090;09;1111;
 MUC;cdtweaks;2091;09;0000;
