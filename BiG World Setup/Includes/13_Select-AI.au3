@@ -177,26 +177,26 @@ Func _AI_SetClicked($p_Num, $p_Type = 0, $p_Key=0); $a=itemnumber; $p_Type=0(tog
 ; ---------------------------------------------------------------------------------------------
 ; it's a fixed item
 ; ---------------------------------------------------------------------------------------------
-	If StringInStr($g_CentralArray[$p_Num][11], 'F') Then; don't touch fixed items
-		If StringInStr($g_CentralArray[$p_Num][2], '-') Then; reset mod-icon
+	If StringInStr($g_CentralArray[$p_Num][11], 'F') Then; fixed items behave differently
+		If StringInStr($g_CentralArray[$p_Num][2], '-') Then; just reset mod-icon
 			_AI_SetModStateIcon($p_Num)
-		ElseIf $g_CentralArray[$p_Num][10] = 1 Then; enable change of sub-items
-			If $g_CentralArray[$p_Num][9] = 1 Then
+		ElseIf $g_CentralArray[$p_Num][10] = 1 Then; enable change of subtree-items
+			If $g_CentralArray[$p_Num][9] = 1 Then; just reset icon if already enabled
 				__TristateTreeView_SetItemState($g_UI_Handle[0], $g_CentralArray[$p_Num][5], 2+$g_CentralArray[$p_Num][14])
 			Else
-				If StringInStr($g_CentralArray[$p_Num][3], '?') Then
+				If StringInStr($g_CentralArray[$p_Num][2], '?') Then
 					_AI_SetInSUB_Enable($p_Num)
 				Else
 					_AI_SetInMUC_Enable($p_Num)
 				EndIf
 			EndIf
-		ElseIf StringInStr($g_CentralArray[$p_Num][2], '?') Then
+		ElseIf StringInStr($g_CentralArray[$p_Num][2], '?') Then; enable change of subtree-parent
 			_AI_SetSUB_Enable($p_Num)
 		ElseIf $g_CentralArray[$p_Num][5] <> '' Then; reset icon
 			__TristateTreeView_SetItemState($g_UI_Handle[0], $g_CentralArray[$p_Num][5], 2+$g_CentralArray[$p_Num][14])
 		EndIf
 		;_AI_Debug($p_Num); Debugging: Show selected-states of a mods components
-		Return
+		Return; fixed item handling ends here
 ; ---------------------------------------------------------------------------------------------
 ; determine what's to be done otherwise
 ; ---------------------------------------------------------------------------------------------
@@ -277,7 +277,7 @@ Func _AI_SetClicked($p_Num, $p_Type = 0, $p_Key=0); $a=itemnumber; $p_Type=0(tog
 ; ---------------------------------------------------------------------------------------------
 ; it's a component of a SUB subtree
 ; ---------------------------------------------------------------------------------------------
-	ElseIf StringInStr($g_CentralArray[$p_Num][2], '?')	Then
+	ElseIf StringInStr($g_CentralArray[$p_Num][2], '?') Then
 		If $SetState = 0 Then
 			_AI_SetInSUB_Disable($p_Num)
 		Else
@@ -494,7 +494,7 @@ Func _AI_SetMod_Enable($p_Num, $p_Force=0)
 				WEnd
 			ElseIf $g_CentralArray[$p_Num][10] = 2 Then; SUB
 				_AI_SetSUB_Enable($p_Num, $FirstModItem, 1)
-				Local $Component = $g_CentralArray[$p_Num][2]; save component number to match SUB lines below
+				Local $Component = StringRegExpReplace($g_CentralArray[$p_Num][2], '\x3f.*\z', ''); save component number to match SUB lines below
 				$p_Num +=1
 				While StringRegExp($g_CentralArray[$p_Num][2], '(?i)\A'&$Component&'\x3f'); skip SUB lines for component
 					$p_Num +=1
@@ -615,7 +615,7 @@ Func _AI_SetSUB_Disable($p_Num, $p_First=0)
 	$g_CentralArray[$p_Num][9] = 0
 	__TristateTreeView_SetItemState($g_UI_Handle[0], $g_CentralArray[$p_Num][5], 1 +$g_CentralArray[$p_Num][14])
 	$g_CentralArray[$p_First][9] -= 1
-	Local $Component = $g_CentralArray[$p_Num][2]; save component number to match SUB lines below
+	Local $Component = StringRegExpReplace($g_CentralArray[$p_Num][2], '\x3f.*\z', ''); save component number to match SUB lines below
 	$p_Num +=1
 	While StringRegExp($g_CentralArray[$p_Num][2], '(?i)\A'&$Component&'\x3f')
 		__TristateTreeView_SetItemState($g_UI_Handle[0], $g_CentralArray[$p_Num][5], 1+$g_CentralArray[$p_Num][14])
@@ -635,33 +635,39 @@ Func _AI_SetSUB_Enable($p_Num, $p_First=0, $p_Silent=1)
 	Local $CurrentSub=''
 	If $p_First = 0 Then $p_First=_AI_GetStart($p_Num, '-')
 	Local $FirstIconState=_AI_GetModState($p_First)
-	$g_CentralArray[$p_First][9] += 1
-	$g_CentralArray[$p_Num][9] = 1
-	__TristateTreeView_SetItemState($g_UI_Handle[0], $g_CentralArray[$p_Num][5], 2 +$g_CentralArray[$p_Num][14])
-	Local $Component = $g_CentralArray[$p_Num][2]
-	If _AI_GetSelect($p_Num) = 0 Then; nothing can be selected
-		$p_Num +=1
+	If $g_CentralArray[$p_Num][9] = 0 Then ; enable the component if not already enabled
+		__TristateTreeView_SetItemState($g_UI_Handle[0], $g_CentralArray[$p_Num][5], 2+$g_CentralArray[$p_Num][14])
+		$g_CentralArray[$p_Num][9] = 1
+		$g_CentralArray[$p_First][9] += 1
+	EndIf
+	Local $Component=StringRegExpReplace($g_CentralArray[$p_Num][2], '\x3f.*\z', '') ; x3f = '?' (question mark); strip '?...' keep 'comp-num' only
+	If _AI_GetSelect($p_Num) = 0 Then ; nothing can be selected
+		$p_Num += 1
 		While StringRegExp($g_CentralArray[$p_Num][2], '(?i)\A'&$Component&'\x3f')
-			Local $Test=StringRegExpReplace($g_CentralArray[$p_Num][2], '\A.*\x3f|\x5f.*\z', '')
-			If $CurrentSub<> $Test Then
-				__TristateTreeView_SetItemState($g_UI_Handle[0], $g_CentralArray[$p_Num][5], 2+$g_CentralArray[$p_Num][14])
-				$g_CentralArray[$p_Num][9] = 1
-				$g_CentralArray[$p_First][9] += 1
+			Local $Test=StringRegExpReplace($g_CentralArray[$p_Num][2], '\A.*\x3f|\x5f.*\z', '') ; x3f = '?' (question mark), x5f = '_' (unicode low line)
+			If $CurrentSub <> $Test Then
+				If $g_CentralArray[$p_Num][9] = 0 Then; enable sub-component if not already enabled
+					__TristateTreeView_SetItemState($g_UI_Handle[0], $g_CentralArray[$p_Num][5], 2+$g_CentralArray[$p_Num][14])
+					$g_CentralArray[$p_Num][9] = 1
+					$g_CentralArray[$p_First][9] += 1
+				EndIf
 				$CurrentSub=$Test
 			EndIf
-			$p_Num +=1
+			$p_Num += 1
 			If $p_Num > $g_CentralArray[0][0] Then ExitLoop
 		WEnd
 		If $p_Silent = 0 Then _Misc_MsgGUI(1, _GetTR($g_UI_Message, '0-B3'), _GetTR($g_UI_Message, '4-L15')); => no versions found, so SUB was installed completely
 	Else
-		$p_Num +=1
+		$p_Num += 1
 		While StringRegExp($g_CentralArray[$p_Num][2], '(?i)\A'&$Component&'\x3f')
 			If _AI_GetSelect($p_Num) = 1 Then
-				__TristateTreeView_SetItemState($g_UI_Handle[0], $g_CentralArray[$p_Num][5], 2+$g_CentralArray[$p_Num][14])
-				$g_CentralArray[$p_Num][9] = 1
-				$g_CentralArray[$p_First][9] += 1
+				If $g_CentralArray[$p_Num][9] = 0 Then ; enable sub-component if not already enabled
+					__TristateTreeView_SetItemState($g_UI_Handle[0], $g_CentralArray[$p_Num][5], 2+$g_CentralArray[$p_Num][14])
+					$g_CentralArray[$p_Num][9] = 1
+					$g_CentralArray[$p_First][9] += 1
+				EndIf
 			EndIf
-			$p_Num +=1
+			$p_Num += 1
 			If $p_Num > $g_CentralArray[0][0] Then ExitLoop
 		WEnd
 	EndIf

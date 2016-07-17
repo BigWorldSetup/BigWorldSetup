@@ -15,7 +15,7 @@
 ;     0: mod setup-name
 ;     1: tag (theme/category number)
 ;     2: '-' for the headline (top level) of a mod, '+' for the top of a multiple choice menu,
-;        '!' for a chapter headline, '####' comp-num for a component
+;        '!' for a chapter headline, '####' comp-num for a component, '##?##_##' for a sub-component
 ;     3: component description (if 2 is '-' then this also will be '-')
 ;     4: name of the mod (from modname.ini) or '' if removed due to purge/translation
 ;     5: tree-view-item GUI handle
