@@ -1149,7 +1149,7 @@ Func _Install_SetPrompt($p_TP2, $p_Num)
 	Local $Num=-1, $Prompt=''
 	$Array = StringSplit(StringStripCR(FileRead($p_TP2)), @LF)
 	For $a=1 to $Array[0]
-		If StringRegExp($Array[$a], '(?i)\ALANGUAGE') Then
+		If StringRegExp($Array[$a], '(?i)\A\s{0,}LANGUAGE') Then
 			$Num+=1
 			If $Num<>$p_Num Then ContinueLoop
 			$Language=StringSplit($Array[$a], '~')
@@ -1167,13 +1167,17 @@ Func _Install_SetPrompt($p_TP2, $p_Num)
 					EndIf
 				Next
 			Else
-				If UBound($Array) <= $a Then
-					_PrintDebug('Error1: _Install_SetPrompt unexpectedly reached end of file '&$p_TP2, 1)
+				If $a = $Array[0] Then
+					_PrintDebug('Error 1: _Install_SetPrompt unexpectedly reached end of file '&$p_TP2, 1)
 					Exit
 				EndIf
-				While StringRegExp($Array[$a+1], '(?i)\ALANGUAGE') = 0
+				While StringRegExp($Array[$a+1], '(?i)\A\s{0,}LANGUAGE') = 0
 					$a+=1
-					If StringRegExp($Array[$a], '(?i)\ABEGIN') Then Return 1
+					If $a > $Array[0] Then
+						_PrintDebug('Error 2: _Install_SetPrompt unexpectedly reached the end of file '&$p_TP2&' without finding a line starting with the BEGIN keyword', 1)
+						Exit
+					EndIf
+					If StringRegExp($Array[$a], '(?i)\A\s{0,}BEGIN') Then Return 1
 					If StringRegExp($Array[$a], '\x2f|\x5c') Then
 						$Folder=$g_GameDir&'\'&StringReplace(StringRegExpReplace($Array[$a], '\A\s{0,}~|/[^/]*\z', ''), '/', '\')
 						If StringInStr($Array[$a], 'prompt') Then; also look for items that contain the word prompt
@@ -1184,20 +1188,16 @@ Func _Install_SetPrompt($p_TP2, $p_Num)
 						If FileExists($Prompt) Then ExitLoop 2
 						$Prompt = ''
 					EndIf
-					If UBound($Array) <= $a Then
-						_PrintDebug('Error2: _Install_SetPrompt unexpectedly reached end of file '&$p_TP2, 1)
-						Exit
-					EndIf
 				WEnd
 			EndIf
 		EndIf
-		If StringRegExp($Array[$a], '(?i)\ABEGIN') Then ExitLoop
+		If StringRegExp($Array[$a], '(?i)\A\s{0,}BEGIN') Then ExitLoop
 	Next
 	If $Prompt = '' Then Return 1
 	$Array = StringSplit(StringStripCR(FileRead($Prompt)), @LF)
 	$Handle=FileOpen($Prompt&'_new', 2)
 	For $a=1 to $Array[0]
-		If StringRegExp($Array[$a], '@-10(16|19|20|32|33)') And Not StringRegExp($Array[$a], '\A\x2f{2}\s') Then $Array[$a]='// ' & $Array[$a]
+		If StringRegExp($Array[$a], '@-10(16|19|20|32|33)') And Not StringRegExp($Array[$a], '\A\s{0,}\x2f{2}\s') Then $Array[$a]='// ' & $Array[$a]
 		FileWriteLine($Handle, $Array[$a])
 	Next
 	FileClose($Handle)

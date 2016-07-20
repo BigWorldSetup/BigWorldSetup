@@ -2912,6 +2912,7 @@ MUC;cdtweaks;3198;16;0000;
 STD;cdtweaks;3200;16;1111;
 STD;cdtweaks;3205;16;1111;
 STD;cdtweaks;3210;16;0000;
+STD;cdtweaks;3220;16;1111;
 STD;cdtweaks;3230;16;0111;
 MUC;cdtweaks;Init;16;0000;
 MUC;cdtweaks;3260;16;0000;
