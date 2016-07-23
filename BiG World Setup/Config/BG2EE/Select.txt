@@ -519,6 +519,7 @@ STD;xulaye;0;12;0111;
 STD;xulaye;1;12;0111;
 STD;xulaye;2;12;0111;
 STD;haldamir;0;05;1111;
+STD;AVIM;0;05;0111;
 STD;Saerileth;0;05;0111;
 STD;Skie;0;05;0111;
 STD;TyrisFlare;0;05;0111;
