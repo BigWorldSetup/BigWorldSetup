@@ -412,6 +412,10 @@ ANN;--- BG2EE tactical encounters ---
 STD;com_encounters;0;08;0011;
 STD;com_encounters;1;08;0011;
 STD;com_encounters;2;08;0011;
+STD;impasylum;0;08;0011;
+STD;impasylum;1;08;0011;
+STD;impasylum;2;08;0011;
+STD;impasylum;3;08;0011;
 STD;PlanarSphereMod;0;08;0011;
 STD;PlanarSphereMod;1;08;0011;
 STD;PlanarSphereMod;2;08;0011;
