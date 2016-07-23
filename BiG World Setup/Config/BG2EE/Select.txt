@@ -409,6 +409,9 @@ STD;FishingForTrouble;0;03;0111;
 STD;FishingForTrouble;1;03;0111;
 STD;FishingForTrouble;2;03;0111;
 ANN;--- BG2EE tactical encounters ---
+STD;AzenMOD;0;08;0011;
+STD;AzenMOD;1;08;0011;
+STD;AzenMOD;2;08;0011;
 STD;com_encounters;0;08;0011;
 STD;com_encounters;1;08;0011;
 STD;com_encounters;2;08;0011;
@@ -906,6 +909,7 @@ STD;d0questpack;19;03;0111;
 STD;d0questpack;20;03;0111;
 STD;d0questpack;21;03;0111;
 STD;Turnabout;0;08;0111;
+STD;LongerRoad;0;5;0111;
 ANN;--- BG2EE minimods ---
 STD;wheels;0;04;1111;
 ANN;For some reason Wheels of Prophecy removes this entry (but exclusively for EE) so we add it back only if WoP is installed
@@ -1838,6 +1842,9 @@ SUB;BGEESpawn;101?2_8;08;0000;
 SUB;BGEESpawn;101?2_9;08;0000;
 STD;NPC_Strongholds;0;09;0111;
 STD;NPC_Strongholds;1;09;0111;
+STD;BuTcHeRy;0;08;0011;
+STD;BuTcHeRy;1;08;0011;
+STD;BuTcHeRy;2;08;0011;
 ANN;-- BP AI --
 STD;BP;325;11;0011;
 STD;BP;350;11;0011;
@@ -2597,7 +2604,7 @@ STD;NSCPortraits;1450;13;1111;
 STD;NSCPortraits;1470;13;1111;
 STD;NSCPortraits;1480;13;1111;
 STD;NSCPortraits;1490;13;1111;
-ANN;LongerRoad not yet available for EE
+STD;LongerRoad;2;13;0000;
 ANN;NSCPortraits;1500;13;1111;
 ANN;Zalnoya not yet available for EE
 ANN;NSCPortraits;1510;13;1111;
