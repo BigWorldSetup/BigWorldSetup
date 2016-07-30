@@ -577,7 +577,7 @@ Func _Install_BatchRun()
 			FileClose($Handle)
 		EndIf
 	EndIf
-	If StringRegExp(@OSVersion, 'WIN_2008R2|WIN_7|WIN_2008|WIN_VISTA') = 1 And IsAdmin() = 0 Then
+	If StringRegExp(@OSVersion, 'WIN_2016|WIN_2012R2|WIN_2012|WIN_2008R2|WIN_VISTA|WIN_7|WIN_8|WIN_81|WIN_10') = 1 And IsAdmin() = 0 Then
 		ShellExecute($File, '', $g_BG2Dir, 'runas')
 	Else
 		ShellExecute($File, '', $g_BG2Dir)
