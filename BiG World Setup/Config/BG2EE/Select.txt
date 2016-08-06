@@ -1131,6 +1131,49 @@ STD;RR;6;09;1111;
 STD;RR;7;09;1111;
 STD;RR;8;09;1111;
 STD;WSR;100;12;1111;
+STD;TomeAndBlood;0;09;0000;
+STD;TomeAndBlood;1;09;0000;
+STD;TomeAndBlood;2;09;0000;
+STD;TomeAndBlood;3;09;0000;
+STD;TomeAndBlood;4;09;0000;
+STD;TomeAndBlood;5;09;0000;
+STD;TomeAndBlood;6;09;0000;
+STD;TomeAndBlood;8;09;0000;
+STD;TomeAndBlood;9;09;0000;
+STD;TomeAndBlood;20;09;0000;
+ANN;#10-13 are new classes/kits
+STD;TomeAndBlood;10;12;0000;
+STD;TomeAndBlood;11;12;0000;
+STD;TomeAndBlood;12;12;0000;
+STD;TomeAndBlood;13;12;0000;
+ANN;30-31 are BG1 NPC tweaks
+STD;TomeAndBlood;30;07;0000;
+STD;TomeAndBlood;31;07;0000;
+ANN;--- add and revise kits ---
+STD;might_and_guile;220;09;0111;
+STD;might_and_guile;225;09;0111;
+STD;might_and_guile;230;09;0111;
+STD;might_and_guile;235;09;0111;
+STD;might_and_guile;250;09;0111;
+STD;might_and_guile;260;09;0111;
+STD;might_and_guile;265;09;0111;
+STD;might_and_guile;270;09;0111;
+STD;might_and_guile;275;09;0111;
+STD;might_and_guile;310;12;0111;
+STD;might_and_guile;320;12;0111;
+STD;might_and_guile;322;12;0111;
+STD;might_and_guile;324;12;0111;
+STD;might_and_guile;350;12;0111;
+STD;might_and_guile;360;12;0111;
+STD;might_and_guile;390;12;0111;
+STD;might_and_guile;410;12;0111;
+STD;might_and_guile;420;12;0111;
+STD;might_and_guile;450;12;0111;
+STD;might_and_guile;460;12;0111;
+STD;might_and_guile;470;12;0111;
+STD;might_and_guile;480;12;0111;
+STD;might_and_guile;490;12;0111;
+STD;might_and_guile;500;09;0111;
 STD;BG2_Tweaks;10;09;0000;
 STD;BG2_Tweaks;20;09;0000;
 STD;BG2_Tweaks;30;09;0000;
@@ -1564,32 +1607,6 @@ SUB;AnimalCompanions;0?1_0;09;0111;
 SUB;AnimalCompanions;0?1_1;09;0000;
 SUB;AnimalCompanions;0?2_Buddy;09;0111;
 SUB;AnimalCompanions;0?3_1;09;0111;
-ANN;--- add and revise kits ---
-STD;might_and_guile;200;09;0111;
-STD;might_and_guile;220;09;0111;
-STD;might_and_guile;225;09;0111;
-STD;might_and_guile;230;09;0111;
-STD;might_and_guile;235;09;0111;
-STD;might_and_guile;250;09;0111;
-STD;might_and_guile;260;09;0111;
-STD;might_and_guile;265;09;0111;
-STD;might_and_guile;270;09;0111;
-STD;might_and_guile;275;09;0111;
-STD;might_and_guile;310;12;0111;
-STD;might_and_guile;320;12;0111;
-STD;might_and_guile;322;12;0111;
-STD;might_and_guile;324;12;0111;
-STD;might_and_guile;350;12;0111;
-STD;might_and_guile;360;12;0111;
-STD;might_and_guile;390;12;0111;
-STD;might_and_guile;410;12;0111;
-STD;might_and_guile;420;12;0111;
-STD;might_and_guile;450;12;0111;
-STD;might_and_guile;460;12;0111;
-STD;might_and_guile;470;12;0111;
-STD;might_and_guile;480;12;0111;
-STD;might_and_guile;490;12;0111;
-STD;might_and_guile;500;09;0111;
 ANN;BWFixpack disables pcvamp conditional patch (only if Weimer's Valen mod was installed first)
 ANN;that patch resulted in several "WARNING: cannot find block matching [pcvamp/BCS/priest.bcs]"
 ANN;to solve this problem for now, BWFixpack has merged pcvamp's patch into the Valen mod itself
@@ -1612,24 +1629,6 @@ STD;A7#ImprovedArcher;100;10;0111;
 ANN;already included after patch 2.0
 ANN;STD;eet_tweaks;25;12;0111;
 STD;eet_tweaks;26;12;0111;
-STD;TomeAndBlood;0;09;0000;
-STD;TomeAndBlood;1;09;0000;
-STD;TomeAndBlood;2;09;0000;
-STD;TomeAndBlood;3;09;0000;
-STD;TomeAndBlood;4;09;0000;
-STD;TomeAndBlood;5;09;0000;
-STD;TomeAndBlood;6;09;0000;
-STD;TomeAndBlood;8;09;0000;
-STD;TomeAndBlood;9;09;0000;
-STD;TomeAndBlood;20;09;0000;
-ANN;#10-13 are new classes/kits
-STD;TomeAndBlood;10;12;0000;
-STD;TomeAndBlood;11;12;0000;
-STD;TomeAndBlood;12;12;0000;
-STD;TomeAndBlood;13;12;0000;
-ANN;30-31 are BG1 NPC tweaks
-STD;TomeAndBlood;30;07;0000;
-STD;TomeAndBlood;31;07;0000;
 MUC;refinements;Init;09;0111;
 MUC;refinements;10;09;0111;
 MUC;refinements;11;09;0000;
@@ -1919,6 +1918,7 @@ STD;stratagems;8160;08;0011;
 STD;stratagems;8170;08;0011;
 STD;stratagems;8180;08;0011;
 STD;stratagems;8190;08;0011;
+STD;might_and_guile;200;09;0111;
 ANN;Shield of Reflection works on SCS Flame Arrows
 STD;jimfix;2;01;0111;
 ANN;Fix SCS Smarter Abazigal
