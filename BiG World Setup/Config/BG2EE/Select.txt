@@ -1149,7 +1149,7 @@ STD;TomeAndBlood;13;12;0000;
 ANN;30-31 are BG1 NPC tweaks
 STD;TomeAndBlood;30;07;0000;
 STD;TomeAndBlood;31;07;0000;
-ANN;--- add and revise kits ---
+ANN;--- add revise kits ---
 STD;might_and_guile;220;09;0111;
 STD;might_and_guile;225;09;0111;
 STD;might_and_guile;230;09;0111;
@@ -1174,6 +1174,12 @@ STD;might_and_guile;470;12;0111;
 STD;might_and_guile;480;12;0111;
 STD;might_and_guile;490;12;0111;
 STD;might_and_guile;500;09;0111;
+STD;A7!GolemConstruction;0;09;0011;
+STD;A7!GolemConstruction;10;09;0011;
+STD;A7!GolemConstruction;15;09;0011;
+STD;A7!GolemConstruction;20;09;0011;
+STD;A7!GolemConstruction;25;09;0011;
+STD;A7!GolemConstruction;30;09;0011;
 STD;BG2_Tweaks;10;09;0000;
 STD;BG2_Tweaks;20;09;0000;
 STD;BG2_Tweaks;30;09;0000;
