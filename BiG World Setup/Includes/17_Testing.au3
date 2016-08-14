@@ -775,7 +775,7 @@ EndFunc   ;==>_Test_GetCustomTP2
 ; Keep this function consistent with _Tree_PurgeUnNeeded in Select-Tree.au3
 ; ---------------------------------------------------------------------------------------------
 Func _Test_Get_EET_Mods(); called by _Tree_EndSelection() just before starting an installation
-	Local $BG1EE_Mods='WeiDU|eekeeper|bwinstallpack|bwfixpack|', $BG2EE_Mods='WeiDU|eekeeper|bwinstallpack|bwfixpack|EET-patches-for-BG2EE-mods'
+	Local $BG1EE_Mods='WeiDU|eekeeper|bwinstallpack|bwfixpack', $BG2EE_Mods='WeiDU|eekeeper|bwinstallpack|bwfixpack|EET-patches-for-BG2EE-mods'
 	$g_Flags[21]=''; will contain BG1-mods in EET -> Empty means no BG1-install
 	$g_Flags[22]=''; will contain BG2-mods in EET
 	If Not StringInStr($g_GConfDir, 'BG2EE') Then Return
@@ -813,7 +813,8 @@ Func _Test_Get_EET_Mods(); called by _Tree_EndSelection() just before starting a
 				ContinueLoop
 			EndIf
 		EndIf
-		If StringInStr($Select[$s], ';EET;') Then $EETMods='BG1_install_stopped'
+		If StringInStr($Select[$s], ';EET-patches-for-BG2EE-mods;') Then $EETMods='BG1_install_stopped'
+		;If StringInStr($Select[$s], ';EET;') Then $EETMods='BG1_install_stopped'
 		If Not StringRegExp($Mod, '(?i)\A('&$BG1EE_Mods&')\z') Then; if it's not an BG1EE-mod, it should be BG2EE...
 			If (Not StringRegExp($BG2EE_Mods, '(?i)(\A|\x7c)'&$Mod&'(\z|\x7c)')) Then $BG2EE_Mods&=$Mod&'|'
 		EndIf
