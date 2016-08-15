@@ -656,6 +656,7 @@ STD;slandor;0;04;1111;
 STD;derats_ogre;0;04;0111;
 ANN;--- BG2EE tweaks ---
 STD;DungeonBeGone;0;09;0111;
+STD;SkipChateauIrenicus;0;09;0111;
 STD;Teleport;0;09;0111;
 STD;Teleport;1;09;0111;
 STD;arestorationp;0;09;1111;
