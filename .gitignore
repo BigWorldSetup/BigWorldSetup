@@ -9,7 +9,7 @@ BiG World Setup/BWS-Selection.ini
 BiG World Setup/Includes_Traced/
 BiG World Setup/Traced.au3
 BiG World Setup/Tools/Git/
-BWS-Version.txt
+bwfixpack.ini
 **/PreSelection00.ini
 **/Mod.ini
 **/Mod-*.ini
