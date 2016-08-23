@@ -533,9 +533,56 @@ STD;RR;4;09;1111;
 STD;RR;6;09;1111;
 STD;RR;7;09;1111;
 STD;WSR;100;09;1111;
+STD;TomeAndBlood;0;09;0000;
+STD;TomeAndBlood;1;09;0000;
+STD;TomeAndBlood;2;09;0000;
+STD;TomeAndBlood;3;09;0000;
+STD;TomeAndBlood;4;09;0000;
+STD;TomeAndBlood;5;09;0000;
+ANN;#6 is BG2EE/IWDEE only
+STD;TomeAndBlood;8;09;0000;
+STD;TomeAndBlood;9;09;0000;
+STD;TomeAndBlood;20;09;0000;
+ANN;#10-13 are new classes/kits
+STD;TomeAndBlood;10;12;0000;
+STD;TomeAndBlood;11;12;0000;
+STD;TomeAndBlood;12;12;0000;
+ANN;30-31 are BG1 NPC tweaks
+STD;TomeAndBlood;30;07;0000;
+STD;TomeAndBlood;31;07;0000;
+
+ANN;--- add and revise kits ---
+STD;might_and_guile;200;09;0111;
+STD;might_and_guile;220;09;0111;
+STD;might_and_guile;225;09;0111;
+STD;might_and_guile;230;09;0111;
+STD;might_and_guile;235;09;0111;
+STD;might_and_guile;250;09;0111;
+STD;might_and_guile;260;09;0111;
+STD;might_and_guile;265;09;0111;
+STD;might_and_guile;270;09;0111;
+STD;might_and_guile;275;09;0111;
+STD;might_and_guile;310;12;0111;
+STD;might_and_guile;320;12;0111;
+STD;might_and_guile;322;12;0111;
+STD;might_and_guile;324;12;0111;
+STD;might_and_guile;350;12;0111;
+STD;might_and_guile;360;12;0111;
+STD;might_and_guile;390;12;0111;
+STD;might_and_guile;410;12;0111;
+STD;might_and_guile;420;12;0111;
+STD;might_and_guile;450;12;0111;
+STD;might_and_guile;460;12;0111;
+STD;might_and_guile;470;12;0111;
+STD;might_and_guile;480;12;0111;
+STD;might_and_guile;490;12;0111;
+STD;might_and_guile;500;09;0111;
 STD;A7!GolemConstruction;0;09;0011;
 STD;A7!GolemConstruction;20;09;0011;
 STD;A7!GolemConstruction;25;09;0011;
+STD;PaleMaster;0;12;0111;
+STD;PaleMaster;1;12;0111;
+STD;PaleMaster;2;12;0111;
 STD;BG2_Tweaks;10;09;0000;
 STD;BG2_Tweaks;40;09;0000;
 STD;BG2_Tweaks;50;09;0000;
@@ -893,32 +940,6 @@ SUB;AnimalCompanions;0?1_0;09;0111;
 SUB;AnimalCompanions;0?1_1;09;0000;
 SUB;AnimalCompanions;0?2_Buddy;09;0111;
 SUB;AnimalCompanions;0?3_1;09;0111;
-ANN;--- add and revise kits ---
-STD;might_and_guile;200;09;0111;
-STD;might_and_guile;220;09;0111;
-STD;might_and_guile;225;09;0111;
-STD;might_and_guile;230;09;0111;
-STD;might_and_guile;235;09;0111;
-STD;might_and_guile;250;09;0111;
-STD;might_and_guile;260;09;0111;
-STD;might_and_guile;265;09;0111;
-STD;might_and_guile;270;09;0111;
-STD;might_and_guile;275;09;0111;
-STD;might_and_guile;310;12;0111;
-STD;might_and_guile;320;12;0111;
-STD;might_and_guile;322;12;0111;
-STD;might_and_guile;324;12;0111;
-STD;might_and_guile;350;12;0111;
-STD;might_and_guile;360;12;0111;
-STD;might_and_guile;390;12;0111;
-STD;might_and_guile;410;12;0111;
-STD;might_and_guile;420;12;0111;
-STD;might_and_guile;450;12;0111;
-STD;might_and_guile;460;12;0111;
-STD;might_and_guile;470;12;0111;
-STD;might_and_guile;480;12;0111;
-STD;might_and_guile;490;12;0111;
-STD;might_and_guile;500;09;0111;
 STD;Derats_kits;0;12;0111;
 STD;Derats_kits;1;12;0111;
 STD;Derats_kits;2;12;0111;
@@ -929,23 +950,6 @@ STD;Derats_kits;6;12;0111;
 STD;Derats_kits;7;12;0000;
 STD;Derats_kits;8;12;0000;
 STD;A7#ImprovedArcher;0;12;0111;
-STD;TomeAndBlood;0;09;0000;
-STD;TomeAndBlood;1;09;0000;
-STD;TomeAndBlood;2;09;0000;
-STD;TomeAndBlood;3;09;0000;
-STD;TomeAndBlood;4;09;0000;
-STD;TomeAndBlood;5;09;0000;
-ANN;#6 is BG2EE/IWDEE only
-STD;TomeAndBlood;8;09;0000;
-STD;TomeAndBlood;9;09;0000;
-STD;TomeAndBlood;20;09;0000;
-ANN;#10-13 are new classes/kits
-STD;TomeAndBlood;10;12;0000;
-STD;TomeAndBlood;11;12;0000;
-STD;TomeAndBlood;12;12;0000;
-ANN;30-31 are BG1 NPC tweaks
-STD;TomeAndBlood;30;07;0000;
-STD;TomeAndBlood;31;07;0000;
 ANN;#1000 is sphere system, should be installed after all divine kits
 STD;Divine_Remix;1000;09;0001;
 ANN;FnP should be installed after all divine kits

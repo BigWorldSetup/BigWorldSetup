@@ -320,6 +320,8 @@ STD;TomeAndBlood;12;12;0000;
 STD;TomeAndBlood;13;12;0000;
 STD;A7#ImprovedArcher;0;12;0111;
 STD;A7#ImprovedArcher;100;10;0111;
+STD;PaleMaster;0;12;0111;
+STD;PaleMaster;1;12;0111;
 STD;aTweaks;102;09;1111;
 STD;aTweaks;104;09;1111;
 STD;aTweaks;105;09;0000;

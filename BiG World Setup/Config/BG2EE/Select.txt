@@ -1181,6 +1181,8 @@ STD;A7!GolemConstruction;15;09;0011;
 STD;A7!GolemConstruction;20;09;0011;
 STD;A7!GolemConstruction;25;09;0011;
 STD;A7!GolemConstruction;30;09;0011;
+STD;PaleMaster;0;12;0111;
+STD;PaleMaster;1;12;0111;
 STD;BG2_Tweaks;10;09;0000;
 STD;BG2_Tweaks;20;09;0000;
 STD;BG2_Tweaks;30;09;0000;
