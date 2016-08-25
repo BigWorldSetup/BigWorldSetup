@@ -404,6 +404,16 @@ SUB;eet_tweaks;11?2_50;09;0000;
 ANN;-- no hostile charm reaction --
 STD;eet_tweaks;20;09;1111;
 STD;eet_tweaks;30;09;0111;
+SUB;generalized_biffing;0;00;1111;
+SUB;generalized_biffing;0?1_0;00;0000;
+SUB;generalized_biffing;0?1_1;00;1111;
+ANN;--- optional fixes ---
+STD;apr_fix;0;01;0111;
+ANN;--- portraits ---
+STD;PPE;0;13;0000;
+MUC;PPE;Init;13;0111;
+MUC;PPE;100;13;0111;
+MUC;PPE;150;13;0000;
 STD;minornpcportraitsforiwdee;0;13;1111;
 STD;LightingPack;0;13;0000;
 STD;LightingPack;1;13;0000;
@@ -431,11 +441,5 @@ STD;sentrizeal_aa_pack;1;13;0111;
 STD;sentrizeal_aa_pack;2;13;0111;
 STD;sentrizeal_aa_pack;3;13;0111;
 STD;sentrizeal_aa_pack;4;13;0111;
-SUB;generalized_biffing;0;00;1111;
-SUB;generalized_biffing;0?1_0;00;0000;
-SUB;generalized_biffing;0?1_1;00;1111;
-ANN;--- optional fixes ---
-STD;apr_fix;0;01;0111;
-ANN;--- portraits ---
 STD;DjinniCompanion;300;13;0111;
 ANN;Added due to patching

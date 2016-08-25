@@ -1571,6 +1571,10 @@ SUB;generalized_biffing;0;00;1111;
 SUB;generalized_biffing;0?1_0;00;0000;
 SUB;generalized_biffing;0?1_1;00;1111;
 ANN;--- UI, graphics, sound ---
+STD;PPE;0;13;0000;
+MUC;PPE;Init;13;0111;
+MUC;PPE;100;13;0111;
+MUC;PPE;150;13;0000;
 MUC;BGEEClassicMovies;Init;13;1111;
 MUC;BGEEClassicMovies;0;13;0000;
 MUC;BGEEClassicMovies;1;13;1111;
