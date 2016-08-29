@@ -967,9 +967,7 @@ Func _Depend_GetActiveConflictAdv($p_String, $p_RuleID, $p_Show)
 		Exit
 	EndIf
 	$p_String=StringSplit($p_String, ':')
-    $Test = $p_String
-    $p_String=StringSplit($p_String, ':')
-    Local $Active, $Test[$p_String[0]+1][UBound(StringRegExp($Test, ':|\x7c|&', 3))+1]
+	Local $Active, $Test[$p_String[0]+1][50]
 	For $s=1 to $p_String[0]
 		$Active=_Depend_ItemGetSelected($p_String[$s])
 		For $r=1 to $Active[0][0]
