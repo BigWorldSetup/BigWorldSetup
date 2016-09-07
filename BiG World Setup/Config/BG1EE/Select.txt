@@ -552,7 +552,6 @@ STD;TomeAndBlood;30;07;0000;
 STD;TomeAndBlood;31;07;0000;
 
 ANN;--- add and revise kits ---
-STD;might_and_guile;200;09;0111;
 STD;might_and_guile;220;09;0111;
 STD;might_and_guile;225;09;0111;
 STD;might_and_guile;230;09;0111;
@@ -1094,6 +1093,8 @@ STD;stratagems;7220;08;0011;
 STD;stratagems;7230;08;0011;
 STD;stratagems;7250;08;0011;
 STD;stratagems;7900;08;0011;
+STD;might_and_guile;200;09;0111;
+STD;might_and_guile;205;09;0111;
 SUB;BGEESpawn;101;08;0111;
 SUB;BGEESpawn;101?1_0;08;0000;
 SUB;BGEESpawn;101?1_1;08;0000;

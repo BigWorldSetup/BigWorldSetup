@@ -1950,6 +1950,7 @@ STD;stratagems;8170;08;0011;
 STD;stratagems;8180;08;0011;
 STD;stratagems;8190;08;0011;
 STD;might_and_guile;200;09;0111;
+STD;might_and_guile;205;09;0111;
 ANN;Shield of Reflection works on SCS Flame Arrows
 STD;jimfix;2;01;0111;
 ANN;Fix SCS Smarter Abazigal
