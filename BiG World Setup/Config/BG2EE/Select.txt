@@ -301,6 +301,8 @@ MUC;kittomes;Init;12;0111;
 MUC;kittomes;5;12;0111;
 MUC;kittomes;6;12;0000;
 GRP;Stop
+ANN;--- test install for k9AltLegacyOfBhaal tweaks ---
+STD;k9AltLegacyOfBhaal;0;09;0000;
 ANN;--- BGEE misc tweaks ---
 MUC;BG_Travel;Init;09;0111;
 MUC;BG_Travel;66;09;0111;
@@ -1003,6 +1005,8 @@ MUC;Eldritch_Magic;18;12;0001;
 MUC;Eldritch_Magic;19;12;0001;
 MUC;Eldritch_Magic;20;12;0001;
 STD;Eldritch_Magic;22;12;0001;
+
+STD;k9AltLegacyOfBhaal;1;09;0000;
 ANN;--- BG2EE cosmetic tweaks ---
 ANN;#10 is IWD casting graphics
 STD;iwdification;10;09;0111;
