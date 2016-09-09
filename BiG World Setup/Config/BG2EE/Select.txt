@@ -2900,8 +2900,9 @@ SUB;ajantisportraitpack;0?1_14;13;0000;
 SUB;ajantisportraitpack;0?1_15;13;0000;
 SUB;ajantisportraitpack;0?1_16;13;0000;
 SUB;ajantisportraitpack;0?1_17;13;0000;
-ANN;--- experimental tweaks ---
-STD;apr_fix;0;01;0111;
+ANN;--- optional fixes ---
+ANN;No more needef for 2.3+
+ANN;STD;apr_fix;0;01;0111;
 ANN;--- NPC class changes ---
 ANN;Imoen
 MUC;npc_ee;Init;07;0111;
