@@ -322,13 +322,6 @@ ANN;--- item tweaks ---
 MUC;msfm;Init;10;0000;
 MUC;msfm;0;10;0000;
 MUC;msfm;1;10;0000;
-MUC;msfm;Init;10;0000;
-MUC;msfm;4;10;0000;
-MUC;msfm;5;10;0000;
-MUC;msfm;6;10;0000;
-MUC;msfm;7;10;0000;
-MUC;msfm;8;10;0000;
-MUC;msfm;9;10;0000;
 STD;msfm;10;10;0000;
 STD;msfm;11;10;0000;
 STD;msfm;12;10;0000;
