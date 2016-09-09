@@ -1193,7 +1193,8 @@ STD;klatu;1020;09;0111;
 STD;klatu;1050;09;0111;
 STD;klatu;2000;09;1111;
 STD;klatu;2010;09;1111;
-STD;klatu;2020;09;0001;
+ANN;Not needed for 2.3+
+ANN;STD;klatu;2020;09;0001;
 STD;klatu;2030;09;1111;
 STD;klatu;2040;09;1111;
 STD;klatu;2050;09;1111;
