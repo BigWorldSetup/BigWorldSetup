@@ -2833,7 +2833,6 @@ STD;cdtweaks;2400;16;0000;
 STD;cdtweaks;2410;16;0000;
 STD;cdtweaks;2420;16;0000;
 STD;cdtweaks;2430;16;0000;
-STD;cdtweaks;2440;16;0000;
 STD;cdtweaks;2450;16;0000;
 STD;cdtweaks;2999;16;0000;
 MUC;cdtweaks;Init;16;0000;
