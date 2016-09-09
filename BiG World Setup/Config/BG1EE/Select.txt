@@ -1575,6 +1575,9 @@ STD;NSCPortraits;1450;13;1111;
 STD;NSCPortraits;1540;13;1111;
 STD;NSCPortraits;5000;13;1111;
 STD;NSCPortraits;5010;13;1111;
+STD;artaport;1;13;0000;
+STD;artaport;2;13;0000;
+STD;artaport;3;13;0000;
 ANN;--- PaintBG portraits ---
 ANN;We must install PaintBG before generalized biffing so that we can append to BGEE.SQL
 ANN;PaintBG for EE is just .bmp files, so install first to allow other mods to overwrite
