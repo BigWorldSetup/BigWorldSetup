@@ -1327,10 +1327,6 @@ MUC;randomiser;Init;09;0011;
 MUC;randomiser;10100;09;0000;
 MUC;randomiser;10200;09;0011;
 CMD;IF EXIST Setup-Derats_kits.exe IF EXIST ".\override\PXW3CAME.SPL" move ".\override\PXW3CAME.SPL" ".\BWS_workspace\override"
-STD;w_psionics_unleashed;10;12;0001;
-MUC;w_psionics_unleashed;Init;12;0001;
-MUC;w_psionics_unleashed;61;12;0001;
-MUC;w_psionics_unleashed;62;12;0000;
 CMD;IF EXIST Setup-Derats_kits.exe IF EXIST ".\BWS_workspace\override\PXW3CAME.SPL" move ".\BWS_workspace\override\PXW3CAME.SPL" ".\override"
 MUC;xpmod;Init;09;0000;
 MUC;xpmod;0;09;0000;
