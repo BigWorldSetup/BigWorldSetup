@@ -56,6 +56,7 @@ Func _Test_GetGamePath($p_Game, $p_Force=0)
 			$Test=RegRead('HKEY_LOCAL_MACHINE\SOFTWARE\Microsoft\Windows\CurrentVersion\Uninstall\'&$Key, 'UninstallString')
 			$Test=StringRegExpReplace($Test, '\A"|\\[^\\]*\z', '')
 			If $p_Game = 'BG1EE' And FileExists($Test&'\Data\00766') Then $Test=$Test&'\Data\00766'; Maybe this works for Steam?
+			If $p_Game = 'BG1EE' And FileExists($Test&'\Data\00806') Then $Test=$Test&'\Data\00806'; Maybe this works for Steam?
 			If $p_Game = 'BG2EE' And FileExists($Test&'\Data\00783') Then $Test=$Test&'\Data\00783'; Maybe this works for Steam?
 			If $p_Game = 'IWD1EE' And FileExists($Test&'\Data\00798') Then $Test=$Test&'\Data\00798'; Maybe this works for Steam?
 			ExitLoop
@@ -73,8 +74,10 @@ Func _Test_GetGamePath($p_Game, $p_Force=0)
 		If $Files[0] <> 0 Then
 			If FileExists(@ProgramFilesDir&'\'&$Files[1]&'\'&$Game[$g][3]) Then $Test = @ProgramFilesDir&'\'&$Files[1]; Steam-version
 			If FileExists(@ProgramFilesDir&'\'&$Files[1]&'\Data\00766\'&$Game[$g][3]) Then $Test=@ProgramFilesDir&'\'&$Files[1]&'\Data\00766'; BeamDog-version
+			If FileExists(@ProgramFilesDir&'\'&$Files[1]&'\Data\00806\'&$Game[$g][3]) Then $Test=@ProgramFilesDir&'\'&$Files[1]&'\Data\00806'; BeamDog-version
 		EndIf
 		If FileExists(@ProgramFilesDir&'\BeamDog\Data\00766\'&$Game[$g][3]) Then $Test=@ProgramFilesDir&'\BeamDog\Data\00766'; BeamDog-version (2. attempt)
+		If FileExists(@ProgramFilesDir&'\BeamDog\Data\00806\'&$Game[$g][3]) Then $Test=@ProgramFilesDir&'\BeamDog\Data\00806'; BeamDog-version (2. attempt)
 	ElseIf $p_Game = 'BG2EE' Then
 		$Test=''
 		$Files=_FileSearch(@ProgramFilesDir, "Baldur's Gate II*Enhanced Edition")
@@ -110,6 +113,7 @@ Func _Test_GetGamePath($p_Game, $p_Force=0)
 			If StringInStr($Files[$f], 'BiG World Clean Install') Then ContinueLoop
 			If FileExists($SearchDir & '\' & $Files[$f] & '\'&$Game[$g][3]) Then
 				If FileExists($SearchDir & '\' & $Files[$f] &'\Data\00766') Then $Files[$f]=$Files[$f] &'\Data\00766'; BG1EE
+				If FileExists($SearchDir & '\' & $Files[$f] &'\Data\00806') Then $Files[$f]=$Files[$f] &'\Data\00806'; BG1EE SoD
 				If FileExists($SearchDir & '\' & $Files[$f] &'\Data\00783') Then $Files[$f]=$Files[$f] &'\Data\00783'; BG2EE
 				If FileExists($SearchDir & '\' & $Files[$f] &'\Data\00798') Then $Files[$f]=$Files[$f] &'\Data\00798'; IWD1EE
 				Assign ('g_'&$p_Game&'Dir', $SearchDir & '\' & $Files[$f])
@@ -767,8 +771,8 @@ Func _Test_GetCustomTP2($p_Setup, $p_Dir='\')
 EndFunc   ;==>_Test_GetCustomTP2
 
 ; ---------------------------------------------------------------------------------------------
-; Check if EET will be used to install BG1 using the current selection, list BG1/BG2 mods
-;	Keep this function consistent with _Tree_PurgeUnNeeded in Select-Tree.au3
+; Check if EET will be used to install BG1EE using the current selection, list BG1/BG2 mods
+; Keep this function consistent with _Tree_PurgeUnNeeded in Select-Tree.au3
 ; ---------------------------------------------------------------------------------------------
 Func _Test_Get_EET_Mods(); called by _Tree_EndSelection() just before starting an installation
 	Local $BG1EE_Mods='WeiDU|eekeeper|bwinstallpack|bwfixpack|', $BG2EE_Mods='WeiDU|eekeeper|bwinstallpack|bwfixpack|EET-patches-for-BG2EE-mods-master'
@@ -787,11 +791,12 @@ Func _Test_Get_EET_Mods(); called by _Tree_EndSelection() just before starting a
 			If ($SplitPurgeLine[0] <> 3) Then ContinueLoop; Purge lines should have exactly three sections (C|D : ... : ...)
 			If StringLeft($SplitPurgeLine[1], 1) = 'D' And StringRegExp($SplitPurgeLine[3], '(?i)EET\x28\x2d\x29') Then; requires EET
 				$EETMods &= StringReplace(StringReplace(StringReplace(StringReplace($SplitPurgeLine[2], '&', '|'), "(-)", ''), '(', ';('), '?', '\x3f')
-				;  a purge rule "D:abc(0)&def(3):EET(-)" will be interpreted as "abc(0) and def(3) each independently depend on EET"
-				;  in this example def(3) will be considered an EET mod (eligible for pre-EET installation) even if abc(0) is not installed
+				; a purge rule "D:abc(0)&def(3):EET(-)" will be interpreted as "abc(0) and def(3) each independently depend on EET"
+				; in this example def(3) will be considered an EET mod (eligible for pre-EET installation) even if abc(0) is not installed
 				$EETMods &= '|'; add delimiter/separator
-				;old implementation
-				;$EETMods &= StringRegExpReplace($Purge[$p][1], '(?i)\AD\x3a|\AC\x3a[[:alpha:]]{2}\x3a|\x3a([\x7c]?(BGT|EET)\x28\x2d\x29){1,}\z|\x28\x2d\x29|\x3a([[:alpha:]]{2}[\x7c]?)+\z|\x3a\d[\x2e\d|\x7c]{1,}\z', '')&'|' ; remove D:|C:XX:|:BGT(-)|:EET(-)|(-)|:#[.#|]|:XX, add delimiter/separator
+				; old implementation
+				; $EETMods &= StringRegExpReplace($Purge[$p][1], '(?i)\AD\x3a|\AC\x3a[[:alpha:]]{2}\x3a|\x3a([\x7c]?(BGT|EET)\x28\x2d\x29){1,}\z|\x28\x2d\x29|\x3a([[:alpha:]]{2}[\x7c]?)+\z|\x3a\d[\x2e\d|\x7c]{1,}\z', '')&'|'
+				; remove D:|C:XX:|:BGT(-)|:EET(-)|(-)|:#[.#|]|:XX, add delimiter/separator
 			EndIf
 		Next
 	EndIf
