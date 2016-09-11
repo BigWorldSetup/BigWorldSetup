@@ -9,13 +9,13 @@ DWN;eekeeper;0;00;1111;
 ANN;--- BGEE + BG2EE patches ---
 DWN;bwinstallpack;0;00;1111;
 DWN;bwfixpack;0;00;1111;
-CMD;echo.>> _Test-BG1EE-BG2EE.txt
+ANN;CMD;echo.>> _Test-1and2.txt
 ANN;special case - BWS has code in Testing.au3 that will apply the lines above in both BG1EE and BG2EE directory if EET is selected
 ANN;--- BGEE patches ---
-CMD;echo.>> _Test-BG1EE.txt
 CMD;IF EXIST "BiG World Fixpack" IF NOT EXIST BWP_Fixpack.installed Call "BiG World Fixpack.bat"
 CMD;IF NOT EXIST BWP_Smoothpack.installed Call ".\BiG World Installpack\BiG World Smoothpack.bat"
 CMD;IF EXIST ".\BiG World Installpack\BWP_Smoothpack.installed" copy ".\BiG World Installpack\BWP_Smoothpack.installed" "."
+CMD;echo.>> _Test-BG1EE.txt
 STD;BGEE_PL;0;0;1111;
 STD;BGEE_PL;1;0;1111;
 ANN;--- Polish launguage up to date ---
@@ -321,10 +321,14 @@ MUC;BGEEClassicMovies;1;13;0000;
 STD;BGEEClassicMovies;2;13;0000;
 ANN;--- end BGEE, start EET / BG2EE ---
 ANN;--- BWS switches from BG1EE folder to BG2EE folder after this line ---
-DWN;EET-patches-for-BG2EE-mods;0;00;1111;
 ANN;--- EET_End must be ready before EET
-CMD;IF NOT EXIST "Setup-EET_End.tp2" copy ".\EET\lib\EET_end.tp2" ".\Setup-EET_End.tp2"
+CMD;IF NOT EXIST "EET_End.tp2" copy ".\EET\lib\EET_end.tp2" ".\EET_End.tp2"
 CMD;IF NOT EXIST "Setup-EET_End.exe" copy ".\weidu.exe" ".\Setup-EET_End.exe"
+DWN;EET-patches-for-BG2EE-mods;0;00;1111;
+STD;BG2EE_PL;0;0;1111;
+STD;BG2EE_PL;1;0;1111;
+DWN;BG2EE-Polish;0;00;1111;
+CMD;echo.>> _Test-BG2EE.txt
 STD;EET;0;00;1111;
 CMD;IF NOT EXIST ".\BWS_workspace\override" MD ".\BWS_workspace\override"
 ANN;--- BG2EE patches ---
@@ -337,10 +341,6 @@ CMD;IF EXIST "BiG World Fixpack\spell_rev" rmdir /s /q "BiG World Fixpack\spell_
 CMD;IF EXIST "BiG World Fixpack" IF NOT EXIST BWP_Fixpack.installed Call "BiG World Fixpack.bat"
 CMD;IF NOT EXIST BWP_Smoothpack.installed Call ".\BiG World Installpack\BiG World Smoothpack.bat"
 CMD;IF EXIST ".\BiG World Installpack\BWP_Smoothpack.installed" copy ".\BiG World Installpack\BWP_Smoothpack.installed" "."
-STD;BG2EE_PL;0;0;1111;
-STD;BG2EE_PL;1;0;1111;
-DWN;BG2EE-Polish;0;00;1111;
-CMD;echo.>> _Test-BG2EE.txt
 MUC;bggoEET;Init;13;0111;
 MUC;bggoEET;0;13;0111;
 MUC;bggoEET;1;13;0000;
@@ -2411,9 +2411,10 @@ STD;lolfixer;13;01;0001;
 STD;lolfixer;14;01;0001;
 STD;lolfixer;15;01;0001;
 ANN;EET_End component to finish EET installation, ready before EET
-SUB;EET_end;0;00;0000;
-SUB;EET_end;0?1_1;00;0000;
-STD;EET_end;2;00;0000;
+STD;EET_End;0;13;0000;
+SUB;EET_end;1;00;0000;
+SUB;EET_end;1?1_1;00;0000;
+SUB;EET_end;1?1_2;00;0000;
 ANN;--- hotfixes ---
 ANN;shouldn't these fixes be applied earlier?
 ANN;trim leading and trailing spaces, remove duplicates
@@ -2661,7 +2662,6 @@ ANN;--- generalized biffing ---
 SUB;generalized_biffing;0;00;1111;
 SUB;generalized_biffing;0?1_0;00;0000;
 SUB;generalized_biffing;0?1_1;00;1111;
-STD;EET_end;1;00;0000;
 ANN;--- UI, graphics, sound ---
 STD;PPE;0;13;0000;
 MUC;PPE;Init;13;0111;
