@@ -4707,6 +4707,5 @@ CMD;copy /Y .\BWP_workspace\dialog.tra .\BWP_workspace\dialog.tra.bak
 CMD;IF EXIST "BiG World Textpack ENGLISH" ren ".\BiG World Installpack\SR_consistence_catalog_English.txt" "SR_consistence_catalog.txt"
 CMD;IF EXIST "BiG World Textpack GERMAN" ren ".\BiG World Installpack\SR_consistence_catalog_German.txt" "SR_consistence_catalog.txt"
 CMD;".\BiG World Installpack\SR_consistence.js" ".\BWP_workspace\dialog.tra"
-CMD;WeiDU.exe --make-tlk .\BWP_workspace\dialog.tra dialog.tlk
-CMD;IF EXIST dialogF.tlk WeiDU.exe --make-tlk .\BWP_workspace\dialog.tra dialogF.tlk
+CMD;WeiDU.exe --make-tlk .\BWP_workspace\dialog.tra
 ANN;Added due to patching
