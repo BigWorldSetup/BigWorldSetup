@@ -1017,6 +1017,9 @@ STD;sentrizeal_aa_pack;1;13;0111;
 STD;sentrizeal_aa_pack;2;13;0111;
 STD;sentrizeal_aa_pack;3;13;0111;
 STD;sentrizeal_aa_pack;4;13;0111;
+STD;npc_tweak;0;09;1111;
+STD;npc_tweak;1;09;1111;
+STD;npc_tweak;2;09;1111;
 ANN;--- BG2EE spells ---
 ANN;--- item revisions core, spell revisions core ---
 ANN;IR #0 as early as possible so other mods can overwrite

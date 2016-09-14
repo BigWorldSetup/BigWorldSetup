@@ -1720,9 +1720,9 @@ ANN;#19. BG2 RULES, TWEAKS AND SPELLS
 STD;w_3kradziej;0;16;0111;
 STD;w_3kradziej;1;16;0111;
 STD;UCFOW;0;16;0000;
-STD;npc_tweak;0;16;0111;
-STD;npc_tweak;1;16;0000;
-STD;npc_tweak;2;16;0000;
+STD;npc_tweak;0;16;1111;
+STD;npc_tweak;1;16;1111;
+STD;npc_tweak;2;16;1111;
 STD;hiddenadventure;0;10;0111;
 STD;hiddenadventure;1;03;0111;
 STD;hiddenadventure;2;10;0111;
