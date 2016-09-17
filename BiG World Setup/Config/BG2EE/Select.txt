@@ -1005,7 +1005,6 @@ MUC;Eldritch_Magic;18;12;0001;
 MUC;Eldritch_Magic;19;12;0001;
 MUC;Eldritch_Magic;20;12;0001;
 STD;Eldritch_Magic;22;12;0001;
-
 STD;k9AltLegacyOfBhaal;1;09;0000;
 ANN;--- BG2EE cosmetic tweaks ---
 ANN;#10 is IWD casting graphics
@@ -1158,30 +1157,6 @@ ANN;30-31 are BG1 NPC tweaks
 STD;TomeAndBlood;30;07;0000;
 STD;TomeAndBlood;31;07;0000;
 ANN;--- add revise kits ---
-STD;might_and_guile;220;09;0111;
-STD;might_and_guile;225;09;0111;
-STD;might_and_guile;230;09;0111;
-STD;might_and_guile;235;09;0111;
-STD;might_and_guile;250;09;0111;
-STD;might_and_guile;260;09;0111;
-STD;might_and_guile;265;09;0111;
-STD;might_and_guile;270;09;0111;
-STD;might_and_guile;275;09;0111;
-STD;might_and_guile;310;12;0111;
-STD;might_and_guile;320;12;0111;
-STD;might_and_guile;322;12;0111;
-STD;might_and_guile;324;12;0111;
-STD;might_and_guile;350;12;0111;
-STD;might_and_guile;360;12;0111;
-STD;might_and_guile;390;12;0111;
-STD;might_and_guile;410;12;0111;
-STD;might_and_guile;420;12;0111;
-STD;might_and_guile;450;12;0111;
-STD;might_and_guile;460;12;0111;
-STD;might_and_guile;470;12;0111;
-STD;might_and_guile;480;12;0111;
-STD;might_and_guile;490;12;0111;
-STD;might_and_guile;500;09;0111;
 STD;A7!GolemConstruction;0;09;0011;
 STD;A7!GolemConstruction;10;09;0011;
 STD;A7!GolemConstruction;15;09;0011;
@@ -1190,182 +1165,6 @@ STD;A7!GolemConstruction;25;09;0011;
 STD;A7!GolemConstruction;30;09;0011;
 STD;PaleMaster;0;12;0111;
 STD;PaleMaster;1;12;0111;
-STD;BG2_Tweaks;10;09;0000;
-STD;BG2_Tweaks;20;09;0000;
-STD;BG2_Tweaks;30;09;0000;
-STD;BG2_Tweaks;40;09;0000;
-STD;BG2_Tweaks;50;09;0000;
-STD;BG2_Tweaks;60;09;1111;
-STD;BG2_Tweaks;70;09;1111;
-STD;BG2_Tweaks;90;09;0000;
-ANN;https://forums.beamdog.com/discussion/comment/677241/#Comment_677241
-ANN;BG2_Tweaks;100;09;0000;
-STD;BG2_Tweaks;110;09;1111;
-STD;BG2_Tweaks;120;09;0000;
-STD;BG2_Tweaks;130;09;1111;
-STD;BG2_Tweaks;140;09;1111;
-STD;BG2_Tweaks;1010;09;1111;
-STD;BG2_Tweaks;1020;09;1111;
-STD;BG2_Tweaks;1030;09;0000;
-STD;BG2_Tweaks;1040;09;1111;
-STD;BG2_Tweaks;1050;09;0000;
-ANN;Improved Multi-Player Kick-out Dialogues
-STD;BG2_Tweaks;1070;09;1111;
-ANN;#1080 add bags of holding -> stores and items
-STD;BG2_Tweaks;1080;10;0000;
-STD;BG2_Tweaks;1120;09;1111;
-STD;BG2_Tweaks;1140;09;0000;
-MUC;BG2_Tweaks;Init;09;1111;
-MUC;BG2_Tweaks;1160;09;0000;
-MUC;BG2_Tweaks;1161;09;1111;
-ANN;#1170 bonus merchants -> stores and items
-STD;BG2_Tweaks;1170;10;1111;
-STD;BG2_Tweaks;1180;09;1111;
-ANN;#1220 allow Cromwell to upgrade WK items
-STD;BG2_Tweaks;1220;09;1111;
-ANN;#1230 allow Caspenar to use Cromwell recipes
-STD;BG2_Tweaks;1230;09;1111;
-STD;BG2_Tweaks;2020;09;0000;
-STD;BG2_Tweaks;2030;09;0000;
-STD;BG2_Tweaks;2035;09;0000;
-STD;BG2_Tweaks;2040;09;1111;
-STD;BG2_Tweaks;2060;09;0000;
-ANN;#2080 delay HLAs -> Tactical
-STD;BG2_Tweaks;2080;09;0011;
-MUC;BG2_Tweaks;Init;09;1111;
-MUC;BG2_Tweaks;2090;09;1111;
-MUC;BG2_Tweaks;2091;09;0000;
-MUC;BG2_Tweaks;2092;09;0000;
-STD;BG2_Tweaks;2100;09;0000;
-STD;BG2_Tweaks;2120;09;0000;
-STD;BG2_Tweaks;2140;09;0000;
-MUC;BG2_Tweaks;Init;09;0111;
-MUC;BG2_Tweaks;2150;09;0000;
-MUC;BG2_Tweaks;2151;09;0111;
-MUC;BG2_Tweaks;Init;09;0111;
-MUC;BG2_Tweaks;2160;09;0111;
-MUC;BG2_Tweaks;2161;09;0000;
-MUC;BG2_Tweaks;2162;09;0000;
-STD;BG2_Tweaks;2170;09;0000;
-MUC;BG2_Tweaks;Init;09;1111;
-MUC;BG2_Tweaks;2190;09;0000;
-MUC;BG2_Tweaks;2191;09;0000;
-MUC;BG2_Tweaks;2192;09;1111;
-STD;BG2_Tweaks;2200;09;0111;
-STD;BG2_Tweaks;2210;09;0111;
-STD;BG2_Tweaks;2240;09;1111;
-STD;BG2_Tweaks;2250;09;0111;
-MUC;BG2_Tweaks;Init;09;0000;
-MUC;BG2_Tweaks;2260;09;0000;
-MUC;BG2_Tweaks;2261;09;0000;
-MUC;BG2_Tweaks;Init;09;0000;
-MUC;BG2_Tweaks;2270;09;0000;
-MUC;BG2_Tweaks;2271;09;0000;
-MUC;BG2_Tweaks;Init;09;1000;
-MUC;BG2_Tweaks;2280;09;1000;
-MUC;BG2_Tweaks;2281;09;0000;
-MUC;BG2_Tweaks;Init;09;1000;
-MUC;BG2_Tweaks;2290;09;1000;
-MUC;BG2_Tweaks;2291;09;0000;
-MUC;BG2_Tweaks;2292;09;0000;
-MUC;BG2_Tweaks;2293;09;0000;
-MUC;BG2_Tweaks;2294;09;0000;
-MUC;BG2_Tweaks;2295;09;0000;
-MUC;BG2_Tweaks;2296;09;0000;
-STD;BG2_Tweaks;2300;09;1111;
-STD;BG2_Tweaks;2320;09;1111;
-STD;BG2_Tweaks;2330;09;1111;
-STD;BG2_Tweaks;2339;09;0000;
-STD;BG2_Tweaks;2340;09;1111;
-MUC;BG2_Tweaks;Init;09;0111;
-MUC;BG2_Tweaks;2350;09;0000;
-MUC;BG2_Tweaks;2351;09;0000;
-MUC;BG2_Tweaks;2352;09;0111;
-STD;BG2_Tweaks;2360;09;0111;
-MUC;BG2_Tweaks;Init;09;0111;
-MUC;BG2_Tweaks;2370;09;0000;
-MUC;BG2_Tweaks;2371;09;0111;
-MUC;BG2_Tweaks;2372;09;0000;
-STD;BG2_Tweaks;2380;09;0111;
-MUC;BG2_Tweaks;Init;09;0111;
-MUC;BG2_Tweaks;3000;09;0000;
-MUC;BG2_Tweaks;3001;09;0111;
-MUC;BG2_Tweaks;Init;09;0000;
-MUC;BG2_Tweaks;3010;09;0000;
-MUC;BG2_Tweaks;3011;09;0000;
-MUC;BG2_Tweaks;3012;09;0000;
-STD;BG2_Tweaks;3020;09;0000;
-MUC;BG2_Tweaks;Init;09;0000;
-MUC;BG2_Tweaks;3030;09;0000;
-MUC;BG2_Tweaks;3031;09;0000;
-STD;BG2_Tweaks;3040;09;0000;
-STD;BG2_Tweaks;3050;09;1111;
-STD;BG2_Tweaks;3060;09;1111;
-MUC;BG2_Tweaks;Init;09;0000;
-MUC;BG2_Tweaks;3070;09;0000;
-MUC;BG2_Tweaks;3071;09;0000;
-MUC;BG2_Tweaks;3072;09;0000;
-MUC;BG2_Tweaks;3073;09;0000;
-STD;BG2_Tweaks;3080;09;1111;
-STD;BG2_Tweaks;3090;09;1111;
-STD;BG2_Tweaks;3100;09;1111;
-STD;BG2_Tweaks;3110;09;1111;
-MUC;BG2_Tweaks;Init;09;1111;
-MUC;BG2_Tweaks;3120;09;0000;
-MUC;BG2_Tweaks;3121;09;1111;
-MUC;BG2_Tweaks;3122;09;0000;
-STD;BG2_Tweaks;3123;09;0000;
-STD;BG2_Tweaks;3124;09;0000;
-STD;BG2_Tweaks;3125;09;1111;
-ANN;no traps or locks -> Expert
-STD;BG2_Tweaks;3130;09;0001;
-ANN;fast ch.1,2 cutscenes & dreams -> Expert
-ANN;https://forums.beamdog.com/discussion/comment/677241/#Comment_677241
-ANN;MUC;BG2_Tweaks;Init;09;0001;
-ANN;MUC;BG2_Tweaks;3140;09;0000;
-ANN;MUC;BG2_Tweaks;3141;09;0001;
-STD;BG2_Tweaks;3150;09;0000;
-STD;BG2_Tweaks;3160;09;0000;
-STD;BG2_Tweaks;3170;09;0000;
-ANN;romance cheats
-SUB;BG2_Tweaks;3183;09;1111;
-ANN;remove racial requirements -> yes, standard
-SUB;BG2_Tweaks;3183?1_a;09;0111;
-SUB;BG2_Tweaks;3183?1_b;09;1000;
-ANN;remove gender requirements -> not recommended
-SUB;BG2_Tweaks;3183?2_a;09;0000;
-SUB;BG2_Tweaks;3183?2_b;09;1111;
-ANN;allow multiple romances -> not recommended
-SUB;BG2_Tweaks;3183?3_a;09;0000;
-SUB;BG2_Tweaks;3183?3_b;09;1111;
-ANN;nothing kills romances -> not recommended
-SUB;BG2_Tweaks;3183?4_a;09;0000;
-SUB;BG2_Tweaks;3183?4_b;09;1111;
-ANN;start new romances in TOB -> not recommended
-SUB;BG2_Tweaks;3183?5_a;09;0000;
-SUB;BG2_Tweaks;3183?5_b;09;1111;
-SUB;BG2_Tweaks;3183?6_a;09;1111;
-STD;BG2_Tweaks;3190;09;0000;
-ANN;#3200 sellable items 0000
-STD;BG2_Tweaks;3200;09;1111;
-STD;BG2_Tweaks;3210;09;0000;
-STD;BG2_Tweaks;4010;09;1111;
-ANN;Not needed after 2.0
-ANN;STD;BG2_Tweaks;4020;09;0001;
-MUC;BG2_Tweaks;Init;09;1111;
-MUC;BG2_Tweaks;4030;09;0000;
-MUC;BG2_Tweaks;4031;09;1111;
-MUC;BG2_Tweaks;Init;09;1111;
-MUC;BG2_Tweaks;4040;09;0000;
-MUC;BG2_Tweaks;4041;09;1111;
-STD;BG2_Tweaks;4050;09;1111;
-MUC;BG2_Tweaks;Init;09;1111;
-MUC;BG2_Tweaks;4060;09;0000;
-MUC;BG2_Tweaks;4061;09;1111;
-MUC;BG2_Tweaks;Init;09;1111;
-MUC;BG2_Tweaks;4070;09;0000;
-MUC;BG2_Tweaks;4071;09;1111;
-STD;BG2_Tweaks;4100;09;1111;
 STD;cdtweaks;10;09;0000;
 STD;cdtweaks;20;09;0000;
 STD;cdtweaks;30;09;0000;
@@ -1618,52 +1417,6 @@ STD;cdtweaks;4100;09;1111;
 STD;cdtweaks;4110;09;1111;
 STD;cdtweaks;4120;09;1111;
 STD;cdtweaks;4130;09;0000;
-SUB;AnimalCompanions;0;09;0111;
-SUB;AnimalCompanions;0?1_0;09;0111;
-SUB;AnimalCompanions;0?1_1;09;0000;
-SUB;AnimalCompanions;0?2_Buddy;09;0111;
-SUB;AnimalCompanions;0?3_1;09;0111;
-ANN;BWFixpack disables pcvamp conditional patch (only if Weimer's Valen mod was installed first)
-ANN;that patch resulted in several "WARNING: cannot find block matching [pcvamp/BCS/priest.bcs]"
-ANN;to solve this problem for now, BWFixpack has merged pcvamp's patch into the Valen mod itself
-STD;pcvamp;0;12;0111;
-STD;Derats_kits;0;12;0111;
-STD;Derats_kits;1;12;0111;
-STD;Derats_kits;2;12;0111;
-STD;Derats_kits;3;12;0111;
-STD;Derats_kits;4;12;0111;
-STD;Derats_kits;5;12;0111;
-STD;Derats_kits;6;12;0111;
-STD;Derats_kits;7;12;0000;
-STD;Derats_kits;8;12;0000;
-STD;BearWalker;0;12;0111;
-STD;jkits;0;12;0111;
-STD;jkits;1;12;0111;
-STD;jkits;2;12;0111;
-STD;A7#ImprovedArcher;0;12;0111;
-STD;A7#ImprovedArcher;100;10;0111;
-ANN;already included after patch 2.0
-ANN;STD;eet_tweaks;25;12;0111;
-STD;eet_tweaks;26;12;0111;
-MUC;refinements;Init;09;0111;
-MUC;refinements;10;09;0111;
-MUC;refinements;11;09;0000;
-STD;refinements;101;09;0000;
-STD;refinements;102;09;0000;
-STD;refinements;103;09;0000;
-STD;refinements;104;09;0000;
-STD;refinements;105;09;0000;
-STD;refinements;106;09;0000;
-STD;refinements;107;09;0000;
-STD;refinements;108;09;0000;
-STD;refinements;109;09;0000;
-STD;refinements;110;09;0000;
-MUC;refinements;Init;09;0000;
-MUC;refinements;20;09;0000;
-MUC;refinements;21;09;0000;
-MUC;refinements;22;09;0000;
-STD;refinements;30;09;0000;
-STD;refinements;40;09;0000;
 ANN;#1000 is sphere system, should be installed after all divine kits
 STD;Divine_Remix;1000;09;0001;
 ANN;FnP should be installed after all divine kits
@@ -1722,6 +1475,78 @@ STD;Faiths_and_Powers;954;09;0001;
 STD;Faiths_and_Powers;955;09;0001;
 STD;Faiths_and_Powers;956;09;0001;
 STD;Faiths_and_Powers;1000;09;0001;
+STD;might_and_guile;200;09;0111;
+STD;might_and_guile;205;09;0111;
+STD;might_and_guile;220;09;0111;
+STD;might_and_guile;225;09;0111;
+STD;might_and_guile;230;09;0111;
+STD;might_and_guile;235;09;0111;
+STD;might_and_guile;250;09;0111;
+STD;might_and_guile;260;09;0111;
+STD;might_and_guile;265;09;0111;
+STD;might_and_guile;270;09;0111;
+STD;might_and_guile;275;09;0111;
+STD;might_and_guile;310;12;0111;
+STD;might_and_guile;320;12;0111;
+STD;might_and_guile;322;12;0111;
+STD;might_and_guile;324;12;0111;
+STD;might_and_guile;350;12;0111;
+STD;might_and_guile;360;12;0111;
+STD;might_and_guile;390;12;0111;
+STD;might_and_guile;410;12;0111;
+STD;might_and_guile;420;12;0111;
+STD;might_and_guile;450;12;0111;
+STD;might_and_guile;460;12;0111;
+STD;might_and_guile;470;12;0111;
+STD;might_and_guile;480;12;0111;
+STD;might_and_guile;490;12;0111;
+STD;might_and_guile;500;09;0111;
+SUB;AnimalCompanions;0;09;0111;
+SUB;AnimalCompanions;0?1_0;09;0111;
+SUB;AnimalCompanions;0?1_1;09;0000;
+SUB;AnimalCompanions;0?2_Buddy;09;0111;
+SUB;AnimalCompanions;0?3_1;09;0111;
+ANN;BWFixpack disables pcvamp conditional patch (only if Weimer's Valen mod was installed first)
+ANN;that patch resulted in several "WARNING: cannot find block matching [pcvamp/BCS/priest.bcs]"
+ANN;to solve this problem for now, BWFixpack has merged pcvamp's patch into the Valen mod itself
+STD;pcvamp;0;12;0111;
+STD;Derats_kits;0;12;0111;
+STD;Derats_kits;1;12;0111;
+STD;Derats_kits;2;12;0111;
+STD;Derats_kits;3;12;0111;
+STD;Derats_kits;4;12;0111;
+STD;Derats_kits;5;12;0111;
+STD;Derats_kits;6;12;0111;
+STD;Derats_kits;7;12;0000;
+STD;Derats_kits;8;12;0000;
+STD;BearWalker;0;12;0111;
+STD;jkits;0;12;0111;
+STD;jkits;1;12;0111;
+STD;jkits;2;12;0111;
+STD;A7#ImprovedArcher;0;12;0111;
+STD;A7#ImprovedArcher;100;10;0111;
+ANN;already included after patch 2.0
+ANN;STD;eet_tweaks;25;12;0111;
+STD;eet_tweaks;26;12;0111;
+MUC;refinements;Init;09;0111;
+MUC;refinements;10;09;0111;
+MUC;refinements;11;09;0000;
+STD;refinements;101;09;0000;
+STD;refinements;102;09;0000;
+STD;refinements;103;09;0000;
+STD;refinements;104;09;0000;
+STD;refinements;105;09;0000;
+STD;refinements;106;09;0000;
+STD;refinements;107;09;0000;
+STD;refinements;108;09;0000;
+STD;refinements;109;09;0000;
+STD;refinements;110;09;0000;
+MUC;refinements;Init;09;0000;
+MUC;refinements;20;09;0000;
+MUC;refinements;21;09;0000;
+MUC;refinements;22;09;0000;
+STD;refinements;30;09;0000;
+STD;refinements;40;09;0000;
 ANN;--- SCS core ---
 STD;stratagems;1000;09;1111;
 ANN;--- SCS spell tweaks ---
@@ -1956,8 +1781,6 @@ STD;stratagems;8160;08;0011;
 STD;stratagems;8170;08;0011;
 STD;stratagems;8180;08;0011;
 STD;stratagems;8190;08;0011;
-STD;might_and_guile;200;09;0111;
-STD;might_and_guile;205;09;0111;
 ANN;Shield of Reflection works on SCS Flame Arrows
 STD;jimfix;2;01;0111;
 ANN;Fix SCS Smarter Abazigal
