@@ -2729,7 +2729,7 @@ STD;cdtweaks;160;16;0000;
 MUC;cdtweaks;Init;16;0000;
 MUC;cdtweaks;180;16;0000;
 MUC;cdtweaks;181;16;0000;
-MUC;cdtweaks;182;16;0000;
+ANN;MUC;cdtweaks;182;16;0000;
 MUC;cdtweaks;Init;16;0000;
 MUC;cdtweaks;190;16;0000;
 MUC;cdtweaks;191;16;0000;

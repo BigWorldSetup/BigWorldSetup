@@ -537,7 +537,8 @@ STD;TomeAndBlood;4;09;0000;
 STD;TomeAndBlood;5;09;0000;
 ANN;#6 is BG2EE/IWDEE only
 STD;TomeAndBlood;8;09;0000;
-STD;TomeAndBlood;9;09;0000;
+ANN;#9 is BG2EE/IWDEE only
+ANN;STD;TomeAndBlood;9;09;0000;
 STD;TomeAndBlood;20;09;0000;
 ANN;#10-13 are new classes/kits
 STD;TomeAndBlood;10;12;0000;
@@ -554,8 +555,6 @@ STD;PaleMaster;0;12;0111;
 STD;PaleMaster;1;12;0111;
 STD;PaleMaster;2;12;0111;
 STD;cdtweaks;10;09;0000;
-STD;cdtweaks;20;09;0000;
-STD;cdtweaks;30;09;0000;
 STD;cdtweaks;40;09;0000;
 STD;cdtweaks;50;09;0000;
 STD;cdtweaks;60;09;1111;
@@ -571,7 +570,7 @@ STD;cdtweaks;160;09;0000;
 MUC;cdtweaks;Init;09;1111;
 MUC;cdtweaks;180;09;0000;
 MUC;cdtweaks;181;09;0000;
-MUC;cdtweaks;182;09;1111;
+ANN;MUC;cdtweaks;182;09;1111;
 MUC;cdtweaks;Init;09;0000;
 MUC;cdtweaks;190;09;0000;
 MUC;cdtweaks;191;09;0000;
@@ -1231,7 +1230,6 @@ STD;scales_of_balance;123;09;0000;
 STD;scales_of_balance;124;09;0000;
 STD;scales_of_balance;125;09;0000;
 STD;scales_of_balance;160;09;0000;
-STD;scales_of_balance;180;09;0000;
 STD;scales_of_balance;200;09;0000;
 STD;scales_of_balance;202;09;0000;
 MUC;scales_of_balance;Init;09;0000;
@@ -1414,7 +1412,6 @@ MUC;thepicturestandard;84300;13;0000;
 ANN;Standardized Viconia -> Variant B
 MUC;thepicturestandard;84400;13;0000;
 STD;Isandir;0;13;0000;
-STD;Isandir;1;13;0000;
 ANN;NSCPortraits;0;13;1111; currently works for BGT only
 STD;NSCPortraits;10;13;1111;
 ANN;NToTSC not yet available for EE
