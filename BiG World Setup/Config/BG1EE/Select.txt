@@ -157,7 +157,8 @@ MUC;BG1NPCMusic;4;07;0000;
 MUC;BG1NPCMusic;5;07;0000;
 STD;IndiNPC;0;05;0111;
 STD;Mur'Neth;0;05;0111;
-STD;MulgoreXaviaNPC;0;05;0111;
+ANN;Needs heavy patching for BG1EE/EET
+ANN;STD;MulgoreXaviaNPC;0;05;0111;
 STD;XanBG1Friend;0;07;1111;
 STD;coranbgfriend;0;07;1111;
 ANN;AjantisBG1 after bg1npc
