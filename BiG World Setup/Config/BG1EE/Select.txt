@@ -1065,7 +1065,6 @@ STD;aTweaks;999;09;1111;
 ANN;https://forums.beamdog.com/discussion/comment/812942/#Comment_812942
 STD;scales_of_balance;180;09;0000;
 STD;klatu;1010;09;0111;
-STD;klatu;1020;09;0111;
 STD;klatu;1050;09;0111;
 STD;klatu;2000;09;1111;
 STD;klatu;2010;09;1111;
