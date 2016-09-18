@@ -398,9 +398,16 @@ STD;Eldritch_Magic;14;12;0001;
 STD;Eldritch_Magic;15;12;0001;
 STD;Eldritch_Magic;16;12;0001;
 STD;Eldritch_Magic;22;12;0001;
-ANN;--- test install for k9AltLegacyOfBhaal tweaks ---
-STD;k9AltLegacyOfBhaal;0;09;0000;
-STD;k9AltLegacyOfBhaal;1;09;0000;
+ANN;--- test install for k9RoughWorld tweaks ---
+STD;k9RoughWorld;0;09;0000;
+STD;k9RoughWorld;1;09;0000;
+STD;k9RoughWorld;2;09;0000;
+STD;k9RoughWorld;3;09;0000;
+STD;k9RoughWorld;4;09;0000;
+STD;k9RoughWorld;5;09;0000;
+STD;k9RoughWorld;6;09;0000;
+STD;k9RoughWorld;7;09;0000;
+STD;k9RoughWorld;8;09;0000;
 ANN;--- cosmetic tweaks ---
 ANN;#10 is IWD casting graphics
 STD;iwdification;10;09;0111;
@@ -718,8 +725,12 @@ STD;cdtweaks;3150;09;1111;
 MUC;cdtweaks;Init;09;0000;
 MUC;cdtweaks;3190;09;0000;
 MUC;cdtweaks;3191;09;0000;
-MUC;cdtweaks;3192;09;0000;
-MUC;cdtweaks;3193;09;0000;
+MUC;cdtweaks;Init;09;0000;
+MUC;cdtweaks;3194;09;0000;
+MUC;cdtweaks;3195;09;0000;
+MUC;cdtweaks;3196;09;0000;
+MUC;cdtweaks;3197;09;0000;
+MUC;cdtweaks;3198;09;0000;
 STD;cdtweaks;3200;09;1111;
 STD;cdtweaks;3205;09;1111;
 STD;cdtweaks;3210;09;0000;
