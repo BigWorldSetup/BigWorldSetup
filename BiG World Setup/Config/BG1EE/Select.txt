@@ -377,7 +377,8 @@ ANN;STD;tiger;0;12;0111;
 ANN;--- new kits ---
 ANN;BearWalker overwrites 25STWEAP.2DA with a copy from BG2EE
 STD;BearWalker;0;12;0111;
-STD;Px_Chantelame;0;12;0111;
+ANN;Breaks cdtweaks "Enforce PnP Proficiency Rules on Dual-Classed Characters"
+ANN;STD;Px_Chantelame;0;12;0111;
 STD;duskblade;0;12;0111;
 STD;WarslingSniperKit;0;12;0111;
 ANN;already included after patch 2.0
