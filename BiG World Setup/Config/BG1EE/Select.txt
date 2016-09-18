@@ -1065,7 +1065,7 @@ MUC;aTweaks;502;09;0000;
 STD;aTweaks;510;09;1111;
 STD;aTweaks;999;09;1111;
 ANN;https://forums.beamdog.com/discussion/comment/812942/#Comment_812942
-STD;scales_of_balance;180;16;0000;
+STD;scales_of_balance;180;09;0000;
 STD;klatu;1010;09;0111;
 STD;klatu;1020;09;0111;
 STD;klatu;1050;09;0111;
