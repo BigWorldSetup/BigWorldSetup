@@ -1077,7 +1077,6 @@ STD;aTweaks;510;09;1111;
 STD;aTweaks;999;09;1111;
 ANN;https://forums.beamdog.com/discussion/comment/812942/#Comment_812942
 STD;scales_of_balance;180;09;0000;
-STD;klatu;1020;09;0111;
 STD;klatu;1040;09;0111;
 STD;klatu;1050;09;0111;
 STD;klatu;2000;09;1111;
@@ -1090,7 +1089,6 @@ STD;klatu;2050;09;1111;
 STD;klatu;2060;09;1111;
 STD;klatu;2070;09;1111;
 STD;klatu;2080;09;1111;
-STD;klatu;2090;09;0001;
 STD;klatu;2110;09;1111;
 STD;klatu;2120;09;1111;
 STD;klatu;2130;09;1111;
