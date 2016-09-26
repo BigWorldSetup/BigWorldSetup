@@ -1309,6 +1309,9 @@ STD;lolfixer;12;01;0000;
 STD;lolfixer;13;01;0001;
 STD;lolfixer;14;01;0001;
 STD;lolfixer;15;01;0001;
+ANN;--- optional fixes ---
+ANN;No more needef for 2.3+
+ANN;STD;apr_fix;0;01;0111;
 ANN;--- hotfixes ---
 ANN;trim leading and trailing spaces, remove duplicates
 CMD;Call ".\BiG World Installpack\trim_IDS.bat" 
@@ -1419,27 +1422,6 @@ MUC;thepicturestandard;84300;13;0000;
 ANN;Standardized Viconia -> Variant B
 MUC;thepicturestandard;84400;13;0000;
 STD;Isandir;0;13;0000;
-ANN;NSCPortraits;0;13;1111; currently works for BGT only
-STD;NSCPortraits;10;13;1111;
-ANN;NToTSC not yet available for EE
-ANN;NSCPortraits;20;13;1111;
-ANN;NSCPortraits;21;13;1111;
-ANN;SoBH not yet available for EE
-ANN;NSCPortraits;30;13;1111;
-STD;NSCPortraits;50;13;1111;
-STD;NSCPortraits;300;13;1111;
-STD;NSCPortraits;305;13;1111;
-ANN;TGC1e not yet available for EE
-ANN;NSCPortraits;310;13;1111;
-STD;NSCPortraits;1780;13;1111;
-ANN;BP
-ANN;NSCPortraits;1340;13;1111;
-STD;NSCPortraits;1370;13;1111;
-STD;NSCPortraits;1380;13;1111;
-STD;NSCPortraits;1450;13;1111;
-STD;NSCPortraits;1540;13;1111;
-STD;NSCPortraits;5000;13;1111;
-STD;NSCPortraits;5010;13;1111;
 STD;artaport;1;13;0000;
 STD;artaport;2;13;0000;
 STD;artaport;3;13;0000;
@@ -1561,9 +1543,6 @@ SUB;ajantisportraitpack;0?1_14;13;0000;
 SUB;ajantisportraitpack;0?1_15;13;0000;
 SUB;ajantisportraitpack;0?1_16;13;0000;
 SUB;ajantisportraitpack;0?1_17;13;0000;
-ANN;--- optional fixes ---
-ANN;No more needef for 2.3+
-ANN;STD;apr_fix;0;01;0111;
 ANN;--- NPC class changes ---
 ANN;Imoen
 MUC;npc_ee;Init;07;0111;
