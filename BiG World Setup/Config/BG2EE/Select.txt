@@ -508,6 +508,9 @@ STD;Vampiretales;2;08;0011;
 ANN;#3 -> stores and items
 STD;Vampiretales;3;10;0111;
 STD;ninde;0;05;0111;
+STD;xulaye;0;12;0111;
+STD;xulaye;1;12;0111;
+STD;xulaye;2;12;0111;
 STD;haldamir;0;05;1111;
 STD;Saerileth;0;05;0111;
 STD;Skie;0;05;0111;
