@@ -1,6 +1,7 @@
 ANN;Added due to patching
 CMD;IF NOT EXIST ".\BWS_workspace\override" MD ".\BWS_workspace\override"
 DWN;WeiDU;0;00;1111;
+DWN;weidu-filechangelog;0;00;1111;
 DWN;eekeeper;0;00;1111;
 ANN;--- patches ---
 DWN;bwinstallpack;0;00;1111;

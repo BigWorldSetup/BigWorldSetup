@@ -3,6 +3,7 @@ CMD;IF EXIST Setup-iwd1tra.tp2 copy dialog.tlk dialogf.tlk
 ANN;Added due to patching
 DWN;Textpack;0;00;1111;
 DWN;WeiDU;0;00;1111;
+DWN;weidu-filechangelog;0;00;1111;
 DWN;ab_How;0;02;1111;
 DWN;ab_TotLM;0;02;1111;
 MUC;iwd1tra;Init;00;1111;

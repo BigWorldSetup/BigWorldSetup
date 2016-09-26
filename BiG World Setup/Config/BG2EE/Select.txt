@@ -4,6 +4,7 @@ ANN;--- if EET is not selected, we use the Game.ini purge section to hide all th
 ANN;--- we use ;;;;D:EET(0) for CMD lines applicable to BG1EE to suppress them if EET is not being installed ---
 CMD;IF NOT EXIST ".\BWS_workspace\override" MD ".\BWS_workspace\override"
 DWN;WeiDU;0;00;1111;
+DWN;weidu-filechangelog;0;00;1111;
 DWN;eekeeper;0;00;1111;
 ANN;--- BGEE + BG2EE patches ---
 DWN;bwinstallpack;0;00;1111;

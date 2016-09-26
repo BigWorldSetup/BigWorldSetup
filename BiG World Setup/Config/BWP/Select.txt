@@ -96,6 +96,7 @@ DWN;BWFixpack;0;00;1111;
 DWN;BWTextpack;0;00;1111;
 DWN;BWTextpackP;0;00;1111;
 DWN;WeiDU;0;00;1111;
+DWN;weidu-filechangelog;0;00;1111;
 DWN;BG1TotSCSound;0;01;1111;
 DWN;BG1TP;0;01;1111;
 DWN;correcfrbg1;0;01;1111;
