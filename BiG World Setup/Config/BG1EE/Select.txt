@@ -1283,7 +1283,6 @@ SUB;eet_tweaks;11?1_3;09;0000;
 SUB;eet_tweaks;11?2_50;09;0000;
 STD;eet_tweaks;12;09;1111;
 STD;eet_tweaks;20;09;1111;
-STD;eet_tweaks;24;13;0000;
 STD;eet_tweaks;27;09;0111;
 STD;eet_tweaks;29;09;0111;
 STD;eet_tweaks;30;09;0111;
