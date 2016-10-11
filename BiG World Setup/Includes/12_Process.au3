@@ -357,7 +357,7 @@ Func _Process_SetConsole($p_Text, $p_Length=0); $p_Length will auto-resize the t
 		$p_Text = $String[0]
 	EndIf
 	$g_ConsoleOutput = $g_ConsoleOutput & @CRLF & $p_Text
-	$g_ConsoleOutput = StringRight($g_ConsoleOutput, StringLen($g_ConsoleOutput) - StringInStr($g_ConsoleOutput, @LF, 0, -14))
+	$g_ConsoleOutput = StringRight($g_ConsoleOutput, StringLen($g_ConsoleOutput) - StringInStr($g_ConsoleOutput, @LF, 0, -24))
 	ControlSetText($g_UI[0], '', $g_UI_Interact[6][3], $g_ConsoleOutput)
 EndFunc   ;==>_Process_SetConsole
 
