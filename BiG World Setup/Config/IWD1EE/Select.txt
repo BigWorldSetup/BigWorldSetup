@@ -351,7 +351,7 @@ MUC;aTweaks;500;09;1111;
 MUC;aTweaks;502;09;0000;
 STD;aTweaks;510;09;1111;
 STD;aTweaks;999;09;0000;
-STD;scales_of_balance;101;09;0000;
+STD;scales_of_balance;100;09;0000;
 STD;scales_of_balance;102;09;0000;
 STD;scales_of_balance;103;09;0000;
 STD;scales_of_balance;104;09;0000;
