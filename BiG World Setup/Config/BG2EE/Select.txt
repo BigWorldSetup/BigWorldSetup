@@ -324,7 +324,8 @@ ANN;--- BWS switches from BG1EE folder to BG2EE folder after this line ---
 ANN;--- EET_End must be ready before EET
 CMD;IF NOT EXIST "EET_End.tp2" copy ".\EET\lib\EET_end.tp2" ".\EET_End.tp2"
 CMD;IF NOT EXIST "Setup-EET_End.exe" copy ".\weidu.exe" ".\Setup-EET_End.exe"
-DWN;EET-patches-for-BG2EE-mods;0;00;1111;
+ANN;Disabled until BWS will extract it to BG2EE dir
+ANN;DWN;EET-patches-for-BG2EE-mods;0;00;1111;
 STD;BG2EE_PL;0;0;1111;
 STD;BG2EE_PL;1;0;1111;
 DWN;BG2EE-Polish;0;00;1111;
@@ -2411,10 +2412,9 @@ STD;lolfixer;13;01;0001;
 STD;lolfixer;14;01;0001;
 STD;lolfixer;15;01;0001;
 ANN;EET_End component to finish EET installation, ready before EET
-STD;EET_End;0;13;0000;
-SUB;EET_end;1;00;0000;
-SUB;EET_end;1?1_1;00;0000;
-SUB;EET_end;1?1_2;00;0000;
+SUB;EET_End;0;00;0000;
+SUB;EET_End;0?1_1;00;0000;
+SUB;EET_End;0?1_2;00;0000;
 ANN;--- hotfixes ---
 ANN;shouldn't these fixes be applied earlier?
 ANN;trim leading and trailing spaces, remove duplicates
@@ -2663,21 +2663,6 @@ SUB;generalized_biffing;0;00;1111;
 SUB;generalized_biffing;0?1_0;00;0000;
 SUB;generalized_biffing;0?1_1;00;1111;
 ANN;--- UI, graphics, sound ---
-STD;PPE;0;13;0000;
-MUC;PPE;Init;13;0111;
-MUC;PPE;100;13;0111;
-MUC;PPE;150;13;0000;
-STD;PPE;10;13;0000;
-STD;PPE;20;13;0000;
-STD;PPE;25;13;0000;
-STD;PPE;30;13;0000;
-STD;PPE;35;13;0000;
-DWN;BG2EEGUITweaks;0;13;0111;
-DWN;BG2EEGUITweaksB;0;13;0111;
-DWN;BG2EEGUITweaksWE;0;13;0111;
-DWN;BG2EEGUITweaksFSWM;0;13;0111;
-DWN;BG2EEGUITweaksFSWMNM;0;13;0111;
-STD;recoloredbuttons;2;13;0111;
 MUC;LightingPack;Init;13;1111;
 MUC;LightingPack;0;13;0000;
 MUC;LightingPack;1;13;0000;
@@ -2705,6 +2690,13 @@ SUB;LightingPack;21?1_1;13;0000;
 SUB;LightingPack;21?2_0;13;0000;
 SUB;LightingPack;21?3_1;13;0000;
 SUB;LightingPack;21?4_y;13;0000;
+DWN;BG2EEGUITweaks;0;13;0111;
+DWN;BG2EEGUITweaksB;0;13;0111;
+DWN;BG2EEGUITweaksWE;0;13;0111;
+DWN;BG2EEGUITweaksFSWM;0;13;0111;
+DWN;BG2EEGUITweaksFSWMNM;0;13;0111;
+STD;recoloredbuttons;2;13;0111;
+STD;EET_GUI;2;13;0111;
 STD;EEUITweaks;1000;13;0000;
 STD;EEUITweaks;1010;13;0000;
 STD;EEUITweaks;1020;13;0000;
@@ -2769,6 +2761,15 @@ SUB;ajantisportraitpack;0?1_14;13;0000;
 SUB;ajantisportraitpack;0?1_15;13;0000;
 SUB;ajantisportraitpack;0?1_16;13;0000;
 SUB;ajantisportraitpack;0?1_17;13;0000;
+STD;PPE;0;13;0000;
+MUC;PPE;Init;13;0111;
+MUC;PPE;100;13;0111;
+MUC;PPE;150;13;0000;
+STD;PPE;10;13;0000;
+STD;PPE;20;13;0000;
+STD;PPE;25;13;0000;
+STD;PPE;30;13;0000;
+STD;PPE;35;13;0000;
 ANN;--- optional fixes ---
 ANN;No more needef for 2.3+
 ANN;STD;apr_fix;0;01;0111;
