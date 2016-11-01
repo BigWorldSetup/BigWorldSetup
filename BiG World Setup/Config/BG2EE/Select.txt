@@ -319,16 +319,15 @@ MUC;BGEEClassicMovies;Init;13;0000;
 MUC;BGEEClassicMovies;0;13;0000;
 MUC;BGEEClassicMovies;1;13;0000;
 STD;BGEEClassicMovies;2;13;0000;
-ANN;--- end BGEE, start EET / BG2EE ---
-ANN;--- BWS switches from BG1EE folder to BG2EE folder after this line ---
+ANN;--- end BGEE, start EET / BG2EE
+ANN;--- BWS switches from BG1EE folder to BG2EE folder after this line
 ANN;--- EET_End must be ready before EET
-CMD;IF NOT EXIST "EET_End.tp2" copy ".\EET\lib\EET_end.tp2" ".\EET_End.tp2"
-CMD;IF NOT EXIST "Setup-EET_End.exe" copy ".\weidu.exe" ".\Setup-EET_End.exe"
+CMD;IF NOT EXIST "EET_End.tp2" COPY ".\EET\lib\EET_end.tp2" ".\EET_End.tp2"
+CMD;IF NOT EXIST "Setup-EET_End.exe" COPY ".\weidu.exe" ".\Setup-EET_End.exe"
 ANN;Disabled until BWS will extract it to BG2EE dir
 ANN;DWN;EET-patches-for-BG2EE-mods;0;00;1111;
 STD;BG2EE_PL;0;0;1111;
 STD;BG2EE_PL;1;0;1111;
-DWN;BG2EE-Polish;0;00;1111;
 CMD;echo.>> _Test-BG2EE.txt
 STD;EET;0;00;1111;
 CMD;IF NOT EXIST ".\BWS_workspace\override" MD ".\BWS_workspace\override"
@@ -2414,7 +2413,7 @@ STD;lolfixer;15;01;0001;
 ANN;EET_End component to finish EET installation, ready before EET
 SUB;EET_End;0;00;0000;
 SUB;EET_End;0?1_1;00;0000;
-SUB;EET_End;0?1_2;00;0000;
+SUB;EET_End;0?1_2;00;1111;
 ANN;--- hotfixes ---
 ANN;shouldn't these fixes be applied earlier?
 ANN;trim leading and trailing spaces, remove duplicates
