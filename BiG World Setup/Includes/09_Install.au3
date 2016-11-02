@@ -71,17 +71,23 @@ Func Au3PrepInst($p_Num = 0)
 		If Not FileExists($MyBGEE&'\characters') Then DirCreate($MyBGEE&'\characters')
 		If Not FileExists($MyBGEE&'\portraits') Then DirCreate($MyBGEE&'\portraits')
 		If Not FileExists($g_GameDir&'\override') Then DirCreate($g_GameDir&'\override')
-		If Not FileExists($g_GameDir&'\WeiDu.conf') Then
+
 			If $g_Flags[14]='BG1EE' Then
 				$Lang=_Install_GetEELang(_GetTR($Message, 'L4'), 1); => choose a language BG1EE
 
 			ElseIf $g_Flags[14] = 'BG2EE' Then
 				$Lang=_Install_GetEELang(_GetTR($Message, 'L4'), 2); => choose a language BG2EE
-			ElseIf $g_Flags[14]='IWD1EE' Then
+			ElseIf $g_Flags[14] = 'IWD1EE' Then
 				$Lang=_Install_GetEELang(_GetTR($Message, 'L4'), 3); => choose a language IWD1EE
 			EndIf
+
+			; _PrintDebug('Debug '&$Lang, 1)
+			; Make sure that $lang for $g_GameDir&'\WeiDu.conf' is not set to non existing $g_GameDir\lang\ directory before first weidu mod will be installed
+			; otherwise, weidu will fail with "None of the dialog paths were a match against $lang"
+			
+			$Lang = _Install_GetEELangDir($Lang)
+			FileDelete($g_GameDir&'\WeiDu.conf')
 			FileWrite($g_GameDir&'\WeiDu.conf', 'lang_dir = '&$Lang)
-		EndIf
 	EndIf
 	FileMove($g_GameDir & '\*.DEBUG', $g_GameDir & '\DEBUG-Bak\', 9)
 	FileMove($g_GameDir & '\WeiDU.log', $g_GameDir & '\WeiDU-' & @YEAR & @MON & @MDAY & @HOUR & @MIN & '.log', 1)
@@ -90,7 +96,7 @@ Func Au3PrepInst($p_Num = 0)
 		_Misc_MsgGUI(1, $g_ProgName, _GetTR($Message, 'L3')); => remove cds
 		_CDTray('Closed')
 	EndIf
-;	If FileExists($g_DownDir&'\WeiDU.exe') Then FileDelete($g_DownDir&'\WeiDU.exe'); => delete the old WeiDU, so the program can download it again
+	;If FileExists($g_DownDir&'\WeiDU.exe') Then FileDelete($g_DownDir&'\WeiDU.exe'); => delete the old WeiDU, so the program can download it again
 	IniWrite($g_BWSIni, 'Order', 'Au3PrepInst', 0); Skip this one if the Setup is rerun
 EndFunc   ;==>Au3PrepInst
 
@@ -934,6 +940,37 @@ Func _Install_GetEELang($p_String='', $p_Version=1)
 	EndIf
 	Return $Lang
 EndFunc   ;==>_Install_GetBGEELang
+
+; ---------------------------------------------------------------------------------------------
+; Get existing BG1EE/BG2EE-language-directory
+; ---------------------------------------------------------------------------------------------
+Func _Install_GetEELangDir($Lang)
+		If FileExists($g_GameDir&'\WeiDu.conf') Then
+			Local $weiduConfLangArray = StringSplit(StringStripCR(FileRead($g_gameDir & '\WeiDu.conf')), " = ",3)
+			Local $weiduConfLang = $weiduConfLangArray[1]
+			;_PrintDebug('weiduConfLang '&$weiduConfLang, 1)
+		EndIf
+		;Local $langDirArray = _FileListToArrayRec($g_GameDir&'\Lang', "*");, $FLTAR_FOLDERS, $FLTAR_NORECUR, $FLTAR_SORT, $FLTAR_NOPATH)
+		Local $langDirArray = _FileListToArrayEx($g_GameDir&'\Lang', "*",2);, $FLTAR_FOLDERS, $FLTAR_NORECUR, $FLTAR_SORT, $FLTAR_NOPATH)
+		;_ArrayDisplay($langDirArray, "$langDirArray")
+		Local $bFound = False
+		For $i = 0 To UBound($langDirArray) -1
+			If StringInStr($Lang, $langDirArray[$i]) Then
+				$bFound = True
+				;ConsoleWrite ( $langDirArray[$i] )
+				ExitLoop
+			EndIf
+		Next
+		If $bFound = True  Then
+			$langDirName = $Lang
+		;_PrintDebug('langDirName found '&$langDirName, 1)
+		else
+			;_PrintDebug('$Lang not found '&$Lang, 1)
+			$langDirName = 'en_US'
+			;_PrintDebug('langDirName switched to en_US '&$langDirName, 1)
+		endif
+		Return $langDirName
+EndFunc   ;==>_Install_GetEELangDir
 
 ; ---------------------------------------------------------------------------------------------
 ; Returns the number of the selected GUI-theme
