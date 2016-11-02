@@ -945,19 +945,23 @@ EndFunc   ;==>_Install_GetBGEELang
 ; Get existing BG1EE/BG2EE-language-directory
 ; ---------------------------------------------------------------------------------------------
 Func _Install_GetEELangDir($Lang)
+		;_PrintDebug('$g_GameDir '& $g_GameDir, 1)
+		;_PrintDebug('Inistial $Lang passed value '&$Lang, 1)
 		If FileExists($g_GameDir&'\WeiDu.conf') Then
 			Local $weiduConfLangArray = StringSplit(StringStripCR(FileRead($g_gameDir & '\WeiDu.conf')), " = ",3)
 			Local $weiduConfLang = $weiduConfLangArray[1]
 			;_PrintDebug('weiduConfLang '&$weiduConfLang, 1)
 		EndIf
-		;Local $langDirArray = _FileListToArrayRec($g_GameDir&'\Lang', "*");, $FLTAR_FOLDERS, $FLTAR_NORECUR, $FLTAR_SORT, $FLTAR_NOPATH)
-		Local $langDirArray = _FileListToArrayEx($g_GameDir&'\Lang', "*",2);, $FLTAR_FOLDERS, $FLTAR_NORECUR, $FLTAR_SORT, $FLTAR_NOPATH)
+		;Local $langDirArray = _FileListToArrayRec($g_GameDir&'\lang', "*");, $FLTAR_FOLDERS, $FLTAR_NORECUR, $FLTAR_SORT, $FLTAR_NOPATH)
+		Local $langDirArray = _FileListToArrayEx($g_GameDir&'\lang', '*') ; function flag (2) is bugged when using with BWS autoit.exe :(
 		;_ArrayDisplay($langDirArray, "$langDirArray")
+		;_PrintDebug('$langDirArray[0] '& $langDirArray[0], 1)
 		Local $bFound = False
 		For $i = 0 To UBound($langDirArray) -1
 			If StringInStr($Lang, $langDirArray[$i]) Then
 				$bFound = True
 				;ConsoleWrite ( $langDirArray[$i] )
+				;_PrintDebug('langDirArray[$i] '& $langDirArray[$i], 1)
 				ExitLoop
 			EndIf
 		Next
