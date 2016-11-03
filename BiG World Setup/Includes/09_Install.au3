@@ -112,6 +112,13 @@ Func Au3RunFix($p_Num = 0)
 	GUICtrlSetData($g_UI_Interact[6][4], StringFormat(_GetSTR($Message, 'H1'), $Type)); => help text
 	GUICtrlSetData($g_UI_Static[6][1], _GetTR($Message, 'L2')); => watch progress
 	$g_LogFile = $g_LogDir & '\BiG World Install Debug.txt'
+	; Special case, EET-patches-for-BG2EE-mods-master must be extracted after all other mods are extracted, before files are copied in from OverwriteFiles (_Extract_OverwriteFiles()) and before BiG World Fixpack is run
+	; Use Experimental function which fix DirMove "ub\ub" problem. Used only with EET Patches for Mods to minimalize new bugs
+	If FileExists($g_GameDir&'\EET-patches-for-BG2EE-mods-master') Then
+		FileWrite($g_LogFile, '>EET-patches-for-BG2EE-mods-master\* .' & @CRLF)
+		_Extract_MoveModEx('EET-patches-for-BG2EE-mods-master')
+	EndIf
+	_Extract_OverwriteFiles()
 ; ---------------------------------------------------------------------------------------------
 ; make sure the WeiDU-setups are really replaced by a new one
 ; ---------------------------------------------------------------------------------------------
@@ -233,8 +240,6 @@ Func Au3RunFix($p_Num = 0)
 			EndIf
 		Next
 	EndIf
-	$g_FItem=1
-	IniWrite($g_BWSIni, 'Options', 'Start', 1)
 	IniWrite($g_BWSIni, 'Order', 'Au3RunFix', 0); Skip this one if the Setup is rerun
 	GUICtrlSetData($g_UI_Static[6][1], _GetTR($Message, 'L7')); => all steps are done
 	GUICtrlSetData($g_UI_Static[6][2], '')
@@ -270,7 +275,8 @@ Func Au3Install($p_Num = 0)
 	Local $Message = IniReadSection($g_TRAIni, 'IN-Au3Install')
 	$g_LogFile = $g_LogDir & '\BiG World Install Debug.txt'
 	Local $Group = '-1', $CurrentMod, $Setup[10], $Type=StringRegExpReplace($g_Flags[14], '(?i)BWS|BWP', 'BG2')
-	Local $Logic = IniRead($g_UsrIni, 'Options', 'Logic3', 1), $Ref=FileGetSize($g_GameDir&'\WeiDU\WeiDU.exe'), $EET_Mods
+	Local $Logic = IniRead($g_UsrIni, 'Options', 'Logic3', 1), $Ref=FileGetSize($g_GameDir&'\WeiDU\WeiDU.exe')
+	Local $EET_Mods
 	If $g_Flags[21] <> '' Then $EET_Mods=$g_Flags[20+StringRegExpReplace($g_Flags[14],  '(?i)\ABG|EE\z', '')]
 	GUICtrlSetData($g_UI_Interact[6][4], StringFormat(_GetSTR($Message, 'H1'), $Type)); => help text
 	_Process_ChangeDir($g_GameDir, 1)
@@ -290,7 +296,9 @@ Func Au3Install($p_Num = 0)
 			Exit
 		EndIf
 		GUICtrlSetData($g_UI_Interact[6][1], ($a * 100) / $Array[0])
-		If StringRegExp($Array[$a], '(?i)\A(DWN|ANN)') Then
+		If StringInStr($Array[$a], ';EET;') And StringInStr($g_GConfDir, 'BG2EE') And $g_Flags[14] = 'BG1EE' Then; this is the end of the BG1EE install, now install BG2EE and import BG1EE with EET
+			ExitLoop; additional code for EET transition follows end of loop below
+		ElseIf StringRegExp($Array[$a], '(?i)\A(DWN|ANN)') Then; skip comments and download-only mods
 			ContinueLoop
 		ElseIf StringRegExp($Array[$a], '(?i)\ACMD') Then
 			$Split=StringReplace($Array[$a], "\;", "&SEMI&") ; allow backslash to escape a semicolon in CMD statements
@@ -305,7 +313,7 @@ Func Au3Install($p_Num = 0)
 			FileDelete($g_GameDir&'\BWS_Finished.nul')
 			GUICtrlSetData($g_UI_Static[6][2], _GetTR($Message, 'L7')); => run batch
 			$Handle = FileOpen($g_GameDir & '\Tmp.bat', 2); yeah, this looks stupid, but how else would I know that the action is done?
-			FileWriteLine($Handle, '@echo off'); be quiet
+			;FileWriteLine($Handle, '@echo off'); be quiet
 			FileWriteLine($Handle, $Split[2]); >> Do not comment if not debugging!!!
 			FileWriteLine($Handle, 'copy "BWS_Dummy.nul" "BWS_Finished.nul" 2>nul 1>nul'); be a little more quiet
 			FileClose($Handle)
@@ -320,8 +328,8 @@ Func Au3Install($p_Num = 0)
 			$Group=''
 			ContinueLoop
 		ElseIf StringRegExp($Array[$a], '(?i)\AGRP;Stop') Then
-			If $Group = '' Then
-				$Group=-1
+			If $Group = '-1' Or $Group = '' Then
+				$Group = -1
 				ContinueLoop
 			EndIf
 			$Group = StringTrimLeft($Group, 1)
@@ -488,7 +496,6 @@ Func Au3Install($p_Num = 0)
 			Sleep(1000)
 		EndIf
 	Next
-	$g_FItem = 1
 	_Install_CreateTP2Entry('BWS_Final', 'Make quick-logged WeiDU-entries visible'); use a dummy install/uninstall without '&$g_WeiDUQuickLog&' to add details from previous WeiDU setups that used '&$g_WeiDUQuickLog&'
 	_Process_Run('WeiDU.exe "Setup-BWS_Final.tp2" --no-exit-pause --game "." --language 0 --force-uninstall-list 0 --log "Setup-BWS_Final.Debug"', 'WeiDU.exe')
 	FileClose(FileOpen($g_GameDir&'\WeiDU\BWP_Backup\0\MAPPINGS.0', 9))
@@ -1065,8 +1072,8 @@ Func _Install_ModifyForGroupInstall($p_Array, $p_Debug=0)
 			$n+=1
 			$Open=0
 		ElseIf StringRegExp($EndGroupInstall, '(?i)(\A|\x7c)'&$Mod&'\x28') Then; is mod effected?
-			$Comp=$Split[3]; CompNumber
-			If StringRegExp($Mod&$Comp, '(?i)'&$EndGroupInstall) Then
+			$Comp=StringRegExpReplace($Split[3], '\x3f.*\z', ''); CompNumber, without sub-component _??? if any
+			If StringRegExp($EndGroupInstall, '(?i)'&$Mod&'\x28[^\x29]*'&$Comp&'(\x29|\x26|x7c)') Then; this check never worked before, might work now
 				$NArray[$n]='GRP;Stop'
 				$n+=1
 				$Open=0
@@ -1105,17 +1112,22 @@ Func _Install_ModifyForGroupInstall($p_Array, $p_Debug=0)
 	If $p_Debug = 1 Then
 		For $a = 1 To $NArray[0]
 			If StringRegExp($NArray[$a], '\AGRP;Start') Then
-				ConsoleWrite('+')
+				_Process_SetConsoleLog('+')
+				;ConsoleWrite('+')
 				$Open=1
 			ElseIf StringRegExp($NArray[$a], '\AGRP;Stop') Then
-				ConsoleWrite('!')
+				_Process_SetConsoleLog('!')
+				;ConsoleWrite('!')
 				$Open=0
-			ElseIf $Open =1 Then
-				ConsoleWrite('-')
+			ElseIf $Open = 1 Then
+				_Process_SetConsoleLog('-')
+				;ConsoleWrite('-')
 			Else
-				ConsoleWrite(' ')
+				_Process_SetConsoleLog(' ')
+				;ConsoleWrite(' ')
 			EndIf
-			ConsoleWrite($NArray[$a] & @CRLF)
+			_Process_SetConsoleLog($NArray[$a] & @CRLF)
+			;ConsoleWrite($NArray[$a] & @CRLF)
 		Next
 	EndIf
 	Return $NArray

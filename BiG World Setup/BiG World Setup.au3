@@ -119,8 +119,8 @@ Func Au3GetVal($p_Num = 0)
 	If $Test[0] <> 2 Then; revert to default if AppType in User.ini is not in expected format
 		$Test = [2, "BWP", "BWS"]
 	EndIf
-	_Misc_Set_GConfDir($Test[1])
-	$g_Flags[14] = StringUpper($Test[2])
+	_Misc_Set_GConfDir($Test[1]); BWS conf folder
+	$g_Flags[14] = StringUpper($Test[2]); mod install folder
 	If StringRegExp($g_Flags[14], 'BWS|BWP') Then
 		_Test_GetGamePath('BG1')
 		_Test_GetGamePath('BG2')
@@ -165,7 +165,7 @@ Func Au3GetVal($p_Num = 0)
 			$Name = IniRead($g_ModIni, $g_FItem, 'Name', $g_FItem); SetupName
 			$Answer = _Misc_MsgGUI(2, $g_ProgName, StringFormat(_GetTR($g_UI_Message, '0-L4'), $Nextstep, $Name), 2, _GetTR($g_UI_Message, '0-B1'), _GetTR($g_UI_Message, '0-B2')); => continue installation?
 		EndIf
-		If $Answer = 2 Then;Continue
+		If $Answer = 2 Then ; Continue
 			_Misc_SetLang()
 			_Tree_Populate(0)
 			Local $Ignores = IniReadSection($g_UsrIni, 'IgnoredConnections'); user-ignored conflict/dependency rules
@@ -308,8 +308,8 @@ EndFunc   ;==>_CreateList
 Func _GetCurrent()
 	Local $Current = IniReadSection($g_UsrIni, 'Current')
 	If @error Then
-	Local $Current[1][2]
-	$Current[0][0] = 0
+		Local $Current[1][2]
+		$Current[0][0] = 0
 	EndIf
 	If $g_Flags[21] = '' Then Return $Current; BWS will not install BG1EE-mods and EET
 	Local $Num = StringRegExpReplace($g_Flags[14], '(?i)\ABG|EE\z', '')

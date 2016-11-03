@@ -378,7 +378,7 @@ Func Au3NetFix($p_Num = 0)
 	$g_FItem = 1
 	IniWrite($g_BWSIni, 'Order', 'Au3NetFix', 0); Skip this one if the Setup is rerun
 	If IniRead($g_UsrIni, 'Options', 'Logic1', 1) = 3 Then
-		IniDelete($g_BWSIni, 'Options', 'Start')
+		IniWrite($g_BWSIni, 'Options', 'Start', 1)
 		_Process_SetConsoleLog(IniRead($g_TRAIni, 'NT-Au3NetTest', 'L9', ''))
 		_Process_Pause(); pause after download
 	EndIf

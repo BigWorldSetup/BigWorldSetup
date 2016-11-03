@@ -9,8 +9,8 @@ Func Au3Select($p_Num = 0)
 	GUISwitch($g_UI[0])
 	Local $Test=StringSplit(_IniRead($ReadSection, 'AppType', ''),':'); need correct gametype
 	If $Test[0] = 2 Then
-		_Misc_Set_GConfDir($Test[1])
-		$g_Flags[14] = $Test[2]
+		_Misc_Set_GConfDir($Test[1]); conf folder
+		$g_Flags[14] = $Test[1]; rely on conf gametype instead of target folder so we return to last used game type tab on BWS UI restart (EET fix)
 	EndIf
 	__TristateTreeView_LoadStateImage($g_UI_Handle[0], $g_ProgDir & '\Pics\Icons.bmp')
 	_Misc_SetLang()

@@ -12,33 +12,23 @@ DWN;bwfixpack;0;00;1111;
 ANN;CMD;echo.>> _Test-1and2.txt
 ANN;special case - BWS has code in Testing.au3 that will apply the lines above in both BG1EE and BG2EE directory if EET is selected
 ANN;--- BGEE patches ---
-CMD;IF EXIST "BiG World Fixpack" IF NOT EXIST BWP_Fixpack.installed Call "BiG World Fixpack.bat"
-CMD;IF NOT EXIST BWP_Smoothpack.installed Call ".\BiG World Installpack\BiG World Smoothpack.bat"
+CMD;IF NOT EXIST ".\BWP_Fixpack.installed" Call ".\BiG World Fixpack.bat"
+CMD;IF NOT EXIST ".\BWP_Smoothpack.installed" Call ".\BiG World Installpack\BiG World Smoothpack.bat"
 CMD;IF EXIST ".\BiG World Installpack\BWP_Smoothpack.installed" copy ".\BiG World Installpack\BWP_Smoothpack.installed" "."
 CMD;echo.>> _Test-BG1EE.txt
 STD;BGEE_PL;0;0;1111;
 STD;BGEE_PL;1;0;1111;
-ANN;--- Polish launguage up to date ---
+ANN;--- Polish language is up to date ---
 ANN;BGEE-Polish;0;00;1111;
 STD;bgeetextpack;0;01;1111;
 STD;bgeetextpack;1;01;1111;
-SUB;bgeegraphics;0;13;0001;
-SUB;bgeegraphics;0?1_1;13;0001;
-SUB;bgeegraphics;0?1_2;13;0000;
-DWN;bgeegraphics_part2;0;13;0001;
-DWN;bgeegraphics_part3;0;13;0001;
-ANN;Removing corrupted .wed
-ANN;CMD;IF EXIST setup-bgeegraphics.exe IF EXIST ".\override\ar4300.wed" move ".\override\ar4300.wed" ".\BWS_workspace\override"
-ANN;Removing .are because of corrupted .wed
-ANN;CMD;IF EXIST setup-bgeegraphics.exe IF EXIST ".\override\ar3000n.wed" move ".\override\ar3000.are" ".\BWS_workspace\override"
 ANN;--- "BG1EE big mods" ---
 STD;DarkHorizonsBGee;0;02;0011;
-STD;dsotscBGEE;0;02;0111;
 MUC;drizztsaga;Init;02;0011;
-MUC;drizztsaga;0;02;0000;
-MUC;drizztsaga;1;02;0011;
-ANN;pointless to change XP cap before EET
-ANN;STD;drizztsaga;2;02;0000;
+MUC;drizztsaga;0;02;0011;
+ANN;drizztsaga #1 (BP-BGT-Worldmap variant) is not EET compatible, and is a BG1 mod, so we disable it
+ANN;MUC;drizztsaga;1;02;0000;
+ANN;drizztsaga #2 (change XP cap) is pointless before EET
 STD;drizztsaga;3;02;0011;
 CMD;echo.>> Worldmap/map_mods_links.tbl;;;;D:drizztsaga(1)
 ANN;--- BGEE quests ---
@@ -53,19 +43,15 @@ STD;bgqe;7;03;1111;
 STD;bgqe;8;03;1111;
 STD;bgqe;9;03;1111;
 STD;bgqe;10;03;1111;
-MUC;TGC1E;Init;03;0111;
-MUC;TGC1E;0;03;0111;
-MUC;TGC1E;1;03;0000;
-STD;SirinesCall;0;03;1111;
 MUC;soa;Init;03;1111;
-MUC;soa;0;03;0000;
-MUC;soa;1;03;1111;
+MUC;soa;0;03;1111;
+ANN;soa #1 (BP-BGT-Worldmap variant) is not EET compatible, but is a BG1 mod, so we disable it
+ANN;MUC;soa;1;03;0000;
 STD;AC_QUEST;0;03;1111;
 STD;wbgtap;1;03;0111;
 STD;karatur;0;03;0111;
 ANN;--- BGEE stores and items ---
 STD;bg1aerie;0;10;0111;
-STD;thalan;0;10;1111;
 STD;BGeeAR;0;10;0111;
 STD;BGeeW;0;10;0111;
 STD;Animus;0;10;0111;
@@ -300,12 +286,6 @@ MUC;kittomes;Init;12;0111;
 MUC;kittomes;5;12;0111;
 MUC;kittomes;6;12;0000;
 GRP;Stop
-ANN;--- test install for k9AltLegacyOfBhaal tweaks ---
-STD;k9AltLegacyOfBhaal;0;09;0000;
-ANN;--- BGEE misc tweaks ---
-MUC;BG_Travel;Init;09;0111;
-MUC;BG_Travel;66;09;0111;
-MUC;BG_Travel;661;09;0000;
 ANN;--- smaller BGEE NPCs ---
 CMD;IF EXIST "jklhel\Helarine_BGEE.Tp2" REN "jklhel\Helarine_BGEE.Tp2" "jklhel.tp2"
 STD;JklHel;0;06;0111;
@@ -319,36 +299,61 @@ MUC;BGEEClassicMovies;Init;13;0000;
 MUC;BGEEClassicMovies;0;13;0000;
 MUC;BGEEClassicMovies;1;13;0000;
 STD;BGEEClassicMovies;2;13;0000;
-ANN;--- end BGEE, start EET / BG2EE
-ANN;--- BWS switches from BG1EE folder to BG2EE folder after this line
-ANN;--- EET_End must be ready before EET
-CMD;IF NOT EXIST "EET_End.tp2" COPY ".\EET\lib\EET_end.tp2" ".\EET_End.tp2"
-CMD;IF NOT EXIST "Setup-EET_End.exe" COPY ".\weidu.exe" ".\Setup-EET_End.exe"
-ANN;Disabled until BWS will extract it to BG2EE dir
-ANN;DWN;EET-patches-for-BG2EE-mods;0;00;1111;
-STD;BG2EE_PL;0;0;1111;
-CMD;echo.>> _Test-BG2EE.txt
-STD;EET;0;00;1111;
-CMD;IF NOT EXIST ".\BWS_workspace\override" MD ".\BWS_workspace\override"
-ANN;--- BG2EE patches ---
-ANN;special case - BWS has code in Testing.au3 that will extract WeiDU, bwinstallpack and bwfixpack in BG2EE folder (and BG1EE folder for EET)
-CMD;IF EXIST "BiG World Fixpack" xcopy /Y /S /E ".\BiG World Fixpack\_Lolfixer\*.*" "."
-CMD;IF EXIST "BiG World Fixpack" xcopy /Y /S /E ".\BiG World Fixpack\_resfixer_v1\*.*" "."
-CMD;IF EXIST "BiG World Fixpack\ascension" rmdir /s /q "BiG World Fixpack\ascension"
-CMD;IF EXIST "BiG World Fixpack\item_rev" rmdir /s /q "BiG World Fixpack\item_rev"
-CMD;IF EXIST "BiG World Fixpack\spell_rev" rmdir /s /q "BiG World Fixpack\spell_rev"
-CMD;IF EXIST "BiG World Fixpack" IF NOT EXIST BWP_Fixpack.installed Call "BiG World Fixpack.bat"
-CMD;IF NOT EXIST BWP_Smoothpack.installed Call ".\BiG World Installpack\BiG World Smoothpack.bat"
-CMD;IF EXIST ".\BiG World Installpack\BWP_Smoothpack.installed" copy ".\BiG World Installpack\BWP_Smoothpack.installed" "."
-MUC;bggoEET;Init;13;0111;
-MUC;bggoEET;0;13;0111;
-MUC;bggoEET;1;13;0000;
+CMD;REM;EET;--- DO NOT MODIFY THIS LINE: this switches to BG2:EE folder for EET installs (special case handled in Install.au3 and Testing.au3) ---
+CMD;echo 1 >> _Test-BG2EE.txt
+ANN;--- the following translation mods must go in BG2:EE folder and should be installed before EET
+STD;BG2EE_PL;0;00;1111;
 SUB;bg2eetp;0;00;1111;
 SUB;bg2eetp;0?1_1;00;1111;
 SUB;bg2eetp;0?1_2;00;1111;
 SUB;bg2eetp;0?1_3;00;1111;
 SUB;bg2eetp;0?1_4;00;1111;
 STD;BG2EE_GA;0;00;1111;
+ANN;-- install EET itself --
+STD;EET;0;00;1111;
+ANN;-- all lines below EET mod will apply to BG2EE folder
+ANN;--- BG2:EE patches ---
+DWN;EET-patches-for-BG2EE-mods;0;00;1111;
+CMD;IF NOT EXIST ".\BWS_workspace\override" MD ".\BWS_workspace\override"
+ANN;special case - BWS has code in Testing.au3 that will extract WeiDU, bwinstallpack and bwfixpack in BG2EE folder (and also BG1EE folder for EET)
+CMD;IF EXIST "BiG World Fixpack" xcopy /Y /S /E ".\BiG World Fixpack\_Lolfixer\*.*" "."
+CMD;IF EXIST "BiG World Fixpack" xcopy /Y /S /E ".\BiG World Fixpack\_resfixer_v1\*.*" "."
+CMD;IF EXIST "BiG World Fixpack\ascension" rmdir /s /q "BiG World Fixpack\ascension"
+CMD;IF EXIST "BiG World Fixpack\item_rev" rmdir /s /q "BiG World Fixpack\item_rev"
+CMD;IF EXIST "BiG World Fixpack\spell_rev" rmdir /s /q "BiG World Fixpack\spell_rev"
+CMD;IF EXIST "BiG World Fixpack\tdd" rmdir /s /q "BiG World Fixpack\tdd"
+CMD;IF NOT EXIST ".\BWP_Fixpack.installed" Call ".\BiG World Fixpack.bat"
+CMD;IF NOT EXIST ".\BWP_Smoothpack.installed" Call ".\BiG World Installpack\BiG World Smoothpack.bat"
+CMD;IF EXIST ".\BiG World Installpack\BWP_Smoothpack.installed" copy ".\BiG World Installpack\BWP_Smoothpack.installed" "."
+ANN;-- horizontal line graphical glitches reported with bggoEET v2.0 beta (http://gibberlings3.net/forums/index.php?showtopic=27768&page=3) --
+MUC;bggoEET;Init;13;0001;
+MUC;bggoEET;0;13;0001;
+MUC;bggoEET;1;13;0000;
+ANN;--- mods for BG:EE that must be installed after EET ---
+MUC;BG_Travel;Init;09;0111;
+MUC;BG_Travel;66;09;0111;
+MUC;BG_Travel;661;09;0000;
+SUB;dsotsc;0;02;0111;
+SUB;dsotsc;0?1_original;02;0000;
+SUB;dsotsc;0?1_revised;02;0111;
+STD;dsotsc;1;02;0111;
+STD;dsotsc;2;02;0111;
+STD;dsotsc;3;02;0111;
+STD;dsotsc;4;02;0111;
+MUC;TGC1E;Init;03;0111;
+MUC;TGC1E;0;03;0111;
+MUC;TGC1E;1;03;0000;
+DWN;TDD;0;02;0111;
+STD;TDDz;0;02;0111;
+STD;TDDz;1;02;0111;
+STD;TDDz;2;02;0111;
+STD;TDDz;3;02;0111;
+STD;TDDz;4;02;0111;
+STD;TDDz;5;02;0111;
+STD;TDDz;6;02;0111;
+STD;SirinesCall;0;03;1111;
+STD;thalan;0;10;1111;
+ANN;--- BG2:EE mods begin here ---
 ANN;Enable Spell Immunity in Sequencers/Triggers (TobEx)
 STD;jimfix;1;09;0001;
 ANN;Fix Sunfire power levels (install this early)
@@ -517,9 +522,9 @@ STD;Vampiretales;2;08;0011;
 ANN;#3 -> stores and items
 STD;Vampiretales;3;10;0111;
 STD;ninde;0;05;0111;
-STD;xulaye;0;12;0111;
-STD;xulaye;1;12;0111;
-STD;xulaye;2;12;0111;
+STD;xulaye;0;05;0111;
+STD;xulaye;1;05;0111;
+STD;xulaye;2;05;0111;
 STD;haldamir;0;05;1111;
 STD;AVIM;0;05;0111;
 STD;Saerileth;0;05;0111;
@@ -670,8 +675,8 @@ ANN;--- BG2EE minimods ---
 STD;slandor;0;04;1111;
 STD;derats_ogre;0;04;0111;
 ANN;--- BG2EE tweaks ---
-STD;DungeonBeGone;0;09;0111;
-STD;SkipChateauIrenicus;0;09;0111;
+STD;DungeonBeGone;0;09;0000;
+STD;SkipChateauIrenicus;0;09;0000;
 STD;Teleport;0;09;0111;
 STD;Teleport;1;09;0111;
 STD;arestorationp;0;09;1111;
@@ -879,6 +884,8 @@ STD;UB;20;09;1111;
 STD;UB;21;09;1111;
 STD;UB;24;09;1111;
 STD;UB;25;09;1111;
+STD;alternatives;0;03;1111;
+STD;fadingpromises;0;03;1111;
 ANN;--- QuestPack AI ---
 STD;d0questpack;0;11;0111;
 MUC;d0questpack;Init;11;0111;
@@ -912,7 +919,7 @@ STD;d0questpack;19;03;0111;
 STD;d0questpack;20;03;0111;
 STD;d0questpack;21;03;0111;
 STD;Turnabout;0;08;0111;
-STD;LongerRoad;0;5;0111;
+STD;LongerRoad;0;05;0111;
 ANN;--- BG2EE minimods ---
 STD;wheels;0;04;1111;
 ANN;For some reason Wheels of Prophecy removes this entry (but exclusively for EE) so we add it back only if WoP is installed
@@ -1019,7 +1026,16 @@ MUC;Eldritch_Magic;18;12;0001;
 MUC;Eldritch_Magic;19;12;0001;
 MUC;Eldritch_Magic;20;12;0001;
 STD;Eldritch_Magic;22;12;0001;
-STD;k9AltLegacyOfBhaal;1;09;0000;
+ANN;--- test install for k9RoughWorld tweaks ---
+STD;k9RoughWorld;0;09;0001;
+STD;k9RoughWorld;1;09;0001;
+STD;k9RoughWorld;2;09;0001;
+STD;k9RoughWorld;3;09;0001;
+STD;k9RoughWorld;4;09;0001;
+STD;k9RoughWorld;5;09;0001;
+STD;k9RoughWorld;6;09;0001;
+STD;k9RoughWorld;7;09;0001;
+STD;k9RoughWorld;8;09;0001;
 ANN;--- BG2EE cosmetic tweaks ---
 ANN;#10 is IWD casting graphics
 STD;iwdification;10;09;0111;
@@ -1052,6 +1068,11 @@ ANN;#40 is IWD divine spells
 STD;iwdification;40;09;0111;
 ANN;#50 is IWD bard songs
 STD;iwdification;50;09;0000;
+STD;WildMage;0;09;0111;
+STD;WildMage;1;09;0111;
+STD;WildMage;2;09;0001;
+STD;WildMage;3;09;0111;
+STD;WildMage;4;09;0111;
 ANN;--- BG2EE items ---
 ANN;#60 is IWD axe pack -> stores and items
 STD;iwdification;60;10;0111;
@@ -1961,8 +1982,8 @@ STD;aTweaks;104;09;1111;
 STD;aTweaks;105;09;0000;
 STD;aTweaks;110;09;1111;
 MUC;aTweaks;Init;09;1111;
-MUC;aTweaks;115;09;1111;
-MUC;aTweaks;117;09;0000;
+MUC;aTweaks;115;09;0000;
+MUC;aTweaks;117;09;1111;
 STD;aTweaks;120;09;1111;
 STD;aTweaks;125;09;1111;
 STD;aTweaks;130;09;1111;
@@ -2065,45 +2086,50 @@ STD;eetact2;440;11;0011;
 STD;eetact2;450;11;0011;
 STD;eetact2;460;12;0111;
 STD;eetact2;470;12;0111;
-STD;klatu;1000;09;0000;
-STD;klatu;1010;09;0000;
-STD;klatu;1020;09;0000;
-STD;klatu;1030;09;0000;
+STD;klatu;1000;09;1111;
+STD;klatu;1010;09;1111;
+STD;klatu;1020;09;1111;
+STD;klatu;1030;09;1111;
 STD;klatu;1040;09;0000;
-STD;klatu;1050;09;0000;
-STD;klatu;1060;09;0000;
-STD;klatu;1070;09;0000;
-STD;klatu;1080;09;0000;
-STD;klatu;1090;09;0000;
-STD;klatu;2000;09;0000;
-STD;klatu;2010;09;0000;
-STD;klatu;2020;09;0000;
-STD;klatu;2030;09;0000;
-STD;klatu;2040;09;0000;
-STD;klatu;2050;09;0000;
-STD;klatu;2060;09;0000;
-STD;klatu;2070;09;0000;
-STD;klatu;2080;09;0000;
+STD;klatu;1050;09;1111;
+ANN;1060 - 1080 are for CtB
+ANN;STD;klatu;1060;09;0000;
+ANN;STD;klatu;1070;09;0000;
+ANN;STD;klatu;1080;09;0000;
+ANN;1090 is for RoT
+ANN;STD;klatu;1090;09;0000;
+STD;klatu;2000;09;0111;
+STD;klatu;2010;09;0111;
+STD;klatu;2020;09;1111;
+STD;klatu;2030;09;1111;
+STD;klatu;2040;09;1111;
+STD;klatu;2050;09;1111;
+ANN;2060 deprecated by klatu
+STD;klatu;2060;09;0001;
+ANN;2070 reported bugged - https://forums.beamdog.com/discussion/43279/mod-crash-after-slayer-dream
+STD;klatu;2070;09;0001;
+STD;klatu;2080;09;1111;
 STD;klatu;2090;09;0000;
 STD;klatu;2100;09;0000;
-STD;klatu;2110;09;0000;
-STD;klatu;2120;09;0000;
-STD;klatu;2130;09;0000;
+STD;klatu;2110;09;1111;
+STD;klatu;2120;09;1111;
+STD;klatu;2130;09;1111;
 STD;klatu;2140;09;0000;
 STD;klatu;2150;09;0000;
-STD;klatu;2160;09;0000;
+STD;klatu;2160;09;1111;
 STD;klatu;2170;09;0000;
 STD;klatu;2180;09;0000;
-STD;klatu;2190;09;0000;
-STD;klatu;2200;09;0000;
+STD;klatu;2190;09;0111;
+STD;klatu;2200;09;0111;
 STD;klatu;3000;09;0000;
 STD;klatu;3010;09;0000;
 STD;klatu;3020;09;0000;
 STD;klatu;3030;09;0000;
 STD;klatu;3040;09;0000;
 STD;klatu;3050;09;0000;
-STD;klatu;3060;09;0000;
-STD;klatu;3070;09;0000;
+ANN;3060 is for CtB
+ANN;STD;klatu;3060;09;0000;
+STD;klatu;3070;09;0111;
 MUC;klatu;Init;09;0000;
 MUC;klatu;3080;09;0000;
 MUC;klatu;3081;09;0000;
