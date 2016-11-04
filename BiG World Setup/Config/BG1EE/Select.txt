@@ -884,7 +884,7 @@ STD;scales_of_balance;102;09;0000;
 STD;scales_of_balance;103;09;0000;
 STD;scales_of_balance;121;09;0000;
 STD;scales_of_balance;122;09;0000;
-ANN;WPO - Dual-class restrictions (TEMPORARILY UNAVAILABLE)
+ANN;WPO - Dual-class restrictions was moved to Tweaks Anthology (Enforce PnP Proficiency Rules on Dual-Classed Characters)
 ANN;STD;scales_of_balance;123;09;0000;
 STD;scales_of_balance;124;09;0000;
 STD;scales_of_balance;125;09;0000;
