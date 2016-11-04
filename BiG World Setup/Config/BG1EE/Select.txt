@@ -884,16 +884,19 @@ STD;scales_of_balance;102;09;0000;
 STD;scales_of_balance;103;09;0000;
 STD;scales_of_balance;121;09;0000;
 STD;scales_of_balance;122;09;0000;
-STD;scales_of_balance;123;09;0000;
+ANN;WPO - Dual-class restrictions (TEMPORARILY UNAVAILABLE)
+ANN;STD;scales_of_balance;123;09;0000;
 STD;scales_of_balance;124;09;0000;
 STD;scales_of_balance;125;09;0000;
 STD;scales_of_balance;160;09;0000;
+STD;scales_of_balance;180;09;0000;
 STD;scales_of_balance;200;09;0000;
 STD;scales_of_balance;202;09;0000;
 MUC;scales_of_balance;Init;09;0000;
 MUC;scales_of_balance;206;09;0000;
 MUC;scales_of_balance;207;09;0000;
 STD;scales_of_balance;210;09;0000;
+STD;scales_of_balance;212;09;0000;
 ANN;--- SCS core ---
 STD;stratagems;1000;09;1111;
 ANN;--- SCS spell tweaks ---
