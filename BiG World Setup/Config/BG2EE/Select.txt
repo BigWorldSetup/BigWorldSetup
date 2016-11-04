@@ -16,10 +16,10 @@ CMD;IF NOT EXIST ".\BWP_Fixpack.installed" Call ".\BiG World Fixpack.bat"
 CMD;IF NOT EXIST ".\BWP_Smoothpack.installed" Call ".\BiG World Installpack\BiG World Smoothpack.bat"
 CMD;IF EXIST ".\BiG World Installpack\BWP_Smoothpack.installed" copy ".\BiG World Installpack\BWP_Smoothpack.installed" "."
 CMD;echo.>> _Test-BG1EE.txt
-STD;BGEE_PL;0;0;1111;
-STD;BGEE_PL;1;0;1111;
-ANN;--- Polish language is up to date ---
-ANN;BGEE-Polish;0;00;1111;
+ANN;--- Custom Polish Language Localization of BG1EE is no longer needed ---
+ANN;STD;BGEE_PL;0;0;1111;
+ANN;STD;BGEE_PL;1;0;1111;
+ANN;DWN;BGEE-Polish;0;00;1111;
 STD;bgeetextpack;0;01;1111;
 STD;bgeetextpack;1;01;1111;
 ANN;--- "BG1EE big mods" ---
