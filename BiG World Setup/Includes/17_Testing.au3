@@ -775,8 +775,9 @@ EndFunc   ;==>_Test_GetCustomTP2
 ; Keep this function consistent with _Tree_PurgeUnNeeded in Select-Tree.au3
 ; ---------------------------------------------------------------------------------------------
 Func _Test_Get_EET_Mods(); called by _Tree_EndSelection() just before starting an installation
-	Local $BG1EE_Mods='WeiDU|eekeeper|bwinstallpack|bwfixpack|', $BG2EE_Mods='WeiDU|eekeeper|bwinstallpack|EET-patches-for-BG2EE-mods|bwfixpack|'; trailing | is needed, bwfixpack must follow EET patches
-	; do not add mods to the above lists if there are any cases where those mods would be purged (e.g., language-specific patches do not go here)
+	Local $BG1EE_Mods='WeiDU|weidu-filechangelog|eekeeper|bwinstallpack|bwtrimpack|bwfixpack|bwtextpack|bwtextpackp|'; trailing | is needed
+	Local $BG2EE_Mods=$BG1EE_Mods&'EET-patches-for-BG2EE-mods|'; trailing | is needed
+	; mods in the above list will still be skipped at install time, if purge rules exclude them (e.g., bwtextpackP is for RU installs only) 
 	$g_Flags[21]=''; will contain BG1-mods in EET -> Empty means no BG1-install
 	$g_Flags[22]=''; will contain BG2-mods in EET
 	If Not StringInStr($g_GConfDir, 'BG2EE') Then Return
