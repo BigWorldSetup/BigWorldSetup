@@ -1024,3 +1024,7 @@ Added: log selected expert mods and components and user-ignored rules via setup-
  Q. moved special case handling of EET patches for BG2EE mods and the BWS OverwriteFiles feature to the Au3Run step, which occurs after all extractions are complete (including user-prompted manual problem resolutions)
  R. removed some apparently(?) unnecessary 'always process Select.txt from the first line, just in case' logic that was causing EET installs to re-apply command-line actions from the BG1EE section when starting the BG2EE section
  S. fixed a couple of bugs related to the 'install components as a group' feature
+ 
+20161106 - Updated by agb1 
+ Dace NPC marked Expert for EE installs due to recent user reports; added BiG World Textpack, Trimpack and Smoothpack to the BG2EE installation process; more progress towards EET support.
+ 
