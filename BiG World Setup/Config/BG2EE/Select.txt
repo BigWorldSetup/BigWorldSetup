@@ -706,7 +706,7 @@ STD;arestorationp;13;09;1111;
 ANN;BP needs res_fixer (at least BGT version does)
 STD;res_fixer;0;01;0001;
 ANN;#0 is detectable spells v3 and other patches
-STD;BP;0;02;0111;
+STD;BP;0;08;0111;
 ANN;#10 is innate fix, recommend BPSeries instead (installs later)
 STD;BP;10;01;0000;
 ANN;#35 -> stores and items
