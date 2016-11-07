@@ -1973,7 +1973,7 @@ STD;BP;1800;08;0011;
 ANN;BPSeries Core (detectable spells v3)
 STD;BPSeries;0;11;1111;
 ANN;BPSeries Innate Fix -> Recommended
-STD;BPSeries;10;11;1111;
+STD;BPSeries;10;01;1111;
 ANN;BPSeries Party AI -> Recommended
 STD;BPSeries;100;11;1111;
 STD;WSR;200;12;1111;
