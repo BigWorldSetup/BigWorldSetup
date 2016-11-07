@@ -64,7 +64,8 @@ MUC;soa;Init;03;1111;
 MUC;soa;0;03;0000;
 MUC;soa;1;03;1111;
 STD;AC_QUEST;0;03;1111;
-STD;wbgtap;1;03;0111;
+ANN;Wedge's BGT Adventure Pack (wbgtap) Expert due to crashes - http://gibberlings3.net/forums/index.php?showtopic=27741&p=248203
+STD;wbgtap;1;03;0001;
 STD;karatur;0;03;0111;
 ANN;--- stores and items ---
 STD;bg1aerie;0;10;0111;

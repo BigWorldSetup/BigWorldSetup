@@ -51,7 +51,8 @@ MUC;soa;0;03;1111;
 ANN;soa #1 (BP-BGT-Worldmap variant) is not EET compatible, but is a BG1 mod, so we disable it
 ANN;MUC;soa;1;03;0000;
 STD;AC_QUEST;0;03;1111;
-STD;wbgtap;1;03;0111;
+ANN;Wedge's BGT Adventure Pack (wbgtap) Expert due to crashes - http://gibberlings3.net/forums/index.php?showtopic=27741&p=248203
+STD;wbgtap;1;03;0001;
 STD;karatur;0;03;0111;
 ANN;--- BGEE stores and items ---
 STD;bg1aerie;0;10;0111;
