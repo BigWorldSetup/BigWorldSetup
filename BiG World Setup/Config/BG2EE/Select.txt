@@ -1554,7 +1554,7 @@ SUB;AnimalCompanions;0?3_1;09;0111;
 ANN;BWFixpack disables pcvamp conditional patch (only if Weimer's Valen mod was installed first)
 ANN;that patch resulted in several "WARNING: cannot find block matching [pcvamp/BCS/priest.bcs]"
 ANN;to solve this problem for now, BWFixpack has merged pcvamp's patch into the Valen mod itself
-STD;pcvamp;0;12;0111;
+STD;pcvamp;0;03;0111;
 STD;Derats_kits;0;12;0111;
 STD;Derats_kits;1;12;0111;
 STD;Derats_kits;2;12;0111;
