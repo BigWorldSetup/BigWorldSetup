@@ -2611,67 +2611,6 @@ ANN;Standardized Viconia -> Variant B
 MUC;thepicturestandard;84400;13;0000;
 STD;Isandir;0;13;0000;
 STD;Isandir;1;13;0000;
-STD;NSCPortraits;0;13;1111;
-STD;NSCPortraits;1;13;1111;
-STD;NSCPortraits;10;13;1111;
-STD;NSCPortraits;20;13;1111;
-STD;NSCPortraits;21;13;1111;
-STD;NSCPortraits;30;13;1111;
-STD;NSCPortraits;50;13;1111;
-STD;NSCPortraits;300;13;1111;
-STD;NSCPortraits;305;13;1111;
-STD;NSCPortraits;310;13;1111;
-ANN;TDD not yet available for EE
-ANN;NSCPortraits;1000;13;1111;
-ANN;NSCPortraits;1001;13;1111;
-ANN;ROT not yet available for EE
-ANN;NSCPortraits;1030;13;1111;
-ANN;NSCPortraits;1031;13;0000;
-STD;NSCPortraits;1300;13;1111;
-STD;NSCPortraits;1310;13;1111;
-STD;NSCPortraits;1320;13;1111;
-STD;NSCPortraits;1330;13;1111;
-STD;NSCPortraits;1780;13;1111;
-STD;NSCPortraits;1340;13;1111;
-ANN;ToA not yet available for EE
-ANN;NSCPortraits;1350;13;1111;
-STD;NSCPortraits;1360;13;1111;
-STD;NSCPortraits;1370;13;1111;
-STD;NSCPortraits;1380;13;1111;
-ANN;JanQuest not yet available for EE
-ANN;NSCPortraits;1390;13;1111;
-STD;NSCPortraits;1400;13;1111;
-STD;NSCPortraits;1410;13;1111;
-ANN;DQ not yet available for EE
-ANN;NSCPortraits;1420;13;1111;
-STD;NSCPortraits;1430;13;1111;
-ANN;GBThfKp not yet available for EE
-ANN;NSCPortraits;1440;13;1111;
-STD;NSCPortraits;1450;13;1111;
-STD;NSCPortraits;1470;13;1111;
-STD;NSCPortraits;1480;13;1111;
-STD;NSCPortraits;1490;13;1111;
-STD;LongerRoad;2;13;0000;
-ANN;NSCPortraits;1500;13;1111;
-ANN;Zalnoya not yet available for EE
-ANN;NSCPortraits;1510;13;1111;
-STD;NSCPortraits;1520;13;1111;
-STD;NSCPortraits;1530;13;1111;
-STD;NSCPortraits;1540;13;1111;
-STD;NSCPortraits;1550;13;1111;
-ANN;AjocMod not yet available for EE
-ANN;NSCPortraits;1580;13;1111;
-STD;NSCPortraits;1590;13;1111;
-ANN;Sandrah not yet available for EE
-ANN;NSCPortraits;1600;13;1111;
-STD;NSCPortraits;2000;13;1111;
-STD;NSCPortraits;2010;13;1111;
-ANN;Goo NPC not yet available for EE
-ANN;NSCPortraits;3000;13;1111;
-ANN;Kim NPC not yet available for EE
-ANN;NSCPortraits;3010;13;1111;
-STD;NSCPortraits;5000;13;1111;
-STD;NSCPortraits;5010;13;1111;
 STD;artaport;0;13;0000;
 STD;artaport;1;13;0000;
 STD;artaport;2;13;0000;
