@@ -954,8 +954,8 @@ SUB;ACBre;0?2_2;05;0000;
 ANN;#2 crossmod needs other NPCs installed first
 STD;ACBre;2;05;0111;
 ANN;Eternal Imoen after all mods that interact with Imoen in Irenicus Dungeon
-STD;EternalImoen;0;06;0111;
-STD;EternalImoen;1;06;0000;
+STD;EternalImoen;0;09;0111;
+STD;EternalImoen;1;09;0000;
 ANN;Rjali's Preliminary Setup
 STD;rjali;0;05;0111;
 ANN;Talk Timing Adjustments
