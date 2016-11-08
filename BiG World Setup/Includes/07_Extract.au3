@@ -292,8 +292,8 @@ Func Au3ExFix($p_Num)
 		If FileExists($g_BG2Dir&'\setup-gavin_bg2.exe') Then DirCreate($g_BG2Dir&'\gavin_bg2_bgt')
 		If FileExists($g_BG2Dir&'\setup-iwditempack.exe') Then DirCreate($g_BG2Dir&'\iwditemfix')
 		If FileExists($g_BG2Dir&'\item_rev\item_rev.tp2') Then DirCreate($g_BG2Dir&'\item_rev_shatterfix')
-		If FileExists($g_BG2Dir&'\Setup-R*deur.tp2') Then DirMove($g_BG2Dir&"\RÓdeur de l'ombre", $g_BG2Dir&"\Rôdeur de l'ombre")
-		If FileExists($g_BG2Dir&'\SetupP!Bhaal.tp2') Then DirMove($g_BG2Dir&'\PrÈtre de Bhaal', $g_BG2Dir&'\Prêtre de Bhaal')
+		If FileExists($g_BG2Dir&'\Setup-R*deur.tp2') Then DirMove($g_BG2Dir&"\RÃ“deur de l'ombre", $g_BG2Dir&"\RÃ´deur de l'ombre")
+		If FileExists($g_BG2Dir&'\SetupP!Bhaal.tp2') Then DirMove($g_BG2Dir&'\PrÄŒtre de Bhaal', $g_BG2Dir&'\PrÄ™tre de Bhaal')
 		If FileExists($g_BG2Dir&'\setup-astscriptpatcher.exe') Then DirCreate($g_BG2Dir&'\astScriptPatcher')
 	ElseIf $g_Flags[14] = 'PST' Then
 		If FileExists($g_PSTDir&'\setup-pst-drawfix.exe') Then DirCreate($g_PSTDir&'\pst-drawfix_backup')
@@ -935,7 +935,7 @@ Func _FileListToArrayEx($sPath, $sFilter = "*", $iFlag = 0)
     FileClose($hSearch)
     If Not $sFileList Then Return SetError(4, 4, "")
     Return StringSplit(StringTrimLeft($sFileList, 1), "|")
-EndFunc
+EndFunc    ;==>_FileListToArrayEx
 
 ; ---------------------------------------------------------------------------------------------
 ; If there are files in a directory in the BWS folder named OverwriteFiles\<current game type>\
