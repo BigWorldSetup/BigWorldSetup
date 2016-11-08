@@ -1114,7 +1114,6 @@ MUC;item_rev;Init;09;0111;
 MUC;item_rev;18;09;0000;
 MUC;item_rev;19;09;0111;
 MUC;item_rev;20;09;0000;
-STD;item_rev;1200;09;0011;
 STD;item_rev;12;09;0111;
 ANN;#13 removed in IRv4
 MUC;item_rev;Init;09;0000;
