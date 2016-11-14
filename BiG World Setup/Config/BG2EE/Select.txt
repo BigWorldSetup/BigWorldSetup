@@ -341,6 +341,12 @@ ANN;--- mods for BG:EE that must be installed after EET ---
 MUC;BG_Travel;Init;09;0111;
 MUC;BG_Travel;66;09;0111;
 MUC;BG_Travel;661;09;0000;
+STD;ToA;1;03;0111;
+STD;ToA;2;03;0111;
+STD;ToA;20;03;0111;
+STD;ToA;30;03;0111;
+STD;ToA;40;03;0111;
+STD;ToA;50;03;0111;
 SUB;dsotsc;0;02;0111;
 SUB;dsotsc;0?1_1;02;0000;
 SUB;dsotsc;0?1_2;02;0111;
