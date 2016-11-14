@@ -259,7 +259,6 @@ ANN;--- more BGEE quests ---
 STD;bg1ub;0;03;1111;
 STD;bg1ub;1;03;1111;
 STD;bg1ub;4;03;1111;
-STD;bg1ub;5;03;1111;
 STD;bg1ub;6;03;1111;
 STD;bg1ub;7;03;1111;
 STD;bg1ub;10;03;1111;
