@@ -1094,6 +1094,11 @@ STD;iwdification;60;10;0111;
 MUC;w_packmule;Init;10;0111;
 MUC;w_packmule;2;10;0111;
 MUC;w_packmule;3;10;0000;
+STD;hammers;0;13;1111;
+STD;hammers;15;10;1111;
+STD;hammers;25;10;1111;
+STD;hammers;35;10;1111;
+STD;hammers;50;10;1111;
 ANN;--- item revisions v4 --- 
 STD;item_rev;0;09;0111;
 STD;item_rev;1030;09;0111;
