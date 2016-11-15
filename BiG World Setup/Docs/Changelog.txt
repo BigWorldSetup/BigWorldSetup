@@ -1028,3 +1028,5 @@ Added: log selected expert mods and components and user-ignored rules via setup-
 20161106 - Updated by agb1 
  Dace NPC marked Expert for EE installs due to recent user reports; added BiG World Textpack, Trimpack and Smoothpack to the BG2EE installation process; more progress towards EET support.
  
+20161114 - Updated by agb1
+ Attempted to fix Update If Needed script, which wasn't working for me again
