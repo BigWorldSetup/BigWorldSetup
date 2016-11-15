@@ -184,6 +184,9 @@ ANN;#1,2 crossmod valerie,gavin
 STD;isra;1;05;1111;
 STD;isra;2;05;1111;
 STD;sirene;0;05;0111;
+STD;verrsza;0;05;0111;
+STD;verrsza;1;05;0111;
+STD;verrsza;2;05;0111;
 STD;Huple_NPC;0;05;0000;
 STD;Huple_NPC;1;05;0000;
 ANN;-- BGEE Smaller NPCs --
