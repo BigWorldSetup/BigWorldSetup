@@ -55,6 +55,8 @@ CMD;IF EXIST "BiG World Fixpack" xcopy /Y /S /E ".\BiG World Fixpack\_resfixer_v
 CMD;IF EXIST "BiG World Fixpack" xcopy /Y /S /E ".\BiG World Fixpack\_crefixer_v2\*.*" "."
 CMD;IF EXIST "BiG World Fixpack" xcopy /Y /S /E ".\BiG World Fixpack\_Innate_Fix\*.*" "."
 CMD;IF EXIST "BiG World Fixpack" xcopy /Y /S /E ".\BiG World Fixpack\_Area_Patcher\*.*" "."
+CMD;IF EXIST "BiG World Fixpack" xcopy /Y /S /E ".\BiG World Fixpack\_Cre_Patcher\*.*" "."
+CMD;IF EXIST "BiG World Fixpack" xcopy /Y /S /E ".\BiG World Fixpack\_Item_Patcher\*.*" "."
 CMD;IF EXIST Setup-Area_Patcher.tp2 MD ".\Area_Patcher"
 CMD;IF EXIST "BiG World Fixpack\_IDS_ref" copy /Y ".\BiG World Fixpack\_IDS_ref\*.IDS" ".\override"
 CMD;IF EXIST "BiG World Fixpack\_AuroraPatch" xcopy /Y /S /E ".\BiG World Fixpack\_AuroraPatch\*.*" "."
@@ -70,8 +72,8 @@ CMD;IF EXIST "BiG World Fixpack\spell_rev" rmdir /s /q "BiG World Fixpack\spell_
 ANN;Set up workspace
 CMD;IF NOT EXIST ".\BWP_workspace\override" MD ".\BWP_workspace\override"
 CMD;IF EXIST tisunpack.exe copy tisunpack.exe ".\BWP_workspace\override"
-ANN;Run the Trimpack, Fixpack, Textpack and Smoothpack batch scripts
-CMD;IF EXIST "BiG World Trimpack" IF NOT EXIST BWP_Trimpack.installed Call "BiG World Trimpack.bat"
+ANN;Run the Fixpack (now includes Trimpack changes), Textpack and Smoothpack batch scripts
+ANN;CMD;IF EXIST "BiG World Trimpack" IF NOT EXIST BWP_Trimpack.installed Call "BiG World Trimpack.bat"
 CMD;IF EXIST "BiG World Fixpack" IF NOT EXIST BWP_Fixpack.installed Call "BiG World Fixpack.bat"
 CMD;IF NOT EXIST BWP_Textpack.installed Call "BiG World Textpack.bat"
 CMD;IF NOT EXIST BWP_Smoothpack.installed Call ".\BiG World Installpack\BiG World Smoothpack.bat"
@@ -91,7 +93,7 @@ ANN;#0. GENERAL
 DWN;polishsagabgconversion;0;00;1111;
 DWN;BWPDF;0;00;1111;
 DWN;BWInstallpack;0;00;1111;
-DWN;BWTrimpack;0;00;1111;
+ANN;DWN;BWTrimpack;0;00;1111;
 DWN;BWFixpack;0;00;1111;
 DWN;BWTextpack;0;00;1111;
 DWN;BWTextpackP;0;00;1111;
@@ -2083,7 +2085,7 @@ SUB;AvengerKit;0?1_0;19;0111;
 SUB;AvengerKit;1;17;0111;
 SUB;AvengerKit;1?1_0;17;0111;
 SUB;AvengerKit;2;15;0001;
-SUB;AvengerKit;2?1_0;15;0001;
+SUB;AvengerKit;2?1_0;15;0111;
 SUB;AvengerKit;3;15;0111;
 SUB;AvengerKit;3?1_0;15;0111;
 STD;Rodeur;0;19;0111;
@@ -4542,12 +4544,32 @@ STD;crefixer;0;01;1111;
 CMD;IF EXIST ".\override\ahjon.BCS" move ".\override\ahjon.BCS" ".\BWP_workspace\override";;;;D:LongerRoad(0)
 STD;Innate_Fix;0;01;0000;
 CMD;IF EXIST ".\BWP_workspace\override\ahjon.BCS" move ".\BWP_workspace\override\ahjon.BCS" ".\override";;;;D:LongerRoad(0)
-STD;Area_Patcher;0;01;0000;
+STD;Area_Patcher;0;01;1111;
 ANN;Area_Patcher;1000;01;0000;no need without old NEJ
 ANN;Area_Patcher;2000;01;0000;no need without old NEJ
-STD;Area_Patcher;2001;01;0000;
+STD;Area_Patcher;2001;01;1111;
+STD;Area_Patcher;2002;01;1111;
 STD;Area_Patcher;3000;01;0000;
 ANN;Area_Patcher;4000;01;0000;handled by BWFixpack
+ANN;STD;Cre_Patcher;0;01;1111;
+ANN;STD;Cre_Patcher;100;01;1111;handled by BWFixpack
+STD;Item_Patcher;0;01;1111;
+STD;Item_Patcher;100;01;1111;
+STD;Item_Patcher;101;01;1111;
+STD;Item_Patcher;102;01;1111;
+STD;Item_Patcher;103;01;1111;
+STD;Item_Patcher;104;01;1111;
+STD;Item_Patcher;105;01;1111;
+STD;Item_Patcher;106;01;1111;
+STD;Item_Patcher;107;01;1111;
+STD;Item_Patcher;108;01;1111;
+STD;Item_Patcher;109;01;1111;
+STD;Item_Patcher;110;01;1111;
+STD;Item_Patcher;111;01;1111;
+STD;Item_Patcher;112;01;1111;
+STD;Item_Patcher;113;01;1111;
+ANN;STD;Item_Patcher;114;01;1111;TDDsinTDD is not currently in BWS
+STD;Item_Patcher;115;01;1111;
 CMD;IF EXIST ".\override\ESX01.wav" move ".\override\ESX01.wav" ".\BWP_workspace\override"
 CMD;IF EXIST ".\override\ISHXAR1.wav" move ".\override\ISHXAR1.wav" ".\BWP_workspace\override"
 CMD;IF EXIST ".\override\ISHXAR6.wav" move ".\override\ISHXAR6.wav" ".\BWP_workspace\override"
