@@ -183,10 +183,25 @@ STD;isra;0;05;1111;
 ANN;#1,2 crossmod valerie,gavin
 STD;isra;1;05;1111;
 STD;isra;2;05;1111;
+STD;white;0;05;0111;
+ANN;sirene 0-1 = bg:ee/sod
 STD;sirene;0;05;0111;
+STD;sirene;1;05;0111;
+ANN;sirene 2-6 = alternate kit
+MUC;sirene;Init;05;0000;
+MUC;sirene;2;05;0000;
+MUC;sirene;3;05;0000;
+MUC;sirene;4;05;0000;
+MUC;sirene;5;05;0000;
+MUC;sirene;6;05;0000;
+ANN;sirene 7 = alternate portrait
+STD;sirene;7;05;0000;
 STD;verrsza;0;05;0111;
 STD;verrsza;1;05;0111;
 STD;verrsza;2;05;0111;
+ANN;sirene 8-9 = crossmod (after white/verrsza)
+STD;sirene;8;05;0111;
+STD;sirene;9;05;0111;
 STD;Huple_NPC;0;05;0000;
 STD;Huple_NPC;1;05;0000;
 ANN;-- BGEE Smaller NPCs --

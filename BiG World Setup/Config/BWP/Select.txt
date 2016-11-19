@@ -69,6 +69,7 @@ CMD;IF EXIST "BiG World Textpack GERMAN" xcopy /Y /S /E ".\BiG World Textpack GE
 ANN;Remove outdated v3 fixes as we are now using IR v4 and SR v4
 CMD;IF EXIST "BiG World Fixpack\item_rev" rmdir /s /q "BiG World Fixpack\item_rev"
 CMD;IF EXIST "BiG World Fixpack\spell_rev" rmdir /s /q "BiG World Fixpack\spell_rev"
+CMD;IF EXIST "BiG World Fixpack\ascension" rmdir /s /q "BiG World Fixpack\ascension"
 ANN;Set up workspace
 CMD;IF NOT EXIST ".\BWP_workspace\override" MD ".\BWP_workspace\override"
 CMD;IF EXIST tisunpack.exe copy tisunpack.exe ".\BWP_workspace\override"
@@ -136,13 +137,14 @@ STD;tobex;123;01;1111;
 STD;tobex;124;01;1111;
 ANN;Enable Spell Immunity in Sequencers/Triggers (TobEx)
 STD;jimfix;1;16;1111;
-STD;ascension;0;15;1111;
-STD;ascension;1;15;0011;
-STD;ascension;2;15;0011;
-STD;ascension;3;15;0011;
-STD;ascension;4;15;0011;
-STD;ascension;5;15;0011;
-STD;astscriptpatcher;0;15;1111;
+ANN;old pre-1.5 Ascension disabled
+ANN;STD;ascension;0;15;1111;
+ANN;STD;ascension;1;15;0011;
+ANN;STD;ascension;2;15;0011;
+ANN;STD;ascension;3;15;0011;
+ANN;STD;ascension;4;15;0011;
+ANN;STD;ascension;5;15;0011;
+ANN;STD;astscriptpatcher;0;15;1111;
 STD;Oversight;0;15;0001;
 STD;bg2fixpack;0;01;1111;
 MUC;bg2fixpack;Init;01;1111;
@@ -230,6 +232,20 @@ STD;TP;1;01;1111;
 STD;BGT-NPCSound;0;01;1111;
 STD;TxtMusic;0;01;1111;
 ANN;#4. BIG BG2 MODS PAST BGT
+ANN;--- Ascension 1.5 BETA ---
+MUC;Ascension;Init;15;1111;
+MUC;Ascension;0;15;1111;
+MUC;Ascension;106;15;0000;
+STD;Ascension;1;15;0011;
+STD;Ascension;2;15;0011;
+STD;Ascension;3;15;0011;
+STD;Ascension;4;15;0011;
+STD;Ascension;5;15;0011;
+STD;Ascension;103;15;1111;
+STD;Ascension;104;15;1111;
+ANN;#105 is EE-only, 999 is no longer required
+STD;Ascension;101;15;0111;
+STD;Ascension;102;15;0111;
 CMD;IF EXIST ".\BWP_workspace\override\tisunpack.exe" copy /Y ".\BWP_workspace\override\tisunpack.exe" "*.*"
 STD;NeJ2v691;0;01;0001;
 STD;NeJ2v691;1;19;0001;
