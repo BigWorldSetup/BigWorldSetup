@@ -224,25 +224,38 @@ Func _CreateList($p_Num = 's')
 				$Setups[$a + 1][0] = StringLower($SectionNames[$a + 1])
 				$Setups[$a + 1][1] = StringStripWS(StringTrimRight(StringTrimLeft($Array[$a], 6), 2), 2)
 			Next
-		Else
+		Else; less 'Name=' lines than [section name]s
 			ConsoleWrite('!Missing Name-definition in Mod.ini' & @CRLF)
 			$Array = StringSplit(StringStripCR($File), @LF)
-			For $a = 1 To $Array[0]
-				If StringLeft($Array[$a], 1) = '[' Then
-					$Setups[0][0] = $Setups[0][0] + 1
-					If UBound($Setups) < $Setups[0][0] Or UBound($SectionNames) < $Setups[0][0] Then
-						_PrintDebug('Improperly formatted mod ini file: '&$g_ModIni, 1)
-						Exit
-					EndIf
-					$Setups[$Setups[0][0]][0] = StringLower($SectionNames[$Setups[0][0]])
-					For $a = $a To $Array[0]
-						If StringLeft($Array[$a], 5) = 'Name=' Then
-							$Setups[$Setups[0][0]][1] = StringStripWS(StringTrimLeft($Array[$a], 5), 2)
+			For $a = 1 To $Array[0]; scan each line of the file ...
+				If StringLeft($Array[$a], 1) = '[' Then; when we find a line that starts with a '[' bracket ...
+					For $a = $a + 1 To $Array[0]; scan lines after it looking for the next '[' or 'Name=' ...
+						If StringLeft($Array[$a], 1) = '[' Then; found '[' before 'Name=' - badly formatted section
+							_PrintDebug('Improperly formatted mod ini file (missing Name): '&$g_ModIni&' at line '&$a, 1)
+							Exit
+						ElseIf StringLeft($Array[$a], 5) = 'Name=' Then; found 'Name=' first - correct format, continue
 							ExitLoop
 						EndIf
 					Next
 				EndIf
 			Next
+; following code is legacy and doesn't work - replaced by working code above
+;			For $a = 1 To $Array[0]
+;				If StringLeft($Array[$a], 1) = '[' Then
+;					$Setups[0][0] = $Setups[0][0] + 1
+;					If $Setups[0][0] > UBound($Setups) Or $Setups[0][0] > UBound($SectionNames) Then
+;						_PrintDebug('Improperly formatted mod ini file: '&$g_ModIni&' at line '&$a, 1)
+;						Exit
+;					EndIf
+;					$Setups[$Setups[0][0]][0] = StringLower($SectionNames[$Setups[0][0]])
+;					For $a = $a To $Array[0]
+;						If StringLeft($Array[$a], 5) = 'Name=' Then
+;							$Setups[$Setups[0][0]][1] = StringStripWS(StringTrimLeft($Array[$a], 5), 2)
+;							ExitLoop
+;						EndIf
+;					Next
+;				EndIf
+;			Next
 		EndIf
 	Else;If $p_Num = 'c' Then; build chapters list
 		If Not IsArray($g_Setups) Then $g_Setups = _CreateList(); we need setups list for chapters list
