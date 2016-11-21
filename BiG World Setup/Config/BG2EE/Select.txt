@@ -975,6 +975,10 @@ STD;G3Anniversary;0;04;0111;
 CMD;echo.>> Worldmap/map_mods_links.tbl;;;;D:G3Anniversary(0)
 ANN;--- BG2EE NPCs ---
 STD;sarevokromance;0;07;0111;
+ANN;sirene_bg2 after PaiNa, Foundling, Yvette, Fade, Innershade, TotDG, ISNF, YoshimoRomance, RE
+STD;sirene_bg2;0;05;0111;
+STD;sirene_bg2;1;05;0111;
+STD;sirene_bg2;2;05;0000;
 STD;CrossmodBG2;0;07;1111;
 STD;CrossmodBG2;1;07;1111;
 STD;CrossmodBG2;2;07;1111;
