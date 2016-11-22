@@ -394,18 +394,17 @@ STD;jimfix;0;01;0111;
 ANN;Check for and fix incorrect spell animations (install this early)
 STD;jimfix;100;01;0111;
 ANN;--- Ascension 1.5 BETA ---
-MUC;Ascension;Init;08;0111;
-MUC;Ascension;0;08;0111;
+MUC;Ascension;Init;08;1111;
+MUC;Ascension;0;08;1111;
 MUC;Ascension;106;08;0000;
 STD;Ascension;1;08;0011;
 STD;Ascension;2;08;0011;
 STD;Ascension;3;08;0011;
 STD;Ascension;4;08;0011;
 STD;Ascension;5;08;0011;
-STD;Ascension;103;08;0111;
-STD;Ascension;999;08;0111;
-STD;Ascension;104;08;0111;
-STD;Ascension;105;08;0111;
+STD;Ascension;103;08;1111;
+STD;Ascension;104;08;1111;
+STD;Ascension;105;08;1111;
 STD;Ascension;101;13;0111;
 STD;Ascension;102;13;0111;
 ANN;--- post-EET BGEE tweaks ---
