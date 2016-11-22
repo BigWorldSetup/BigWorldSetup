@@ -53,7 +53,7 @@ ANN;MUC;soa;1;03;0000;
 STD;AC_QUEST;0;03;1111;
 ANN;Wedge's BGT Adventure Pack (wbgtap) Expert due to crashes - http://gibberlings3.net/forums/index.php?showtopic=27741&p=248203
 STD;wbgtap;1;03;0001;
-STD;karatur;0;03;0111;
+STD;karatur;0;03;0011;
 ANN;--- BGEE stores and items ---
 STD;bg1aerie;0;10;0111;
 STD;BGeeAR;0;10;0111;
