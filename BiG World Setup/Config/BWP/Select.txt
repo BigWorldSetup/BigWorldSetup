@@ -3142,7 +3142,10 @@ MUC;scales_of_balance;Init;16;0000;
 MUC;scales_of_balance;206;16;0000;
 MUC;scales_of_balance;207;16;0000;
 STD;scales_of_balance;210;16;0000;
-STD;scales_of_balance;212;16;0000;
+MUC;scales_of_balance;Init;16;0000;
+MUC;scales_of_balance;2121;16;0000;
+MUC;scales_of_balance;2122;16;0000;
+MUC;scales_of_balance;2123;16;0000;
 ANN;--- SCS core ---
 STD;stratagems;1000;16;1111;
 ANN;--- SCS spell tweaks ---

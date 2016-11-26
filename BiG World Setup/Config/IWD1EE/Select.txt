@@ -502,13 +502,17 @@ STD;scales_of_balance;103;09;0000;
 STD;scales_of_balance;104;09;0000;
 STD;scales_of_balance;121;09;0000;
 STD;scales_of_balance;122;09;0000;
-STD;scales_of_balance;123;09;0000;
+ANN;STD;scales_of_balance;123;09;0000; moved to Tweaks Anthology
 STD;scales_of_balance;124;09;0000;
 STD;scales_of_balance;125;09;0000;
 STD;scales_of_balance;180;09;0000;
 STD;scales_of_balance;200;09;0000;
 STD;scales_of_balance;205;09;0000;
 STD;scales_of_balance;210;09;0000;
+MUC;scales_of_balance;Init;09;0000;
+MUC;scales_of_balance;2121;09;0000;
+MUC;scales_of_balance;2122;09;0000;
+MUC;scales_of_balance;2123;09;0000;
 ANN;-- XP for locks, traps, spells
 SUB;eet_tweaks;6;09;1111;
 SUB;eet_tweaks;6?1_1;09;1111;
