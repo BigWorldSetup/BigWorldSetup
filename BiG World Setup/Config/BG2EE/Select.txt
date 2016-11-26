@@ -2814,6 +2814,9 @@ MUC;npc_ee;223;07;0111;
 ANN;Branwen
 MUC;npc_ee;Init;07;0111;
 MUC;npc_ee;242;07;0111;
+ANN;Xzar
+MUC;npc_ee;Init;07;0000;
+MUC;npc_ee;302;07;0000;
 ANN;Montaron
 MUC;npc_ee;Init;07;0000;
 MUC;npc_ee;321;07;0000;
