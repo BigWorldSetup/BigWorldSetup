@@ -723,6 +723,9 @@ STD;derats_ogre;0;04;0111;
 ANN;--- BG2EE tweaks ---
 STD;DungeonBeGone;0;09;0000;
 STD;SkipChateauIrenicus;0;09;0000;
+MUC;SkipChateauIrenicus;Init;09;0000;
+MUC;SkipChateauIrenicus;101;09;0000;
+MUC;SkipChateauIrenicus;102;09;0000;
 STD;Teleport;0;09;0111;
 STD;Teleport;1;09;0111;
 STD;arestorationp;0;09;1111;
