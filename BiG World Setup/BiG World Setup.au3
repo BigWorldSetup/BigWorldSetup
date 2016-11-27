@@ -153,6 +153,25 @@ Func Au3GetVal($p_Num = 0)
 			$Array = StringSplit(StringStripCR(FileRead($g_GConfDir & '\Select.txt')), @LF)
 			If _IniRead($ReadSection, 'GroupInstall', 0) = 1 Then $Array = _Install_ModifyForGroupInstall($Array); always install in groups
 			Local $a = $g_FItem; TODO:  convert to For loop ?
+			If $a = 0 Then ; crash prevention when restarting BWS before first mod is processed
+				_PrintDebug('Unfortunately, BWS is unable to resume from where it left off - please start over', 1)
+				IniWrite($g_BWSIni, 'Order', 'Au3Detect', 1)
+				IniWrite($g_BWSIni, 'Order', 'Au3BuildGui', 1)
+				IniWrite($g_BWSIni, 'Order', 'Au3Select', 1)
+				IniWrite($g_BWSIni, 'Order', 'Au3GetVal', 1)
+				IniWrite($g_BWSIni, 'Order', 'Au3CleanInst', 1)
+				IniWrite($g_BWSIni, 'Order', 'Au3PrepInst', 1)
+				IniWrite($g_BWSIni, 'Order', 'Au3Net', 1)
+				IniWrite($g_BWSIni, 'Order', 'Au3NetTest', 1)
+				IniWrite($g_BWSIni, 'Order', 'Au3NetFix', 1)
+				IniWrite($g_BWSIni, 'Order', 'Au3Extract', 1)
+				IniWrite($g_BWSIni, 'Order', 'Au3ExFix', 1)
+				IniWrite($g_BWSIni, 'Order', 'Au3ExTest', 1)
+				IniWrite($g_BWSIni, 'Order', 'Au3RunFix', 1)
+				IniWrite($g_BWSIni, 'Order', 'Au3Install', 1)
+				IniWrite($g_BWSIni, 'Order', 'Au3Exit', 1)
+				Exit
+			EndIf
 			While StringRegExp($Array[$a], '(?i)\A(CMD|ANN|DWN|GRP)') And $a < $Array[0]
 				$a += 1
 			WEnd

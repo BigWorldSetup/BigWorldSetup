@@ -11,8 +11,6 @@ CMD;IF EXIST "setup RGenie.tp2" ren "setup RGenie.tp2" setup-RGenie.tp2
 CMD;IF EXIST "setup RGenie.exe" ren "setup RGenie.exe" setup-RGenie.exe
 CMD;IF EXIST "Setup-BWL Contest.tp2" ren "Setup-BWL Contest.tp2" Setup-BWL_Contest.tp2
 CMD;IF EXIST "Setup-BWL Contest.exe" ren "Setup-BWL Contest.exe" Setup-BWL_Contest.exe
-CMD;IF EXIST SandrahToT-Setup.tp2 ren SandrahToT-Setup.tp2 Setup-SandrahToT.tp2
-CMD;IF EXIST SandrahToT-Setup.exe ren SandrahToT-Setup.exe Setup-SandrahToT.exe
 CMD;IF EXIST setup-b!tweak.exe move .\b!tweak\setup-b!tweak.tp2 "."
 CMD;IF EXIST setup-b!tweak.exe ren setup-b!tweak.exe setup-btweak.exe
 CMD;IF EXIST setup-b!tweak.tp2 ren setup-b!tweak.tp2 setup-btweak.tp2
@@ -4022,13 +4020,6 @@ STD;tobaurora;0;12;0111;
 SUB;tobaurora;1;12;0000;
 SUB;tobaurora;1?1_1;12;0000;
 SUB;tobaurora;1?1_2;12;0000;
-CMD;IF EXISTS "BiG World Fixpack\_override\worldmap.wmp" COPY /Y "BiG World Fixpack\_override\worldmap.wmp" "override\worldmap.wmp"
-ANN;Will return in EET
-ANN;SUB;SandrahNPC;0;12;0000;
-ANN;SUB;SandrahNPC;0?0_1;12;0000;
-ANN;SUB;SandrahNPC;0?0_2;12;0000;
-ANN;STD;SandrahRtF;0;09;0111;
-ANN;STD;SandrahToT;0;09;0111;
 STD;HardTimes;0;07;0011;
 STD;HardTimes;1;06;0011;
 STD;polytweak;50;16;1111;

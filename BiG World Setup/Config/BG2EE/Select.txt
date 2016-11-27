@@ -15,7 +15,7 @@ ANN;--- BGEE patches ---
 CMD;IF NOT EXIST ".\BWS_workspace\override" MD ".\BWS_workspace\override"
 ANN;Run the Fixpack (now includes Trimpack changes), Textpack and Smoothpack batch scripts
 ANN;CMD;IF NOT EXIST BWP_Trimpack.installed Call "BiG World Trimpack.bat"
-CMD;IF NOT EXIST BWP_Fixpack.installed Call "BiG World Fixpack.bat"
+CMD;IF NOT EXIST BWP_Fixpack.installed Call "_ApplyPatches.bat"
 CMD;IF NOT EXIST BWP_Textpack.installed Call "BiG World Textpack.bat"
 CMD;IF NOT EXIST BWP_Smoothpack.installed Call ".\BiG World Installpack\BiG World Smoothpack.bat"
 CMD;IF EXIST ".\BiG World Installpack\BWP_Smoothpack.installed" copy ".\BiG World Installpack\BWP_Smoothpack.installed" "."
@@ -334,20 +334,17 @@ ANN;-- install EET itself --
 STD;EET;0;00;1111;
 ANN;-- all lines below EET mod will apply to BG2EE folder
 ANN;--- BG2:EE patches ---
-DWN;EET-patches-for-BG2EE-mods;0;00;1111;
 CMD;IF NOT EXIST ".\BWS_workspace\override" MD ".\BWS_workspace\override"
 ANN;special case - due to code in Testing.au3, BWS will extract WeiDU and the BW packs in both the BG1EE (for EET installs) and the BG2EE folder
 ANN;For some foreign languages this adds English text files to the mods as a substitute to prevent that the installation fails because of missing files
 CMD;IF EXIST "BiG World Textpack GERMAN" xcopy /Y /S /E ".\BiG World Textpack GERMAN\_English_files" ".\BiG World Textpack GERMAN"
-CMD;IF EXIST "BiG World Fixpack" xcopy /Y /S /E ".\BiG World Fixpack\_Lolfixer\*.*" "."
-CMD;IF EXIST "BiG World Fixpack" xcopy /Y /S /E ".\BiG World Fixpack\_resfixer_v1\*.*" "."
 CMD;IF EXIST "BiG World Fixpack\ascension" rmdir /s /q "BiG World Fixpack\ascension"
 CMD;IF EXIST "BiG World Fixpack\item_rev" rmdir /s /q "BiG World Fixpack\item_rev"
 CMD;IF EXIST "BiG World Fixpack\spell_rev" rmdir /s /q "BiG World Fixpack\spell_rev"
 CMD;IF EXIST "BiG World Fixpack\tdd" rmdir /s /q "BiG World Fixpack\tdd"
 ANN;Run the Fixpack (now includes Trimpack changes), Textpack and Smoothpack batch scripts
 ANN;CMD;IF NOT EXIST BWP_Trimpack.installed Call "BiG World Trimpack.bat"
-CMD;IF NOT EXIST BWP_Fixpack.installed Call "BiG World Fixpack.bat"
+CMD;IF NOT EXIST BWP_Fixpack.installed Call "_ApplyPatches.bat"
 CMD;IF NOT EXIST BWP_Textpack.installed Call "BiG World Textpack.bat"
 CMD;IF NOT EXIST BWP_Smoothpack.installed Call ".\BiG World Installpack\BiG World Smoothpack.bat"
 CMD;IF EXIST ".\BiG World Installpack\BWP_Smoothpack.installed" copy ".\BiG World Installpack\BWP_Smoothpack.installed" "."
@@ -2462,6 +2459,35 @@ SUB;eet_tweaks;31?1_1;09;0111;
 SUB;eet_tweaks;31?1_2;09;0000;
 SUB;eet_tweaks;31?1_3;09;0000;
 SUB;eet_tweaks;31?2_1920x1080;09;0000;
+ANN;--- Sandrah Saga ---
+STD;SandrahNPC;0;03;0111;
+STD;SandrahNPC;1;03;0111;
+STD;SandrahNPC;2;03;0111;
+STD;SandrahNPC;3;03;0111;
+STD;SandrahNPC;4;03;0111;
+STD;SandrahNPC;5;03;0111;
+STD;SandrahNPC;6;03;0111;
+STD;SandrahNPC;7;03;0111;
+STD;SandrahNPC;8;03;0111;
+STD;SandrahNPC;9;03;0111;
+STD;SandrahNPC;10;03;0111;
+STD;SandrahNPC;11;03;0111;
+STD;SandrahNPC;12;03;0111;
+STD;SandrahNPC;13;03;0111;
+STD;SandrahNPC;14;03;0111;
+STD;SandrahNPC;15;03;0111;
+STD;SandrahNPC;16;03;0111;
+STD;SandrahRtF;0;03;0111;
+STD;SandrahRtF;1;03;0111;
+STD;SandrahRtF;2;03;0111;
+STD;SandrahRtF;3;03;0111;
+STD;SandrahRtF;4;03;0111;
+STD;SandrahRtF;5;03;0111;
+STD;SandrahRtF;6;03;0111;
+STD;SandrahRtF;7;03;0111;
+STD;SandrahRtF;8;03;0111;
+STD;SandrahToT;0;03;0111;
+STD;SandrahToT;1;03;0111;
 ANN;worldmap after all mods that use it
 SUB;BP-BGT-Worldmap;0;13;1111;
 SUB;BP-BGT-Worldmap;0?1_1;13;1111;
@@ -2471,23 +2497,6 @@ SUB;BP-BGT-Worldmap;0?2_2;13;1111;
 MUC;BP-BGT-Worldmap;Init;13;1111;
 MUC;BP-BGT-Worldmap;1;13;1111;
 MUC;BP-BGT-Worldmap;2;13;0000;
-ANN;--- lolfixer not yet ready for EE, marked as expert ---
-STD;lolfixer;0;01;0001;
-STD;lolfixer;1;01;0001;
-STD;lolfixer;2;01;0001;
-STD;lolfixer;3;01;0001;
-STD;lolfixer;4;01;0001;
-STD;lolfixer;5;01;0001;
-STD;lolfixer;6;01;0001;
-STD;lolfixer;7;01;0001;
-STD;lolfixer;8;01;0001;
-STD;lolfixer;9;01;0001;
-STD;lolfixer;10;01;0001;
-STD;lolfixer;11;01;0001;
-STD;lolfixer;12;01;0000;
-STD;lolfixer;13;01;0001;
-STD;lolfixer;14;01;0001;
-STD;lolfixer;15;01;0001;
 ANN;EET_End component to finish EET installation, ready before EET
 SUB;EET_End;0;00;0000;
 SUB;EET_End;0?1_1;00;0000;
