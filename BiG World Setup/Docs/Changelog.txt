@@ -1035,3 +1035,5 @@ Added: log selected expert mods and components and user-ignored rules via setup-
  Use 1.5 BG2EE version of Alora for BG2:SoA too - no content difference, and the BiG World Fixpack patch restores German non-UTF8 tra files (Russian is probably still borked)
  Also, SCS component 4110 (NPC pairs can separate) is now patched by the BiG World Fixpack so it can be installed on EET (untested in game, but verified install without errors)
  
+20161130 - Updated by agb1
+ Disabled generalized biffing for Enhanced Edition installs

@@ -2689,10 +2689,10 @@ ANN;Close off the selectable portraits list
 CMD;IF EXIST "PaintBG" IF EXIST "override\bgee.sql" ECHO )\; >> "override\bgee.sql"
 ANN;Copy over all the portraits and remove the PaintBG directory
 CMD;IF EXIST "PaintBG" XCOPY /Y /I "PaintBG\*.bmp" "characters" && RMDIR /S /Q "PaintBG"
-ANN;--- generalized biffing ---
-SUB;generalized_biffing;0;00;1111;
-SUB;generalized_biffing;0?1_0;00;0000;
-SUB;generalized_biffing;0?1_1;00;1111;
+ANN;--- generalized biffing: not for EE(T)? ---
+ANN;SUB;generalized_biffing;0;00;1111;
+ANN;SUB;generalized_biffing;0?1_0;00;0000;
+ANN;SUB;generalized_biffing;0?1_1;00;1111;
 ANN;--- UI, graphics, sound ---
 MUC;LightingPack;Init;13;1111;
 MUC;LightingPack;0;13;0000;
