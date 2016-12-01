@@ -15,7 +15,6 @@ ANN;--- BGEE patches ---
 CMD;IF NOT EXIST ".\BWS_workspace\override" MD ".\BWS_workspace\override"
 CMD;IF EXIST "BiG World Textpack GERMAN" xcopy /Y /S /E ".\BiG World Textpack GERMAN\_English_files" ".\BiG World Textpack GERMAN"
 CMD;IF EXIST "BiG World Fixpack\item_rev" rmdir /s /q "BiG World Fixpack\item_rev"
-CMD;IF EXIST "BiG World Fixpack\spell_rev" rmdir /s /q "BiG World Fixpack\spell_rev"
 CMD;IF EXIST "BiG World Fixpack\tdd" rmdir /s /q "BiG World Fixpack\tdd"
 CMD;IF EXIST "BiG World Fixpack\chloe" rmdir /s /q "BiG World Fixpack\chloe"
 CMD;IF EXIST "BiG World Fixpack\dsotsc" rmdir /s /q "BiG World Fixpack\dsotsc"
@@ -350,7 +349,6 @@ ANN;special case - due to code in Testing.au3, BWS will extract WeiDU and the BW
 ANN;For some foreign languages this adds English text files to the mods as a substitute to prevent that the installation fails because of missing files
 CMD;IF EXIST "BiG World Textpack GERMAN" xcopy /Y /S /E ".\BiG World Textpack GERMAN\_English_files" ".\BiG World Textpack GERMAN"
 CMD;IF EXIST "BiG World Fixpack\item_rev" rmdir /s /q "BiG World Fixpack\item_rev"
-CMD;IF EXIST "BiG World Fixpack\spell_rev" rmdir /s /q "BiG World Fixpack\spell_rev"
 CMD;IF EXIST "BiG World Fixpack\tdd" rmdir /s /q "BiG World Fixpack\tdd"
 CMD;IF EXIST "BiG World Fixpack\chloe" rmdir /s /q "BiG World Fixpack\chloe"
 CMD;IF EXIST "BiG World Fixpack\dsotsc" rmdir /s /q "BiG World Fixpack\dsotsc"

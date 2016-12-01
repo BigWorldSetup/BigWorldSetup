@@ -66,14 +66,14 @@ ANN;For some foreign languages this adds English text files to the mods as a sub
 CMD;IF EXIST "BiG World Textpack GERMAN" xcopy /Y /S /E ".\BiG World Textpack GERMAN\_English_files" ".\BiG World Textpack GERMAN"
 ANN;Remove outdated v3 fixes as we are now using IR v4 and SR v4
 CMD;IF EXIST "BiG World Fixpack\item_rev" rmdir /s /q "BiG World Fixpack\item_rev"
-CMD;IF EXIST "BiG World Fixpack\spell_rev" rmdir /s /q "BiG World Fixpack\spell_rev"
-CMD;IF EXIST "BiG World Fixpack\ascension" rmdir /s /q "BiG World Fixpack\ascension"
 ANN;Set up workspace
 CMD;IF NOT EXIST ".\BWP_workspace\override" MD ".\BWP_workspace\override"
 CMD;IF EXIST tisunpack.exe copy tisunpack.exe ".\BWP_workspace\override"
 ANN;Run the Fixpack (now includes Trimpack changes), Textpack and Smoothpack batch scripts
 ANN;CMD;IF EXIST "BiG World Trimpack" IF NOT EXIST BWP_Trimpack.installed Call "BiG World Trimpack.bat"
 CMD;IF NOT EXIST BWP_Fixpack.installed Call "_ApplyPatches.bat"
+CMD;IF NOT EXIST BWP_Fixpack.installed echo "The BiG World Fixpack script did not run successfully. Please check the _ApplyPatches.debug log file in the game folder and re-run _ApplyBatches.bat manually before continuing."
+CMD;IF NOT EXIST BWP_Fixpack.installed pause
 CMD;IF NOT EXIST BWP_Textpack.installed Call "BiG World Textpack.bat"
 CMD;IF NOT EXIST BWP_Smoothpack.installed Call ".\BiG World Installpack\BiG World Smoothpack.bat"
 CMD;IF EXIST ".\BiG World Installpack\BWP_Smoothpack.installed" copy ".\BiG World Installpack\BWP_Smoothpack.installed" "."

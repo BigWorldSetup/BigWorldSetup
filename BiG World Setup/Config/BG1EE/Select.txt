@@ -1,5 +1,4 @@
 ANN;Added due to patching
-CMD;IF NOT EXIST ".\BWS_workspace\override" MD ".\BWS_workspace\override"
 DWN;WeiDU;0;00;1111;
 DWN;weidu-filechangelog;0;00;1111;
 DWN;eekeeper;0;00;1111;
@@ -10,11 +9,20 @@ DWN;BWTextpack;0;00;1111;
 DWN;BWTextpackP;0;00;1111;
 CMD;IF EXIST "BiG World Fixpack" xcopy /Y /S /E ".\BiG World Fixpack\_Lolfixer\*.*" "."
 CMD;IF EXIST "BiG World Fixpack" xcopy /Y /S /E ".\BiG World Fixpack\_resfixer_v1\*.*" "."
+CMD;IF NOT EXIST ".\BWS_workspace\override" MD ".\BWS_workspace\override"
+CMD;IF EXIST "BiG World Textpack GERMAN" xcopy /Y /S /E ".\BiG World Textpack GERMAN\_English_files" ".\BiG World Textpack GERMAN"
 CMD;IF EXIST "BiG World Fixpack\item_rev" rmdir /s /q "BiG World Fixpack\item_rev"
-CMD;IF EXIST "BiG World Fixpack\spell_rev" rmdir /s /q "BiG World Fixpack\spell_rev"
+CMD;IF EXIST "BiG World Fixpack\tdd" rmdir /s /q "BiG World Fixpack\tdd"
+CMD;IF EXIST "BiG World Fixpack\chloe" rmdir /s /q "BiG World Fixpack\chloe"
+CMD;IF EXIST "BiG World Fixpack\dsotsc" rmdir /s /q "BiG World Fixpack\dsotsc"
+CMD;IF EXIST "BiG World Fixpack\ntotsc" rmdir /s /q "BiG World Fixpack\ntotsc"
+CMD;IF EXIST "BiG World Fixpack\ntotscv171" rmdir /s /q "BiG World Fixpack\ntotscv171"
+CMD;IF EXIST "BiG World Fixpack\refinements" rmdir /s /q "BiG World Fixpack\refinements"
 ANN;Run the Fixpack (now includes Trimpack changes), Textpack and Smoothpack batch scripts
 ANN;CMD;IF NOT EXIST BWP_Trimpack.installed Call "BiG World Trimpack.bat"
 CMD;IF NOT EXIST BWP_Fixpack.installed Call "_ApplyPatches.bat"
+CMD;IF NOT EXIST BWP_Fixpack.installed echo "The BiG World Fixpack script did not run successfully. Please check the _ApplyPatches.debug log file in the game folder and re-run _ApplyBatches.bat manually before continuing."
+CMD;IF NOT EXIST BWP_Fixpack.installed pause
 CMD;IF NOT EXIST BWP_Textpack.installed Call "BiG World Textpack.bat"
 CMD;IF NOT EXIST BWP_Smoothpack.installed Call ".\BiG World Installpack\BiG World Smoothpack.bat"
 CMD;IF EXIST ".\BiG World Installpack\BWP_Smoothpack.installed" copy ".\BiG World Installpack\BWP_Smoothpack.installed" "."
