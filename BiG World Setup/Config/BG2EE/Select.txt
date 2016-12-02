@@ -475,6 +475,7 @@ MUC;ItemUpgrade;Init;10;0111;
 MUC;ItemUpgrade;1;10;0000;
 MUC;ItemUpgrade;11;10;0111;
 STD;dakkon;0;10;0111;
+STD;swordap;0;10;0111;
 STD;BG2eeAR;0;10;0111;
 STD;BG2eeW;0;10;0111;
 STD;msfm;2;10;0000;
@@ -722,6 +723,7 @@ STD;Wings;0;07;0111;
 STD;Wings;1;07;0111;
 STD;Wings;2;07;0111;
 ANN;--- BG2EE minimods ---
+STD;lucy;0;04;1111;
 STD;slandor;0;04;1111;
 STD;derats_ogre;0;04;0111;
 ANN;--- BG2EE tweaks ---
@@ -1375,7 +1377,7 @@ STD;cdtweaks;1060;09;1111;
 STD;cdtweaks;1070;09;1111;
 STD;cdtweaks;1080;09;1111;
 STD;cdtweaks;1090;09;1111;
-STD;cdtweaks;1100;09;0000;
+ANN;STD;cdtweaks;1100;09;0000; cdtweaks tp2 doesn't allow component install on BG2EE or EET
 STD;cdtweaks;1101;09;1111;
 STD;cdtweaks;1120;09;1111;
 STD;cdtweaks;1130;09;1111;
