@@ -1784,9 +1784,9 @@ MUC;stratagems;6044;11;0000;
 ANN;potions for NPCS
 MUC;stratagems;Init;11;1111;
 MUC;stratagems;6100;11;0000;
-MUC;stratagems;6101;11;1100;
-MUC;stratagems;6102;11;0011;
-MUC;stratagems;6103;11;0000;
+MUC;stratagems;6101;11;0000;
+MUC;stratagems;6102;11;1100;
+MUC;stratagems;6103;11;0011;
 MUC;stratagems;6104;11;0000;
 ANN;--- SCS creatures AI ---
 ANN;spiders
@@ -2880,7 +2880,7 @@ ANN;single-class innate
 STD;npc_ee;2000;07;0111;
 ANN;multiclass innate
 STD;npc_ee;3000;07;0111;
-STD;m7multikit;10;12;0111;
-STD;m7multikit;11;12;0111;
-STD;m7multikit;13;12;0111;
+STD;m7multikit;10;12;0001;
+STD;m7multikit;11;12;0001;
+STD;m7multikit;13;12;0001;
 ANN;Added due to patching
