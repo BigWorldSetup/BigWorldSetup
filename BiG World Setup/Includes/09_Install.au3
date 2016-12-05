@@ -328,15 +328,15 @@ Func Au3Install($p_Num = 0)
 			$Group=''
 			ContinueLoop
 		ElseIf StringRegExp($Array[$a], '(?i)\AGRP;Stop') Then
-			If $Group = '-1' Or $Group = '' Then
+			If $Group = '-1' Or $Group = '' Then ; Stop without preceding Start or empty group (possibly due to purging)
 				$Group = -1
 				ContinueLoop
 			EndIf
 			$Group = StringTrimLeft($Group, 1)
 			$Setup[0]='Setup-'&$Setup[2]&'.exe'
 			$InstallString=$Setup[0]&' --no-exit-pause --noautoupdate --language '&StringTrimLeft($Setup[5], 3) &' --skip-at-view '&$g_WeiDUQuickLog&' --force-install-list '&$Group&' --logapp'
-			_Install_ManageDebug($Setup[2], 1); clean old debug
-			_Install_UpdateWeiDU($Setup[0], $Ref)
+			_Install_ManageDebug($Setup[2], 1); clean old debug log
+			_Install_UpdateWeiDU($Setup[0], $Ref); if needed, create or update WeiDU executable for this mod
 			_Install_SetPrompt($Setup[9], StringTrimLeft($Setup[5], 3)); adjust keywords for debugging-output
 			GUICtrlSetData($g_UI_Static[6][2], _GetTR($Message, 'L14') & ' (' & $Setup[7]&')'); => installing a list of components
 			_Process_Run($InstallString, $Setup[0])
@@ -348,7 +348,7 @@ Func Au3Install($p_Num = 0)
 				If _Install_TestInstalled($Setup, $DebugTest, $Logic, $t, $TMessage) = 1 Then; user selected to try again
 					$InstallString = $Setup[0]&' --no-exit-pause --noautoupdate --language '&StringTrimLeft($Setup[5], 3) &' --skip-at-view '&$g_WeiDUQuickLog&' --force-uninstall-list '&$Group&' --logapp'; uninstall group
 					_Process_Run($InstallString, $Setup[0])
-					While 1; search for for first installed component
+					While 1; search for first installed component
 						$Split=StringSplit($Array[$a], ';')
 						If UBound($Split) > 3 Then; avoid crashes on group- or ann-lines
 							If $Split[3] = $Test[1] And $Split[2] = $Setup[2] And StringRegExp($Split[1], '(?i)STD|MUC|SUB') Then; get a valid line
@@ -465,8 +465,8 @@ Func Au3Install($p_Num = 0)
 			Else
 				$InstallString='type BWS_SUB.nul | '&$Setup[0]&' --no-exit-pause --noautoupdate --language '&StringTrimLeft($Setup[5], 3) &' --skip-at-view '&$g_WeiDUQuickLog&' --force-install-list '&$Setup[3]&' --logapp'
 			EndIf
-			_Install_UpdateWeiDU($Setup[0], $Ref)
-			_Install_ManageDebug($Setup[2], 1); clean old debug
+			_Install_ManageDebug($Setup[2], 1); clean old debug log
+			_Install_UpdateWeiDU($Setup[0], $Ref); if needed, create or update WeiDU executable for this mod
 			_Install_SetPrompt($Setup[9], StringTrimLeft($Setup[5], 3)); adjust keywords for debugging-output
 			GUICtrlSetData($g_UI_Static[6][2], _GetTR($Message, 'L5') & ' ' & $Setup[8] & ' (' & $Setup[7]&')'); => installing
 			$Success=_Process_Run($InstallString, $Setup[0])
@@ -1045,11 +1045,11 @@ Func _Install_ManageDebug($p_Setup, $p_Num)
 EndFunc   ;==>_Install_ManageDebug
 
 ; ---------------------------------------------------------------------------------------------
-; Modifies the list of installation-commands so that it install components as groups and not one by one
+; Modifies the list of installation-commands so that it installs components as groups and not one by one
 ; ---------------------------------------------------------------------------------------------
 Func _Install_ModifyForGroupInstall($p_Array, $p_Debug=0)
 	_PrintDebug('+' & @ScriptLineNumber & ' Calling _Install_ModifyForGroupInstall')
-	Local $NArray[$p_Array[0]*2]
+	Local $NArray[$p_Array[0]*2] ; allow for the maximum case possibility that every 2 lines in Select.txt will become 4 lines (GRP;Start before and GRP;Stop after every 2 components of a unique mod-setup)
 	Local $n=0, $Open=0, $OldMod
 	Local $EndGroupInstall=StringRegExpReplace(IniRead($g_GConfDir&'\Game.ini', 'Options', 'EndGroupInstall', ''), ',|&', '|')
 	For $a = 1 To $p_Array[0]
@@ -1075,8 +1075,8 @@ Func _Install_ModifyForGroupInstall($p_Array, $p_Debug=0)
 			$Comp=StringRegExpReplace($Split[3], '\x3f.*\z', ''); CompNumber, without sub-component _??? if any
 			If StringRegExp($EndGroupInstall, '(?i)'&$Mod&'\x28[^\x29]*'&$Comp&'(\x29|\x26|x7c)') Then; this check never worked before, might work now
 				$NArray[$n]='GRP;Stop'
-				$n+=1
 				$Open=0
+				$n+=1
 			EndIf
 		EndIf
 		If StringRegExp($p_Array[$a], '(?i)\ASUB') Then; look if subs are going to be installed because using pipes will break stuff
@@ -1106,6 +1106,11 @@ Func _Install_ModifyForGroupInstall($p_Array, $p_Debug=0)
 		$NArray[$n]=$p_Array[$a]
 		$OldMod=$Mod
 	Next
+	If $Open Then ; we reached the end of the Select.txt and still have an open GRP;Start ... so add a final GRP;Stop
+		$NArray[$n]='GRP;Stop'
+		$Open=0
+		$n+=1
+	EndIf
 	$NArray[0] = $n
 	$Open=0
 	ReDim $NArray[$n+1]
@@ -1120,15 +1125,17 @@ Func _Install_ModifyForGroupInstall($p_Array, $p_Debug=0)
 				;ConsoleWrite('!')
 				$Open=0
 			ElseIf $Open = 1 Then
-				_Process_SetConsoleLog('-')
-				;ConsoleWrite('-')
+				_Process_SetConsoleLog('<')
+				;ConsoleWrite('<')
 			Else
 				_Process_SetConsoleLog(' ')
 				;ConsoleWrite(' ')
 			EndIf
-			_Process_SetConsoleLog($NArray[$a] & @CRLF)
+			_Process_SetConsoleLog($NArray[$a])
 			;ConsoleWrite($NArray[$a] & @CRLF)
 		Next
+		_PrintDebug('_Install_ModifyForGroupInstall finished - check BiG World Setup\Logs\BiG World Debug.txt',1)
+		Exit
 	EndIf
 	Return $NArray
 EndFunc   ;==>_Install_ModifyForGroupInstall
@@ -1438,7 +1445,9 @@ EndFunc   ;==>_Install_ReadWeiDU
 ; ---------------------------------------------------------------------------------------------
 Func _Install_UpdateWeiDU($p_File, $p_Size=0)
 	If $p_Size = 0 Then $p_Size=FileGetSize($g_GameDir&'\WeiDU\WeiDU.exe')
-	$Size=FileGetSize($g_GameDir&'\'&$p_File)
-	If $p_Size = 0 Then Return; do nothing if WeiDU does not exist
-	FileCopy($g_GameDir&'\WeiDU\WeiDU.exe', $g_GameDir&'\'&$p_File, 1); Just update the WeiDU-setupfile
+	If $p_Size = 0 Then Return; do nothing if WeiDU.exe does not exist
+	$Size=FileGetSize($g_GameDir&'\'&$p_File); get size of target WeiDU-setup exe for comparison
+	If $Size <> $p_Size Then; create or replace the WeiDU-setup exe if it doesn't match reference size
+		FileCopy($g_GameDir&'\WeiDU\WeiDU.exe', $g_GameDir&'\'&$p_File, 1)
+	EndIf
 EndFunc   ;==>_Install_UpdateWeiDU

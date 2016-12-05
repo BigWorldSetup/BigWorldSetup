@@ -171,29 +171,29 @@ ANN;STD;BDToBv168;0;01;0111;
 ANN;STD;BDToBv168;2;01;0111;
 ANN;STD;BDToBv168;5;01;0011;
 ANN;STD;BDToBv168;7;01;0011;
-ANN;Baldurdash 1.74 renumbered some components
+ANN;Baldurdash 1.74 renumbered some components (and is no longer available for download)
 ANN;#2, 17, 18 are outdated - skip
-STD;bdtobv174;0;01;0111;
-STD;bdtobv174;2;01;0111;
-STD;bdtobv174;4;01;0111;
-STD;bdtobv174;10;01;0000;
-STD;bdtobv174;11;01;0111;
-STD;bdtobv174;16;01;0111;
+ANN;STD;bdtobv174;0;01;0111;
+ANN;STD;bdtobv174;2;01;0111;
+ANN;STD;bdtobv174;4;01;0111;
+ANN;STD;bdtobv174;10;01;0000;
+ANN;STD;bdtobv174;11;01;0111;
+ANN;STD;bdtobv174;16;01;0111;
 ANN;#15 is quest extension
-STD;bdtobv174;15;10;0111;
+ANN;STD;bdtobv174;15;10;0111;
 ANN;#13, 14 are NPC tweaks
-STD;bdtobv174;13;14;0111;
-STD;bdtobv174;14;14;0111;
+ANN;STD;bdtobv174;13;14;0111;
+ANN;STD;bdtobv174;14;14;0111;
 ANN;#7 is tactical encounter
-STD;bdtobv174;7;15;0011;
+ANN;STD;bdtobv174;7;15;0011;
 ANN;#1, 3, 6 are rule tweaks
-STD;bdtobv174;1;16;0111;
-STD;bdtobv174;3;16;0111;
-STD;bdtobv174;6;16;0111;
+ANN;STD;bdtobv174;1;16;0111;
+ANN;STD;bdtobv174;3;16;0111;
+ANN;STD;bdtobv174;6;16;0111;
 ANN;#5, 8, 12 are item restorations - after item revisions
 ANN;#9 is improved nymph AI
-STD;bdtobv174;9;18;0011;
-STD;bdtobv174;19;14;0011;
+ANN;STD;bdtobv174;9;18;0011;
+ANN;STD;bdtobv174;19;14;0011;
 ANN;Fix Sunfire power levels (install this early)
 STD;jimfix;0;01;1111;
 ANN;Check for and fix incorrect spell animations (install this early)
@@ -259,10 +259,11 @@ STD;NeJ2v691;12;09;0001;
 STD;NeJ2v694;0;01;0001;
 ANN;CMD;IF EXIST ".\override\CLABCHRG.2DA" IF NOT EXIST ".\override\SPIN506.SPL" del ".\override\CLABCHRG.2DA"
 CMD;IF EXIST ".\NEJ2" copy /Y ".\BiG World Fixpack\_override\NEJ2\*.*" ".\override"
-STD;TS;0;09;0111;
-STD;TS;1;20;0111;
+ANN;Tortured Souls marked expert due to Baldurdash dependency and lack of updates patches for Bdash
+STD;TS;0;09;0001;
+STD;TS;1;20;0001;
 STD;TS;2;20;0000;
-STD;TS;3;09;0111;
+STD;TS;3;09;0001;
 CMD;IF EXIST Setup-TS.exe copy ".\BiG World Fixpack\_override\GUI_original_fonts\*.*" ".\override"
 STD;TDD;0;09;0111;
 STD;TDD;1;19;0000;
