@@ -2640,7 +2640,6 @@ STD;might_and_guile;322;19;0111;
 STD;might_and_guile;324;19;0111;
 STD;might_and_guile;350;19;0111;
 STD;might_and_guile;360;19;0111;
-STD;might_and_guile;390;19;0111;
 STD;might_and_guile;410;19;0111;
 STD;might_and_guile;420;19;0111;
 STD;might_and_guile;450;19;0111;

@@ -666,7 +666,6 @@ STD;might_and_guile;322;12;0111;
 STD;might_and_guile;324;12;0111;
 STD;might_and_guile;350;12;0111;
 STD;might_and_guile;360;12;0111;
-STD;might_and_guile;390;12;0111;
 STD;might_and_guile;410;12;0111;
 STD;might_and_guile;420;12;0111;
 STD;might_and_guile;450;12;0111;
@@ -1488,6 +1487,8 @@ STD;BGEEClassicMovies;2;13;1111;
 MUC;recoloredbuttons;Init;13;0111;
 MUC;recoloredbuttons;0;13;0111;
 MUC;recoloredbuttons;1;13;0000;
+STD;leui;0;13;0111;
+STD;leui;1;13;0000;
 ANN;Does not work with BG1EE 2.3
 ANN;DWN;BG1EEGUISwitch;0;13;0111;
 ANN;DWN;BG1EEGUITweaks;0;13;0111;
