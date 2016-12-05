@@ -398,7 +398,7 @@ STD;TDDz;4;02;0111;
 STD;TDDz;5;02;0111;
 STD;TDDz;6;02;0111;
 STD;SirinesCall;0;03;1111;
-STD;SirinesCall;1;03;1111;
+STD;SirinesCall;1;03;0001;
 STD;thalan;0;10;1111;
 ANN;--- BG2:EE mods begin here ---
 ANN;Enable Spell Immunity in Sequencers/Triggers (TobEx)
