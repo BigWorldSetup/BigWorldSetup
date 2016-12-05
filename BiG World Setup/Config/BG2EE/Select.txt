@@ -2813,6 +2813,7 @@ STD;PPE;20;13;0000;
 STD;PPE;25;13;0000;
 STD;PPE;30;13;0000;
 STD;PPE;35;13;0000;
+STD;etamin_soundsets;0;13;0111;
 ANN;--- optional fixes ---
 ANN;No more needef for 2.3+
 ANN;STD;apr_fix;0;01;0111;

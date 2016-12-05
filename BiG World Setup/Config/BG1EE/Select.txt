@@ -1587,6 +1587,7 @@ SUB;ajantisportraitpack;0?1_14;13;0000;
 SUB;ajantisportraitpack;0?1_15;13;0000;
 SUB;ajantisportraitpack;0?1_16;13;0000;
 SUB;ajantisportraitpack;0?1_17;13;0000;
+STD;etamin_soundsets;0;13;0111;
 ANN;--- NPC class changes ---
 ANN;Imoen
 MUC;npc_ee;Init;07;0111;
