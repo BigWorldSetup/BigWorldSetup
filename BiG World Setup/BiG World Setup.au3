@@ -119,8 +119,8 @@ Func Au3GetVal($p_Num = 0)
 	If $Test[0] <> 2 Then; revert to default if AppType in User.ini is not in expected format
 		$Test = [2, "BWP", "BWS"]
 	EndIf
-	_Misc_Set_GConfDir($Test[1]); BWS conf folder
-	$g_Flags[14] = StringUpper($Test[2]); mod install folder
+	_Misc_Set_GConfDir($Test[1]); first part before : is the conf folder
+	$g_Flags[14] = StringUpper($Test[2]); second part after : determines the target game folder where mods will be installed
 	If StringRegExp($g_Flags[14], 'BWS|BWP') Then
 		_Test_GetGamePath('BG1')
 		_Test_GetGamePath('BG2')

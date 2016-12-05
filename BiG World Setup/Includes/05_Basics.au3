@@ -114,7 +114,7 @@ Func _GetGameList()
 		$Contains=StringSplit(IniRead($g_ProgDir & '\Config\'&$Game[$g]&'\Game.ini', 'Options', 'Contains', ''), '|')
 		$Description=StringSplit(IniRead($g_ProgDir & '\Config\'&$Game[$g]&'\Translation-'&$g_ATrans[$g_ATNum]&'.ini', 'UI-BuildTime', 'Interact[1][3]', ''), '|')
 		If $Contains[0] <> $Description[0] Then
-			ConsoleWrite('!Faulty Game:'&$Game[$g] & @CRLF)
+			ConsoleWrite('!Faulty Game:' & $Game[$g] & @CRLF)
 			ContinueLoop
 		EndIf
 		For $c=1 to $Contains[0]

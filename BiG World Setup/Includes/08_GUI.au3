@@ -66,7 +66,7 @@ Func Au3BuildGUI($p_Num = 0)
 	$g_UI_Interact[1][3] = GUICtrlCreateCombo('', 430, 390, 305, 100); install method
 	GUICtrlSetState(-1, $GUI_HIDE)
 	$g_UI_Static[1][4] = GUICtrlCreateLabel('', 15, 105, 400, 260); dummy for resizing the picture in the screen
-#EndRegion Welcome Tab
+#EndRegion Welcome - TAB
 ; ---------------------------------------------------------------------------------------------
 #Region Files and Folders -  TAB
 	$g_UI_Seperate[2][0] = GUICtrlCreateTabItem("Files And Folders")
@@ -385,7 +385,7 @@ Func Au3BuildGUI($p_Num = 0)
 	GUICtrlSetResizing(-1, 576)
 	$g_UI_Button[12][4] = GUICtrlCreateButton('', 505, 400, 170, 20); edit components
 	GUICtrlSetResizing(-1, 576)
-#EndRegion ComplonentAdmin - TAB
+#EndRegion ComponentAdmin - TAB
 ; ---------------------------------------------------------------------------------------------
 #Region Conflicts/DependenciesAdmin - TAB
 	$g_UI_Seperate[13][0] = GUICtrlCreateTabItem('Depend')
@@ -574,10 +574,8 @@ Func Au3BuildGUI($p_Num = 0)
 	$g_UI_Interact[16][10] = GUICtrlCreateInput('', 420, 280, 280, 20); install dependencies
 	GUICtrlSetState(-1, $GUI_HIDE)
 	GUICtrlSetResizing(-1, 768)
-
 	GUICtrlCreateTabItem('')
 #EndRegion install-order-admin - TAB
-	GUICtrlCreateTabItem('')
 ; ---------------------------------------------------------------------------------------------
 #Region Creating contextmenus
 	$g_UI_Menu[1][0] = GUICtrlCreateContextMenu($g_UI_Static[4][2]); >> option-menu

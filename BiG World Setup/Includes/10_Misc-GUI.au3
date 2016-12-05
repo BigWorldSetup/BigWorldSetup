@@ -741,7 +741,7 @@ Func _Misc_SetWelcomeScreen($p_String)
 						_Misc_SetAvailableSelection()
 						IniWrite($g_UsrIni, 'Options', 'AppType', $g_GameList[$g][0] & ':' & $g_Flags[14])
 						$g_Flags[10] = 1
-					Else; make sure the correct config-dir is used (rare case if you use something, go back, change game , go back, go forth, revert game, continue)
+					Else; make sure the correct config-dir is used (rare case if you use something, go back, change game, go back, go forth, revert game, continue)
 						_Misc_Set_GConfDir($g_GameList[$g][0])
 					EndIf
 				EndIf

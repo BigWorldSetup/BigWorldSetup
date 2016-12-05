@@ -268,7 +268,7 @@ EndFunc    ;==>Au3RunFix
 ; ---------------------------------------------------------------------------------------------
 ; Just run the customized install-batch if it exists
 ; ---------------------------------------------------------------------------------------------
-Func Au3Install($p_Num = 0)
+Func Au3Install($p_Num = 0, $p_Debug = 0)
 	_PrintDebug('+' & @ScriptLineNumber & ' Calling Au3Install')
 	Local $RMessage = IniReadSection($g_TRAIni, 'IN-Check')
 	Local $TMessage = IniReadSection($g_TRAIni, 'IN-Test')
@@ -291,6 +291,13 @@ Func Au3Install($p_Num = 0)
 	GUICtrlSetData($g_UI_Static[6][1], _GetTR($Message, 'L1')); => watch progress
 	$Array = StringSplit(StringRegExpReplace(StringStripCR(FileRead($g_GConfDir&'\Select.txt')), '\x0a((|\s{1,})\x0a){1,}', @LF), @LF)
 	If IniRead($g_UsrIni, 'Options', 'GroupInstall', 0) = 1 Then $Array = _Install_ModifyForGroupInstall($Array); always install in groups
+	If $p_Debug = 1 Then
+		For $a = 1 To $Array[0]
+			_Process_SetConsoleLog($Array[$a])
+		Next
+		_PrintDebug('Installation array printed to log BiG World Setup\Logs\BiG World Debug.txt',1)
+		Exit
+	EndIf
 	For $a = $g_FItem To $Array[0]
 		If $g_Flags[0] = 0 Then; the exit button was pressed
 			Exit
@@ -361,17 +368,21 @@ Func Au3Install($p_Num = 0)
 					WEnd
 				EndIf
 			Next
-			$Group=-1
+			$Group = -1
 			_Install_ManageDebug($Setup[2], 2); merge debug-files
 			If $Type = 'BG2' Then _Install_RepairIDS()
 			ContinueLoop
 		Else
-			If $Group = '-1' Then IniWrite($g_BWSIni, 'Options', 'Start', $a); create entry to enable resume (no open groups + some component)
+			If $Group = '-1' Then IniWrite($g_BWSIni, 'Options', 'Start', $a); create entry to enable resume (we're not currently in a group install + we're at a specific component)
 			GUICtrlSetData($g_UI_Static[6][2], _GetTR($Message, 'L2')); => test conditions for install
 ; ---------------------------------------------------------------------------------------------
 ; get the lines of WeiDU-data into an array
 ; ---------------------------------------------------------------------------------------------
 			$Split=StringSplit($Array[$a], ';')
+			If $Split[0] < 6 Then
+				_Process_SetConsoleLog('WARNING:  BWS is skipping an incorrectly formatted line '&$a&' in '&$g_GConfDir&'\Select.txt'&': '&$Array[$a])
+				ContinueLoop
+			EndIf
 			$Setup[0]=$Split[1]; LineType
 			$Setup[2]=$Split[2]; SetupName
 			$Setup[3]=$Split[3]; CompNumber
@@ -688,11 +699,11 @@ Func _Install_BG1Textpatch($p_Message)
 EndFunc   ;==>_Install_BG1Textpatch
 
 ; ---------------------------------------------------------------------------------------------
-; Get the answers to questions of a mod by it's setup-name
+; Get the answers to questions of a mod by its setup-name
 ; ---------------------------------------------------------------------------------------------
 Func _Install_BuildSubcmd($p_Setup, $p_Comp)
 	$Components=IniRead($g_UsrIni, 'Current', $p_Setup, $p_Comp)
-	If Not StringRegExp($Components, '(\A|\s)'&$p_Comp&'\x3f') Then Return 0
+	If Not StringRegExp($Components, '(\A|\s)'&$p_Comp&'\x3f') Then Return 0 ; expect p_Comp without ?#_ans part
 	If $p_Setup = 'BG2_Tweaks' Or $p_Setup = 'cdtweaks' Then
 		If StringInStr($Components, '3183?') And StringInStr($Components, '3183?3_b') Then ; RomanceCheats: Remove Nothing kills romances? - selection if "Allow multiple romances" was not selected before.
 			$Components=StringRegExpReplace($Components, '3183\x3f4_\D\s', '')
@@ -1067,20 +1078,22 @@ Func _Install_ModifyForGroupInstall($p_Array, $p_Debug=0)
 			EndIf
 			$NArray[$n]=$p_Array[$a]
 			ContinueLoop
-		ElseIf $Mod <> $OldMod And $Open Then
+		ElseIf $Open And $Mod <> $OldMod Then
 			$NArray[$n]='GRP;Stop'
-			$n+=1
 			$Open=0
-		ElseIf StringRegExp($EndGroupInstall, '(?i)(\A|\x7c)'&$Mod&'\x28') Then; is mod effected?
+			$n+=1
+			; and fall through to continue processing this line
+		ElseIf $Open And StringRegExp($EndGroupInstall, '(?i)(\A|\x7c)'&$Mod&'\x28') Then; if we are in the middle of a group and this mod is in the "end group install" section of Game.ini
 			$Comp=StringRegExpReplace($Split[3], '\x3f.*\z', ''); CompNumber, without sub-component _??? if any
-			If StringRegExp($EndGroupInstall, '(?i)'&$Mod&'\x28[^\x29]*'&$Comp&'(\x29|\x26|x7c)') Then; this check never worked before, might work now
+			If StringRegExp($EndGroupInstall, '(?i)'&$Mod&'\x28[^\x29]*'&$Comp&'(\x29|\x26|x7c)') Then; if the current component is also in the "end group install" section, end current group
 				$NArray[$n]='GRP;Stop'
 				$Open=0
 				$n+=1
 			EndIf
+			; and fall through to continue processing this line
 		EndIf
 		If StringRegExp($p_Array[$a], '(?i)\ASUB') Then; look if subs are going to be installed because using pipes will break stuff
-			If $Comp = '' Then $Comp=$Split[3]; CompNumber
+			$Comp=StringRegExpReplace($Split[3], '\x3f.*\z', ''); CompNumber, without sub-component _??? if any
 			If _Install_BuildSubcmd($Mod, $Comp) = 1 Then; if SUB is installed, stop and continue
 				If $Open Then
 					$NArray[$n]='GRP;Stop'
@@ -1094,16 +1107,15 @@ Func _Install_ModifyForGroupInstall($p_Array, $p_Debug=0)
 				$n+=1
 				$NArray[$n]=$p_Array[$a]
 			WEnd
-			$OldMod=$Mod
-			ContinueLoop
+		Else
+			$Split=StringSplit($p_Array[$a+1], ';')
+			If $Open = 0 And $Mod=$Split[2] Then ; Only open a group if setup lasts longer then 2 components
+				$NArray[$n]='GRP;Start'
+				$Open=1
+				$n+=1
+			EndIf
+			$NArray[$n]=$p_Array[$a]
 		EndIf
-		$Split=StringSplit($p_Array[$a+1], ';')
-		If $Open = 0 And $Mod=$Split[2] Then ; Only open a group if setup lasts longer then 2 components
-			$NArray[$n]='GRP;Start'
-			$n+=1
-			$Open=1
-		EndIf
-		$NArray[$n]=$p_Array[$a]
 		$OldMod=$Mod
 	Next
 	If $Open Then ; we reached the end of the Select.txt and still have an open GRP;Start ... so add a final GRP;Stop
@@ -1112,27 +1124,21 @@ Func _Install_ModifyForGroupInstall($p_Array, $p_Debug=0)
 		$n+=1
 	EndIf
 	$NArray[0] = $n
-	$Open=0
 	ReDim $NArray[$n+1]
 	If $p_Debug = 1 Then
 		For $a = 1 To $NArray[0]
 			If StringRegExp($NArray[$a], '\AGRP;Start') Then
 				_Process_SetConsoleLog('+')
-				;ConsoleWrite('+')
 				$Open=1
 			ElseIf StringRegExp($NArray[$a], '\AGRP;Stop') Then
 				_Process_SetConsoleLog('!')
-				;ConsoleWrite('!')
 				$Open=0
 			ElseIf $Open = 1 Then
 				_Process_SetConsoleLog('<')
-				;ConsoleWrite('<')
 			Else
 				_Process_SetConsoleLog(' ')
-				;ConsoleWrite(' ')
 			EndIf
 			_Process_SetConsoleLog($NArray[$a])
-			;ConsoleWrite($NArray[$a] & @CRLF)
 		Next
 		_PrintDebug('_Install_ModifyForGroupInstall finished - check BiG World Setup\Logs\BiG World Debug.txt',1)
 		Exit

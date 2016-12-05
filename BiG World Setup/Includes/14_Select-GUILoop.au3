@@ -183,7 +183,7 @@ Func Au3Select($p_Num = 0)
 			GUISetState(@SW_MAXIMIZE, $g_UI[0])
 #EndRegion special events
 ; ---------------------------------------------------------------------------------------------
-#Region allways visible buttons
+#Region always visible buttons
 		Case $g_UI_Static[0][3]; bws-pic
 			_Misc_AboutGUI()
 		Case $g_UI_Button[0][1]; back
@@ -248,7 +248,7 @@ Func Au3Select($p_Num = 0)
 				If $g_Flags[24]=1 Then _Tree_Export($g_GConfDir&'\PreSelection00.ini')
 				Exit
 			EndIf
-#EndRegion allways visible buttons
+#EndRegion always visible buttons
 ; ---------------------------------------------------------------------------------------------
 #Region welcome
 		Case $g_UI_Interact[1][2]; language selector
