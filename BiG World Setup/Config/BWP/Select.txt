@@ -48,7 +48,6 @@ CMD;IF EXIST "Big World Fixpack\BW_Herbs\_optional" rmdir /s /q ".\BiG World Fix
 CMD;IF EXIST "Big World Fixpack\BW_Herbs_BG2\_optional\Improved Animations\_copy" move ".\BiG World Fixpack\BW_Herbs_BG2\_optional\Improved Animations\_copy" ".\BiG World Fixpack\BW_Herbs_BG2\_copy"
 CMD;IF EXIST "Big World Fixpack\BW_Herbs_BG2\_optional" rmdir /s /q ".\BiG World Fixpack\BW_Herbs_BG2\_optional"
 ANN;Copy some additional mods and patches that are packaged with the Fixpack into the game folder (this must come before Smoothpack which adds missing setup-exes)
-CMD;IF EXIST "BiG World Fixpack" xcopy /Y /S /E ".\BiG World Fixpack\_Lolfixer\*.*" "."
 CMD;IF EXIST "BiG World Fixpack" xcopy /Y /S /E ".\BiG World Fixpack\_resfixer_v1\*.*" "."
 CMD;IF EXIST "BiG World Fixpack" xcopy /Y /S /E ".\BiG World Fixpack\_crefixer_v2\*.*" "."
 CMD;IF EXIST "BiG World Fixpack" xcopy /Y /S /E ".\BiG World Fixpack\_Innate_Fix\*.*" "."
