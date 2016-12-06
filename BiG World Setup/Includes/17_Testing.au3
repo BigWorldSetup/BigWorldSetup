@@ -763,7 +763,9 @@ Func _Test_GetCustomTP2($p_Setup, $p_Dir='\')
 	Else
 		$Return = _Test_GetModFolder($TP2)
 		If $Return = '0' Then
-			Return SetError(2, 0, $TP2)
+			_PrintDebug('Found '&$TP2&' but did not find a corresponding mod folder (BWS reads the tp2 and looks at the BACKUP line to determine the mod folder)', 1)
+			;Return SetError(2, 0, $TP2); don't allow a setup tp2 without a corresponding mod folder
+			Return SetError(0, 0, $TP2); allow a setup tp2 without a corresponding mod folder
 		Else
 			Return SetError(0, 0, $TP2)
 		EndIf
