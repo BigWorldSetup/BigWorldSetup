@@ -1121,7 +1121,7 @@ Func _Install_ModifyForGroupInstall($p_Array, $p_Debug=0)
 	If $Open Then ; we reached the end of the Select.txt and still have an open GRP;Start ... so add a final GRP;Stop
 		$NArray[$n]='GRP;Stop'
 		$Open=0
-		$n+=1
+		; don't increment n here: this is the final line
 	EndIf
 	$NArray[0] = $n
 	ReDim $NArray[$n+1]
