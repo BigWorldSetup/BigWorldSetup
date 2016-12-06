@@ -2869,6 +2869,7 @@ MUC;npc_ee;682;07;0000;
 ANN;Valygar
 MUC;npc_ee;Init;07;0111;
 MUC;npc_ee;702;07;0111;
+MUC;npc_ee;704;07;0111;
 ANN;Nalia
 MUC;npc_ee;Init;07;0111;
 MUC;npc_ee;722;07;0111;
