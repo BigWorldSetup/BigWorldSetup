@@ -4562,6 +4562,7 @@ STD;Area_Patcher;3000;01;0000;
 ANN;Area_Patcher;4000;01;0000;handled by BWFixpack
 ANN;STD;Cre_Patcher;0;01;1111;
 ANN;STD;Cre_Patcher;100;01;1111;handled by BWFixpack
+CMD;copy /Y /B ".\WeiDU.exe" ".\setup-item_patcher.exe"
 STD;Item_Patcher;0;01;1111;
 STD;Item_Patcher;100;01;1111;
 STD;Item_Patcher;101;01;1111;
