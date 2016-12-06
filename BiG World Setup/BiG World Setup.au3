@@ -504,7 +504,7 @@ EndFunc    ;==>_GetGlobalData
 ; ---------------------------------------------------------------------------------------------
 Func _PrintDebug($p_String, $p_Show = 0)
 	ConsoleWrite($p_String & @CR)
-	If $p_Show = 1 Then MsgBox(64, $g_ProgName, $p_String)
+	If $p_Show = 1 Then MsgBox(64, $g_ProgName, $p_String, 60) // flags, title, text, timeout in seconds
 EndFunc   ;==>_PrintDebug
 
 ; ---------------------------------------------------------------------------------------------
