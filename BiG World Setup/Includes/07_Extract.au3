@@ -53,14 +53,14 @@ Func Au3Extract($p_Num = 0)
 ; ---------------------------------------------------------------------------------------------
 ; Check if the tp2-file from the core-mod does exist. If not, try to move the file from within a subdir
 ; ---------------------------------------------------------------------------------------------
-			$TP2Exists = _Test_GetCustomTP2($g_CurrentPackages[$e][0]); no need for folderchecks yet
+			$TP2Exists = _Test_GetCustomTP2($g_CurrentPackages[$e][0], '\', 1); 1 = don't complain if BACKUP mod folder is not found
 			If $TP2Exists = '0' And $Success <> '0' Then; Do some more stuff to get it done
 				$DirList = StringSplit(StringStripCR($g_ConsoleOutput), @LF)
 				For $n = $DirList[0] To 3 Step -1
 					If StringInStr($DirList[$n], 'Everything is Ok') Then
 						$Dir = StringRegExpReplace($DirList[$n - 2], '(?i)extracting\s*|\x5c.*', ''); stripped 7z info and everything after a potential backslash
 						$IsDir = FileGetAttrib($g_GameDir & '\' & $Dir); get the attrib of this file or directory
-						If StringInStr($IsDir, 'D') Then $TP2Exists = _Test_GetCustomTP2($g_CurrentPackages[$e][0], '\'&$Dir&'\')
+						If StringInStr($IsDir, 'D') Then $TP2Exists = _Test_GetCustomTP2($g_CurrentPackages[$e][0], '\'&$Dir&'\', 1); 1 = don't complain if BACKUP mod folder is not found
 						ExitLoop
 					EndIf
 				Next
@@ -116,7 +116,7 @@ Func Au3Extract($p_Num = 0)
 			If Not @error Then
 				For $f=1 to $Fault[0][0]
 					If $Fault[$f][1] <> '1' Then ContinueLoop
-					$TP2Exists = _Test_GetCustomTP2($Fault[$f][0], '\NSIS\')
+					$TP2Exists = _Test_GetCustomTP2($Fault[$f][0], '\NSIS\', 1); 1 = don't complain if BACKUP mod folder is not found
 					If $TP2Exists <> '0' Then IniDelete($g_BWSIni, 'Faults', $Fault[$f][0]); if NSIS-package is found, remove error
 				Next
 			EndIf
@@ -214,7 +214,7 @@ Func Au3ExFix($p_Num)
 		FileMove($g_BG2Dir&'\A4Auror\Setup-A4Auror.exe', $g_BG2Dir&'\Setup-A4Auror.exe')
 	EndIf
 	If StringRegExp($g_Flags[14], 'BWP|BWS') And FileExists($g_GameDir&'\CtBv1.13a\CtBv1.13') Then
-		$TP2Exists = _Test_GetCustomTP2('CTB', '\CtBv1.13a\CtBv1.13\')
+		$TP2Exists = _Test_GetCustomTP2('CTB', '\CtBv1.13a\CtBv1.13\', 1); 1 = don't complain if BACKUP mod folder is not found
 		If $TP2Exists <> '0' Then; this is a folder
 			FileWrite($g_LogFile, '>CtBv1.13a\CtBv1.13\* .' & @CRLF)
 			_Extract_MoveMod('CtBv1.13a\CtBv1.13')
@@ -306,7 +306,7 @@ Func Au3ExFix($p_Num)
 		GUICtrlSetData($g_UI_Interact[6][1], ($e * 100) / $g_CurrentPackages[0][0])
 		GUICtrlSetData($g_UI_Static[6][2], _GetTR($Message, 'L2') & ' ' & _IniRead($ReadSection, 'Name', $g_CurrentPackages[$e][0]) & ' ...'); => checking
 		If _IniRead($ReadSection, 'Save', 'Manual') = 'Manual' Then ContinueLoop
-		$TP2Exists = _Test_GetCustomTP2($g_CurrentPackages[$e][0]); test if packaging file is found
+		$TP2Exists = _Test_GetCustomTP2($g_CurrentPackages[$e][0], '\', 1); test if packaging file is found, 1 = don't complain if BACKUP mod folder is not found
 		If @error Then
 			$Test = _IniRead($ReadSection, 'Test', '')
 			If $Test <> '' Then; check for a file if package is not a weidu-mod
@@ -710,7 +710,7 @@ Func _Extract_ListMissing()
 		$ReadSection=IniReadSection($g_MODIni, $Fault[$f][0])
 		$Mod = _IniRead($ReadSection, 'Name', $Fault[$f][0])
 		If StringInStr($Fault[$f][1], '1') Then; check for TP2
-			If _Test_GetCustomTP2($Fault[$f][0]) <> '0' Then
+			If _Test_GetCustomTP2($Fault[$f][0], '\', 1) <> '0' Then; 1 = don't complain if BACKUP mod folder is not found
 				$Fault[$f][1]=StringRegExpReplace($Fault[$f][1], '1', '')
 			ElseIf _IniRead($ReadSection, 'Test', '') <> '' Then; check for a file if package is not a weidu-mod
 				If _Extract_TestFile(_IniRead($ReadSection, 'Test', '')) = 1 Then $Fault[$f][1]=StringRegExpReplace($Fault[$f][1], '1', '')

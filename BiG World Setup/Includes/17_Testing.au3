@@ -752,7 +752,7 @@ EndFunc    ;==>_Test_CheckRequiredFiles_PST
 ; ---------------------------------------------------------------------------------------------
 ; Same as _Test_GetTP2, but always returns a hit for bgt-music and bgt-gui and considers wrong filenames
 ; ---------------------------------------------------------------------------------------------
-Func _Test_GetCustomTP2($p_Setup, $p_Dir='\')
+Func _Test_GetCustomTP2($p_Setup, $p_Dir='\', $p_DontWarn = 0)
 	Local $Rename, $TP2 = _Test_GetTP2($p_Setup, $p_Dir)
 	If $TP2 = '0' Then
 		$Rename = IniRead($g_MODIni, $p_Setup, 'REN', ''); look for some non-standard-filenames that will be renamed later
@@ -760,12 +760,14 @@ Func _Test_GetCustomTP2($p_Setup, $p_Dir='\')
 	EndIf
 	If $TP2 = '0' Then
 		Return SetError(1, 0, $TP2)
-	Else
+	ElseIf ($p_DontWarn) Then; during extraction phase we use this function to confirm we've unpacked the mod package to the appropriate depth
+		Return SetError(0, 0, $TP2); but we don't want to log warnings here each time because we're unpacking and checking repeatedly until correct
+	Else; but if we are not in the extract phase, we want to check for existence of the mod folder and log if not found
 		$Return = _Test_GetModFolder($TP2)
 		If $Return = '0' Then
-			_PrintDebug('Found '&$TP2&' but did not find a corresponding mod folder (BWS reads the tp2 and looks at the BACKUP line to determine the mod folder)', 1)
-			;Return SetError(2, 0, $TP2); don't allow a setup tp2 without a corresponding mod folder
+			_Process_SetConsoleLog('WARNING:  BWS found '&$TP2&' but did not find a corresponding mod folder (BWS reads the tp2 and looks at the BACKUP line to determine the mod folder)')
 			Return SetError(0, 0, $TP2); allow a setup tp2 without a corresponding mod folder
+			;Return SetError(2, 0, $TP2); old code - don't allow a setup tp2 without a corresponding mod folder
 		Else
 			Return SetError(0, 0, $TP2)
 		EndIf
@@ -836,7 +838,7 @@ Func _Test_GetModFolder($p_TP2)
 	Local $Array = StringSplit(StringStripCR(FileRead($p_TP2)), @LF)
 	Local $Return, $Dir, $IsDir
 	For $a=1 to $Array[0]
-		If StringLeft($Array[$a], 6) = 'Backup' Then
+		If StringLeft($Array[$a], 6) = 'BACKUP' Then
 			$Return = StringSplit($Array[$a], '"\/~')
 			$Dir = $g_GameDir & '\' & StringStripWS($Return[2], 3)
 			$IsDir = FileGetAttrib($Dir); get the attrib of this file or directory
