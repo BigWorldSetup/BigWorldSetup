@@ -2513,6 +2513,18 @@ SUB;EET_End;0;00;0000;
 SUB;EET_End;0?1_1;00;0000;
 SUB;EET_End;0?1_2;00;1111;
 ANN;--- hotfixes ---
+STD;Area_Patcher;0;01;1111;
+ANN;Area_Patcher;1000;01;0000;no need without old NEJ
+ANN;Area_Patcher;2000;01;0000;no need without old NEJ
+STD;Area_Patcher;2001;01;1111;
+ANN;STD;Area_Patcher;2002;01;0000;problem addressed by this does not exist in EE
+STD;Area_Patcher;2003;01;1111;
+ANN;STD;Area_Patcher;3000;01;0000;Jarl's Adventure Pack is not EE compatible yet
+ANN;STD;Area_Patcher;4000;01;0000;handled by BWFixpack
+ANN;STD;Area_Patcher;4001;01;0000;SoS is not EE compatible yet
+STD;Area_Patcher;5000;01;1111;
+STD;Area_Patcher;5001;01;1111;
+ANN;STD;Area_Patcher;6000;01;0000;BGSpawn is not for EE
 ANN;shouldn't these fixes be applied earlier?
 ANN;trim leading and trailing spaces, remove duplicates
 CMD;Call ".\BiG World Installpack\trim_IDS.bat"

@@ -1342,6 +1342,10 @@ ANN;--- optional fixes ---
 ANN;No more needef for 2.3+
 ANN;STD;apr_fix;0;01;0111;
 ANN;--- hotfixes ---
+STD;Area_Patcher;0;01;1111;
+STD;Area_Patcher;5000;01;1111;
+STD;Area_Patcher;5001;01;1111;
+ANN;STD;Area_Patcher;6000;01;0000;BGSpawn is not for EE
 ANN;trim leading and trailing spaces, remove duplicates
 CMD;Call ".\BiG World Installpack\trim_IDS.bat" 
 ANN;correct some possibly corrupted IDS files

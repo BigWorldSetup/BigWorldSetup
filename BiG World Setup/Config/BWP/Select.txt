@@ -55,7 +55,6 @@ CMD;IF EXIST "BiG World Fixpack" xcopy /Y /S /E ".\BiG World Fixpack\_Innate_Fix
 CMD;IF EXIST "BiG World Fixpack" xcopy /Y /S /E ".\BiG World Fixpack\_Area_Patcher\*.*" "."
 CMD;IF EXIST "BiG World Fixpack" xcopy /Y /S /E ".\BiG World Fixpack\_Cre_Patcher\*.*" "."
 CMD;IF EXIST "BiG World Fixpack" xcopy /Y /S /E ".\BiG World Fixpack\_Item_Patcher\*.*" "."
-CMD;IF EXIST Setup-Area_Patcher.tp2 MD ".\Area_Patcher"
 CMD;IF EXIST "BiG World Fixpack\_IDS_ref" copy /Y ".\BiG World Fixpack\_IDS_ref\*.IDS" ".\override"
 CMD;IF EXIST "BiG World Fixpack\_AuroraPatch" xcopy /Y /S /E ".\BiG World Fixpack\_AuroraPatch\*.*" "."
 CMD;IF EXIST "BiG World Fixpack\_CtBcutImp" xcopy /Y /S /E ".\BiG World Fixpack\_CtBcutImp\*.*" "."
@@ -4558,11 +4557,15 @@ ANN;Area_Patcher;1000;01;0000;no need without old NEJ
 ANN;Area_Patcher;2000;01;0000;no need without old NEJ
 STD;Area_Patcher;2001;01;1111;
 STD;Area_Patcher;2002;01;1111;
-STD;Area_Patcher;3000;01;0000;
+STD;Area_Patcher;2003;01;1111;
+STD;Area_Patcher;3000;01;1111;
 ANN;Area_Patcher;4000;01;0000;handled by BWFixpack
+STD;Area_Patcher;4001;01;1111;
+STD;Area_Patcher;5000;01;1111;
+STD;Area_Patcher;5001;01;1111;
+STD;Area_Patcher;6000;01;1111;
 ANN;STD;Cre_Patcher;0;01;1111;
-ANN;STD;Cre_Patcher;100;01;1111;handled by BWFixpack
-CMD;copy /Y /B ".\WeiDU.exe" ".\setup-item_patcher.exe"
+ANN;STD;Cre_Patcher;100;01;0000;handled by BWFixpack
 STD;Item_Patcher;0;01;1111;
 STD;Item_Patcher;100;01;1111;
 STD;Item_Patcher;101;01;1111;
