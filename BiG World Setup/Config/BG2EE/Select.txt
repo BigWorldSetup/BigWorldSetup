@@ -1716,12 +1716,12 @@ MUC;stratagems;4093;09;0000;
 ANN;#4100 not compat yet
 STD;stratagems;4110;09;1111;
 ANN;#4120 to 4146 not compat yet
-STD;stratagems;4120;09;0001;
-STD;stratagems;4130;09;0001;
-STD;stratagems;4140;09;0001;
-MUC;stratagems;Init;09;0001;
-MUC;stratagems;4145;09;0001;
-MUC;stratagems;4146;09;0000;
+STD;stratagems;4120;09;1111;
+STD;stratagems;4130;09;0111;
+STD;stratagems;4140;09;0111;
+MUC;stratagems;Init;09;0111;
+MUC;stratagems;4145;09;0110;
+MUC;stratagems;4146;09;0001;
 STD;stratagems;4150;09;1111;
 ANN;magic license cost
 MUC;stratagems;Init;09;1111;
@@ -1752,9 +1752,8 @@ STD;stratagems;5000;09;1111;
 STD;stratagems;5010;09;1111;
 STD;stratagems;5020;09;1111;
 STD;stratagems;5030;09;1111;
-ANN;#5050,5060 not compat yet
-STD;stratagems;5050;09;0001;
-STD;stratagems;5060;09;0001;
+STD;stratagems;5050;09;1111;
+STD;stratagems;5060;09;1111;
 ANN;--- SCS AI ---
 STD;stratagems;5900;11;1111;
 STD;stratagems;6000;11;1111;
@@ -1791,13 +1790,12 @@ MUC;stratagems;6104;11;0000;
 ANN;--- SCS creatures AI ---
 ANN;spiders
 STD;stratagems;6200;11;1111;
-ANN;#6300 to 6320 not compat yet
 ANN;dryads and sirines
-STD;stratagems;6300;11;0001;
+STD;stratagems;6300;11;1111;
 ANN;carrion crawlers
-STD;stratagems;6310;11;0001;
+STD;stratagems;6310;11;1111;
 ANN;basilisks
-STD;stratagems;6320;11;0001;
+STD;stratagems;6320;11;1111;
 ANN;golems
 STD;stratagems;6500;11;1111;
 ANN;fiends
@@ -1835,35 +1833,33 @@ STD;stratagems;6580;11;1111;
 ANN;melissan
 STD;stratagems;6590;11;1111;
 ANN;--- SCS Ascension AI ---
-ANN;#6800 to 6850 not compat yet
-STD;stratagems;6800;11;0001;
-STD;stratagems;6810;11;0001;
-STD;stratagems;6820;11;0001;
-STD;stratagems;6830;11;0001;
-STD;stratagems;6840;11;0001;
-STD;stratagems;6850;11;0001;
+STD;stratagems;6800;11;0011;
+STD;stratagems;6810;11;0011;
+STD;stratagems;6820;11;0011;
+STD;stratagems;6830;11;0011;
+STD;stratagems;6840;11;0011;
+STD;stratagems;6850;11;0011;
 ANN;--- SCS BG1 tactical ---
-ANN;#7000 to 7900 not compat yet
-STD;stratagems;7000;08;0001;
-STD;stratagems;7010;08;0001;
-STD;stratagems;7020;08;0001;
-STD;stratagems;7030;08;0001;
-STD;stratagems;7040;08;0001;
-STD;stratagems;7050;08;0001;
-STD;stratagems;7060;08;0001;
-STD;stratagems;7070;08;0001;
-STD;stratagems;7080;08;0001;
-STD;stratagems;7090;08;0001;
-STD;stratagems;7100;08;0001;
-STD;stratagems;7110;08;0001;
-STD;stratagems;7130;08;0001;
-STD;stratagems;7140;08;0001;
-STD;stratagems;7200;08;0001;
-STD;stratagems;7210;08;0001;
-STD;stratagems;7220;08;0001;
-STD;stratagems;7230;08;0001;
-STD;stratagems;7250;08;0001;
-STD;stratagems;7900;08;0001;
+STD;stratagems;7000;08;0011;
+STD;stratagems;7010;08;0011;
+STD;stratagems;7020;08;0011;
+STD;stratagems;7030;08;0011;
+STD;stratagems;7040;08;0011;
+STD;stratagems;7050;08;0011;
+STD;stratagems;7060;08;0011;
+STD;stratagems;7070;08;0011;
+STD;stratagems;7080;08;0011;
+STD;stratagems;7090;08;0011;
+STD;stratagems;7100;08;0011;
+STD;stratagems;7110;08;0011;
+STD;stratagems;7130;08;0011;
+STD;stratagems;7140;08;0011;
+STD;stratagems;7200;08;0011;
+STD;stratagems;7210;08;0011;
+STD;stratagems;7220;08;0011;
+STD;stratagems;7230;08;0011;
+STD;stratagems;7250;08;0011;
+STD;stratagems;7900;08;0011;
 ANN;--- SCS BG2 tactical ---
 STD;stratagems;8000;08;0011;
 STD;stratagems;8010;08;0011;
@@ -2167,7 +2163,7 @@ STD;klatu;2030;09;1111;
 STD;klatu;2040;09;1111;
 STD;klatu;2050;09;1111;
 ANN;2060 deprecated by klatu
-STD;klatu;2060;09;0001;
+ANN;STD;klatu;2060;09;0001;
 ANN;2070 reported bugged - https://forums.beamdog.com/discussion/43279/mod-crash-after-slayer-dream
 STD;klatu;2070;09;0001;
 STD;klatu;2080;09;1111;
