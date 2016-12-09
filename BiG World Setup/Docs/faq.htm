@@ -33,7 +33,7 @@
 
 <ul class="toc">
 <li class="level1"><div class="li"><span class="li"><a href="#SoDSteamGoG" class="toc">Siege of Dragonspear Steam/GoG editions</a></span></div></li>
-<li class="level1"><div class="li"><span class="li"><a href="#OverwriteFiles" class="toc">OverwriteFiles folder</a></span></div></li>
+<li class="level1"><div class="li"><span class="li"><a href="#OverwriteFiles" class="toc">OverwriteFiles function</a></span></div></li>
 <li class="level1"><div class="li"><span class="li"><a href="#lynx_GitHub_API-Based_links" class="toc">lynx GitHub API-Based links</a></span></div></li>
 <li class="level1"><div class="li"><span class="li"><a href="#set_editable_components" class="toc">Set editable components</a></span></div></li>
 <li class="level1"><div class="li"><span class="li"><a href="#remove_fixed_content" class="toc">Remove fixed content</a></span></div></li>
@@ -73,7 +73,7 @@ https://forums.beamdog.com/discussion/50441/modmerge-merge-your-steam-gog-zip-ba
 </div>
 <!-- SECTION "SoDSteamGoG" -->
 
-<h1><a name="OverwriteFiles" id="OverwriteFiles">OverwriteFiles folder</a></h1>
+<h1><a name="OverwriteFiles" id="OverwriteFiles">OverwriteFiles function</a></h1>
 <div class="level1">
 
 <p>
@@ -81,17 +81,17 @@ Sometimes you need to overwrite mod files AFTER extraction but BEFORE installati
 In such case you can put any custom mod files using exactly the same folder structure, inside correct game top folder to avoid pausing installation and manual copying.
 </p>
 <p>
-OverwriteFiles\BG1EE - it's for Baldur's Gate: Enhanced Edition</br>
-OverwriteFiles\BG2EE - Baldur's Gate II: Enhanced Edition and Enhanced Edition Trilogy</br>
-OverwriteFiles\BWS - it's for classic Baldur's Gate II and Baldur's Gate Trilogy (folder name cannot be set to BGT)</br>
-OverwriteFiles\IWD1 - it's for classic Icewind Dale</br>
-OverwriteFiles\IWD2 - it's for classic Icewind Dale II</br>
-OverwriteFiles\IWD1EE - it's for Icewind Dale: Enhanced Edition</br>
-OverwriteFiles\PST - it's Planescape: Torment</br>
+BWS\OverwriteFiles\BG1EE - it's for Baldur's Gate: Enhanced Edition</br>
+BWS\OverwriteFiles\BG2EE - Baldur's Gate II: Enhanced Edition and Enhanced Edition Trilogy</br>
+BWS\OverwriteFiles\BWS - it's for classic Baldur's Gate II and Baldur's Gate Trilogy (folder name cannot be set to BGT)</br>
+BWS\OverwriteFiles\IWD1 - it's for classic Icewind Dale</br>
+BWS\OverwriteFiles\IWD2 - it's for classic Icewind Dale II</br>
+BWS\OverwriteFiles\IWD1EE - it's for Icewind Dale: Enhanced Edition</br>
+BWS\OverwriteFiles\PST - it's Planescape: Torment</br>
 </p>
 <p>
 Best example of usage is Scalles of Ballance sob_settings.ini file (scales_of_balance\sob_settings.ini)</br>
-Put you customized "sob_settings.ini" file inside "BG1EE\scales_of_balance" or "BG2EE\scales_of_balance" folder and it will be used during installation.
+Put you customized "sob_settings.ini" file inside "BWS\OverwriteFiles\BG1EE\scales_of_balance" or "BWS\OverwriteFiles\BG2EE\scales_of_balance" folder and it will be used everytime during installation.
 </p>
 </div>
 <!-- SECTION "OverwriteFiles" -->
