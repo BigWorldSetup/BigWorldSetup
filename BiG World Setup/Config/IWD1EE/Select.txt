@@ -101,18 +101,44 @@ STD;Px_Chantelame;0;12;0111;
 STD;runescarred;0;12;0111;
 STD;Warlock;0;12;0111;
 STD;WarslingSniperKit;0;12;0111;
-STD;Eldritch_Magic;0;12;0001;
-STD;Eldritch_Magic;1;12;0001;
-STD;Eldritch_Magic;3;12;0001;
-STD;Eldritch_Magic;5;12;0001;
-STD;Eldritch_Magic;8;12;0001;
-STD;Eldritch_Magic;9;12;0001;
-STD;Eldritch_Magic;11;12;0001;
-STD;Eldritch_Magic;12;12;0001;
-STD;Eldritch_Magic;13;12;0001;
-STD;Eldritch_Magic;14;12;0001;
-STD;Eldritch_Magic;21;12;0001;
-STD;Eldritch_Magic;22;12;0001;
+ANN;EE: Item Expansion
+STD;eldritch_magic;0;10;0111;
+ANN;Congenio's Pebble Collection (Ioun stone tweaks)
+STD;eldritch_magic;10;09;0111;
+MUC;eldritch_magic;Init;09;0000;
+ANN;XP Cap Removal -> Remove XP Cap (no limit)
+MUC;eldritch_magic;20;09;0000;
+ANN;XP Cap Removal -> Remove XP Cap (BGEE:SoD up to HLAs - not included)
+MUC;eldritch_magic;21;09;0000;
+ANN;START_XP - BGEE:SoD 161k & BG2EE 500k
+STD;eldritch_magic;30;09;0000;
+MUC;eldritch_magic;Init;09;0000;
+ANN;Remove Dual & Multi Class Restrictions -> Multiclass Humans & Dualclass Demihumans
+MUC;eldritch_magic;50;09;0000;
+ANN;Remove Dual & Multi Class Restrictions -> Multiclass Humans
+MUC;eldritch_magic;51;09;0000;
+ANN;Remove Dual & Multi Class Restrictions -> Dualclass Demihumans
+MUC;eldritch_magic;52;09;0000;
+ANN;Abyssal Warrior Kit
+STD;eldritch_magic;100;12;0111;
+ANN;Bladesinger Kit
+STD;eldritch_magic;200;12;0111;
+ANN;Eldritch Knight Kit
+STD;eldritch_magic;400;12;0111;
+ANN;Herbalist Kit
+STD;eldritch_magic;600;12;0111;
+ANN;Priest of Mystra Kit
+STD;eldritch_magic;900;12;0111;
+ANN;Priestess of Lolth Kit
+STD;eldritch_magic;1000;12;0111;
+ANN;Undead Hunter Kit (Paladin kit for Elves)
+STD;eldritch_magic;1200;12;0111;
+ANN;War Wizard Kit
+STD;eldritch_magic;1300;12;0111;
+ANN;Wilderness Runner Kit
+STD;eldritch_magic;1400;12;0111;
+ANN;Windrider Kit
+STD;eldritch_magic;1500;12;0111;
 MUC;Divine_Remix;Init;09;0111;
 MUC;Divine_Remix;10;09;0000;
 MUC;Divine_Remix;11;09;0111;
