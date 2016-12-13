@@ -2426,7 +2426,7 @@ SUB;eet_tweaks;8?2_100;09;0000;
 ANN;-- proportional quest XP --
 STD;eet_tweaks;9;09;0011;
 ANN;-- 3E sneak attacks (flanking) --
-STD;eet_tweaks;10;09;0000;
+STD;eet_tweaks;10;09;0001;
 ANN;-- FPS without audio skip --
 SUB;eet_tweaks;11;09;0000;
 SUB;eet_tweaks;11?1_1;09;0000;
