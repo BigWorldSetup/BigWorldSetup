@@ -693,10 +693,6 @@ STD;7C-Yoshi;0;07;0111;
 STD;YoshimoRomance;0;07;0111;
 STD;YoshimoRomance;1;07;0111;
 STD;YoshimoRomance;4;07;0111;
-STD;EdwinRomance;0;07;0111;
-STD;EdwinRomance;1;13;0000;
-STD;EdwinRomance;2;07;0111;
-STD;EdwinRomance;3;07;0111;
 SUB;keldorn_rom;0;07;0111;
 SUB;keldorn_rom;0?1_1;07;0000;
 SUB;keldorn_rom;0?1_2;07;0000;
@@ -978,10 +974,15 @@ STD;d0questpack;21;03;0111;
 STD;Turnabout;0;08;0111;
 STD;LongerRoad;0;05;0111;
 ANN;--- BG2EE minimods ---
+ANN;Wheels of Prophecy after Ascension and Longer Road, before SCS
 STD;wheels;0;04;1111;
-ANN;For some reason Wheels of Prophecy removes this entry (but exclusively for EE) so we add it back only if WoP is installed
-ANN;BP and BPSeries AI need the following IDS entry
+ANN;For unknown reason, WoP removes the following IDS entry (only for EE) so we add it back if WoP is selected
 CMD;IF EXIST "override\spell.IDS" echo 2302 WIZARD_REMOVE_MAGIC >> override\spell.IDS;;;;D:wheels(0)
+ANN;Edwin Romance after Ascension and Wheels of Prophecy
+STD;EdwinRomance;0;07;0111;
+STD;EdwinRomance;1;13;0000;
+STD;EdwinRomance;2;07;0111;
+STD;EdwinRomance;3;07;0111;
 ANN;--- BG2EE minimods ---
 STD;G3Anniversary;0;04;0111;
 CMD;echo.>> Worldmap/map_mods_links.tbl;;;;D:G3Anniversary(0)
