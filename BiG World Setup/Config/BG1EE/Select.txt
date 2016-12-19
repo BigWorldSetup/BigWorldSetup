@@ -4,25 +4,30 @@ DWN;weidu-filechangelog;0;00;1111;
 DWN;eekeeper;0;00;1111;
 ANN;--- patches ---
 DWN;BWInstallpack;0;00;1111;
+ANN;DWN;BWTrimpack;0;00;1111;
 DWN;BWFixpack;0;00;1111;
 DWN;BWTextpack;0;00;1111;
 DWN;BWTextpackP;0;00;1111;
+ANN;special case lines above are also hard-coded in Testing.au3 so BWS will extract them in both BG1EE and BG2EE folder if EET is selected
+ANN;--- BGEE/BG2EE/EET patches (all CMD lines will be executed in both the BG1EE and the BG2EE folder for EET installs) ---
+CMD;IF NOT EXIST ".\BWS_workspace\override" MD ".\BWS_workspace\override"
 CMD;IF EXIST "BiG World Fixpack" xcopy /Y /S /E ".\BiG World Fixpack\_Lolfixer\*.*" "."
 CMD;IF EXIST "BiG World Fixpack" xcopy /Y /S /E ".\BiG World Fixpack\_resfixer_v1\*.*" "."
 CMD;IF EXIST "BiG World Fixpack" xcopy /Y /S /E ".\BiG World Fixpack\_Area_Patcher\*.*" "."
-CMD;IF NOT EXIST ".\BWS_workspace\override" MD ".\BWS_workspace\override"
+CMD;IF EXIST "BiG World Fixpack" xcopy /Y /S /E ".\BiG World Fixpack\_Item_Patcher\*.*" "."
+ANN;--- remove patches that are not needed because BWS uses different versions of the mods for EE ---
 CMD;IF EXIST "BiG World Fixpack\item_rev" rmdir /s /q "BiG World Fixpack\item_rev"
 CMD;IF EXIST "BiG World Fixpack\tdd" rmdir /s /q "BiG World Fixpack\tdd"
 CMD;IF EXIST "BiG World Fixpack\chloe" rmdir /s /q "BiG World Fixpack\chloe"
 CMD;IF EXIST "BiG World Fixpack\dsotsc" rmdir /s /q "BiG World Fixpack\dsotsc"
 CMD;IF EXIST "BiG World Fixpack\ntotsc" rmdir /s /q "BiG World Fixpack\ntotsc"
-CMD;IF EXIST "BiG World Fixpack\ntotscv171" rmdir /s /q "BiG World Fixpack\ntotscv171"
 CMD;IF EXIST "BiG World Fixpack\refinements" rmdir /s /q "BiG World Fixpack\refinements"
 ANN;Run the Fixpack (now includes Trimpack changes), Textpack and Smoothpack batch scripts
 ANN;CMD;IF NOT EXIST BWP_Trimpack.installed Call "BiG World Trimpack.bat"
 CMD;IF NOT EXIST BWP_Fixpack.installed Call "_ApplyPatches.bat"
 CMD;IF NOT EXIST BWP_Fixpack.installed echo "The BiG World Fixpack script did not run successfully. Please check the _ApplyPatches.debug log file in the game folder and re-run _ApplyBatches.bat manually before continuing."
 CMD;IF NOT EXIST BWP_Fixpack.installed pause
+ANN;For some foreign languages this adds English text files to the mods as a substitute to prevent that the installation fails because of missing files
 CMD;IF EXIST "BiG World Textpack GERMAN" xcopy /Y /S /E ".\BiG World Textpack GERMAN\_English_files" ".\BiG World Textpack GERMAN"
 CMD;IF NOT EXIST BWP_Textpack.installed Call "BiG World Textpack.bat"
 CMD;IF NOT EXIST BWP_Smoothpack.installed Call ".\BiG World Installpack\BiG World Smoothpack.bat"
