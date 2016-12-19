@@ -759,14 +759,19 @@ Func _Tree_PurgeUnNeeded()
 	If $g_BG1EEDir = '-' Then $g_Skip&='|EET'
 	If $g_Flags[14]='IWD1' Then $Version=StringReplace(FileGetVersion($g_IWD1Dir&'\idmain.exe'), '.', '\x2e') ; unicode full stop
 	Local $ReadSection=IniReadSection($g_GConfDir&'\Game.ini', 'Purge')
+	Local $LanguageRegexp = ''
+	For $eachlang = 1 to $g_MLang[0]
+		$LanguageRegexp &= '\b'&$g_MLang[$eachlang]&'\b'
+		If $eachLang < $g_MLang[0] Then $LanguageRegexp &= '|'
+	Next
 	; Keep this function consistent with _Test_Get_EET_Mods in Testing.au3
 	If IsArray($ReadSection) Then
 		For $r=1 to $ReadSection[0][0]
 			$SplitPurgeLine = StringSplit($ReadSection[$r][1], ':')
-			If ($SplitPurgeLine[0] <> 3) Then ContinueLoop; Purge lines should have exactly three sections (C|D : ... : ...)
+			If ($SplitPurgeLine[0] <> 3) Then ContinueLoop; Purge lines should have exactly three sections (D : ... : ...)
 ;			IniWrite($g_UsrIni, 'Debug', 'SplitPurgeLine'&$r, $SplitPurgeLine[1]&' ~ '&$SplitPurgeLine[2]&' ~ '&$SplitPurgeLine[3])
-			If StringLeft($SplitPurgeLine[1], 1) = 'D' Then; look for dependencies
-				If StringRegExp($SplitPurgeLine[3], $g_MLang[1]) Then ContinueLoop; don't purge mods for currently selected language
+			If $SplitPurgeLine[1] = 'D' Then; check if dependencies are met, otherwise purge
+				If StringRegExp($SplitPurgeLine[3], $LanguageRegexp) Then ContinueLoop; don't purge mods that depend on a language if that language is among the user's chosen translations
 				If $Version <> '-' And StringRegExp($SplitPurgeLine[3], $Version) Then ContinueLoop; don't purge mods for current game version
 				; Checks for BGT / EET dependencies
 				If $g_Flags[14] = 'BG1EE' Then; user is installing BG1EE
@@ -786,9 +791,8 @@ Func _Tree_PurgeUnNeeded()
 						; else, fall through to purge mods/components that DO depend on BGT
 					EndIf
 				EndIf
-			Else; not a dependency rule, assume conflict
-				If Not StringRegExp($SplitPurgeLine[3], $g_MLang[1]) Then ContinueLoop; don't purge unless it conflicts with currently selected language
-				; else, fall through to purge mods that DO conflict with currently selected language
+			Else; not a dependency rule - invalid
+				_PrintDebug($g_GConfDir&'\Game.ini contains an invalid rule (expected D: form): '&$ReadSection[$r][1],1)
 			EndIf
 			; If we reached this line, we found something that needs to be purged
 			$g_Skip&='|'&StringReplace(StringReplace(StringReplace(StringReplace($SplitPurgeLine[2], '&', '|'), "(-)", ''), '(', ';('), '?', '\x3f')
