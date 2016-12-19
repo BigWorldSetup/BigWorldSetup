@@ -798,9 +798,17 @@ Func _Misc_SwitchGUIToInstallMethod()
 	Local $Message = IniReadSection($g_TRAIni, 'UI-Buildtime')
 	Local $State = $GUI_ENABLE
 	Local $HideEET = 0; set this to 0 to enable EET
+	Local $found = 0
 	For $g = 1 To $g_GameList[0][0]
-		If $g_Flags[14] = $g_GameList[$g][1] Then ExitLoop
+		If $g_Flags[14] = $g_GameList[$g][1] Then
+			$found = 1
+			ExitLoop
+		EndIf
 	Next
+	If $found = 0 Then
+		_PrintDebug('There is a problem with the internal configuration files. The BWS\Config\User.ini indicates that your current game type is "'&$g_Flags[14]&'" but no matching configuration was found. Please try restarting BWS using "with updates" to get the latest files; if that fails, please report this problem on one of the BiG World Setup support forums.', 1)
+		Exit
+	EndIf
 	_Misc_Set_GConfDir($g_GameList[$g][0])
 	GUICtrlSetData($g_UI_Interact[1][3], $g_GameList[$g][2])
 	GUICtrlSetState($g_UI_Static[2][1], $GUI_HIDE)
