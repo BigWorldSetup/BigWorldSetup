@@ -199,24 +199,39 @@ MUC;S9HouseRules;201;09;0111;
 MUC;S9HouseRules;202;09;0000;
 MUC;S9HouseRules;203;09;0000;
 MUC;S9HouseRules;204;09;0000;
+ANN;Revised Specialists
 STD;TomeAndBlood;0;09;0000;
+ANN;Revised Dragon Disciples - EE only
 STD;TomeAndBlood;1;09;0000;
-STD;TomeAndBlood;2;09;0000;
-STD;TomeAndBlood;3;09;0000;
-STD;TomeAndBlood;4;09;0000;
-STD;TomeAndBlood;5;09;0000;
-STD;TomeAndBlood;6;09;0000;
+ANN;Sorcerer: Magus - EE only
+STD;TomeAndBlood;2;12;0000;
+ANN;Sorcerer: Favoured Soul - EE only
+STD;TomeAndBlood;3;12;0000;
+ANN;Sorcerer: Sylvan Disciple - EE only
+STD;TomeAndBlood;4;12;0000;
+ANN;Sorcerer: Revenant Disciple - EE only
+STD;TomeAndBlood;5;12;0000;
+ANN;Sorcerer: Amorphous Disciple - EE only
+STD;TomeAndBlood;6;12;0000;
+ANN;Innate Find Familiar
+STD;TomeAndBlood;7;09;0000;
+ANN;Armored Casting For Bards - EE only
 STD;TomeAndBlood;8;09;0000;
+ANN;Arcane Crafting - EE only
 STD;TomeAndBlood;9;09;0000;
-STD;TomeAndBlood;20;09;0000;
-ANN;#10-13 are new classes/kits
-STD;TomeAndBlood;10;12;0000;
-STD;TomeAndBlood;11;12;0000;
-STD;TomeAndBlood;12;12;0000;
-STD;TomeAndBlood;13;12;0000;
-ANN;30-31 are BG1 NPC tweaks
-STD;TomeAndBlood;30;07;0000;
-STD;TomeAndBlood;31;07;0000;
+ANN;Spell Tweaks
+STD;TomeAndBlood;10;09;0000;
+ANN;Metamagic
+STD;TomeAndBlood;11;09;0000;
+MUC;TomeAndBlood;Init;09;0000;
+ANN;Cantrips -> Innate Cantrips
+MUC;TomeAndBlood;12;09;0000;
+ANN;Cantrips -> First Level Cantrips
+MUC;TomeAndBlood;13;09;0000;
+ANN;Ability Score Bonuses - EE only
+STD;TomeAndBlood;14;09;0000;
+ANN;Spell Select Dialog - EE only
+STD;TomeAndBlood;15;09;0000;
 ANN;--- add revise kits ---
 STD;A7!GolemConstruction;0;09;0011;
 STD;A7!GolemConstruction;10;09;0011;

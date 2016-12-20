@@ -3056,13 +3056,39 @@ MUC;tb#tweaks;Init;16;0111;
 MUC;tb#tweaks;3500;16;0111;
 MUC;tb#tweaks;3550;16;0000;
 MUC;tb#tweaks;3600;16;0000;
-STD;TomeAndBlood;0;09;0000;
-STD;TomeAndBlood;1;09;0000;
-STD;TomeAndBlood;2;09;0000;
-STD;TomeAndBlood;3;09;0000;
-STD;TomeAndBlood;5;09;0000;
-ANN;#4,6,9,10-13 are EE-only
-STD;TomeAndBlood;20;09;0000;
+ANN;Revised Specialists
+STD;TomeAndBlood;0;16;0000;
+ANN;Revised Dragon Disciples - EE only
+ANN;STD;TomeAndBlood;1;16;0000;
+ANN;Sorcerer: Magus - EE only
+ANN;STD;TomeAndBlood;2;19;0000;
+ANN;Sorcerer: Favoured Soul - EE only
+ANN;STD;TomeAndBlood;3;19;0000;
+ANN;Sorcerer: Sylvan Disciple - EE only
+ANN;STD;TomeAndBlood;4;19;0000;
+ANN;Sorcerer: Revenant Disciple - EE only
+ANN;STD;TomeAndBlood;5;19;0000;
+ANN;Sorcerer: Amorphous Disciple - EE only
+ANN;STD;TomeAndBlood;6;19;0000;
+ANN;Innate Find Familiar
+STD;TomeAndBlood;7;16;0000;
+ANN;Armored Casting For Bards - EE only
+ANN;STD;TomeAndBlood;8;16;0000;
+ANN;Arcane Crafting - EE only
+ANN;STD;TomeAndBlood;9;16;0000;
+ANN;Spell Tweaks
+STD;TomeAndBlood;10;16;0000;
+ANN;Metamagic
+STD;TomeAndBlood;11;16;0000;
+MUC;TomeAndBlood;Init;16;0000;
+ANN;Cantrips -> Innate Cantrips
+MUC;TomeAndBlood;12;16;0000;
+ANN;Cantrips -> First Level Cantrips
+MUC;TomeAndBlood;13;16;0000;
+ANN;Ability Score Bonuses - EE only
+ANN;STD;TomeAndBlood;14;16;0000;
+ANN;Spell Select Dialog - EE only
+ANN;STD;TomeAndBlood;15;16;0000;
 MUC;refinements;Init;16;0111;
 MUC;refinements;10;16;0111;
 MUC;refinements;11;16;0000;
