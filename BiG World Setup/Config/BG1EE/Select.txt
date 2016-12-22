@@ -1319,12 +1319,14 @@ MUC;A7NoEENPCs;Init;09;0000;
 MUC;A7NoEENPCs;105;09;0000;
 MUC;A7NoEENPCs;205;09;0000;
 STD;A7NoEENPCs;301;09;0000;
+ANN;-- adjust total XP cap --
 SUB;eet_tweaks;3;09;1111;
 SUB;eet_tweaks;3?1_1;09;0000;
 SUB;eet_tweaks;3?1_2;09;0000;
 SUB;eet_tweaks;3?1_3;09;1111;
 SUB;eet_tweaks;3?1_4;09;0000;
 SUB;eet_tweaks;3?2_10000000;09;0000;
+ANN;-- XP for locks, traps, spells
 SUB;eet_tweaks;6;09;1111;
 SUB;eet_tweaks;6?1_1;09;0000;
 SUB;eet_tweaks;6?1_2;09;0000;
@@ -1332,24 +1334,27 @@ SUB;eet_tweaks;6?1_3;09;1111;
 SUB;eet_tweaks;6?1_4;09;0000;
 SUB;eet_tweaks;6?1_5;09;0000;
 SUB;eet_tweaks;6?2_50;09;0000;
+ANN;-- XP for killing creatures --
 SUB;eet_tweaks;7;09;1111;
 SUB;eet_tweaks;7?1_1;09;0000;
-SUB;eet_tweaks;7?1_2;09;1100;
-SUB;eet_tweaks;7?1_3;09;0011;
-SUB;eet_tweaks;7?1_4;09;0000;
+SUB;eet_tweaks;7?1_2;09;0000;
+SUB;eet_tweaks;7?1_3;09;1100;
+SUB;eet_tweaks;7?1_4;09;0011;
 SUB;eet_tweaks;7?1_5;09;0000;
 SUB;eet_tweaks;7?1_6;09;0000;
 SUB;eet_tweaks;7?1_7;09;0000;
 SUB;eet_tweaks;7?2_100;09;0000;
+ANN;-- XP for completing quests --
 SUB;eet_tweaks;8;09;1111;
 SUB;eet_tweaks;8?1_1;09;0000;
-SUB;eet_tweaks;8?1_2;09;1100;
-SUB;eet_tweaks;8?1_3;09;0011;
-SUB;eet_tweaks;8?1_4;09;0000;
+SUB;eet_tweaks;8?1_2;09;0000;
+SUB;eet_tweaks;8?1_3;09;1100;
+SUB;eet_tweaks;8?1_4;09;0011;
 SUB;eet_tweaks;8?1_5;09;0000;
 SUB;eet_tweaks;8?1_6;09;0000;
 SUB;eet_tweaks;8?1_7;09;0000;
 SUB;eet_tweaks;8?2_100;09;0000;
+ANN;-- proportional quest XP --
 STD;eet_tweaks;9;09;0011;
 ANN;-- FPS without audio skip --
 SUB;eet_tweaks;11;09;0000;
