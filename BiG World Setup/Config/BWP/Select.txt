@@ -2627,6 +2627,7 @@ ANN;STD;Faiths_and_Powers;954;16;0001;
 ANN;STD;Faiths_and_Powers;955;16;0001;
 ANN;STD;Faiths_and_Powers;956;16;0001;
 ANN;STD;Faiths_and_Powers;1000;16;0001;
+ANN;#210 (Bard Class Overhaul) needs EE
 STD;might_and_guile;220;16;0111;
 STD;might_and_guile;225;16;0111;
 STD;might_and_guile;230;16;0111;
@@ -2634,7 +2635,6 @@ STD;might_and_guile;235;16;0111;
 STD;might_and_guile;250;16;0111;
 STD;might_and_guile;260;16;0111;
 STD;might_and_guile;265;16;0111;
-STD;might_and_guile;270;16;0111;
 ANN;#275 (Revised Shadowdancer) needs EE
 STD;might_and_guile;310;19;0111;
 STD;might_and_guile;320;19;0111;
