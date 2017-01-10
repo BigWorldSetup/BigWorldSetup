@@ -224,6 +224,7 @@ SUB;bggraphics;0?2_2;20;0000;
 MUC;bggoEET;Init;20;0001;
 MUC;bggoEET;0;20;0001;
 MUC;bggoEET;1;20;0001;
+STD;DruidGroveMakeover;0;20;0111;
 STD;JondalarFix;0;01;1111;
 STD;TP;1;01;1111;
 STD;BGT-NPCSound;0;01;1111;

@@ -353,6 +353,7 @@ ANN;-- horizontal line graphical glitches reported with bggoEET v2.0 beta (http:
 MUC;bggoEET;Init;13;0001;
 MUC;bggoEET;0;13;0001;
 MUC;bggoEET;1;13;0000;
+STD;DruidGroveMakeover;0;13;0111;
 ANN;--- mods for BG:EE that must be installed after EET ---
 MUC;BG_Travel;Init;09;0111;
 MUC;BG_Travel;66;09;0111;
