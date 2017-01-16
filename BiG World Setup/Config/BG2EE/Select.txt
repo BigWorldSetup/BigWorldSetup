@@ -679,6 +679,8 @@ STD;7C-Yoshi;0;07;0111;
 STD;YoshimoRomance;0;07;0111;
 STD;YoshimoRomance;1;07;0111;
 STD;YoshimoRomance;4;07;0111;
+ANN;Dorn Romance Expansion
+STD;dorn;0;07;0111;
 SUB;keldorn_rom;0;07;0111;
 SUB;keldorn_rom;0?1_1;07;0000;
 SUB;keldorn_rom;0?1_2;07;0000;
