@@ -455,6 +455,7 @@ STD;PlanarSphereMod;1;08;0011;
 STD;PlanarSphereMod;2;08;0011;
 STD;PlanarSphereMod;3;08;0011;
 ANN;--- BG2EE stores and items ---
+STD;BoM;0;10;0111;
 STD;FR_ROV;0;10;0111;
 MUC;ItemUpgrade;Init;10;0111;
 MUC;ItemUpgrade;0;10;0000;
