@@ -70,7 +70,7 @@ Func Au3Extract($p_Num = 0)
 				Else; search for archives that are inside the archive
 					$FileList = StringSplit(StringStripCR($g_ConsoleOutput), @LF)
 					For $n = 14 To 1 Step -1
-						If StringRegExp($FileList[$n], '(?i)exe\z|rar\z|zip\z') Then
+						If StringRegExp($FileList[$n], '(?i)7z\z|rar\z|zip\z') Then
 							If StringInStr($FileList[$n], 'Weidu.exe') Then ContinueLoop; don't extract WeiDU
 							FileWrite($g_LogFile, '>' & $FileList[$n] & @CRLF)
 							$Success = _Extract_CheckMod(StringRegExpReplace($FileList[$n], '(?i)extracting\s*', ''), $g_GameDir, $Mod)
