@@ -2129,7 +2129,7 @@ STD;aTweaks;999;09;1111;
 ANN;https://forums.beamdog.com/discussion/comment/812942/#Comment_812942
 STD;scales_of_balance;180;09;0000;
 STD;eetact2;0;08;0011;
-STD;eetact2;100;08;0011;
+STD;eetact2;100;08;0001;
 STD;eetact2;110;08;0011;
 STD;eetact2;120;08;0011;
 STD;eetact2;130;08;0011;
