@@ -170,7 +170,7 @@ Func Au3RunFix($p_Num = 0)
 	If Not FileExists($g_GameDir&'\Portraits') Then DirCreate($g_GameDir&'\Portraits')
 	If StringRegExp($g_Flags[14], 'BWP|BWS') Then
 		_Install_BG1Textpatch($Message)
-		If Not StringInStr(FileRead($g_BG2Dir&'\WeiDU.log'), 'BWFixpack.TP2') Then _Install_CreateTP2Entry('BWFixpack', IniRead($g_MODIni, 'BWFixpack', 'Save', ''))
+		;If Not StringInStr(FileRead($g_BG2Dir&'\WeiDU.log'), 'BWFixpack.TP2') Then _Install_CreateTP2Entry('BWFixpack', IniRead($g_MODIni, 'BWFixpack', 'Save', ''))
 		If IniRead($g_UsrIni, 'Save', 'BWTextpack', '') <> '' Then
 			$Tra = _GetTra('BWTextpack', 'T')
 			If $Tra = 'GE' Then
@@ -191,7 +191,7 @@ Func Au3RunFix($p_Num = 0)
 			_Process_Run('xcopy /Y /S /E ".\BiG World Textpack GERMAN\_Textharmonisation" ".\BiG World Textpack GERMAN"', 'xcopy.exe')
 			If Not StringInStr(FileRead($g_BG2Dir&'\WeiDU.log'), 'Textharmonisation.TP2') Then _Install_CreateTP2Entry('Textharmonisation', IniRead($g_MODIni, 'BWTextpack', 'GE-AddSave', ''))
 		EndIf
-		If Not StringInStr(FileRead($g_BG2Dir&'\WeiDU.log'), 'BWTrimpack.TP2') Then _Install_CreateTP2Entry('BWTrimpack', IniRead($g_MODIni, 'BWTrimpack', 'Save', 'Unknown'))
+		;If Not StringInStr(FileRead($g_BG2Dir&'\WeiDU.log'), 'BWTrimpack.TP2') Then _Install_CreateTP2Entry('BWTrimpack', IniRead($g_MODIni, 'BWTrimpack', 'Save', 'Unknown'))
 		If Not StringInStr(FileRead($g_BG2Dir&'\WeiDU.log'), 'BWInstallpack.TP2') Then _Install_CreateTP2Entry('BWInstallpack', IniRead($g_MODIni, 'BWInstallpack', 'Save', 'Unknown'))
 		If _Install_PatchTest() = 0 Then
 			_Misc_MsgGUI(4, _GetTR($g_UI_Message, '0-T1'), _GetTR($Message, 'L13')&'|'& StringFormat(StringRegExpReplace(_GetTR($g_UI_Message, '8-L2'), '\A[^\x7c]*\x7c', ''), @AutoItExe), 1, _GetTR($g_UI_Message, '8-B3')); => cannot read log -> exit
