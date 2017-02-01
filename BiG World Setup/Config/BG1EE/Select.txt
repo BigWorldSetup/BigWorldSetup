@@ -637,6 +637,8 @@ ANN;--- add and revise kits ---
 STD;A7!GolemConstruction;0;09;0011;
 STD;A7!GolemConstruction;20;09;0011;
 STD;A7!GolemConstruction;25;09;0011;
+STD;A7!GolemConstruction;35;09;0011;
+STD;A7!GolemConstruction;40;09;0011;
 STD;PaleMaster;0;12;0111;
 STD;PaleMaster;1;12;0111;
 STD;PaleMaster;2;12;0111;
