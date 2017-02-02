@@ -762,7 +762,7 @@ Func _Install_Check($p_Setup, $p_Logic, $p_Message='')
 
 	If StringInStr($p_Setup[3], '?') Then Return 0; SUB-selections are applied while installing the component itself
 	If Not StringRegExp(IniRead($g_UsrIni, 'Current', $p_Setup[2], ''), '(?i)(\A|\s)' & $p_Setup[3] & '(\s|\z)') Then; the user did not select the mods component. Note: Not checking for SUBs here.
-		_Process_SetConsoleLog('@@@ Skipping ' & _Tree_SetLength($p_Setup[3]) &': '& $p_Setup[8] & ' because it was not selected for this installation @@@')
+		;_Process_SetConsoleLog('@@@ Skipping ' & _Tree_SetLength($p_Setup[3]) &': '& $p_Setup[8] & ' because it was not selected for this installation @@@')
 		Return 0
 	EndIf
 	_Process_SetConsoleLog('### ' & _Tree_SetLength($p_Setup[3]) &': '& $p_Setup[8] & ' ###')
