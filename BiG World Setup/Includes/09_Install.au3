@@ -112,12 +112,14 @@ Func Au3RunFix($p_Num = 0)
 	GUICtrlSetData($g_UI_Interact[6][4], StringFormat(_GetSTR($Message, 'H1'), $Type)); => help text
 	GUICtrlSetData($g_UI_Static[6][1], _GetTR($Message, 'L2')); => watch progress
 	$g_LogFile = $g_LogDir & '\BiG World Install Debug.txt'
-	; Special case, EET-patches-for-BG2EE-mods-master must be extracted after all other mods are extracted, before files are copied in from OverwriteFiles (_Extract_OverwriteFiles()) and before BiG World Fixpack is run
+	; No longer used
+	; Special case, EET-patches-for-BG2EE-mods-master must be extracted after all other mods are extracted, before files are copied in from
+	; OverwriteFiles (_Extract_OverwriteFiles()) and before BiG World Fixpack is run
 	; Use Experimental function which fix DirMove "ub\ub" problem. Used only with EET Patches for Mods to minimalize new bugs
-	If FileExists($g_GameDir&'\EET-patches-for-BG2EE-mods-master') Then
-		FileWrite($g_LogFile, '>EET-patches-for-BG2EE-mods-master\* .' & @CRLF)
-		_Extract_MoveModEx('EET-patches-for-BG2EE-mods-master')
-	EndIf
+	;If FileExists($g_GameDir&'\EET-patches-for-BG2EE-mods-master') Then
+	;	FileWrite($g_LogFile, '>EET-patches-for-BG2EE-mods-master\* .' & @CRLF)
+	;	_Extract_MoveModEx('EET-patches-for-BG2EE-mods-master')
+	;EndIf
 	_Extract_OverwriteFiles()
 ; ---------------------------------------------------------------------------------------------
 ; make sure the WeiDU-setups are really replaced by a new one
