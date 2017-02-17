@@ -1610,7 +1610,8 @@ STD;EEUITweaks;2050;13;0000;
 STD;EEUITweaks;2070;13;0000;
 STD;EEUITweaks;3000;13;0000;
 STD;EEUITweaks;3010;13;0000;
-STD;EEUITweaks;3020;13;0000;
+MUC;EEUITweaks;Init;13;0000;
+MUC;EEUITweaks;3020;13;0000;
 STD;EEUITweaks;3030;13;0000;
 MUC;EEUITweaks;Init;13;0000;
 MUC;EEUITweaks;3040;13;0000;
@@ -1698,4 +1699,4 @@ STD;npc_ee;3000;07;0111;
 STD;m7multikit;10;12;0111;
 STD;m7multikit;11;12;0111;
 STD;m7multikit;13;12;0111;
-ANN;Added due to patching
+ANN;Added due to patching0;
