@@ -841,7 +841,7 @@ Func _Net_LinkUpdateInfo($p_URL, $p_File, $p_Setup, $p_Prefix)
 	EndIf
 	$Return[1]=StringReplace(StringReplace($Return[1], '%20', ' '), '\', ''); set correct space
 	If StringLower($Return[1]) <> StringLower($p_File) Then; name changed
-		;If StringRegExp($p_URL, 'lynxlynx') Then ; http://lynxlynx.info/ie/modhub.php?AstroBryGuy/bg1ub -> AstroBryGuy-bg1ub-???.zip
+		;If StringRegExp($p_URL, 'lynxlynx') Then ; http://bws.uphero.com/ie/modhub.php?AstroBryGuy/bg1ub -> AstroBryGuy-bg1ub-???.zip
 			; zip file name will change each time there is a new commit; to avoid accumulating copies, reuse 'Save' name from mod ini
 			; also don't set $Extended to 1 because of this (we might still set it later because of different filesize, which is fine)
 			; N.B. $Extended = 1 is indication to the caller of this function that the filename or filesize does not match the mod ini
