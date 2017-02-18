@@ -1,16 +1,19 @@
 ﻿**Big World Setup (BWS) : Mod Manager for Infinity Engine Games and Baldur's Gate/Enhanced Edition Trilogy by dabus**
 
+﻿**Download﻿**                 : https://bitbucket.org/BigWorldSetup/bigworldsetup/get/master.zip
+
 ![gRmfnLY[1].png](https://bitbucket.org/repo/kKX5Xg/images/3720385461-gRmfnLY%5B1%5D.png)
 
 Download                 : https://bitbucket.org/BigWorldSetup/bigworldsetup/get/master.zip
 
-Beamdog Discussion Forum : https://forums.beamdog.com/discussion/comment/704157
+Instruction/FAQ          : https://forums.beamdog.com/discussion/comment/704157
 
-SHS Discussion Forum     : http://www.shsforums.net/topic/56670-big-world-setup-an-attempt-to-update-the-program/
+Discussion               : http://www.shsforums.net/topic/56670-big-world-setup-an-attempt-to-update-the-program/
+
+Mod Request Template     : http://www.shsforums.net/topic/58006-big-world-setup-mod-request-template/
 
 Change History           : https://bitbucket.org/BigWorldSetup/bigworldsetup/commits/all
 
-Mod Request Template     : http://www.shsforums.net/topic/58006-big-world-setup-mod-request-template/
 
 ### Features ###
 
