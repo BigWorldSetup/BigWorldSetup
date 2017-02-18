@@ -2547,6 +2547,7 @@ SUB;BP-BGT-Worldmap;0?2_2;13;1111;
 MUC;BP-BGT-Worldmap;Init;13;1111;
 MUC;BP-BGT-Worldmap;1;13;1111;
 MUC;BP-BGT-Worldmap;2;13;0000;
+STD;BP-BGT-Worldmap_pvrz;0;13;1111;
 ANN;EET_End component to finish EET installation, ready before EET
 SUB;EET_End;0;00;1111;
 SUB;EET_End;0?1_1;00;0000;
