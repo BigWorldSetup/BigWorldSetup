@@ -138,7 +138,7 @@ $translations = ( Get-Content "$iniPath\$langFileName" ) # | Select-String -Patt
 
 $defaultLanguage = $translations | Select-String '0:'
 if ( $defaultLanguage -eq $null ) {
-    $defaultLanguage = '0:--'
+    $defaultLanguage = 'EN:0,0:--'
     $defaultLanguageNumber = $defaultLanguage.ToString()[0]
     $tra = $defaultLanguage
     $langWeiDU = '0:EN'
@@ -269,13 +269,13 @@ $iniLanguage += "Tra=$($_.LanguageNumber)`r`n"
 $iniMod = @()
 $iniMod += '[Mod]'
 $iniMod += "Name=$($mod.Name)"
-$iniMod += " Rev=$($mod.Rev)"
+$iniMod += "Rev=$($mod.Rev)"
 $iniMod += "Type=$($mod.Type -join ',')"
 $iniMod += "Link=$($mod.Link)"
 $iniMod += "Down=$($mod.Down)"
 $iniMod += "Save=$($mod.Save)"
 $iniMod += "Size=$($mod.Size)"
-$iniMod += " Tra=$($mod.Tra)`r`n"
+$iniMod += "Tra=$($mod.Tra)`r`n"
 
 $iniMod += $iniLanguage
 
