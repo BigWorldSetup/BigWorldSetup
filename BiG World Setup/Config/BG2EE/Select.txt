@@ -554,7 +554,7 @@ STD;xulaye;2;05;0111;
 STD;haldamir;0;05;1111;
 ANN;STD;AVIM;0;05;0111;
 STD;Saerileth;0;05;0111;
-STD;Skie;0;05;0111;
+STD;Skie;0;05;0000;
 STD;TyrisFlare;0;05;0111;
 SUB;Yvette;0;05;0111;
 SUB;Yvette;0?1_1;05;0111;
