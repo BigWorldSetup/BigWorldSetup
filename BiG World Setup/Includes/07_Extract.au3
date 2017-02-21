@@ -213,6 +213,13 @@ Func Au3ExFix($p_Num)
 		FileWrite($g_LogFile, '>A4Auror\* .' & @CRLF)
 		FileMove($g_BG2Dir&'\A4Auror\Setup-A4Auror.exe', $g_BG2Dir&'\Setup-A4Auror.exe')
 	EndIf
+	If FileExists($g_GameDir&'\randomiser') Then
+		$TP2Exists = _Test_GetCustomTP2('randomiser', '\randomiser\randomiser', 1); 1 = don't complain if BACKUP mod folder is not found
+		If $TP2Exists <> '1' Then; this is a folder
+			FileWrite($g_LogFile, '>randomiser\* .' & @CRLF)
+			_Extract_MoveModEx('randomiser')
+		EndIf
+	EndIf
 	If StringRegExp($g_Flags[14], 'BWP|BWS') And FileExists($g_GameDir&'\CtBv1.13a\CtBv1.13') Then
 		$TP2Exists = _Test_GetCustomTP2('CTB', '\CtBv1.13a\CtBv1.13\', 1); 1 = don't complain if BACKUP mod folder is not found
 		If $TP2Exists <> '0' Then; this is a folder
@@ -838,7 +845,14 @@ Func _Extract_MoveModEx($p_Dir)
 		EndIf
 		If $Success = 0 Then Return 0
 	Next
-	$Success = DirRemove($g_GameDir & '\' & $p_Dir, 1)
+	; if we move al files from $g_GameDir\randomiser\randomiser\* (this folder contains randomiser.tp2) to one level up, $p_Dir will still be named "randomiser"
+	; so we cannot remove any files inside "$g_GameDir\$p_Dir" at this point because $g_GameDir\randomiser contains actual mod files and randomiser.tp2
+	$FilesAfterMove=_FileSearch($g_GameDir & '\' & $p_Dir, '*')
+	If $FilesAfterMove = 0 Then
+		$Success = DirRemove($g_GameDir & '\' & $p_Dir, 1)
+	Else
+		$Success = 1
+	EndIf
 	Return $Success
 EndFunc   ;==>_Extract_MoveModEx
 
