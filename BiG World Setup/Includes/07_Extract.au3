@@ -215,7 +215,7 @@ Func Au3ExFix($p_Num)
 	EndIf
 	If FileExists($g_GameDir&'\randomiser') Then
 		$TP2Exists = _Test_GetCustomTP2('randomiser', '\randomiser\randomiser', 1); 1 = don't complain if BACKUP mod folder is not found
-		If $TP2Exists <> '1' Then; this is a folder
+		If $TP2Exists <> '1' Then; randomiser.tp2 exist
 			FileWrite($g_LogFile, '>randomiser\* .' & @CRLF)
 			_Extract_MoveModEx('randomiser')
 		EndIf
