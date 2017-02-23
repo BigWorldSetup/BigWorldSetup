@@ -1387,7 +1387,6 @@ SUB;bp-bgt-worldmap;0?1_1;13;1111;
 SUB;bp-bgt-worldmap;0?1_2;13;0000;
 SUB;bp-bgt-worldmap;0?2_1;13;0000;
 SUB;bp-bgt-worldmap;0?2_2;13;1111;
-STD;bp-bgt_worldmap_pvrz;0;13;1111;
 ANN;--- lolfixer not yet ready for EE, marked as expert ---
 STD;lolfixer;1;01;0001;
 STD;lolfixer;2;01;0001;
