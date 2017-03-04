@@ -349,6 +349,10 @@ STD;BG2EE_GA;0;00;1111;
 ANN;-- install EET itself --
 STD;EET;0;00;1111;
 ANN;-- all lines below EET mod will apply to BG2EE folder
+STD;RoT;0;02;0111;
+STD;RoT;1;12;0111;
+CMD;copy /Y ".\RoTerror\anim\Yeti\*.bam" ".\override";;;;D:SOS(0)&ROT(0)
+CMD;copy /Y ".\RoTerror\anim\Yeti\*.bam" ".\override";;;;D:CTB(0)&ROT(0)
 ANN;-- horizontal line graphical glitches reported with bggoEET v2.0 beta (http://gibberlings3.net/forums/index.php?showtopic=27768&page=3) --
 MUC;bggoEET;Init;13;0001;
 MUC;bggoEET;0;13;0001;
