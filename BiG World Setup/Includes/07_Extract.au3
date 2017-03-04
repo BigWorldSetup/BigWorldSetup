@@ -220,7 +220,7 @@ Func Au3ExFix($p_Num)
 			_Extract_MoveModEx('randomiser')
 		EndIf
 	EndIf
-	If StringRegExp($g_Flags[14], 'BWP|BWS') And FileExists($g_GameDir&'\CtBv1.13a\CtBv1.13') Then
+	If FileExists($g_GameDir&'\CtBv1.13a\CtBv1.13') Then
 		$TP2Exists = _Test_GetCustomTP2('CTB', '\CtBv1.13a\CtBv1.13\', 1); 1 = don't complain if BACKUP mod folder is not found
 		If $TP2Exists <> '0' Then; this is a folder
 			FileWrite($g_LogFile, '>CtBv1.13a\CtBv1.13\* .' & @CRLF)
