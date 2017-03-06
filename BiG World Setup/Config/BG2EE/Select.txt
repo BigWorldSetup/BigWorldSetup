@@ -2555,6 +2555,8 @@ ANN;EET_End component to finish EET installation, ready before EET
 SUB;EET_End;0;00;1111;
 SUB;EET_End;0?1_1;00;0000;
 SUB;EET_End;0?1_2;00;1111;
+ANN;--- Sounds ---
+STD;HQ_SoundClips_BG2EE;0;13;0000;
 ANN;--- hotfixes ---
 STD;Area_Patcher;0;01;1111;
 ANN;Area_Patcher;1000;01;0000;no need without old NEJ
