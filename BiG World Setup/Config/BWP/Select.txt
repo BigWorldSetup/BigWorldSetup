@@ -1090,7 +1090,6 @@ STD;WillyB;0;13;0111;
 STD;FoxMonster;0;13;0111;
 STD;Vildra;0;13;0111;
 STD;Jandor;0;13;0111;
-STD;Eldoth;0;13;0111;
 STD;Roar;0;13;0111;
 STD;Teddy;0;13;0111;
 ANN;abSolestia is not included in BWP/BWS any more
