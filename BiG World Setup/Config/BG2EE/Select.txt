@@ -2208,7 +2208,6 @@ STD;klatu;2040;09;1111;
 STD;klatu;2050;09;1111;
 ANN;2060 deprecated by klatu
 ANN;STD;klatu;2060;09;0001;
-ANN;2070 reported bugged - https://forums.beamdog.com/discussion/43279/mod-crash-after-slayer-dream
 STD;klatu;2070;09;0001;
 STD;klatu;2080;09;1111;
 STD;klatu;2090;09;0000;
