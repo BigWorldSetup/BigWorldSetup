@@ -1,25 +1,46 @@
-param([Parameter(Position=0)]$modPath,$Name=$null,$Type='S',$Version,$Download=$null,$HomePage='http://www.shsforums.net',$Category='99',$iniPath=$null)
+param([Parameter(Position=0)]$modPath,$Name=$null,$Type,$Version,$Download,$HomePage,$Game,$Category,$iniPath=$null)
 function Grant-Elevation {
-    if ( $script:MyInvocation.MyCommand.Path ) { Set-Location ( Split-Path $script:MyInvocation.MyCommand.Path ) } else { Set-Location ( Split-Path -parent $psISE.CurrentFile.Fullpath ) }
-
+    $parameterValuesHelpMsg1 = "Script with provided parameters was trying to execute itself as elevated but"
+    $parameterValuesHelpMsg2 = "one of the parameter values was arrays/other objects - there is no support for it."
+    
     $myWindowsID = [System.Security.Principal.WindowsIdentity]::GetCurrent()
     $myWindowsPrincipal = New-Object System.Security.Principal.WindowsPrincipal( $myWindowsID )
     $adminRole = [System.Security.Principal.WindowsBuiltInRole]::Administrator
-
     if ( !$myWindowsPrincipal.IsInRole( $adminRole )) {
-
-    # This fixes error when the script is located at mapped network drive
-    $private:scriptFullPath = $script:MyInvocation.MyCommand.Path
-    if ( $scriptFullPath.Contains([io.path]::VolumeSeparatorChar )) { # check for a drive letter
-        $private:psDrive = Get-PSDrive -Name $scriptFullPath.Substring(0,1) -PSProvider 'FileSystem'
-        if ( $psDrive.DisplayRoot ) { $scriptFullPath = $scriptFullPath.Replace( $psdrive.Name + [io.path]::VolumeSeparatorChar, $psDrive.DisplayRoot ) } # check if it's a mapped network drive
-    }
-    [string[]]$argList = @( '-NoLogo', '-NoProfile', '-NoExit', '-File', "`"$scriptFullPath`"" )
-    $argList += $MyInvocation.BoundParameters.GetEnumerator() | % { "-$($_.Key)", "$($_.Value)" }
-    $argList += $MyInvocation.UnboundArguments
-    Start-Process powershell.exe -Verb Runas -WorkingDirectory $PWD -ArgumentList $argList -PassThru
-    Stop-Process $PID
-    }
+        if ( $script:psISE.CurrentFile.Fullpath ) {
+            # This fixes error wen script is located at mapped network drive
+            $private:scriptFullPath = $script:psISE.CurrentFile.Fullpath
+                if ( $scriptFullPath.Contains([io.path]::VolumeSeparatorChar )) { # check for a drive letter
+                    $private:psDrive = Get-PSDrive -Name $scriptFullPath.Substring(0,1) -PSProvider 'FileSystem'
+                    if ( $psDrive.DisplayRoot ) { # check if it's a mapped network drive
+                        $scriptFullPath = $scriptFullPath.Replace( $psDrive.Name + [io.path]::VolumeSeparatorChar, $psDrive.DisplayRoot )
+                    }
+                }
+            Start-Process powershell_ise.exe -Verb Runas -WorkingDirectory $PWD -ArgumentList "`"$scriptFullPath`""
+        }
+        else {
+            # This fixes error wen script is located at mapped network drive
+            $private:scriptFullPath = $script:MyInvocation.MyCommand.Path
+            if ( $scriptFullPath.Contains([io.path]::VolumeSeparatorChar )) { # check for a drive letter
+                $private:psDrive = Get-PSDrive -Name $scriptFullPath.Substring(0,1) -PSProvider 'FileSystem'
+                if ( $psDrive.DisplayRoot ) { # check if it's a mapped network drive
+                    $scriptFullPath = $scriptFullPath.Replace( $psDrive.Name + [io.path]::VolumeSeparatorChar, $psDrive.DisplayRoot )
+                }
+            }
+            if (( $script:MyInvocation.BoundParameters.GetEnumerator() | % { $_.Value.count -gt 1 } ) -match $true ) {
+        
+                [string[]]$ArgumentList = @( '-NoLogo','-NoExit')
+                $ArgumentList += @( '-Command', "Set-Location `'$PWD`' ; Write-Host `"$parameterValuesHelpMsg1`" ; Write-Host `"$parameterValuesHelpMsg2`" ")
+            } else {
+                [string[]]$ArgumentList = @( '-NoLogo','-NoExit')
+                $ArgumentList += @( '-Command', "Set-Location `'$PWD`' ; & `'$scriptFullPath`' " )
+                $ArgumentList += $script:MyInvocation.BoundParameters.GetEnumerator() | % { "-$( $_.Key )", "$( $_.Value )" }
+                $ArgumentList += $script:MyInvocation.UnboundArguments
+            }
+            Start-Process PowerShell.exe -Verb Runas -WorkingDirectory $PWD -ArgumentList $ArgumentList
+            #Stop-Process $PID
+        }
+}
 }
 Grant-Elevation
 
@@ -33,24 +54,25 @@ try {
 
 $comWeiDU = $langWeiDU = $tp2data = $tp2dataRaw = $tp2dataRegex = $tp2File = $tp2FullPath = $weidu = $null
 
-$Game = 'EET'
-$Type = 'S'
-$Category = '99'
+#$Game = 'EET'
+#$Type = 'S'
+#$Category = '99'
 
 if ( $modPath -eq $null ) {
     if ( ( Get-ChildItem -Path $g_ScriptPath -Filter *.tp2 -Recurse ) -ne $null ) {
-    $tp2File = ( Get-ChildItem -Path $g_ScriptPath -Filter *.tp2 -Recurse )[0]
-    $tp2Path = $tp2File.Directory
-    $tp2FullPath = $tp2File.FullName
+        $tp2File = ( Get-ChildItem -Path $g_ScriptPath -Filter *.tp2 -Recurse )[0]
+        $tp2Path = $tp2File.Directory
+        $tp2FullPath = $tp2File.FullName
     } else {
-	Write-Warning "Put this tool to the directory where <modname>.tp2 file is located."
-	Write-Warning 'Example: .\BWS.ps1 -Path "D:\Downloads\ModDirectory"'
-	break }
-	} else {
+	    Write-Warning "Put this tool to the directory where <modname>.tp2 file is located."
+	    Write-Warning 'Example: .\BWS.ps1 -Path "D:\Downloads\ModDirectory"'
+	    break
+    }
+} else {
     if ( !( Test-Path $modPath )) { Write-Warning "Wrong path: $modPath" ; exit }
-    Set-Location $modPath
-    $tp2File = ( Get-ChildItem -Path $modPath -Filter *.tp2 -Recurse )[0]
-    $tp2FullPath = $tp2File.FullName
+        Set-Location $modPath
+        $tp2File = ( Get-ChildItem -Path $modPath -Filter *.tp2 -Recurse )[0]
+        $tp2FullPath = $tp2File.FullName
 }
 
 $tp2FileNoSetup = $tp2File.BaseName -replace 'setup-'
@@ -60,7 +82,7 @@ $weidu = Get-ChildItem -Path $modPath -Filter setup-*.exe -Recurse -EA 0 | Selec
 if ( !$weidu ) { $weidu = Get-ChildItem -Path ( Split-Path ( Split-Path $tp2FullPath -Parent ) -Parent ) -Filter "setup-$tp2FileNoSetup.exe" -Recurse -EA 0 | Select-Object -First 1 -EA 0 }
 if ( !$weidu ) {
     Write-Warning "Missing:"
-    ( $tp2FullPath -replace 'setup-' ) -replace 'tp2','exe'
+    Write-Warning (( $tp2FullPath -replace 'setup-' ) -replace 'tp2','exe')
     exit
 }
 
@@ -70,7 +92,8 @@ Set-Location $weidu.Directory
 $tp2dataRaw = ( Get-Content $tp2FullPath -Raw ) -replace '/\*(?>(?:(?>[^*]+)|\*(?!/))*)\*/'
 $tp2data = $tp2dataRaw -split "`r`n|`r|`n"
 
-if ( !$Name ) { $Name  = $tp2FileNoSetup }
+if ( !$Name ) { [string]$Name = Read-Host -Prompt 'Please provide mod full name, without version number' }
+if ( $Name -eq '' ) { $Name = $tp2FileNoSetup }
 
 if ( !$version ) {
     $version = ((( $tp2data | Select-String -Pattern 'VERSION ') -split ' ') -replace '~')[1]
@@ -81,9 +104,62 @@ if ( !$version ) {
     }
 }
 
+if ( !$Type ) {
+    "
+    1 Recomended
+    2 Maximilized
+    3 Tactics
+    4 Expert
+    "
+    [string]$Type = Read-Host -Prompt 'Please provide mod type'
+    switch ( $Type ) {
+    '1' { $Type = 'R' }
+    '2' { $Type = 'S' }
+    '3' { $Type = 'T' }
+    '4' { $Type = 'E' }
+    default { $Type = 'S' }
+    }
+}
+
+if ( !$Download ) { [string]$Download = Read-Host -Prompt 'Please provide mod archive download URL' }
+
+if ( !$Size ) { [string]$Size = Read-Host -Prompt 'Please provide mod archive file size in bytes' }
+if ( $Size -eq '' ) { [string]$Size = '0' }
+
+if ( !$Game ) {
+    Write-Host "For which the game mod is designed? Please choose game compatibility:"
+    Write-Host "Note: this selection is a work in progress"
+    "
+    1 BG2
+    2 BGT
+    3 BG1EE
+    4 BG2EE
+    5 EET
+    6 IWD
+    7 IWD1EE
+    8 IWD2
+    9 PST
+    0 PSTEE
+    "
+    [string]$Game = Read-Host -Prompt Number
+    switch ( $Game ) {
+    '1' { $Game = 'BG2' }
+    '2' { $Game = 'BGT' }
+    '3' { $Game = 'BG1EE' }
+    '4' { $Game = 'BG2EE' }
+    '5' { $Game = 'EET' }
+    '6' { $Game = 'IWD' }
+    '7' { $Game = 'IWD1EE' }
+    '8' { $Game = 'IWD2' }
+    '9' { $Game = 'PST' }
+    '0' { $Game = 'PSTEE' }
+    default { $Game = 'EET' }
+    }
+}
+
 if ( !$Category ) {
-    if ( $game -match 'bg1ee' -or $game -match 'bg2' -or $game -match 'bg2ee' -or $game -match 'bgt' -or $game -match 'eet' ) {
     Write-Host "Please provide Category for the mod"
+    if ( $game -match 'bg2' -or $game -match 'bgt' ) {
     "
     01 Corrections
     02 The Big BG1 Mods
@@ -108,8 +184,8 @@ if ( !$Category ) {
     [string]$Category = Read-Host -Prompt Number
     if ( $Category -eq "" ) { $Category = '00' }
     if ( $Category.Length -lt 2 ) { $Category = '0' + $Category }
-    } else {
-    Write-Host "Please provide Category for the mod"
+    }
+    if ( $game -match 'bg1ee' -or $game -match 'bg2ee' -or $game -match 'eet' -or $game -match 'IWD1EE' -or $game -match 'IWD2' -or $game -match 'PST' -or $game -match 'PSTEE') {
     "
     01 Corrections
     02 Big Mods
