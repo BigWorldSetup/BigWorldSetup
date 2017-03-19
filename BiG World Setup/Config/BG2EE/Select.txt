@@ -1143,6 +1143,7 @@ STD;WildMage;4;09;0011;
 ANN;--- BG2EE items ---
 ANN;#60 is IWD axe pack -> stores and items
 STD;iwdification;60;10;0111;
+STD;Deepgnomes;0;03;0111;
 MUC;w_packmule;Init;10;0111;
 MUC;w_packmule;2;10;0111;
 MUC;w_packmule;3;10;0000;
