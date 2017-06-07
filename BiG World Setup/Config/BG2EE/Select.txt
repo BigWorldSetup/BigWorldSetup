@@ -429,6 +429,9 @@ STD;TOD;1;03;0011;
 STD;TOD;2;03;0011;
 STD;DC;0;03;1111;
 STD;Assassinations;0;03;1111;
+STD;EETGBThfKp;0;03;0000;
+STD;EETGBThfKp;1;03;0000;
+STD;EETGBThfKp;2;03;0000;
 STD;BackBrynnlaw;0;03;1111;
 STD;Sellswords;0;03;1111;
 STD;Reunion;0;03;0111;
@@ -2541,6 +2544,7 @@ STD;SandrahRtF;7;02;0111;
 STD;SandrahRtF;8;02;0111;
 STD;SandrahToT;0;02;0111;
 STD;SandrahToT;1;02;0111;
+STD;SodBanter;0;09;0000;
 ANN;worldmap after all mods that use it
 SUB;bp-bgt-worldmap;0;13;1111;
 SUB;bp-bgt-worldmap;0?1_1;13;1111;
@@ -2550,7 +2554,6 @@ SUB;bp-bgt-worldmap;0?2_2;13;1111;
 MUC;bp-bgt-worldmap;Init;13;1111;
 MUC;bp-bgt-worldmap;1;13;1111;
 MUC;bp-bgt-worldmap;2;13;0000;
-STD;SodBanter;0;09;0000;
 ANN;EET_End component to finish EET installation, ready before EET
 SUB;EET_End;0;00;1111;
 SUB;EET_End;0?1_1;00;0000;
