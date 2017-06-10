@@ -293,6 +293,7 @@ STD;Faiths_and_Powers;954;09;0001;
 STD;Faiths_and_Powers;955;09;0001;
 STD;Faiths_and_Powers;956;09;0001;
 STD;Faiths_and_Powers;1000;09;0001;
+STD;might_and_guile;500;09;0111;
 STD;might_and_guile;200;09;0111;
 STD;might_and_guile;205;09;0111;
 ANN;Bard Class Overhaul (#210) includes 480, 490 and replaces 450, 470
@@ -317,7 +318,6 @@ STD;might_and_guile;450;12;0111;
 STD;might_and_guile;470;12;0111;
 STD;might_and_guile;480;12;0111;
 STD;might_and_guile;490;12;0111;
-STD;might_and_guile;500;09;0111;
 STD;cdtweaks;10;09;0000;
 STD;cdtweaks;60;09;1111;
 STD;cdtweaks;72;09;0000;

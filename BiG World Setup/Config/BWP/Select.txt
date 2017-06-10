@@ -2628,6 +2628,7 @@ ANN;STD;Faiths_and_Powers;955;16;0001;
 ANN;STD;Faiths_and_Powers;956;16;0001;
 ANN;STD;Faiths_and_Powers;1000;16;0001;
 ANN;#210 (Bard Class Overhaul) needs EE
+STD;might_and_guile;500;16;0111;
 STD;might_and_guile;220;16;0111;
 STD;might_and_guile;225;16;0111;
 STD;might_and_guile;230;16;0111;
@@ -2649,7 +2650,6 @@ STD;might_and_guile;460;19;0111;
 STD;might_and_guile;470;19;0111;
 STD;might_and_guile;480;19;0111;
 STD;might_and_guile;490;19;0111;
-STD;might_and_guile;500;16;0111;
 STD;BG2_Tweaks;10;16;0000;
 STD;BG2_Tweaks;20;16;0000;
 STD;BG2_Tweaks;30;16;0000;
