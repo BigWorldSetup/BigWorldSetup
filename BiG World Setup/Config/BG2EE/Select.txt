@@ -1664,6 +1664,9 @@ STD;jkits;1;12;0111;
 STD;jkits;2;12;0111;
 STD;A7#ImprovedArcher;0;12;0111;
 STD;A7#ImprovedArcher;100;10;0111;
+STD;A7#ImprovedShamanicDance;0;12;0111;
+STD;A7#ImprovedShamanicDance;10;12;0111;
+STD;A7#ImprovedShamanicDance;20;09;0111;
 ANN;already included after patch 2.0
 ANN;STD;eet_tweaks;25;12;0111;
 STD;eet_tweaks;26;12;0111;
