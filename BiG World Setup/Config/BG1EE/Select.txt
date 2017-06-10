@@ -962,6 +962,9 @@ STD;Derats_kits;6;12;0111;
 STD;Derats_kits;7;12;0000;
 STD;Derats_kits;8;12;0000;
 STD;A7#ImprovedArcher;0;12;0111;
+STD;A7#ImprovedShamanicDance;0;12;0111;
+STD;A7#ImprovedShamanicDance;10;12;0111;
+STD;A7#ImprovedShamanicDance;20;09;0111;
 ANN;#1000 is sphere system, should be installed after all divine kits
 STD;Divine_Remix;1000;09;0001;
 ANN;https://forums.beamdog.com/discussion/comment/812942/#Comment_812942
