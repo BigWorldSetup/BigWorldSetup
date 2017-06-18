@@ -1,5 +1,7 @@
 ﻿**Big World Setup (BWS) : Mod Manager for Infinity Engine Games and Baldur's Gate/Enhanced Edition Trilogy by dabus**
 
+! Don't use BitBucket's web-interface to edit files because it doesn't save non-ANSI characters properly
+
 ﻿**Download﻿**                 : https://bitbucket.org/BigWorldSetup/bigworldsetup/get/master.zip
 
 ![gRmfnLY[1].png](https://bitbucket.org/repo/kKX5Xg/images/3720385461-gRmfnLY%5B1%5D.png)
@@ -56,8 +58,6 @@ NOTE:  "Update If Needed" will download any updates to the program and revert an
 * fork BWS repository using "SourceTree" or "SmartGit" or other preferred tool
 * add mods/make other changes (see FAQ in the Docs folder of the BWS package!)
 * create a pull request to submit changes from your fork back to the main project
-
-! Don't use BitBucket's web-interface to edit files because it doesn't save non-ANSI characters properly
 
 ### Contributors ###
 
