@@ -1150,6 +1150,7 @@ STD;Deepgnomes;0;03;0111;
 MUC;w_packmule;Init;10;0111;
 MUC;w_packmule;2;10;0111;
 MUC;w_packmule;3;10;0000;
+STD;EETMoveItemsSoA;0;10;0000;
 STD;hammers;0;13;1111;
 STD;hammers;15;10;1111;
 STD;hammers;25;10;1111;
