@@ -28,10 +28,10 @@ Change History           : https://bitbucket.org/BigWorldSetup/bigworldsetup/com
 
 - Baldur's Gate: Enhanced Edition (standalone game)
 - Baldur's Gate II: Enhanced Edition (standalone game)
-- Enhanced Edition Trilogy ( BG1:EE + SoD + BG2:EE + IWD1:EE + partial IWD2-in-EET ) (not yet enabled!)
+- Enhanced Edition Trilogy ( BG1:EE + SoD + BG2:EE ) (planned + IWD1:EE + partial IWD2-in-EET)
 - Baldur's Gate 2 (standalone game) / Baldur’s Gate Trilogy ( BG1 + BG2 )
 - Icewind Dale / Icewind Dale: Enhanced Edition
-- Icewind Dale II / Icewind Dale II: Enhanced Edition
+- Icewind Dale II 
 - Planescape: Torment
 - Classic Adventures
 
