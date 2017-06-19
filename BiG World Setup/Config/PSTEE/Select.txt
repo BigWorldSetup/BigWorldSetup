@@ -1,0 +1,12 @@
+ANN;Added due to patching
+DWN;WeiDU;0;00;1111;
+DWN;weidu-filechangelog;0;00;1111;
+DWN;eekeeper;0;00;1111;
+ANN;--- patches ---
+DWN;BWInstallpack;0;00;1111;
+DWN;BWFixpack;0;00;1111;
+ANN;Run the Fixpack batch scripts
+CMD;IF NOT EXIST BWP_Fixpack.installed Call "_ApplyPatches.bat"
+CMD;IF NOT EXIST BWP_Fixpack.installed echo "The BiG World Fixpack script did not run successfully. Please check the _ApplyPatches.debug log file in the game folder and re-run _ApplyBatches.bat manually before continuing."
+CMD;IF NOT EXIST BWP_Fixpack.installed pause
+ANN;Added due to patching

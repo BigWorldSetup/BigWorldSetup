@@ -264,7 +264,7 @@ Func Au3Select($p_Num = 0)
 			Else
 				_Misc_SelectFolder('BG1', StringFormat(_GetTR($g_UI_Message, '2-F1'), _GetGameName('BG1'))); => select a folder
 			EndIf
-		Case $g_UI_Button[2][2]; select BG2/BG1EE/BG2EE/IWD/IWD2/IWD1EE/PST folder
+		Case $g_UI_Button[2][2]; select BG2/BG1EE/BG2EE/IWD/IWD2/IWD1EE/PSTEE/PST folder
 			If StringRegExp($g_Flags[14], '(?i)BWP|BWS') Then
 				_Misc_SelectFolder('BG2', StringFormat(_GetTR($g_UI_Message, '2-F1'), _GetGameName())); => select a folder
 			Else

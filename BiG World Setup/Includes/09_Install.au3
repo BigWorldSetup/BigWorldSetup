@@ -66,6 +66,8 @@ Func Au3PrepInst($p_Num = 0)
 			$MyBGEE=@MyDocumentsDir&"\Baldur's Gate II - Enhanced Edition"
 		ElseIf $g_Flags[14]='IWD1EE' Then
 			$MyBGEE=@MyDocumentsDir&"\Icewind Dale - Enhanced Edition"
+		ElseIf $g_Flags[14]='PSTEE' Then
+			$MyBGEE=@MyDocumentsDir&"\Planescape Torment - Enhanced Edition"
 		EndIf
 		If Not FileExists($MyBGEE&'\save') Then DirCreate($MyBGEE&'\save')
 		If Not FileExists($MyBGEE&'\characters') Then DirCreate($MyBGEE&'\characters')
@@ -79,6 +81,8 @@ Func Au3PrepInst($p_Num = 0)
 				$Lang=_Install_GetEELang(_GetTR($Message, 'L4'), 2); => choose a language BG2EE
 			ElseIf $g_Flags[14] = 'IWD1EE' Then
 				$Lang=_Install_GetEELang(_GetTR($Message, 'L4'), 3); => choose a language IWD1EE
+			ElseIf $g_Flags[14] = 'PSTEE' Then
+				$Lang=_Install_GetEELang(_GetTR($Message, 'L4'), 4); => choose a language PSTEE
 			EndIf
 
 			; _PrintDebug('Debug '&$Lang, 1)
@@ -948,6 +952,7 @@ Func _Install_GetEELang($p_String='', $p_Version=1)
 	Local $Lang='en_US', $MyIni=@MyDocumentsDir&"\Baldur's Gate - Enhanced Edition\Baldur.lua"
 	If $p_Version=2 Then $MyIni=@MyDocumentsDir&"\Baldur's Gate II - Enhanced Edition\Baldur.lua"
 	If $p_Version=3 Then $MyIni=@MyDocumentsDir&"\IceWind Dale - Enhanced Edition\Baldur.ini"
+	If $p_Version=4 Then $MyIni=@MyDocumentsDir&"\Planescape Torment - Enhanced Edition\Baldur.lua"
 	If FileExists($MyIni) Then
 		$Array=StringSplit(StringStripCR(FileRead($MyIni)), @LF)
 		For $a=1 to $Array[0]

@@ -34,7 +34,7 @@ Change History           : https://bitbucket.org/BigWorldSetup/bigworldsetup/com
 - Baldur's Gate 2 (standalone game) / Baldur’s Gate Trilogy ( BG1 + BG2 )
 - Icewind Dale / Icewind Dale: Enhanced Edition
 - Icewind Dale II 
-- Planescape: Torment
+- Planescape: Torment / Planescape Torment: Enhanced Edition
 - Classic Adventures
 
 ### Supported mods ###

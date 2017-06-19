@@ -1037,3 +1037,6 @@ Added: log selected expert mods and components and user-ignored rules via setup-
  
 20161130 - Updated by agb1
  Disabled generalized biffing for Enhanced Edition installs
+
+20170619 - Updated by argent77
+ Added PSTEE support.

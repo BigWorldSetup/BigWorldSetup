@@ -7,6 +7,7 @@ OverwriteFiles\BWS - it's for classic Baldur's Gate II and Baldur's Gate Trilogy
 OverwriteFiles\IWD1 - it's for classic Icewind Dale
 OverwriteFiles\IWD2 - it's for classic Icewind Dale II
 OverwriteFiles\IWD1EE - it's for Icewind Dale: Enhanced Edition
+OverwriteFiles\PSTEE - it's for Planescape Torment: Enhanced Edition
 OverwriteFiles\PST - it's Planescape: Torment
 
 Best example of usage is Scalles of Ballance sob_settings.ini file (scales_of_balance\sob_settings.ini)
