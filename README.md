@@ -1,5 +1,7 @@
 ﻿**Big World Setup (BWS) : Mod Manager for Infinity Engine Games and Baldur's Gate/Enhanced Edition Trilogy by dabus**
 
+! Don't use BitBucket's web-interface to edit files because it doesn't save non-ANSI characters properly
+
 ﻿**Download﻿**                 : https://bitbucket.org/BigWorldSetup/bigworldsetup/get/master.zip
 
 ![gRmfnLY[1].png](https://bitbucket.org/repo/kKX5Xg/images/3720385461-gRmfnLY%5B1%5D.png)
@@ -28,10 +30,10 @@ Change History           : https://bitbucket.org/BigWorldSetup/bigworldsetup/com
 
 - Baldur's Gate: Enhanced Edition (standalone game)
 - Baldur's Gate II: Enhanced Edition (standalone game)
-- Enhanced Edition Trilogy ( BG1:EE + SoD + BG2:EE + IWD1:EE + partial IWD2-in-EET ) (not yet enabled!)
+- Enhanced Edition Trilogy ( BG1:EE + SoD + BG2:EE ) (planned + IWD1:EE + partial IWD2-in-EET)
 - Baldur's Gate 2 (standalone game) / Baldur’s Gate Trilogy ( BG1 + BG2 )
 - Icewind Dale / Icewind Dale: Enhanced Edition
-- Icewind Dale II / Icewind Dale II: Enhanced Edition
+- Icewind Dale II 
 - Planescape: Torment
 - Classic Adventures
 
@@ -52,12 +54,10 @@ NOTE:  "Update If Needed" will download any updates to the program and revert an
 
 ### How do I contribute? ###
 
-* learn git basics (https://git-scm.com/book/en/v1/Git-Basics)
+* learn git basics (https://git-scm.com/videos https://git-scm.com/book/en/v2)
 * fork BWS repository using "SourceTree" or "SmartGit" or other preferred tool
 * add mods/make other changes (see FAQ in the Docs folder of the BWS package!)
 * create a pull request to submit changes from your fork back to the main project
-
-! Don't use BitBucket's web-interface to edit files because it doesn't save non-ANSI characters properly
 
 ### Contributors ###
 
