@@ -9,6 +9,13 @@ ANN;Run the Fixpack batch scripts
 CMD;IF NOT EXIST BWP_Fixpack.installed Call "_ApplyPatches.bat"
 CMD;IF NOT EXIST BWP_Fixpack.installed echo "The BiG World Fixpack script did not run successfully. Please check the _ApplyPatches.debug log file in the game folder and re-run _ApplyBatches.bat manually before continuing."
 CMD;IF NOT EXIST BWP_Fixpack.installed pause
+ANN;--- items ---
+STD;bagsoftorment;0;10;0111;
+STD;bagsoftorment;10;10;0111;
+ANN;--- generalized biffing: needed to work around a game bug ---
+SUB;generalized_biffing;0;00;1111;
+SUB;generalized_biffing;0?1_0;00;0000;
+SUB;generalized_biffing;0?1_1;00;1111;
 ANN;--- UI, graphics, sound ---
 STD;A7-ResizeableCombatLog;0;13;1111;
 ANN;Added due to patching
