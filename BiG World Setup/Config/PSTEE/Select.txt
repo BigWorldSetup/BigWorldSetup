@@ -1,0 +1,55 @@
+ANN;Added due to patching
+DWN;WeiDU;0;00;1111;
+DWN;weidu-filechangelog;0;00;1111;
+DWN;eekeeper;0;00;1111;
+ANN;--- patches ---
+DWN;BWInstallpack;0;00;1111;
+DWN;BWFixpack;0;00;1111;
+ANN;Run the Fixpack batch scripts
+CMD;IF NOT EXIST BWP_Fixpack.installed Call "_ApplyPatches.bat"
+CMD;IF NOT EXIST BWP_Fixpack.installed echo "The BiG World Fixpack script did not run successfully. Please check the _ApplyPatches.debug log file in the game folder and re-run _ApplyBatches.bat manually before continuing."
+CMD;IF NOT EXIST BWP_Fixpack.installed pause
+ANN;--- misc tweaks ---
+MUC;A7-BanterAccelerator;Init;09;0111;
+MUC;A7-BanterAccelerator;10;09;0000;
+MUC;A7-BanterAccelerator;11;09;0000;
+MUC;A7-BanterAccelerator;12;09;0000;
+MUC;A7-BanterAccelerator;20;09;0000;
+MUC;A7-BanterAccelerator;21;09;0111;
+MUC;A7-BanterAccelerator;22;09;0000;
+MUC;A7-BanterAccelerator;30;09;0000;
+MUC;A7-BanterAccelerator;31;09;0000;
+MUC;A7-BanterAccelerator;32;09;0000;
+MUC;A7-BanterAccelerator;40;09;0000;
+MUC;A7-BanterAccelerator;41;09;0000;
+MUC;A7-BanterAccelerator;42;09;0000;
+MUC;A7-BanterAccelerator;99;09;0000;
+ANN;--- items ---
+STD;bagsoftorment;0;10;0111;
+STD;bagsoftorment;10;10;0111;
+ANN;--- generalized biffing: needed to work around a game bug ---
+SUB;generalized_biffing;0;00;1111;
+SUB;generalized_biffing;0?1_0;00;0000;
+SUB;generalized_biffing;0?1_1;00;1111;
+ANN;--- UI, graphics, sound ---
+STD;A7-LevelUpTweaks;0;13;0000;
+STD;A7-LevelUpTweaks;10;13;0000;
+MUC;HiddenGameplayOptions;Init;13;0000;
+MUC;HiddenGameplayOptions;0;13;0000;
+MUC;HiddenGameplayOptions;1;13;0000;
+STD;HiddenGameplayOptions;10;13;0000;
+STD;HiddenGameplayOptions;11;13;0000;
+STD;HiddenGameplayOptions;12;13;0000;
+STD;HiddenGameplayOptions;13;13;0000;
+STD;HiddenGameplayOptions;14;13;0000;
+STD;HiddenGameplayOptions;15;13;0000;
+STD;HiddenGameplayOptions;17;13;0000;
+STD;HiddenGameplayOptions;18;13;0000;
+STD;HiddenGameplayOptions;19;13;0000;
+STD;HiddenGameplayOptions;20;13;0000;
+STD;HiddenGameplayOptions;21;13;0000;
+STD;HiddenGameplayOptions;22;13;0000;
+STD;HiddenGameplayOptions;23;13;0000;
+STD;HiddenGameplayOptions;25;13;0000;
+STD;A7-ResizeableCombatLog;0;13;1111;
+ANN;Added due to patching

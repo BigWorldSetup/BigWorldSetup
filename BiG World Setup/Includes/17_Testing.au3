@@ -30,9 +30,9 @@ EndFunc   ;==>Au3Detect
 ; Checks for the current Options and fills them if needed
 ; ---------------------------------------------------------------------------------------------
 Func _Test_GetGamePath($p_Game, $p_Force=0)
-	Local $Game[9][4]=[[8], ['BG1', 'BGMain', 'Baldur*', 'Config.exe'],['BG2', 'BG2Main', 'BGII*', 'BGConfig.exe'], ['IWD1', 'IDMain', 'Icewind Dale', 'IDMain.exe'], _
+	Local $Game[10][4]=[[9], ['BG1', 'BGMain', 'Baldur*', 'Config.exe'],['BG2', 'BG2Main', 'BGII*', 'BGConfig.exe'], ['IWD1', 'IDMain', 'Icewind Dale', 'IDMain.exe'], _
 	['IWD2', 'IWD2', 'Icewind Dale II', 'IWD2.exe'], ['PST', 'Torment', 'Torment', 'Torment.exe'], ['BG1EE', 'BeamDog.BGEE', 'Baldur*', 'movies\mineflod.wbm'], _
-	['BG2EE', 'BeamDog.BG2EE', 'Baldur*', 'movies\melissan.wbm'], ['IWD1EE', 'BeamDog.IWDEE', 'Icewind*', 'movies\avalanch.wbm']]
+	['BG2EE', 'BeamDog.BG2EE', 'Baldur*', 'movies\melissan.wbm'], ['IWD1EE', 'BeamDog.IWDEE', 'Icewind*', 'movies\avalanch.wbm'], ['PSTEE', 'BeamDog.PSTEE', 'Torment*', 'data\profiles.bif']]
 	For $g=1 to $Game[0][0]
 		If $Game[$g][0] = $p_Game Then ExitLoop
 	Next
@@ -53,12 +53,14 @@ Func _Test_GetGamePath($p_Game, $p_Force=0)
 			If $p_Game = 'BG1EE' And $Name <> "Baldur's Gate - Enhanced Edition" Then ContinueLoop
 			If $p_Game = 'BG2EE' And $Name <> "Baldur's Gate II Enhanced Edition" Then ContinueLoop
 			If $p_Game = 'IWD1EE' And $Name <> "Icewind Dale Enhanced Edition" Then ContinueLoop
+			If $p_Game = 'PSTEE' And $Name <> "Planescape Torment Enhanced Edition" Then ContinueLoop
 			$Test=RegRead('HKEY_LOCAL_MACHINE\SOFTWARE\Microsoft\Windows\CurrentVersion\Uninstall\'&$Key, 'UninstallString')
 			$Test=StringRegExpReplace($Test, '\A"|\\[^\\]*\z', '')
 			If $p_Game = 'BG1EE' And FileExists($Test&'\Data\00766') Then $Test=$Test&'\Data\00766'; Maybe this works for Steam?
 			If $p_Game = 'BG1EE' And FileExists($Test&'\Data\00806') Then $Test=$Test&'\Data\00806'; Maybe this works for Steam?
 			If $p_Game = 'BG2EE' And FileExists($Test&'\Data\00783') Then $Test=$Test&'\Data\00783'; Maybe this works for Steam?
 			If $p_Game = 'IWD1EE' And FileExists($Test&'\Data\00798') Then $Test=$Test&'\Data\00798'; Maybe this works for Steam?
+			If $p_Game = 'PSTEE' And FileExists($Test&'\Data\00827') Then $Test=$Test&'\Data\00827'; Maybe this works for Steam?
 			ExitLoop
 		Next
 	Else
@@ -94,6 +96,14 @@ Func _Test_GetGamePath($p_Game, $p_Force=0)
 			If FileExists(@ProgramFilesDir&'\'&$Files[1]&'\Data\00798\'&$Game[$g][3]) Then $Test=@ProgramFilesDir&'\'&$Files[1]&'\Data\00798'; BeamDog-version
 		EndIf
 		If FileExists(@ProgramFilesDir&'\BeamDog\Data\00798\'&$Game[$g][3]) Then $Test=@ProgramFilesDir&'\BeamDog\Data\00798'; BeamDog-version (2. attempt)
+	ElseIf $p_Game = 'PSTEE' Then
+		$Test=''
+		$Files=_FileSearch(@ProgramFilesDir, "Planescape Torment*Enhanced Edition")
+		If $Files[0] <> 0 Then
+			If FileExists(@ProgramFilesDir&'\'&$Files[1]&'\'&$Game[$g][3]) Then $Test = @ProgramFilesDir&'\'&$Files[1]; Steam-version
+			If FileExists(@ProgramFilesDir&'\'&$Files[1]&'\Data\00827\'&$Game[$g][3]) Then $Test=@ProgramFilesDir&'\'&$Files[1]&'\Data\00827'; BeamDog-version
+		EndIf
+		If FileExists(@ProgramFilesDir&'\BeamDog\Data\00827\'&$Game[$g][3]) Then $Test=@ProgramFilesDir&'\BeamDog\Data\00827'; BeamDog-version (2. attempt)
 	Else
 		$Test=''
 		$Files=_FileSearch(@ProgramFilesDir&'\Black Isle', $Game[$g][2])
@@ -116,6 +126,7 @@ Func _Test_GetGamePath($p_Game, $p_Force=0)
 				If FileExists($SearchDir & '\' & $Files[$f] &'\Data\00806') Then $Files[$f]=$Files[$f] &'\Data\00806'; BG1EE SoD
 				If FileExists($SearchDir & '\' & $Files[$f] &'\Data\00783') Then $Files[$f]=$Files[$f] &'\Data\00783'; BG2EE
 				If FileExists($SearchDir & '\' & $Files[$f] &'\Data\00798') Then $Files[$f]=$Files[$f] &'\Data\00798'; IWD1EE
+				If FileExists($SearchDir & '\' & $Files[$f] &'\Data\00827') Then $Files[$f]=$Files[$f] &'\Data\00827'; PSTEE
 				Assign ('g_'&$p_Game&'Dir', $SearchDir & '\' & $Files[$f])
 				IniWrite($g_UsrIni, 'Options', $p_Game, $SearchDir & '\' & $Files[$f])
 				Return $SearchDir & '\' & $Files[$f]
@@ -660,6 +671,39 @@ Func _Test_CheckRequiredFiles_IWD1EE()
 	_Test_SetButtonColor(2, $ret_Error, $ret_Extended)
 	Return SetError($ret_Error, $ret_Extended, $Return)
 EndFunc    ;==>_Test_CheckRequiredFiles_IWD1EE
+
+; ---------------------------------------------------------------------------------------------
+; Searches for required pstee-files and dirs...
+; ---------------------------------------------------------------------------------------------
+Func _Test_CheckRequiredFiles_PSTEE()
+	Local $Message = IniReadSection($g_TRAIni, 'TE-PSTEE')
+	_PrintDebug('+' & @ScriptLineNumber & ' Calling _Test_CheckRequiredFiles_PSTEE')
+	Local $Missing='', $Hint='', $Error='', $Return
+	If IniRead($g_BWSIni, 'Order', 'Au3Select', 0) = 1 Then
+		$g_PSTEEDir=GUICtrlRead($g_UI_Interact[2][2])
+		IniWrite($g_UsrIni, 'Options', 'PSTEE', $g_PSTEEDir)
+	EndIf
+	If Not FileExists($g_PSTEEDir) Or $g_PSTEEDir = '' Then
+		_Misc_MsgGUI(4, $g_ProgName, _GetTR($Message, 'L1'), 1); => folder does not exist
+		_Test_SetButtonColor(2, 1, 1)
+		Return SetError(1, 1, 1)
+	EndIf
+	If FileExists($g_PSTEEDir&'\lang\en_US') And FileExists($g_PSTEEDir&'\data\profiles.bif') And FileExists($g_PSTEEDir&'\Torment.exe') Then; PSTEE-directory structure
+	Else
+		$Error&=_GetTR($Message, 'L2')&@CRLF; => structure not valid
+	EndIf
+	If $Error <> '' Then
+		_Misc_MsgGUI(4, $g_ProgName, $Hint&$Error, 1)
+		Local $ret_Error=1, $ret_Extended=0, $Return = 1
+	ElseIf $Hint <> '' Then
+		$Return = _Misc_MsgGUI(3, $g_ProgName, $Hint, 2)
+		Local $ret_Error=0, $ret_Extended=1
+	Else
+		Local $ret_Error=0, $ret_Extended=0, $Return = 2
+	EndIf
+	_Test_SetButtonColor(2, $ret_Error, $ret_Extended)
+	Return SetError($ret_Error, $ret_Extended, $Return)
+EndFunc    ;==>_Test_CheckRequiredFiles_PSTEE
 
 ; ---------------------------------------------------------------------------------------------
 ; Searches for required pst-files and dirs...

@@ -176,9 +176,9 @@ Func _Backup_CreateMultiInstall()
 	_PrintDebug('+' & @ScriptLineNumber & ' Calling Au3CleanInst')
 	Global $g_LogFile = $g_LogDir & '\BiG World Backup Multi-Install.txt'
 	Local $CSize, $Error, $Size, $Type, $MultiDir=''
-	Local $Game[9][4]=[[8], ['BG1', 'BGMain', 'Baldur', 'Baldur'],['BG2', 'BGMain', 'Baldur', 'Baldur'], ['IWD1', 'IDMain', 'Icewind', 'IDMain'], _
+	Local $Game[10][4]=[[9], ['BG1', 'BGMain', 'Baldur', 'Baldur'],['BG2', 'BGMain', 'Baldur', 'Baldur'], ['IWD1', 'IDMain', 'Icewind', 'IDMain'], _
 	['IWD2', 'IWD2', 'IWD2', 'IWD2'], ['PST', 'Torment', 'Torment', 'Torment'], ['BG1EE', 'Baldur', 'Baldur', 'Baldur'], ['BG2EE', 'Baldur', 'Baldur', 'Baldur'], _
-	['IWD1EE', 'icewind', 'Icewind', 'icewind']]
+	['IWD1EE', 'icewind', 'Icewind', 'icewind'], ['PSTEE', 'Torment', 'Torment', 'Torment']]
 	If StringRegExp($g_Flags[14], 'BWS|BWP') Then
 		$Type = 'BG2'
 	Else
@@ -486,7 +486,7 @@ EndFunc   ;==>_Backup_Restore
 ; ---------------------------------------------------------------------------------------------
 Func _Backup_Test($p_Game)
 	Local $IsInstalled=0
-	Local $Game[9][2]=[[8], ['BG1', 'BGMain2'],['BG2', 'BGMain'], ['IWD1', 'IDMain'],['IWD2', 'IWD2'], ['PST', 'Torment'], ['BG1EE', 'Baldur'], ['BG2EE', 'Baldur'], ['IWD1EE', 'Icewind']]
+	Local $Game[10][2]=[[9], ['BG1', 'BGMain2'],['BG2', 'BGMain'], ['IWD1', 'IDMain'],['IWD2', 'IWD2'], ['PST', 'Torment'], ['BG1EE', 'Baldur'], ['BG2EE', 'Baldur'], ['IWD1EE', 'Icewind'], ['PSTEE', 'Torment']]
 	For $g=1 to $Game[0][0]
 		If $Game[$g][0] = $p_Game Then ExitLoop
 	Next
