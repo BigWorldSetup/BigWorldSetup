@@ -452,6 +452,7 @@ Func _Misc_SelectFolder($p_Type, $p_Text)
 	If $p_Type = 'BG1EE' And FileExists($Folder & '\Data\00806') Then $Folder = $Folder & '\Data\00806'; get BG1EE Beamdog-subfolder
 	If $p_Type = 'BG2EE' And FileExists($Folder & '\Data\00783') Then $Folder = $Folder & '\Data\00783'; get BG2EE Beamdog-subfolder
 	If $p_Type = 'IWD1EE' And FileExists($Folder & '\Data\00798') Then $Folder = $Folder & '\Data\00798'; get IWD1EE Beamdog-subfolder
+	If $p_Type = 'PSTEE' And FileExists($Folder & '\Data\00827') Then $Folder = $Folder & '\Data\00827'; get PSTEE Beamdog-subfolder
 	Assign('g_' & $p_Type & 'Dir', $Folder)
 	If $p_Type = 'Down' Then
 		Local $Test = 1
