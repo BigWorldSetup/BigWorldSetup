@@ -4835,7 +4835,6 @@ STD;level1npcs;4920;14;0000;
 STD;m7multikit;10;19;0111;
 STD;m7multikit;11;19;0111;
 STD;m7multikit;13;19;0111;
-DWN;multiinstalltool;0;00;0000;
 ANN;Correct strings in the game including strings from mods
 CMD;WeiDU.exe --traify-tlk --out .\BWP_workspace\dialog.tra
 CMD;copy /Y dialog.tlk .\BWP_workspace\dialog.bak
