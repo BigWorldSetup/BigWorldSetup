@@ -3089,8 +3089,8 @@ ANN;Ability Score Bonuses - EE only
 ANN;STD;TomeAndBlood;14;16;0000;
 ANN;Spell Select Dialog - EE only
 ANN;STD;TomeAndBlood;15;16;0000;
-MUC;refinements;Init;16;0111;
-MUC;refinements;10;16;0111;
+MUC;refinements;Init;16;0001;
+MUC;refinements;10;16;0001;
 MUC;refinements;11;16;0000;
 STD;refinements;101;16;0000;
 STD;refinements;102;16;0000;
