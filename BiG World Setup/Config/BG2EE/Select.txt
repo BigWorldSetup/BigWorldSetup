@@ -258,7 +258,8 @@ STD;bg1re;5;07;0111;
 STD;bg1re;6;07;0111;
 STD;bg1re;7;07;0111;
 STD;bg1re;8;07;0111;
-STD;bg1re;9;07;0111;
+ANN;"warning - game does not start when component is installed
+STD;bg1re;9;07;0000;
 STD;bg1re;10;07;0111;
 STD;bg1re;11;07;0111;
 STD;bg1re;12;07;0111;
