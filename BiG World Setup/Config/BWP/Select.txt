@@ -1274,7 +1274,6 @@ STD;arestorationp;4;16;1111;
 STD;arestorationp;5;16;1111;
 STD;arestorationp;6;16;1111;
 STD;arestorationp;7;16;1111;
-STD;arestorationp;8;16;1111;
 STD;arestorationp;10;16;1111;
 STD;arestorationp;11;16;1111;
 STD;arestorationp;12;16;0011;
