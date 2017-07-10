@@ -743,20 +743,21 @@ MUC;SkipChateauIrenicus;101;09;0000;
 MUC;SkipChateauIrenicus;102;09;0000;
 STD;Teleport;0;09;0111;
 STD;Teleport;1;09;0111;
-STD;arestorationp;0;09;1111;
-STD;arestorationp;1;09;1111;
-STD;arestorationp;2;09;1111;
-STD;arestorationp;3;09;1111;
-STD;arestorationp;4;09;1111;
-STD;arestorationp;5;09;1111;
-STD;arestorationp;6;09;1111;
-STD;arestorationp;7;09;1111;
-STD;arestorationp;8;09;1111;
+ANN;mod is not maintained properly, thus expert
+STD;arestorationp;0;09;0001;
+STD;arestorationp;1;09;0001;
+STD;arestorationp;2;09;0001;
+STD;arestorationp;3;09;0001;
+STD;arestorationp;4;09;0001;
+STD;arestorationp;5;09;0001;
+STD;arestorationp;6;09;0001;
+STD;arestorationp;7;09;0001;
+STD;arestorationp;8;09;0001;
 ANN;arestorationp;10;09;0000;Made obsolete by BG2EE patch 1.3
-STD;arestorationp;11;09;1111;
+STD;arestorationp;11;09;0001;
 ANN;#12 alternate slayer change -> tactical
-STD;arestorationp;12;09;0011;
-STD;arestorationp;13;09;1111;
+STD;arestorationp;12;09;0001;
+STD;arestorationp;13;09;0001;
 ANN;#0 is detectable spells v3 and other patches
 STD;BP;0;08;0111;
 ANN;#10 is innate fix, recommend BPSeries instead (installs later)
