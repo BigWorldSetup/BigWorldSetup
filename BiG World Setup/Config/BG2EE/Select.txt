@@ -1079,6 +1079,7 @@ ANN;--- BG2EE new kits ---
 STD;Px_Chantelame;0;12;0111;
 STD;duskblade;0;12;0111;
 STD;WarslingSniperKit;0;12;0111;
+STD;UndeadPredator;0;12;0000;
 ANN;EE: Item Expansion
 STD;eldritch_magic;0;10;0111;
 ANN;Congenio's Pebble Collection (Ioun stone tweaks)
