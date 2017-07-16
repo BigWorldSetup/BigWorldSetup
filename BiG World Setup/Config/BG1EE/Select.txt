@@ -153,8 +153,8 @@ SUB;bg1npc;26?1_3;07;0000;
 SUB;bg1npc;26?1_4;07;0000;
 SUB;bg1npc;26?1_5;07;0000;
 STD;bg1npc;28;07;1111;
-MUC;bg1npc;Init;07;1111;
-MUC;bg1npc;29;07;1111;
+MUC;bg1npc;Init;07;0000;
+MUC;bg1npc;29;07;0000;
 MUC;bg1npc;30;07;0000;
 MUC;bg1npc;Init;07;1111;
 MUC;bg1npc;31;07;1111;
@@ -258,7 +258,7 @@ SUB;garrick_flirt;0?1_5;07;0000;
 STD;garrick-tt;0;07;0111;
 STD;TenyaThermidor;0;05;0111;
 STD;Vynd;0;05;0111;
-STD;saradas_magic;0;05;0111;
+STD;saradas_magic;0;05;0000;
 SUB;bg1re;0;07;0111;
 SUB;bg1re;0?0_1;07;0000;
 SUB;bg1re;0?0_2;07;0000;
@@ -273,7 +273,8 @@ STD;bg1re;5;07;0111;
 STD;bg1re;6;07;0111;
 STD;bg1re;7;07;0111;
 STD;bg1re;8;07;0111;
-STD;bg1re;9;07;0111;
+ANN;"warning - game does not start when component is installed"
+STD;bg1re;9;07;0000;
 STD;bg1re;10;07;0111;
 STD;bg1re;11;07;0111;
 STD;bg1re;12;07;0111;
@@ -434,7 +435,6 @@ STD;duskblade;0;12;0111;
 STD;WarslingSniperKit;0;12;0111;
 ANN;already included after patch 2.0
 ANN;STD;eet_tweaks;25;12;0111;
-STD;eet_tweaks;26;12;0111;
 STD;jkits;0;12;0111;
 STD;jkits;1;12;0111;
 STD;jkits;2;12;0111;
@@ -652,6 +652,7 @@ STD;A7!GolemConstruction;40;09;0011;
 STD;PaleMaster;0;12;0111;
 STD;PaleMaster;1;12;0111;
 STD;PaleMaster;2;12;0111;
+STD;UndeadPredator;0;12;0000;
 ANN;FnP should be installed after all divine kits
 MUC;Faiths_and_Powers;Init;09;0111;
 MUC;Faiths_and_Powers;101;09;0111;
@@ -1346,54 +1347,7 @@ MUC;A7NoEENPCs;Init;09;0000;
 MUC;A7NoEENPCs;105;09;0000;
 MUC;A7NoEENPCs;205;09;0000;
 STD;A7NoEENPCs;301;09;0000;
-ANN;-- adjust total XP cap --
-SUB;eet_tweaks;3;09;1111;
-SUB;eet_tweaks;3?1_1;09;0000;
-SUB;eet_tweaks;3?1_2;09;0000;
-SUB;eet_tweaks;3?1_3;09;1111;
-SUB;eet_tweaks;3?1_4;09;0000;
-SUB;eet_tweaks;3?2_10000000;09;0000;
-ANN;-- XP for locks, traps, spells
-SUB;eet_tweaks;6;09;1111;
-SUB;eet_tweaks;6?1_1;09;0000;
-SUB;eet_tweaks;6?1_2;09;0000;
-SUB;eet_tweaks;6?1_3;09;1111;
-SUB;eet_tweaks;6?1_4;09;0000;
-SUB;eet_tweaks;6?1_5;09;0000;
-SUB;eet_tweaks;6?2_50;09;0000;
-ANN;-- XP for killing creatures --
-SUB;eet_tweaks;7;09;1111;
-SUB;eet_tweaks;7?1_1;09;0000;
-SUB;eet_tweaks;7?1_2;09;0000;
-SUB;eet_tweaks;7?1_3;09;1100;
-SUB;eet_tweaks;7?1_4;09;0011;
-SUB;eet_tweaks;7?1_5;09;0000;
-SUB;eet_tweaks;7?1_6;09;0000;
-SUB;eet_tweaks;7?1_7;09;0000;
-SUB;eet_tweaks;7?2_100;09;0000;
-ANN;-- XP for completing quests --
-SUB;eet_tweaks;8;09;1111;
-SUB;eet_tweaks;8?1_1;09;0000;
-SUB;eet_tweaks;8?1_2;09;0000;
-SUB;eet_tweaks;8?1_3;09;1100;
-SUB;eet_tweaks;8?1_4;09;0011;
-SUB;eet_tweaks;8?1_5;09;0000;
-SUB;eet_tweaks;8?1_6;09;0000;
-SUB;eet_tweaks;8?1_7;09;0000;
-SUB;eet_tweaks;8?2_100;09;0000;
-ANN;-- proportional quest XP --
-STD;eet_tweaks;9;09;0011;
 ANN;-- FPS without audio skip --
-SUB;eet_tweaks;11;09;0000;
-SUB;eet_tweaks;11?1_1;09;0000;
-SUB;eet_tweaks;11?1_2;09;0000;
-SUB;eet_tweaks;11?1_3;09;0000;
-SUB;eet_tweaks;11?2_60;09;0000;
-STD;eet_tweaks;12;09;1111;
-STD;eet_tweaks;20;09;1111;
-STD;eet_tweaks;27;09;0111;
-STD;eet_tweaks;29;09;0111;
-STD;eet_tweaks;30;09;0111;
 ANN;worldmap after all mods that use it
 SUB;bp-bgt-worldmap;0;13;1111;
 SUB;bp-bgt-worldmap;0?1_1;13;1111;

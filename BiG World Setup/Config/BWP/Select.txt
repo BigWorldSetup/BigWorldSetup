@@ -1113,9 +1113,11 @@ STD;viconia;0;14;1111;
 STD;mazzy;0;14;1111;
 STD;yoshimo;0;14;1111;
 STD;7C-Yoshi;0;14;0111;
-STD;YoshimoRomance;0;14;0111;
-STD;YoshimoRomance;1;14;0111;
-STD;YoshimoRomance;4;14;0111;
+STD;YoshimoRomance;0;07;0000;
+MUC;YoshimoRomance;Init;07;0000;
+MUC;YoshimoRomance;1;07;0000;
+MUC;YoshimoRomance;2;07;0000;
+MUC;YoshimoRomance;3;07;0000;
 SUB;keldorn_rom;0;14;0111;
 SUB;keldorn_rom;0?1_1;14;0000;
 SUB;keldorn_rom;0?1_2;14;0000;
@@ -1274,7 +1276,6 @@ STD;arestorationp;4;16;1111;
 STD;arestorationp;5;16;1111;
 STD;arestorationp;6;16;1111;
 STD;arestorationp;7;16;1111;
-STD;arestorationp;8;16;1111;
 STD;arestorationp;10;16;1111;
 STD;arestorationp;11;16;1111;
 STD;arestorationp;12;16;0011;
@@ -2988,17 +2989,17 @@ STD;cdtweaks;3150;16;1111;
 STD;cdtweaks;3160;16;0000;
 STD;cdtweaks;3170;16;0000;
 SUB;cdtweaks;3183;16;0111;
-SUB;cdtweaks;3183?1_a;16;0111;
+SUB;cdtweaks;3183?1_a;16;0001;
 SUB;cdtweaks;3183?1_b;16;0000;
 SUB;cdtweaks;3183?2_a;16;0000;
-SUB;cdtweaks;3183?2_b;16;0111;
-SUB;cdtweaks;3183?3_a;16;0111;
+SUB;cdtweaks;3183?2_b;16;0001;
+SUB;cdtweaks;3183?3_a;16;0001;
 SUB;cdtweaks;3183?3_b;16;0000;
-SUB;cdtweaks;3183?4_a;16;0111;
+SUB;cdtweaks;3183?4_a;16;0001;
 SUB;cdtweaks;3183?4_b;16;0000;
-SUB;cdtweaks;3183?5_a;16;0111;
+SUB;cdtweaks;3183?5_a;16;0001;
 SUB;cdtweaks;3183?5_b;16;0000;
-SUB;cdtweaks;3183?6_a;16;0111;
+SUB;cdtweaks;3183?6_a;16;0001;
 STD;cdtweaks;3190;16;0000;
 STD;cdtweaks;3191;16;0000;
 MUC;cdtweaks;Init;16;0000;
@@ -3089,8 +3090,8 @@ ANN;Ability Score Bonuses - EE only
 ANN;STD;TomeAndBlood;14;16;0000;
 ANN;Spell Select Dialog - EE only
 ANN;STD;TomeAndBlood;15;16;0000;
-MUC;refinements;Init;16;0111;
-MUC;refinements;10;16;0111;
+MUC;refinements;Init;16;0001;
+MUC;refinements;10;16;0001;
 MUC;refinements;11;16;0000;
 STD;refinements;101;16;0000;
 STD;refinements;102;16;0000;
@@ -4156,52 +4157,6 @@ MUC;BP-Balancer;Init;16;1111;
 MUC;BP-Balancer;29;16;0000;
 MUC;BP-Balancer;30;16;1111;
 MUC;BP-Balancer;31;16;0000;
-ANN;-- adjust total XP cap --
-SUB;eet_tweaks;3;16;0111;
-SUB;eet_tweaks;3?1_1;16;0000;
-SUB;eet_tweaks;3?1_2;16;0000;
-SUB;eet_tweaks;3?1_3;16;0111;
-SUB;eet_tweaks;3?1_4;16;0000;
-SUB;eet_tweaks;3?2_10000000;16;0000;
-ANN;-- XP for locks, traps, spells
-SUB;eet_tweaks;6;16;1111;
-SUB;eet_tweaks;6?1_1;16;0000;
-SUB;eet_tweaks;6?1_2;16;0000;
-SUB;eet_tweaks;6?1_3;16;1111;
-SUB;eet_tweaks;6?1_4;16;0000;
-SUB;eet_tweaks;6?1_5;16;0000;
-SUB;eet_tweaks;6?2_50;16;0000;
-ANN;-- XP for killing creatures --
-SUB;eet_tweaks;7;16;1111;
-SUB;eet_tweaks;7?1_1;16;0000;
-SUB;eet_tweaks;7?1_2;16;1100;
-SUB;eet_tweaks;7?1_3;16;0011;
-SUB;eet_tweaks;7?1_4;16;0000;
-SUB;eet_tweaks;7?1_5;16;0000;
-SUB;eet_tweaks;7?1_6;16;0000;
-SUB;eet_tweaks;7?1_7;16;0000;
-SUB;eet_tweaks;7?2_100;16;0000;
-ANN;-- XP for completing quests --
-SUB;eet_tweaks;8;16;1111;
-SUB;eet_tweaks;8?1_1;16;0000;
-SUB;eet_tweaks;8?1_2;16;1100;
-SUB;eet_tweaks;8?1_3;16;0011;
-SUB;eet_tweaks;8?1_4;16;0000;
-SUB;eet_tweaks;8?1_5;16;0000;
-SUB;eet_tweaks;8?1_6;16;0000;
-SUB;eet_tweaks;8?1_7;16;0000;
-SUB;eet_tweaks;8?2_100;16;0000;
-ANN;-- proportional quest XP --
-STD;eet_tweaks;9;16;0011;
-ANN;-- FPS without audio skip --
-SUB;eet_tweaks;11;16;0000;
-SUB;eet_tweaks;11?1_1;16;0000;
-SUB;eet_tweaks;11?1_2;16;0000;
-SUB;eet_tweaks;11?1_3;16;0000;
-SUB;eet_tweaks;11?2_50;16;0000;
-ANN;-- no hostile charm reaction --
-STD;eet_tweaks;20;16;1111;
-STD;eet_tweaks;30;16;0111;
 STD;Virtue;0;16;0001;
 STD;gloran;1;12;0001;
 STD;sarerestore;0;14;0111;
@@ -4835,7 +4790,6 @@ STD;level1npcs;4920;14;0000;
 STD;m7multikit;10;19;0111;
 STD;m7multikit;11;19;0111;
 STD;m7multikit;13;19;0111;
-DWN;multiinstalltool;0;00;0000;
 ANN;Correct strings in the game including strings from mods
 CMD;WeiDU.exe --traify-tlk --out .\BWP_workspace\dialog.tra
 CMD;copy /Y dialog.tlk .\BWP_workspace\dialog.bak
