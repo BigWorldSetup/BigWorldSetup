@@ -315,7 +315,7 @@ STD;bg1ub;7;03;1111;
 STD;bg1ub;10;03;1111;
 STD;bg1ub;11;03;1111;
 STD;bg1ub;12;03;1111;
-STD;bg1ub;13;03;1111;
+STD;bg1ub;13;03;0000;
 STD;bg1ub;14;03;1111;
 STD;bg1ub;16;03;1111;
 STD;bg1ub;17;03;1111;
@@ -325,7 +325,7 @@ STD;bg1ub;21;03;1111;
 STD;bg1ub;22;03;1111;
 STD;bg1ub;28;03;1111;
 STD;bg1ub;29;03;1111;
-STD;bg1ub;30;03;1111;
+STD;bg1ub;30;03;0000;
 STD;bg1ub;32;03;1111;
 STD;bg1ub;33;03;1111;
 ANN;--- kits in BGEE ---
