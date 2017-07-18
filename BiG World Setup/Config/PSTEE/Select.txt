@@ -24,6 +24,8 @@ MUC;A7-BanterAccelerator;40;09;0000;
 MUC;A7-BanterAccelerator;41;09;0000;
 MUC;A7-BanterAccelerator;42;09;0000;
 MUC;A7-BanterAccelerator;99;09;0000;
+ANN;--- new kits ---
+STD;PowerOfBelief;0;12;0000;
 ANN;--- items ---
 STD;bagsoftorment;0;10;0111;
 STD;bagsoftorment;10;10;0111;
