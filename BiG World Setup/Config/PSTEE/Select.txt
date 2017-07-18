@@ -141,6 +141,8 @@ SUB;generalized_biffing;0;00;1111;
 SUB;generalized_biffing;0?1_0;00;0000;
 SUB;generalized_biffing;0?1_1;00;1111;
 ANN;--- UI, graphics, sound ---
+STD;JournalPortraitConversations;200;13;0000;
+STD;JournalPortraitConversations;210;13;0000;
 STD;A7-LevelUpTweaks;0;13;0000;
 STD;A7-LevelUpTweaks;10;13;0000;
 MUC;HiddenGameplayOptions;Init;13;0000;
