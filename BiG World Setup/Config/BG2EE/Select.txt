@@ -1042,6 +1042,7 @@ MUC;DjinniCompanion;104;05;0000;
 MUC;DjinniCompanion;105;05;0000;
 STD;DjinniCompanion;200;05;0000;
 STD;DjinniCompanion;300;05;0111;
+STD;iylos_eet;0;05;0000;
 STD;WilsonChronicles;0;07;1111;
 ANN;Crossmod after ALL NPCs
 STD;CrossmodBG2;0;07;1111;
