@@ -576,6 +576,7 @@ STD;xulaye;0;05;0111;
 STD;xulaye;1;05;0111;
 STD;xulaye;2;05;0111;
 STD;haldamir;0;05;1111;
+STD;xulaye_eet;0;05;0111;
 ANN;STD;AVIM;0;05;0111;
 STD;Saerileth;0;05;0111;
 STD;Skie;0;05;0000;
