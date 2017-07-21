@@ -558,7 +558,13 @@ ANN;Sorcerer (BGT style)
 MUC;Xan;3;05;1100;
 ANN;Wild Mage (Tactical)
 MUC;Xan;4;05;0011;
-STD;gavin_bg2;0;05;0000;
+SUB;gavin_bg2;0;05;0000;
+SUB;gavin_bg2;0?1_1;05;0000;
+SUB;gavin_bg2;0?1_2;05;0000;
+SUB;gavin_bg2;0?1_3;05;0000;
+SUB;gavin_bg2;0?1_4;05;0000;
+SUB;gavin_bg2;0?1_5;05;0000;
+SUB;gavin_bg2;0?1_6;05;0000;
 STD;gavin_bg2;1;05;0000;
 MUC;gavin_bg2;Init;05;0000;
 MUC;gavin_bg2;2;05;0000;
