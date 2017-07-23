@@ -245,25 +245,25 @@ ANN;#105 is EE-only, 999 is no longer required
 STD;Ascension;101;15;0111;
 STD;Ascension;102;15;0111;
 CMD;IF EXIST ".\BWP_workspace\override\tisunpack.exe" copy /Y ".\BWP_workspace\override\tisunpack.exe" "*.*"
-STD;NeJ2v691;0;01;0001;
-STD;NeJ2v691;1;19;0001;
-STD;NeJ2v691;3;19;0001;
-STD;NeJ2v691;5;09;0001;
-STD;NeJ2v691;6;19;0001;
-STD;NeJ2v691;7;01;0001;
-STD;NeJ2v691;8;20;0001;
-STD;NeJ2v691;9;08;0001;
-STD;NeJ2v691;10;17;0001;
-ANN;NeJ2v691;11;06;0001;
-STD;NeJ2v691;12;09;0001;
-STD;NeJ2v694;0;01;0001;
+STD;NeJ2v691;0;01;0000;
+STD;NeJ2v691;1;19;0000;
+STD;NeJ2v691;3;19;0000;
+STD;NeJ2v691;5;09;0000;
+STD;NeJ2v691;6;19;0000;
+STD;NeJ2v691;7;01;0000;
+STD;NeJ2v691;8;20;0000;
+STD;NeJ2v691;9;08;0000;
+STD;NeJ2v691;10;17;0000;
+ANN;NeJ2v691;11;06;0000;
+STD;NeJ2v691;12;09;0000;
+STD;NeJ2v694;0;01;0000;
 ANN;CMD;IF EXIST ".\override\CLABCHRG.2DA" IF NOT EXIST ".\override\SPIN506.SPL" del ".\override\CLABCHRG.2DA"
 CMD;IF EXIST ".\NEJ2" copy /Y ".\BiG World Fixpack\_override\NEJ2\*.*" ".\override"
 ANN;Tortured Souls marked expert due to Baldurdash dependency and lack of updates patches for Bdash
-STD;TS;0;09;0001;
-STD;TS;1;20;0001;
+STD;TS;0;09;0000;
+STD;TS;1;20;0000;
 STD;TS;2;20;0000;
-STD;TS;3;09;0001;
+STD;TS;3;09;0000;
 CMD;IF EXIST Setup-TS.exe copy ".\BiG World Fixpack\_override\GUI_original_fonts\*.*" ".\override"
 STD;TDD;0;09;0111;
 STD;TDD;1;19;0000;

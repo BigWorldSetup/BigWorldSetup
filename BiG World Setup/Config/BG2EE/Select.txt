@@ -558,6 +558,24 @@ ANN;Sorcerer (BGT style)
 MUC;Xan;3;05;1100;
 ANN;Wild Mage (Tactical)
 MUC;Xan;4;05;0011;
+SUB;gavin_bg2;0;05;0000;
+SUB;gavin_bg2;0?1_1;05;0000;
+SUB;gavin_bg2;0?1_2;05;0000;
+SUB;gavin_bg2;0?1_3;05;0000;
+SUB;gavin_bg2;0?1_4;05;0000;
+SUB;gavin_bg2;0?1_5;05;0000;
+SUB;gavin_bg2;0?1_6;05;0000;
+STD;gavin_bg2;1;05;0000;
+MUC;gavin_bg2;Init;05;0000;
+MUC;gavin_bg2;2;05;0000;
+MUC;gavin_bg2;3;05;0000;
+MUC;gavin_bg2;Init;05;0000;
+MUC;gavin_bg2;4;05;0000;
+MUC;gavin_bg2;5;05;0000;
+MUC;gavin_bg2;6;05;0000;
+MUC;gavin_bg2;7;05;0000;
+MUC;gavin_bg2;8;05;0000;
+MUC;gavin_bg2;9;05;0000;
 STD;Yasraena;0;05;0111;
 STD;alora;0;05;1111;
 STD;AurenAseph;0;05;1111;
@@ -572,10 +590,12 @@ STD;Vampiretales;2;08;0011;
 ANN;#3 -> stores and items
 STD;Vampiretales;3;10;0111;
 STD;ninde;0;05;0111;
+STD;ninde_eet;0;05;0111;
 STD;xulaye;0;05;0111;
 STD;xulaye;1;05;0111;
 STD;xulaye;2;05;0111;
 STD;haldamir;0;05;1111;
+STD;xulaye_eet;0;05;0111;
 ANN;STD;AVIM;0;05;0111;
 STD;Saerileth;0;05;0111;
 STD;Skie;0;05;0000;
@@ -588,8 +608,11 @@ MUC;adrian;Init;05;0000;
 MUC;adrian;1;05;0000;
 MUC;adrian;2;05;0000;
 STD;arath;0;05;0111;
+STD;arath_eet;0;05;0000;
 STD;dace;0;05;1111;
 STD;dace;1;13;0000;
+STD;dace_eet;0;05;0111;
+STD;dace_eet;1;05;0000;
 SUB;aranw;0;05;0000;
 SUB;aranw;0?1_1;05;0000;
 SUB;aranw;0?1_2;05;0000;
@@ -887,6 +910,7 @@ STD;RE;54;07;0111;
 STD;haerdalisromance;0;07;0111;
 STD;nephele;0;05;1111;
 STD;nephele;1;05;1111;
+STD;nephele_eet;0;05;0000;
 ANN;--- BG2EE quests ---
 STD;UB;0;03;1111;
 STD;UB;1;03;1111;
@@ -1039,6 +1063,7 @@ MUC;DjinniCompanion;104;05;0000;
 MUC;DjinniCompanion;105;05;0000;
 STD;DjinniCompanion;200;05;0000;
 STD;DjinniCompanion;300;05;0111;
+STD;iylos_eet;0;05;0000;
 STD;WilsonChronicles;0;07;1111;
 ANN;Crossmod after ALL NPCs
 STD;CrossmodBG2;0;07;1111;
@@ -1081,43 +1106,43 @@ STD;duskblade;0;12;0111;
 STD;WarslingSniperKit;0;12;0111;
 STD;UndeadPredator;0;12;0000;
 ANN;EE: Item Expansion
-STD;eldritch_magic;0;10;0111;
+ANN;STD;eldritch_magic;0;10;0111;
 ANN;Congenio's Pebble Collection (Ioun stone tweaks)
-STD;eldritch_magic;10;09;0111;
-MUC;eldritch_magic;Init;09;0001;
+ANN;STD;eldritch_magic;10;09;0111;
+ANN;MUC;eldritch_magic;Init;09;0001;
 ANN;XP Cap Removal -> Remove XP Cap (no limit)
-MUC;eldritch_magic;20;09;0000;
+ANN;MUC;eldritch_magic;20;09;0000;
 ANN;XP Cap Removal -> Remove XP Cap (BGEE:SoD up to HLAs - not included)
-MUC;eldritch_magic;21;09;0000;
+ANN;MUC;eldritch_magic;21;09;0000;
 ANN;START_XP - BGEE:SoD 161k & BG2EE 500k
-STD;eldritch_magic;30;09;0000;
-MUC;eldritch_magic;Init;09;0000;
+ANN;STD;eldritch_magic;30;09;0000;
+ANN;MUC;eldritch_magic;Init;09;0000;
 ANN;Remove Dual & Multi Class Restrictions -> Multiclass Humans & Dualclass Demihumans
-MUC;eldritch_magic;50;09;0000;
+ANN;MUC;eldritch_magic;50;09;0000;
 ANN;Remove Dual & Multi Class Restrictions -> Multiclass Humans
-MUC;eldritch_magic;51;09;0000;
+ANN;MUC;eldritch_magic;51;09;0000;
 ANN;Remove Dual & Multi Class Restrictions -> Dualclass Demihumans
-MUC;eldritch_magic;52;09;0000;
+ANN;MUC;eldritch_magic;52;09;0000;
 ANN;Abyssal Warrior Kit
-STD;eldritch_magic;100;12;0111;
+ANN;STD;eldritch_magic;100;12;0111;
 ANN;Bladesinger Kit
-STD;eldritch_magic;200;12;0111;
+ANN;STD;eldritch_magic;200;12;0111;
 ANN;Eldritch Knight Kit
-STD;eldritch_magic;400;12;0111;
+ANN;STD;eldritch_magic;400;12;0111;
 ANN;Herbalist Kit
-STD;eldritch_magic;600;12;0111;
+ANN;STD;eldritch_magic;600;12;0111;
 ANN;Priest of Mystra Kit
-STD;eldritch_magic;900;12;0111;
+ANN;STD;eldritch_magic;900;12;0111;
 ANN;Priestess of Lolth Kit
-STD;eldritch_magic;1000;12;0111;
+ANN;STD;eldritch_magic;1000;12;0111;
 ANN;Undead Hunter Kit (Paladin kit for Elves)
-STD;eldritch_magic;1200;12;0111;
+ANN;STD;eldritch_magic;1200;12;0111;
 ANN;War Wizard Kit
-STD;eldritch_magic;1300;12;0111;
+ANN;STD;eldritch_magic;1300;12;0111;
 ANN;Wilderness Runner Kit
-STD;eldritch_magic;1400;12;0111;
+ANN;STD;eldritch_magic;1400;12;0111;
 ANN;Windrider Kit
-STD;eldritch_magic;1500;12;0111;
+ANN;STD;eldritch_magic;1500;12;0111;
 ANN;--- test install for k9RoughWorld tweaks ---
 STD;k9RoughWorld;0;09;0001;
 STD;k9RoughWorld;1;09;0001;
