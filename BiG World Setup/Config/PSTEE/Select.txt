@@ -16,6 +16,7 @@ MUC;k9Quicksave;12;09;0000;
 MUC;k9Quicksave;13;09;0000;
 MUC;k9Quicksave;14;09;0000;
 MUC;k9Quicksave;15;09;0000;
+STD;k9Rest;0;09;0000;
 MUC;A7-BanterAccelerator;Init;09;0111;
 MUC;A7-BanterAccelerator;10;09;0000;
 MUC;A7-BanterAccelerator;11;09;0000;
