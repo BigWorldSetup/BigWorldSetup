@@ -10,6 +10,13 @@ CMD;IF NOT EXIST BWP_Fixpack.installed Call "_ApplyPatches.bat"
 CMD;IF NOT EXIST BWP_Fixpack.installed echo "The BiG World Fixpack script did not run successfully. Please check the _ApplyPatches.debug log file in the game folder and re-run _ApplyBatches.bat manually before continuing."
 CMD;IF NOT EXIST BWP_Fixpack.installed pause
 ANN;--- misc tweaks ---
+STD;detect_traps_for_pstee;0;09;0000;
+MUC;k9Quicksave;Init;09;0000;
+MUC;k9Quicksave;12;09;0000;
+MUC;k9Quicksave;13;09;0000;
+MUC;k9Quicksave;14;09;0000;
+MUC;k9Quicksave;15;09;0000;
+STD;k9Rest;0;09;0000;
 MUC;A7-BanterAccelerator;Init;09;0111;
 MUC;A7-BanterAccelerator;10;09;0000;
 MUC;A7-BanterAccelerator;11;09;0000;
