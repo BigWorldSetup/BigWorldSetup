@@ -244,27 +244,6 @@ STD;Ascension;104;15;1111;
 ANN;#105 is EE-only, 999 is no longer required
 STD;Ascension;101;15;0111;
 STD;Ascension;102;15;0111;
-CMD;IF EXIST ".\BWP_workspace\override\tisunpack.exe" copy /Y ".\BWP_workspace\override\tisunpack.exe" "*.*"
-STD;NeJ2v691;0;01;0000;
-STD;NeJ2v691;1;19;0000;
-STD;NeJ2v691;3;19;0000;
-STD;NeJ2v691;5;09;0000;
-STD;NeJ2v691;6;19;0000;
-STD;NeJ2v691;7;01;0000;
-STD;NeJ2v691;8;20;0000;
-STD;NeJ2v691;9;08;0000;
-STD;NeJ2v691;10;17;0000;
-ANN;NeJ2v691;11;06;0000;
-STD;NeJ2v691;12;09;0000;
-STD;NeJ2v694;0;01;0000;
-ANN;CMD;IF EXIST ".\override\CLABCHRG.2DA" IF NOT EXIST ".\override\SPIN506.SPL" del ".\override\CLABCHRG.2DA"
-CMD;IF EXIST ".\NEJ2" copy /Y ".\BiG World Fixpack\_override\NEJ2\*.*" ".\override"
-ANN;Tortured Souls marked expert due to Baldurdash dependency and lack of updates patches for Bdash
-STD;TS;0;09;0000;
-STD;TS;1;20;0000;
-STD;TS;2;20;0000;
-STD;TS;3;09;0000;
-CMD;IF EXIST Setup-TS.exe copy ".\BiG World Fixpack\_override\GUI_original_fonts\*.*" ".\override"
 STD;TDD;0;09;0111;
 STD;TDD;1;19;0000;
 ANN;#5. BIG BG1 MODS
@@ -3259,7 +3238,6 @@ STD;stratagems;5050;16;1111;
 STD;stratagems;5060;16;1111;
 ANN;--- SCS AI ---
 STD;stratagems;5900;18;1111;
-CMD;IF EXIST Setup-NeJ2v691.exe IF NOT EXIST .\override\SPIN506.SPL copy /Y ".\BiG World Fixpack\NeJ\_copy\misc\SPIN506.SPL" ".\override"
 CMD;IF EXIST Setup-DSotSC.exe IF EXIST ".\override\orc03.cre" move ".\override\orc03.cre" ".\BWP_workspace\override"
 CMD;IF EXIST Setup-DSotSC.exe IF EXIST ".\override\orc04.cre" move ".\override\orc04.cre" ".\BWP_workspace\override"
 STD;stratagems;6000;18;1100;
@@ -4541,8 +4519,6 @@ CMD;IF EXIST ".\override\ahjon.BCS" move ".\override\ahjon.BCS" ".\BWP_workspace
 STD;Innate_Fix;0;01;0000;
 CMD;IF EXIST ".\BWP_workspace\override\ahjon.BCS" move ".\BWP_workspace\override\ahjon.BCS" ".\override";;;;D:LongerRoad(0)
 STD;Area_Patcher;0;01;1111;
-ANN;Area_Patcher;1000;01;0000;no need without old NEJ
-ANN;Area_Patcher;2000;01;0000;no need without old NEJ
 STD;Area_Patcher;2001;01;1111;
 STD;Area_Patcher;2002;01;1111;
 STD;Area_Patcher;2003;01;1111;
@@ -4619,16 +4595,13 @@ SUB;generalized_biffing;0?1_1;00;1111;
 ANN;--- UI, graphics ---
 MUC;GUI;Init;20;1111;
 MUC;GUI;0;20;0000;
-ANN;MUC;GUI;1;20;0000;no need without old NEJ
 MUC;GUI;2;20;0000;
 MUC;GUI;3;20;0000;
 MUC;GUI;4;20;0000;
-ANN;MUC;GUI;5;20;0000;no need without TS-BP
 MUC;GUI;7;20;0000;
 MUC;GUI;8;20;0000;
 MUC;GUI;9;20;1111;
 MUC;GUI;10;20;0000;
-ANN;STD;GUI;6;20;0000;no need without TS-BP
 STD;TutuGui;0;20;0000;
 STD;TutuGui;1;20;0000;
 STD;W_GUI;0;20;0000;
