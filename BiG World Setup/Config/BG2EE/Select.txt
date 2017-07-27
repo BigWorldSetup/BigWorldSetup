@@ -462,7 +462,6 @@ STD;isnf;0;03;1111;
 STD;Eilistraee;0;03;1111;
 STD;FishingForTrouble;0;03;0111;
 STD;FishingForTrouble;1;03;0111;
-STD;FishingForTrouble;2;03;0111;
 ANN;--- BG2EE tactical encounters ---
 STD;AzenMOD;0;08;0011;
 STD;AzenMOD;1;08;0011;

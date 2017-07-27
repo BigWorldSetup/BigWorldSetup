@@ -662,7 +662,6 @@ STD;Devin;0;10;0111;
 STD;Eilistraee;0;10;1111;
 STD;FishingForTrouble;0;10;0111;
 STD;FishingForTrouble;1;10;0111;
-STD;FishingForTrouble;2;10;0111;
 ANN;#11. BG2 Tactical Encounters
 STD;AzenMOD;0;15;0011;
 STD;AzenMOD;1;15;0011;
