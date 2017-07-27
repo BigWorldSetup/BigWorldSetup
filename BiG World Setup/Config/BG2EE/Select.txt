@@ -330,7 +330,7 @@ MUC;bggoEET;Init;13;0001;
 MUC;bggoEET;0;13;0001;
 MUC;bggoEET;1;13;0000;
 STD;DruidGroveMakeover;0;13;0111;
-ANN;--- mods for BG:EE that must be installed after EET ---
+ANN;--- BG1EE Mods compatible with EET that must be installed after EET ---
 MUC;BG_Travel;Init;09;0000;
 MUC;BG_Travel;66;09;0000;
 MUC;BG_Travel;661;09;0000;
@@ -365,9 +365,8 @@ STD;TDDz;5;02;0111;
 STD;TDDz;6;02;0111;
 STD;SirinesCall;0;03;1111;
 STD;SirinesCall;1;03;0001;
-STD;thalan;0;10;1111;
-ANN;----BGEE Mods compatible with EET---
 STD;AC_QUEST;0;03;1111;
+STD;thalan;0;10;1111;
 STD;XanBG1Friend;0;07;1111;
 STD;bg1re;1;07;0111;
 STD;bg1re;2;07;0111;
