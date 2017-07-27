@@ -474,12 +474,11 @@ STD;impasylum;0;08;0011;
 STD;impasylum;1;08;0011;
 STD;impasylum;2;08;0011;
 STD;impasylum;3;08;0011;
-STD;PlanarSphereMod;0;08;0001;
-STD;PlanarSphereMod;1;08;0001;
-STD;PlanarSphereMod;2;08;0001;
-STD;PlanarSphereMod;3;08;0001;
+STD;PlanarSphereMod;0;08;0011;
+STD;PlanarSphereMod;1;08;0011;
+STD;PlanarSphereMod;2;08;0011;
+STD;PlanarSphereMod;3;08;0011;
 ANN;--- BG2EE stores and items ---
-STD;magestronghold_eet;0;03;0110;
 STD;BoM;0;10;0111;
 STD;FR_ROV;0;10;0111;
 MUC;ItemUpgrade;Init;10;0111;
