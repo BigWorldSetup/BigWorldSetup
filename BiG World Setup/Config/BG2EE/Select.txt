@@ -409,7 +409,6 @@ STD;bg1re;37;07;0111;
 STD;bg1re;38;07;0111;
 STD;bg1re;39;07;0111;
 STD;bg1re;40;07;0111;
-STD;c#sb_silber;0;04;1111;
 ANN;--- BG2:EE mods begin here ---
 ANN;Enable Spell Immunity in Sequencers/Triggers (TobEx)
 STD;jimfix;1;09;0001;
@@ -442,6 +441,7 @@ MUC;7c#sartweak;250;07;0100;
 ANN;#251 with EET and Ascension
 MUC;7c#sartweak;251;07;0011;
 ANN;--- BG2EE quests ---
+STD;c#sb_silber;0;04;1111;
 STD;TOD;0;03;1111;
 STD;TOD;1;03;0011;
 STD;TOD;2;03;0011;
