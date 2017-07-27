@@ -67,7 +67,6 @@ MUC;soa;Init;03;1111;
 MUC;soa;0;03;1111;
 ANN;soa #1 (BP-BGT-Worldmap variant) is not EET compatible, but is a BG1 mod, so we disable it
 ANN;MUC;soa;1;03;0000;
-STD;AC_QUEST;0;03;1111;
 ANN;Wedge's BGT Adventure Pack (wbgtap) Expert due to crashes - http://gibberlings3.net/forums/index.php?showtopic=27741&p=248203
 STD;wbgtap;1;03;0001;
 STD;karatur;0;03;0011;
@@ -367,7 +366,8 @@ STD;TDDz;6;02;0111;
 STD;SirinesCall;0;03;1111;
 STD;SirinesCall;1;03;0001;
 STD;thalan;0;10;1111;
-ANN;----BGEE compatible NPCs ---
+ANN;----BGEE Mods compatible with EET---
+STD;AC_QUEST;0;03;1111;
 STD;XanBG1Friend;0;07;1111;
 STD;bg1re;1;07;0111;
 STD;bg1re;2;07;0111;
@@ -410,6 +410,7 @@ STD;bg1re;37;07;0111;
 STD;bg1re;38;07;0111;
 STD;bg1re;39;07;0111;
 STD;bg1re;40;07;0111;
+STD;c#sb_silber;0;04;1111;
 ANN;--- BG2:EE mods begin here ---
 ANN;Enable Spell Immunity in Sequencers/Triggers (TobEx)
 STD;jimfix;1;09;0001;
@@ -442,7 +443,6 @@ MUC;7c#sartweak;250;07;0100;
 ANN;#251 with EET and Ascension
 MUC;7c#sartweak;251;07;0011;
 ANN;--- BG2EE quests ---
-STD;c#sb_silber;0;04;1111;
 STD;TOD;0;03;1111;
 STD;TOD;1;03;0011;
 STD;TOD;2;03;0011;
