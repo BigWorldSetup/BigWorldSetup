@@ -203,11 +203,12 @@ ANN;sirene 0-1 = bg:ee/sod
 STD;sirene;0;05;0111;
 STD;sirene;1;05;0111;
 ANN;sirene 2-6 = alternate kit
-ANN;sirene 5+6 = alternate kit not applicable for EET
+ANN;sirene 6 = alternate kit not applicable for EET
 MUC;sirene;Init;05;0000;
 MUC;sirene;2;05;0000;
 MUC;sirene;3;05;0000;
 MUC;sirene;4;05;0000;
+MUC;sirene;5;05;0000;
 ANN;sirene 7 = alternate portrait
 STD;sirene;7;05;0000;
 STD;verrsza;0;05;0111;
