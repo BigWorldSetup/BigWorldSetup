@@ -1499,7 +1499,7 @@ STD;cdtweaks;1220;09;0111;
 MUC;cdtweaks;Init;09;0111;
 MUC;cdtweaks;1225;09;0111;
 MUC;cdtweaks;1226;09;0000;
-MUC;cdtweaks;1227;09;0000;
+ANN;MUC;cdtweaks;1227;09;0000; non-ee only
 STD;cdtweaks;1230;09;1111;
 STD;cdtweaks;1250;09;0000;
 STD;cdtweaks;1270;09;0111;
