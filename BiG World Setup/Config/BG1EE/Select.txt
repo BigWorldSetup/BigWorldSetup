@@ -1,7 +1,7 @@
 ANN;Added due to patching
 DWN;WeiDU;0;00;1111;
 DWN;weidu-filechangelog;0;00;1111;
-DWN;eekeeper;0;00;1111;
+DWN;eekeeper;0;00;0000;
 ANN;--- patches ---
 DWN;BWInstallpack;0;00;1111;
 ANN;DWN;BWTrimpack;0;00;1111;

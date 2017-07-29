@@ -4,7 +4,7 @@ ANN;--- if EET is not selected, we use the Game.ini purge section to hide all th
 ANN;--- special case section applicable to both BG1EE and BG2EE ---
 DWN;WeiDU;0;00;1111;
 DWN;weidu-filechangelog;0;00;1111;
-DWN;eekeeper;0;00;1111;
+DWN;eekeeper;0;00;0000;
 ANN;--- patches ---
 DWN;BWInstallpack;0;00;1111;
 ANN;DWN;BWTrimpack;0;00;1111;
