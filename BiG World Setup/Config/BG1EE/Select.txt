@@ -90,7 +90,6 @@ STD;BGeeAR;0;10;0111;
 STD;BGeeW;0;10;0111;
 STD;Animus;0;10;0111;
 STD;ConvinientAmmunition;0;10;1111;
-STD;WandCase;0;10;0111;
 STD;wmart;0;10;0111;
 ANN;--- NPCs ---
 STD;bg1npc;0;07;1111;

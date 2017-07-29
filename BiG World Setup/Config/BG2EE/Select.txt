@@ -527,7 +527,7 @@ ANN;--- BG2EE NPCs ---
 STD;Amber;0;05;1111;
 STD;Amber;1;05;1111;
 ANN;--- BG2EE stores and items ---
-ANN:---WandCase suspended until clarity in version is achieved---
+ANN:---WandCase now part of EETweaks---
 ANN;--- BG2EE NPCs ---
 SUB;ajantisbg2;0;05;1111;
 SUB;ajantisbg2;0?1_1;05;0000;
