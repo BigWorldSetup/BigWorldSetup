@@ -4,7 +4,7 @@ ANN;--- if EET is not selected, we use the Game.ini purge section to hide all th
 ANN;--- special case section applicable to both BG1EE and BG2EE ---
 DWN;WeiDU;0;00;1111;
 DWN;weidu-filechangelog;0;00;1111;
-DWN;eekeeper;0;00;1111;
+DWN;eekeeper;0;00;0000;
 ANN;--- patches ---
 DWN;BWInstallpack;0;00;1111;
 ANN;DWN;BWTrimpack;0;00;1111;
@@ -203,12 +203,12 @@ ANN;sirene 0-1 = bg:ee/sod
 STD;sirene;0;05;0111;
 STD;sirene;1;05;0111;
 ANN;sirene 2-6 = alternate kit
+ANN;sirene 6 = alternate kit not applicable for EET
 MUC;sirene;Init;05;0000;
 MUC;sirene;2;05;0000;
 MUC;sirene;3;05;0000;
 MUC;sirene;4;05;0000;
 MUC;sirene;5;05;0000;
-MUC;sirene;6;05;0000;
 ANN;sirene 7 = alternate portrait
 STD;sirene;7;05;0000;
 STD;verrsza;0;05;0111;
@@ -241,6 +241,7 @@ SUB;garrick_flirt;0?1_5;07;0000;
 STD;garrick-tt;0;07;0111;
 STD;TenyaThermidor;0;05;0111;
 STD;Vynd;0;05;0111;
+STD;Drake;0;05;0000;
 STD;saradas_magic;0;05;0000;
 SUB;bg1re;0;07;0111;
 SUB;bg1re;0?0_1;07;0000;
@@ -322,7 +323,8 @@ STD;BG2EE_GA;0;00;1111;
 ANN;-- install EET itself --
 STD;EET;0;00;1111;
 ANN;-- all lines below EET mod will apply to BG2EE folder
-STD;RoT;0;02;0111;
+ANN;--RoT currently requires manual patching before BWS installation--
+STD;RoT;0;02;0000;
 CMD;copy /Y ".\RoTerror\anim\Yeti\*.bam" ".\override";;;;D:SOS(0)&ROT(0)
 CMD;copy /Y ".\RoTerror\anim\Yeti\*.bam" ".\override";;;;D:CTB(0)&ROT(0)
 ANN;-- horizontal line graphical glitches reported with bggoEET v2.0 beta (http://gibberlings3.net/forums/index.php?showtopic=27768&page=3) --
@@ -527,7 +529,7 @@ ANN;--- BG2EE NPCs ---
 STD;Amber;0;05;1111;
 STD;Amber;1;05;1111;
 ANN;--- BG2EE stores and items ---
-STD;WandCase;0;10;0111;
+ANN:---WandCase now part of EETweaks---
 ANN;--- BG2EE NPCs ---
 SUB;ajantisbg2;0;05;1111;
 SUB;ajantisbg2;0?1_1;05;0000;
