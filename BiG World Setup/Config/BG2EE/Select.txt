@@ -243,12 +243,6 @@ STD;TenyaThermidor;0;05;0111;
 STD;Vynd;0;05;0111;
 STD;Drake;0;05;0000;
 STD;saradas_magic;0;05;0000;
-SUB;bg1re;0;07;0111;
-SUB;bg1re;0?0_1;07;0000;
-SUB;bg1re;0?0_2;07;0000;
-SUB;bg1re;0?0_3;07;0111;
-SUB;bg1re;0?1_1;07;0000;
-SUB;bg1re;0?1_2;07;0111;
 ANN;--- misc tweaks ---
 MUC;A7-BanterAccelerator;Init;09;0111;
 MUC;A7-BanterAccelerator;10;09;0000;
@@ -371,6 +365,12 @@ STD;SirinesCall;1;03;0001;
 STD;AC_QUEST;0;03;1111;
 STD;thalan;0;10;1111;
 STD;XanBG1Friend;0;07;1111;
+SUB;bg1re;0;07;0111;
+SUB;bg1re;0?0_1;07;0000;
+SUB;bg1re;0?0_2;07;0000;
+SUB;bg1re;0?0_3;07;0111;
+SUB;bg1re;0?1_1;07;0000;
+SUB;bg1re;0?1_2;07;0111;
 STD;bg1re;1;07;0111;
 STD;bg1re;2;07;0111;
 STD;bg1re;3;07;0111;
@@ -379,7 +379,6 @@ STD;bg1re;5;07;0111;
 STD;bg1re;6;07;0111;
 STD;bg1re;7;07;0111;
 STD;bg1re;8;07;0111;
-ANN;"warning - game does not start when component is installed
 STD;bg1re;9;07;0000;
 STD;bg1re;10;07;0111;
 STD;bg1re;11;07;0111;
@@ -412,6 +411,10 @@ STD;bg1re;37;07;0111;
 STD;bg1re;38;07;0111;
 STD;bg1re;39;07;0111;
 STD;bg1re;40;07;0111;
+STD;bg1re;41;07;0000;
+STD;bg1re;42;07;0000;
+STD;bg1re;43;07;0000;
+STD;bg1re;44;07;0000;
 ANN;--- BG2:EE mods begin here ---
 ANN;Enable Spell Immunity in Sequencers/Triggers (TobEx)
 STD;jimfix;1;09;0001;
