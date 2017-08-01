@@ -2863,9 +2863,9 @@ STD;cdtweaks;1180;16;1111;
 STD;cdtweaks;1210;16;0000;
 STD;cdtweaks;1220;16;0111;
 MUC;cdtweaks;Init;16;0111;
-ANN;MUC;cdtweaks;1225;16;0111; ee-only
-MUC;cdtweaks;1226;16;0111;
-MUC;cdtweaks;1227;16;0111;
+ANN;MUC;cdtweaks;1225;16;0000; ee-only
+MUC;cdtweaks;1226;16;0000;
+MUC;cdtweaks;1227;16;0000;
 STD;cdtweaks;1230;16;1111;
 STD;cdtweaks;1250;16;0000;
 STD;cdtweaks;1270;16;0111;

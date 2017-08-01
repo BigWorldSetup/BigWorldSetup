@@ -35,7 +35,7 @@ ANN;--- new kits ---
 STD;PowerOfBelief;0;12;0000;
 ANN;--- items ---
 STD;bagsoftorment;0;10;0111;
-STD;bagsoftorment;10;10;0111;
+STD;bagsoftorment;10;10;0000;
 ANN;--- tweaks ---
 STD;cdtweaks;60;09;1111;
 STD;cdtweaks;90;09;0111;
@@ -85,7 +85,7 @@ STD;cdtweaks;3020;09;0000;
 MUC;cdtweaks;Init;09;0000;
 MUC;cdtweaks;3030;09;0000;
 MUC;cdtweaks;3031;09;0000;
-ANN;STD;cdtweaks;3040;09;0111; currently not available for pstee
+STD;cdtweaks;3040;09;0111;
 MUC;cdtweaks;Init;09;0000;
 ANN;MUC;cdtweaks;3070;09;0000; reputation not used in pstee
 MUC;cdtweaks;3071;09;0000;
