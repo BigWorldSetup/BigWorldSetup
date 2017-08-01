@@ -982,6 +982,7 @@ STD;LongerRoad;0;05;0111;
 STD;LongerRoadEE;0;05;0111;
 STD;LongerRoadEE;1;05;0111;
 ANN;--- BG2EE minimods ---
+STD;Weasels!;0;04;0000;
 ANN;Wheels of Prophecy after Ascension and Longer Road, before SCS
 STD;wheels;0;04;1111;
 ANN;For unknown reason, WoP removes the following IDS entry (only for EE) so we add it back if WoP is selected
