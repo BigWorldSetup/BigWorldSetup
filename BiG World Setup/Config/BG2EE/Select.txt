@@ -232,7 +232,9 @@ MUC;neera;5;07;0000;
 STD;neera;6;07;1111;
 ANN;"warning - dialogue may seem strange" -> 0000
 STD;neera;7;07;0000;
-STD;neerabanters;0;07;0111;
+STD;neerabanters;10;07;0111;
+STD;neerabanters;20;07;0000;
+STD;neerabanters;30;07;0000;
 SUB;garrick_flirt;0;07;0111;
 SUB;garrick_flirt;0?1_1;07;0111;
 SUB;garrick_flirt;0?1_2;07;0000;
