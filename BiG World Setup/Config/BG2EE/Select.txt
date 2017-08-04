@@ -14,6 +14,7 @@ DWN;BWTextpackP;0;00;1111;
 ANN;special case lines above are also hard-coded in Testing.au3 so BWS will extract them in both BG1EE and BG2EE folder if EET is selected
 ANN;--- BGEE/BG2EE/EET patches (all CMD lines will be executed in both the BG1EE and the BG2EE folder for EET installs) ---
 CMD;IF NOT EXIST ".\BWS_workspace\override" MD ".\BWS_workspace\override"
+CMD;IF EXIST Setup-banterpack.tp2 move .\banterpack\Setup-banterpack.tp2 "."
 CMD;IF EXIST "BiG World Fixpack" xcopy /Y /S /E ".\BiG World Fixpack\_Lolfixer\*.*" "."
 CMD;IF EXIST "BiG World Fixpack" xcopy /Y /S /E ".\BiG World Fixpack\_resfixer_v1\*.*" "."
 CMD;IF EXIST "BiG World Fixpack" xcopy /Y /S /E ".\BiG World Fixpack\_Area_Patcher\*.*" "."
@@ -243,12 +244,6 @@ STD;TenyaThermidor;0;05;0111;
 STD;Vynd;0;05;0111;
 STD;Drake;0;05;0000;
 STD;saradas_magic;0;05;0000;
-SUB;bg1re;0;07;0111;
-SUB;bg1re;0?0_1;07;0000;
-SUB;bg1re;0?0_2;07;0000;
-SUB;bg1re;0?0_3;07;0111;
-SUB;bg1re;0?1_1;07;0000;
-SUB;bg1re;0?1_2;07;0111;
 ANN;--- misc tweaks ---
 MUC;A7-BanterAccelerator;Init;09;0111;
 MUC;A7-BanterAccelerator;10;09;0000;
@@ -302,6 +297,7 @@ ANN;--- smaller BGEE NPCs ---
 CMD;IF EXIST "jklhel\Helarine_BGEE.Tp2" REN "jklhel\Helarine_BGEE.Tp2" "jklhel.tp2"
 STD;JklHel;0;06;0111;
 STD;margarita;0;06;0111;
+STD;k9SharteelNPC;0;06;0000;
 ANN;--- BGEE item tweaks ---
 MUC;msfm;Init;10;0000;
 MUC;msfm;0;10;0000;
@@ -370,6 +366,12 @@ STD;SirinesCall;1;03;0001;
 STD;AC_QUEST;0;03;1111;
 STD;thalan;0;10;1111;
 STD;XanBG1Friend;0;07;1111;
+SUB;bg1re;0;07;0111;
+SUB;bg1re;0?0_1;07;0000;
+SUB;bg1re;0?0_2;07;0000;
+SUB;bg1re;0?0_3;07;0111;
+SUB;bg1re;0?1_1;07;0000;
+SUB;bg1re;0?1_2;07;0111;
 STD;bg1re;1;07;0111;
 STD;bg1re;2;07;0111;
 STD;bg1re;3;07;0111;
@@ -378,7 +380,6 @@ STD;bg1re;5;07;0111;
 STD;bg1re;6;07;0111;
 STD;bg1re;7;07;0111;
 STD;bg1re;8;07;0111;
-ANN;"warning - game does not start when component is installed
 STD;bg1re;9;07;0000;
 STD;bg1re;10;07;0111;
 STD;bg1re;11;07;0111;
@@ -411,6 +412,15 @@ STD;bg1re;37;07;0111;
 STD;bg1re;38;07;0111;
 STD;bg1re;39;07;0111;
 STD;bg1re;40;07;0111;
+STD;bg1re;41;07;0000;
+STD;bg1re;42;07;0000;
+STD;bg1re;43;07;0000;
+STD;bg1re;44;07;0000;
+MUC;jaheirarecast;Init;13;0000;
+MUC;jaheirarecast;0;13;0000;
+MUC;jaheirarecast;1;13;0000;
+STD;jaheirarecast;2;13;0000;
+STD;jaheirarecast;3;13;0000;
 ANN;--- BG2:EE mods begin here ---
 ANN;Enable Spell Immunity in Sequencers/Triggers (TobEx)
 STD;jimfix;1;09;0001;
@@ -981,6 +991,7 @@ STD;LongerRoad;0;05;0111;
 STD;LongerRoadEE;0;05;0111;
 STD;LongerRoadEE;1;05;0111;
 ANN;--- BG2EE minimods ---
+STD;Weasels!;0;04;0000;
 ANN;Wheels of Prophecy after Ascension and Longer Road, before SCS
 STD;wheels;0;04;1111;
 ANN;For unknown reason, WoP removes the following IDS entry (only for EE) so we add it back if WoP is selected
@@ -1114,6 +1125,7 @@ STD;Px_Chantelame;0;12;0111;
 STD;duskblade;0;12;0111;
 STD;WarslingSniperKit;0;12;0111;
 STD;UndeadPredator;0;12;0000;
+STD;ArcaneArcher;0;12;0000;
 ANN;EE: Item Expansion
 ANN;STD;eldritch_magic;0;10;0111;
 ANN;Congenio's Pebble Collection (Ioun stone tweaks)

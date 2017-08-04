@@ -273,7 +273,6 @@ STD;bg1re;5;07;0111;
 STD;bg1re;6;07;0111;
 STD;bg1re;7;07;0111;
 STD;bg1re;8;07;0111;
-ANN;"warning - game does not start when component is installed"
 STD;bg1re;9;07;0000;
 STD;bg1re;10;07;0111;
 STD;bg1re;11;07;0111;
@@ -306,6 +305,10 @@ STD;bg1re;37;07;0111;
 STD;bg1re;38;07;0111;
 STD;bg1re;39;07;0111;
 STD;bg1re;40;07;0111;
+STD;bg1re;41;07;0111;
+STD;bg1re;42;07;0111;
+STD;bg1re;43;07;0111;
+STD;bg1re;44;07;0111;
 ANN;--- more quests ---
 STD;bg1ub;0;03;1111;
 STD;bg1ub;1;03;1111;
@@ -1503,6 +1506,11 @@ STD;Isandir;0;13;0000;
 STD;artaport;1;13;0000;
 STD;artaport;2;13;0000;
 STD;artaport;3;13;0000;
+MUC;jaheirarecast;Init;13;0000;
+MUC;jaheirarecast;0;13;0000;
+MUC;jaheirarecast;1;13;0000;
+STD;jaheirarecast;2;13;0000;
+STD;jaheirarecast;3;13;0000;
 ANN;--- PaintBG portraits ---
 ANN;We must install PaintBG before generalized biffing so that we can append to BGEE.SQL
 ANN;PaintBG for EE is just .bmp files, so install first to allow other mods to overwrite
