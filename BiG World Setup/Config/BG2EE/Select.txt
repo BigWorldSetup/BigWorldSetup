@@ -1208,11 +1208,11 @@ ANN;#40 is IWD divine spells
 STD;iwdification;40;09;0111;
 ANN;#50 is IWD bard songs
 STD;iwdification;50;09;0000;
-STD;WildMage;0;09;0111;
-STD;WildMage;1;09;0111;
+STD;WildMage;0;09;0011;
+STD;WildMage;1;09;0011;
 STD;WildMage;2;09;0001;
 STD;WildMage;3;09;0000;
-STD;WildMage;4;09;0011;
+STD;WildMage;4;09;0000;
 ANN;--- BG2EE items ---
 ANN;#60 is IWD axe pack -> stores and items
 STD;iwdification;60;10;0111;
