@@ -538,7 +538,8 @@ SUB;StuffofTheMagi;0?1_2;10;0000;
 SUB;StuffofTheMagi;0?2_1;10;0011;
 SUB;StuffofTheMagi;0?2_2;10;0100;
 ANN;--- BG2EE NPCs ---
-STD;Amber_eet;0;05;0111;
+STD;Amber;0;05;0111;
+STD;Amber;1;05;0111;
 ANN;--- BG2EE stores and items ---
 ANN:---WandCase now part of EETweaks---
 ANN;--- BG2EE NPCs ---
