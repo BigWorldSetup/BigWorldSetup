@@ -247,7 +247,9 @@ MUC;neera;5;07;0000;
 STD;neera;6;07;1111;
 ANN;"warning - dialogue may seem strange" -> 0000
 STD;neera;7;07;0000;
-STD;neerabanters;0;07;0111;
+STD;neerabanters;10;07;0111;
+STD;neerabanters;20;07;0000;
+STD;neerabanters;30;07;0000;
 SUB;garrick_flirt;0;07;0111;
 SUB;garrick_flirt;0?1_1;07;0111;
 SUB;garrick_flirt;0?1_2;07;0000;
@@ -658,8 +660,8 @@ STD;PaleMaster;2;12;0111;
 STD;UndeadPredator;0;12;0000;
 ANN;FnP should be installed after all divine kits
 MUC;Faiths_and_Powers;Init;09;0111;
-MUC;Faiths_and_Powers;101;09;0111;
-MUC;Faiths_and_Powers;102;09;0000;
+ANN;101 only for IWDEE
+MUC;Faiths_and_Powers;102;09;0111;
 MUC;Faiths_and_Powers;103;09;0000;
 MUC;Faiths_and_Powers;105;09;0000;
 STD;Faiths_and_Powers;110;09;0000;

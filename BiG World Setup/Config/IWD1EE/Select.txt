@@ -241,7 +241,7 @@ STD;PaleMaster;1;12;0111;
 ANN;FnP should be installed after all divine kits
 MUC;Faiths_and_Powers;Init;09;0001;
 MUC;Faiths_and_Powers;101;09;0001;
-MUC;Faiths_and_Powers;102;09;0001;
+ANN;102 not for IWDEE
 MUC;Faiths_and_Powers;103;09;0001;
 MUC;Faiths_and_Powers;105;09;0001;
 STD;Faiths_and_Powers;110;09;0001;
