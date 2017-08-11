@@ -1513,6 +1513,12 @@ MUC;jaheirarecast;0;13;0000;
 MUC;jaheirarecast;1;13;0000;
 STD;jaheirarecast;2;13;0000;
 STD;jaheirarecast;3;13;0000;
+STD;chattyimoen;0;13;0000;
+STD;chattyimoen;1;13;0000;
+MUC;chattyimoen;Init;13;0000;
+MUC;chattyimoen;2;13;0000;
+MUC;chattyimoen;3;13;0000;
+MUC;chattyimoen;4;13;0000;
 ANN;--- PaintBG portraits ---
 ANN;We must install PaintBG before generalized biffing so that we can append to BGEE.SQL
 ANN;PaintBG for EE is just .bmp files, so install first to allow other mods to overwrite
