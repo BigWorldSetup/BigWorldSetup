@@ -321,8 +321,7 @@ STD;BG2EE_GA;0;00;1111;
 ANN;-- install EET itself --
 STD;EET;0;00;1111;
 ANN;-- all lines below EET mod will apply to BG2EE folder
-ANN;--RoT currently requires manual patching before BWS installation--
-STD;RoT;0;02;0000;
+STD;RoTerror;0;02;0000;
 CMD;copy /Y ".\RoTerror\anim\Yeti\*.bam" ".\override";;;;D:SOS(0)&ROT(0)
 CMD;copy /Y ".\RoTerror\anim\Yeti\*.bam" ".\override";;;;D:CTB(0)&ROT(0)
 ANN;-- horizontal line graphical glitches reported with bggoEET v2.0 beta (http://gibberlings3.net/forums/index.php?showtopic=27768&page=3) --
@@ -423,6 +422,12 @@ MUC;jaheirarecast;0;13;0000;
 MUC;jaheirarecast;1;13;0000;
 STD;jaheirarecast;2;13;0000;
 STD;jaheirarecast;3;13;0000;
+STD;chattyimoen;0;13;0000;
+STD;chattyimoen;1;13;0000;
+MUC;chattyimoen;Init;13;0000;
+MUC;chattyimoen;2;13;0000;
+MUC;chattyimoen;3;13;0000;
+MUC;chattyimoen;4;13;0000;
 ANN;--- BG2:EE mods begin here ---
 ANN;Enable Spell Immunity in Sequencers/Triggers (TobEx)
 STD;jimfix;1;09;0001;
@@ -538,8 +543,8 @@ SUB;StuffofTheMagi;0?1_2;10;0000;
 SUB;StuffofTheMagi;0?2_1;10;0011;
 SUB;StuffofTheMagi;0?2_2;10;0100;
 ANN;--- BG2EE NPCs ---
-STD;Amber;0;05;0111;
-STD;Amber;1;05;0111;
+STD;Amber_eet;0;05;0000;
+STD;Amber_eet;1;05;0000;
 ANN;--- BG2EE stores and items ---
 ANN:---WandCase now part of EETweaks---
 ANN;--- BG2EE NPCs ---
