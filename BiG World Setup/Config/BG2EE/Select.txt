@@ -1131,7 +1131,15 @@ ANN;--- BG2EE new kits ---
 STD;Px_Chantelame;0;12;0111;
 STD;duskblade;0;12;0111;
 STD;WarslingSniperKit;0;12;0111;
-STD;UndeadPredator;0;12;0000;
+STD;IHateUndead;0;12;0000;
+STD;IHateUndead;1;12;0000;
+STD;IHateUndead;2;12;0000;
+STD;IHateUndead;3;12;0000;
+STD;IHateUndead;4;12;0000;
+STD;IHateUndead;5;12;0000;
+STD;IHateUndead;6;12;0000;
+STD;IHateUndead;7;12;0000;
+STD;IHateUndead;8;12;0000;
 STD;ArcaneArcher;0;12;0000;
 ANN;EE: Item Expansion
 ANN;STD;eldritch_magic;0;10;0111;
@@ -2612,6 +2620,7 @@ STD;SandrahRtF;8;02;0111;
 STD;SandrahToT;0;02;0111;
 STD;SandrahToT;1;02;0111;
 STD;SodBanter;0;09;0000;
+STD;Sandrah-X-Files;0;07;0000;
 ANN;worldmap after all mods that use it
 SUB;bp-bgt-worldmap;0;13;1111;
 SUB;bp-bgt-worldmap;0?1_1;13;1111;

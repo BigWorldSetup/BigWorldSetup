@@ -101,7 +101,15 @@ STD;Px_Chantelame;0;12;0111;
 STD;runescarred;0;12;0111;
 STD;Warlock;0;12;0111;
 STD;WarslingSniperKit;0;12;0111;
-STD;UndeadPredator;0;12;0000;
+STD;IHateUndead;0;12;0000;
+STD;IHateUndead;1;12;0000;
+STD;IHateUndead;2;12;0000;
+STD;IHateUndead;3;12;0000;
+STD;IHateUndead;4;12;0000;
+STD;IHateUndead;5;12;0000;
+STD;IHateUndead;6;12;0000;
+STD;IHateUndead;7;12;0000;
+STD;IHateUndead;8;12;0000;
 ANN;EE: Item Expansion
 STD;eldritch_magic;0;10;0111;
 ANN;Congenio's Pebble Collection (Ioun stone tweaks)
