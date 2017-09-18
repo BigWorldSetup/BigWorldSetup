@@ -410,6 +410,7 @@ MUC;HighPower;27;08;0000;
 MUC;HighPower;28;08;0000;
 STD;HighPower;29;08;0000;
 STD;HighPower;30;08;0000;
+STD;HighPower;31;08;0000;
 ANN;--- item tweaks ---
 MUC;msfm;Init;10;0000;
 MUC;msfm;0;10;0000;
