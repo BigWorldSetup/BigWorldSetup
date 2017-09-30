@@ -27,6 +27,7 @@ CMD;IF EXIST "BiG World Fixpack\dsotsc" rmdir /s /q "BiG World Fixpack\dsotsc"
 CMD;IF EXIST "BiG World Fixpack\ntotsc" rmdir /s /q "BiG World Fixpack\ntotsc"
 CMD;IF EXIST "BiG World Fixpack\ntotscv171" rmdir /s /q "BiG World Fixpack\ntotscv171"
 CMD;IF EXIST "BiG World Fixpack\refinements" rmdir /s /q "BiG World Fixpack\refinements"
+CMD;IF EXIST "BiG World Installpack\Install.bat" REN "BiG World Installpack\Install.bat" "NoInstall.bat"
 ANN;Run the Fixpack (now includes Trimpack changes), Textpack and Smoothpack batch scripts
 ANN;CMD;IF NOT EXIST BWP_Trimpack.installed Call "BiG World Trimpack.bat"
 CMD;IF NOT EXIST BWP_Fixpack.installed Call "_ApplyPatches.bat"
