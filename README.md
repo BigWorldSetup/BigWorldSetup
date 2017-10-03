@@ -20,7 +20,7 @@ Change History           : https://bitbucket.org/BigWorldSetup/bigworldsetup/com
 ### Features ###
 
 - downloading mods (please see remarks!)
-- easy mod installation for BGT and EET
+- easy mod installation for EET and other large modded games
 - correct install order of mods/components 
 - handle mod and components conflicts
 - easy backup creation/restoring
