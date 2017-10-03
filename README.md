@@ -31,11 +31,14 @@ Change History           : https://bitbucket.org/BigWorldSetup/bigworldsetup/com
 - Baldur's Gate: Enhanced Edition (standalone game)
 - Baldur's Gate II: Enhanced Edition (standalone game)
 - Enhanced Edition Trilogy ( BG1:EE + SoD + BG2:EE ) (planned + IWD1:EE + partial IWD2-in-EET)
-- Baldur's Gate 2 (standalone game) / Baldur’s Gate Trilogy ( BG1 + BG2 )
-- Icewind Dale / Icewind Dale: Enhanced Edition
+- Icewind Dale
+- Icewind Dale: Enhanced Edition
 - Icewind Dale II 
-- Planescape: Torment / Planescape Torment: Enhanced Edition
+- Planescape: Torment  
+- Planescape Torment: Enhanced Edition
 - Classic Adventures
+
+Note: For installations of original Baldur's Gate 2 or Baldur’s Gate Trilogy the BWP may be used http://www.shsforums.net/files/file/536-big-world-installpack/
 
 ### Supported mods ###
 
