@@ -56,7 +56,8 @@ Not maintained:
 4. Execute "Start BiG World Setup - Update If Needed.vbs" (this is the usual way to start the program)
 5. Optional: "Start BiG World Setup-Full - Without Update.vbs" (this will skip the auto-update feature)
 
-NOTE:  "Update If Needed" will download any updates to the program and revert any local changes you have made.  If you are in the middle of an installation, it is safest to use "Without Update", but at all other times you should use "Update If Needed".
+NOTE:  "Update If Needed" will download any updates to the program and revert any local changes you have made.  
+If you are in the middle of an installation, it is safest to use "Without Update", but at all other times you should use "Update If Needed".  
 
 ### How do I contribute? ###
 
