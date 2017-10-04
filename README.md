@@ -43,8 +43,6 @@ Not maintained:
 - Planescape: Torment  
 - Classic Adventures  
 
-Note: For installations of original Baldur's Gate 2 or Baldur’s Gate Trilogy the BWP may be used http://www.shsforums.net/files/file/536-big-world-installpack/
-
 ### Supported mods ###
 
 - Almost all of them! (use the Mod Request Template link above if there is a mod you want added)
