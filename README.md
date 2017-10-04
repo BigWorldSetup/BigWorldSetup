@@ -39,7 +39,7 @@ Not maintained:
 - Baldur’s Gate Trilogy ( Classic BG1 + Classic BG2 )  
 - Icewind Dale  
 - Icewind Dale: Enhanced Edition  
-- Icewind Dale II ( not maintained )  
+- Icewind Dale II   
 - Planescape: Torment  
 - Classic Adventures  
 
