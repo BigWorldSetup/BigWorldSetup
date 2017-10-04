@@ -33,12 +33,12 @@ Active:
 - Baldur's Gate II: Enhanced Edition (standalone game)  
 - Enhanced Edition Trilogy ( BG1:EE + SoD + BG2:EE ) (planned: IWD1:EE + partial IWD2-in-EET)  
 - Planescape: Torment Enhanced Edition  
+- Icewind Dale: Enhanced Edition 
 
 Not maintained:  
 - Baldur's Gate 2 (classic standalone game)  
 - Baldur’s Gate Trilogy ( Classic BG1 + Classic BG2 )  
 - Icewind Dale  
-- Icewind Dale: Enhanced Edition  
 - Icewind Dale II   
 - Planescape: Torment  
 - Classic Adventures  
