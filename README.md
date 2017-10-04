@@ -1,4 +1,4 @@
-﻿**Big World Setup (BWS) : Mod Manager for Infinity Engine Games and Baldur's Gate/Enhanced Edition Trilogy by dabus**
+**Big World Setup (BWS) : Mod Manager for Infinity Engine Games and Baldur's Gate/Enhanced Edition Trilogy by dabus**
 
 ! Don't use BitBucket's web-interface to edit files because it doesn't save non-ANSI characters properly
 
@@ -20,7 +20,7 @@ Change History           : https://bitbucket.org/BigWorldSetup/bigworldsetup/com
 ### Features ###
 
 - downloading mods (please see remarks!)
-- easy mod installation for EET and other large modded games
+- easy mod installation for BGT and EET
 - correct install order of mods/components 
 - handle mod and components conflicts
 - easy backup creation/restoring
@@ -28,14 +28,19 @@ Change History           : https://bitbucket.org/BigWorldSetup/bigworldsetup/com
 
 ### Supported games ###
 
+Active:
 - Baldur's Gate: Enhanced Edition (standalone game)
 - Baldur's Gate II: Enhanced Edition (standalone game)
-- Enhanced Edition Trilogy ( BG1:EE + SoD + BG2:EE ) (planned + IWD1:EE + partial IWD2-in-EET)
+- Enhanced Edition Trilogy ( BG1:EE + SoD + BG2:EE ) (planned: IWD1:EE + partial IWD2-in-EET)
+- Planescape: Torment Enhanced Edition
+
+Not maintained:
+- Baldur's Gate 2 (classic standalone game)
+- Baldur’s Gate Trilogy ( Classic BG1 + Classic BG2 )
 - Icewind Dale
 - Icewind Dale: Enhanced Edition
-- Icewind Dale II 
-- Planescape: Torment  
-- Planescape Torment: Enhanced Edition
+- Icewind Dale II ( not maintained )
+- Planescape: Torment
 - Classic Adventures
 
 Note: For installations of original Baldur's Gate 2 or Baldur’s Gate Trilogy the BWP may be used http://www.shsforums.net/files/file/536-big-world-installpack/
@@ -64,8 +69,4 @@ NOTE:  "Update If Needed" will download any updates to the program and revert an
 
 ### Contributors ###
 
-[agb1](http://www.shsforums.net/user/41035-agb1/)
-
-[AL|EN](http://www.shsforums.net/user/10953-alien/)
-
-[Quiet](http://www.shsforums.net/user/13265-quiet/)
+dabus(author), agb1, AL|EN, Quiet, Roxanne
