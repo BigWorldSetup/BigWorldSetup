@@ -1381,9 +1381,9 @@ STD;A7-GolemConstruction;50;09;0011;
 STD;PaleMaster;0;12;0111;
 STD;PaleMaster;1;12;0111;
 ANN;FnP should be installed after all divine kits
-MUC;Faiths_and_Powers;Init;09;0111;
+MUC;Faiths_and_Powers;Init;09;0000;
 ANN;101 only for IWDEE
-MUC;Faiths_and_Powers;102;09;0111;
+MUC;Faiths_and_Powers;102;09;0000;
 MUC;Faiths_and_Powers;103;09;0000;
 MUC;Faiths_and_Powers;105;09;0000;
 STD;Faiths_and_Powers;110;09;0000;
