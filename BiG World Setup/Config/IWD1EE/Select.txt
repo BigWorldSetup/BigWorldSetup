@@ -249,6 +249,7 @@ STD;A7-GolemConstruction;50;09;0011;
 STD;A7-ChaosSorcerer;0;12;0111;
 ANN;#20 requires game patch 2.x
 ANN;STD;A7-ChaosSorcerer;20;12;0000;
+STD;A7-ChaosSorcerer;30;12;0111;
 STD;PaleMaster;0;12;0111;
 STD;PaleMaster;1;12;0111;
 ANN;FnP should be installed after all divine kits
