@@ -301,7 +301,6 @@ ANN;--- smaller BGEE NPCs ---
 CMD;IF EXIST "jklhel\Helarine_BGEE.Tp2" REN "jklhel\Helarine_BGEE.Tp2" "jklhel.tp2"
 STD;JklHel;0;06;0111;
 STD;margarita;0;06;0111;
-STD;k9SharteelNPC;0;06;0000;
 ANN;--- BGEE item tweaks ---
 MUC;msfm;Init;10;0000;
 MUC;msfm;0;10;0000;
@@ -369,6 +368,7 @@ STD;SirinesCall;1;03;0001;
 STD;AC_QUEST;0;03;0111;
 STD;thalan;0;10;1111;
 STD;XanBG1Friend;0;07;1111;
+STD;k9SharteelNPC;0;06;0000;
 SUB;bg1re;0;07;0111;
 SUB;bg1re;0?0_1;07;0000;
 SUB;bg1re;0?0_2;07;0000;
