@@ -2470,6 +2470,157 @@ STD;randomiser;9050;09;0000;
 MUC;randomiser;Init;09;0011;
 MUC;randomiser;10100;09;0000;
 MUC;randomiser;10200;09;0011;
+ANN;--- pre-biffing portrait packs ---
+MUC;thepicturestandard;Init;13;1111;
+ANN;Main -> Vanilla
+MUC;thepicturestandard;1000;13;1111;
+ANN;Main -> Lore Alternative
+MUC;thepicturestandard;1500;13;0000;
+MUC;thepicturestandard;Init;13;1111;
+ANN;Followers -> Vanilla
+MUC;thepicturestandard;2000;13;0000;
+ANN;Followers -> Variant A
+MUC;thepicturestandard;2300;13;0000;
+ANN;Followers -> Variant B
+MUC;thepicturestandard;2600;13;0000;
+MUC;thepicturestandard;Init;13;1111;
+ANN;BG1NPC -> Vanilla
+MUC;thepicturestandard;3000;13;1111;
+ANN;BG1NPC -> Lore Alternative
+MUC;thepicturestandard;3500;13;0000;
+MUC;thepicturestandard;Init;13;1111;
+ANN;Dark Horizons -> Vanilla
+MUC;thepicturestandard;4000;13;1111;
+ANN;Dark Horizons -> Lore Alternative
+MUC;thepicturestandard;4500;13;0000;
+MUC;thepicturestandard;Init;13;1111;
+ANN;Drizzt Saga -> Vanilla
+MUC;thepicturestandard;5000;13;1111;
+ANN;Drizzt Saga -> Lore Alternative
+MUC;thepicturestandard;5500;13;0000;
+MUC;thepicturestandard;Init;13;1111;
+ANN;Dark Side of the Sword Coast -> Vanilla
+MUC;thepicturestandard;6000;13;1111;
+ANN;Dark Side of the Sword Coast -> Lore Alternative
+MUC;thepicturestandard;6500;13;0000;
+MUC;thepicturestandard;Init;13;1111;
+ANN;Eilistraee's Song -> Vanilla
+MUC;thepicturestandard;7000;13;1111;
+ANN;Eilistraee's Song -> Lore Alternative
+MUC;thepicturestandard;7500;13;0000;
+MUC;thepicturestandard;Init;13;1111;
+ANN;Innershade -> Vanilla
+MUC;thepicturestandard;8000;13;1111;
+ANN;Innershade -> Lore Alternative
+MUC;thepicturestandard;8500;13;0000;
+MUC;thepicturestandard;Init;13;1111;
+ANN;I Shall Never Forget -> Vanilla
+MUC;thepicturestandard;9000;13;1111;
+ANN;I Shall Never Forget -> Lore Alternative
+MUC;thepicturestandard;9500;13;0000;
+MUC;thepicturestandard;Init;13;1111;
+ANN;Rogue Rebalancing -> Vanilla
+MUC;thepicturestandard;10000;13;1111;
+ANN;Rogue Rebalancing -> Lore Alternative
+MUC;thepicturestandard;10500;13;0000;
+MUC;thepicturestandard;Init;13;1111;
+ANN;Sellswords -> Vanilla
+MUC;thepicturestandard;11000;13;1111;
+ANN;Sellswords -> Lore Alternative
+MUC;thepicturestandard;11500;13;0000;
+MUC;thepicturestandard;Init;13;1111;
+ANN;Tales Of The Deep Gardens -> Vanilla
+MUC;thepicturestandard;12000;13;1111;
+ANN;Tales Of The Deep Gardens -> Lore Alternative
+MUC;thepicturestandard;12500;13;0000;
+MUC;thepicturestandard;Init;13;1111;
+ANN;T'was A Slow Boat -> Vanilla
+MUC;thepicturestandard;13000;13;1111;
+ANN;T'was A Slow Boat -> Lore Alternative
+MUC;thepicturestandard;13500;13;0000;
+MUC;thepicturestandard;Init;13;1111;
+ANN;Finch -> Vanilla
+MUC;thepicturestandard;14000;13;0000;
+ANN;Finch -> Alternative
+MUC;thepicturestandard;14500;13;0000;
+MUC;thepicturestandard;Init;13;1111;
+ANN;Gavin -> Vanilla
+MUC;thepicturestandard;15000;13;1111;
+ANN;Gavin -> Alternative
+MUC;thepicturestandard;15500;13;0000;
+ANN;Indira
+STD;thepicturestandard;16000;13;1111;
+ANN;Isra
+STD;thepicturestandard;17000;13;1111;
+ANN;Valerie
+STD;thepicturestandard;18000;13;1111;
+MUC;thepicturestandard;Init;13;1111;
+ANN;The White Queen -> Vanilla
+MUC;thepicturestandard;19000;13;1111;
+ANN;The White Queen -> Lore Alternative
+MUC;thepicturestandard;19500;13;0000;
+MUC;thepicturestandard;Init;13;1111;
+ANN;The Darkest Day -> Vanilla
+MUC;thepicturestandard;20000;13;1111;
+ANN;The Darkest Day -> Lore Alternative
+MUC;thepicturestandard;20500;13;0000;
+ANN;Tower of Deception
+STD;thepicturestandard;21000;13;1111;
+MUC;thepicturestandard;Init;13;1111;
+ANN;Siege of Dragonspear -> Vanilla
+MUC;thepicturestandard;22000;13;1111;
+ANN;Siege of Dragonspear -> Lore Alternative
+MUC;thepicturestandard;22500;13;0000;
+MUC;thepicturestandard;Init;13;1111;
+ANN;Tortured Souls -> Vanilla
+MUC;thepicturestandard;23000;13;1111;
+ANN;Tortured Souls -> Lore Alternative
+MUC;thepicturestandard;23500;13;0000;
+MUC;thepicturestandard;Init;13;0000;
+ANN;Standardized Edwin -> BG1 Edwin
+MUC;thepicturestandard;80000;13;0000;
+ANN;Standardized Edwin -> BG2 Edwin
+MUC;thepicturestandard;80300;13;0000;
+ANN;Standardized Edwin -> Variant A
+MUC;thepicturestandard;80600;13;0000;
+ANN;Standardized Edwin -> Variant B
+MUC;thepicturestandard;80900;13;0000;
+MUC;thepicturestandard;Init;13;0000;
+ANN;Standardized Imoen -> BG1 Imoen
+MUC;thepicturestandard;81000;13;0000;
+ANN;Standardized Imoen -> BG2 Imoen
+MUC;thepicturestandard;81100;13;0000;
+ANN;Standardized Imoen -> SoD Imoen
+MUC;thepicturestandard;81200;13;0000;
+ANN;Standardized Imoen -> Variant A
+MUC;thepicturestandard;81300;13;0000;
+ANN;Standardized Imoen -> Variant B
+MUC;thepicturestandard;81400;13;0000;
+ANN;Standardized Imoen -> Immersive Imoen Variant A+B
+MUC;thepicturestandard;81500;13;0000;
+MUC;thepicturestandard;Init;13;0000;
+ANN;Standardized Jaheira -> BG1 Jaheira
+MUC;thepicturestandard;82000;13;0000;
+ANN;Standardized Jaheira -> BG2 Jaheira
+MUC;thepicturestandard;82300;13;0000;
+ANN;Standardized Jaheira -> Variant
+MUC;thepicturestandard;82600;13;0000;
+MUC;thepicturestandard;Init;13;0000;
+ANN;Standardized Minsc -> BG1 Minsc
+MUC;thepicturestandard;83000;13;0000;
+ANN;Standardized Minsc -> BG2 Minsc
+MUC;thepicturestandard;83500;13;0000;
+MUC;thepicturestandard;Init;13;0000;
+ANN;Standardized Viconia -> BG1 Viconia
+MUC;thepicturestandard;84000;13;0000;
+ANN;Standardized Viconia -> BG2 Viconia
+MUC;thepicturestandard;84100;13;0000;
+ANN;Standardized Viconia -> SoD Viconia
+MUC;thepicturestandard;84200;13;0000;
+ANN;Standardized Viconia -> Variant A
+MUC;thepicturestandard;84300;13;0000;
+ANN;Standardized Viconia -> Variant B
+MUC;thepicturestandard;84400;13;0000;
 ANN;#10300 prevent WK statues disappearing
 STD;randomiser;10300;09;0111;
 MUC;xpmod;Init;09;0000;
@@ -2676,157 +2827,6 @@ ANN;trim leading and trailing spaces, remove duplicates
 CMD;Call ".\BiG World Installpack\trim_IDS.bat"
 ANN;correct some possibly corrupted IDS files
 CMD;Call ".\BiG World Installpack\trim_KitIDS.bat"
-ANN;--- pre-biffing portrait packs ---
-MUC;thepicturestandard;Init;13;1111;
-ANN;Main -> Vanilla
-MUC;thepicturestandard;1000;13;1111;
-ANN;Main -> Lore Alternative
-MUC;thepicturestandard;1500;13;0000;
-MUC;thepicturestandard;Init;13;1111;
-ANN;Followers -> Vanilla
-MUC;thepicturestandard;2000;13;0000;
-ANN;Followers -> Variant A
-MUC;thepicturestandard;2300;13;0000;
-ANN;Followers -> Variant B
-MUC;thepicturestandard;2600;13;0000;
-MUC;thepicturestandard;Init;13;1111;
-ANN;BG1NPC -> Vanilla
-MUC;thepicturestandard;3000;13;1111;
-ANN;BG1NPC -> Lore Alternative
-MUC;thepicturestandard;3500;13;0000;
-MUC;thepicturestandard;Init;13;1111;
-ANN;Dark Horizons -> Vanilla
-MUC;thepicturestandard;4000;13;1111;
-ANN;Dark Horizons -> Lore Alternative
-MUC;thepicturestandard;4500;13;0000;
-MUC;thepicturestandard;Init;13;1111;
-ANN;Drizzt Saga -> Vanilla
-MUC;thepicturestandard;5000;13;1111;
-ANN;Drizzt Saga -> Lore Alternative
-MUC;thepicturestandard;5500;13;0000;
-MUC;thepicturestandard;Init;13;1111;
-ANN;Dark Side of the Sword Coast -> Vanilla
-MUC;thepicturestandard;6000;13;1111;
-ANN;Dark Side of the Sword Coast -> Lore Alternative
-MUC;thepicturestandard;6500;13;0000;
-MUC;thepicturestandard;Init;13;1111;
-ANN;Eilistraee's Song -> Vanilla
-MUC;thepicturestandard;7000;13;1111;
-ANN;Eilistraee's Song -> Lore Alternative
-MUC;thepicturestandard;7500;13;0000;
-MUC;thepicturestandard;Init;13;1111;
-ANN;Innershade -> Vanilla
-MUC;thepicturestandard;8000;13;1111;
-ANN;Innershade -> Lore Alternative
-MUC;thepicturestandard;8500;13;0000;
-MUC;thepicturestandard;Init;13;1111;
-ANN;I Shall Never Forget -> Vanilla
-MUC;thepicturestandard;9000;13;1111;
-ANN;I Shall Never Forget -> Lore Alternative
-MUC;thepicturestandard;9500;13;0000;
-MUC;thepicturestandard;Init;13;1111;
-ANN;Rogue Rebalancing -> Vanilla
-MUC;thepicturestandard;10000;13;1111;
-ANN;Rogue Rebalancing -> Lore Alternative
-MUC;thepicturestandard;10500;13;0000;
-MUC;thepicturestandard;Init;13;1111;
-ANN;Sellswords -> Vanilla
-MUC;thepicturestandard;11000;13;1111;
-ANN;Sellswords -> Lore Alternative
-MUC;thepicturestandard;11500;13;0000;
-MUC;thepicturestandard;Init;13;1111;
-ANN;Tales Of The Deep Gardens -> Vanilla
-MUC;thepicturestandard;12000;13;1111;
-ANN;Tales Of The Deep Gardens -> Lore Alternative
-MUC;thepicturestandard;12500;13;0000;
-MUC;thepicturestandard;Init;13;1111;
-ANN;T'was A Slow Boat -> Vanilla
-MUC;thepicturestandard;13000;13;1111;
-ANN;T'was A Slow Boat -> Lore Alternative
-MUC;thepicturestandard;13500;13;0000;
-MUC;thepicturestandard;Init;13;1111;
-ANN;Finch -> Vanilla
-MUC;thepicturestandard;14000;13;0000;
-ANN;Finch -> Alternative
-MUC;thepicturestandard;14500;13;0000;
-MUC;thepicturestandard;Init;13;1111;
-ANN;Gavin -> Vanilla
-MUC;thepicturestandard;15000;13;1111;
-ANN;Gavin -> Alternative
-MUC;thepicturestandard;15500;13;0000;
-ANN;Indira
-STD;thepicturestandard;16000;13;1111;
-ANN;Isra
-STD;thepicturestandard;17000;13;1111;
-ANN;Valerie
-STD;thepicturestandard;18000;13;1111;
-MUC;thepicturestandard;Init;13;1111;
-ANN;The White Queen -> Vanilla
-MUC;thepicturestandard;19000;13;1111;
-ANN;The White Queen -> Lore Alternative
-MUC;thepicturestandard;19500;13;0000;
-MUC;thepicturestandard;Init;13;1111;
-ANN;The Darkest Day -> Vanilla
-MUC;thepicturestandard;20000;13;1111;
-ANN;The Darkest Day -> Lore Alternative
-MUC;thepicturestandard;20500;13;0000;
-ANN;Tower of Deception
-STD;thepicturestandard;21000;13;1111;
-MUC;thepicturestandard;Init;13;1111;
-ANN;Siege of Dragonspear -> Vanilla
-MUC;thepicturestandard;22000;13;1111;
-ANN;Siege of Dragonspear -> Lore Alternative
-MUC;thepicturestandard;22500;13;0000;
-MUC;thepicturestandard;Init;13;1111;
-ANN;Tortured Souls -> Vanilla
-MUC;thepicturestandard;23000;13;1111;
-ANN;Tortured Souls -> Lore Alternative
-MUC;thepicturestandard;23500;13;0000;
-MUC;thepicturestandard;Init;13;0000;
-ANN;Standardized Edwin -> BG1 Edwin
-MUC;thepicturestandard;80000;13;0000;
-ANN;Standardized Edwin -> BG2 Edwin
-MUC;thepicturestandard;80300;13;0000;
-ANN;Standardized Edwin -> Variant A
-MUC;thepicturestandard;80600;13;0000;
-ANN;Standardized Edwin -> Variant B
-MUC;thepicturestandard;80900;13;0000;
-MUC;thepicturestandard;Init;13;0000;
-ANN;Standardized Imoen -> BG1 Imoen
-MUC;thepicturestandard;81000;13;0000;
-ANN;Standardized Imoen -> BG2 Imoen
-MUC;thepicturestandard;81100;13;0000;
-ANN;Standardized Imoen -> SoD Imoen
-MUC;thepicturestandard;81200;13;0000;
-ANN;Standardized Imoen -> Variant A
-MUC;thepicturestandard;81300;13;0000;
-ANN;Standardized Imoen -> Variant B
-MUC;thepicturestandard;81400;13;0000;
-ANN;Standardized Imoen -> Immersive Imoen Variant A+B
-MUC;thepicturestandard;81500;13;0000;
-MUC;thepicturestandard;Init;13;0000;
-ANN;Standardized Jaheira -> BG1 Jaheira
-MUC;thepicturestandard;82000;13;0000;
-ANN;Standardized Jaheira -> BG2 Jaheira
-MUC;thepicturestandard;82300;13;0000;
-ANN;Standardized Jaheira -> Variant
-MUC;thepicturestandard;82600;13;0000;
-MUC;thepicturestandard;Init;13;0000;
-ANN;Standardized Minsc -> BG1 Minsc
-MUC;thepicturestandard;83000;13;0000;
-ANN;Standardized Minsc -> BG2 Minsc
-MUC;thepicturestandard;83500;13;0000;
-MUC;thepicturestandard;Init;13;0000;
-ANN;Standardized Viconia -> BG1 Viconia
-MUC;thepicturestandard;84000;13;0000;
-ANN;Standardized Viconia -> BG2 Viconia
-MUC;thepicturestandard;84100;13;0000;
-ANN;Standardized Viconia -> SoD Viconia
-MUC;thepicturestandard;84200;13;0000;
-ANN;Standardized Viconia -> Variant A
-MUC;thepicturestandard;84300;13;0000;
-ANN;Standardized Viconia -> Variant B
-MUC;thepicturestandard;84400;13;0000;
 STD;Isandir;0;13;0000;
 STD;Isandir;1;13;0000;
 STD;artaport;0;13;0000;
