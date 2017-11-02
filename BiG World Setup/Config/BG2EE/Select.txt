@@ -23,6 +23,7 @@ ANN;--- remove patches that are not needed because BWS uses different versions o
 CMD;IF EXIST "BiG World Fixpack\item_rev" rmdir /s /q "BiG World Fixpack\item_rev"
 CMD;IF EXIST "BiG World Fixpack\tdd" rmdir /s /q "BiG World Fixpack\tdd"
 CMD;IF EXIST "BiG World Fixpack\chloe" rmdir /s /q "BiG World Fixpack\chloe"
+CMD;IF EXIST "BiG World Fixpack\ToA" rmdir /s /q "BiG World Fixpack\ToA"
 CMD;IF EXIST "BiG World Fixpack\dsotsc" rmdir /s /q "BiG World Fixpack\dsotsc"
 CMD;IF EXIST "BiG World Fixpack\ntotsc" rmdir /s /q "BiG World Fixpack\ntotsc"
 CMD;IF EXIST "BiG World Fixpack\ntotscv171" rmdir /s /q "BiG World Fixpack\ntotscv171"
