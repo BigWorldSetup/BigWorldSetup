@@ -6,7 +6,7 @@
 
 ![gRmfnLY[1].png](https://bitbucket.org/repo/kKX5Xg/images/3720385461-gRmfnLY%5B1%5D.png)
 
-Download                 : https://bitbucket.org/BigWorldSetup/bigworldsetup/get/master.zip
+﻿**Download﻿**                 : https://bitbucket.org/BigWorldSetup/bigworldsetup/get/master.zip
 
 Instruction/FAQ          : https://forums.beamdog.com/discussion/comment/704157
 
@@ -23,6 +23,7 @@ Change History           : https://bitbucket.org/BigWorldSetup/bigworldsetup/com
 - easy mod installation for BGT and EET
 - correct install order of mods/components 
 - handle mod and components conflicts
+- apply community fixes from [Big World Fixpack](https://github.com/BiGWorldProject/BiG-World-Fixpack)
 - easy backup creation/restoring
 - ability to add you own mods
 
