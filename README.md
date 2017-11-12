@@ -46,7 +46,7 @@ Not maintained:
 
 ### Supported mods ###
 
-- Almost all of them! (use the Mod Request Template link above if there is a mod you want added)
+- Almost all of them! (use the Mod Request Template link above if you want your mod to be added)
 
 ### Getting started ###
 
