@@ -55,7 +55,6 @@ ANN;MUC;drizztsaga;1;02;0000;
 ANN;drizztsaga #2 (change XP cap) is pointless before EET
 STD;drizztsaga;3;02;0011;
 CMD;echo.>> Worldmap/map_mods_links.tbl;;;;D:drizztsaga(1)
-STD;BonehillEET;0;02;0000;
 ANN;--- BGEE quests ---
 STD;bgqe;0;03;1111;
 STD;bgqe;1;03;1111;
@@ -358,6 +357,7 @@ MUC;TGC1E;0;03;0111;
 MUC;TGC1E;1;03;0000;
 STD;Vaulteet;0;03;0111;
 STD;Vaulteet;1;03;0111;
+STD;BonehillEET;0;02;0000;
 DWN;TDD;0;02;0111;
 STD;TDDz;0;02;0111;
 STD;TDDz;1;02;0111;
