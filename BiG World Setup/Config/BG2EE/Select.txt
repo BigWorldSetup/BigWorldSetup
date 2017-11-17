@@ -1077,14 +1077,6 @@ ANN;Eternal Imoen after all mods that interact with Imoen in Irenicus Dungeon
 STD;EternalImoen;0;09;0111;
 STD;EternalImoen;1;09;0000;
 ANN;Talk Timing Adjustments
-MUC;rjali;Init;05;0111;
-MUC;rjali;0;05;0111;
-MUC;rjali;1;05;0000;
-MUC;rjali;2;05;0000;
-ANN;Rjali NPC and Rjali Romance
-STD;rjali;3;05;0111;
-ANN;Rjali's Equipment (cheat mode)
-STD;rjali;4;05;0000;
 MUC;DjinniCompanion;Init;05;0111;
 MUC;DjinniCompanion;0;05;0111;
 MUC;DjinniCompanion;1;05;0000;
