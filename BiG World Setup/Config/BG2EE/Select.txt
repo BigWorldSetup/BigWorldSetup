@@ -2818,6 +2818,11 @@ STD;Item_Patcher;112;01;1111;
 STD;Item_Patcher;113;01;1111;
 ANN;STD;Item_Patcher;114;01;1111;TDDsinTDD is not currently in BWS
 STD;Item_Patcher;115;01;1111;
+STD;Item_Patcher;116;01;1111;
+STD;Item_Patcher;117;01;1111;
+STD;Item_Patcher;118;01;1111;
+STD;Item_Patcher;119;01;1111;
+STD;Item_Patcher;120;01;1111;
 ANN;shouldn't these fixes be applied earlier?
 ANN;trim leading and trailing spaces, remove duplicates
 CMD;Call ".\BiG World Installpack\trim_IDS.bat"

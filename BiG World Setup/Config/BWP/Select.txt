@@ -4585,6 +4585,11 @@ STD;Item_Patcher;112;01;1111;
 STD;Item_Patcher;113;01;1111;
 ANN;STD;Item_Patcher;114;01;1111;TDDsinTDD is not currently in BWS
 STD;Item_Patcher;115;01;1111;
+STD;Item_Patcher;116;01;1111;
+STD;Item_Patcher;117;01;1111;
+STD;Item_Patcher;118;01;1111;
+STD;Item_Patcher;119;01;1111;
+STD;Item_Patcher;120;01;1111;
 CMD;IF EXIST ".\override\ESX01.wav" move ".\override\ESX01.wav" ".\BWP_workspace\override"
 CMD;IF EXIST ".\override\ISHXAR1.wav" move ".\override\ISHXAR1.wav" ".\BWP_workspace\override"
 CMD;IF EXIST ".\override\ISHXAR6.wav" move ".\override\ISHXAR6.wav" ".\BWP_workspace\override"
