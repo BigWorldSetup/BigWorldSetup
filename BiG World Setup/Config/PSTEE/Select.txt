@@ -141,6 +141,13 @@ MUC;cdtweaks;3274;09;0000;
 MUC;cdtweaks;3275;09;0000;
 MUC;cdtweaks;3276;09;0000;
 MUC;cdtweaks;3277;09;0000;
+MUC;cdtweaks;Init;09;1111;
+MUC;cdtweaks;3290;09;0000;
+MUC;cdtweaks;3291;09;0000;
+MUC;cdtweaks;3292;09;0000;
+MUC;cdtweaks;3293;09;1111;
+MUC;cdtweaks;3294;09;0000;
+MUC;cdtweaks;3295;09;0000;
 ANN;--- generalized biffing: needed to work around a game bug ---
 SUB;generalized_biffing;0;00;1111;
 SUB;generalized_biffing;0?1_0;00;0000;
