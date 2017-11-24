@@ -46,7 +46,6 @@ ANN;STD;BGEE_PL;1;0;1111;
 ANN;DWN;BGEE-Polish;0;00;1111;
 STD;bgeetextpack;0;01;1111;
 STD;bgeetextpack;1;01;1111;
-STD;EETBPFix;0;01;1111;
 ANN;--- "BG1EE big mods" ---
 STD;DarkHorizonsBGee;0;02;0011;
 MUC;drizztsaga;Init;02;0011;
@@ -333,6 +332,7 @@ MUC;bggoEET;Init;13;0001;
 MUC;bggoEET;0;13;0001;
 MUC;bggoEET;1;13;0000;
 STD;DruidGroveMakeover;0;13;0111;
+STD;EETBPFix;0;01;1111;
 ANN;--- BG1EE Mods compatible with EET that must be installed after EET ---
 MUC;BG_Travel;Init;09;0000;
 MUC;BG_Travel;66;09;0000;
