@@ -1,3 +1,8 @@
+**Issue reporting is closed**
+Since there is no active BWS code maintainer, there is no point reporting issues because there is no one who can fix them.  
+Community support: https://forums.beamdog.com/discussion/44476/tool-big-world-setup-bws-mod-manager-for-baldurs-gate-enhanced-edition-trilogy-for-windows/p1  
+Mod requests: http://www.shsforums.net/topic/58006-big-world-setup-mod-request-template/  
+
 **Big World Setup (BWS) : Mod Manager for Infinity Engine Games and Baldur's Gate/Enhanced Edition Trilogy by dabus**
 
 ! Don't use BitBucket's web-interface to edit files because it doesn't save non-ANSI characters properly
