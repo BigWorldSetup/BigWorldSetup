@@ -1,4 +1,4 @@
-**Issue reporting is closed**  
+**Issue reporting is closed:**  
 Since there is no active BWS code maintainer, there is no point reporting issues because there is no one who can fix them.  
 Community support: http://www.shsforums.net/topic/56670-big-world-setup-an-attempt-to-update-the-program/  
 Community support: https://forums.beamdog.com/discussion/44476/tool-big-world-setup-bws-mod-manager-for-baldurs-gate-enhanced-edition-trilogy-for-windows/p1  
