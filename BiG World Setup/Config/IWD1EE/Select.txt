@@ -356,8 +356,6 @@ MUC;cdtweaks;195;09;0000;
 STD;cdtweaks;200;09;0000;
 STD;cdtweaks;1010;09;1111;
 STD;cdtweaks;1070;09;1111;
-STD;cdtweaks;1100;09;0000;
-STD;cdtweaks;1101;09;1111;
 STD;cdtweaks;1120;09;1111;
 MUC;cdtweaks;Init;09;0011;
 MUC;cdtweaks;1140;09;0011;
@@ -623,9 +621,6 @@ SUB;eet_tweaks;11?2_50;09;0000;
 ANN;-- no hostile charm reaction --
 STD;eet_tweaks;20;09;1111;
 STD;eet_tweaks;30;09;0111;
-SUB;generalized_biffing;0;00;1111;
-SUB;generalized_biffing;0?1_0;00;0000;
-SUB;generalized_biffing;0?1_1;00;1111;
 ANN;--- optional fixes ---
 STD;apr_fix;0;01;0111;
 ANN;--- portraits ---
