@@ -22,6 +22,7 @@ CMD;IF EXIST "BiG World Fixpack" xcopy /Y /S /E ".\BiG World Fixpack\_Item_Patch
 ANN;--- remove patches that are not needed because BWS uses different versions of the mods for EE ---
 CMD;IF EXIST "BiG World Fixpack\item_rev" rmdir /s /q "BiG World Fixpack\item_rev"
 CMD;IF EXIST "BiG World Fixpack\tdd" rmdir /s /q "BiG World Fixpack\tdd"
+CMD;IF EXIST "BiG World Fixpack\RoTerror" rmdir /s /q "BiG World Fixpack\RoTerror"
 CMD;IF EXIST "BiG World Fixpack\chloe" rmdir /s /q "BiG World Fixpack\chloe"
 CMD;IF EXIST "BiG World Fixpack\ToA" rmdir /s /q "BiG World Fixpack\ToA"
 CMD;IF EXIST "BiG World Fixpack\dsotsc" rmdir /s /q "BiG World Fixpack\dsotsc"
