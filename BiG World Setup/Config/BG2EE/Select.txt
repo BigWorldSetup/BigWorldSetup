@@ -2751,6 +2751,7 @@ STD;EET_Tweaks;4070;09;0000;
 MUC;EET_Tweaks;Init;09;0000;
 MUC;EET_Tweaks;4080;09;0000;
 MUC;EET_Tweaks;4081;09;0000;
+STD;CorwinEET;0;07;0000;
 ANN;--- Sandrah Saga ---
 ANN; Sandrah after scales_of_balance;122
 ANN; Sandrah after SCS 1000, 4110, 4120, 4190
