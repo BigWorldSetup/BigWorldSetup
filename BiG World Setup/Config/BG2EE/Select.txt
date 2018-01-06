@@ -216,9 +216,9 @@ MUC;sirene;4;05;0000;
 MUC;sirene;5;05;0000;
 ANN;sirene 7 = alternate portrait
 STD;sirene;7;05;0000;
-STD;verrsza;0;05;0111;
-STD;verrsza;1;05;0111;
-STD;verrsza;2;05;0111;
+STD;verrsza;0;05;0000;
+STD;verrsza;1;05;0000;
+STD;verrsza;2;05;0000;
 ANN;sirene 8-9 = crossmod (after white/verrsza)
 STD;sirene;8;05;0111;
 STD;sirene;9;05;0111;
