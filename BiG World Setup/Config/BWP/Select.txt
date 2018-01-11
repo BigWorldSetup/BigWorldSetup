@@ -66,6 +66,7 @@ ANN;Remove outdated v3 fixes as we are now using IR v4 and SR v4
 CMD;IF EXIST "BiG World Fixpack\item_rev" rmdir /s /q "BiG World Fixpack\item_rev"
 ANN;Set up workspace
 CMD;IF NOT EXIST ".\BWP_workspace\override" MD ".\BWP_workspace\override"
+CMD;IF NOT EXIST ".\BiG World Installpack\Big World Smoothpack" MD ".\BiG World Installpack\Big World Smoothpack"
 CMD;IF EXIST tisunpack.exe copy tisunpack.exe ".\BWP_workspace\override"
 ANN;Run the Fixpack (now includes Trimpack changes), Textpack and Smoothpack batch scripts
 ANN;CMD;IF EXIST "BiG World Trimpack" IF NOT EXIST BWP_Trimpack.installed Call "BiG World Trimpack.bat"
