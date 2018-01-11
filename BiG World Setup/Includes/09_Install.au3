@@ -1385,8 +1385,10 @@ Func _Install_ReadDebug($p_Setup)
 	Local $Return[100][3]
 	$Return[0][1]=95
 	If Not FileExists($g_GameDir&'\Setup-'&$p_Setup&'.debug') Then
-		Local $Return[2][3]=[[1, 'Log not found'],[0]]
-		Return SetError(1, '', $Return)
+		If Not FileExists($g_GameDir&'\debugs\Setup-'&$p_Setup&'.debug') Then
+			Local $Return[2][3]=[[1, 'Log not found'],[0]]
+			Return SetError(1, '', $Return)
+		EndIf
 	EndIf
 	$Array = StringSplit(StringStripCR(FileRead($g_GameDir & '\Setup-'&$p_Setup&'.debug')), @LF)
 	For $a = 1 To $Array[0]; collect messages to fetch skipping & warnings/errors
