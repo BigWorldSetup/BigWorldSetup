@@ -50,12 +50,12 @@ STD;bgeetextpack;0;01;1111;
 STD;bgeetextpack;1;01;1111;
 ANN;--- "BG1EE big mods" ---
 STD;DarkHorizonsBGee;0;02;0011;
-MUC;drizztsaga;Init;02;0011;
-MUC;drizztsaga;0;02;0011;
+MUC;drizztsaga;Init;02;0111;
+MUC;drizztsaga;0;02;0111;
 ANN;drizztsaga #1 (BP-BGT-Worldmap variant) is not EET compatible, and is a BG1 mod, so we disable it
 ANN;MUC;drizztsaga;1;02;0000;
 ANN;drizztsaga #2 (change XP cap) is pointless before EET
-STD;drizztsaga;3;02;0011;
+STD;drizztsaga;3;02;0111;
 CMD;echo.>> Worldmap/map_mods_links.tbl;;;;D:drizztsaga(1)
 ANN;--- BGEE quests ---
 STD;bgqe;0;03;1111;
@@ -75,13 +75,13 @@ ANN;soa #1 (BP-BGT-Worldmap variant) is not EET compatible, but is a BG1 mod, so
 ANN;MUC;soa;1;03;0000;
 ANN;Wedge's BGT Adventure Pack (wbgtap) Expert due to crashes - http://gibberlings3.net/forums/index.php?showtopic=27741&p=248203
 STD;wbgtap;1;03;0001;
-STD;karatur;0;03;0011;
+STD;karatur;0;03;0000;
 ANN;--- BGEE stores and items ---
-STD;bg1aerie;0;10;0111;
+STD;bg1aerie;0;10;0000;
 STD;BGeeAR;0;10;0111;
 STD;BGeeW;0;10;0111;
 STD;Animus;0;10;0111;
-STD;ConvinientAmmunition;0;10;1111;
+STD;ConvinientAmmunition;0;10;0000;
 STD;wmart;0;10;0111;
 ANN;--- BGEE NPCs ---
 STD;bg1npc;0;07;1111;
@@ -167,7 +167,7 @@ MUC;BG1NPCMusic;4;07;0000;
 MUC;BG1NPCMusic;5;07;0000;
 STD;IndiNPC;0;05;0111;
 STD;Mur'Neth;0;05;0111;
-STD;MulgoreXaviaNPC;0;05;0111;
+STD;MulgoreXaviaNPC;0;05;0000;
 STD;coranbgfriend;0;07;1111;
 ANN;AjantisBG1 after bg1npc
 STD;AjantisBG1;0;07;1111;
@@ -237,7 +237,7 @@ MUC;neera;5;07;0000;
 STD;neera;6;07;1111;
 ANN;"warning - dialogue may seem strange" -> 0000
 STD;neera;7;07;0000;
-STD;neerabanters;10;07;0111;
+STD;neerabanters;10;07;1111;
 STD;neerabanters;20;07;0000;
 STD;neerabanters;30;07;0000;
 SUB;garrick_flirt;0;07;0111;
@@ -248,12 +248,12 @@ SUB;garrick_flirt;0?1_4;07;0000;
 SUB;garrick_flirt;0?1_5;07;0000;
 STD;garrick-tt;0;07;0111;
 STD;TenyaThermidor;0;05;0111;
-STD;Vynd;0;05;0111;
+STD;Vynd;0;05;0000;
 STD;Drake;0;05;0000;
 ANN;--- saradas overwrites bcs files ---
 STD;saradas_magic;0;05;0000;
 ANN;--- misc tweaks ---
-MUC;A7-BanterAccelerator;Init;09;0111;
+MUC;A7-BanterAccelerator;Init;09;0000;
 MUC;A7-BanterAccelerator;10;09;0000;
 MUC;A7-BanterAccelerator;11;09;0000;
 MUC;A7-BanterAccelerator;12;09;0000;
@@ -291,20 +291,20 @@ STD;bg1ub;32;03;1111;
 STD;bg1ub;33;03;1111;
 ANN;--- kits in BGEE ---
 GRP;Start
-STD;kittomes;0;12;0111;
-MUC;kittomes;Init;12;0111;
+STD;kittomes;0;12;0000;
+MUC;kittomes;Init;12;0000;
 MUC;kittomes;1;12;0000;
 MUC;kittomes;2;12;0000;
 MUC;kittomes;3;12;0000;
-MUC;kittomes;4;12;0111;
-MUC;kittomes;Init;12;0111;
-MUC;kittomes;5;12;0111;
+MUC;kittomes;4;12;0000;
+MUC;kittomes;Init;12;0000;
+MUC;kittomes;5;12;0000;
 MUC;kittomes;6;12;0000;
 GRP;Stop
 ANN;--- smaller BGEE NPCs ---
 CMD;IF EXIST "jklhel\Helarine_BGEE.Tp2" REN "jklhel\Helarine_BGEE.Tp2" "jklhel.tp2"
-STD;JklHel;0;06;0111;
-STD;margarita;0;06;0111;
+STD;JklHel;0;06;0000;
+STD;margarita;0;06;0000;
 ANN;--- BGEE item tweaks ---
 MUC;msfm;Init;10;0000;
 MUC;msfm;0;10;0000;
@@ -360,7 +360,7 @@ MUC;TGC1E;0;03;0111;
 MUC;TGC1E;1;03;0000;
 STD;Vaulteet;0;03;0111;
 STD;Vaulteet;1;03;0111;
-STD;BonehillEET;0;02;0000;
+STD;BonehillEET;0;02;0111;
 DWN;TDD;0;02;0111;
 STD;TDDz;0;02;0111;
 STD;TDDz;1;02;0111;
@@ -372,7 +372,7 @@ STD;TDDz;6;02;0111;
 STD;SirinesCall;0;03;1111;
 STD;SirinesCall;1;03;0001;
 STD;AC_QUEST;0;03;0111;
-STD;thalan;0;10;1111;
+STD;thalan;0;10;0000;
 STD;XanBG1Friend;0;07;1111;
 STD;k9SharteelNPC;0;06;0000;
 SUB;bg1re;0;07;0111;
@@ -469,7 +469,7 @@ MUC;7c#sartweak;250;07;0100;
 ANN;#251 with EET and Ascension
 MUC;7c#sartweak;251;07;0011;
 ANN;--- BG2EE quests ---
-STD;c#sb_silber;0;04;1111;
+STD;c#sb_silber;0;04;0111;
 STD;TOD;0;03;1111;
 STD;TOD;1;03;0011;
 STD;TOD;2;03;0011;
@@ -478,16 +478,16 @@ STD;Assassinations;0;03;0000;
 STD;EETGBThfKp;0;03;0111;
 STD;EETGBThfKp;1;03;0000;
 STD;EETGBThfKp;2;03;0000;
-STD;BackBrynnlaw;0;03;1111;
-STD;Sellswords;0;03;1111;
-STD;Reunion;0;03;0111;
-STD;TotDG;0;03;0111;
-STD;TotDG;1;03;0111;
-STD;Innershade;0;03;0111;
-STD;Innershade;2;03;0111;
-STD;WhiteQueen;0;03;0111;
-STD;isnf;0;03;0111;
-STD;Eilistraee;0;03;1111;
+STD;BackBrynnlaw;0;03;0111;
+STD;Sellswords;0;03;0111;
+STD;Reunion;0;03;0000;
+STD;TotDG;0;03;0000;
+STD;TotDG;1;03;0000;
+STD;Innershade;0;03;0000;
+STD;Innershade;2;03;0000;
+STD;WhiteQueen;0;03;0000;
+STD;isnf;0;03;0000;
+STD;Eilistraee;0;03;0000;
 STD;FishingForTrouble;0;03;0111;
 STD;FishingForTrouble;1;03;0111;
 ANN;--- BG2EE tactical encounters ---
@@ -506,7 +506,7 @@ STD;PlanarSphereMod;1;08;0001;
 STD;PlanarSphereMod;2;08;0001;
 STD;PlanarSphereMod;3;08;0001;
 ANN;--- BG2EE stores and items ---
-STD;magestronghold_eet;0;03;1111;
+STD;magestronghold_eet;0;03;0111;
 STD;BoM;0;10;0111;
 STD;FR_ROV;0;10;0111;
 MUC;itemupgrade;Init;10;0000;
@@ -547,26 +547,26 @@ STD;msfm;21;10;0000;
 STD;msfm;22;10;0000;
 STD;msfm;23;10;0000;
 ANN;#9 changes Staff of the Magi
-SUB;StuffofTheMagi;0;10;0111;
-SUB;StuffofTheMagi;0?1_1;10;0111;
+SUB;StuffofTheMagi;0;10;0011;
+SUB;StuffofTheMagi;0?1_1;10;0011;
 SUB;StuffofTheMagi;0?1_2;10;0000;
 SUB;StuffofTheMagi;0?2_1;10;0011;
-SUB;StuffofTheMagi;0?2_2;10;0100;
+SUB;StuffofTheMagi;0?2_2;10;0000;
 ANN;--- BG2EE NPCs ---
 STD;Amber_eet;0;05;0000;
 STD;Amber_eet;1;05;0000;
 ANN;--- BG2EE stores and items ---
 ANN:---WandCase now part of EETweaks---
 ANN;--- BG2EE NPCs ---
-SUB;ajantisbg2;0;05;0111;
+SUB;ajantisbg2;0;05;0000;
 SUB;ajantisbg2;0?1_1;05;0000;
-SUB;ajantisbg2;0?1_2;05;0111;
-SUB;ajantisbg2;0?2_1;05;0111;
+SUB;ajantisbg2;0?1_2;05;0000;
+SUB;ajantisbg2;0?2_1;05;0000;
 SUB;ajantisbg2;0?2_2;05;0000;
 SUB;ajantisbg2;0?2_3;05;0000;
 SUB;ajantisbg2;0?2_4;05;0000;
 SUB;ajantisbg2;0?2_5;05;0000;
-SUB;ajantisbg2;0?3_1;05;0111;
+SUB;ajantisbg2;0?3_1;05;0000;
 SUB;ajantisbg2;0?3_2;05;0000;
 ANN;ajantisportraitpack moved down
 STD;Kivan;100;05;1111;
@@ -605,34 +605,34 @@ MUC;gavin_bg2;6;05;0000;
 MUC;gavin_bg2;7;05;0000;
 MUC;gavin_bg2;8;05;0000;
 MUC;gavin_bg2;9;05;0000;
-STD;Yasraena;0;05;0111;
-STD;alora;0;05;1111;
-STD;AurenAseph;0;05;1111;
-STD;Tiax;0;05;1111;
-STD;sarahtob;0;05;1111;
-STD;Angelo;0;05;1111;
-STD;Vampiretales;0;05;0111;
+STD;Yasraena;0;05;0000;
+STD;alora;0;05;0000;
+STD;AurenAseph;0;05;0000;
+STD;Tiax;0;05;0000;
+STD;sarahtob;0;05;0000;
+STD;Angelo;0;05;0000;
+STD;Vampiretales;0;05;0000;
 ANN;#1,2,3 are revival of Chosen of Mystra mod "Dark Rituals"
 ANN;#1,2 -> tactical encounters
-STD;Vampiretales;1;08;0011;
-STD;Vampiretales;2;08;0011;
+STD;Vampiretales;1;08;0000;
+STD;Vampiretales;2;08;0000;
 ANN;#3 -> stores and items
-STD;Vampiretales;3;10;0111;
+STD;Vampiretales;3;10;0000;
 STD;ninde;0;05;0111;
 STD;ninde_eet;0;05;0111;
 STD;xulaye;0;05;0111;
 STD;xulaye;1;05;0111;
 STD;xulaye;2;05;0111;
-STD;haldamir;0;05;1111;
+STD;haldamir;0;05;0000;
 STD;xulaye_eet;0;05;0111;
 ANN;STD;AVIM;0;05;0111;
-STD;Saerileth;0;05;0111;
+STD;Saerileth;0;05;0000;
 STD;Skie;0;05;0000;
 STD;TyrisFlare;0;05;0111;
-SUB;Yvette;0;05;0111;
-SUB;Yvette;0?1_1;05;0111;
+SUB;Yvette;0;05;0000;
+SUB;Yvette;0?1_1;05;0000;
 SUB;Yvette;0?1_2;05;0000;
-STD;adrian;0;05;0111;
+STD;adrian;0;05;0000;
 MUC;adrian;Init;05;0000;
 MUC;adrian;1;05;0000;
 MUC;adrian;2;05;0000;
@@ -735,10 +735,10 @@ SUB;aranw;10?1_13;13;0000;
 SUB;aranw;10?1_14;13;0000;
 STD;c#solaufein;0;05;0111;
 STD;Isra_bg2;0;05;1111;
-STD;TheUndying;0;05;0111;
-STD;TheUndying;1;05;0001;
-SUB;foundling;0;05;0111;
-SUB;foundling;0?1_1;05;0111;
+STD;TheUndying;0;05;0000;
+STD;TheUndying;1;05;0000;
+SUB;foundling;0;05;0000;
+SUB;foundling;0?1_1;05;0000;
 SUB;foundling;0?1_2;05;0000;
 STD;saradas_magic_2;0;05;0000;
 STD;deArnise;0;07;1111;
@@ -755,9 +755,9 @@ STD;iepbanters;3;07;1111;
 STD;iepbanters;4;07;1111;
 STD;iepbanters;5;07;1111;
 STD;viconia;0;07;0111;
-STD;mazzy;0;07;0111;
-STD;yoshimo;0;07;0111;
-STD;7C-Yoshi;0;07;0111;
+STD;mazzy;0;07;0000;
+STD;yoshimo;0;07;0000;
+STD;7C-Yoshi;0;07;0000;
 STD;YoshimoRomance;0;07;0000;
 MUC;YoshimoRomance;Init;07;0000;
 MUC;YoshimoRomance;1;07;0000;
@@ -802,8 +802,8 @@ STD;SkipChateauIrenicus;0;09;0000;
 MUC;SkipChateauIrenicus;Init;09;0000;
 MUC;SkipChateauIrenicus;101;09;0000;
 MUC;SkipChateauIrenicus;102;09;0000;
-STD;Teleport;0;09;0001;
-STD;Teleport;1;09;0001;
+STD;Teleport;0;09;0000;
+STD;Teleport;1;09;0000;
 ANN;mod is not maintained properly, thus expert
 STD;arestorationp;0;09;0001;
 STD;arestorationp;1;09;0001;
@@ -1078,7 +1078,7 @@ SUB;ACBre;0?2_2;05;0000;
 ANN;#2 crossmod needs other NPCs installed first
 STD;ACBre;2;05;0111;
 ANN;Eternal Imoen after all mods that interact with Imoen in Irenicus Dungeon
-STD;EternalImoen;0;09;0111;
+STD;EternalImoen;0;09;0000;
 STD;EternalImoen;1;09;0000;
 ANN;Talk Timing Adjustments
 MUC;DjinniCompanion;Init;05;0111;
@@ -1093,7 +1093,7 @@ MUC;DjinniCompanion;105;05;0000;
 STD;DjinniCompanion;200;05;0000;
 STD;DjinniCompanion;300;05;0111;
 STD;iylos_eet;0;05;0000;
-STD;WilsonChronicles;0;07;0111;
+STD;WilsonChronicles;0;07;0000;
 ANN;Crossmod after ALL NPCs
 STD;CrossmodBG2;0;07;0111;
 STD;CrossmodBG2;1;07;0111;
@@ -1144,10 +1144,10 @@ STD;IHateUndead;7;12;0000;
 STD;IHateUndead;8;12;0000;
 STD;ArcaneArcher;0;12;0000;
 ANN;EE: Item Expansion
-ANN;STD;eldritch_magic;0;10;0111;
+ANN;STD;eldritch_magic;0;10;0000;
 ANN;Congenio's Pebble Collection (Ioun stone tweaks)
-ANN;STD;eldritch_magic;10;09;0111;
-ANN;MUC;eldritch_magic;Init;09;0001;
+ANN;STD;eldritch_magic;10;09;0000;
+ANN;MUC;eldritch_magic;Init;09;0000;
 ANN;XP Cap Removal -> Remove XP Cap (no limit)
 ANN;MUC;eldritch_magic;20;09;0000;
 ANN;XP Cap Removal -> Remove XP Cap (BGEE:SoD up to HLAs - not included)
@@ -1162,25 +1162,25 @@ ANN;MUC;eldritch_magic;51;09;0000;
 ANN;Remove Dual & Multi Class Restrictions -> Dualclass Demihumans
 ANN;MUC;eldritch_magic;52;09;0000;
 ANN;Abyssal Warrior Kit
-ANN;STD;eldritch_magic;100;12;0111;
+ANN;STD;eldritch_magic;100;12;0000;
 ANN;Bladesinger Kit
-ANN;STD;eldritch_magic;200;12;0111;
+ANN;STD;eldritch_magic;200;12;0000;
 ANN;Eldritch Knight Kit
-ANN;STD;eldritch_magic;400;12;0111;
+ANN;STD;eldritch_magic;400;12;0000;
 ANN;Herbalist Kit
-ANN;STD;eldritch_magic;600;12;0111;
+ANN;STD;eldritch_magic;600;12;0000;
 ANN;Priest of Mystra Kit
-ANN;STD;eldritch_magic;900;12;0111;
+ANN;STD;eldritch_magic;900;12;0000;
 ANN;Priestess of Lolth Kit
-ANN;STD;eldritch_magic;1000;12;0111;
+ANN;STD;eldritch_magic;1000;12;0000;
 ANN;Undead Hunter Kit (Paladin kit for Elves)
-ANN;STD;eldritch_magic;1200;12;0111;
+ANN;STD;eldritch_magic;1200;12;0000;
 ANN;War Wizard Kit
-ANN;STD;eldritch_magic;1300;12;0111;
+ANN;STD;eldritch_magic;1300;12;0000;
 ANN;Wilderness Runner Kit
-ANN;STD;eldritch_magic;1400;12;0111;
+ANN;STD;eldritch_magic;1400;12;0000;
 ANN;Windrider Kit
-ANN;STD;eldritch_magic;1500;12;0111;
+ANN;STD;eldritch_magic;1500;12;0000;
 ANN;--- test install for k9RoughWorld tweaks ---
 STD;k9RoughWorld;0;09;0001;
 STD;k9RoughWorld;1;09;0001;
@@ -1781,9 +1781,9 @@ STD;Derats_kits;6;12;0111;
 STD;Derats_kits;7;12;0000;
 STD;Derats_kits;8;12;0000;
 STD;BearWalker;0;12;0111;
-STD;jkits;0;12;0111;
-STD;jkits;1;12;0111;
-STD;jkits;2;12;0111;
+STD;jkits;0;12;0000;
+STD;jkits;1;12;0000;
+STD;jkits;2;12;0000;
 STD;A7#ImprovedArcher;0;12;0111;
 STD;A7#ImprovedArcher;100;10;0111;
 STD;A7#ImprovedShamanicDance;0;12;0111;
@@ -2481,109 +2481,109 @@ MUC;randomiser;Init;09;0011;
 MUC;randomiser;10100;09;0000;
 MUC;randomiser;10200;09;0011;
 ANN;--- pre-biffing portrait packs ---
-MUC;thepicturestandard;Init;13;1111;
+MUC;thepicturestandard;Init;13;0000;
 ANN;Main -> Vanilla
-MUC;thepicturestandard;1000;13;1111;
+MUC;thepicturestandard;1000;13;0000;
 ANN;Main -> Lore Alternative
 MUC;thepicturestandard;1500;13;0000;
-MUC;thepicturestandard;Init;13;1111;
+MUC;thepicturestandard;Init;13;0000;
 ANN;Followers -> Vanilla
 MUC;thepicturestandard;2000;13;0000;
 ANN;Followers -> Variant A
 MUC;thepicturestandard;2300;13;0000;
 ANN;Followers -> Variant B
 MUC;thepicturestandard;2600;13;0000;
-MUC;thepicturestandard;Init;13;1111;
+MUC;thepicturestandard;Init;13;0000;
 ANN;BG1NPC -> Vanilla
-MUC;thepicturestandard;3000;13;1111;
+MUC;thepicturestandard;3000;13;0000;
 ANN;BG1NPC -> Lore Alternative
 MUC;thepicturestandard;3500;13;0000;
-MUC;thepicturestandard;Init;13;1111;
+MUC;thepicturestandard;Init;13;0000;
 ANN;Dark Horizons -> Vanilla
-MUC;thepicturestandard;4000;13;1111;
+MUC;thepicturestandard;4000;13;0000;
 ANN;Dark Horizons -> Lore Alternative
 MUC;thepicturestandard;4500;13;0000;
-MUC;thepicturestandard;Init;13;1111;
+MUC;thepicturestandard;Init;13;0000;
 ANN;Drizzt Saga -> Vanilla
-MUC;thepicturestandard;5000;13;1111;
+MUC;thepicturestandard;5000;13;0000;
 ANN;Drizzt Saga -> Lore Alternative
 MUC;thepicturestandard;5500;13;0000;
-MUC;thepicturestandard;Init;13;1111;
+MUC;thepicturestandard;Init;13;0000;
 ANN;Dark Side of the Sword Coast -> Vanilla
-MUC;thepicturestandard;6000;13;1111;
+MUC;thepicturestandard;6000;13;0000;
 ANN;Dark Side of the Sword Coast -> Lore Alternative
 MUC;thepicturestandard;6500;13;0000;
-MUC;thepicturestandard;Init;13;1111;
+MUC;thepicturestandard;Init;13;0000;
 ANN;Eilistraee's Song -> Vanilla
-MUC;thepicturestandard;7000;13;1111;
+MUC;thepicturestandard;7000;13;0000;
 ANN;Eilistraee's Song -> Lore Alternative
 MUC;thepicturestandard;7500;13;0000;
-MUC;thepicturestandard;Init;13;1111;
+MUC;thepicturestandard;Init;13;0000;
 ANN;Innershade -> Vanilla
-MUC;thepicturestandard;8000;13;1111;
+MUC;thepicturestandard;8000;13;0000;
 ANN;Innershade -> Lore Alternative
 MUC;thepicturestandard;8500;13;0000;
-MUC;thepicturestandard;Init;13;1111;
+MUC;thepicturestandard;Init;13;0000;
 ANN;I Shall Never Forget -> Vanilla
-MUC;thepicturestandard;9000;13;1111;
+MUC;thepicturestandard;9000;13;0000;
 ANN;I Shall Never Forget -> Lore Alternative
 MUC;thepicturestandard;9500;13;0000;
-MUC;thepicturestandard;Init;13;1111;
+MUC;thepicturestandard;Init;13;0000;
 ANN;Rogue Rebalancing -> Vanilla
-MUC;thepicturestandard;10000;13;1111;
+MUC;thepicturestandard;10000;13;0000;
 ANN;Rogue Rebalancing -> Lore Alternative
 MUC;thepicturestandard;10500;13;0000;
-MUC;thepicturestandard;Init;13;1111;
+MUC;thepicturestandard;Init;13;0000;
 ANN;Sellswords -> Vanilla
-MUC;thepicturestandard;11000;13;1111;
+MUC;thepicturestandard;11000;13;0000;
 ANN;Sellswords -> Lore Alternative
 MUC;thepicturestandard;11500;13;0000;
-MUC;thepicturestandard;Init;13;1111;
+MUC;thepicturestandard;Init;13;0000;
 ANN;Tales Of The Deep Gardens -> Vanilla
-MUC;thepicturestandard;12000;13;1111;
+MUC;thepicturestandard;12000;13;0000;
 ANN;Tales Of The Deep Gardens -> Lore Alternative
 MUC;thepicturestandard;12500;13;0000;
-MUC;thepicturestandard;Init;13;1111;
+MUC;thepicturestandard;Init;13;0000;
 ANN;T'was A Slow Boat -> Vanilla
-MUC;thepicturestandard;13000;13;1111;
+MUC;thepicturestandard;13000;13;0000;
 ANN;T'was A Slow Boat -> Lore Alternative
 MUC;thepicturestandard;13500;13;0000;
-MUC;thepicturestandard;Init;13;1111;
+MUC;thepicturestandard;Init;13;0000;
 ANN;Finch -> Vanilla
 MUC;thepicturestandard;14000;13;0000;
 ANN;Finch -> Alternative
 MUC;thepicturestandard;14500;13;0000;
-MUC;thepicturestandard;Init;13;1111;
+MUC;thepicturestandard;Init;13;0000;
 ANN;Gavin -> Vanilla
-MUC;thepicturestandard;15000;13;1111;
+MUC;thepicturestandard;15000;13;0000;
 ANN;Gavin -> Alternative
 MUC;thepicturestandard;15500;13;0000;
 ANN;Indira
-STD;thepicturestandard;16000;13;1111;
+STD;thepicturestandard;16000;13;0000;
 ANN;Isra
-STD;thepicturestandard;17000;13;1111;
+STD;thepicturestandard;17000;13;0000;
 ANN;Valerie
-STD;thepicturestandard;18000;13;1111;
-MUC;thepicturestandard;Init;13;1111;
+STD;thepicturestandard;18000;13;0000;
+MUC;thepicturestandard;Init;13;0000;
 ANN;The White Queen -> Vanilla
-MUC;thepicturestandard;19000;13;1111;
+MUC;thepicturestandard;19000;13;0000;
 ANN;The White Queen -> Lore Alternative
 MUC;thepicturestandard;19500;13;0000;
-MUC;thepicturestandard;Init;13;1111;
+MUC;thepicturestandard;Init;13;0000;
 ANN;The Darkest Day -> Vanilla
-MUC;thepicturestandard;20000;13;1111;
+MUC;thepicturestandard;20000;13;0000;
 ANN;The Darkest Day -> Lore Alternative
 MUC;thepicturestandard;20500;13;0000;
 ANN;Tower of Deception
-STD;thepicturestandard;21000;13;1111;
-MUC;thepicturestandard;Init;13;1111;
+STD;thepicturestandard;21000;13;0000;
+MUC;thepicturestandard;Init;13;0000;
 ANN;Siege of Dragonspear -> Vanilla
-MUC;thepicturestandard;22000;13;1111;
+MUC;thepicturestandard;22000;13;0000;
 ANN;Siege of Dragonspear -> Lore Alternative
 MUC;thepicturestandard;22500;13;0000;
-MUC;thepicturestandard;Init;13;1111;
+MUC;thepicturestandard;Init;13;0000;
 ANN;Tortured Souls -> Vanilla
-MUC;thepicturestandard;23000;13;1111;
+MUC;thepicturestandard;23000;13;0000;
 ANN;Tortured Souls -> Lore Alternative
 MUC;thepicturestandard;23500;13;0000;
 MUC;thepicturestandard;Init;13;0000;
@@ -2786,7 +2786,7 @@ STD;SandrahRtF;7;02;0111;
 STD;SandrahRtF;8;02;0111;
 STD;SandrahToT;0;02;0111;
 STD;SandrahToT;1;02;0111;
-STD;SodBanter;0;09;0000;
+STD;SodBanter;0;09;1111;
 STD;Sandrah-X-Files;0;07;0000;
 ANN;worldmap after all mods that use it
 SUB;bp-bgt-worldmap;0;13;1111;
