@@ -9,6 +9,28 @@ ANN;Run the Fixpack batch scripts
 CMD;IF NOT EXIST BWP_Fixpack.installed Call "_ApplyPatches.bat"
 CMD;IF NOT EXIST BWP_Fixpack.installed echo "The BiG World Fixpack script did not run successfully. Please check the _ApplyPatches.debug log file in the game folder and re-run _ApplyBatches.bat manually before continuing."
 CMD;IF NOT EXIST BWP_Fixpack.installed pause
+ANN;--- restorations ---
+STD;PST-UB-Reloaded;1;04;1111;
+MUC;PST-UB-Reloaded;Init;04;1111;
+MUC;PST-UB-Reloaded;2;04;0000;
+MUC;PST-UB-Reloaded;17;04;1111;
+STD;PST-UB-Reloaded;3;04;1111;
+STD;PST-UB-Reloaded;4;04;1111;
+STD;PST-UB-Reloaded;5;04;1111;
+STD;PST-UB-Reloaded;6;04;1111;
+STD;PST-UB-Reloaded;7;04;1111;
+STD;PST-UB-Reloaded;8;04;1111;
+STD;PST-UB-Reloaded;9;04;1111;
+STD;PST-UB-Reloaded;10;04;1111;
+STD;PST-UB-Reloaded;11;04;1111;
+STD;PST-UB-Reloaded;12;04;1111;
+STD;PST-UB-Reloaded;13;04;1111;
+STD;PST-UB-Reloaded;14;04;1111;
+STD;PST-UB-Reloaded;15;04;1111;
+STD;PST-UB-Reloaded;16;04;1111;
+STD;PST-UB-Reloaded;18;04;1111;
+STD;PST-UB-Reloaded;50;04;1111;
+STD;PST-UB-Reloaded;51;04;0001;
 ANN;--- misc tweaks ---
 STD;detect_traps_for_pstee;0;09;0000;
 MUC;k9Quicksave;Init;09;0000;
