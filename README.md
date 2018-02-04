@@ -75,4 +75,4 @@ If you are in the middle of an installation, it is safest to use "Without Update
 
 ### Contributors ###
 
-dabus(author), agb1, AL|EN, Quiet, Roxanne
+dabus(author), agb1, AL|EN, Quiet
