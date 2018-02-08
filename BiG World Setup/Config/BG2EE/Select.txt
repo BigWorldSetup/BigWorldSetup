@@ -25,7 +25,6 @@ CMD;IF EXIST "BiG World Fixpack\item_rev" rmdir /s /q "BiG World Fixpack\item_re
 CMD;IF EXIST "BiG World Fixpack\tdd" rmdir /s /q "BiG World Fixpack\tdd"
 CMD;IF EXIST "BiG World Fixpack\RoTerror" rmdir /s /q "BiG World Fixpack\RoTerror"
 CMD;IF EXIST "BiG World Fixpack\chloe" rmdir /s /q "BiG World Fixpack\chloe"
-CMD;IF EXIST "BiG World Fixpack\rose" rmdir /s /q "BiG World Fixpack\rose"
 CMD;IF EXIST "BiG World Fixpack\ToA" rmdir /s /q "BiG World Fixpack\ToA"
 CMD;IF EXIST "BiG World Fixpack\dsotsc" rmdir /s /q "BiG World Fixpack\dsotsc"
 CMD;IF EXIST "BiG World Fixpack\ntotsc" rmdir /s /q "BiG World Fixpack\ntotsc"
@@ -438,6 +437,7 @@ MUC;chattyimoen;Init;13;0000;
 MUC;chattyimoen;2;13;0000;
 MUC;chattyimoen;3;13;0000;
 MUC;chattyimoen;4;13;0000;
+STD;rosere;0;06;0000;
 ANN;--- BG2:EE mods begin here ---
 ANN;Enable Spell Immunity in Sequencers/Triggers (TobEx)
 STD;jimfix;1;09;0001;
