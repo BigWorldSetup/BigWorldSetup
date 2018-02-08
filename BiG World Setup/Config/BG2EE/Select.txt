@@ -25,6 +25,7 @@ CMD;IF EXIST "BiG World Fixpack\item_rev" rmdir /s /q "BiG World Fixpack\item_re
 CMD;IF EXIST "BiG World Fixpack\tdd" rmdir /s /q "BiG World Fixpack\tdd"
 CMD;IF EXIST "BiG World Fixpack\RoTerror" rmdir /s /q "BiG World Fixpack\RoTerror"
 CMD;IF EXIST "BiG World Fixpack\chloe" rmdir /s /q "BiG World Fixpack\chloe"
+CMD;IF EXIST "BiG World Fixpack\rose" rmdir /s /q "BiG World Fixpack\rose"
 CMD;IF EXIST "BiG World Fixpack\ToA" rmdir /s /q "BiG World Fixpack\ToA"
 CMD;IF EXIST "BiG World Fixpack\dsotsc" rmdir /s /q "BiG World Fixpack\dsotsc"
 CMD;IF EXIST "BiG World Fixpack\ntotsc" rmdir /s /q "BiG World Fixpack\ntotsc"
