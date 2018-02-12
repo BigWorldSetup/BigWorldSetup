@@ -169,8 +169,6 @@ STD;IndiNPC;0;05;0111;
 STD;Mur'Neth;0;05;0111;
 STD;MulgoreXaviaNPC;0;05;0000;
 STD;coranbgfriend;0;07;1111;
-ANN;AjantisBG1 after bg1npc
-STD;AjantisBG1;0;07;1111;
 SUB;ACBre;0;05;0000;
 SUB;ACBre;0?1_1;05;0000;
 SUB;ACBre;0?1_2;05;0000;
@@ -376,6 +374,7 @@ STD;AC_QUEST;0;03;0111;
 STD;thalan;0;10;0000;
 STD;XanBG1Friend;0;07;1111;
 STD;k9SharteelNPC;0;06;0000;
+STD;AjantisBG1;0;07;0000;
 SUB;bg1re;0;07;0111;
 SUB;bg1re;0?0_1;07;0000;
 SUB;bg1re;0?0_2;07;0000;
