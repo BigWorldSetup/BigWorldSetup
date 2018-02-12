@@ -27,8 +27,6 @@ CMD;IF EXIST "BiG World Fixpack\RoTerror" rmdir /s /q "BiG World Fixpack\RoTerro
 CMD;IF EXIST "BiG World Fixpack\chloe" rmdir /s /q "BiG World Fixpack\chloe"
 CMD;IF EXIST "BiG World Fixpack\ToA" rmdir /s /q "BiG World Fixpack\ToA"
 CMD;IF EXIST "BiG World Fixpack\dsotsc" rmdir /s /q "BiG World Fixpack\dsotsc"
-CMD;IF EXIST "BiG World Fixpack\ntotsc" rmdir /s /q "BiG World Fixpack\ntotsc"
-CMD;IF EXIST "BiG World Fixpack\ntotscv171" rmdir /s /q "BiG World Fixpack\ntotscv171"
 CMD;IF EXIST "BiG World Fixpack\CtB" rmdir /s /q "BiG World Fixpack\CtB"
 CMD;IF EXIST "BiG World Fixpack\refinements" rmdir /s /q "BiG World Fixpack\refinements"
 CMD;IF EXIST "BiG World Install.bat" REN "BiG World Install.bat" "NoInstall.bat"
@@ -351,9 +349,13 @@ STD;dsotsc;1;02;0111;
 STD;dsotsc;2;02;0111;
 STD;dsotsc;3;02;0111;
 STD;dsotsc;4;02;0111;
-STD;NTotSC;0;02;0111;
-STD;NTotSCv171;0;01;0111;
-STD;NTotSC-Natalin-fix;0;01;1111;
+STD;NTotSC;0;02;1111;
+STD;NTotSC;1;02;1111;
+STD;NTotSC;2;02;0000;
+STD;NTotSC;3;02;0000;
+STD;NTotSC;4;02;0000;
+STD;NTotSC;5;02;0000;
+STD;NTotSC;6;02;0000;
 MUC;TGC1E;Init;03;0111;
 MUC;TGC1E;0;03;0111;
 MUC;TGC1E;1;03;0000;
