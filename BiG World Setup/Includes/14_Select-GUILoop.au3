@@ -288,8 +288,6 @@ Func Au3Select($p_Num = 0)
 			Au3CleanInst(2, 2)
 		Case $g_UI_Button[3][2]; restore backup
 			Au3CleanInst(3, 2)
-		Case $g_UI_Button[3][3]; create a multi-install
-			_Backup_CreateMultiInstall()
 		Case $g_UI_Button[3][4]; test download links
 			_Net_LinkTest(2)
 			$g_Flags[1] = 1

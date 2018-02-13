@@ -102,8 +102,6 @@ Func Au3BuildGUI($p_Num = 0)
 	$g_UI_Static[3][1] = GUICtrlCreateLabel('', 30, 90, 370, 50)
 	$g_UI_Button[3][1] = GUICtrlCreateButton('', 30, 160, 175, 20, 0); create backup
 	$g_UI_Button[3][2] = GUICtrlCreateButton('', 225, 160, 175, 20, 0); restore backup
-	$g_UI_Static[3][3] = GUICtrlCreateLabel('', 30, 200, 370, 20); multi-install label
-	$g_UI_Button[3][3] = GUICtrlCreateButton('', 30, 225, 370, 20, 0); load
 	GUICtrlCreateGroup("", -99, -99, 1, 1)
 	$g_UI_Seperate[3][2] = GUICtrlCreateGroup('', 15, 275, 400, 135); advanced group
 	GUICtrlSetFont(-1, 8, 800, 0, 'MS Sans Serif')
