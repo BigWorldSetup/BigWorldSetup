@@ -53,6 +53,13 @@ STD;item_rev;0;09;0111;
 ANN;--- "big mods" ---
 STD;DarkHorizonsBGee;0;02;0011;
 STD;dsotscBGEE;0;02;0111;
+STD;NTotSC;0;02;0000;
+STD;NTotSC;1;02;0000;
+STD;NTotSC;2;02;0000;
+STD;NTotSC;3;02;0000;
+STD;NTotSC;4;02;0000;
+STD;NTotSC;5;02;0000;
+STD;NTotSC;6;02;0000;
 MUC;drizztsaga;Init;02;0011;
 MUC;drizztsaga;0;02;0000;
 MUC;drizztsaga;1;02;0011;
