@@ -1067,6 +1067,8 @@ STD;Derats_kits;8;12;0000;
 STD;A7#ImprovedArcher;0;12;0111;
 STD;Mercenary;0;12;0000;
 STD;Mercenary;1;12;0000;
+STD;Charlatan;0;12;0000;
+STD;Charlatan;1;12;0000;
 STD;A7#ImprovedShamanicDance;0;12;0111;
 STD;A7#ImprovedShamanicDance;10;12;0111;
 STD;A7#ImprovedShamanicDance;20;09;0111;

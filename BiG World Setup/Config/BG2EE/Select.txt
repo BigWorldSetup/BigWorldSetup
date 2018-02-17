@@ -1382,6 +1382,8 @@ STD;A7-ChaosSorcerer;20;12;0000;
 STD;A7-ChaosSorcerer;30;12;0111;
 STD;PaleMaster;0;12;0111;
 STD;PaleMaster;1;12;0111;
+STD;Charlatan;0;12;0000;
+STD;Charlatan;1;12;0000;
 ANN;FnP should be installed after all divine kits
 MUC;Faiths_and_Powers;Init;09;0000;
 ANN;101 only for IWDEE
