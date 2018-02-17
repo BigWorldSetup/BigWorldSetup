@@ -302,6 +302,7 @@ STD;Faiths_and_Powers;954;09;0001;
 STD;Faiths_and_Powers;955;09;0001;
 STD;Faiths_and_Powers;956;09;0001;
 STD;Faiths_and_Powers;1000;09;0001;
+STD;RaduzielsUniversalSpells;0;09;0000;
 STD;might_and_guile;500;09;0111;
 STD;might_and_guile;200;09;0111;
 STD;might_and_guile;205;09;0111;

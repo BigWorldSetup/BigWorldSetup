@@ -613,6 +613,7 @@ ANN;--- new spells ---
 MUC;Divine_Remix;Init;09;0111;
 MUC;Divine_Remix;10;09;0001;
 MUC;Divine_Remix;11;09;0110;
+STD;RaduzielsUniversalSpells;0;09;0000;
 ANN;--- BG2EE kit changes ---
 ANN;#100 is cleric remix
 STD;Divine_Remix;100;09;0111;
