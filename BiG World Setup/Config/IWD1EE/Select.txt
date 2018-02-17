@@ -110,6 +110,7 @@ STD;IHateUndead;5;12;0000;
 STD;IHateUndead;6;12;0000;
 STD;IHateUndead;7;12;0000;
 STD;IHateUndead;8;12;0000;
+STD;Bodyguard;0;12;0000;
 ANN;EE: Item Expansion
 STD;eldritch_magic;0;10;0111;
 ANN;Congenio's Pebble Collection (Ioun stone tweaks)

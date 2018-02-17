@@ -1784,6 +1784,8 @@ STD;Derats_kits;6;12;0111;
 STD;Derats_kits;7;12;0000;
 STD;Derats_kits;8;12;0000;
 STD;BearWalker;0;12;0111;
+STD;Bodyguard;0;12;0000;
+STD;Bodyguard;1;12;0000;
 STD;jkits;0;12;0000;
 STD;jkits;1;12;0000;
 STD;jkits;2;12;0000;

@@ -716,6 +716,8 @@ STD;IHateUndead;5;12;0000;
 STD;IHateUndead;6;12;0000;
 STD;IHateUndead;7;12;0000;
 STD;IHateUndead;8;12;0000;
+STD;Bodyguard;0;12;0000;
+STD;Bodyguard;1;12;0000;
 ANN;FnP should be installed after all divine kits
 MUC;Faiths_and_Powers;Init;09;0111;
 ANN;101 only for IWDEE
