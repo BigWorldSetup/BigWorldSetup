@@ -1320,6 +1320,8 @@ STD;song_and_silence;6;12;0111;
 STD;song_and_silence;7;12;0111;
 STD;song_and_silence;8;12;0111;
 STD;song_and_silence;9;12;0111;
+STD;Mercenary;0;12;0000;
+STD;Mercenary;1;12;0000;
 ANN;RR is SCS aware; should it move down?
 STD;RR;0;09;1111;
 STD;RR;1;12;1111;
