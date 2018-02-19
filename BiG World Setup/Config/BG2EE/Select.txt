@@ -200,7 +200,7 @@ STD;isra;0;05;1111;
 ANN;#1,2 crossmod valerie,gavin
 STD;isra;1;05;1111;
 STD;isra;2;05;1111;
-STD;white;0;05;0111;
+STD;white;0;05;0000;
 ANN;sirene 0-1 = bg:ee/sod
 STD;sirene;0;05;0111;
 STD;sirene;1;05;0111;
