@@ -341,6 +341,7 @@ STD;bg1ub;30;03;0000;
 STD;bg1ub;32;03;1111;
 STD;bg1ub;33;03;1111;
 STD;bg1ub;34;03;0000;
+STD;ShineOnCaelar;0;07;0000;
 GRP;Start
 STD;kittomes;0;12;0111;
 MUC;kittomes;Init;12;0111;
