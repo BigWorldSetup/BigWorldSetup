@@ -1859,7 +1859,7 @@ STD;stratagems;2140;09;1111;
 STD;stratagems;2150;09;1111;
 STD;stratagems;2160;09;1111;
 STD;stratagems;2170;09;1111;
-STD;stratagems;2180;09;1111;
+STD;stratagems;2180;09;0011;
 ANN;--- SCS item tweaks ---
 ANN;#3000 to 3022 not yet compat
 STD;stratagems;3030;09;1111;
@@ -1888,11 +1888,11 @@ MUC;stratagems;4093;09;0000;
 ANN;#4100 not compat yet
 STD;stratagems;4110;09;1111;
 ANN;#4120 to 4146 not compat yet
-STD;stratagems;4120;09;1111;
-STD;stratagems;4130;09;0111;
-STD;stratagems;4140;09;0111;
-MUC;stratagems;Init;09;0111;
-MUC;stratagems;4145;09;0110;
+STD;stratagems;4120;09;0011;
+STD;stratagems;4130;09;0011;
+STD;stratagems;4140;09;0011;
+MUC;stratagems;Init;09;0011;
+MUC;stratagems;4145;09;0010;
 MUC;stratagems;4146;09;0001;
 STD;stratagems;4150;09;1111;
 ANN;magic license cost
@@ -1911,7 +1911,7 @@ MUC;stratagems;4173;09;0011;
 MUC;stratagems;4174;09;0000;
 STD;stratagems;4180;09;1111;
 ANN;#4190,4200 not for EE
-STD;stratagems;4210;09;1111;
+STD;stratagems;4210;09;0011;
 STD;stratagems;4215;09;1111;
 MUC;stratagems;Init;09;0011;
 MUC;stratagems;4216;09;0011;
@@ -1946,10 +1946,10 @@ MUC;stratagems;6032;11;1100;
 MUC;stratagems;6033;11;0000;
 MUC;stratagems;6034;11;0000;
 ANN;smarter priests
-MUC;stratagems;Init;11;1111;
+MUC;stratagems;Init;11;0011;
 MUC;stratagems;6040;11;0011;
 MUC;stratagems;6041;11;0000;
-MUC;stratagems;6042;11;1100;
+MUC;stratagems;6042;11;0000;
 MUC;stratagems;6043;11;0000;
 MUC;stratagems;6044;11;0000;
 ANN;potions for NPCS
@@ -1971,9 +1971,9 @@ STD;stratagems;6320;11;1111;
 ANN;golems
 STD;stratagems;6500;11;1111;
 ANN;fiends
-MUC;stratagems;Init;11;1111;
+MUC;stratagems;Init;11;0011;
 MUC;stratagems;6510;11;0011;
-MUC;stratagems;6511;11;1100;
+MUC;stratagems;6511;11;0000;
 ANN;genies
 MUC;stratagems;Init;11;1111;
 MUC;stratagems;6520;11;0011;
@@ -1987,21 +1987,21 @@ MUC;stratagems;Init;11;1111;
 MUC;stratagems;6540;11;0011;
 MUC;stratagems;6541;11;1100;
 ANN;beholders
-MUC;stratagems;Init;11;1111;
+MUC;stratagems;Init;11;0011;
 MUC;stratagems;6550;11;0011;
-MUC;stratagems;6551;11;1100;
+MUC;stratagems;6551;11;0000;
 MUC;stratagems;6552;11;0000;
 MUC;stratagems;6553;11;0000;
 ANN;illithids
-MUC;stratagems;Init;11;1111;
-MUC;stratagems;6560;11;1100;
+MUC;stratagems;Init;11;0011;
+MUC;stratagems;6560;11;0000;
 MUC;stratagems;6561;11;0011;
 MUC;stratagems;6562;11;0000;
 MUC;stratagems;6563;11;0000;
 ANN;githyanki
 STD;stratagems;6570;11;1111;
 ANN;vampires
-STD;stratagems;6580;11;1111;
+STD;stratagems;6580;11;0011;
 ANN;melissan
 STD;stratagems;6590;11;1111;
 ANN;--- SCS Ascension AI ---
