@@ -56,7 +56,6 @@ CMD;IF EXIST "BiG World Fixpack" xcopy /Y /S /E ".\BiG World Fixpack\_Area_Patch
 CMD;IF EXIST "BiG World Fixpack" xcopy /Y /S /E ".\BiG World Fixpack\_Cre_Patcher\*.*" "."
 CMD;IF EXIST "BiG World Fixpack" xcopy /Y /S /E ".\BiG World Fixpack\_Item_Patcher\*.*" "."
 CMD;IF EXIST "BiG World Fixpack\_IDS_ref" copy /Y ".\BiG World Fixpack\_IDS_ref\*.IDS" ".\override"
-CMD;IF EXIST "BiG World Fixpack\_AuroraPatch" xcopy /Y /S /E ".\BiG World Fixpack\_AuroraPatch\*.*" "."
 CMD;IF EXIST "BiG World Fixpack\_CtBcutImp" xcopy /Y /S /E ".\BiG World Fixpack\_CtBcutImp\*.*" "."
 CMD;IF EXIST "BiG World Fixpack\_Gavin_Hotfixes" xcopy /Y /S /E ".\BiG World Fixpack\_Gavin_Hotfixes\*.*" "."
 CMD;IF EXIST "BiG World Fixpack\_iwditemfix" xcopy /Y /S /E ".\BiG World Fixpack\_iwditemfix\*.*" "."
@@ -4066,7 +4065,6 @@ MUC;aurora;490;16;0000;
 STD;aurora;500;20;1111;
 STD;aurora;520;20;1111;
 STD;aurora;9000;20;0000;
-STD;aurpatch;0;01;1111;
 STD;tobaurora;0;12;0111;
 SUB;tobaurora;1;12;0000;
 SUB;tobaurora;1?1_1;12;0000;
