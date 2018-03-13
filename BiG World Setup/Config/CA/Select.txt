@@ -7,7 +7,6 @@ CMD;IF EXIST "BiG World Textpack GERMAN\override\_optional" rmdir /s /q ".\BiG W
 CMD;IF EXIST "BiG World Fixpack" xcopy /Y /S /E ".\BiG World Fixpack\_resfixer_v1\*.*" "."
 CMD;IF EXIST "BiG World Fixpack" xcopy /Y /S /E ".\BiG World Fixpack\_crefixer_v2\*.*" "."
 CMD;IF EXIST "BiG World Fixpack" xcopy /Y /S /E ".\BiG World Fixpack\_Innate_Fix\*.*" "."
-CMD;IF EXIST "BiG World Fixpack\_AuroraPatch" IF EXIST Setup-aurora.exe xcopy /Y /S /E ".\BiG World Fixpack\_AuroraPatch\*.*" "."
 CMD;IF NOT EXIST Setup-lolfixer.exe xcopy /Y /S /E ".\BiG World Fixpack\_Lolfixer\*.*" "."
 CMD;IF EXIST "BiG World Fixpack" IF NOT EXIST BWP_Fixpack.installed CALL "BiG World Fixpack.bat"
 CMD;IF NOT EXIST BWP_Textpack.installed CALL "BiG World Textpack.bat"
@@ -281,7 +280,6 @@ MUC;aurora;485;09;0000;
 MUC;aurora;490;09;0000;
 STD;aurora;520;08;0011;
 STD;aurora;9000;13;1111;
-STD;aurpatch;0;01;1111;
 STD;P5Tweaks;10;09;1111;
 STD;P5Tweaks;20;09;1111;
 STD;P5Tweaks;30;09;1111;
