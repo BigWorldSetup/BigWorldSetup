@@ -48,7 +48,7 @@ Not maintained:
 - Icewind Dale  
 - Icewind Dale II   
 - Planescape: Torment  
-- Classic Adventures  
+ 
 
 ### Supported mods ###
 
