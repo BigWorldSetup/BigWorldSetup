@@ -2819,8 +2819,6 @@ STD;Area_Patcher;2001;01;1111;
 ANN;STD;Area_Patcher;2002;01;0000;problem addressed by this does not exist in EE
 STD;Area_Patcher;2003;01;1111;
 ANN;STD;Area_Patcher;3000;01;0000;Jarl's Adventure Pack is not EE compatible yet
-ANN;STD;Area_Patcher;4000;01;0000;handled by BWFixpack
-ANN;STD;Area_Patcher;4001;01;0000;SoS is not EE compatible yet
 STD;Area_Patcher;5000;01;1111;
 STD;Area_Patcher;5001;01;1111;
 ANN;STD;Area_Patcher;6000;01;0000;BGSpawn is not for EE

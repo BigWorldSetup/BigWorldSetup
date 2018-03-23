@@ -4573,8 +4573,6 @@ STD;Area_Patcher;2001;01;1111;
 STD;Area_Patcher;2002;01;1111;
 STD;Area_Patcher;2003;01;1111;
 STD;Area_Patcher;3000;01;1111;
-ANN;Area_Patcher;4000;01;0000;handled by BWFixpack
-STD;Area_Patcher;4001;01;1111;
 STD;Area_Patcher;5000;01;1111;
 STD;Area_Patcher;5001;01;1111;
 STD;Area_Patcher;6000;01;1111;
