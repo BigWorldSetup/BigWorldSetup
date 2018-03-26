@@ -323,7 +323,7 @@ MUC;bggoEET;Init;13;0001;
 MUC;bggoEET;0;13;0001;
 MUC;bggoEET;1;13;0000;
 STD;DruidGroveMakeover;0;13;0111;
-STD;EETBPFix;0;01;1111;
+STD;EET_Fix;0;01;1111;
 ANN;--- BG1EE Mods compatible with EET that must be installed after EET ---
 MUC;BG_Travel;Init;09;0000;
 MUC;BG_Travel;66;09;0000;
