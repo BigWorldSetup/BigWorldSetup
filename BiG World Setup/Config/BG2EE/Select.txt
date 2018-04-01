@@ -1229,31 +1229,31 @@ STD;hammers;25;10;1111;
 STD;hammers;35;10;1111;
 STD;hammers;50;10;1111;
 ANN;--- item revisions v4 --- 
-STD;item_rev;0;09;0111;
-STD;item_rev;1030;09;0111;
-MUC;item_rev;Init;09;0111;
-MUC;item_rev;1040;09;0011;
+STD;item_rev;0;09;0001;
+STD;item_rev;1030;09;0001;
+MUC;item_rev;Init;09;0001;
+MUC;item_rev;1040;09;0001;
 ANN;#6, 1041 removed in IRv4
 MUC;item_rev;1042;09;0100;
 ANN;#7, 8, 1043 removed in IRv4
-MUC;item_rev;Init;09;0111;
-MUC;item_rev;2;09;0011;
-MUC;item_rev;3;09;0100;
+MUC;item_rev;Init;09;0001;
+MUC;item_rev;2;09;0001;
+MUC;item_rev;3;09;0000;
 ANN;#4, 5 removed in IRv4
-MUC;item_rev;Init;09;0111;
+MUC;item_rev;Init;09;0001;
 MUC;item_rev;9;09;0000;
-MUC;item_rev;1101;09;0111;
+MUC;item_rev;1101;09;0001;
 ANN;#1020 removed in IRv4
 ANN;#1050 removed in IRv4
-STD;item_rev;10;09;0111;
-STD;item_rev;17;09;0111;
-STD;item_rev;1080;09;0111;
-STD;item_rev;11;09;0111;
-MUC;item_rev;Init;09;0111;
+STD;item_rev;10;09;0001;
+STD;item_rev;17;09;0001;
+STD;item_rev;1080;09;0001;
+STD;item_rev;11;09;0001;
+MUC;item_rev;Init;09;0001;
 MUC;item_rev;18;09;0000;
-MUC;item_rev;19;09;0111;
+MUC;item_rev;19;09;0001;
 MUC;item_rev;20;09;0000;
-STD;item_rev;12;09;0111;
+STD;item_rev;12;09;0001;
 ANN;#13 removed in IRv4
 MUC;item_rev;Init;09;0000;
 MUC;item_rev;1090;09;0000;
@@ -1263,9 +1263,9 @@ MUC;item_rev;1093;09;0000;
 MUC;item_rev;Init;09;0000;
 MUC;item_rev;15;09;0000;
 MUC;item_rev;16;09;0000;
-STD;item_rev;1060;09;0111;
-STD;item_rev;1070;09;0111;
-STD;item_rev;1200;09;0011;
+STD;item_rev;1060;09;0001;
+STD;item_rev;1070;09;0001;
+STD;item_rev;1200;09;0001;
 ANN;#1300 is not enabled yet in IRv4
 ANN;item_rev;1300;09;0011;
 ANN;--- NPC kit changes ---
