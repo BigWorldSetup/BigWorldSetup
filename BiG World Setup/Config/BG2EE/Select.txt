@@ -1228,8 +1228,7 @@ STD;hammers;15;10;1111;
 STD;hammers;25;10;1111;
 STD;hammers;35;10;1111;
 STD;hammers;50;10;1111;
-ANN;--- item revisions v4 --- 
-STD;item_rev;0;09;0001;
+ANN;--- item revisions v4 main component vs shamans--- 
 STD;item_rev;1030;09;0001;
 MUC;item_rev;Init;09;0001;
 MUC;item_rev;1040;09;0001;

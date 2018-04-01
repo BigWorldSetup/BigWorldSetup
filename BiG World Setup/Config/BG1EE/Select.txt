@@ -49,7 +49,6 @@ ANN;IR #0 as early as possible so other mods can overwrite
 ANN;IR #0 is aware of SR #0 so should follow it
 ANN;therefore SR #0 early also
 STD;spell_rev;0;09;0111;
-STD;item_rev;0;09;0111;
 ANN;--- "big mods" ---
 STD;DarkHorizonsBGee;0;02;0011;
 STD;dsotscBGEE;0;02;0111;
