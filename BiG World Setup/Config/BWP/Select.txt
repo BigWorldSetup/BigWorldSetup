@@ -205,8 +205,8 @@ STD;CtB-Chores;0;09;0111;
 STD;CtB_FF;0;09;0111;
 STD;TethyrForestPatch;0;01;0111;
 STD;CtBcutImp;0;01;0111;
-STD;RoT;0;09;0111;
-STD;RoT;1;19;0111;
+STD;RoTerror;0;09;0000;
+STD;RoTerror;1;19;0000;
 CMD;copy /Y ".\RoTerror\anim\Yeti\*.bam" ".\override";;;;D:SOS(0)&ROT(0)
 CMD;copy /Y ".\RoTerror\anim\Yeti\*.bam" ".\override";;;;D:CTB(0)&ROT(0)
 ANN;#3. BGT
