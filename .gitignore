@@ -16,4 +16,5 @@ BiG World Setup/Tools/Git/
 **/Mod-*.ini
 **/WeiDU-*.ini
 **/*.ps1
+**/BWS-Version.txt
 Git/
