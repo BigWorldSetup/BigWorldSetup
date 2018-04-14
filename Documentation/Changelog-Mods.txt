@@ -533,102 +533,97 @@ Added: Mulgore and Xavia NPCs for BG:EE and EET (BWFixpack'd by White Agnus)
 Added: Huple NPC for BG:EE and EET (BWFixpack'd by White Agnus)
 
 20160120 - Updated by agb1
-* Rule:  Warning if installing Sandrah NPC with EET Tweaks #0 (teleport spell for EET)
-* Rule:  Might & Guile #200 (revised stats) conflicts with Victor's Improvements Pack #0
-* Rule:  Ding0's Tweaks #17 (sensible lore table) conflicts with Victor's Improvements Pack #1
-* Rule:  EET Tweaks #7, 8 preferred over Ding0 Experience Fixer
-* Rule:  "Choose one" BG Graphics Overhaul variant (BGT now has choice of old or new version)
-* Rule:  NPC Strongholds (still not Recommended) preferred over all other Strongholds tweaks
-* Rule:  BG2 Tweaks #3080,3090,3100,3110 (unlimited stacking) preferred over Difficulty and Tweak mod
-* Rule:  "Choose one fix for imprisonment breaking romances" - Spell Revisions or The Bigg's Tweaks #150 vs. Victor's Improvements Pack #6
-* Rule:  Bard song changes conflict - RR #4 or Bard Song Switching (Icewind Mode) vs. Victor's Improvements Pack #10
+ - Rule: Warning if installing Sandrah NPC with EET Tweaks #0 (teleport spell for EET)
+ - Rule: Might & Guile #200 (revised stats) conflicts with Victor's Improvements Pack #0
+ - Rule: Ding0's Tweaks #17 (sensible lore table) conflicts with Victor's Improvements Pack #1
+ - Rule: EET Tweaks #7, 8 preferred over Ding0 Experience Fixer
+ - Rule: "Choose one" BG Graphics Overhaul variant (BGT now has choice of old or new version)
+ - Rule: NPC Strongholds (still not Recommended) preferred over all other Strongholds tweaks
+ - Rule: BG2 Tweaks #3080,3090,3100,3110 (unlimited stacking) preferred over Difficulty and Tweak mod
+ - Rule: "Choose one fix for imprisonment breaking romances" - Spell Revisions or The Bigg's Tweaks #150 vs. Victor's Improvements Pack #6
+ - Rule: Bard song changes conflict - RR #4 or Bard Song Switching (Icewind Mode) vs. Victor's Improvements Pack #10
 
-* Updated:  Teleport mod description, Sandrah mod description (moved note about teleport spells to Sandrah mod)
-* Updated:  Item Randomiser component 510 description now has reminder to edit percentage chance below
-* Updated:  Item Randomiser component 510 default percentage chance to NOT randomize changed from 10% to 90%
-* Updated:  Ascension component 104, 105 descriptions (clarified that they apply to Bioware and Beamdog NPCs)
+ - Updated: Teleport mod description, Sandrah mod description (moved note about teleport spells to Sandrah mod)
+ - Updated: Item Randomiser component 510 description now has reminder to edit percentage chance below
+ - Updated: Item Randomiser component 510 default percentage chance to NOT randomize changed from 10% to 90%
+ - Updated: Ascension component 104, 105 descriptions (clarified that they apply to Bioware and Beamdog NPCs)
 
-* Selection:  EET Tweaks #11 (FPS increase without audio skipping) disabled by default for all pre-selections
-* Selection:  EET Tweaks #14 (protagonist can die) disabled by default for all pre-selections (was Tactical)
-* Selection:  BG2 Tweaks #3080,3090,3100,3110 (unlimited item stacking) enabled by default for all pre-selections
-* Selection:  Difficulty and Tweak tactical components marked as such for BG:EE (consistent with other game types)
+ - Selection: EET Tweaks #11 (FPS increase without audio skipping) disabled by default for all pre-selections
+ - Selection: EET Tweaks #14 (protagonist can die) disabled by default for all pre-selections (was Tactical)
+ - Selection: BG2 Tweaks #3080,3090,3100,3110 (unlimited item stacking) enabled by default for all pre-selections
+ - Selection: Difficulty and Tweak tactical components marked as such for BG:EE (consistent with other game types)
 
-* Added:  Baldur's Gate Graphics Overhaul for EET and BGT (updated by White Agnus)
-* Removed:  Mur'Neth German String Fixer (HANDLE_CHARSETS is BWPFixpack'd for Mur'Neth NPC, so fix is not needed)
+ - Added: Baldur's Gate Graphics Overhaul for EET and BGT (updated by White Agnus)
+ - Removed: Mur'Neth German String Fixer (HANDLE_CHARSETS is BWPFixpack'd for Mur'Neth NPC, so fix is not needed)
 
-* Level1NPCs individual NPC components moved from Kits to BG1 / BG2 NPC-Related
-* FinnJO's Subrace Mod moved from Kits to Tweaks
-* Faiths and Powers moved from Kits to Tweaks
+ - Level1NPCs individual NPC components moved from Kits to BG1 / BG2 NPC-Related
+ - FinnJO's Subrace Mod moved from Kits to Tweaks
+ - Faiths and Powers moved from Kits to Tweaks
 
-* Recommended -> Stable:  Ding0's Experience Fixer (EET Tweaks patches additional file types)
-* Stable -> Recommended:  Almateria's Restoration Project for BG2EE/EET (already Recommended for BG2/BGT), EET Tweaks (XP tweaks and disable hostile charm reaction), Keto NPC, Nephele NPC, Thalantyr Item Upgrade for BG:EE/EET (already Recommended for BGT), Valerie NPC (BGT transition issue BWPFixpack'd)
-* Expert -> Stable:  Victor's Improvements Pack (some components are still Tactical/Expert), DungeonBeGone for BG2EE/EET
+ - Recommended -> Stable: Ding0's Experience Fixer (EET Tweaks patches additional file types)
+ - Stable -> Recommended: Almateria's Restoration Project for BG2EE/EET (already Recommended for BG2/BGT), EET Tweaks (XP tweaks and disable hostile charm reaction), Keto NPC, Nephele NPC, Thalantyr Item Upgrade for BG:EE/EET (already Recommended for BGT), Valerie NPC (BGT transition issue BWPFixpack'd)
+ - Expert -> Stable: Victor's Improvements Pack (some components are still Tactical/Expert), DungeonBeGone for BG2EE/EET
 
 20160123 - Updated by agb1
-* BG:EE/BG2:EE:  Re-categorized Neera Expansion #6,7 and all NPC_EE components as NPC-Related
-* Added Tome and Blood 0.5 to BG:EE, BG2:EE selection (still marked Expert, and not advisable to use except for testing - there are known problems and a new version is in the works)
-* Scales of Balance #600 marked Expert because problems have been reported (https://forums.beamdog.com/discussion/33657/scales-of-balance-post-hac-kits-and-tweaks/p34)
-* Divine Remix #600 and #610 (assign kits to Branwen and Viconia) marked Expert for BG2:EE (http://gibberlings3.net/forums/index.php?showtopic=26824&p=232340)
+ - BG:EE/BG2:EE: Re-categorized Neera Expansion #6,7 and all NPC_EE components as NPC-Related
+ - Added Tome and Blood 0.5 to BG:EE, BG2:EE selection (still marked Expert, and not advisable to use except for testing - there are known problems and a new version is in the works)
+ - Scales of Balance #600 marked Expert because problems have been reported (https://forums.beamdog.com/discussion/33657/scales-of-balance-post-hac-kits-and-tweaks/p34)
+ - Divine Remix #600 and #610 (assign kits to Branwen and Viconia) marked Expert for BG2:EE (http://gibberlings3.net/forums/index.php?showtopic=26824&p=232340)
 
 20160125 - Updated by Quiet
- 
-* BG2EE/EET: Added dependence Full Fixed Russian Translation from BG:EE from BG1EE/EET
-* BG2EE/BGT: Slightly changed installation order (nothing matter)
-* BGT: Removed dependence Tortured Souls v7.0.4 from Baldurdash v1.73 (it needs v1.68 only)
-* Updated A Frosty Journey: The IWDEE Kitpack to v2.8.1
-* Updated file size of some mods (although this is not necessary)
+ - BG2EE/EET: Added dependence Full Fixed Russian Translation from BG:EE from BG1EE/EET
+ - BG2EE/BGT: Slightly changed installation order (nothing matter)
+ - BGT: Removed dependence Tortured Souls v7.0.4 from Baldurdash v1.73 (it needs v1.68 only)
+ - Updated A Frosty Journey: The IWDEE Kitpack to v2.8.1
+ - Updated file size of some mods (although this is not necessary)
  
 20160125 - Updated by agb1
- 
-* Moved Generalized Biffing to Expert for EE games due to reports that it is unnecessary with the new engine
-* Disabled conflict rule between Might & Guile #265 (monk tweaks) and monk tweaks from other mods
-* BGEE/BG2EE/IWDEE:  Updated Tome and Blood from version 0.5 to 0.6 (complete overhaul of components)
-* BG2/BGT:  Added Tome and Blood 0.6 to selection (only components #0-5 and 20 -- #6,9,10-13 are EE-exclusive)
-* Added rule:  aTweaks' Hit Dice of Elemental Princes needs PnP Elementals (191 needs 190)
-* BG2EE:  moved Might and Guile after SCS in installation order due to SCS warnings applying general AI to SENANI04 and SENDRO04
-* BG2/BGT:  disabled C#AJAN16.CRE install error workaround for Might and Guile #120
+ - Moved Generalized Biffing to Expert for EE games due to reports that it is unnecessary with the new engine
+ - Disabled conflict rule between Might & Guile #265 (monk tweaks) and monk tweaks from other mods
+ - BGEE/BG2EE/IWDEE: Updated Tome and Blood from version 0.5 to 0.6 (complete overhaul of components)
+ - BG2/BGT: Added Tome and Blood 0.6 to selection (only components #0-5 and 20 -- #6,9,10-13 are EE-exclusive)
+ - Added rule: aTweaks' Hit Dice of Elemental Princes needs PnP Elementals (191 needs 190)
+ - BG2EE: moved Might and Guile after SCS in installation order due to SCS warnings applying general AI to SENANI04 and SENDRO04
+ - BG2/BGT: disabled C#AJAN16.CRE install error workaround for Might and Guile #120
 
 20160126 - Updated by agb1
-
-* Added second Amber component (#1 - multiplayer friendly flirting) to selection (also Recommended)
-* Updated JKits to version 6, added to BG:EE selection and added new component (#2 - Amazon kit)
-* Moved Edwin Romance out of Expert status due to recent version update
-* Added Tactics EE 0.62 alpha (pre-release)
-* Updated Tactics EE to 0.63 alpha (pre-release)
+ - Added second Amber component (#1 - multiplayer friendly flirting) to selection (also Recommended)
+ - Updated JKits to version 6, added to BG:EE selection and added new component (#2 - Amazon kit)
+ - Moved Edwin Romance out of Expert status due to recent version update
+ - Added Tactics EE 0.62 alpha (pre-release)
+ - Updated Tactics EE to 0.63 alpha (pre-release)
 
 20160201 - Updated by agb1
-
-* Updated The Picture Standard to 0.6.6
-* Generalized Biffing is now Recommended (not Minimal) for BG2/BGT/BG:EE/BG2:EE
-* Updated many portrait dependency and conflict rules
-
-* Updated README.md
-* Added AutoUpdate folder with a copy of git.exe
-* AutoIt3.exe moved to Tools and marked as a hidden file
-* BiG World Setup-DebugMode marked as a hidden file
-* BiG World Setup.vbs is the recommended way to start BWS (auto-update and preserve local changes)
-* BiG World Setup-Full-Update.vbs must be run at least once (auto-update and discard local changes)
+ - Updated The Picture Standard to 0.6.6
+ - Generalized Biffing is now Recommended (not Minimal) for BG2/BGT/BG:EE/BG2:EE
+ - Updated many portrait dependency and conflict rules
+ - Updated README.md
+ - Added AutoUpdate folder with a copy of git.exe
+ - AutoIt3.exe moved to Tools and marked as a hidden file
+ - BiG World Setup-DebugMode marked as a hidden file
+ - BiG World Setup.vbs is the recommended way to start BWS (auto-update and preserve local changes)
+ - BiG World Setup-Full-Update.vbs must be run at least once (auto-update and discard local changes)
 
 20161103 - Updated by agb1
- A. if you restart BWS and abort an EET installion before it finished the BG1 portion, it will return you to the BG2:EE/EET game tab (previously, it took you to the BG1:EE game tab)
- B. for EET, the BiG World Fixpack will be correctly extracted and run in the BG1:EE folder before installing any mods
- C. the BWS install debug log will show more of the command-line actions it runs (disabled some log suppression code)
- D. updated ini files for:  k9RoughWorld (missing linefeeds), Fishing for Trouble (v3.1 -> v3.1.2), Dark Side of the Sword Coast (added link to EET version by K4thos; still points to old version for BGT), drizzt saga (cosmetic - description now correctly indicates EET support), de'Arnise Romance (v4 -> v5, added French translation), Skip Chateau Irenicus (removed invalid line breaks in description), EET patches for BG2EE mods (marked as 'fixed' / mandatory for EET installs)
- E. added TDDz installer for TDD on EE games; enabled TDDz and original TDD (set to download-only, required by TDDz for some assets) in BG2EE/EET selection; added dependency; added TDD to ExtractOnly list in BG2EE\Game.ini only (should not be in BWP\Game.ini)
- F. enabled Wild Mage Additions, Fading Promises, Lure of the SIrine's Call, and Alternatives for BG2EE/EET games
- G. modified purge rules for DSotSC to reflect that it now works with EET; meanwhile, the other BGEE version of DSotSC is NOT compatible with EET; also adjusted BGT dependency rules for NToTSC to account for DSotSC availability in EET without NToTSC
- H. adjusted worldmap dependency rules for TDD, TDDz, DSotSC
- I. added EET conflict rules to block selection of Stone of Askavar BP-BGT-Worldmap variant, Drizzt Saga BP-BGT-Worldmap variant; only the default variants with area triggers are available for selection now in EET installs
- J. removed unsupported old pre-EET BGEE graphics overhaul mod from selection for EET (new EET-compatible version of the mod is still available, but marked expert due to reported graphical glitches)
- K. moved some EET-compatible mods after EET install to conform to requirements:  DSotSC & TDDz & Lure of the Sirine's Call (newly available for EET), The Grey Clan, BG Travel (new travel system for BG1 city), and Thalantyr store extra items mod
- L. moved textpack / translation mods other than Polish (which was already there) before EET install; added a special ANN;EET; marker line before them so they get installed in the BG2:EE folder even though they come before EET in BG2EE\Select.txt
- M. moved Xulaye to NPCs category (was incorrectly listed with kit mods) for BG2EE/EET installs
- N. Irenicus dungeon skip mods not selected by default for BG2EE installs (due to risk of missing out on mod-added content there)
- O. cleaned up Klatu Fixes & Tweaks components for BG2EE/EET, marking 2060 and 2070 as expert due to deprecation & user reports and enabling several others by default
- P. switched aTweaks default selection from 115 to 117 (scrolls scribable only at inns/taverns instead of everywhere) to provide more incentive to visit inns
- Q. moved special case handling of EET patches for BG2EE mods and the BWS OverwriteFiles feature to the Au3Run step, which occurs after all extractions are complete (including user-prompted manual problem resolutions)
- R. removed some apparently(?) unnecessary 'always process Select.txt from the first line, just in case' logic that was causing EET installs to re-apply command-line actions from the BG1EE section when starting the BG2EE section
- S. fixed a couple of bugs related to the 'install components as a group' feature
+ - if you restart BWS and abort an EET installion before it finished the BG1 portion, it will return you to the BG2:EE/EET game tab (previously, it took you to the BG1:EE game tab)
+ - for EET, the BiG World Fixpack will be correctly extracted and run in the BG1:EE folder before installing any mods
+ - the BWS install debug log will show more of the command-line actions it runs (disabled some log suppression code)
+ - updated ini files for: k9RoughWorld (missing linefeeds), Fishing for Trouble (v3.1 -> v3.1.2), Dark Side of the Sword Coast (added link to EET version by K4thos; still points to old version for BGT), drizzt saga (cosmetic - description now correctly indicates EET support), de'Arnise Romance (v4 -> v5, added French translation), Skip Chateau Irenicus (removed invalid line breaks in description), EET patches for BG2EE mods (marked as 'fixed' / mandatory for EET installs)
+ - added TDDz installer for TDD on EE games; enabled TDDz and original TDD (set to download-only, required by TDDz for some assets) in BG2EE/EET selection; added dependency; added TDD to ExtractOnly list in BG2EE\Game.ini only (should not be in BWP\Game.ini)
+ - enabled Wild Mage Additions, Fading Promises, Lure of the SIrine's Call, and Alternatives for BG2EE/EET games
+ - modified purge rules for DSotSC to reflect that it now works with EET; meanwhile, the other BGEE version of DSotSC is NOT compatible with EET; also adjusted BGT dependency rules for NToTSC to account for DSotSC availability in EET without NToTSC
+ - adjusted worldmap dependency rules for TDD, TDDz, DSotSC
+ - added EET conflict rules to block selection of Stone of Askavar BP-BGT-Worldmap variant, Drizzt Saga BP-BGT-Worldmap variant; only the default variants with area triggers are available for selection now in EET installs
+ - removed unsupported old pre-EET BGEE graphics overhaul mod from selection for EET (new EET-compatible version of the mod is still available, but marked expert due to reported graphical glitches)
+ - moved some EET-compatible mods after EET install to conform to requirements: DSotSC & TDDz & Lure of the Sirine's Call (newly available for EET), The Grey Clan, BG Travel (new travel system for BG1 city), and Thalantyr store extra items mod
+ - moved textpack / translation mods other than Polish (which was already there) before EET install; added a special ANN;EET; marker line before them so they get installed in the BG2:EE folder even though they come before EET in BG2EE\Select.txt
+ - moved Xulaye to NPCs category (was incorrectly listed with kit mods) for BG2EE/EET installs
+ - Irenicus dungeon skip mods not selected by default for BG2EE installs (due to risk of missing out on mod-added content there)
+ - cleaned up Klatu Fixes & Tweaks components for BG2EE/EET, marking 2060 and 2070 as expert due to deprecation & user reports and enabling several others by default
+ - switched aTweaks default selection from 115 to 117 (scrolls scribable only at inns/taverns instead of everywhere) to provide more incentive to visit inns
+ - moved special case handling of EET patches for BG2EE mods and the BWS OverwriteFiles feature to the Au3Run step, which occurs after all extractions are complete (including user-prompted manual problem resolutions)
+ - removed some apparently(?) unnecessary 'always process Select.txt from the first line, just in case' logic that was causing EET installs to re-apply command-line actions from the BG1EE section when starting the BG2EE section
+ - fixed a couple of bugs related to the 'install components as a group' feature
  
 20161106 - Updated by agb1 
  Dace NPC marked Expert for EE installs due to recent user reports; added BiG World Textpack, Trimpack and Smoothpack to the BG2EE installation process; more progress towards EET support.
