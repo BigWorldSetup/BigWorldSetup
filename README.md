@@ -1,19 +1,19 @@
 **Issue reporting is closed:**
 
 Since there is no active BWS code maintainer, there is no point reporting issues because there is no one who can fix them.
-Community support: <<http://www.shsforums.net/topic/56670-big-world-setup-an-attempt-to-update-the-program>
-Community support: <<https://forums.beamdog.com/discussion/44476/tool-big-world-setup-bws-mod-manager-for-baldurs-gate-enhanced-edition-trilogy-for-windows/p1>
-Mod requests: <<http://www.shsforums.net/topic/58006-big-world-setup-mod-request-template/>
+Community support: <http://www.shsforums.net/topic/56670-big-world-setup-an-attempt-to-update-the-program>
+Community support: <https://forums.beamdog.com/discussion/44476/tool-big-world-setup-bws-mod-manager-for-baldurs-gate-enhanced-edition-trilogy-for-windows/p1>
+Mod requests: <http://www.shsforums.net/topic/58006-big-world-setup-mod-request-template>
 
 **Big World Setup (BWS) : Mod Manager for Infinity Engine Games and Baldur's Gate/Enhanced Edition Trilogy by dabus**
 
 ! Don't use BitBucket's web-interface to edit files because it doesn't save non-ANSI characters properly
 
-﻿**Download:**                 : <<https://bitbucket.org/BigWorldSetup/bigworldsetup/get/master.zip>
+﻿**Download:**                 : <https://bitbucket.org/BigWorldSetup/bigworldsetup/get/master.zip>
 
-![gRmfnLY[1].png](<https://bitbucket.org/repo/kKX5Xg/images/3720385461-gRmfnLY%5B1%5D.png)
+![gRmfnLY[1].png](<https://bitbucket.org/repo/kKX5Xg/images/3720385461-gRmfnLY%5B1%5D.png>)
 
-﻿**Download:**                 : <<https://bitbucket.org/BigWorldSetup/bigworldsetup/get/master.zip>
+﻿**Download:**                 : <https://bitbucket.org/BigWorldSetup/bigworldsetup/get/master.zip>
 
 Instruction/FAQ          : <https://forums.beamdog.com/discussion/comment/704157>
 
@@ -29,7 +29,7 @@ dabus(author), agb1, AL|EN, Quiet
 
 ### How do I contribute? ###
 
-- learn git basics (<https://git-scm.com/videos <https://git-scm.com/book/en/v2>)
+- learn git basics (<https://git-scm.com/videos> <https://git-scm.com/book/en/v2>)
 - fork BWS repository using "SourceTree" or "SmartGit" or other preferred tool
 - add mods/make other changes (see FAQ in the Docs folder of the BWS package!)
 - create a pull request to submit changes from your fork back to the main project
@@ -83,9 +83,9 @@ If you are in the middle of an installation, it is safest to use "Without Update
 - Written in: AutoIt3
 - Additional used tools during creation:
 
-AutoIt3 UDFs
-7-Zip, wget, Scite4AutoIt3, PDFtoText, The Gimp
-Parts of Holgers Tristate GUI TreeView
-w0uters ReduceMemory
-Parts of MrCreatoRs CheckFileSize
-and many others I can't remember...
+- AutoIt3 UDFs
+- 7-Zip, wget, Scite4AutoIt3, PDFtoText, The Gimp
+- Parts of Holgers Tristate GUI TreeView
+- w0uters ReduceMemory
+- Parts of MrCreatoRs CheckFileSize
+- and many others I can't remember...
