@@ -22,7 +22,7 @@ Else
     objTextFile.Close
     If InstallationInProgress = False Then
 	  Set wshShell = WScript.CreateObject ("wscript.shell")
-      wshShell.Run "%comspec% /k "".\Git\bin\git.exe"" fetch & .\Git\bin\git.exe reset --hard origin/master & exit", 1, True
+      wshShell.Run "%comspec% /k "".\Git\bin\git.exe"" fetch & .\Git\bin\git.exe reset --hard origin/master & exit", 7, True
     End If
   Else
 	Set wshShell = WScript.CreateObject ("wscript.shell")
@@ -38,6 +38,6 @@ Else
   Set wshShell = WScript.CreateObject ("wscript.shell")
   commandDefinition = "%comspec% /c ""Big World Setup\Tools\Git\bin\git.exe""" & " " & "log --pretty=oneline --abbrev-commit --abbrev=7 -n 1" & " > " & "BWS-Version.txt"
   wshShell.Run commandDefinition, 7, True
-  wshShell.Run """Big World Setup\Tools\AutoIt3.exe"" ""Big World Setup\Big World Setup.au3""", 1, True
+  wshShell.Run """Big World Setup\Tools\AutoIt3.exe"" ""Big World Setup\Big World Setup.au3""", 7, True
   Set wshShell = nothing
 End If
