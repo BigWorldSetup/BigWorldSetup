@@ -1,20 +1,20 @@
-OverwriteFiles/
-Big World Downloads/
 Big World Backup/
+Big World Downloads/
+Big World Setup/BWS-Selection.ini
+Big World Setup/Config/Setup.ini
+Big World Setup/Config/User.ini
+Big World Setup/Includes_Traced/
 Big World Setup/Logs/
 Big World Setup/OverwriteFiles/
-Big World Setup/Config/User.ini
-Big World Setup/Config/Setup.ini
-Big World Setup/BWS-Selection.ini
-Big World Setup/Includes_Traced/
-Big World Setup/Traced.au3
 Big World Setup/Tools/Git/
+Big World Setup/Traced.au3
+Git/
+OverwriteFiles/
+
 **/bwfixpack.ini
-**/setup.ini
 **/PreSelection00.ini
 **/Mod.ini
 **/Mod-*.ini
 **/WeiDU-*.ini
-**/*.ps1
 **/BWS-Version.txt
-Git/
+
