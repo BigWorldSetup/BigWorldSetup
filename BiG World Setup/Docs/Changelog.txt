@@ -1040,3 +1040,6 @@ Added: log selected expert mods and components and user-ignored rules via setup-
 
 20170619 - Updated by argent77
  Added PSTEE support.
+
+2018.04.10 - Updated by AL|EN
+ Fixed: fixed extracting application version
