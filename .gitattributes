@@ -13,4 +13,4 @@
 *.png binary
 *.gitignore text eol=crlf
 *.gitattributes text eol=crlf
-/*/Tools/Git/**/* binary
+/*/Tools/**/* binary
