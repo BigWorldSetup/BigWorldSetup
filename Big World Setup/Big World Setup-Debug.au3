@@ -1,6 +1,6 @@
 AutoItSetOption('TrayIconHide', 1)
 
-Global $g_TraceFile=@ScriptDir&'\Logs\BWS_Trace.txt', $g_DebugFile = @ScriptDir & '\Logs\BWS_Debug.txt'
+Global $g_TraceFile=@ScriptDir&'\Logs\BWS_Trace.txt', $g_DebugFile = @ScriptDir & '\Logs\BWS-Debug-AutoIt.txt'
 
 ; =========================  Start the script with debugging-support =========================
 If $CmdLine[0] = 1 Then

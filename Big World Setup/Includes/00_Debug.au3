@@ -1,4 +1,4 @@
-$debug_Handle=FileOpen($g_LogDir & '\BWS_Debug.txt', 1)
+$debug_Handle=FileOpen($g_LogDir & '\BWS-Debug-AutoIt.txt', 1)
 $debug_Line=StringSplit($debug_Line, ' ')
 $debug_Skip='ineedthisdummy'
 If UBound($debug_Line) < 3 Then FileWriteLine($debug_Handle, '$debug_Line has only one element:  ' & $debug_Line[1])
