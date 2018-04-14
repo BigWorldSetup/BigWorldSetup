@@ -1,14 +1,14 @@
 OverwriteFiles/
-Bi[Gg] World Downloads/
-Bi[Gg] World Backup/
-Bi[Gg] World Setup/Logs/
-Bi[Gg] World Setup/OverwriteFiles/
-Bi[Gg] World Setup/Config/User.ini
-Bi[Gg] World Setup/Config/Setup.ini
-Bi[Gg] World Setup/BWS-Selection.ini
-Bi[Gg] World Setup/Includes_Traced/
-Bi[Gg] World Setup/Traced.au3
-Bi[Gg] World Setup/Tools/Git/
+Big World Downloads/
+Big World Backup/
+Big World Setup/Logs/
+Big World Setup/OverwriteFiles/
+Big World Setup/Config/User.ini
+Big World Setup/Config/Setup.ini
+Big World Setup/BWS-Selection.ini
+Big World Setup/Includes_Traced/
+Big World Setup/Traced.au3
+Big World Setup/Tools/Git/
 **/bwfixpack.ini
 **/setup.ini
 **/PreSelection00.ini
