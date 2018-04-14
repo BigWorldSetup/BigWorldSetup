@@ -30,7 +30,7 @@ Else
   Else
 	Set wshShell = WScript.CreateObject ("wscript.shell")
     wshShell.Run "%comspec% /k XCOPY /S /Q /Y /I ""Big World Setup\Tools\Git"" "".\Git"" & exit", 7, True
-    WScript.Echo "BWS has an autoupdate feature that will synchronize your local copy of BWS with the latest online version each time you run this script." _ &
+    WScript.Echo "BWS has an autoupdate feature that will synchronize your local copy of BWS with the latest online version each time you run this script." & _
                  "Applicaion will not update any files when during when installation is in progress. This message will only be displayed once."
     wshShell.Run """.\Git\bin\git.exe"" init .", 1, True
     wshShell.Run """.\Git\bin\git.exe"" remote add -f origin https://bitbucket.org/BigWorldSetup/BigWorldSetup", 1, True
