@@ -758,7 +758,7 @@ Fixed: Bad logical error in batch/group-installation. Files with multiple attrib
 Changed: Put pre- and post-installation-checks into separate functions to improve readability and avoid errors. Changed how groups are handled. Remove CDCreAni.bif and DESound.bif from bif-checks after backup-restore because they seem to be additional files. Install those dummy-info-entries after WeiDU-replacements. Use quick-log to speed up installation.
 20100704
 Fixed: Added a few more checks for pending backslashes in pathnames (remove it for checks after changing the path and add one for detecting 25movies.bif).
-Changed: Compressed all executables with upx. Set GUI and TrayIcon if BiG World Setup is launched by local installed version of AutoIt3.exe. Show old > new name of the downloads name during link-tests (the check if files are available).
+Changed: Compressed all executables with upx. Set GUI and TrayIcon if Big World Setup is launched by local installed version of AutoIt3.exe. Show old > new name of the downloads name during link-tests (the check if files are available).
 Added: Use a second section in the user.ini to save deselected components of a mod. Useful to save deselected but fixed items. Also used to mark and search new components.
 20100705
 Fixed: New checks for pending backslashes

@@ -600,9 +600,9 @@ Added: Huple NPC for BG:EE and EET (BWFixpack'd by White Agnus)
  - Updated README.md
  - Added AutoUpdate folder with a copy of git.exe
  - AutoIt3.exe moved to Tools and marked as a hidden file
- - BiG World Setup-DebugMode marked as a hidden file
- - BiG World Setup.vbs is the recommended way to start BWS (auto-update and preserve local changes)
- - BiG World Setup-Full-Update.vbs must be run at least once (auto-update and discard local changes)
+ - Big World Setup-DebugMode marked as a hidden file
+ - Big World Setup.vbs is the recommended way to start BWS (auto-update and preserve local changes)
+ - Big World Setup-Full-Update.vbs must be run at least once (auto-update and discard local changes)
 
 20161103 - Updated by agb1
  - if you restart BWS and abort an EET installion before it finished the BG1 portion, it will return you to the BG2:EE/EET game tab (previously, it took you to the BG1:EE game tab)

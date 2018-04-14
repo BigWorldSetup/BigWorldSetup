@@ -301,7 +301,7 @@ Func Au3Install($p_Num = 0, $p_Debug = 0)
 		For $a = 1 To $Array[0]
 			_Process_SetConsoleLog($Array[$a])
 		Next
-		_PrintDebug('Installation array printed to log BiG World Setup\Logs\BiG World Debug.txt',1)
+		_PrintDebug('Installation array printed to log Big World Setup\Logs\BiG World Debug.txt',1)
 		Exit
 	EndIf
 	For $a = $g_FItem To $Array[0]
@@ -1150,7 +1150,7 @@ Func _Install_ModifyForGroupInstall($p_Array, $p_Debug=0)
 			EndIf
 			_Process_SetConsoleLog($NArray[$a])
 		Next
-		_PrintDebug('_Install_ModifyForGroupInstall finished - check BiG World Setup\Logs\BiG World Debug.txt',1)
+		_PrintDebug('_Install_ModifyForGroupInstall finished - check Big World Setup\Logs\BiG World Debug.txt',1)
 		Exit
 	EndIf
 	Return $NArray

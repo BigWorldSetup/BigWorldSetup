@@ -103,7 +103,7 @@ Func _Depend_PrepareBuildIndex($p_RuleLines, $p_Select)
 		Local $Test=StringRegExp($p_RuleLines[$a][0], '\x7c', 3); x7c = '|', 3 = return array of global matches
 		$p_RuleLines[$a][1]=UBound($Test)-1; this is the number of mod-setup-names in the rule (the same name could be repeated multiple times)
 	Next
-	Local $Setups=$g_Setups; this is the array returned by _CreateList('s') defined in BiG World Setup.au3
+	Local $Setups=$g_Setups; this is the array returned by _CreateList('s') defined in Big World Setup.au3
 	;		Setups[N][0] = mod-setup-name (ex. 1pp)
 	;		Setups[N][1] = long mod name (ex. One Pixel Productions)
 	;		Setups[N][2] = after next step, a list of '|'-separated indices into p_RuleLines from every rule that includes THIS entry's mod-setup-name

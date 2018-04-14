@@ -128,7 +128,7 @@ add &pkg=osx for OSX build
 <div class="level1">
 
 <p>
-Open the BiG World Setup\Config\[GAME]\Game.ini
+Open the Big World Setup\Config\[GAME]\Game.ini
 </p>
 <pre class="ini code ini" style="font-family:monospace;">
 [Edit]
@@ -138,7 +138,7 @@ animalcompanions;0?2=\D*
 animalcompanions - mod name
 </p>
 <p>
-0?2 - component from BiG World Setup\Config\[GAME]\select.txt
+0?2 - component from Big World Setup\Config\[GAME]\select.txt
 </p>
 \D* - au3 pattern, only letters for this case
 </p>
@@ -150,7 +150,7 @@ animalcompanions - mod name
 <div class="level1">
 
 <p>
-Open the BiG World Setup\Config\[GAME]\Mod.ini, search for your mod and remove the trailing <strong>,F</strong> from the value of the Type-key.
+Open the Big World Setup\Config\[GAME]\Mod.ini, search for your mod and remove the trailing <strong>,F</strong> from the value of the Type-key.
 </p>
 <pre class="ini code ini" style="font-family:monospace;"><span class="re0"><span class="br0">&#91;</span>BeregostCF<span class="br0">&#93;</span></span>
 <span class="re1">Name</span><span class="sy0">=</span><span class="re2">Beregost Crash Fixer <span class="br0">&#40;</span>Utility<span class="br0">&#41;</span> v1.8b</span>
@@ -166,7 +166,7 @@ If you want to remove some parts of a fixed mod, you may also want to add a line
 </p>
 <pre class="code ini"><span class="re1">NotFixed</span><span class="sy0">=</span><span class="re2"><span class="nu0">3</span> 10.</span></pre>
 <p>
-Another option is to edit the BiG World Setup\Config\User.ini to fit your needs after it was written. (Shortly after you selected how to handle failures during download, extraction and installation.)
+Another option is to edit the Big World Setup\Config\User.ini to fit your needs after it was written. (Shortly after you selected how to handle failures during download, extraction and installation.)
 You can do that until the mods get installed. Use the pause-button or force the issue like described in the next block.
 </p>
 
@@ -197,7 +197,7 @@ Since the current-section is worked on, the selection is also save in the [Save]
 <div class="level1">
 
 <p>
-Open the BiG World Setup\Config\Setup.ini. The section [Order] shows the steps that are done. Replace them with one of the listed examples, which are Order-Select/Download/Extract/Install. These will start at the beginning of the selection, download, extraction or installation.
+Open the Big World Setup\Config\Setup.ini. The section [Order] shows the steps that are done. Replace them with one of the listed examples, which are Order-Select/Download/Extract/Install. These will start at the beginning of the selection, download, extraction or installation.
 
 </p>
 <div class="noteimportant" >Be sure you have made the mod-selection you want and the game-folder is ready for an installation.
@@ -208,7 +208,7 @@ Open the BiG World Setup\Config\Setup.ini. The section [Order] shows the steps t
 <div class="level1">
 
 <p>
-Open the BiG World Setup\Config\[GAME]\Select.txt. This file contains all orders to install the BWP. They are executed line after line.
+Open the Big World Setup\Config\[GAME]\Select.txt. This file contains all orders to install the BWP. They are executed line after line.
 There are several type of lines. Annotations, commands, downloads, standard, multiple choice-, sub-components and groups.
 </p>
 <pre class="code text">ANN;Solve the issue with Cespy Audio</pre>
@@ -666,7 +666,7 @@ If you want to extract them yourself, the files are executed and your default pr
 <div class="level1">
 
 <p>
-All actions are listed in the BiG World Setup\Config\[GAME]\Select.txt (See the third section of this page for details)
+All actions are listed in the Big World Setup\Config\[GAME]\Select.txt (See the third section of this page for details)
 They are executed line by line. CMD-lines are always executed. Lines that install components are checked if those should be executed. If already installed, the component will be skipped. If the dependencies are met and conflicts don&#039;t exist the component will be installed. Otherwise you can select to either give it a try or skip that installation.
 </p>
 

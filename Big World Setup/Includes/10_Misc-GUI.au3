@@ -21,7 +21,7 @@ EndFunc   ;==>_Misc_SetGConfDir
 ; Displays the about-screen
 ; ---------------------------------------------------------------------------------------------
 Func _Misc_AboutGUI()
-	Local $String = 'BiG World Setup', $Version
+	Local $String = 'Big World Setup', $Version
 	Local $Current = GUICtrlRead($g_UI_Seperate[0][0]) + 1
 	; ---------------------------------------------------------------------------------------------
 	; Fetch the version number
@@ -807,7 +807,7 @@ Func _Misc_SwitchGUIToInstallMethod()
 		EndIf
 	Next
 	If $found = 0 Then
-		_PrintDebug('There is a problem with the internal configuration files. The BWS\Config\User.ini indicates that your current game type is "'&$g_Flags[14]&'" but no matching configuration was found. Please try restarting BWS using "with updates" to get the latest files; if that fails, please report this problem on one of the BiG World Setup support forums.', 1)
+		_PrintDebug('There is a problem with the internal configuration files. The BWS\Config\User.ini indicates that your current game type is "'&$g_Flags[14]&'" but no matching configuration was found. Please try restarting BWS using "with updates" to get the latest files; if that fails, please report this problem on one of the Big World Setup support forums.', 1)
 		Exit
 	EndIf
 	_Misc_Set_GConfDir($g_GameList[$g][0])

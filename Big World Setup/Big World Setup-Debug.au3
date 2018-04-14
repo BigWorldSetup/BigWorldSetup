@@ -7,7 +7,7 @@ If $CmdLine[0] = 1 Then
 	FileDelete($g_TraceFile)
 	FileDelete($g_DebugFile)
 	Trace()
-	Run(@ComSpec & ' /c AutoIt3.exe /ErrorStdOut Traced.au3 | AutoIt3.exe "BiG World Setup-Debug.au3"', @ScriptDir, @SW_HIDE)
+	Run(@ComSpec & ' /c AutoIt3.exe /ErrorStdOut Traced.au3 | AutoIt3.exe "Big World Setup-Debug.au3"', @ScriptDir, @SW_HIDE)
 	Exit
 EndIf
 
@@ -20,15 +20,15 @@ If $IsCrashed = 1 Then
 			FileWrite($Handle, @CRLF&'----------'&@CRLF&'Variables:'&@CRLF&'----------'&@CRLF&FileRead($g_DebugFile))
 			FileClose($Handle)
 		EndIf
-		MsgBox(48, 'BiG World Setup - '&_GetSTR('T1'), _GetSTR('L1'))
+		MsgBox(48, 'Big World Setup - '&_GetSTR('T1'), _GetSTR('L1'))
 		ShellExecute($g_TraceFile)
 		Exit
 	EndIf	
-	$Answer=MsgBox(3+32, 'BiG World Setup - '&_GetSTR('T1'), _GetSTR('L2'))
+	$Answer=MsgBox(3+32, 'Big World Setup - '&_GetSTR('T1'), _GetSTR('L2'))
 	If $Answer=6 Then
-		Run(@ComSpec & ' /c AutoIt3.exe /ErrorStdOut Traced.au3 | AutoIt3.exe "BiG World Setup-Debug.au3"', @ScriptDir, @SW_HIDE)
+		Run(@ComSpec & ' /c AutoIt3.exe /ErrorStdOut Traced.au3 | AutoIt3.exe "Big World Setup-Debug.au3"', @ScriptDir, @SW_HIDE)
 	ElseIf $Answer=7 Then
-		MsgBox(48, 'BiG World Setup - '&_GetSTR('T1'), _GetSTR('L1'))
+		MsgBox(48, 'Big World Setup - '&_GetSTR('T1'), _GetSTR('L1'))
 		ShellExecute($g_TraceFile)
 		Exit
 	EndIf
@@ -74,7 +74,7 @@ Func Observe()
 		If StringRegExp($Num, '\D{1,2}') Then
 			FileWriteLine($Handle, $String[$s])
 		ElseIf $Num = '00' Then
-			$Line=_FileReadLine(@ScriptDir&'\BiG World Setup.au3', StringRegExpReplace($String[$s], '.*\s', ''))
+			$Line=_FileReadLine(@ScriptDir&'\Big World Setup.au3', StringRegExpReplace($String[$s], '.*\s', ''))
 			FileWriteLine($Handle, $String[$s] & ' - ' & $Line)
 		Else
 			$Search=FileFindFirstFile(@ScriptDir&'\Includes\'&$Num&'*')
