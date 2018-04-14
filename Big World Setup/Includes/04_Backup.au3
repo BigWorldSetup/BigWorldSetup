@@ -6,15 +6,15 @@
 Func Au3CleanInst($p_Num = 0, $p_Tab = 6) ;1=first timer, 2=backup, 3=restore
 	Local $Message = IniReadSection($g_TRAIni, 'BA-Au3CleanInst')
 	_PrintDebug('+' & @ScriptLineNumber & ' Calling Au3CleanInst')
-	Global $g_LogFile = $g_LogDir & '\BiG World Backup Debug.txt'
+	Global $g_LogFile = $g_LogDir & '\Big World Backup Debug.txt'
 	$g_Flags[0]=1
 	If StringRegExp($g_Flags[14], 'BWS|BWP') Then
 		Local $Type = 'BG2'
 	Else
 		Local $Type = $g_Flags[14]
 	EndIf
-	Global $g_BackupDir = $g_BaseDir & '\BiG World Backup\'&$Type; prevent backups inside the BG2-folder
-	Global $g_RemovedDir = $g_BaseDir & '\BiG World Backup\Saved_'&$Type; don't move files accross partitions if BWS and BG2-dirs lay on different ones
+	Global $g_BackupDir = $g_BaseDir & '\Big World Backup\'&$Type; prevent backups inside the BG2-folder
+	Global $g_RemovedDir = $g_BaseDir & '\Big World Backup\Saved_'&$Type; don't move files accross partitions if BWS and BG2-dirs lay on different ones
 	Local $Action = 0
 	GUICtrlSetData($g_UI_Interact[6][4], StringFormat(_GetSTR($Message, 'H1'), $Type)); => help
 	Call('_Test_CheckRequiredFiles_'&$Type)
@@ -138,7 +138,7 @@ Func _Backup_Create($p_Game, $p_Message)
 		_IniWrite($Section, $Files[$f], $IsDir, 'N')
 		If StringRegExp($Files[$f], '(?i)\A(\x2e?|mplay.*|nwn_1.mpg|(GS)?Arcade.*|glsetup.exe)\z') Then ContinueLoop; don't copy useless files
 		If StringRight($Files[$f], 4) = '.bif' And $p_Game = 'PST' Then ContinueLoop; PST has no data-folder but installs all files into the root-folder
-		If StringRegExp($Files[$f], '(?i)\A(BiG World Backup|Big World Downloads|Big World Setup|cache|cd\d|data|ereg|mplayer|script compiler)\z') Then ContinueLoop; don't copy useless or untouched folders
+		If StringRegExp($Files[$f], '(?i)\A(Big World Backup|Big World Downloads|Big World Setup|cache|cd\d|data|ereg|mplayer|script compiler)\z') Then ContinueLoop; don't copy useless or untouched folders
 		If $IsDir Then
 			$Size+=DirGetSize($g_GameDir&'\'&$Files[$f])
 		Else
@@ -153,7 +153,7 @@ Func _Backup_Create($p_Game, $p_Message)
 	EndIf
 	DirCreate($g_BackupDir)
 	; Add some files/folders that might not exist yet but should not be removed
-	Local $Fix[6] = ['portraits', 'save', 'mpsave', 'Big World Setup', 'BiG World Backup', 'Big World Downloads']
+	Local $Fix[6] = ['portraits', 'save', 'mpsave', 'Big World Setup', 'Big World Backup', 'Big World Downloads']
 	For $f in $Fix
 		_IniWrite($Section, $f, 1)
 	Next
@@ -303,7 +303,7 @@ Func _Backup_Restore($p_Tab)
 	FileDelete($g_GameDir&'\Data\tb#gen*.bif'); remove generic biffed files
 	$BakFiles=_FileSearch($g_BackupDir, '*'); delete files from bg2-folder which exist in the backup-folder
 	For $b=1 to $BakFiles[0]
-		If StringRegExp($BakFiles[$b], '(?i)\A(CD\d|Big World Downloads|BiG World Backup|Big World Setup|Portraits)\z') Then ContinueLoop; do >>not<< remove useful or essential folders
+		If StringRegExp($BakFiles[$b], '(?i)\A(CD\d|Big World Downloads|Big World Backup|Big World Setup|Portraits)\z') Then ContinueLoop; do >>not<< remove useful or essential folders
 		If FileExists($g_GameDir&'\'&$BakFiles[$b]) Then
 			$IsDir=StringRegExp(FileGetAttrib($g_GameDir&'\'&$BakFiles[$b]), 'D')
 			$Error+=_Backup_FileAction($BakFiles[$b], $g_GameDir, $g_RemovedDir, 2+$IsDir+$Save, $CSize, $Size, $FMessage)
@@ -318,7 +318,7 @@ Func _Backup_Restore($p_Tab)
 		$Files=_FileSearch($g_GameDir, '*')
 		Local $FileList[$Files[0]+1][2]
 		For $f=1 to $Files[0]
-			If _IniRead($ReadSection, $Files[$f], -1) <> -1 Then ContinueLoop; includes portraits, save, mpsave, Big World Setup + its vbs, BiG World Backup, Big World Downloads
+			If _IniRead($ReadSection, $Files[$f], -1) <> -1 Then ContinueLoop; includes portraits, save, mpsave, Big World Setup + its vbs, Big World Backup, Big World Downloads
 			$FileList[0][0] +=1
 			$FileList[$FileList[0][0]][0]=$Files[$f]
 			If StringRegExp(FileGetAttrib($g_GameDir&'\'&$Files[$f]), 'D') Then
@@ -343,7 +343,7 @@ Func _Backup_Restore($p_Tab)
 ; ---------------------------------------------------------------------------------------------
 	Local $CSize=0, $Size=$BSize
 	For $b=1 to $BakFiles[0]
-		If StringRegExp($BakFiles[$b], '(?i)\A(Big World Downloads|BiG World Backup|Big World Setup|mpsave|Portraits|save|BWS_Backup.ini)\z') Then ContinueLoop; do >>not<< copy old content
+		If StringRegExp($BakFiles[$b], '(?i)\A(Big World Downloads|Big World Backup|Big World Setup|mpsave|Portraits|save|BWS_Backup.ini)\z') Then ContinueLoop; do >>not<< copy old content
 		$IsDir=StringRegExp(FileGetAttrib($g_BackupDir&'\'&$BakFiles[$b]), 'D')
 		$Error+=_Backup_FileAction($BakFiles[$b], $g_BackupDir, $g_GameDir, $IsDir, $CSize, $Size, $FMessage)
 	Next

@@ -274,8 +274,8 @@ Func _Test_ArchivesExist()
 ;			EndIf
 ;		ElseIf $Keep = 'm' Then; move files
 ;			If Not FileExists($g_RemovedDir) Then DirCreate($g_RemovedDir)
-;			DirMove($g_DownDir & '\Not Valid', $g_RemovedDir & '\BiG World Downloads-'&@YEAR&@MON&@MDAY, 1)
-;			_Process_SetScrollLog(StringFormat(_GetTR($Message, 'L16'), $g_RemovedDir & '\BiG World Downloads-'&@YEAR&@MON&@MDAY)); => files can be found at X
+;			DirMove($g_DownDir & '\Not Valid', $g_RemovedDir & '\Big World Downloads-'&@YEAR&@MON&@MDAY, 1)
+;			_Process_SetScrollLog(StringFormat(_GetTR($Message, 'L16'), $g_RemovedDir & '\Big World Downloads-'&@YEAR&@MON&@MDAY)); => files can be found at X
 ;		Else; restore files
 ;			FileMove($g_DownDir & '\Not Valid\*.*', $g_DownDir & '\')
 ;		EndIf
