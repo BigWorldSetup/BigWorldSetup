@@ -17,7 +17,7 @@ Func Au3Net($p_Num = 0)
 	Local $IsPaused=0, $Loop=0
 	$g_Flags[0]=1
 	DirCreate($g_DownDir)
-	$g_LogFile = $g_LogDir & '\Big World Download Debug.txt'
+	$g_LogFile = $g_LogDir & '\BWS-Debug-Download.txt'
 	If $p_Num = 2 Then Local $Fault=IniReadSection($g_BWSIni, 'Faults'); rerun - get faults
 	GUICtrlSetData($g_UI_Interact[6][1], ($Sizes[0][2] * 100) / $Sizes[0][1]); set the current value at the beginning
 ; ---------------------------------------------------------------------------------------------
@@ -360,7 +360,7 @@ EndFunc   ;==>Au3Net
 ; ---------------------------------------------------------------------------------------------
 Func Au3NetFix($p_Num = 0)
 	_PrintDebug('+' & @ScriptLineNumber & ' Calling Au3NetFix')
-	$g_LogFile = $g_LogDir & '\Big World Download Debug.txt'
+	$g_LogFile = $g_LogDir & '\BWS-Debug-Download.txt'
 	$g_CurrentPackages = _GetCurrent(); items may be removed after failed download
 	_Process_SwitchEdit(0, 0)
 	If FileExists($g_GameDir&'\WeiDU') And Not StringInStr(FileGetAttrib($g_GameDir&'\WeiDU'), 'D') Then FileDelete($g_GameDir&'\WeiDU'); remove WeiDU for mac/linux (if it exists)
@@ -389,7 +389,7 @@ EndFunc   ;==>Au3NetFix
 ; ---------------------------------------------------------------------------------------------
 Func Au3NetTest($p_Num = 0)
 	_PrintDebug('+' & @ScriptLineNumber & ' Calling Au3NetTest')
-	$g_LogFile = $g_LogDir & '\Big World Download Debug.txt'
+	$g_LogFile = $g_LogDir & '\BWS-Debug-Download.txt'
 	_Process_Gui_Create(1, 0); switch to correct screen and edit-box after running download-tab
 	GUICtrlSetData($g_UI_Interact[6][1], 0)
 	Local $Message = IniReadSection($g_TRAIni, 'NT-Au3NetTest')
@@ -950,7 +950,7 @@ Func _Net_LinkTest($p_Num = 0)
 	GUICtrlSetData($g_UI_Static[6][1], _GetTR($Message, 'L1')); => watch progress
 	GUICtrlSetState($g_UI_Button[6][1], $GUI_DISABLE); we don't need input here
 	GUICtrlSetState($g_UI_Interact[6][5], $GUI_DISABLE)
-	$g_LogFile = $g_LogDir & '\Big World Link Debug.txt'
+	$g_LogFile = $g_LogDir & '\BWS-Debug-Link.txt'
 	FileClose(FileOpen($g_LogFile, 2))
 	Local $TestedBefore = 0, $Fault = ''
 	For $l = 1 To $List[0][0]; loop through the list
