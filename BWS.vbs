@@ -6,14 +6,12 @@ Else
   oShell.CurrentDirectory = CreateObject("Scripting.FileSystemObject").GetParentFolderName(WScript.ScriptFullName)
   Set wshShell = WScript.CreateObject ("wscript.shell")
   Set objFSO = CreateObject("Scripting.FileSystemObject")
-  wshShell.Run "%comspec% /k XCOPY /S /Q /Y /I ""Big World Setup\Tools\Git"" "".\Git"" & exit", 7, True
+
   If objFSO.FolderExists(".git") Then
-    'WScript.Echo "Folder exists."
     wshShell.Run "%comspec% /k "".\Git\bin\git.exe"" fetch & .\Git\bin\git.exe reset --hard origin/master & pause & exit", 1, True
   Else
-    'WScript.Echo "Folder does not exist."
-    WScript.Echo "BWS has an auto-update feature that will synchronize your local copy of BWS with the latest online version each time you run this script." & _
-                 "This message will only be displayed once. If you want to disable the feature, use ""BWS-NoAutoUpdate.vbs""."
+    wshShell.Run "%comspec% /k XCOPY /S /Q /Y /I ""Big World Setup\Tools\Git"" "".\Git"" & exit", 7, True
+    WScript.Echo "BWS has an auto-update feature that will synchronize your local copy of BWS with the latest online version each time you run this script. This message will only be displayed once."
     wshShell.Run """.\Git\bin\git.exe"" init .", 1, True
     wshShell.Run """.\Git\bin\git.exe"" remote add -f origin https://bitbucket.org/BigWorldSetup/BigWorldSetup", 1, True
     wshShell.Run """.\Git\bin\git.exe"" branch --track master origin/master", 1, True
