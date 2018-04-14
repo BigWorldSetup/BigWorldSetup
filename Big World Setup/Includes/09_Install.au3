@@ -859,7 +859,7 @@ Func _Install_CompressLog()
 	Next
 	FileClose($Handle)
 	$7za = $g_ProgDir & '\Tools\7z.exe'
-	$Handle = Run('"' & $7za & '" a "' & $g_GameDir & '\BWS-Debug.7z" "' & $g_LogDir & '\BWS-Debug-Upload.txt"', $g_ProgDir, @SW_HIDE, 8)
+	$Handle = Run('"' & $7za & '" a "' & $g_GameDir & '\BWS-Debug-Upload.7z" "' & $g_LogDir & '\BWS-Debug.txt"', $g_ProgDir, @SW_HIDE, 8)
 	Local $Return
 	While 1
 		$Return &= StdoutRead($Handle)
