@@ -1,4 +1,4 @@
-Sometimes you need to overwrite mod files AFTER extraction but BEFORE installation of the mod itself and BEFORE "Big World Fixpack" fixes processing.
+Sometimes you need to overwrite mod files AFTER extraction but BEFORE "Big World Fixpack" fixes processing
 In such case you can put any custom mod files using exactly the same folder structure, inside correct game top folder to avoid pausing installation and manual copying.
 
 OverwriteFiles\BG1EE - it's for Baldur's Gate: Enhanced Edition
