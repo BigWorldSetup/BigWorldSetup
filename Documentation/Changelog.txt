@@ -809,7 +809,7 @@ Changed: Slightly altered the methods to fetch filenames from http-headers to ma
 Added: Import your selection from a WeiDU.log
 20110116
 Fixed: Removed dependency that might crash the BWS (thanks to Chevalier).
-Added: Create Logs\BWS_Tracedump.txt before Debug.au3 tries to fix things to track down some unknown errors.
+Added: Create Logs\BWS-Tracedump.txt before Debug.au3 tries to fix things to track down some unknown errors.
 20110303
 Changed: Moved version number to the informations that are shown when clicking on a mod.
 20110304
