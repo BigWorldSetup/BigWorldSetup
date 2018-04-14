@@ -11,7 +11,7 @@ Mod requests: <http://www.shsforums.net/topic/58006-big-world-setup-mod-request-
 
 ﻿**Download:**                 : <https://bitbucket.org/BigWorldSetup/bigworldsetup/get/master.zip>
 
-![gRmfnLY[1].png](<https://bitbucket.org/repo/kKX5Xg/images/3720385461-gRmfnLY%5B1%5D.png>)
+![gRmfnLY[1].png](https://bitbucket.org/repo/kKX5Xg/images/3720385461-gRmfnLY%5B1%5D.png)
 
 ﻿**Download:**                 : <https://bitbucket.org/BigWorldSetup/bigworldsetup/get/master.zip>
 
