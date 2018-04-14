@@ -13,14 +13,14 @@ Else
   Else
     'WScript.Echo "Folder does not exist."
     WScript.Echo "BWS has an auto-update feature that will synchronize your local copy of BWS with the latest online version each time you run this script." & _
-                 "This message will only be displayed once. If you want to disable the feature, rename the Git folder in Big World Setup\Tools."
+                 "This message will only be displayed once. If you want to disable the feature, use ""BiG World Setup-No-AutoUpdate.vbs"""
     wshShell.Run """.\Git\bin\git.exe"" init .", 1, True
     wshShell.Run """.\Git\bin\git.exe"" remote add -f origin https://bitbucket.org/BigWorldSetup/BigWorldSetup", 1, True
     wshShell.Run """.\Git\bin\git.exe"" branch --track master origin/master", 1, True
     wshShell.Run """.\Git\bin\git.exe"" reset --hard origin/master", 1, True
   End If
-  commandDefinition = "%comspec% /c .\Git\bin\git.exe" & " " & "rev-parse HEAD" & " > " & "BWS-EE-Version.txt"
-  wshShell.run commandDefinition, 7, True
+  commandDefinition = "%comspec% /c ""BiG World Setup\Tools\Git\bin\git.exe""" & " " & "rev-parse HEAD" & " > " & "BWS-EE-Version.txt"
+  wshShell.Run commandDefinition, 7, True
   wshShell.Run """BiG World Setup\Tools\AutoIt3.exe"" ""BiG World Setup\BiG World Setup.au3""", 1, True
   Set wshShell = nothing
 End If
