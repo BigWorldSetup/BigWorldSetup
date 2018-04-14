@@ -1,16 +1,16 @@
-*.ps1 text eol=crlf
 *.au3 text eol=crlf
-*.ini text eol=crlf
-*.vbs text eol=crlf
-*.txt text eol=crlf
 *.htm text eol=crlf
 *.html text eol=crlf
-*.gitignore text eol=crlf
-*.gitattributes text eol=crlf
+*.ini text eol=crlf
+*.ps1 text eol=crlf
+*.txt text eol=crlf
+*.vbs text eol=crlf
+*.dll binary
+*.exe binary
 *.gif binary
 *.ico binary
 *.jpg binary
 *.png binary
-*.exe binary
-*.dll binary
+*.gitignore text eol=crlf
+*.gitattributes text eol=crlf
 /*/Tools/Git/**/* binary
