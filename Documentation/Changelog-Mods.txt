@@ -598,32 +598,18 @@ Added: Huple NPC for BG:EE and EET (BWFixpack'd by White Agnus)
  - Generalized Biffing is now Recommended (not Minimal) for BG2/BGT/BG:EE/BG2:EE
  - Updated many portrait dependency and conflict rules
  - Updated README.md
- - Added AutoUpdate folder with a copy of git.exe
- - AutoIt3.exe moved to Tools and marked as a hidden file
- - Big World Setup-DebugMode marked as a hidden file
- - BWS.vbs is the recommended way to start BWS (auto-update and preserve local changes)
- - BWS-NoAutoUpdate.vbs must be run at least once (auto-update and discard local changes)
 
 20161103 - Updated by agb1
- - if you restart BWS and abort an EET installion before it finished the BG1 portion, it will return you to the BG2:EE/EET game tab (previously, it took you to the BG1:EE game tab)
- - for EET, the BiG World Fixpack will be correctly extracted and run in the BG1:EE folder before installing any mods
- - the BWS install debug log will show more of the command-line actions it runs (disabled some log suppression code)
- - updated ini files for: k9RoughWorld (missing linefeeds), Fishing for Trouble (v3.1 -> v3.1.2), Dark Side of the Sword Coast (added link to EET version by K4thos; still points to old version for BGT), drizzt saga (cosmetic - description now correctly indicates EET support), de'Arnise Romance (v4 -> v5, added French translation), Skip Chateau Irenicus (removed invalid line breaks in description), EET patches for BG2EE mods (marked as 'fixed' / mandatory for EET installs)
  - added TDDz installer for TDD on EE games; enabled TDDz and original TDD (set to download-only, required by TDDz for some assets) in BG2EE/EET selection; added dependency; added TDD to ExtractOnly list in BG2EE\Game.ini only (should not be in BWP\Game.ini)
  - enabled Wild Mage Additions, Fading Promises, Lure of the SIrine's Call, and Alternatives for BG2EE/EET games
  - modified purge rules for DSotSC to reflect that it now works with EET; meanwhile, the other BGEE version of DSotSC is NOT compatible with EET; also adjusted BGT dependency rules for NToTSC to account for DSotSC availability in EET without NToTSC
  - adjusted worldmap dependency rules for TDD, TDDz, DSotSC
  - added EET conflict rules to block selection of Stone of Askavar BP-BGT-Worldmap variant, Drizzt Saga BP-BGT-Worldmap variant; only the default variants with area triggers are available for selection now in EET installs
  - removed unsupported old pre-EET BGEE graphics overhaul mod from selection for EET (new EET-compatible version of the mod is still available, but marked expert due to reported graphical glitches)
- - moved some EET-compatible mods after EET install to conform to requirements: DSotSC & TDDz & Lure of the Sirine's Call (newly available for EET), The Grey Clan, BG Travel (new travel system for BG1 city), and Thalantyr store extra items mod
- - moved textpack / translation mods other than Polish (which was already there) before EET install; added a special ANN;EET; marker line before them so they get installed in the BG2:EE folder even though they come before EET in BG2EE\Select.txt
  - moved Xulaye to NPCs category (was incorrectly listed with kit mods) for BG2EE/EET installs
  - Irenicus dungeon skip mods not selected by default for BG2EE installs (due to risk of missing out on mod-added content there)
  - cleaned up Klatu Fixes & Tweaks components for BG2EE/EET, marking 2060 and 2070 as expert due to deprecation & user reports and enabling several others by default
  - switched aTweaks default selection from 115 to 117 (scrolls scribable only at inns/taverns instead of everywhere) to provide more incentive to visit inns
- - moved special case handling of EET patches for BG2EE mods and the BWS OverwriteFiles feature to the Au3Run step, which occurs after all extractions are complete (including user-prompted manual problem resolutions)
- - removed some apparently(?) unnecessary 'always process Select.txt from the first line, just in case' logic that was causing EET installs to re-apply command-line actions from the BG1EE section when starting the BG2EE section
- - fixed a couple of bugs related to the 'install components as a group' feature
  
 20161106 - Updated by agb1 
  Dace NPC marked Expert for EE installs due to recent user reports; added BiG World Textpack, Trimpack and Smoothpack to the BG2EE installation process; more progress towards EET support.
