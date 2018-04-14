@@ -80,9 +80,7 @@ If you are in the middle of an installation, it is safest to use "Without Update
 
 ### Technical information
 
-- Written in: AutoIt3
-- Additional used tools during creation:
-
+- AutoIt3
 - AutoIt3 UDFs
 - 7-Zip, wget, Scite4AutoIt3, PDFtoText, The Gimp
 - Parts of Holgers Tristate GUI TreeView
