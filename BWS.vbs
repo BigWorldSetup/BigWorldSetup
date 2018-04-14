@@ -2,7 +2,6 @@ If WScript.Arguments.Named.Exists("elevated") = False Then
   CreateObject("Shell.Application").ShellExecute "wscript.exe", """" & WScript.ScriptFullName & """ /elevated", "", "runas", 1
   WScript.Quit
 Else
-
   Set oShell = CreateObject("WScript.Shell")
   oShell.CurrentDirectory = CreateObject("Scripting.FileSystemObject").GetParentFolderName(WScript.ScriptFullName)
   Set objFSO = CreateObject("Scripting.FileSystemObject")
@@ -38,7 +37,6 @@ Else
     wshShell.Run """.\Git\bin\git.exe"" reset --hard origin/master", 1, True
 	Set wshShell = nothing
   End If
-  
   Set wshShell = WScript.CreateObject ("wscript.shell")
   commandDefinition = "%comspec% /c ""Big World Setup\Tools\Git\bin\git.exe""" & " " & "rev-parse HEAD" & " > " & "BWS-Version.txt"
   wshShell.Run commandDefinition, 7, True
