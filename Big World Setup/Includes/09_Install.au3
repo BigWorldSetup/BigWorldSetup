@@ -115,10 +115,10 @@ Func Au3RunFix($p_Num = 0)
 	_Process_ChangeDir($g_GameDir, 1)
 	GUICtrlSetData($g_UI_Interact[6][4], StringFormat(_GetSTR($Message, 'H1'), $Type)); => help text
 	GUICtrlSetData($g_UI_Static[6][1], _GetTR($Message, 'L2')); => watch progress
-	$g_LogFile = $g_LogDir & '\BiG World Install Debug.txt'
+	$g_LogFile = $g_LogDir & '\Big World Install Debug.txt'
 	; No longer used
 	; Special case, EET-patches-for-BG2EE-mods-master must be extracted after all other mods are extracted, before files are copied in from
-	; OverwriteFiles (_Extract_OverwriteFiles()) and before BiG World Fixpack is run
+	; OverwriteFiles (_Extract_OverwriteFiles()) and before Big World Fixpack is run
 	; Use Experimental function which fix DirMove "ub\ub" problem. Used only with EET Patches for Mods to minimalize new bugs
 	;If FileExists($g_GameDir&'\EET-patches-for-BG2EE-mods-master') Then
 	;	FileWrite($g_LogFile, '>EET-patches-for-BG2EE-mods-master\* .' & @CRLF)
@@ -194,7 +194,7 @@ Func Au3RunFix($p_Num = 0)
 ; run textharmonisation if wanted
 ; ---------------------------------------------------------------------------------------------
 		If $g_MLang[1] = 'GE' And IniRead($g_UsrIni, 'Options', 'TAPatch', 1) = 1 Then
-			_Process_Run('xcopy /Y /S /E ".\BiG World Textpack GERMAN\_Textharmonisation" ".\BiG World Textpack GERMAN"', 'xcopy.exe')
+			_Process_Run('xcopy /Y /S /E ".\Big World Textpack GERMAN\_Textharmonisation" ".\Big World Textpack GERMAN"', 'xcopy.exe')
 			If Not StringInStr(FileRead($g_BG2Dir&'\WeiDU.log'), 'Textharmonisation.TP2') Then _Install_CreateTP2Entry('Textharmonisation', IniRead($g_MODIni, 'BWTextpack', 'GE-AddSave', ''))
 		EndIf
 		;If Not StringInStr(FileRead($g_BG2Dir&'\WeiDU.log'), 'BWTrimpack.TP2') Then _Install_CreateTP2Entry('BWTrimpack', IniRead($g_MODIni, 'BWTrimpack', 'Save', 'Unknown'))
@@ -237,11 +237,11 @@ Func Au3RunFix($p_Num = 0)
 	If $g_Flags[14]='BWS' Then
 		Local $ID[3]=[2, 'trim', 'fix_Kit']
 		For $i=1 to $ID[0]
-			$File=$g_BG2Dir&'\BiG World Installpack\'&$ID[$i]&'_IDS.bat'
+			$File=$g_BG2Dir&'\Big World Installpack\'&$ID[$i]&'_IDS.bat'
 			$Text=FileRead($File)
 			If StringInStr($Text, '%BWFP%') Then
 				$Handle=FileOpen($File, 2)
-				FileWrite($Handle, StringReplace($Text, '%BWFP%', 'BiG World Fixpack'))
+				FileWrite($Handle, StringReplace($Text, '%BWFP%', 'Big World Fixpack'))
 				FileClose($Handle)
 			EndIf
 		Next
@@ -279,7 +279,7 @@ Func Au3Install($p_Num = 0, $p_Debug = 0)
 	Local $RMessage = IniReadSection($g_TRAIni, 'IN-Check')
 	Local $TMessage = IniReadSection($g_TRAIni, 'IN-Test')
 	Local $Message = IniReadSection($g_TRAIni, 'IN-Au3Install')
-	$g_LogFile = $g_LogDir & '\BiG World Install Debug.txt'
+	$g_LogFile = $g_LogDir & '\Big World Install Debug.txt'
 	Local $Group = '-1', $CurrentMod, $Setup[10], $Type=StringRegExpReplace($g_Flags[14], '(?i)BWS|BWP', 'BG2')
 	Local $Logic = IniRead($g_UsrIni, 'Options', 'Logic3', 1), $Ref=FileGetSize($g_GameDir&'\WeiDU\WeiDU.exe')
 	Local $EET_Mods
@@ -292,8 +292,8 @@ Func Au3Install($p_Num = 0, $p_Debug = 0)
 		_Misc_MsgGUI(4, _GetTR($g_UI_Message, '0-T1'), StringFormat(_GetTR($Message, 'L6'), $Type)); => need a current WeiDU
 		Exit
 	EndIf
-	$g_LogFile = $g_LogDir & '\BiG World Install Debug.txt'
-	FileWriteLine($g_LogFile, 'BiG World Install')
+	$g_LogFile = $g_LogDir & '\Big World Install Debug.txt'
+	FileWriteLine($g_LogFile, 'Big World Install')
 	GUICtrlSetData($g_UI_Static[6][1], _GetTR($Message, 'L1')); => watch progress
 	$Array = StringSplit(StringRegExpReplace(StringStripCR(FileRead($g_GConfDir&'\Select.txt')), '\x0a((|\s{1,})\x0a){1,}', @LF), @LF)
 	If IniRead($g_UsrIni, 'Options', 'GroupInstall', 0) = 1 Then $Array = _Install_ModifyForGroupInstall($Array); always install in groups
@@ -301,7 +301,7 @@ Func Au3Install($p_Num = 0, $p_Debug = 0)
 		For $a = 1 To $Array[0]
 			_Process_SetConsoleLog($Array[$a])
 		Next
-		_PrintDebug('Installation array printed to log Big World Setup\Logs\BiG World Debug.txt',1)
+		_PrintDebug('Installation array printed to log Big World Setup\Logs\Big World Debug.txt',1)
 		Exit
 	EndIf
 	For $a = $g_FItem To $Array[0]
@@ -574,18 +574,18 @@ Func Au3Install($p_Num = 0, $p_Debug = 0)
 	GUICtrlSetData($g_UI_Static[6][2], _GetTR($Message, 'L11')); => create bug-report-archive
 	_Install_CompressLog()
 	GUICtrlSetState($g_UI_Button[0][3], $Gui_ENABLE)
-	$g_LogFile = _ResetInstall() & '\BiG World Install Debug.txt'
+	$g_LogFile = _ResetInstall() & '\Big World Install Debug.txt'
 	If StringRegExp($g_Flags[14], 'BWP|BWS') Then
 		If $g_MLang[1] = 'GE' Then; prepare Cleanup-tool to delete stuff
-			FileCopy($g_BG2Dir&'\BiG World Installpack\German\*', $g_BG2Dir&'\BiG World Installpack\temp\', 1)
+			FileCopy($g_BG2Dir&'\Big World Installpack\German\*', $g_BG2Dir&'\Big World Installpack\temp\', 1)
 		ElseIf $g_MLang[1] = 'SP' Then
-			FileCopy($g_BG2Dir&'\BiG World Installpack\Spanish\*', $g_BG2Dir&'\BiG World Installpack\temp\', 1)
+			FileCopy($g_BG2Dir&'\Big World Installpack\Spanish\*', $g_BG2Dir&'\Big World Installpack\temp\', 1)
 		ElseIf $g_MLang[1] = 'RU' Then
-			FileCopy($g_BG2Dir&'\BiG World Installpack\Russian\*', $g_BG2Dir&'\BiG World Installpack\temp\', 1)
+			FileCopy($g_BG2Dir&'\Big World Installpack\Russian\*', $g_BG2Dir&'\Big World Installpack\temp\', 1)
 		Else
-			FileCopy($g_BG2Dir&'\BiG World Installpack\English\*', $g_BG2Dir&'\BiG World Installpack\temp\', 1)
+			FileCopy($g_BG2Dir&'\Big World Installpack\English\*', $g_BG2Dir&'\Big World Installpack\temp\', 1)
 		EndIf
-		FileClose(FileOpen($g_BG2Dir&'\BiG World Project.installed', 1))
+		FileClose(FileOpen($g_BG2Dir&'\Big World Project.installed', 1))
 	EndIf
 	GUICtrlSetData($g_UI_Static[6][2], _GetTR($Message, 'L13')); => complete
 	_Process_Gui_Delete(7, 7, 1)
@@ -595,11 +595,11 @@ EndFunc   ;==>Au3Install
 ; show not installed mods and say goodbye
 ; ---------------------------------------------------------------------------------------------
 Func _Install_BatchRun()
-	$File=$g_BG2Dir&'\BiG World Install.bat'
+	$File=$g_BG2Dir&'\Big World Install.bat'
 	If Not FileExists($File) Then Exit
 	$Text=FileRead($File)
 	If Not StringInStr($Text, 'cd /D "'&$g_BG2Dir&'"') Then; enable run as admin
-		$Success=FileMove($File, $g_BG2Dir&'\BiG World Install_with_UAC_problem.bat', 1)
+		$Success=FileMove($File, $g_BG2Dir&'\Big World Install_with_UAC_problem.bat', 1)
 		If $Success = 1 Then
 			$Text='cd /D "'&$g_BG2Dir&'"'&@CRLF&$Text
 			$Handle=FileOpen($File, 2)
@@ -847,8 +847,8 @@ EndFunc   ;==>_Install_CheckCondition
 ; ---------------------------------------------------------------------------------------------
 Func _Install_CompressLog()
 	Dim $LastLine
-	$File = $g_LogDir & '\BiG World Install Debug.txt'
-	$Handle = FileOpen($g_LogDir & '\BiG World Upload Debug.txt', 2)
+	$File = $g_LogDir & '\Big World Install Debug.txt'
+	$Handle = FileOpen($g_LogDir & '\Big World Upload Debug.txt', 2)
 	$Array=StringSplit(StringStripCR(FileRead($File)), @LF)
 	For $a=1 to $Array[0]
 		If _MathCheckDiv($a, 10000) Then GUICtrlSetData($g_UI_Interact[6][1], ($a/$Array[0])*80)
@@ -859,7 +859,7 @@ Func _Install_CompressLog()
 	Next
 	FileClose($Handle)
 	$7za = $g_ProgDir & '\Tools\7z.exe'
-	$Handle = Run('"' & $7za & '" a "' & $g_GameDir & '\BiG World Debug.7z" "' & $g_LogDir & '\BiG World Upload Debug.txt"', $g_ProgDir, @SW_HIDE, 8)
+	$Handle = Run('"' & $7za & '" a "' & $g_GameDir & '\Big World Debug.7z" "' & $g_LogDir & '\Big World Upload Debug.txt"', $g_ProgDir, @SW_HIDE, 8)
 	Local $Return
 	While 1
 		$Return &= StdoutRead($Handle)
@@ -1150,7 +1150,7 @@ Func _Install_ModifyForGroupInstall($p_Array, $p_Debug=0)
 			EndIf
 			_Process_SetConsoleLog($NArray[$a])
 		Next
-		_PrintDebug('_Install_ModifyForGroupInstall finished - check Big World Setup\Logs\BiG World Debug.txt',1)
+		_PrintDebug('_Install_ModifyForGroupInstall finished - check Big World Setup\Logs\Big World Debug.txt',1)
 		Exit
 	EndIf
 	Return $NArray
@@ -1171,7 +1171,7 @@ Func _Install_PatchTest()
 	FileWriteLine($Handle, '-BEGIN "This is a failure."')
 	FileWriteLine($Handle, '+BEGIN "This is a success."')
 	FileClose($Handle)
-	$PID=Run('"'&$g_GameDir&'\BiG World Fixpack\_utils\patch.exe" -p0 --no-backup-if-mismatch --ignore-whitespace  "'&$g_GameDir&'\Setup-Patchtest.tp2'&'" "'&$g_GameDir&'\Setup-Patchtest.patch"', $g_GameDir, @SW_HIDE)
+	$PID=Run('"'&$g_GameDir&'\Big World Fixpack\_utils\patch.exe" -p0 --no-backup-if-mismatch --ignore-whitespace  "'&$g_GameDir&'\Setup-Patchtest.tp2'&'" "'&$g_GameDir&'\Setup-Patchtest.patch"', $g_GameDir, @SW_HIDE)
 	$Test=ProcessWaitClose($PID, 10)
 	If $Test=1 And StringInStr(FileRead($g_GameDir&'\Setup-Patchtest.patch'), 'success') Then $Return=1
 	FileDelete($g_GameDir&'\Setup-Patchtest.tp2')
@@ -1187,7 +1187,7 @@ Func _Install_RepairIDS()
 	For $i=1 to $ID[0]
 		If FileExists ($g_BG2Dir&'\override\'&$ID[$i]&'.ids') Then
 			$Override=StringSplit(StringStripCR(FileRead($g_BG2Dir&'\override\'&$ID[$i]&'.ids')), @LF)
-			$Ref=StringSplit(StringStripCR(FileRead($g_BG2Dir&'\BiG World Fixpack\_IDS_ref\'&$ID[$i]&'.ids')), @LF)
+			$Ref=StringSplit(StringStripCR(FileRead($g_BG2Dir&'\Big World Fixpack\_IDS_ref\'&$ID[$i]&'.ids')), @LF)
 			$Append=''
 			For $o=1 to $Override[0]
 				$Override[$o]=StringStripWS($Override[$o], 3)

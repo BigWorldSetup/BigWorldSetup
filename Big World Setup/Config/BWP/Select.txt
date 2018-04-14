@@ -39,52 +39,52 @@ ANN;Solve the issue with Cespy Audio
 CMD;IF EXIST ".\override\override" move ".\override\override\*.*" ".\override"
 CMD;IF EXIST ".\override\override" rmdir /s /q ".\override\override"
 ANN;This skips the choices within the Textpack
-CMD;IF EXIST "BiG World Textpack GERMAN\override\_optional" rmdir /s /q ".\BiG World Textpack GERMAN\override\_optional"
-CMD;IF EXIST "Big World Fixpack\_aD&L" ren ".\BiG World Fixpack\_aD&L" "aD&L"
-CMD;IF EXIST "BiG World Fixpack" xcopy /Y /S /E ".\BiG World Fixpack\_BWP compatibility\*.*" ".\BiG World Fixpack"
+CMD;IF EXIST "Big World Textpack GERMAN\override\_optional" rmdir /s /q ".\Big World Textpack GERMAN\override\_optional"
+CMD;IF EXIST "Big World Fixpack\_aD&L" ren ".\Big World Fixpack\_aD&L" "aD&L"
+CMD;IF EXIST "Big World Fixpack" xcopy /Y /S /E ".\Big World Fixpack\_BWP compatibility\*.*" ".\Big World Fixpack"
 ANN;This skips the choices within the Fixpack
-CMD;IF EXIST "Big World Fixpack\BW_Herbs\_optional\Improved Animations\_copy" move ".\BiG World Fixpack\BW_Herbs\_optional\Improved Animations\_copy" ".\BiG World Fixpack\BW_Herbs\_copy"
-CMD;IF EXIST "Big World Fixpack\BW_Herbs\_optional" rmdir /s /q ".\BiG World Fixpack\BW_Herbs\_optional"
-CMD;IF EXIST "Big World Fixpack\BW_Herbs_BG2\_optional\Improved Animations\_copy" move ".\BiG World Fixpack\BW_Herbs_BG2\_optional\Improved Animations\_copy" ".\BiG World Fixpack\BW_Herbs_BG2\_copy"
-CMD;IF EXIST "Big World Fixpack\BW_Herbs_BG2\_optional" rmdir /s /q ".\BiG World Fixpack\BW_Herbs_BG2\_optional"
+CMD;IF EXIST "Big World Fixpack\BW_Herbs\_optional\Improved Animations\_copy" move ".\Big World Fixpack\BW_Herbs\_optional\Improved Animations\_copy" ".\Big World Fixpack\BW_Herbs\_copy"
+CMD;IF EXIST "Big World Fixpack\BW_Herbs\_optional" rmdir /s /q ".\Big World Fixpack\BW_Herbs\_optional"
+CMD;IF EXIST "Big World Fixpack\BW_Herbs_BG2\_optional\Improved Animations\_copy" move ".\Big World Fixpack\BW_Herbs_BG2\_optional\Improved Animations\_copy" ".\Big World Fixpack\BW_Herbs_BG2\_copy"
+CMD;IF EXIST "Big World Fixpack\BW_Herbs_BG2\_optional" rmdir /s /q ".\Big World Fixpack\BW_Herbs_BG2\_optional"
 ANN;Copy some additional mods and patches that are packaged with the Fixpack into the game folder (this must come before Smoothpack which adds missing setup-exes)
-CMD;IF EXIST "BiG World Fixpack" xcopy /Y /S /E ".\BiG World Fixpack\_Lolfixer\*.*" "."
-CMD;IF EXIST "BiG World Fixpack" xcopy /Y /S /E ".\BiG World Fixpack\_resfixer_v1\*.*" "."
-CMD;IF EXIST "BiG World Fixpack" xcopy /Y /S /E ".\BiG World Fixpack\_crefixer_v2\*.*" "."
-CMD;IF EXIST "BiG World Fixpack" xcopy /Y /S /E ".\BiG World Fixpack\_Innate_Fix\*.*" "."
-CMD;IF EXIST "BiG World Fixpack" xcopy /Y /S /E ".\BiG World Fixpack\_Area_Patcher\*.*" "."
-CMD;IF EXIST "BiG World Fixpack" xcopy /Y /S /E ".\BiG World Fixpack\_Cre_Patcher\*.*" "."
-CMD;IF EXIST "BiG World Fixpack" xcopy /Y /S /E ".\BiG World Fixpack\_Item_Patcher\*.*" "."
-CMD;IF EXIST "BiG World Fixpack\_IDS_ref" copy /Y ".\BiG World Fixpack\_IDS_ref\*.IDS" ".\override"
-CMD;IF EXIST "BiG World Fixpack\_CtBcutImp" xcopy /Y /S /E ".\BiG World Fixpack\_CtBcutImp\*.*" "."
-CMD;IF EXIST "BiG World Fixpack\_Gavin_Hotfixes" xcopy /Y /S /E ".\BiG World Fixpack\_Gavin_Hotfixes\*.*" "."
-CMD;IF EXIST "BiG World Fixpack\_iwditemfix" xcopy /Y /S /E ".\BiG World Fixpack\_iwditemfix\*.*" "."
+CMD;IF EXIST "Big World Fixpack" xcopy /Y /S /E ".\Big World Fixpack\_Lolfixer\*.*" "."
+CMD;IF EXIST "Big World Fixpack" xcopy /Y /S /E ".\Big World Fixpack\_resfixer_v1\*.*" "."
+CMD;IF EXIST "Big World Fixpack" xcopy /Y /S /E ".\Big World Fixpack\_crefixer_v2\*.*" "."
+CMD;IF EXIST "Big World Fixpack" xcopy /Y /S /E ".\Big World Fixpack\_Innate_Fix\*.*" "."
+CMD;IF EXIST "Big World Fixpack" xcopy /Y /S /E ".\Big World Fixpack\_Area_Patcher\*.*" "."
+CMD;IF EXIST "Big World Fixpack" xcopy /Y /S /E ".\Big World Fixpack\_Cre_Patcher\*.*" "."
+CMD;IF EXIST "Big World Fixpack" xcopy /Y /S /E ".\Big World Fixpack\_Item_Patcher\*.*" "."
+CMD;IF EXIST "Big World Fixpack\_IDS_ref" copy /Y ".\Big World Fixpack\_IDS_ref\*.IDS" ".\override"
+CMD;IF EXIST "Big World Fixpack\_CtBcutImp" xcopy /Y /S /E ".\Big World Fixpack\_CtBcutImp\*.*" "."
+CMD;IF EXIST "Big World Fixpack\_Gavin_Hotfixes" xcopy /Y /S /E ".\Big World Fixpack\_Gavin_Hotfixes\*.*" "."
+CMD;IF EXIST "Big World Fixpack\_iwditemfix" xcopy /Y /S /E ".\Big World Fixpack\_iwditemfix\*.*" "."
 ANN;For some foreign languages this adds English text files to the mods as a substitute to prevent that the installation fails because of missing files
-CMD;IF EXIST "BiG World Textpack GERMAN" xcopy /Y /S /E ".\BiG World Textpack GERMAN\_English_files" ".\BiG World Textpack GERMAN"
+CMD;IF EXIST "Big World Textpack GERMAN" xcopy /Y /S /E ".\Big World Textpack GERMAN\_English_files" ".\Big World Textpack GERMAN"
 ANN;Remove outdated v3 fixes as we are now using IR v4 and SR v4
-CMD;IF EXIST "BiG World Fixpack\item_rev" rmdir /s /q "BiG World Fixpack\item_rev"
+CMD;IF EXIST "Big World Fixpack\item_rev" rmdir /s /q "Big World Fixpack\item_rev"
 ANN;Set up workspace
 CMD;IF NOT EXIST ".\BWP_workspace\override" MD ".\BWP_workspace\override"
-CMD;IF NOT EXIST ".\BiG World Installpack\Big World Smoothpack" MD ".\BiG World Installpack\Big World Smoothpack"
+CMD;IF NOT EXIST ".\Big World Installpack\Big World Smoothpack" MD ".\Big World Installpack\Big World Smoothpack"
 CMD;IF EXIST tisunpack.exe copy tisunpack.exe ".\BWP_workspace\override"
 ANN;Run the Fixpack (now includes Trimpack changes), Textpack and Smoothpack batch scripts
-ANN;CMD;IF EXIST "BiG World Trimpack" IF NOT EXIST BWP_Trimpack.installed Call "BiG World Trimpack.bat"
+ANN;CMD;IF EXIST "Big World Trimpack" IF NOT EXIST BWP_Trimpack.installed Call "Big World Trimpack.bat"
 CMD;IF NOT EXIST BWP_Fixpack.installed Call "_ApplyPatches.bat"
-CMD;IF NOT EXIST BWP_Fixpack.installed echo "The BiG World Fixpack script did not run successfully. Please check the _ApplyPatches.debug log file in the game folder and re-run _ApplyBatches.bat manually before continuing."
+CMD;IF NOT EXIST BWP_Fixpack.installed echo "The Big World Fixpack script did not run successfully. Please check the _ApplyPatches.debug log file in the game folder and re-run _ApplyBatches.bat manually before continuing."
 CMD;IF NOT EXIST BWP_Fixpack.installed pause
-CMD;IF NOT EXIST BWP_Textpack.installed Call "BiG World Textpack.bat"
-CMD;IF NOT EXIST BWP_Smoothpack.installed Call ".\BiG World Installpack\BiG World Smoothpack.bat"
-CMD;IF EXIST ".\BiG World Installpack\BWP_Smoothpack.installed" copy ".\BiG World Installpack\BWP_Smoothpack.installed" "."
+CMD;IF NOT EXIST BWP_Textpack.installed Call "Big World Textpack.bat"
+CMD;IF NOT EXIST BWP_Smoothpack.installed Call ".\Big World Installpack\Big World Smoothpack.bat"
+CMD;IF EXIST ".\Big World Installpack\BWP_Smoothpack.installed" copy ".\Big World Installpack\BWP_Smoothpack.installed" "."
 ANN;check for the correct pathname - essential -- rewrites the ini-path, better leave that out of BWS
-ANN;Call ".\BiG World Installpack\Ini_path.bat"
+ANN;Call ".\Big World Installpack\Ini_path.bat"
 ANN;add cheats - essential -- logging, debugging, blood and cheats are set with Au3PrepInst of BWS
-ANN;Call ".\BiG World Installpack\Ini_cheats.bat"
+ANN;Call ".\Big World Installpack\Ini_cheats.bat"
 ANN;add movies - optional -- view/skip movies is set with Au3PrepInst of BWS
-ANN;Call ".\BiG World Installpack\Ini_movies.bat
+ANN;Call ".\Big World Installpack\Ini_movies.bat
 ANN;change settings - optional -- settings are set with Au3PrepInst of BWS
-ANN;Call ".\BiG World Installpack\Ini_settings.bat
+ANN;Call ".\Big World Installpack\Ini_settings.bat
 ANN;update setup-###.exe -- weidu is replaced before running it during installation by BWS
-ANN;Call ".\BiG World Installpack\ReplaceWeiDU.bat"
+ANN;Call ".\Big World Installpack\ReplaceWeiDU.bat"
 ANN;EDITING
 ANN;#0. GENERAL
 DWN;polishsagabgconversion;0;00;1111;
@@ -257,13 +257,13 @@ ANN;NeJ2v691;11;06;0000;
 STD;NeJ2v691;12;09;0000;
 STD;NeJ2v694;0;01;0000;
 ANN;CMD;IF EXIST ".\override\CLABCHRG.2DA" IF NOT EXIST ".\override\SPIN506.SPL" del ".\override\CLABCHRG.2DA"
-CMD;IF EXIST ".\NEJ2" copy /Y ".\BiG World Fixpack\_override\NEJ2\*.*" ".\override"
+CMD;IF EXIST ".\NEJ2" copy /Y ".\Big World Fixpack\_override\NEJ2\*.*" ".\override"
 ANN;Tortured Souls marked expert due to Baldurdash dependency and lack of updates patches for Bdash
 STD;TS;0;09;0000;
 STD;TS;1;20;0000;
 STD;TS;2;20;0000;
 STD;TS;3;09;0000;
-CMD;IF EXIST Setup-TS.exe copy ".\BiG World Fixpack\_override\GUI_original_fonts\*.*" ".\override"
+CMD;IF EXIST Setup-TS.exe copy ".\Big World Fixpack\_override\GUI_original_fonts\*.*" ".\override"
 STD;TDD;0;09;0111;
 STD;TDD;1;19;0000;
 ANN;#5. BIG BG1 MODS
@@ -424,7 +424,7 @@ SUB;ACBre;0?1_4;04;0000;
 SUB;ACBre;0?1_5;04;0000;
 SUB;ACBre;0?2_1;04;0111;
 SUB;ACBre;0?2_2;04;0000;
-CMD;IF EXIST ".\BiG World Textpack GERMAN" IF EXIST Setup-FinchNPC.exe del ".\finch\audio\IMOEN28.WAV"
+CMD;IF EXIST ".\Big World Textpack GERMAN" IF EXIST Setup-FinchNPC.exe del ".\finch\audio\IMOEN28.WAV"
 STD;FinchNPC;0;04;1111;
 STD;gavin;0;04;1111;
 SUB;gavin;1;04;1111;
@@ -1298,7 +1298,7 @@ STD;kit_rev;120;16;0000;
 STD;kit_rev;130;16;0000;
 ANN;#18. BP AND FOLLOWING MODS
 STD;res_fixer;0;01;1111;
-CMD;IF EXIST Setup-BP.exe copy /Y ".\BiG World Fixpack\_TheUndying_for_BP\*.*" ".\BP\SNIP";;;;D:TheUndying(1)
+CMD;IF EXIST Setup-BP.exe copy /Y ".\Big World Fixpack\_TheUndying_for_BP\*.*" ".\BP\SNIP";;;;D:TheUndying(1)
 CMD;IF EXIST ".\override\.itm" del ".\override\.itm"
 STD;BP;0;09;0111;
 STD;BP;10;01;0000;
@@ -3286,7 +3286,7 @@ STD;stratagems;5050;16;1111;
 STD;stratagems;5060;16;1111;
 ANN;--- SCS AI ---
 STD;stratagems;5900;18;1111;
-CMD;IF EXIST Setup-NeJ2v691.exe IF NOT EXIST .\override\SPIN506.SPL copy /Y ".\BiG World Fixpack\NeJ\_copy\misc\SPIN506.SPL" ".\override"
+CMD;IF EXIST Setup-NeJ2v691.exe IF NOT EXIST .\override\SPIN506.SPL copy /Y ".\Big World Fixpack\NeJ\_copy\misc\SPIN506.SPL" ".\override"
 CMD;IF EXIST Setup-DSotSC.exe IF EXIST ".\override\orc03.cre" move ".\override\orc03.cre" ".\BWP_workspace\override"
 CMD;IF EXIST Setup-DSotSC.exe IF EXIST ".\override\orc04.cre" move ".\override\orc04.cre" ".\BWP_workspace\override"
 STD;stratagems;6000;18;1100;
@@ -4005,7 +4005,7 @@ STD;iiSpellSystemAdjustments;2;16;0000;
 STD;iiSpellSystemAdjustments;3;16;0000;
 STD;iiProjectileR;2002;16;0000;
 STD;iiLearnThroughuse;2001;16;0000;
-CMD;Call ".\BiG World Installpack\define_BIG.bat"
+CMD;Call ".\Big World Installpack\define_BIG.bat"
 MUC;aurora;Init;16;1111;
 MUC;aurora;100;16;0000;
 MUC;aurora;105;16;0011;
@@ -4126,7 +4126,7 @@ STD;level1npcs;55;16;1111;
 STD;level1npcs;60;16;1111;
 STD;level1npcs;100;16;1111;
 CMD;IF EXIST ".\level1npcs\backup\0\kit.IDS" copy ".\level1npcs\backup\0\kit.IDS" ".\override";;;;D:refinements(10)
-CMD;IF EXIST setup-w_psionics_unleashed.exe Call ".\BiG World Installpack\edit_string_w_psionics.bat
+CMD;IF EXIST setup-w_psionics_unleashed.exe Call ".\Big World Installpack\edit_string_w_psionics.bat
 CMD;IF EXIST Setup-Derats_kits.exe IF EXIST ".\override\PXW3CAME.SPL" move ".\override\PXW3CAME.SPL" ".\BWP_workspace\override"
 STD;w_psionics_unleashed;10;16;0000;
 MUC;w_psionics_unleashed;Init;16;0000;
@@ -4214,7 +4214,7 @@ MUC;infinityanimations;Init;20;0111;
 MUC;infinityanimations;9500;20;0000;
 MUC;infinityanimations;9510;20;0000;
 MUC;infinityanimations;9520;20;0111;
-CMD;copy /Y ".\BiG World Fixpack\_override\infinityanimations\*.*" ".\override";;;;D:infinityanimations(0)
+CMD;copy /Y ".\Big World Fixpack\_override\infinityanimations\*.*" ".\override";;;;D:infinityanimations(0)
 STD;sentrizeal_aa_pack;0;20;0111;
 STD;sentrizeal_aa_pack;1;20;0111;
 STD;sentrizeal_aa_pack;2;20;0111;
@@ -4634,10 +4634,10 @@ STD;lolfixer;14;01;1111;
 STD;lolfixer;15;01;1111;
 ANN;--- hotfixes ---
 ANN;trim leading and trailing spaces, remove duplicates
-CMD;Call ".\BiG World Installpack\trim_IDS.bat" 
+CMD;Call ".\Big World Installpack\trim_IDS.bat" 
 ANN;correct some possibly corrupted IDS files
-CMD;Call ".\BiG World Installpack\trim_KitIDS.bat"
-CMD;copy /Y ".\BiG World Fixpack\_Hotfixes\RoT\dltcepsmithy\*.*" ".\override";;;;D:ROT(0)
+CMD;Call ".\Big World Installpack\trim_KitIDS.bat"
+CMD;copy /Y ".\Big World Fixpack\_Hotfixes\RoT\dltcepsmithy\*.*" ".\override";;;;D:ROT(0)
 CMD;IF EXIST Setup-1pp.exe copy /Y ".\1pp\backup\114\SPMAGGLO.BAM" ".\override";;;;D:SPELLPACKB6(1116)
 CMD;IF EXIST Setup-1pp.exe copy /Y ".\1pp\backup\114\SPMAGGLO.VVC" ".\override";;;;D:SPELLPACKB6(1116)
 STD;korekta_przedmiotow;0;01;1111;
@@ -4829,8 +4829,8 @@ CMD;WeiDU.exe --traify-tlk --out .\BWP_workspace\dialog.tra
 CMD;copy /Y dialog.tlk .\BWP_workspace\dialog.bak
 CMD;IF EXIST dialogF.tlk copy /Y dialogF.tlk .\BWP_workspace\dialogF.bak
 CMD;copy /Y .\BWP_workspace\dialog.tra .\BWP_workspace\dialog.tra.bak
-CMD;IF EXIST "BiG World Textpack ENGLISH" ren ".\BiG World Installpack\SR_consistence_catalog_English.txt" "SR_consistence_catalog.txt"
-CMD;IF EXIST "BiG World Textpack GERMAN" ren ".\BiG World Installpack\SR_consistence_catalog_German.txt" "SR_consistence_catalog.txt"
-CMD;".\BiG World Installpack\SR_consistence.js" ".\BWP_workspace\dialog.tra"
+CMD;IF EXIST "Big World Textpack ENGLISH" ren ".\Big World Installpack\SR_consistence_catalog_English.txt" "SR_consistence_catalog.txt"
+CMD;IF EXIST "Big World Textpack GERMAN" ren ".\Big World Installpack\SR_consistence_catalog_German.txt" "SR_consistence_catalog.txt"
+CMD;".\Big World Installpack\SR_consistence.js" ".\BWP_workspace\dialog.tra"
 CMD;WeiDU.exe --make-tlk .\BWP_workspace\dialog.tra
 ANN;Added due to patching

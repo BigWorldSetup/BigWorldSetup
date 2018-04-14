@@ -1699,7 +1699,7 @@ Func _Select_Gui()
 	Local $OldMod, $ReadSection, $Switch
 	If $g_Flags[14] = 'BWS' Then; read different themes for BWS. BWP uses another method, so it can't be set here.
 		$Text='Menu[2][2]'
-	Else; any other mod beside the BiG World Project
+	Else; any other mod beside the Big World Project
 		$Text='Menu[2][5]'
 	EndIf
 	$Text = IniRead($g_TRAIni, 'UI-Buildtime', $Text, '')
