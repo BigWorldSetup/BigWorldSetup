@@ -138,7 +138,7 @@ Func _Backup_Create($p_Game, $p_Message)
 		_IniWrite($Section, $Files[$f], $IsDir, 'N')
 		If StringRegExp($Files[$f], '(?i)\A(\x2e?|mplay.*|nwn_1.mpg|(GS)?Arcade.*|glsetup.exe)\z') Then ContinueLoop; don't copy useless files
 		If StringRight($Files[$f], 4) = '.bif' And $p_Game = 'PST' Then ContinueLoop; PST has no data-folder but installs all files into the root-folder
-		If StringRegExp($Files[$f], '(?i)\A(Big World Backup|Big World Downloads|Big World Setup|cache|cd\d|data|ereg|mplayer|script compiler)\z') Then ContinueLoop; don't copy useless or untouched folders
+		If StringRegExp($Files[$f], '(?i)\A(Big World Backup|Big World Downloads|Big World Setup|cache|cd\d|data|ereg|mplayer|script compiler|debugs)\z') Then ContinueLoop; don't copy useless or untouched folders
 		If $IsDir Then
 			$Size+=DirGetSize($g_GameDir&'\'&$Files[$f])
 		Else
