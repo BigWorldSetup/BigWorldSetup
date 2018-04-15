@@ -75,8 +75,8 @@ Not maintained:
 2. Close any open games and game editors to avoid interference with the installation process
 3. Disable your antivirus (only while you are installing - don't forget to re-enable it after!)
 4. Disable User Account Control (if you don't do this, the automated installation can get stuck!)
-5. Execute "BWS.vbs" (this is the usual way to start the program)
-6. Optional: "BWS-NoAutoUpdate.vbs" (this will skip the auto-update feature)
+5. Execute "BWS.vbs"
+6. Optional: use "BWS-NoAutoUpdate.vbs", this will skip the auto-update feature, use only when you modify BWS files or preforming some tests
 
 NOTE: "Update If Needed" will download any updates to the program and revert any local changes you have made.
 If you are in the middle of an installation, it is safest to use "Without Update", but at all other times you should use "Update If Needed".
