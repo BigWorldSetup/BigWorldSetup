@@ -848,7 +848,7 @@ EndFunc   ;==>_Install_CheckCondition
 Func _Install_CompressLog()
 	Dim $LastLine
 	$File = $g_LogDir & '\BWS-Debug-Installation.txt'
-	$Handle = FileOpen($g_LogDir & '\BWS-Debug-Upload.txt', 2)
+	$Handle = FileOpen($g_LogDir & '\BWS-Debug.txt', 2)
 	$Array=StringSplit(StringStripCR(FileRead($File)), @LF)
 	For $a=1 to $Array[0]
 		If _MathCheckDiv($a, 10000) Then GUICtrlSetData($g_UI_Interact[6][1], ($a/$Array[0])*80)
@@ -859,7 +859,7 @@ Func _Install_CompressLog()
 	Next
 	FileClose($Handle)
 	$7za = $g_ProgDir & '\Tools\7z.exe'
-	$Handle = Run('"' & $7za & '" a "' & $g_GameDir & '\BWS-Debug-Fixpack.7z" "' & $g_LogDir & '\BWS-Debug-Fixpack.txt"', $g_ProgDir, @SW_HIDE, 8)
+	$Handle = Run('"' & $7za & '" a "' & $g_GameDir & '\BWS-Debug.7z" "' & $g_LogDir & '\BWS-Debug.txt"', $g_ProgDir, @SW_HIDE, 8)
 	Local $Return
 	While 1
 		$Return &= StdoutRead($Handle)
