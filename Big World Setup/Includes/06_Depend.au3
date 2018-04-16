@@ -11,7 +11,7 @@
 
 ; Not used items from g_CentralArray: 5 - 6 - 7 - 8 - 11 - 12 - 14 - 15
 
-;~ $g_CentralArray is an array of all mods/components from Select.txt, with the following fields:
+;~ $g_CentralArray is an array of all mods/components from InstallOrder.ini, with the following fields:
 ;     0: mod setup-name
 ;     1: tag (theme/category number)
 ;     2: '-' for the headline (top level) of a mod, '+' for the top of a multiple choice menu,
@@ -50,7 +50,7 @@
 ;         DO = this mod/component is NOT active and is "needed" but OPTIONAL to satisfy the rule (has alternatives)
 ;         DM = this mod/component is NOT active and is "needed" and MANDATORY to satisfy the rule (no alternatives)
 ;    1: rule ID (index to the associated rule for this connection in $g_Connections)
-;    2: control ID (index to the specific mod/component in $g_CentralArray for toggling status) or string if not found in Select.txt
+;    2: control ID (index to the specific mod/component in $g_CentralArray for toggling status) or string if not found in InstallOrder.ini
 ;    3: sub-group (zero unless '&' for dependencies or ':' for conflicts splits the rule into non-zero 'sub-groups')
 ;
 ;  various methods call _Depend_GetActiveConnections to clear and (re-)populate this array after changes to selection
@@ -69,7 +69,7 @@ Func _Depend_PrepareBuildIndex($p_RuleLines, $p_Select)
 ;		p_RuleLines[0][0] = number of connections-rule lines
 ;		p_RuleLines[N][0] = rule description text (inikey, left of =)
 ;		p_RuleLines[N][1] = the rule itself (inivalue, right of =), e.g. DW:a(-)&b(1|2):c(3)|d(4&5)
-;  p_Select = output of _Tree_SelectRead or _Tree_SelectReadFromBatch - array of parsed lines from Select.txt, skipping ANN/CMD/GRP
+;  p_Select = output of _Tree_SelectRead or _Tree_SelectReadFromBatch - array of parsed lines from InstallOrder.ini, skipping ANN/CMD/GRP
 ;		p_Select[0][0] = number of entries
 ;		p_Select[0][1] = +1 each time the next line is a different mod (different mods or 1+ of mod's components installed separately)
 ;		p_Select[0][3] = +1 each time the next line is a different theme
@@ -123,17 +123,17 @@ Func _Depend_PrepareBuildIndex($p_RuleLines, $p_Select)
 					ExitLoop; we are done with this mod-setup-name; stop searching after first match is found in case there are duplicates
 				EndIf
 			Next
-			If $p_Debug And Not $Found Then FileWrite($g_LogFile, '! _Depend_PrepareBuildIndex did not find ~'&$Mods[$m]&'~ in Select.txt'&@CRLF)
+			If $p_Debug And Not $Found Then FileWrite($g_LogFile, '! _Depend_PrepareBuildIndex did not find ~'&$Mods[$m]&'~ in InstallOrder.ini'&@CRLF)
 		Next
 		If $p_Debug And StringInStr($p_RuleLines[$a][0], '||') Then FileWrite($g_LogFile, '!'&$p_RuleLines[$a][0]&' == '&$p_RuleLines[$a][1]&@CRLF)
 		If $p_Debug And $a = $p_RuleLines[0][0] Then; it's the last iteration and debugging is enabled
-			For $s = 1 To $Setups[0][0]; for each mod-setup-name from Select.txt that is in any rules, log the indices of the rules containing it
+			For $s = 1 To $Setups[0][0]; for each mod-setup-name from InstallOrder.ini that is in any rules, log the indices of the rules containing it
 				If $Setups[$s][2] Then FileWrite($g_LogFile, '_Depend_PrepareBuildIndex $Setups['&$s&']'&$Setups[$s][1]&'='&$Setups[$s][2]&@CRLF)
 			Next
 		EndIf
 	Next
 	Local $PrevSetup, $Return[$p_Select[0][0]+1][2]
-	For $a=1 to $p_Select[0][0]; scan through lines from Select.txt, copy mod setup-names into $Return[N][0]
+	For $a=1 to $p_Select[0][0]; scan through lines from InstallOrder.ini, copy mod setup-names into $Return[N][0]
 		If $p_Select[$a][2] = $PrevSetup Then
 			ContinueLoop
 		Else; copy setup-mod-name to the index (no harm if duplicates - we will ignore them later)
@@ -144,7 +144,7 @@ Func _Depend_PrepareBuildIndex($p_RuleLines, $p_Select)
 	Next
 	ReDim $Return[$Return[0][0]+1][2]; trim the array ...
 	If $p_Debug Then FileWrite($g_LogFile, '_Depend_PrepareBuildIndex $Return[0][0] = '&$Return[0][0]&@CRLF)
-	; at this point, $Return[N][0] contains an array all of mod-setup-names from Select.txt, with some duplicates
+	; at this point, $Return[N][0] contains an array all of mod-setup-names from InstallOrder.ini, with some duplicates
 	; at this point, $Setups[N][2] contains an '|'-separated array of indices into p_RuleLines for any mod-setup-names in a rule
 	; 	indices into p_RuleLines are equivalent to indices into $g_Connections, i.e. pointers to conflict/dependency rules
 	; goal is to identify connections (or better their index number) that may be connected to a mod into $Return[N][1]

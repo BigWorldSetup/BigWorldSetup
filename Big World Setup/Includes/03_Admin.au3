@@ -2294,7 +2294,7 @@ EndFunc   ;==>_Select_ItemTranslate
 ; ---------------------------------------------------------------------------------------------
 Func _Select_Populate($p_Lang)
 	Local $cs
-	$Setup=_Tree_SelectRead(1); read the select.txt-file
+	$Setup=_Tree_SelectRead(1); read the InstallOrder.ini-file
 	$MLang=StringSplit(_GetTR($g_UI_Message, '15-L1'), '|'); => lang token
 	$g_MLang = $g_Flags[3]&' --'
 	For $l=1 to $MLang[0]
@@ -2345,7 +2345,7 @@ EndFunc   ;==>_Select_Populate
 Func _Select_Save($p_Lang)
 	_PrintDebug('+' & @ScriptLineNumber & ' Calling _Select_Save')
 	$End=ControlListView($g_UI[0], '', $g_UI_Interact[16][3], 'GetItemCount')-1
-	$Handle=FileOpen($g_GConfDir&'\Select.txt', 2)
+	$Handle=FileOpen($g_GConfDir&'\InstallOrder.ini', 2)
 	For $i=0 to $End
 		$Return=StringSplit(GUICtrlRead(_GUICtrlListView_GetItemParam($g_UI_Interact[16][3], $i)), '|')
 		$Return[2]=_Select_ItemTranslate($Return[2], $p_Lang, 2)

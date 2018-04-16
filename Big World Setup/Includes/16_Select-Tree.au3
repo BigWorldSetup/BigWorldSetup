@@ -321,11 +321,11 @@ Func _Tree_Populate($p_Show=1)
 	If $p_Debug Then FileWrite($g_LogFile, '_Tree_Populate $RuleLines[0][0]='&$RuleLines[0][0]&@CRLF)
 	If $p_Debug Then FileWrite($g_LogFile, '_Tree_Populate $g_Flags[14]='&$g_Flags[14]&@CRLF)
 	If $g_Flags[14] = 'BWP' Then; we are doing a BWP batch-install
-		$SelectArray=_Tree_SelectReadForBatch(); read the Select.txt-file, ignoring ANN/CMD/GRP
+		$SelectArray=_Tree_SelectReadForBatch(); read the InstallOrder.ini-file, ignoring ANN/CMD/GRP
 		$RuleLines = _Depend_TrimBWSConnections($RuleLines); remove rule lines with component numbers because BWP batch-install ignores such rules
 		If $p_Debug Then FileWrite($g_LogFile, '_Tree_Populate $RuleLines[0][0] after _Depend_TrimBWSConnections='&$RuleLines[0][0]&@CRLF)
 	Else; we are doing a BWS customizable install
-		$SelectArray=_Tree_SelectRead(); read the Select.txt-file, ignoring ANN/CMD/GRP
+		$SelectArray=_Tree_SelectRead(); read the InstallOrder.ini-file, ignoring ANN/CMD/GRP
 		If $p_Show Then
 			If $g_Flags[21] = 0 Then $SelectArray=_Tree_SelectConvert($SelectArray); convert it to a theme-sorted view
 		Else
@@ -402,7 +402,7 @@ Func _Tree_Populate($p_Show=1)
 			$g_CentralArray[$g_TreeviewItem[$cs][0]][3] = '-'; it's a mod, there is no component-description
 			$g_CentralArray[$g_TreeviewItem[$cs][0]][4] = $SelectArray[$s][7]; mod description
 			$g_CentralArray[$g_TreeviewItem[$cs][0]][5] = GUICtrlGetHandle($g_TreeviewItem[$cs][0]); handle
-			Local $Char = Asc(StringLower(StringLeft($SelectArray[$s][2], 1))); ASCII-symbol of first character in the mod's setup-name from Select.txt
+			Local $Char = Asc(StringLower(StringLeft($SelectArray[$s][2], 1))); ASCII-symbol of first character in the mod's setup-name from InstallOrder.ini
 			Local $Ext = _IniRead($ATMod, $SelectArray[$s][2], '', $ATIdx[$Char][1], $ATIdx[$Char][2]); gather the mod's translated description for the given setup-name, limiting search range for efficiency to only look for the [setup-name] ini section between previously determined first and last possible match
 			If $Ext = '' Then ConsoleWrite('!No mod description: '&$SelectArray[$s][2]&@CRLF)
 			If $p_Debug Then FileWrite($g_LogFile, '_Tree_Populate calling _Depend_ItemGetConnections $SelectArray[$s='&$s&'][1] = '&$SelectArray[$s][1]&', $SelectArray[$s][2]='&$SelectArray[$s][2]&', $Index[$SelectArray[$s][1]][0]='&$Index[$SelectArray[$s][1]][0]&', $Index[$SelectArray[$s][1]][1]='&$Index[$SelectArray[$s][1]][1]&@CRLF)
@@ -465,7 +465,7 @@ Func _Tree_Populate($p_Show=1)
 		Local $Pos=StringInStr($SelectArray[$s][3], '?', 0, 1)
 		If $Pos > 0 Then
 			If $SelectArray[$s][0] <> 'SUB' Then
-				_PrintDebug('! Error - non-SUB with ? component in Select.txt: '&$SelectArray[$s][0]&';'&$SelectArray[$s][2]&';'&$SelectArray[$s][3], 1)
+				_PrintDebug('! Error - non-SUB with ? component in InstallOrder.ini: '&$SelectArray[$s][0]&';'&$SelectArray[$s][2]&';'&$SelectArray[$s][3], 1)
 				Exit
 			EndIf
 			Local $ComponentNum = StringLeft($SelectArray[$s][3], $Pos-1); number on left side of '?' in component string
@@ -571,7 +571,7 @@ Func _Tree_Populate($p_Show=1)
 		If $g_Flags[14]='BWP' Then; batch-install
 			$g_CentralArray[$g_TreeviewItem[$cs][$cc]][12] = $Type; set pre-selection bits based on mod Type ($Type is set earlier in this function)
 		ElseIf StringRegExp($g_CentralArray[$g_TreeviewItem[$cs][0]][11], '\A[^FRST]+\z') Then; mod Type does not include 'F'ixed, 'R'ecommended, Maximi'S'ed or 'T'actical
-			$g_CentralArray[$g_TreeviewItem[$cs][$cc]][12] = '0001'; mark the item Expert regardless of Select.txt
+			$g_CentralArray[$g_TreeviewItem[$cs][$cc]][12] = '0001'; mark the item Expert regardless of InstallOrder.ini
 		Else
 			$g_CentralArray[$g_TreeviewItem[$cs][$cc]][12] = $SelectArray[$s][4]; pre-selection bits (0000 to 1111) according to Setup.txt
 		EndIf
@@ -1059,10 +1059,10 @@ Func _Tree_SelectConvert($p_Array)
 EndFunc   ;==>Tree_SelectConvert
 
 ; ---------------------------------------------------------------------------------------------
-; Read some parts of the select.txt-file for Batch-installations
+; Read some parts of the InstallOrder.ini-file for Batch-installations
 ; ---------------------------------------------------------------------------------------------
 Func _Tree_SelectReadForBatch()
-	Local $Array=StringSplit(StringStripCR(FileRead($g_GConfDir&'\Select.txt')), @LF); go through select.txt
+	Local $Array=StringSplit(StringStripCR(FileRead($g_GConfDir&'\InstallOrder.ini')), @LF); go through InstallOrder.ini
 	Local $Split, $Type, $Setup, $Return[$Array[0]][10], $Theme=-1
 	For $a=1 to $Array[0]
 		If StringLeft($Array[$a], 5) = 'ANN;#' Then $Theme+=1; don't read values because they are not consistent (usage of 5A)
@@ -1097,10 +1097,10 @@ Func _Tree_SelectReadForBatch()
 EndFunc   ;==>_Tree_SelectReadForBatch
 
 ; ---------------------------------------------------------------------------------------------
-; Read the select.txt-file which contains the installation-procedure
+; Read the InstallOrder.ini-file which contains the installation-procedure
 ; ---------------------------------------------------------------------------------------------
 Func _Tree_SelectRead($p_Admin=0)
-	Local $Array=StringSplit(StringStripCR(FileRead($g_GConfDir&'\Select.txt')), @LF)
+	Local $Array=StringSplit(StringStripCR(FileRead($g_GConfDir&'\InstallOrder.ini')), @LF)
 	Local $LastFullComp[3], $Split, $Return[$Array[0]+1][10]
 	;FileWriteLine($g_LogFile, $g_Skip)
 	For $a=1 to $Array[0]
@@ -1120,19 +1120,19 @@ Func _Tree_SelectRead($p_Admin=0)
 		EndIf
 		$Split=StringSplit($Array[$a], ';')
 		If $Split[0] < 6 Then; five semicolons = 6 split sections (LineType;Setup-Name;Component;Theme-Tag;Preselection-Bits;)
-			_PrintDebug('Expected at least five semicolons on Select.txt line '&$a&': '&$Array[$a], 1)
+			_PrintDebug('Expected at least five semicolons on InstallOrder.ini line '&$a&': '&$Array[$a], 1)
 			Exit
 		EndIf
 		; make sure any sub-components match the full components that precede them
 		Local $Pos=StringInStr($Split[3], '?', 0, 1); position of first '?' in component, or zero if not found (first character position is 1)
 		If $Pos < 2 Then; line is not a sub-component
-			$LastFullComp[0] = $Array[$a]; Select.txt line
+			$LastFullComp[0] = $Array[$a]; InstallOrder.ini line
 			$LastFullComp[1] = $Split[3]; component number
 			$LastFullComp[2] = $Split[4]; theme/category/tag
 			;FileWriteLine($g_LogFile, '$LastFullComp = '&$Array[$a])
 		ElseIf StringLeft($Split[3], $Pos-1) <> $LastFullComp[1] Then; line is a sub-component without a preceding full component
 			_PrintDebug('Sub-component line '&$Array[$a]&' does not match last full component number '&$LastFullComp[1], 1)
-			Exit; error - this Select.txt is invalid and needs to be fixed manually
+			Exit; error - this InstallOrder.ini is invalid and needs to be fixed manually
 		ElseIf $Split[4] <> $LastFullComp[2] Then; line is a sub-component with a different theme
 			_PrintDebug('Sub-component line '&$Array[$a]&' does not match last full component theme '&$LastFullComp[2], 1)
 			$Split[4] = $LastFullComp[2]; change theme of subcomponent to match preceding full component and continue

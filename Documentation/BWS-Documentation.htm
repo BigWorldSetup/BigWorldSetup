@@ -277,7 +277,7 @@ animalcompanions;0?2=\D*
                 animalcompanions - mod name
             </p>
             <p>
-                0?2 - component from Big World Setup\Config\[GAME]\select.txt
+                0?2 - component from Big World Setup\Config\[GAME]\InstallOrder.ini
             </p>
             \D* - au3 pattern, only letters for this case
             </p>
@@ -363,7 +363,7 @@ animalcompanions;0?2=\D*
         <div class="level1">
 
             <p>
-                Open the Big World Setup\Config\[GAME]\Select.txt. This file contains all orders to install the BWP. They are executed line
+                Open the Big World Setup\Config\[GAME]\InstallOrder.ini. This file contains all orders to install the BWP. They are executed line
                 after line. There are several type of lines. Annotations, commands, downloads, standard, multiple choice-,
                 sub-components and groups.
             </p>
@@ -532,7 +532,7 @@ SUB;BG2_Tweaks;3183?1_b;16;1000;</pre>
 ...
 GRP;Stop</pre>
             <p>
-                Used to start and stop adding components to a group which is installed in one go. Putting this into the Select.txt by yourself
+                Used to start and stop adding components to a group which is installed in one go. Putting this into the InstallOrder.ini by yourself
                 is only useful if WeiDU would grab too much memory (if it installed many components in one go) or the WeiDU-code
                 requires you to do so. Installation of SUBs is not allowed. This is used automatically if you chose to install
                 in batch-mode to speed up the installation.
@@ -1000,7 +1000,7 @@ AB Totl needs patch 142=D:ab_totlm(-):1.4.2.0
                 <div class="level1">
 
                     <p>
-                        All actions are listed in the Big World Setup\Config\[GAME]\Select.txt (See the third section of this page for details) They
+                        All actions are listed in the Big World Setup\Config\[GAME]\InstallOrder.ini (See the third section of this page for details) They
                         are executed line by line. CMD-lines are always executed. Lines that install components are checked
                         if those should be executed. If already installed, the component will be skipped. If the dependencies
                         are met and conflicts don&#039;t exist the component will be installed. Otherwise you can select
@@ -1265,7 +1265,7 @@ AB Totl needs patch 142=D:ab_totlm(-):1.4.2.0
                             description, component descriptions, ...</div>
                     </li>
                     <li class="level1">
-                        <div class="li">Config\gametype\Select.txt -> Add possible actions the BWS has to perform during the install (execute
+                        <div class="li">Config\gametype\InstallOrder.ini -> Add possible actions the BWS has to perform during the install (execute
                             commands, install components, ...)</div>
                     </li>
                     <li class="level1">
@@ -1372,7 +1372,7 @@ AB Totl needs patch 142=D:ab_totlm(-):1.4.2.0
                 <p>
                     <strike>Next step would be adding the translation in Mod-EN.ini, Mod-GE.ini and Mod-RU.ini:</strike>
                     <b>(description entries in the Mod-XX.ini files are updated automatically now for any mods that have components
-                        listed in Select.txt, so you do not need to manually edit the Mod-??.ini files, but you do need to
+                        listed in InstallOrder.ini, so you do not need to manually edit the Mod-??.ini files, but you do need to
                         include a [Description] section in modname.ini with at least three lines (Mod-EN, Mod-GE and Mod-RU)</b>
                 </p>
                 <strike>
@@ -1391,7 +1391,7 @@ AB Totl needs patch 142=D:ab_totlm(-):1.4.2.0
                 <p>
                     <strike>To see some text in the selection screen, you'll need to populate the WeiDU-XX.ini with component descriptions</strike>
                     <b>(component descriptions in the WeiDU-XX.ini files are updated automatically now for any mods that have
-                        components listed in Select.txt, so you do not need to manually edit the WeiDU-XX.ini files, but
+                        components listed in InstallOrder.ini, so you do not need to manually edit the WeiDU-XX.ini files, but
                         you do need to include [WeiDU-XX] sections in modname.ini for each of the languages listed in the
                         <b>Tra=</b> section of modname.ini)</b>
                 </p>
@@ -1412,10 +1412,10 @@ AB Totl needs patch 142=D:ab_totlm(-):1.4.2.0
                 </strike>
                 <p>
                     <b>
-                        <a href="#i_miss_component_x_for_mod_y">Select.txt</a>
+                        <a href="#i_miss_component_x_for_mod_y">InstallOrder.ini</a>
                     </b>
                 </p>
-                <p>To see some entries in the selection-view of the BWS. we still need to populate the select.txt. The syntax
+                <p>To see some entries in the selection-view of the BWS. we still need to populate the InstallOrder.ini. The syntax
                     would be:
                     <pre class="text code text" style="font-family:monospace;">type of line;setups name;component number;corresponding number for the components theme;install with pre-selections (<b>R</b>ecommended,<b>S</b>tandard,<b>T</b>actic,<b>E</b>xpert);[optional dependency: if a component could be installed in two places depending on the selection, run a check if it should be installed "now".]</pre>
                     <pre class="text code text" style="font-family:monospace;">STD;bgqe;0;03;1111;</pre>
@@ -1442,8 +1442,8 @@ AB Totl needs patch 142=D:ab_totlm(-):1.4.2.0
 </pre>
                         <div class="notetip">Some mods would make a good examples for other situations:</br>
                             [Textmusic] for multiple language-downloads in mod.ini</br>
-                            [TGC1E] for multiple choice in select.txt</br>
-                            [ACBRE] for subcomponents in select.txt and weidu-XX.ini</br>
+                            [TGC1E] for multiple choice in InstallOrder.ini</br>
+                            [ACBRE] for subcomponents in InstallOrder.ini and weidu-XX.ini</br>
                         </div>
 
                         <!-- SECTION "How the installation works" [21070-] -->

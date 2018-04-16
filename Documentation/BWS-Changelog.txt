@@ -628,7 +628,7 @@ Corrected: Some Link= entries (Mod.ini)
 
 9.2.0 - BWS related (Installation Package)
 20091003
-Changed: Moved mods configuration into select.txt
+Changed: Moved mods configuration into InstallOrder.ini
 Changed: Adjusted corresponding functions to go with the new configuration format
 Added: All possible weidu-component-translations are available -- at least I hope so
 Added: Install-function to install mods component-wise step by step
@@ -651,7 +651,7 @@ Added: Hint about included expert mods right before the start of the installatio
 Fixed: Adjusted mass-selection by type/chapter to new chapter-format, stop flickering due to tab-change if no change is needed, adjusted loop to new tabs, ...
 Added: Version switching in selection-window. Allows more flexible selections.
 Added: Enable selection of mods that are not in current version. Every time, the selection of the next higher level is requested. As an alternative, you can set to accept it every time. A big orange warning-message is shown in the mods description-field, then.
-Fixed: Bunch of little fixes: Adjusted text-width for edit-control with scrollbar if automatic wrapping is activated. Don't exit the extract and download-tests if "not-mods" are missing (like weidu, fixpack). Set current folder for Au3SetFix to install Textharmonisation in correct folder. Set First Item before running Au3Install. Lots of small fixes for the Select.txt-file. A lot of small GUI-fixes. Check if widescreen-settings were complete to avoid crashes. Updated widescreen-stuff again.
+Fixed: Bunch of little fixes: Adjusted text-width for edit-control with scrollbar if automatic wrapping is activated. Don't exit the extract and download-tests if "not-mods" are missing (like weidu, fixpack). Set current folder for Au3SetFix to install Textharmonisation in correct folder. Set First Item before running Au3Install. Lots of small fixes for the InstallOrder.ini-file. A lot of small GUI-fixes. Check if widescreen-settings were complete to avoid crashes. Updated widescreen-stuff again.
 Updated: Bunch of small updates: Added timeout to NSIS-Message for unattended install. Enable interaction-mode if install failed with unattended-mode.
 Changed: Updated tools (_Test_ArchivesExist, _Net_LinkUpdate, _Admin_ModGui, _Admin_ComponentGUI) to work with new format.
 Added: Display a list of originally selected but not installed mods and components at the end.
@@ -667,7 +667,7 @@ Added: Removed useless progress-lines lines from output.
 Added: Create a compressed debug-package.
 Added: Install-dialog for not met dependencies
 Added: Pause-functions during installation
-Updated: Updated select.txt and translations to BWP v8.1
+Updated: Updated InstallOrder.ini and translations to BWP v8.1
 Added: French "dummy"-translation to start from
 20091029
 Fixed: Smaller fixes: Removed additional line from scrolling text, fixed smaller issues with scrolling, fixed pause-glitches, text-generation in case of errors. Small stuff that halts the installation
@@ -677,8 +677,8 @@ Added: Check for conflicts
 Added: RomanceCheats: Remove "Nothing kills romances?" - selection if "Allow multiple romances" was not selected before.
 Added: Level1NPC: Remove "Restrict fighter/druids from armors single class druids cannot wear?" if Druid Remix will be installed.
 Updated: Mods, links and descriptions for the BWP v8.2.1
-Changed: Use Chapter.txt instead of the Chapter.ini, removed chapter-entries from select.txt.
-Changed: Use Tra-Entry in Mod.ini instead of the select.txt-entry.
+Changed: Use Chapter.txt instead of the Chapter.ini, removed chapter-entries from InstallOrder.ini.
+Changed: Use Tra-Entry in Mod.ini instead of the InstallOrder.ini-entry.
 Changed: Removed chapters from mod-administration
 Changed/Added: Complete rewrite of component-administration. Added another listview to comapre read and saved settings. Added automatic colored diff, checks for version-updates with autosave, copy, edit, save and navigation use hotkeys to save screen-space. Auto-detection of translation-languages. Automatic search for diffs between all translations and available WeiDU-output.
 Changed/Added: Complete rewrite of dependencies and conflict-system. Added and/or connections to have a more complex system then the old one.
@@ -787,7 +787,7 @@ Fixed: Don't use Winhttp on fastshare.org to prevent lags and failed connections
 Added: Added "chapter trees" into the mod-selection-tree to improve visibility. Modified AI to fit with new chapter-trees. Added click-behavior to new trees (borrowed from add/remove menus). Conversion from install to new selection view if GUI may be shown. Download may be skipped. Note about not patching BG1-SAGA-Box.
 Changed: Using a variable for the "component-replacement-holder" speeds up the building of the GUI => 500 ms.  Speed up startup by using StringRegExp to fetch setups and their names => 740 and 500 ms. Speed up while building the treeview by not searching component-descriptions (there aren't any) => 500 ms; using a variable instead of loading the value every time speeds up fetching item-connections => 180 ms. Translation-tokens are displayed in the treeview to see through faster.
 20101108
-Fixed: No more crashes during startup caused by select.txt. Selecting mods of the same theme works as it should using menu and treeview-items. If a "special" search is done, hits are expanded properly. If old hits are reseted, those aren't expanded any more. Don't fetch false defaults during first first build or language-change.
+Fixed: No more crashes during startup caused by InstallOrder.ini. Selecting mods of the same theme works as it should using menu and treeview-items. If a "special" search is done, hits are expanded properly. If old hits are reseted, those aren't expanded any more. Don't fetch false defaults during first first build or language-change.
 Added: Append an asterisk to the label if mod is splitted (for better visibility).
 Changed: Dropped Spanish and French translations because second was a template and the first needs a lot of work. (No disrespect to the translators. I just asked when they wanted to do their work and we agreed that they'll do it when it's close to a release some time ago. I think it'll be included then.)
 20101114
@@ -795,7 +795,7 @@ Changed: values of linkupdates are treated case-sensitive now, so a is not A any
 20101129
 Updated: Some mods conflicts and dependencies, components and translations.
 20101130
-Fixed: Don't append lines at the end of files while applying patches, which causes crashes if Select.txt is patched.
+Fixed: Don't append lines at the end of files while applying patches, which causes crashes if InstallOrder.ini is patched.
 20101212
 Fixed: Adjusted _Tree_Purge to prevent the installation of purged foreign mods.
 Added: You can choose if you want to use the new category or the old pdf-like view. Mods that are not adding text but aren't translated either are shown as [--].
@@ -836,7 +836,7 @@ Added: Check for infinityanimations-files that begin with non-standard ascii cha
 Fixed: Don't show items that would have conflicts / open dependencies with components that are not available due to language-selection.
 20120322
 Added: BG1-installation for french corrections. Wiki-links for German users. Improved install-conditions to determine if eg. hotfixes are used, NEJ2 is installed. Improved wgetsize/_Net_LinkGetInfo.
-Changed: Use csv- and not prn-style for select.txt
+Changed: Use csv- and not prn-style for InstallOrder.ini
 Removed: Winhttp/http methods to get names and filesizes from urls since they caused kind of random errors.
 20120327
 Fixed: Ignore categories when saving selections. Reload BWS in correct appmode so dependencies work. Corrected detection of splitted mods (which was not precise). Only look for CMD-options if csv-line contains enough separators. Removed "always ok"-condition for fixed mods in TP2-checks (so BGT gets moved out of the subfolder).
@@ -873,7 +873,7 @@ Added: TP2-file can be "extracted" now (it will overwrite an existing one) [_Ext
 Changed: Testing mediafire-links will also return the "interaction is needed"-notifier. [_Net_LinkTest] Building of component-list is moved back so users can select their settings/language and then the GUI is build. [Au3Select, _Tree_Populate, _Misc_ReBuildTreeView] Use _Tree_SetPreSelected for component GUI building (has better logic standard). [_Tree_Populate] Splitted/moved menu-creation into the (re)creation of the Treeview. [_Misc_CreateMenu], [_Tree_GetTags] If mods are missing during install, BWS will now ask what to do (instead of just running on). [Au3Install]
 Fixed: Disable clicking a tab "through" the label at the top (strange effect). [Au3BuildGUI] Contextmenu does not loop anymore when opening URLs and jumping to next part of a mod. [_Selection_ContextMenu] Improved detection of prompt-files and commenting important keywords; works with DSotSC again. [_Install_SetPrompt]
 Removed: Functions that remove treeview items -- it just messes up the GUIs recognition (like moving to next items of a mod). [_Selection_RemoveBG1], [_Tree_Purge], [_Tree_PurgeItem], [_Tree_PurgeForeign]
-Added: Better recognition for need to rebuild the component-GUI. Use when entering that screen or leaving the folder-selection. [_Tree_Populate_PreCheck] New function to detect items that have to be removed. Also used for InfinityAnimations. RegEx is used to skip those items when reading the Select.txt. [_Tree_PurgeUnNeeded], [_Test_ACP] Added another option that pauses the install if components are skipped. [_Install_TestInstalled]
+Added: Better recognition for need to rebuild the component-GUI. Use when entering that screen or leaving the folder-selection. [_Tree_Populate_PreCheck] New function to detect items that have to be removed. Also used for InfinityAnimations. RegEx is used to skip those items when reading the InstallOrder.ini. [_Tree_PurgeUnNeeded], [_Test_ACP] Added another option that pauses the install if components are skipped. [_Install_TestInstalled]
 20120904
 Fixed: Downloading link-updates that already existed resulted in an error. [_Net_Update_Link] If first setups in a "theme" were not created, all with the same went missing. [_Tree_Populate]
 20120907
@@ -959,7 +959,7 @@ Added: Automatic install of Polish BG1 characters conversion if needed (thanks t
 20140712 - Updated by AL|EN
 Added: Added workaround for custom BG2 Installation.
 20140720 - Updated by AL|EN
-Changed: Ignore empty lines when reading select.txt (thanks to dabus).
+Changed: Ignore empty lines when reading InstallOrder.ini (thanks to dabus).
 20140907 - Updated by AL|EN
 Added: Auto-save of user configuration as "Installtype" (thanks to dabus). Save selected preselection (thanks to dabus). Documentation for "Special dependencies for main language of the mods translation and connections" (thanks to dabus).
 Changed: Adjustments to GUI.
@@ -1029,9 +1029,9 @@ Added: log selected expert mods and components and user-ignored rules via setup-
  - for EET, the BiG World Fixpack will be correctly extracted and run in the BG1:EE folder before installing any mods
  - the BWS install debug log will show more of the command-line actions it runs (disabled some log suppression code)
  - moved some EET-compatible mods after EET install to conform to requirements:  DSotSC & TDDz & Lure of the Sirine's Call (newly available for EET), The Grey Clan, BG Travel (new travel system for BG1 city), and Thalantyr store extra items mod
- - moved textpack / translation mods other than Polish (which was already there) before EET install; added a special ANN;EET; marker line before them so they get installed in the BG2:EE folder even though they come before EET in BG2EE\Select.txt
+ - moved textpack / translation mods other than Polish (which was already there) before EET install; added a special ANN;EET; marker line before them so they get installed in the BG2:EE folder even though they come before EET in BG2EE\InstallOrder.ini
  - moved special case handling of EET patches for BG2EE mods and the BWS OverwriteFiles feature to the Au3Run step, which occurs after all extractions are complete (including user-prompted manual problem resolutions)
- - removed some apparently(?) unnecessary 'always process Select.txt from the first line, just in case' logic that was causing EET installs to re-apply command-line actions from the BG1EE section when starting the BG2EE section
+ - removed some apparently(?) unnecessary 'always process InstallOrder.ini from the first line, just in case' logic that was causing EET installs to re-apply command-line actions from the BG1EE section when starting the BG2EE section
  - fixed a couple of bugs related to the 'install components as a group' feature
  
 20161114 - Updated by agb1

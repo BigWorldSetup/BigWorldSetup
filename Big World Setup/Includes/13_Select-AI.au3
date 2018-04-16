@@ -112,7 +112,7 @@ Func _AI_GetType()
 			ElseIf StringInStr($g_CentralArray[$t][11], 'E') Then
 				$g_CentralArray[$t][14]=12
 			Else
-				ConsoleWrite('!'&$g_CentralArray[$t][11] & ' ' & $g_CentralArray[$t][12] & @CRLF); >> this should never happen, if it does: Edit Select.txt
+				ConsoleWrite('!'&$g_CentralArray[$t][11] & ' ' & $g_CentralArray[$t][12] & @CRLF); >> this should never happen, if it does: Edit InstallOrder.ini
 			EndIf
 			If $g_CentralArray[$t][10] = 1 And $MUCoverride > $g_CentralArray[$t][14] Then $g_CentralArray[$t][14] = $MUCoverride; avoid MUC-tree to be "lower" than its root
 		Else

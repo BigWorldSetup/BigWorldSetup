@@ -150,7 +150,7 @@ Func Au3GetVal($p_Num = 0)
 		Next
 		Local $Split, $Name, $Comp, $Answer
 		If StringRegExp($g_FItem, '\A\d{1,}\z') Then
-			$Array = StringSplit(StringStripCR(FileRead($g_GConfDir & '\Select.txt')), @LF)
+			$Array = StringSplit(StringStripCR(FileRead($g_GConfDir & '\InstallOrder.ini')), @LF)
 			If _IniRead($ReadSection, 'GroupInstall', 0) = 1 Then $Array = _Install_ModifyForGroupInstall($Array); always install in groups
 			Local $a = $g_FItem; TODO:  convert to For loop ?
 			If $a = 0 Then ; crash prevention when restarting BWS before first mod is processed
@@ -293,10 +293,10 @@ Func _CreateList($p_Num = 's')
 			EndIf
 		Next
 		; ---------------------------------------------------------------------------------------------
-		; loop through select.txt-array and if new setup is used...
+		; loop through InstallOrder.ini-array and if new setup is used...
 		; ---------------------------------------------------------------------------------------------
 		Local $Setups[5000][3], $OldSetup
-		Local $Array = StringSplit(StringStripCR(FileRead($g_GConfDir & '\Select.txt')), @LF)
+		Local $Array = StringSplit(StringStripCR(FileRead($g_GConfDir & '\InstallOrder.ini')), @LF)
 		For $a = 1 To $Array[0]
 			If StringRegExp($Array[$a], '(?i)\A(CMD|ANN|GRP)') Then ContinueLoop
 			Local $Split = StringSplit($Array[$a], ';')
@@ -388,8 +388,8 @@ Func _GetGlobalData($p_Game='')
 		$Token=StringLeft($Array[$a], 1)
 		If Not StringInStr($GameToken, $Token) Then $GameToken&=$Token
 	Next
-	; Get mods used in Select.txt
-	Local $Text=FileRead($g_GConfDir&'\Select.txt')
+	; Get mods used in InstallOrder.ini
+	Local $Text=FileRead($g_GConfDir&'\InstallOrder.ini')
 	$Text=StringRegExpReplace($Text, '(?i)(\A|\n)(DWN|MUC|STD|SUB)', '--')
 	Local $Array=StringRegExp($Text, '--\x3b[^\x3b]*\x3b' , 3)
 	Local $Mod, $LastMod, $Mods='|'

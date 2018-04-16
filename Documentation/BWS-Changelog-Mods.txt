@@ -7,7 +7,7 @@
 - Added Spanish entries of "Goo NPC v6"
 - Updated German entries of "BG1 Unfinished Business v12"
 - Updated Russian entries of "Unfinished Business v19"
-- Removed Sarah-SCSII hotfixes from Select.txt
+- Removed Sarah-SCSII hotfixes from InstallOrder.ini
 11.05.2010
 - Added new component 212 of "aTweaks v3.05"
 - Added Spanish entries of "A Mod for the Orderly v4"
@@ -30,7 +30,7 @@
 19.05.2010
 - Updated language entries of "TS25MiniMod" to consider Fennek's updates from the "BW Fixpack"
 - Updated language entries for "Summon Bhaalspawn v3"
-- Updated Select.txt and Setup.ini (compared with the output.html of the Install.bat)
+- Updated InstallOrder.ini and Setup.ini (compared with the output.html of the Install.bat)
 - Added more "BG2 Tweaks" components
 - Added sub-components and conflicts for "Item Randomiser"
 - Added descriptions for "Aurora Patch v5.1"

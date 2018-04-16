@@ -295,7 +295,7 @@ Func Au3Install($p_Num = 0, $p_Debug = 0)
 	$g_LogFile = $g_LogDir & '\BWS-Debug-Installation.txt'
 	FileWriteLine($g_LogFile, 'Big World Install')
 	GUICtrlSetData($g_UI_Static[6][1], _GetTR($Message, 'L1')); => watch progress
-	$Array = StringSplit(StringRegExpReplace(StringStripCR(FileRead($g_GConfDir&'\Select.txt')), '\x0a((|\s{1,})\x0a){1,}', @LF), @LF)
+	$Array = StringSplit(StringRegExpReplace(StringStripCR(FileRead($g_GConfDir&'\InstallOrder.ini')), '\x0a((|\s{1,})\x0a){1,}', @LF), @LF)
 	If IniRead($g_UsrIni, 'Options', 'GroupInstall', 0) = 1 Then $Array = _Install_ModifyForGroupInstall($Array); always install in groups
 	If $p_Debug = 1 Then
 		For $a = 1 To $Array[0]
@@ -386,7 +386,7 @@ Func Au3Install($p_Num = 0, $p_Debug = 0)
 ; ---------------------------------------------------------------------------------------------
 			$Split=StringSplit($Array[$a], ';')
 			If $Split[0] < 6 Then
-				_Process_SetConsoleLog('WARNING:  BWS is skipping an incorrectly formatted line '&$a&' in '&$g_GConfDir&'\Select.txt'&': '&$Array[$a])
+				_Process_SetConsoleLog('WARNING:  BWS is skipping an incorrectly formatted line '&$a&' in '&$g_GConfDir&'\InstallOrder.ini'&': '&$Array[$a])
 				ContinueLoop
 			EndIf
 			$Setup[0]=$Split[1]; LineType
@@ -1070,7 +1070,7 @@ EndFunc   ;==>_Install_ManageDebug
 ; ---------------------------------------------------------------------------------------------
 Func _Install_ModifyForGroupInstall($p_Array, $p_Debug=0)
 	_PrintDebug('+' & @ScriptLineNumber & ' Calling _Install_ModifyForGroupInstall')
-	Local $NArray[$p_Array[0]*2] ; allow for the maximum case possibility that every 2 lines in Select.txt will become 4 lines (GRP;Start before and GRP;Stop after every 2 components of a unique mod-setup)
+	Local $NArray[$p_Array[0]*2] ; allow for the maximum case possibility that every 2 lines in InstallOrder.ini will become 4 lines (GRP;Start before and GRP;Stop after every 2 components of a unique mod-setup)
 	Local $n=0, $Open=0, $OldMod
 	Local $EndGroupInstall=StringRegExpReplace(IniRead($g_GConfDir&'\Game.ini', 'Options', 'EndGroupInstall', ''), ',|&', '|')
 	For $a = 1 To $p_Array[0]
@@ -1128,7 +1128,7 @@ Func _Install_ModifyForGroupInstall($p_Array, $p_Debug=0)
 		EndIf
 		$OldMod=$Mod
 	Next
-	If $Open Then ; we reached the end of the Select.txt and still have an open GRP;Start ... so add a final GRP;Stop
+	If $Open Then ; we reached the end of the InstallOrder.ini and still have an open GRP;Start ... so add a final GRP;Stop
 		$NArray[$n]='GRP;Stop'
 		$Open=0
 		; don't increment n here: this is the final line

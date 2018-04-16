@@ -836,7 +836,7 @@ Func _Test_Get_EET_Mods(); called by _Tree_EndSelection() just before starting a
 	If Not StringInStr($g_GConfDir, 'BG2EE') Then Return
 	Local $Current = IniReadSection($g_UsrIni, 'Current')
 	If _IniRead($Current, 'EET', '') = '' Then Return
-	Local $Select=StringSplit(StringStripCR(FileRead($g_GConfDir&'\Select.txt')), @LF)
+	Local $Select=StringSplit(StringStripCR(FileRead($g_GConfDir&'\InstallOrder.ini')), @LF)
 	Local $Purge=IniReadSection($g_GConfDir&'\Game.ini', 'Purge')
 	Local $SplitPurgeLine, $EETMods
 	If IsArray($Purge) Then
