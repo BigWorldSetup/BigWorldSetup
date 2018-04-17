@@ -8,10 +8,10 @@ Func Au3Detect($p_Num = 0)
 	Local $Lang = ''
 	If IniRead($g_UsrIni, 'Options', 'AppLang', '') = '' Then; search only on first startup
 		$g_ATNum = '1'
-		If StringRegExp(@OSLang, '(?i)0407|0807|0c07|1007|1407') = '1' Then $g_ATNum = '2'; german OSLANG
+		;If StringRegExp(@OSLang, '(?i)0407|0807|0c07|1007|1407') = '1' Then $g_ATNum = '2'; german OSLANG
 		;If StringRegExp(@OSLang, '(?i)040a|080a|0c0a|100a|140a|180a|1c0a|200a|240a|280a|2c0a|300a|340a|380a|3c0a|400a|440a|480a|4c0a|500a') = '1' Then $g_ATNum = '3'; spanish OSLANG
 		;If StringRegExp(@OSLang, '(?i)040c|080c|0c0c|100c|140c|180c') = '1' Then $g_ATNum = '4'; french OSLANG
-		If StringRegExp(@OSLang, '(?i)0419') = '1' Then $g_ATNum = '3'; Russian OSLANG
+		;If StringRegExp(@OSLang, '(?i)0419') = '1' Then $g_ATNum = '3'; Russian OSLANG
 		$Lang = IniRead($g_UsrIni, 'Options', 'AppLang', 'EN')
 		IniWrite($g_UsrIni, 'Options', 'Download', $g_DownDir)
 	Else

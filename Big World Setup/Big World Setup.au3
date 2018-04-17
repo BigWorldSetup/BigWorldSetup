@@ -23,7 +23,7 @@ Global $g_ConsoleOutput = '', $g_STDStream, $g_ConsoleOutput, $g_pQuestion = 0
 ; program options and misc
 Global $g_Order, $g_Setups, $g_Skip, $g_Clip; available setups, items to skip
 Global $g_CurrentPackages, $g_fLock, $g_FItem = IniRead($g_BWSIni, 'Options', 'Start', '1'); selected packages, fixed mods and last processed item
-Global $g_ATrans = StringSplit(IniRead($g_BWSIni, 'Options', 'AppLang', 'EN|GE'), '|'), $g_ATNum = 1, $g_MLang; available translations and mod translations
+Global $g_ATrans = StringSplit(IniRead($g_BWSIni, 'Options', 'AppLang', 'EN'), '|'), $g_ATNum = 1, $g_MLang; available translations and mod translations
 Global $g_UDll = DllOpen('user32.dll'); we have to use this for detecting the mouse or keboard-usage
 Global $g_Down[6][2]; used for updating download-progressbar
 ; ---------------------------------------------------------------------------------------------
