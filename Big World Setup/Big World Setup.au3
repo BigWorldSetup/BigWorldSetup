@@ -406,7 +406,7 @@ Func _GetGlobalData($p_Game='')
 	; Open file-handles
 	If Not FileExists($g_GConfDir) Then DirCreate($g_GConfDir)
 	Local $h_Mod=FileOpen($g_GConfDir&'\Mod.ini', 2)
-	Local $Lang=StringSplit('EN|GE|RU', '|'); BWS user interface languages
+	Local $Lang=StringSplit('EN', '|'); BWS user interface languages
 	For $l=1 to $Lang[0]
 		Assign('h_Mod_'&$Lang[$l], FileOpen($g_GConfDir&'\Mod-'&$Lang[$l]&'.ini', 1)); don't overwrite file, contains [Preselection]
 		FileWrite(Eval('h_Mod_'&$Lang[$l]), @CRLF&@CRLF&'[Description]'&@CRLF)
