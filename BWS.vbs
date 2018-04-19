@@ -5,7 +5,7 @@ Else
   Set oShell = CreateObject("WScript.Shell")
   oShell.CurrentDirectory = CreateObject("Scripting.FileSystemObject").GetParentFolderName(WScript.ScriptFullName)
   Set objFSO = CreateObject("Scripting.FileSystemObject")
-  If objFSO.FolderExists(".git") Then
+  If ((objFSO.FolderExists(".git")) And (objFSO.FolderExists("Git"))) Then
     Const ForReading = 1
     InstallationInProgress = True
     Dim strSearchFor
@@ -28,7 +28,7 @@ Else
 	Set wshShell = WScript.CreateObject ("wscript.shell")
     wshShell.Run "%comspec% /k XCOPY /S /Q /Y /I ""Big World Setup\Tools\Git"" "".\Git"" & exit", 1, True
     WScript.Echo "Application has an autoupdate feature that will synchronize your local copy with the latest online version each time you run this script." & _
-                 "Applicaion will not update any files when when installation is in progress. This message will only be displayed once."
+                 "Applicaion will not update any files between mods installation. This message will only be displayed once."
     wshShell.Run """.\Git\cmd\git.exe"" init .", 1, True
     wshShell.Run """.\Git\cmd\git.exe"" remote add -f origin https://bitbucket.org/BigWorldSetup/BigWorldSetup", 1, True
     wshShell.Run """.\Git\cmd\git.exe"" branch --track master origin/master", 1, True
