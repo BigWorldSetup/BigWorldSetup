@@ -565,7 +565,7 @@ Func _Net_DownloadStart($p_URL, $p_File, $p_Setup, $p_Prefix, $p_String); Link, 
 		Return SetError(1, 1, 0)
 	Else; file found
 		If $Changed Then _Process_SetConsoleLog(_GetTR($Message, 'L8')); => hint that this is a new version
-		If $Changed And $p_File <> $NetInfo[1] Then; update filename only if changed (might be just size)
+		If $Changed And $p_File <> $NetInfo[1] And Not StringRegExp($p_URL, 'us\.v-cdn\.net\/5019558') Then ; update filename only if changed (might be just size), ignore forums.beamdog.com's attachment like "us.v-cdn.net/5019558/aaaa/bbbb/cccc/XXXYYYZZZ.zip"
 			$p_File = $NetInfo[1]
 			; save new file name for following sessions
 			IniWrite($g_MODIni, $p_Setup, $p_Prefix&'Save', $p_File)
@@ -840,7 +840,7 @@ Func _Net_LinkUpdateInfo($p_URL, $p_File, $p_Setup, $p_Prefix)
 		EndIf
 	EndIf
 	$Return[1]=StringReplace(StringReplace($Return[1], '%20', ' '), '\', ''); set correct space
-	If StringLower($Return[1]) <> StringLower($p_File) Then; name changed
+	If StringLower($Return[1]) <> StringLower($p_File) And Not StringRegExp($p_URL, 'us\.v-cdn\.net\/5019558') Then; name changed, ignore forums.beamdog.com's attachment like "us.v-cdn.net/5019558/aaaa/bbbb/cccc/XXXYYYZZZ.zip"
 		;If StringRegExp($p_URL, 'lynxlynx') Then ; http://lynxlynx.info/ie/modhub.php?AstroBryGuy/bg1ub -> AstroBryGuy-bg1ub-???.zip
 			; zip file name will change each time there is a new commit; to avoid accumulating copies, reuse 'Save' name from mod ini
 			; also don't set $Extended to 1 because of this (we might still set it later because of different filesize, which is fine)
