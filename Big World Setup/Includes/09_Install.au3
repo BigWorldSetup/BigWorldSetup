@@ -115,7 +115,7 @@ Func Au3RunFix($p_Num = 0)
 	_Process_ChangeDir($g_GameDir, 1)
 	GUICtrlSetData($g_UI_Interact[6][4], StringFormat(_GetSTR($Message, 'H1'), $Type)); => help text
 	GUICtrlSetData($g_UI_Static[6][1], _GetTR($Message, 'L2')); => watch progress
-	$g_LogFile = $g_LogDir & '\BWS-Debug-Installation.txt'
+	$g_LogFile = $g_LogDir & '\BWS-Debug-Installation.log'
 	; No longer used
 	; Special case, EET-patches-for-BG2EE-mods-master must be extracted after all other mods are extracted, before files are copied in from
 	; OverwriteFiles (_Extract_OverwriteFiles()) and before Big World Fixpack is run
@@ -279,7 +279,7 @@ Func Au3Install($p_Num = 0, $p_Debug = 0)
 	Local $RMessage = IniReadSection($g_TRAIni, 'IN-Check')
 	Local $TMessage = IniReadSection($g_TRAIni, 'IN-Test')
 	Local $Message = IniReadSection($g_TRAIni, 'IN-Au3Install')
-	$g_LogFile = $g_LogDir & '\BWS-Debug-Installation.txt'
+	$g_LogFile = $g_LogDir & '\BWS-Debug-Installation.log'
 	Local $Group = '-1', $CurrentMod, $Setup[10], $Type=StringRegExpReplace($g_Flags[14], '(?i)BWS|BWP', 'BG2')
 	Local $Logic = IniRead($g_UsrIni, 'Options', 'Logic3', 1), $Ref=FileGetSize($g_GameDir&'\WeiDU\WeiDU.exe')
 	Local $EET_Mods
@@ -292,7 +292,7 @@ Func Au3Install($p_Num = 0, $p_Debug = 0)
 		_Misc_MsgGUI(4, _GetTR($g_UI_Message, '0-T1'), StringFormat(_GetTR($Message, 'L6'), $Type)); => need a current WeiDU
 		Exit
 	EndIf
-	$g_LogFile = $g_LogDir & '\BWS-Debug-Installation.txt'
+	$g_LogFile = $g_LogDir & '\BWS-Debug-Installation.log'
 	FileWriteLine($g_LogFile, 'Big World Install')
 	GUICtrlSetData($g_UI_Static[6][1], _GetTR($Message, 'L1')); => watch progress
 	$Array = StringSplit(StringRegExpReplace(StringStripCR(FileRead($g_GConfDir&'\InstallOrder.ini')), '\x0a((|\s{1,})\x0a){1,}', @LF), @LF)
@@ -301,7 +301,7 @@ Func Au3Install($p_Num = 0, $p_Debug = 0)
 		For $a = 1 To $Array[0]
 			_Process_SetConsoleLog($Array[$a])
 		Next
-		_PrintDebug('Installation array printed to log Big World Setup\Logs\BWS-Debug.txt',1)
+		_PrintDebug('Installation array printed to log Big World Setup\Logs\BWS-Debug.log',1)
 		Exit
 	EndIf
 	For $a = $g_FItem To $Array[0]
@@ -574,7 +574,7 @@ Func Au3Install($p_Num = 0, $p_Debug = 0)
 	GUICtrlSetData($g_UI_Static[6][2], _GetTR($Message, 'L11')); => create bug-report-archive
 	_Install_CompressLog()
 	GUICtrlSetState($g_UI_Button[0][3], $Gui_ENABLE)
-	$g_LogFile = _ResetInstall() & '\BWS-Debug-Installation.txt'
+	$g_LogFile = _ResetInstall() & '\BWS-Debug-Installation.log'
 	If StringRegExp($g_Flags[14], 'BWP|BWS') Then
 		If $g_MLang[1] = 'GE' Then; prepare Cleanup-tool to delete stuff
 			FileCopy($g_BG2Dir&'\Big World Installpack\German\*', $g_BG2Dir&'\Big World Installpack\temp\', 1)
@@ -847,8 +847,8 @@ EndFunc   ;==>_Install_CheckCondition
 ; ---------------------------------------------------------------------------------------------
 Func _Install_CompressLog()
 	Dim $LastLine
-	$File = $g_LogDir & '\BWS-Debug-Installation.txt'
-	$Handle = FileOpen($g_LogDir & '\BWS-Debug.txt', 2)
+	$File = $g_LogDir & '\BWS-Debug-Installation.log'
+	$Handle = FileOpen($g_LogDir & '\BWS-Debug.log', 2)
 	$Array=StringSplit(StringStripCR(FileRead($File)), @LF)
 	For $a=1 to $Array[0]
 		If _MathCheckDiv($a, 10000) Then GUICtrlSetData($g_UI_Interact[6][1], ($a/$Array[0])*80)
@@ -859,7 +859,7 @@ Func _Install_CompressLog()
 	Next
 	FileClose($Handle)
 	$7za = $g_ProgDir & '\Tools\7z.exe'
-	$Handle = Run('"' & $7za & '" a "' & $g_GameDir & '\BWS-Debug.7z" "' & $g_LogDir & '\BWS-Debug.txt"', $g_ProgDir, @SW_HIDE, 8)
+	$Handle = Run('"' & $7za & '" a "' & $g_GameDir & '\BWS-Debug.7z" "' & $g_LogDir & '\BWS-Debug.log"', $g_ProgDir, @SW_HIDE, 8)
 	Local $Return
 	While 1
 		$Return &= StdoutRead($Handle)
@@ -1150,7 +1150,7 @@ Func _Install_ModifyForGroupInstall($p_Array, $p_Debug=0)
 			EndIf
 			_Process_SetConsoleLog($NArray[$a])
 		Next
-		_PrintDebug('_Install_ModifyForGroupInstall finished - check Big World Setup\Logs\BWS-Debug.txt',1)
+		_PrintDebug('_Install_ModifyForGroupInstall finished - check Big World Setup\Logs\BWS-Debug.log',1)
 		Exit
 	EndIf
 	Return $NArray

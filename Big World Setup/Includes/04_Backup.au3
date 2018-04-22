@@ -6,7 +6,7 @@
 Func Au3CleanInst($p_Num = 0, $p_Tab = 6) ;1=first timer, 2=backup, 3=restore
 	Local $Message = IniReadSection($g_TRAIni, 'BA-Au3CleanInst')
 	_PrintDebug('+' & @ScriptLineNumber & ' Calling Au3CleanInst')
-	Global $g_LogFile = $g_LogDir & '\BWS-Debug-Backup.txt'
+	Global $g_LogFile = $g_LogDir & '\BWS-Debug-Backup.log'
 	$g_Flags[0]=1
 	If StringRegExp($g_Flags[14], 'BWS|BWP') Then
 		Local $Type = 'BG2'

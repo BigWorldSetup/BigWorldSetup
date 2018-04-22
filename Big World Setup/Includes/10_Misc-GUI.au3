@@ -26,7 +26,7 @@ Func _Misc_AboutGUI()
 	; ---------------------------------------------------------------------------------------------
 	; Fetch the version number
 	; ---------------------------------------------------------------------------------------------
-	Local $Array = StringSplit(StringStripCR(FileRead($g_BaseDir & '\Documentation\Changelog.txt')), @LF)
+	Local $Array = StringSplit(StringStripCR(FileRead($g_BaseDir & '\BWS-Version.txt')), @LF)
 	For $a = $Array[0] To 1 Step -1
 		If StringRegExp($Array[$a], '\A\d{8,}') Then
 			$Version = StringRegExp($Array[$a], '\A\d{8,}', 3)

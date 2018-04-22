@@ -13,7 +13,7 @@ TraySetIcon(@ScriptDir & '\Pics\BWS.ico'); sets the tray-icon
 ; files and folders
 Global $g_BaseDir = StringLeft(@ScriptDir, StringInStr(@ScriptDir, '\', 1, -1) - 1), $g_GConfDir, $g_ConnectionsConfDir, $g_GameDir, $g_ProgName = 'Big World Setup'
 Global $g_ProgDir = $g_BaseDir & '\Big World Setup', $g_LogDir = $g_ProgDir & '\Logs', $g_DownDir = $g_BaseDir & '\Big World Downloads'
-Global $g_BG1Dir, $g_BG2Dir, $g_BG1EEDIR, $g_BG2EEDIR, $g_IWD1Dir, $g_IWD1EEDir, $g_PSTEEDir, $g_IWD2Dir, $g_PSTDir, $g_RemovedDir, $g_BackupDir, $g_LogFile = $g_LogDir & '\BWS-Debug.txt'
+Global $g_BG1Dir, $g_BG2Dir, $g_BG1EEDIR, $g_BG2EEDIR, $g_IWD1Dir, $g_IWD1EEDir, $g_PSTEEDir, $g_IWD2Dir, $g_PSTDir, $g_RemovedDir, $g_BackupDir, $g_LogFile = $g_LogDir & '\BWS-Debug.log'
 Global $g_BWSIni = $g_ProgDir & '\Config\Setup.ini', $g_MODIni, $g_UsrIni = $g_ProgDir & '\Config\User.ini'
 ; select-gui vars
 Global $g_Compilation = 'R', $g_LimitedSelection = 0, $g_Tags, $g_ActiveConnections[1], $g_Groups, $g_GameList
@@ -524,7 +524,7 @@ Func _ResetInstall($p_DeletePause = 1)
 	IniWrite($g_BWSIni, 'Order', 'Au3RunFix', '1'); fixes and patches
 	IniWrite($g_BWSIni, 'Order', 'Au3Install', '1'); install
 	IniWrite($g_BWSIni, 'Options', 'Start', '1')
-	FileMove($g_LogDir & '\*.txt', $g_LogDir & '\Bak\', 9); save old logs
+	FileMove($g_LogDir & '\*.log', $g_LogDir & '\Bak\', 9); save old logs
 	If DirGetSize($g_LogDir & '\Bak') > 0 Then
 		$OldLogDir = $g_LogDir & '\Bak-' & @YEAR & @MON & @MDAY & @HOUR & @MIN
 		DirMove($g_LogDir & '\Bak', $OldLogDir)

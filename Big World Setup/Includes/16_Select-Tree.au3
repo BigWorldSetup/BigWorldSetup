@@ -573,7 +573,7 @@ Func _Tree_Populate($p_Show=1)
 		ElseIf StringRegExp($g_CentralArray[$g_TreeviewItem[$cs][0]][11], '\A[^FRST]+\z') Then; mod Type does not include 'F'ixed, 'R'ecommended, Maximi'S'ed or 'T'actical
 			$g_CentralArray[$g_TreeviewItem[$cs][$cc]][12] = '0001'; mark the item Expert regardless of InstallOrder.ini
 		Else
-			$g_CentralArray[$g_TreeviewItem[$cs][$cc]][12] = $SelectArray[$s][4]; pre-selection bits (0000 to 1111) according to Setup.txt
+			$g_CentralArray[$g_TreeviewItem[$cs][$cc]][12] = $SelectArray[$s][4]; pre-selection bits (0000 to 1111) according to InstallOrder.ini
 		EndIf
 		If $NotFixedItems <> '' Then; see if the item is among the 'not fixed' ones
 			Local $ItemIsNotFixed = StringRegExp($NotFixedItems, '(?i)(\A|\s)' & $SelectArray[$s][3] & '(\s|\z)'); Note: Not checking for SUBs here.

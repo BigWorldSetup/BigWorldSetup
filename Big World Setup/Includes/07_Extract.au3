@@ -6,7 +6,7 @@
 Func Au3Extract($p_Num = 0)
 	Local $Message = IniReadSection($g_TRAIni, 'Ex-Au3Extract')
 	_PrintDebug('+' & @ScriptLineNumber & ' Calling Au3Extract')
-	$g_LogFile = $g_LogDir & '\BWS-Debug-Extraction.txt'
+	$g_LogFile = $g_LogDir & '\BWS-Debug-Extraction.log'
 	$g_CurrentPackages = _GetCurrent(); items may be removed due to EET-install-exception
 	_Process_SwitchEdit(0, 1)
 	Local $Prefix[4] = [3, '', 'Add', $g_ATrans[$g_ATNum] & '-Add']
@@ -140,7 +140,7 @@ EndFunc   ;==>Au3Extract
 Func Au3ExFix($p_Num)
 	Local $Message = IniReadSection($g_TRAIni, 'Ex-Au3Extract')
 	_PrintDebug('+' & @ScriptLineNumber & ' Calling Au3ExFix')
-	$g_LogFile = $g_LogDir & '\BWS-Debug-Extraction.txt'
+	$g_LogFile = $g_LogDir & '\BWS-Debug-Extraction.log'
 	$g_CurrentPackages = _GetCurrent(); May be needed if BWS is restarted during fixing
 	$g_Flags[0] = 1
 	_Process_SwitchEdit(0, 0)
@@ -381,7 +381,7 @@ EndFunc   ;==>Au3ExFix
 ; ---------------------------------------------------------------------------------------------
 Func Au3ExTest($p_Num = 0)
 	_PrintDebug('+' & @ScriptLineNumber & ' Calling Au3ExTest')
-	$g_LogFile = $g_LogDir & '\BWS-Debug-Extraction.txt'
+	$g_LogFile = $g_LogDir & '\BWS-Debug-Extraction.log'
 	Local $Message = IniReadSection($g_TRAIni, 'Ex-Au3TestExtract'), $FNum = ''
 	_Process_SwitchEdit(1, 0)
 	$Type=StringRegExpReplace($g_Flags[14], '(?i)BWS|BWP', 'BG2')

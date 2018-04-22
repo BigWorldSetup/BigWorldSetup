@@ -175,7 +175,7 @@ EndFunc    ;==>_Test_ACP
 ; ---------------------------------------------------------------------------------------------
 Func _Test_ArchivesExist()
 	_PrintDebug('+' & @ScriptLineNumber & ' Calling _Test_ArchivesExist')
-	$g_LogFile = $g_LogDir & '\BWS-Debug-FileCheck.txt'
+	$g_LogFile = $g_LogDir & '\BWS-Debug-FileCheck.log'
 	Local $Prefixes[3], $Fault = '';, $Delete = 0
 	Local $Message = IniReadSection($g_TRAIni, 'TE-ArchivesExist')
 	GUICtrlSetData($g_UI_Interact[6][4], _GetSTR($Message, 'H1')); => help text
