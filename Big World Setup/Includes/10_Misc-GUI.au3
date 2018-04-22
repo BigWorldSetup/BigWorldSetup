@@ -135,6 +135,9 @@ Func _Misc_LS_GUI()
 	Local $LV2 = GUICtrlGetHandle($g_UI_Interact[15][2])
 	Local $SArray = StringSplit(_GetTR($g_UI_Message, '15-L1'), '|'); => short available translations for the mods
 	Local $LArray = StringSplit(_GetTR($g_UI_Message, '15-I1'), '|'); => long available translations for the mods
+	
+	_GUICtrlListView_DeleteAllItems($LV1); clear previous state before adding items
+	_GUICtrlListView_DeleteAllItems($LV2); 
 	For $l = 1 To $LArray[0]
 		If Not FileExists($g_GConfDir & '\WeiDU-' & $SArray[$l] & '.ini') Then ContinueLoop
 		GUICtrlCreateListViewItem($LArray[$l], $g_UI_Interact[15][1])
