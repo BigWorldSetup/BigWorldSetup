@@ -84,7 +84,7 @@ Global $g_TRAIni = $g_ProgDir & '\Config\Translation-' & $g_ATrans[$g_ATNum] & '
 #EndRegion Includes
 ;#NoTrayIcon
 
-#Region Set Default Configuration
+#Region Set default BWS internal configuration only if dosen't exist
 If Not FileExists($g_BWSIni) Then
 	FileCopy($g_ProgDir & '\Config\Setup-Default.ini', $g_BWSIni, 1)
 EndIf
