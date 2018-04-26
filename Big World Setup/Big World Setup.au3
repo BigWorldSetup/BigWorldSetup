@@ -63,6 +63,7 @@ Global $g_TRAIni = $g_ProgDir & '\Config\Translation-' & $g_ATrans[$g_ATNum] & '
 ; $g_UI 0=main, 1=child-window with BWP-pic, 2=width, 3=height, 4=child-window with progress-bar
 
 #EndRegion Global vars
+
 #Region Includes
 #include'Includes\01_UDF1.au3'
 #include'Includes\02_UDF2.au3'
@@ -82,12 +83,15 @@ Global $g_TRAIni = $g_ProgDir & '\Config\Translation-' & $g_ATrans[$g_ATNum] & '
 #include'Includes\16_Select-Tree.au3'
 #include'Includes\17_Testing.au3'
 #EndRegion Includes
+
 ;#NoTrayIcon
 
 #Region Set default BWS internal configuration only if dosen't exist
+
 If Not FileExists($g_BWSIni) Then
 	FileCopy($g_ProgDir & '\Config\Setup-Default.ini', $g_BWSIni, 1)
 EndIf
+
 #EndRegion
 
 #Region Copy between games
