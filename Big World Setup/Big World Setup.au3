@@ -84,6 +84,12 @@ Global $g_TRAIni = $g_ProgDir & '\Config\Translation-' & $g_ATrans[$g_ATNum] & '
 #EndRegion Includes
 ;#NoTrayIcon
 
+#Region Set Default Configuration
+If Not FileExists($g_BWSIni) Then
+	FileCopy($g_ProgDir & '\Config\Setup-Default.ini', $g_BWSIni, 1)
+EndIf
+#EndRegion
+
 #Region Copy between games
 
 $g_Order = IniReadSection($g_BWSIni, 'Order'); reload this to get the new selected functions
