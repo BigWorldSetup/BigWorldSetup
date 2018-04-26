@@ -7,16 +7,16 @@ Else
   Set objFSO = CreateObject("Scripting.FileSystemObject")
   If ((objFSO.FolderExists(".git")) And (objFSO.FolderExists("Git"))) Then
     Const ForReading = 1
-    InstallationInProgress = True
+    InstallationInProgress = False
     Dim strSearchFor
-    strSearchFor = "Au3CleanInst=1"
+    strSearchFor = "=0"
     Set objFSO = CreateObject("Scripting.FileSystemObject")
     setupFilePath = "Big World Setup\Config\Setup.ini"
     Set objTextFile = objFSO.OpenTextFile(setupFilePath, ForReading)
     do until objTextFile.AtEndOfStream
         strLine = objTextFile.ReadLine()
-        If InStr(strLine, strSearchFor) <> 0 then
-            InstallationInProgress = False
+        If InStr(LCase(strLine), LCase(strSearchFor)) <> 0 then
+            InstallationInProgress = True
         End If
     loop
     objTextFile.Close
