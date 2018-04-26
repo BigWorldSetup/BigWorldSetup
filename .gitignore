@@ -11,9 +11,9 @@
 /Git/
 /OverwriteFiles/
 
-**/bwfixpack.ini
+**/*fixpack.ini
 **/PreSelection00.ini
 **/Mod.ini
 **/Mod-*.ini
 **/WeiDU-*.ini
-**/BWS-Version.txt
+**/BWS*Version.txt
