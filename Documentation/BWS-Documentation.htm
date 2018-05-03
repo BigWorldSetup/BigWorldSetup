@@ -267,7 +267,7 @@ add &pkg=osx for OSX build
         <div class="level1">
 
             <p>
-                Open the Big World Setup\Config\[GAME]\Game.ini
+                Open the App\Config\[GAME]\Game.ini
             </p>
             <pre class="ini code ini" style="font-family:monospace;">
 [Edit]
@@ -277,7 +277,7 @@ animalcompanions;0?2=\D*
                 animalcompanions - mod name
             </p>
             <p>
-                0?2 - component from Big World Setup\Config\[GAME]\InstallOrder.ini
+                0?2 - component from App\Config\[GAME]\InstallOrder.ini
             </p>
             \D* - au3 pattern, only letters for this case
             </p>
@@ -291,7 +291,7 @@ animalcompanions;0?2=\D*
         <div class="level1">
 
             <p>
-                Open the Big World Setup\Config\[GAME]\Mod.ini, search for your mod and remove the trailing
+                Open the App\Config\[GAME]\Mod.ini, search for your mod and remove the trailing
                 <strong>,F</strong> from the value of the Type-key.
             </p>
             <pre class="ini code ini" style="font-family:monospace;"><span class="re0"><span class="br0">&#91;</span>BeregostCF<span class="br0">&#93;</span></span>
@@ -312,7 +312,7 @@ animalcompanions;0?2=\D*
             </p>
             <pre class="code ini"><span class="re1">NotFixed</span><span class="sy0">=</span><span class="re2"><span class="nu0">3</span> 10.</span></pre>
             <p>
-                Another option is to edit the Big World Setup\Config\User.ini to fit your needs after it was written. (Shortly after you
+                Another option is to edit the App\Config\User.ini to fit your needs after it was written. (Shortly after you
                 selected how to handle failures during download, extraction and installation.) You can do that until the
                 mods get installed. Use the pause-button or force the issue like described in the next block.
             </p>
@@ -348,7 +348,7 @@ animalcompanions;0?2=\D*
         <div class="level1">
 
             <p>
-                Open the Big World Setup\Config\Setup.ini. The section [Order] shows the steps that are done. Replace them with one of the
+                Open the App\Config\Setup.ini. The section [Order] shows the steps that are done. Replace them with one of the
                 examples from Setup-Examples.ini file, which are Order-Select/Download/Extract/Install. These will start
                 at the beginning of the selection, download, extraction or installation.
 
@@ -363,7 +363,7 @@ animalcompanions;0?2=\D*
         <div class="level1">
 
             <p>
-                Open the Big World Setup\Config\[GAME]\InstallOrder.ini. This file contains all orders to install the BWP. They are executed line
+                Open the App\Config\[GAME]\InstallOrder.ini. This file contains all orders to install the BWP. They are executed line
                 after line. There are several type of lines. Annotations, commands, downloads, standard, multiple choice-,
                 sub-components and groups.
             </p>
@@ -1000,7 +1000,7 @@ AB Totl needs patch 142=D:ab_totlm(-):1.4.2.0
                 <div class="level1">
 
                     <p>
-                        All actions are listed in the Big World Setup\Config\[GAME]\InstallOrder.ini (See the third section of this page for details) They
+                        All actions are listed in the App\Config\[GAME]\InstallOrder.ini (See the third section of this page for details) They
                         are executed line by line. CMD-lines are always executed. Lines that install components are checked
                         if those should be executed. If already installed, the component will be skipped. If the dependencies
                         are met and conflicts don&#039;t exist the component will be installed. Otherwise you can select

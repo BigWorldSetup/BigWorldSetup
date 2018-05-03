@@ -1007,7 +1007,7 @@ Added: log selected expert mods and components and user-ignored rules via setup-
 20160201 - Updated by agb1
  - Added AutoUpdate folder with a copy of git.exe
  - AutoIt3.exe moved to Tools and marked as a hidden file
- - Big World Setup-DebugMode marked as a hidden file
+ - App-DebugMode marked as a hidden file
  - BWS.vbs is the recommended way to start BWS (auto-update and preserve local changes)
  - BWS-NoAutoUpdate.vbs must be run at least once (auto-update and discard local changes)
 
