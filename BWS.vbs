@@ -11,7 +11,7 @@ Else
     Dim strSearchFor
     strSearchFor = "=0"
     Set objFSO = CreateObject("Scripting.FileSystemObject")
-    setupFilePath = "Big World Setup\Config\Setup.ini"
+    setupFilePath = "App\Config\Setup.ini"
     Set objTextFile = objFSO.OpenTextFile(setupFilePath, ForReading)
     do until objTextFile.AtEndOfStream
         strLine = objTextFile.ReadLine()
@@ -26,7 +26,7 @@ Else
     End If
   Else
 	Set wshShell = WScript.CreateObject ("wscript.shell")
-    wshShell.Run "%comspec% /k XCOPY /S /Q /Y /I ""Big World Setup\Tools\Git"" "".\Git"" & exit", 1, True
+    wshShell.Run "%comspec% /k XCOPY /S /Q /Y /I ""App\Tools\Git"" "".\Git"" & exit", 1, True
     WScript.Echo "Application has an autoupdate feature that will synchronize your local copy with the latest online version each time you run this script." & _
                  "Applicaion will not update any files between mods installation. This message will only be displayed once."
     wshShell.Run """.\Git\cmd\git.exe"" init .", 1, True
@@ -36,8 +36,8 @@ Else
 	Set wshShell = nothing
   End If
   Set wshShell = WScript.CreateObject ("wscript.shell")
-  commandDefinition = "%comspec% /c ""Big World Setup\Tools\Git\cmd\git.exe""" & " " & "log --pretty=oneline --abbrev-commit --abbrev=7 -n 1" & " > " & "BWS-Version.txt"
+  commandDefinition = "%comspec% /c ""App\Tools\Git\cmd\git.exe""" & " " & "log --pretty=oneline --abbrev-commit --abbrev=7 -n 1" & " > " & "BWS-Version.txt"
   wshShell.Run commandDefinition, 7, True
-  wshShell.Run """Big World Setup\Tools\AutoIt3.exe"" ""Big World Setup\Big World Setup.au3""", 1, True
+  wshShell.Run """App\Tools\AutoIt3.exe"" ""App\App.au3""", 1, True
   Set wshShell = nothing
 End If
