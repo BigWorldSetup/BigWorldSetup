@@ -60,7 +60,7 @@ Active:
 Not maintained:
 
 - Baldur's Gate 2 (classic standalone game)
-- Baldurâ€™s Gate Trilogy ( Classic BG1 + Classic BG2 )
+- Baldur’s Gate Trilogy ( Classic BG1 + Classic BG2 )
 - Icewind Dale
 - Icewind Dale II
 - Planescape: Torment
@@ -77,9 +77,6 @@ Not maintained:
 4. Disable User Account Control (if you don't do this, the automated installation can get stuck!)
 5. Execute "BWS.vbs"
 6. Optional: use "BWS-NoAutoUpdate.vbs", this will skip the auto-update feature, use only when you modify BWS files or preforming some tests
-
-NOTE: "Update If Needed" will download any updates to the program and revert any local changes you have made.
-If you are in the middle of an installation, it is safest to use "Without Update", but at all other times you should use "Update If Needed".
 
 ### Technical information
 
