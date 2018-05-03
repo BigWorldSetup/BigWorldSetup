@@ -1,13 +1,13 @@
 /Big World Backup/
 /Big World Downloads/
-/Big World Setup/BWS-Selection.ini
-/Big World Setup/Config/Setup.ini
-/Big World Setup/Config/User.ini
-/Big World Setup/Includes_Traced/
-/Big World Setup/Logs/
-/Big World Setup/OverwriteFiles/
-/Big World Setup/Tools/Git/
-/Big World Setup/Traced.au3
+/App/BWS-Selection.ini
+/App/Config/Setup.ini
+/App/Config/User.ini
+/App/Includes_Traced/
+/App/Logs/
+/App/OverwriteFiles/
+/App/Tools/Git/
+/App/Traced.au3
 /Git/
 /OverwriteFiles/
 
