@@ -135,9 +135,9 @@ Func _Misc_LS_GUI()
 	Local $LV2 = GUICtrlGetHandle($g_UI_Interact[15][2])
 	Local $SArray = StringSplit(_GetTR($g_UI_Message, '15-L1'), '|'); => short available translations for the mods
 	Local $LArray = StringSplit(_GetTR($g_UI_Message, '15-I1'), '|'); => long available translations for the mods
-	
+
 	_GUICtrlListView_DeleteAllItems($LV1); clear previous state before adding items
-	_GUICtrlListView_DeleteAllItems($LV2); 
+	_GUICtrlListView_DeleteAllItems($LV2);
 	For $l = 1 To $LArray[0]
 		If Not FileExists($g_GConfDir & '\WeiDU-' & $SArray[$l] & '.ini') Then ContinueLoop
 		GUICtrlCreateListViewItem($LArray[$l], $g_UI_Interact[15][1])
@@ -789,7 +789,7 @@ Func _Misc_SetWelcomeScreen($p_String)
 			GUICtrlSetState($g_UI_Interact[1][3], $GUI_HIDE); combobox
 			GUICtrlSetState($g_UI_Static[1][3], $GUI_HIDE); install label
 			GUICtrlSetState($g_UI_Button[0][1], $GUI_DISABLE)
-		Else; the language-selection is already shown, can't go any further 
+		Else; the language-selection is already shown, can't go any further
 		EndIf
 	EndIf
 EndFunc   ;==>_Misc_SetWelcomeScreen
@@ -928,7 +928,7 @@ Func _Misc_SwitchLang()
 	Next
 	If $OldNum <> $g_ATNum Then
 		IniWrite($g_UsrIni, 'Options', 'AppLang', $g_ATrans[$g_ATNum])
-		$g_TRAIni = $g_ProgDir & '\Config\Translation-' & $g_ATrans[$g_ATNum] & '.ini'
+		$g_TRAIni = $g_ProgDir & '\App-Translation-' & $g_ATrans[$g_ATNum] & '.ini'
 		$g_UI_Message = IniReadSection($g_TRAIni, 'UI-Runtime')
 		$g_Flags[10] = 1
 		_Misc_SetLang()
