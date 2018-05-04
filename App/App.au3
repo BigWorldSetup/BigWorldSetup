@@ -11,10 +11,15 @@ TraySetIcon(@ScriptDir & '\Pics\BWS.ico'); sets the tray-icon
 #Region Global vars
 ; Global are named with a $g_ , parameters with a $p_ . Normal/Local variables don't have a prefix.
 ; files and folders
-Global $g_BaseDir = StringLeft(@ScriptDir, StringInStr(@ScriptDir, '\', 1, -1) - 1), $g_GConfDir, $g_ConnectionsConfDir, $g_GameDir, $g_ProgName = 'Big World Setup'
+Global $g_ProgName = 'Big World Setup'
+Global $g_BaseDir = StringLeft(@ScriptDir, StringInStr(@ScriptDir, '\', 1, -1) - 1)
 Global $g_ProgDir = $g_BaseDir & '\App', $g_LogDir = $g_ProgDir & '\Logs', $g_DownDir = $g_BaseDir & '\App-Downloads'
-Global $g_BWSIni = $g_ProgDir & '\Config\Setup.ini', $g_MODIni, $g_UsrIni = $g_ProgDir & '\Config\User.ini'
-Global $g_BG1Dir, $g_BG2Dir, $g_BG1EEDIR, $g_BG2EEDIR, $g_IWD1Dir, $g_IWD1EEDir, $g_PSTEEDir, $g_IWD2Dir, $g_PSTDir, $g_RemovedDir, $g_LogFile = $g_LogDir & '\BWS-Debug.log'
+Global $g_BWSIni = $g_ProgDir & '\Config\Setup.ini', $g_MODIni, $g_UsrIni = $g_ProgDir & '\Config\User.ini', $g_LogFile = $g_LogDir & '\BWS-Debug.log'
+Global $g_TRDir = $g_ProgDir & '\Translation'
+
+Global $g_GConfDir, $g_ConnectionsConfDir, $g_GameDir, $g_BackupDir, $g_RemovedDir
+
+Global $g_BG1Dir, $g_BG2Dir, $g_BG1EEDIR, $g_BG2EEDIR, $g_IWD1Dir, $g_IWD1EEDir, $g_PSTEEDir, $g_IWD2Dir, $g_PSTDir,
 
 ; Backup Folder Variable
 If IniRead($g_UsrIni, 'Options', 'Backup', '') = '' Then; search only on first startup
