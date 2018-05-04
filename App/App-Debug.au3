@@ -15,7 +15,7 @@ EndIf
 $IsCrashed = Observe()
 If $IsCrashed = 1 Then
 	If @extended = 0 Or FileExists ($g_DebugFile) Then
-		If FileExists($g_DebugFile) Then 
+		If FileExists($g_DebugFile) Then
 			$Handle=FileOpen($g_TraceFile, 1)
 			FileWrite($Handle, @CRLF&'----------'&@CRLF&'Variables:'&@CRLF&'----------'&@CRLF&FileRead($g_DebugFile))
 			FileClose($Handle)
@@ -23,10 +23,10 @@ If $IsCrashed = 1 Then
 		MsgBox(48, 'Big World Setup - '&_GetSTR('T1'), _GetSTR('L1'))
 		ShellExecute($g_TraceFile)
 		Exit
-	EndIf	
+	EndIf
 	$Answer=MsgBox(3+32, 'Big World Setup - '&_GetSTR('T1'), _GetSTR('L2'))
 	If $Answer=6 Then
-		Run(@ComSpec & ' /c AutoIt3.exe /ErrorStdOut Traced.au3 | AutoIt3.exe "App-Debug.au3"', @ScriptDir, @SW_HIDE)
+		Run(@ComSpec & ' /c AutoIt3.exe /ErrorStdOut Traced.au3 | AutoIt3.exe "App.au3"', @ScriptDir, @SW_HIDE)
 	ElseIf $Answer=7 Then
 		MsgBox(48, 'Big World Setup - '&_GetSTR('T1'), _GetSTR('L1'))
 		ShellExecute($g_TraceFile)
@@ -44,7 +44,7 @@ Func Observe()
 		If $Tmp <> '' Then
 			$data &= $Tmp
 			$data = StringRight($data, StringLen($data) - StringInStr($data, @CR, 0, -25)); just get the last X lines
-		EndIf	
+		EndIf
 		Sleep(25)
 	WEnd
 	FileWrite(@ScriptDir&'\Logs\BWS-Tracedump.log', $data)
@@ -69,7 +69,7 @@ Func Observe()
 		EndIf
 ; ---------------------------------------------------------------------------------------------
 ; create the logfile
-; ---------------------------------------------------------------------------------------------	
+; ---------------------------------------------------------------------------------------------
 		$Num=StringLeft($String[$s], 2)
 		If StringRegExp($Num, '\D{1,2}') Then
 			FileWriteLine($Handle, $String[$s])
@@ -81,9 +81,9 @@ Func Observe()
 			If $Search=-1 Then
 				FileClose($Search)
 				ContinueLoop
-			EndIf	
+			EndIf
 			$File=FileFindNextFile($Search)
-			If @error Then 
+			If @error Then
 				FileClose($Search)
 				ContinueLoop
 			EndIf
@@ -92,7 +92,7 @@ Func Observe()
 			FileWriteLine($Handle, $String[$s] & ' - ' & $Line)
 			FileClose($Search)
 		EndIf
-	Next	
+	Next
 	FileClose($Handle)
 	Return SetError($IsCrashed, $DoDebug, $IsCrashed)
 EndFunc
@@ -100,9 +100,9 @@ EndFunc
 ; =========================  Create a trace-version of the scripts  =========================
 Func Trace ()
 	Local $Files[50]
-	$Search = FileFindFirstFile(@ScriptDir&'\Includes\*.*')  
+	$Search = FileFindFirstFile(@ScriptDir&'\Includes\*.*')
 	While 1
-		$File = FileFindNextFile($Search) 
+		$File = FileFindNextFile($Search)
 		If @error Then ExitLoop
 		$Files[0]+=1
 		$Files[$Files[0]]=$File
@@ -119,15 +119,15 @@ Func Trace ()
 	For $f=1 to $Files[0]
 		If StringInStr($Files[$f], 'UDF') Or StringInStr($Files[$f], 'Debug') Then
 			FileCopy(@ScriptDir&'\Includes\'&$Files[$f], @ScriptDir&'\Includes_Traced\'&$Files[$f])
-		Else	
+		Else
 			_AddTrace(@ScriptDir&'\Includes\'&$Files[$f], @ScriptDir&'\Includes_Traced\'&$Files[$f], StringLeft($Files[$f], 2))
 		EndIf
-	Next	
-EndFunc	
+	Next
+EndFunc
 
 ; =========================  Create a trace-version of a script  =========================
 Func _AddTrace($p_File, $p_TraceFile, $p_Num)
-	$Skip = '_ezy|_gettr|_iniread|_iniwrite|_selection_populate|__http|__ispressed' 
+	$Skip = '_ezy|_gettr|_iniread|_iniwrite|_selection_populate|__http|__ispressed'
 	$Array = StringSplit(StringStripCR(FileRead($p_File)), @LF)
 	$Handle = FileOpen($p_TraceFile, 2)
 	For $a = 1 to $Array[0]-1
@@ -136,7 +136,7 @@ Func _AddTrace($p_File, $p_TraceFile, $p_Num)
 			While 1
 				$a +=1
 				If StringLeft($Array[$a], 3) =  '#ce' Then ExitLoop
-			WEnd	
+			WEnd
 			ContinueLoop
 		EndIf
 		If StringLeft($Array[$a], 4) = 'Func' Then
@@ -155,7 +155,7 @@ Func _AddTrace($p_File, $p_TraceFile, $p_Num)
 			EndIf
 		EndIf
 		If StringLeft($Array[$a], 1) = ';' Then ContinueLoop
-		If StringInStr($Array[$a+1], '@error') Then 
+		If StringInStr($Array[$a+1], '@error') Then
 			FileWrite($Handle, $Array[$a]&@CRLF)
 		ElseIf StringInStr($Array[$a+1]	, '@extended') Then
 			FileWrite($Handle, $Array[$a]&@CRLF)
@@ -168,7 +168,7 @@ Func _AddTrace($p_File, $p_TraceFile, $p_Num)
 		Else
 			FileWrite($Handle, $Array[$a]&@CRLF&'ConsoleWrite("' & $p_Num & ': ' & $a & '"&@CRLF)'&@CRLF)
 		EndIf
-		If StringLeft($Array[$a], 7) =  'EndFunc' Then FileWrite($Handle, @CRLF&@CRLF)	
+		If StringLeft($Array[$a], 7) =  'EndFunc' Then FileWrite($Handle, @CRLF&@CRLF)
 	Next
 	FileWrite($Handle, $Array[$Array[0]]&@CRLF)
 	FileClose($Handle)
@@ -180,9 +180,9 @@ Func _CheckLine($p_Array, $p_Num)
 	$Line=StringLower($p_Array[$iNum])
 	$Test=StringRegExp($Line, '\A\s{0,}(case|elseif)', 3)
 	If @error = 0 Then
-		If $Test[0]='case' Then 
+		If $Test[0]='case' Then
 			$RegExString = 'select'
-		Else	
+		Else
 			$RegExString = 'if.*then\z'
 		EndIf
 		While 1
@@ -194,16 +194,16 @@ Func _CheckLine($p_Array, $p_Num)
 		$iNum = $p_Num
 	EndIf
 	Return $iNum
-EndFunc	
+EndFunc
 
 ; =========================  Create an array from the given file  =========================
 Func _FileReadLine($p_File, $p_Num)
 	$Array = StringSplit(StringStripCR(FileRead($p_File)), @LF)
 	Return $Array[$p_Num]
-EndFunc	
+EndFunc
 
 ; ---------------------------------------------------------------------------------------------
-; Insert a debug-line 
+; Insert a debug-line
 ; ---------------------------------------------------------------------------------------------
 Func _InsertDebug($p_Array, $p_Num, $p_File)
 	$iNum=_CheckLine($p_Array, $p_Num); see if the debugging has to start a few lines before the one that crashed
@@ -233,13 +233,13 @@ Func _InsertDebug($p_Array, $p_Num, $p_File)
 		EndIf
 	Next
 	$debug_String=String(StringReplace($debug_String, ' ', '', 1))
-	If $debug_String = '' Then Return SetError(1, 0, 'debug_String is blank'); not expected - something went wrong 
+	If $debug_String = '' Then Return SetError(1, 0, 'debug_String is blank'); not expected - something went wrong
 ; ---------------------------------------------------------------------------------------------
 ; create the new file
 ; ---------------------------------------------------------------------------------------------
-	$debug_Handle=FileOpen($p_File, 2)		
+	$debug_Handle=FileOpen($p_File, 2)
 	For $a=1 to $p_Array[0]
-		If $a=$iNum Then FileWrite($debug_Handle, '#Region Debug' & @CRLF & '$debug_Line="' & $debug_String & '"' & _ 
+		If $a=$iNum Then FileWrite($debug_Handle, '#Region Debug' & @CRLF & '$debug_Line="' & $debug_String & '"' & _
 		@CRLF & FileRead(@ScriptDir&'\Includes\00_Debug.au3') & @CRLF & '#EndRegion Debug'&@CRLF)
 		FileWriteLine($debug_Handle, $p_Array[$a])
 	Next
