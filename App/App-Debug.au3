@@ -26,7 +26,7 @@ If $IsCrashed = 1 Then
 	EndIf
 	$Answer=MsgBox(3+32, 'Big World Setup - '&_GetSTR('T1'), _GetSTR('L2'))
 	If $Answer=6 Then
-		Run(@ComSpec & ' /c AutoIt3.exe /ErrorStdOut Traced.au3 | AutoIt3.exe "App.au3"', @ScriptDir, @SW_HIDE)
+		Run(@ComSpec & ' /c AutoIt3.exe /ErrorStdOut Traced.au3 | AutoIt3.exe "App-Debug.au3"', @ScriptDir, @SW_HIDE)
 	ElseIf $Answer=7 Then
 		MsgBox(48, 'Big World Setup - '&_GetSTR('T1'), _GetSTR('L1'))
 		ShellExecute($g_TraceFile)
