@@ -19,7 +19,7 @@ Global $g_TRDir = $g_ProgDir & '\Translation'
 
 Global $g_GConfDir, $g_ConnectionsConfDir, $g_GameDir, $g_BackupDir, $g_RemovedDir
 
-Global $g_BG1Dir, $g_BG2Dir, $g_BG1EEDIR, $g_BG2EEDIR, $g_IWD1Dir, $g_IWD1EEDir, $g_PSTEEDir, $g_IWD2Dir, $g_PSTDir,
+Global $g_BG1Dir, $g_BG2Dir, $g_BG1EEDIR, $g_BG2EEDIR, $g_IWD1Dir, $g_IWD1EEDir, $g_PSTEEDir, $g_IWD2Dir, $g_PSTDir
 
 ; Backup Folder Variable
 If IniRead($g_UsrIni, 'Options', 'Backup', '') = '' Then; search only on first startup
