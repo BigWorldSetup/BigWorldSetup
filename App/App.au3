@@ -36,7 +36,6 @@ Global $g_ConsoleOutput = '', $g_STDStream, $g_ConsoleOutput, $g_pQuestion = 0
 ; program options and misc
 Global $g_Order, $g_Setups, $g_Skip, $g_Clip; available setups, items to skip
 Global $g_CurrentPackages, $g_fLock, $g_FItem = IniRead($g_BWSIni, 'Options', 'Start', '1'); selected packages, fixed mods and last processed item
-Global $g_ATrans = StringSplit(IniRead($g_BWSIni, 'Options', 'AppLang', 'EN'), '|'), $g_ATNum = 1, $g_MLang; available translations and mod translations
 Global $g_ATrans = StringSplit(IniRead($g_BWSIni, 'Options', 'AppLang', 'EN'), '|'), $g_ATNum = 1, $g_MLang; available application translations
 Global $g_UDll = DllOpen('user32.dll'); we have to use this for detecting the mouse or keboard-usage
 Global $g_Down[6][2]; used for updating download-progressbar
@@ -44,7 +43,7 @@ Global $g_Down[6][2]; used for updating download-progressbar
 ; New GUI-Builing
 Global $g_UI[5], $g_UI_Static[17][20], $g_UI_Button[17][20], $g_UI_Seperate[17][10], $g_UI_Interact[17][20], $g_UI_Menu[10][50]
 Global $g_Search[5], $g_Flags[26] = [1], $g_UI_Handle[10]
-Global $g_TRAIni = $g_ProgDir & '\Config\Translation-' & $g_ATrans[$g_ATNum] & '.ini', $g_UI_Message = IniReadSection($g_TRAIni, 'UI-Runtime')
+Global $g_TRAIni = $g_ProgDir & '\App-Translation-' & $g_ATrans[$g_ATNum] & '.ini', $g_UI_Message = IniReadSection($g_TRAIni, 'UI-Runtime')
 ; g_Flags =>
 ;			1=w: continue without link checking
 ;			2=w: update links
