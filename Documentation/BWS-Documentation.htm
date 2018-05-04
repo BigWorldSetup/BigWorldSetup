@@ -148,34 +148,6 @@
                     <li class="level1">
                         <div class="li">
                             <span class="li">
-                                <a href="#admin_gui_mods" class="toc">Admin-GUI: Mods</a>
-                            </span>
-                        </div>
-                    </li>
-                    <li class="level1">
-                        <div class="li">
-                            <span class="li">
-                                <a href="#admin_gui_components" class="toc">Admin-GUI: Components</a>
-                            </span>
-                        </div>
-                    </li>
-                    <li class="level1">
-                        <div class="li">
-                            <span class="li">
-                                <a href="#admin_gui_connections" class="toc">Admin-GUI: Connections</a>
-                            </span>
-                        </div>
-                    </li>
-                    <li class="level1">
-                        <div class="li">
-                            <span class="li">
-                                <a href="#admin_gui_sequence" class="toc">Admin-GUI: Install sequence</a>
-                            </span>
-                        </div>
-                    </li>
-                    <li class="level1">
-                        <div class="li">
-                            <span class="li">
                                 <a href="#example_add_mods" class="toc">Admin example: Add a new mod</a>
                             </span>
                         </div>
@@ -1028,228 +1000,7 @@ AB Totl needs patch 142=D:ab_totlm(-):1.4.2.0
                     <!-- SECTION "How the installation works" [21070-] -->
                 </div>
                 <!-- SECTION "Edit mods with BWS" [18214-21069] -->
-                <h1>
-                    <a name="admin_gui_mods" id="admin_gui_mods">Edit mods with BWS</a>
-                </h1>
-                <div class="level1">
-                    <p>
-                        You can edit, add or delete mods by using the built in GUI. You can access it from the selection-window by choosing options>administration>Manage
-                        Mods. Now either select one of the existing mods by the mods name or the setup, or select to create
-                        a new mod by using the options-menu again. You can also delete the current mod or access some other
-                        options.
-                    </p>
-                    <p>
-                        After selecting a mod, the different fields for description, version, type, translations and so on are set. Use the arrows
-                        to the left and right to skip through description for the mod in the available languages (English,
-                        German, Russian). In the lower part of the window, you find a listview with variables, mostly download-URLs,
-                        file-names and sizes. To edit those, either double-click the item, use the context-menu or the options-menu,
-                        where you'd use the edit-submenu.
-                    </p>
-                    <p>
-                        When you enter a value in the edit-mode, choose one of the available keys and assign a value, then leave the edit-mode by
-                        clicking the button to the right. The BWS will run some checks if the entered combination seems valid
-                        or not and leave the screen. Note that those values are only saved if you choose to do so from the
-                        options-menu. So if you did something wrong, you can always revert to the original state.
-                    </p>
-                    <div class="notetip">You can check if the entries for name, size or tests are still valid. If you do so, the BWS will look
-                        up the info from the internet or your local files.
-                    </div>
-                    <div class="notewarning">You cannot toggle mods to be fixed, downloaded or extracted only. Mods that are renamed during the installation
-                        also have to be edited manually. If you delete mods, the connections are still left intact (since
-                        that's a bit complex), so you will have to take care of these in the other GUI-window.
-                    </div>
 
-                    <p>
-                        There are also some hotkeys you can use:
-                        <br/>
-                        <br/> [ALT]+[1]=Focus description-field
-                        <br/> [ALT]+[2]=Focus listview
-                        <br/> [ALT]+[m]=Focus mods setup-field
-                        <br/> [ALT]+[Left]=Previous mod
-                        <br/> [ALT]+[Right]=Next mod
-                        <br/> [ALT]+[Up]=Previous description of this mod (English, German, Russian)
-                        <br/> [ALT]+[Down]=Next translation of this mod (English, German, Russian)
-                        <br/> [CTRL]+[s]=Save mod
-                        <br/> [CTRL]+[a]=Select all listview-entries
-                        <br/> [CTRL]+[n]=New listview-entry
-                        <br/> [CTRL]+[x]=Delete listview-entry
-                        <br/> [F2]=Edit listview-entry
-                        <br/>
-                    </p>
-                </div>
-                <!-- SECTION "Edit components with BWS" [18214-21069] -->
-                <h1>
-                    <a name="admin_gui_components" id="admin_gui_components">Edit components with BWS</a>
-                </h1>
-                <div class="level1">
-                    <p>
-                        You might also want to use the integrated editor for components. You can access it from the selection-window by choosing
-                        options>administration>Manage components. Now select one of the existing mods by the mods name or
-                        the setup. After that, the left panel of the GUI will display the output that was read from WeiDU
-                        - if the selected mods setup is present. On the right side you can see the currently saved entries.
-                        Switch between the found translations by choosing an entry from the dropdown-menu.
-                    </p>
-                    <div class="noteimportant">Please note that the conversion from the codepage WeiDU uses to the one AutoIt3 uses may result in some
-                        "bad" translations, so strings may not always be correct. For that very reason, I also included an
-                        option to read the English version of the descriptions. This should be used for Korean, Chinese and
-                        other languages that don't display appropriate characters.
-                    </div>
-                    <p>
-                        To find out if some changes were made to the mod, the components are colored. Green means that the components number has
-                        the same description in both views. Blue means that there's a difference. Entries that are only available
-                        in one view are orange. Between the panels you can also find a counter. This is colored green if
-                        all the translations match or orange if not. This should help to increase your productivity.
-                    </p>
-                    <p>
-                        Use the context-menu, the options-menu or the keyboard to copy the found entries from left to right, create new, delete or
-                        edit existing entries. If you want do the later, you can also double-click the entry. The GUI is
-                        changed to an edit-view and you can enter the components number and the description. Leave the view
-                        by clicking the button to the right. Note that those values are only saved if you choose to do so
-                        from the options-menu. So if you did something wrong, you can always revert to the original state.
-                    </p>
-                    <p>
-                        There are also some hotkeys you can use:
-                        <br/>
-                        <br/> [Alt]+[Down]=Skip to next translation
-                        <br/> [Alt]+[Up]=Skip to previous translation
-                        <br/> [Alt]+[Left]=Skip to previous mod
-                        <br/> [Alt]+[Right]=Skip to next mod
-                        <br/> [Alt]+[1]=Focus left panel
-                        <br/> [Alt]+[2]=Focus right panel
-                        <br/> [Alt]+[m]=Focus mod-selection
-                        <br/> [Alt]+[l]=Focus language-selection
-                        <br/> [Ctrl]+[a]=Select all
-                        <br/> [Ctrl]+[x]=Cut selection
-                        <br/> [Ctrl]+[s]=Save mods components for currently selected translation
-                        <br/> [Ctrl]+[c]=Copy selection (left to right)
-                        <br/> [Ctrl]+[f]=Find next difference. This will scan the available translations from WeiDU (left panel)
-                        and compare them to the current ones (right).
-                        <br/> [F2]=Edit (right panel)
-                        <br/> [Ctrl]+[e]=Replace detected component description on left panel with stored English description.
-                        <br/>
-                    </p>
-
-
-                </div>
-                <!-- SECTION "Edit connections with BWS" [18214-21069] -->
-                <h1>
-                    <a name="admin_gui_connections" id="admin_gui_connections">Edit connections with BWS</a>
-                </h1>
-                <div class="level1">
-                    <p>
-                        To adjust the dependencies and conflicts, open the built in editor by accessing it from the selection-window by choosing
-                        Options>Administration>Manage dependencies.
-                    </p>
-                    <p>
-                        You get a listview in the middle, showing the list of connections that are available. You see the short description for the
-                        issue and the conflict/dependency as a text. At the top of the screen you can search for a specific
-                        text. Using the options-menu, the context-menu, keyboard or a double-click will open the edit-view
-                        for the selected entry. On the left side, you will find the conditions that have to be met to execute
-                        the check (e.g. one or more components are installed) and the type of connection that exists (conflict,
-                        dependency).
-                    </p>
-                    <p>
-                        Choose a mod or one of its components by setup, name, component-number and description. Then copy the entry over to the right
-                        listview. Note that the type of entry is determined by the radio-button and the setting you choose.
-                        Depending on that, the entry will be colored white as a basis, red as a conflict and orange as the
-                        dependency that is needed. You need to enter a name to describe the problem before you can leave
-                        the view by clicking on the save-button. There are some checks being run when trying to save to technically
-                        verify the selection. Note that those values are only saved if you choose to do so from the options-menu.
-                        So if you did something wrong, you can always revert to the original state.
-                    </p>
-                    <div class="noteimportant">The BWS will not prevent you from creating an entry that is contradictory to another entry. You still
-                        have to be aware of what you do.</div>
-                    <div class="notewarning">Make sure you delete old/non-existent entries. If you delete mods with some connections, please check
-                        this area. If you order the BWS to do something that it cannot do, that may lead to some bogus-error-messages.</div>
-                    <p>
-                        There are also some hotkeys you can use:
-                        <br/>
-                        <br/> [Ctrl]+[f]=Focus search-bar
-                        <br/> [Ctrl]+[s]=Save connections
-                        <br/> [Ctrl]+[n]=New entry
-                        <br/> [Ctrl]+[x]=Delete entry
-                        <br/> [F2]=Edit entry
-                        <br/>
-                    </p>
-                </div>
-                <!-- SECTION "Edit sequence with BWS" [18214-21069] -->
-                <h1>
-                    <a name="admin_gui_sequence" id="admin_gui_sequence">Edit sequence with BWS</a>
-                </h1>
-                <div class="level1">
-                    <p>After setting up the mods, the components and the connections, you still need to specify the actions
-                        you want to be performed at which time. Use the built in editor to do just that by accessing it from
-                        the selection-window by choosing options>administration>Manage sequence.</p>
-                    <p>In the middle you can see a listview with all the entries that are present. Those can be annotations,
-                        download, commands, components, multiple-choice or subcomponent-entries. You will also find the components
-                        description that will be displayed depending on the translations you selected for your installation.
-                        On top are some additional information like the mods name, the theme of the component that was associated
-                        and if the entry will be included in the pre-selections, namely recommended, standard, tactic and
-                        expert. At the bottom you'll find buttons to move the entries up or down. You can also use the entries
-                        from the context- or options-menu to move the entries around.</p>
-                    <p>Double-clicking an entry will open the edit-view as usual. Here you can choose what is done. You can
-                        select from a variety of drop-down-selections and there's some logic behind this to prevent the creation
-                        bogus-entries. If there are some, it will tell you what's wrong. You can create one of the following:</p>
-                    <ul>
-                        <li class="level1">
-                            <div class="li">Annotation: Just some notes for you or information about why components are left out or something</div>
-                        </li>
-                        <li class="level1">
-                            <div class="li">Command: Execute a dos-command like move, copy, rd, ...</div>
-                        </li>
-                        <li class="level1">
-                            <div class="li">Download: Entries for PDF or something similar that be loaded but cannot be installed, since
-                                there's no WeiDU-setup</div>
-                        </li>
-                        <li class="level1">
-                            <div class="li">Component: A single mod-component which is not in a group and has no sub-selections.</div>
-                        </li>
-                        <li class="level1">
-                            <div class="li">Choice: Those entries are used for components that have similar entries in the mods group, like
-                                "install portrait a, b or c?" or "use class a, b or c?". Those choice-entries do have an
-                                own WeiDU-component-number. The BWS gets to know that a new selection can be done here be
-                                using the "initiate"-entry in the field where the component-numbers are listed.</div>
-                        </li>
-                        <li class="level1">
-                            <div class="li">Sub-selection: Some components use sub-selections, meaning you install one component-number and
-                                it asks you if you want to use portrait a, b or c. That can result in the same component
-                                having different "flavors". In that case you use the sub-selection-type for the component.
-                                The BWS then knows that some selections will be following and will automatically create a
-                                tree from the additional entries. You create entries for each question and each possible
-                                answer. The component-number for component 0, question 1, answer 2 would be 0?1_2.</div>
-                        </li>
-                        <li class="level1">
-                            <div class="li">Group: Start or close a group. Groups are used if some components have to be installed in one
-                                go. This is rarely used.</div>
-                        </li>
-                    </ul>
-                </div>
-                <p>
-                    Again, you can choose what type of theme this component is, the pre-selections that it will be installed by, choose between
-                    the mods by name or setup and the components number or description. You can also enter conditions that
-                    have to be met to execute the entry. Those should be mainly used for commands. Components conflicts or
-                    dependencies should be edited in the connections-window. The syntax for these conditions would be something
-                    like: D:SOS(0)&ROT(0). That would translate to "execute when SOS component 0 and ROT component 0 are
-                    both installed". When you are finished, leave the edit-view by clicking the button to the right. Note
-                    that those values are only saved if you choose to do so from the options-menu. So if you did something
-                    wrong, you can always revert to the original state.
-                </p>
-                <div class="notetip">If you are looking for a specific mod, you can toggle the search-bar on and search/loop through the current
-                    entries.
-                </div>
-                <p>
-                    There are also some hotkeys you can use:
-                    <br/>
-                    <br/> [Ctrl]+[f]=Toggle search-bar
-                    <br/> [Ctrl]+[s]=Save sequence
-                    <br/> [Ctrl]+[c]=Copy entry
-                    <br/> [Ctrl]+[n]=New entry
-                    <br/> [Ctrl]+[v]=Paste entry
-                    <br/> [Ctrl]+[x]=Cut entry
-                    <br/> [F2]=Edit entry
-                    <br/>
-                </p>
-            </div>
             <!-- SECTION "Example: Add mods to the mix" [18214-21069] -->
             <h1>
                 <a name="example_add_mods" id="example_add_mods">Admin example: Add a new mod</a>
@@ -1262,7 +1013,10 @@ AB Totl needs patch 142=D:ab_totlm(-):1.4.2.0
                 <ul>
                     <li class="level1">
                         <div class="li">Config\Global\modname.ini -> Add information like display name, type, download link, homepage, mod
-                            description, component descriptions, ...</div>
+                            description, component descriptions, mod translations <br>
+							(put the information in [WeiDU-XX] sections in modname.ini, ending each section with a 'Tra=#' line, with XX and the Tra # corresponding
+                                to one of the entries from the 'Tra=' list at the top of the modname.ini file)
+								</div>
                     </li>
                     <li class="level1">
                         <div class="li">Config\gametype\InstallOrder.ini -> Add possible actions the BWS has to perform during the install (execute
@@ -1274,25 +1028,7 @@ AB Totl needs patch 142=D:ab_totlm(-):1.4.2.0
                             [Edit])
                         </div>
                     </li>
-                    <li class="level1">
-                        <div class="li">
-                            <strike>Config\gametype\mod-XX.ini -> Add some description about the mod that is displayed (currently
-                                in
-                                <b>En</b>glish,
-                                <b>Ge</b>rman or
-                                <b>Ru</b>ssian)</strike>
-                            <b>(it is no longer necessary to manually edit these files, instead put the information in a [Description]
-                                section in modname.ini with lines 'Mod-EN=', 'Mod-GE=' and 'Mod-RU=')</b>
-                        </div>
-                    </li>
-                    <li class="level1">
-                        <div class="li">
-                            <strike>Config\gametype\WeiDU-XX.ini -> Add the possible translations for each of the components</strike>
-                            <b>(it is no longer necessary manually edit these files, instead put the information in [WeiDU-XX]
-                                sections in modname.ini, ending each section with a 'Tra=#' line, with XX and the Tra # corresponding
-                                to one of the entries from the 'Tra=' list at the top of the modname.ini file)</b>
-                        </div>
-                    </li>
+
                 </ul>
                 <p>
                     <b>
@@ -1361,55 +1097,17 @@ AB Totl needs patch 142=D:ab_totlm(-):1.4.2.0
 
 <span class="re1">[Description]</span>
 <span class="re1">Mod-EN=description of the mod in English (the symbol | works as a line-break; || is a double line-break)</span>
-<span class="re1">Mod-GE=description of the mod in German (this is a good place to mention problems that are not component-specific)</span>
-<span class="re1">Mod-RU=description of the mod in Cyrillic (or to provide more detail about problematic components)</span>
 </pre>
-                <p>
-                    <strike>
-                        <b>Mod-XX.ini</b>
-                    </strike>
-                </p>
-                <p>
-                    <strike>Next step would be adding the translation in Mod-EN.ini, Mod-GE.ini and Mod-RU.ini:</strike>
-                    <b>(description entries in the Mod-XX.ini files are updated automatically now for any mods that have components
-                        listed in InstallOrder.ini, so you do not need to manually edit the Mod-??.ini files, but you do need to
-                        include a [Description] section in modname.ini with at least three lines (Mod-EN, Mod-GE and Mod-RU)</b>
-                </p>
-                <strike>
-                    <pre class="ini code ini" style="font-family:monospace;"><span class="re0"><span class="br0">&#91;</span>Description<span class="br0">&#93;</span></span>
-...
-<span class="re1">bgqe</span><span class="sy0">=</span><span class="re2">The Mod adds several mall quests. Also included is the "Slime-Quest Mini-Modifikation, so now Jasteys BG1 Mini-Quests replaces Slime-Quest v1.6.</span>
-</pre>
-                </strike>
-                <p>
-                    <strike>
-                        <b>
-                            <a href="#add_some_translations">WeiDU-XX.ini</a>
-                        </b>
-                    </strike>
-                </p>
-                <p>
-                    <strike>To see some text in the selection screen, you'll need to populate the WeiDU-XX.ini with component descriptions</strike>
-                    <b>(component descriptions in the WeiDU-XX.ini files are updated automatically now for any mods that have
-                        components listed in InstallOrder.ini, so you do not need to manually edit the WeiDU-XX.ini files, but
-                        you do need to include [WeiDU-XX] sections in modname.ini for each of the languages listed in the
-                        <b>Tra=</b> section of modname.ini)</b>
-                </p>
+
                 <p>Let's have a look what components WeiDU would reveal by using its --list-languages and --list-components
                     -switches.
                 </p>
                 <pre class="text code text" style="font-family:monospace;">~BGQE/SETUP-BGQE.TP2~ #0 #0 // Baldur's Gate Mini-Quests and Encounters Mod: 7</pre>
                 <p>
-                    <strike>Now just put those into the WeiDU-XX.ini. The
-                        <b>Tra</b>-entry is more or less a copy from the mod.ini.</strike>
+
                     <b>Now just put those into the modname.ini in the [WeiDU-XX] section for the appropriate language.</b> Repeat
                     the step for each of the available translations.</p>
-                <strike>
-                    <pre class="ini code ini" style="font-family:monospace;"><span class="re0"><span class="br0">&#91;</span>BGQE<span class="br0">&#93;</span></span>
-<span class="re1">@0</span><span class="sy0">=</span><span class="re2">Baldur's Gate Mini-Quests and Encounters Mod</span>
-<span class="re1">Tra</span><span class="sy0">=</span><span class="re2">0</span>
-</pre>
-                </strike>
+                
                 <p>
                     <b>
                         <a href="#i_miss_component_x_for_mod_y">InstallOrder.ini</a>
