@@ -365,7 +365,6 @@ Func _Test_CheckRequiredFiles()
 	If Not FileExists($g_DownDir) Then DirCreate($g_DownDir)
 	IniWrite($g_UsrIni, 'Options', 'Download', $g_DownDir)
 	If Not FileExists($g_LogDir) Then DirCreate($g_LogDir)
-	If Not FileExists($g_ProgDir&'\Update') Then DirCreate($g_ProgDir&'\Update')
 	Return $Error
 EndFunc    ;==>_Test_CheckRequiredFiles
 

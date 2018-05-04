@@ -829,7 +829,7 @@ Func _Net_LinkUpdateInfo($p_URL, $p_File, $p_Setup, $p_Prefix)
 	EndIf
 	Local $ExpectedSize=IniRead($g_MODIni, $p_Setup, $p_Prefix&'Size', -1)
 	If $Return[0] = 2 Then; wget-timeout ... inetgetsize-fallback-mode (wget timed out but we got size info from the server using another method)
-		If $Return[2] = $ExpectedSize Then; size info from server matches expected size info in our mod ini file 
+		If $Return[2] = $ExpectedSize Then; size info from server matches expected size info in our mod ini file
 			$Return[0]=1; ...assume that this is fine
 			$Return[1]=$p_File
 			FileWrite($g_LogFile, '= FB'); fallback to local copy of file, if available
@@ -1310,7 +1310,8 @@ Func _Net_Update_Link($p_Show = 0); Show GUI
 		EndIf
 		If $Fetch = 1 Then; loaded: all update-types
 			$UpdateArchive = IniRead($g_MODIni, 'BWS-URLUpdate', 'Save', 'mod.ini.gz')
-			$Extract = _Extract_7z($g_DownDir&'\'&$UpdateArchive, $g_ProgDir & '\Update')
+			If Not FileExists($g_ProgDir&'\Update') Then DirCreate($g_ProgDir&'\Update')
+            $Extract = _Extract_7z($g_DownDir&'\'&$UpdateArchive, $g_ProgDir & '\Update')
 			If $Extract = 0 Or Not FileExists($UpdateIni) Then ; extract failed / Ini does not exist
 				If StringInStr($p_Show, '1') Then
 					GUICtrlSetData($g_UI_Interact[6][1], 100)
