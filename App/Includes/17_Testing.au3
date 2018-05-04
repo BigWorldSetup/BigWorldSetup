@@ -274,8 +274,8 @@ Func _Test_ArchivesExist()
 ;			EndIf
 ;		ElseIf $Keep = 'm' Then; move files
 ;			If Not FileExists($g_RemovedDir) Then DirCreate($g_RemovedDir)
-;			DirMove($g_DownDir & '\Not Valid', $g_RemovedDir & '\Big World Downloads-'&@YEAR&@MON&@MDAY, 1)
-;			_Process_SetScrollLog(StringFormat(_GetTR($Message, 'L16'), $g_RemovedDir & '\Big World Downloads-'&@YEAR&@MON&@MDAY)); => files can be found at X
+;			DirMove($g_DownDir & '\Not Valid', $g_RemovedDir & '\BWS-Downloads'&@YEAR&@MON&@MDAY, 1)
+;			_Process_SetScrollLog(StringFormat(_GetTR($Message, 'L16'), $g_RemovedDir & '\BWS-Downloads-'&@YEAR&@MON&@MDAY)); => files can be found at X
 ;		Else; restore files
 ;			FileMove($g_DownDir & '\Not Valid\*.*', $g_DownDir & '\')
 ;		EndIf
@@ -497,14 +497,14 @@ Func _Test_CheckRequiredFiles_BG1EE()
 		_Test_SetButtonColor(1, 0, 0); green
 		Return SetError(0, 0, 2)
 	EndIf
-    
+
 	If FileExists($g_BG1EEDir&'\sod-dlc.zip') Or FileExists($g_BG1EEDir&'\dlc\sod-dlc.zip') Then; GoG/Steam Editions are NOT SUPPORTED
         $Error&=_GetTR($Message, 'L3')&@CRLF; => structure not valid
         _Misc_MsgGUI(4, $g_ProgName, _GetTR($Message, 'L3'), 1); => structure not valid
 		_Test_SetButtonColor($Num, 1, 1); red
 		Return SetError(1, 1, 1)
 	EndIf
-    
+
     If Not FileExists($g_BG1EEDir) Or $g_BG1EEDir = '' Then
 		_Misc_MsgGUI(4, $g_ProgName, _GetTR($Message, 'L1'), 1); => folder does not exist
 		_Test_SetButtonColor($Num, 1, 1); red
@@ -830,7 +830,7 @@ EndFunc   ;==>_Test_GetCustomTP2
 Func _Test_Get_EET_Mods(); called by _Tree_EndSelection() just before starting an installation
 	Local $BG1EE_Mods='WeiDU|bwinstallpack|bwtrimpack|bwfixpack|bwtextpack|bwtextpackp|'; trailing | is needed
 	Local $BG2EE_Mods=$BG1EE_Mods&'|'; trailing | is needed
-	; mods in the above list will still be skipped at install time, if purge rules exclude them (e.g., bwtextpackP is for RU installs only) 
+	; mods in the above list will still be skipped at install time, if purge rules exclude them (e.g., bwtextpackP is for RU installs only)
 	$g_Flags[21]=''; will contain BG1-mods in EET -> Empty means no BG1-install
 	$g_Flags[22]=''; will contain BG2-mods in EET
 	If Not StringInStr($g_GConfDir, 'BG2EE') Then Return
