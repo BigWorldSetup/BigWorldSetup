@@ -12,9 +12,22 @@ TraySetIcon(@ScriptDir & '\Pics\BWS.ico'); sets the tray-icon
 ; Global are named with a $g_ , parameters with a $p_ . Normal/Local variables don't have a prefix.
 ; files and folders
 Global $g_BaseDir = StringLeft(@ScriptDir, StringInStr(@ScriptDir, '\', 1, -1) - 1), $g_GConfDir, $g_ConnectionsConfDir, $g_GameDir, $g_ProgName = 'Big World Setup'
-Global $g_BG1Dir, $g_BG2Dir, $g_BG1EEDIR, $g_BG2EEDIR, $g_IWD1Dir, $g_IWD1EEDir, $g_PSTEEDir, $g_IWD2Dir, $g_PSTDir, $g_RemovedDir, $g_BackupDir, $g_LogFile = $g_LogDir & '\BWS-Debug.log'
 Global $g_ProgDir = $g_BaseDir & '\App', $g_LogDir = $g_ProgDir & '\Logs', $g_DownDir = $g_BaseDir & '\App-Downloads'
 Global $g_BWSIni = $g_ProgDir & '\Config\Setup.ini', $g_MODIni, $g_UsrIni = $g_ProgDir & '\Config\User.ini'
+Global $g_BG1Dir, $g_BG2Dir, $g_BG1EEDIR, $g_BG2EEDIR, $g_IWD1Dir, $g_IWD1EEDir, $g_PSTEEDir, $g_IWD2Dir, $g_PSTDir, $g_RemovedDir, $g_LogFile = $g_LogDir & '\BWS-Debug.log'
+
+; Backup Folder Variable
+If IniRead($g_UsrIni, 'Options', 'Backup', '') = '' Then; search only on first startup
+    If FileExists( $g_BaseDir & '\Big World Backup' ) Then
+        Global $g_BackupRoot = $g_BaseDir & '\Big World Backup' ; legnacy backup folder name
+    Else
+        Global $g_BackupRoot = $g_BaseDir & '\App-Backups'
+    EndIf
+    IniWrite($g_UsrIni, 'Options', 'Backup', $g_BackupRoot)
+Else
+    Global $g_BackupRoot = _IniRead(IniReadSection($g_UsrIni, 'Options'), 'Backup', '')
+EndIf
+
 ; select-gui vars
 Global $g_Compilation = 'R', $g_LimitedSelection = 0, $g_Tags, $g_ActiveConnections[1], $g_Groups, $g_GameList
 Global $g_TreeviewItem[1][1], $g_CHTreeviewItem[1][1], $g_Connections, $g_CentralArray[1][16], $g_GUIFold
@@ -27,9 +40,8 @@ Global $g_ATrans = StringSplit(IniRead($g_BWSIni, 'Options', 'AppLang', 'EN'), '
 Global $g_ATrans = StringSplit(IniRead($g_BWSIni, 'Options', 'AppLang', 'EN'), '|'), $g_ATNum = 1, $g_MLang; available application translations
 Global $g_UDll = DllOpen('user32.dll'); we have to use this for detecting the mouse or keboard-usage
 Global $g_Down[6][2]; used for updating download-progressbar
-; ---------------------------------------------------------------------------------------------
+
 ; New GUI-Builing
-; ---------------------------------------------------------------------------------------------
 Global $g_UI[5], $g_UI_Static[17][20], $g_UI_Button[17][20], $g_UI_Seperate[17][10], $g_UI_Interact[17][20], $g_UI_Menu[10][50]
 Global $g_Search[5], $g_Flags[26] = [1], $g_UI_Handle[10]
 Global $g_TRAIni = $g_ProgDir & '\Config\Translation-' & $g_ATrans[$g_ATNum] & '.ini', $g_UI_Message = IniReadSection($g_TRAIni, 'UI-Runtime')
@@ -144,7 +156,8 @@ Func Au3GetVal($p_Num = 0)
 	_Test_Get_EET_Mods(); get BG1EE / BG2EE-mods if currently installing EET
 	$g_ModIni = $g_GConfDir & '\Mod.ini'
 	$g_Setups = _CreateList('s')
-	$g_DownDir = _IniRead($ReadSection, 'Download', '')
+    $g_BackupRoot = _IniRead($ReadSection, 'Backup', '')
+    $g_DownDir = _IniRead($ReadSection, 'Download', '')
 	$g_GUIFold = _IniRead($ReadSection, 'UnFold', '1')
 	$g_Flags[18] = _IniRead($ReadSection, 'Beep', 0)
 	$g_CurrentPackages = IniReadSection($g_UsrIni, 'Current'); used for possible next step: download
