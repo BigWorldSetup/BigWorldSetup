@@ -10,13 +10,9 @@ Community support: <https://forums.beamdog.com/discussion/44476/tool-big-world-s
 
 Mod requests: <http://www.shsforums.net/topic/58006-big-world-setup-mod-request-template>
 
-! Don't use BitBucket's web-interface to edit files because it doesn't save non-ANSI characters properly
-
 **Download:**                 : <https://github.com/BigWorldSetup/BigWorldSetup/archive/master.zip>
 
 ![gRmfnLY[1].png](https://bitbucket.org/repo/kKX5Xg/images/3720385461-gRmfnLY%5B1%5D.png)
-
-**Download:**                 : <https://github.com/BigWorldSetup/BigWorldSetup/archive/master.zip>
 
 Instruction/FAQ          : <https://forums.beamdog.com/discussion/comment/704157>
 
