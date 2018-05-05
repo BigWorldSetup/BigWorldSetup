@@ -12,11 +12,11 @@ Mod requests: <http://www.shsforums.net/topic/58006-big-world-setup-mod-request-
 
 ! Don't use BitBucket's web-interface to edit files because it doesn't save non-ANSI characters properly
 
-**Download:**                 : <https://bitbucket.org/BigWorldSetup/bigworldsetup/get/master.zip>
+**Download:**                 : <https://github.com/BigWorldSetup/BigWorldSetup/archive/master.zip>
 
 ![gRmfnLY[1].png](https://bitbucket.org/repo/kKX5Xg/images/3720385461-gRmfnLY%5B1%5D.png)
 
-**Download:**                 : <https://bitbucket.org/BigWorldSetup/bigworldsetup/get/master.zip>
+**Download:**                 : <https://github.com/BigWorldSetup/BigWorldSetup/archive/master.zip>
 
 Instruction/FAQ          : <https://forums.beamdog.com/discussion/comment/704157>
 
@@ -24,7 +24,7 @@ Discussion               : <http://www.shsforums.net/topic/56670-big-world-setup
 
 Mod Request Template     : <http://www.shsforums.net/topic/58006-big-world-setup-mod-request-template>
 
-Change History           : <https://bitbucket.org/BigWorldSetup/bigworldsetup/commits/all>
+Change History           : <https://github.com/BigWorldSetup/BigWorldSetup/commits/master>
 
 ### Contributors ###
 
@@ -60,7 +60,7 @@ Active:
 Not maintained:
 
 - Baldur's Gate 2 (classic standalone game)
-- Baldur’s Gate Trilogy ( Classic BG1 + Classic BG2 )
+- Baldurâ€™s Gate Trilogy ( Classic BG1 + Classic BG2 )
 - Icewind Dale
 - Icewind Dale II
 - Planescape: Torment
