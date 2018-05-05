@@ -1,6 +1,6 @@
 **Big World Setup (BWS) : Mod Manager for Infinity Engine Games and Baldur's Gate/Enhanced Edition Trilogy**
 
-![gRmfnLY[1].png](https://bitbucket.org/repo/kKX5Xg/images/3720385461-gRmfnLY%5B1%5D.png)
+![gRmfnLY[1].png](<https://github.com/BigWorldSetup/BigWorldSetup/raw/master/App/Pics/Preview.png>)
 
 **Issue reporting is closed:**
 
