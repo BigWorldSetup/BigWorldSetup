@@ -4,9 +4,9 @@
 
 Since there is no active BWS code maintainer, there is no point reporting issues because there is no one who can fix them.
 
-Community support: <http://www.shsforums.net/topic/56670-big-world-setup-an-attempt-to-update-the-program>
+Community support: [SHSForums](<http://www.shsforums.net/topic/56670-big-world-setup-an-attempt-to-update-the-program>), 
 
-Community support: <https://forums.beamdog.com/discussion/44476/tool-big-world-setup-bws-mod-manager-for-baldurs-gate-enhanced-edition-trilogy-for-windows/p1>
+Community support: [Beamdog](<https://forums.beamdog.com/discussion/44476/tool-big-world-setup-bws-mod-manager-for-baldurs-gate-enhanced-edition-trilogy-for-windows/p1>)
 
 Mod requests: <http://www.shsforums.net/topic/58006-big-world-setup-mod-request-template>
 
