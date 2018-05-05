@@ -1003,7 +1003,7 @@ EndFunc   ;==>_Tree_Reload
 ; Take read selection-array and sort it theme-wise for the selection-screen
 ; ---------------------------------------------------------------------------------------------
 Func _Tree_SelectConvert($p_Array)
-	Local $Trans = StringSplit(IniRead($g_ProgDir & '\Config\Translation-EN.ini', 'UI-Buildtime', 'Menu[2][2]', ''), '|'); => translations for themes
+	Local $Trans = StringSplit(IniRead($g_ProgDir & '\App-Translation-EN.ini', 'UI-Buildtime', 'Menu[2][2]', ''), '|'); => translations for themes
 	Dim $Theme[$Trans[0]]
 	For $a=1 to $p_Array[0][0]
 		$Theme[Number($p_Array[$a][8])]&='|'&$a; add index-numbers to a string that represents a theme
