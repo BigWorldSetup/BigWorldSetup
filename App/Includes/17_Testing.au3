@@ -18,7 +18,7 @@ Func Au3Detect($p_Num = 0)
 		Next
 		$g_ATNum = $a
 	EndIf
-	$g_TRAIni = $g_ProgDir & '\Config\Translation-'&$g_ATrans[$g_ATNum]&'.ini'
+	$g_TRAIni = $g_ProgDir & '\App-Translation-' & $g_ATrans[$g_ATNum] & '.ini'
 	$g_UI_Message = IniReadSection($g_TRAIni, 'UI-Runtime')
 EndFunc   ;==>Au3Detect
 
