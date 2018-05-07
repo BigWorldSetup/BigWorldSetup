@@ -15,7 +15,6 @@ Since there is no active BWS code maintainer, there is no point reporting issues
 5. Execute "BWS.vbs"
 6. Optional: use "BWS-NoAutoUpdate.vbs", this will skip the auto-update feature, use only when you modify BWS files or preforming some tests
 
-
 Community support: [SHSForums](<http://www.shsforums.net/topic/56670-big-world-setup-an-attempt-to-update-the-program>), [Beamdog](<https://forums.beamdog.com/discussion/44476/tool-big-world-setup-bws-mod-manager-for-baldurs-gate-enhanced-edition-trilogy-for-windows/p1>)
 
 Instruction/FAQ: <https://forums.beamdog.com/discussion/comment/704157>
