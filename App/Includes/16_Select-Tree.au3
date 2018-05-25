@@ -830,10 +830,10 @@ Func _Tree_PurgeUnNeeded()
 ;	IniWrite($g_UsrIni, 'Debug', 'g_Skip', $g_Skip)
 	If StringInStr($g_Flags[14], 'BWS') And $g_MLang[1] = 'PO' Then; user is installing 'BWS' and user selected language is Polish
 		IniWrite($g_ConnectionsConfDir&'\Game.ini', 'Connections', 'NTotSC Natalin fix by dradiel is required for NTotSC but only for Polish', 'D:NTotSC(-)&NTotSC-Natalin-fix(-)')
-		
+
 	Else; remove special case rules (language + game type specific)
 		IniDelete($g_ConnectionsConfDir&'\Game.ini', 'Connections','NTotSC Natalin fix by dradiel is required for NTotSC but only for Polish')
-		
+
 	EndIf
 EndFunc   ;==>_Tree_PurgeUnNeeded
 
@@ -1300,7 +1300,7 @@ Func _Tree_SetSelectedGroup_Special($p_Num, $p_State)
 				$RemoveMod=0
 				If $FirstModItem = '' Then $FirstModItem = $g_CentralArray[$c][5]; remind the item that will be shown to the user
 			EndIf
-			$Comp=StringRegExpReplace($Mod[0], '\A[^\x28|^\x5b]*', '')
+			$Comp=StringReplace(StringRegExpReplace($Mod[0], '\A[^\x28|^\x5b]*', ''), '?', '\x3f')
 			If $Comp = '(-)' Then
 				If $p_State = 1 And $RemoveMod =0 Then
 					_AI_SetMod_Enable($c, 1); set checkboxes
@@ -1332,14 +1332,12 @@ Func _Tree_SetSelectedGroup_Special($p_Num, $p_State)
 								_AI_SetSUB_Disable($c)
 							EndIf
 						ElseIf StringInStr($g_CentralArray[$c][2], '?') Then; set the SUB
-							If StringRegExp($Comp, '(?i)(\A|\s)' & StringReplace($g_CentralArray[$c][2], '?', '\x3f') & '(\s|\z)') Then
 								If $p_State = 1 And $RemoveMod =0 Then
 									_AI_SetInSUB_Enable($c)
 								ElseIf $p_State = 1 And $RemoveMod =1 Then
 								Else
 									_AI_SetInSUB_Disable($c)
 								EndIf
-							EndIf
 						ElseIf $g_CentralArray[$c][10] = 1 Then; set the MUC
 							If $p_State = 1 And $RemoveMod =0 Then
 								_AI_SetInMUC_Enable($c)
@@ -1359,6 +1357,7 @@ Func _Tree_SetSelectedGroup_Special($p_Num, $p_State)
 					$c+=1
 					If $c > $g_CentralArray[0][0] Then ExitLoop
 				WEnd
+				$c-=1
 			EndIf
 		EndIf
 	Next
