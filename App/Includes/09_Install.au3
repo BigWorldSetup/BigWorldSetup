@@ -951,7 +951,7 @@ Func _Install_GetEELang($p_String='', $p_Version=1)
 	If $p_String='' Then IniRead($g_TRAIni, 'IN-Au3PrepInst', 'L4', '')
 	Local $Lang='en_US', $MyIni=@MyDocumentsDir&"\Baldur's Gate - Enhanced Edition\Baldur.lua"
 	If $p_Version=2 Then $MyIni=@MyDocumentsDir&"\Baldur's Gate II - Enhanced Edition\Baldur.lua"
-	If $p_Version=3 Then $MyIni=@MyDocumentsDir&"\IceWind Dale - Enhanced Edition\Baldur.ini"
+	If $p_Version=3 Then $MyIni=@MyDocumentsDir&"\IceWind Dale - Enhanced Edition\Baldur.lua"
 	If $p_Version=4 Then $MyIni=@MyDocumentsDir&"\Planescape Torment - Enhanced Edition\Baldur.lua"
 	If FileExists($MyIni) Then
 		$Array=StringSplit(StringStripCR(FileRead($MyIni)), @LF)
