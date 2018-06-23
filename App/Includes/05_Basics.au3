@@ -1,6 +1,17 @@
 #include-once
 
 ; ---------------------------------------------------------------------------------------------
+; Returns whether BWS is running on a 64-bit operating system
+; ---------------------------------------------------------------------------------------------
+Func _IsArch64()
+	Local $ArchEnv = StringLower(EnvGet("PROCESSOR_ARCHITECTURE"))
+	If $ArchEnv <> 'amd64' Then
+		$ArchEnv = StringLower(EnvGet("PROCESSOR_ARCHITEW6432"))
+	EndIf
+	Return $ArchEnv = 'amd64'
+EndFunc   ;==>_IsArch64
+
+; ---------------------------------------------------------------------------------------------
 ; Open or close all cd-trays
 ; ---------------------------------------------------------------------------------------------
 Func _CDTray($p_String)

@@ -773,6 +773,8 @@ Func _Tree_PurgeUnNeeded()
 			If $SplitPurgeLine[1] = 'D' Then; check if dependencies are met, otherwise purge
 				If StringRegExp($SplitPurgeLine[3], $LanguageRegexp) Then ContinueLoop; don't purge mods that depend on a language if that language is among the user's chosen translations
 				If $Version <> '-' And StringRegExp($SplitPurgeLine[3], $Version) Then ContinueLoop; don't purge mods for current game version
+				If Not _IsArch64() And StringRegExp($SplitPurgeLine[3], '(?i)\bX86\b') Then ContinueLoop; don't purge on 32-bit OS
+				If _IsArch64() And StringRegExp($SplitPurgeLine[3], '(?i)\bAMD64\b') Then ContinueLoop; don't purge on 64-bit OS
 				; Checks for BGT / EET dependencies
 				If $g_Flags[14] = 'BG1EE' Then; user is installing BG1EE
 					If StringRegExp($SplitPurgeLine[3], '(?i)\bBG1EE\b') Then ContinueLoop; don't purge mods/components that depend on BG1EE

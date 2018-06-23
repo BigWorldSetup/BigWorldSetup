@@ -506,7 +506,7 @@ Func _Test_CheckRequiredFiles_BG1EE()
 		Return SetError(1, 1, 1)
 	EndIf
 	If FileExists($g_BG1EEDir&'\lang\en_US') And FileExists($g_BG1EEDir&'\movies\mineflod.wbm') And ((FileExists($g_BG1EEDir&'\Baldur.exe') or FileExists($g_BG1EEDir&'\SiegeOfDragonspear.exe'))) Then; BG1EE-directory structure
-	    If $g_Flags[14] = 'BG2EE' And Not FileExists($g_BG1EEDir&'\movies\sodcin01.wbm') And Not FileExists($g_BG1EEDir&'\sod-dlc.zip') And Not FileExists($g_BG1EEDir&'\dlc\sod-dlc.zip') Then
+			If $g_Flags[14] = 'BG2EE' And Not FileExists($g_BG1EEDir&'\movies\sodcin01.wbm') And Not FileExists($g_BG1EEDir&'\sod-dlc.zip') And Not FileExists($g_BG1EEDir&'\dlc\sod-dlc.zip') Then
 			_Misc_MsgGUI(4, $g_ProgName, _GetTR($Message, 'L4'), 1); => SoD is required for EET install
 			_Test_SetButtonColor($Num, 1, 1); red
 			Return SetError(1, 1, 1)
@@ -823,7 +823,7 @@ EndFunc   ;==>_Test_GetCustomTP2
 ; Keep this function consistent with _Tree_PurgeUnNeeded in Select-Tree.au3
 ; ---------------------------------------------------------------------------------------------
 Func _Test_Get_EET_Mods(); called by _Tree_EndSelection() just before starting an installation
-	Local $BG1EE_Mods='WeiDU|bwinstallpack|bwtrimpack|bwfixpack|bwtextpack|bwtextpackp|'; trailing | is needed
+	Local $BG1EE_Mods='WeiDU|WeiDU64|bwinstallpack|bwtrimpack|bwfixpack|bwtextpack|bwtextpackp|'; trailing | is needed
 	Local $BG2EE_Mods=$BG1EE_Mods&'|'; trailing | is needed
 	; mods in the above list will still be skipped at install time, if purge rules exclude them (e.g., bwtextpackP is for RU installs only)
 	$g_Flags[21]=''; will contain BG1-mods in EET -> Empty means no BG1-install
