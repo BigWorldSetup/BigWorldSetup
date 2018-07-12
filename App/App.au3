@@ -13,7 +13,7 @@ TraySetIcon(@ScriptDir & '\Pics\BWS.ico'); sets the tray-icon
 ; files and folders
 Global $g_ProgName = 'Big World Setup'
 Global $g_BaseDir = StringLeft(@ScriptDir, StringInStr(@ScriptDir, '\', 1, -1) - 1)
-Global $g_ProgDir = $g_BaseDir & '\App', $g_LogDir = $g_ProgDir & '\Logs', $g_DownDir = $g_BaseDir & '\App-Downloads'
+Global $g_ProgDir = $g_BaseDir & '\App', $g_LogDir = $g_BaseDir & '\Logs', $g_DownDir = $g_BaseDir & '\App-Downloads'
 Global $g_BWSIni = $g_ProgDir & '\Config\Setup.ini', $g_MODIni, $g_UsrIni = $g_ProgDir & '\Config\User.ini', $g_LogFile = $g_LogDir & '\BWS-Debug.log'
 Global $g_TRDir = $g_ProgDir & '\Translation'
 

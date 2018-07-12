@@ -88,7 +88,7 @@ Func Au3PrepInst($p_Num = 0)
 			; _PrintDebug('Debug '&$Lang, 1)
 			; Make sure that $lang for $g_GameDir&'\WeiDu.conf' is not set to non existing $g_GameDir\lang\ directory before first weidu mod will be installed
 			; otherwise, weidu will fail with "None of the dialog paths were a match against $lang"
-			
+
 			$Lang = _Install_GetEELangDir($Lang)
 			FileDelete($g_GameDir&'\WeiDu.conf')
 			FileWrite($g_GameDir&'\WeiDu.conf', 'lang_dir = '&$Lang)
@@ -301,7 +301,7 @@ Func Au3Install($p_Num = 0, $p_Debug = 0)
 		For $a = 1 To $Array[0]
 			_Process_SetConsoleLog($Array[$a])
 		Next
-		_PrintDebug('Installation array printed to log App\Logs\BWS-Debug.log',1)
+		_PrintDebug('Installation array printed to log Logs\BWS-Debug.log',1)
 		Exit
 	EndIf
 	For $a = $g_FItem To $Array[0]
@@ -1150,7 +1150,7 @@ Func _Install_ModifyForGroupInstall($p_Array, $p_Debug=0)
 			EndIf
 			_Process_SetConsoleLog($NArray[$a])
 		Next
-		_PrintDebug('_Install_ModifyForGroupInstall finished - check App\Logs\BWS-Debug.log',1)
+		_PrintDebug('_Install_ModifyForGroupInstall finished - check Logs\BWS-Debug.log',1)
 		Exit
 	EndIf
 	Return $NArray
