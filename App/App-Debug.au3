@@ -1,6 +1,10 @@
 AutoItSetOption('TrayIconHide', 1)
 
-Global $g_TraceFile = @ScriptDir & '\BWS-Trace.log', $g_DebugFile = @ScriptDir & '\BWS-Debug-AutoIt.log'
+Global $g_ProgName = 'Big World Setup'
+Global $g_BaseDir = StringLeft(@ScriptDir, StringInStr(@ScriptDir, '\', 1, -1) - 1)
+Global $g_LogDir = $g_BaseDir & '\Logs'
+Global $g_DebugFile = $g_LogDir & '\Logs\BWS-Debug-AutoIt.log'
+Global $g_TraceFile = $g_LogDir & '\BWS-Trace.log'
 
 ; =========================  Start the script with debugging-support =========================
 If $CmdLine[0] = 1 Then
@@ -20,15 +24,15 @@ If $IsCrashed = 1 Then
 			FileWrite($Handle, @CRLF&'----------'&@CRLF&'Variables:'&@CRLF&'----------'&@CRLF&FileRead($g_DebugFile))
 			FileClose($Handle)
 		EndIf
-		MsgBox(48, 'Big World Setup - '&_GetSTR('T1'), _GetSTR('L1'))
+		MsgBox(48, '$g_ProgName - '&_GetSTR('T1'), _GetSTR('L1'))
 		ShellExecute($g_TraceFile)
 		Exit
 	EndIf
-	$Answer=MsgBox(3+32, 'Big World Setup - '&_GetSTR('T1'), _GetSTR('L2'))
+	$Answer=MsgBox(3+32, '$g_ProgName - '&_GetSTR('T1'), _GetSTR('L2'))
 	If $Answer=6 Then
 		Run(@ComSpec & ' /c AutoIt3.exe /ErrorStdOut Traced.au3 | AutoIt3.exe "App-Debug.au3"', @ScriptDir, @SW_HIDE)
 	ElseIf $Answer=7 Then
-		MsgBox(48, 'Big World Setup - '&_GetSTR('T1'), _GetSTR('L1'))
+		MsgBox(48, '$g_ProgName - '&_GetSTR('T1'), _GetSTR('L1'))
 		ShellExecute($g_TraceFile)
 		Exit
 	EndIf
@@ -47,7 +51,7 @@ Func Observe()
 		EndIf
 		Sleep(25)
 	WEnd
-	FileWrite(@ScriptDir & '\BWS-Tracedump.log', $data)
+	FileWrite($g_LogDir & '\BWS-Tracedump.log', $data)
 	$Handle=FileOpen($g_TraceFile, 2)
 	$String=StringTrimLeft($data, 1)
 	$String=StringSplit(StringStripCR($String), @LF)

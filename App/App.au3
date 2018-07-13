@@ -144,7 +144,7 @@ Func Au3GetVal($p_Num = 0)
 	Local $ReadSection = IniReadSection($g_UsrIni, 'Options')
 	Local $Test = StringSplit(_IniRead($ReadSection, 'AppType', 'BWP:BWS'), ':'); need correct gametype
 	If $Test[0] <> 2 Then; revert to default if AppType in User.ini is not in expected format
-		$Test = [2, "BWP", "BWS"]
+		Local $Test = [2, "BWP", "BWS"]
 	EndIf
 	_Misc_Set_GConfDir($Test[1]); first part before : is the conf folder
 	$g_Flags[14] = StringUpper($Test[2]); second part after : determines the target game folder where mods will be installed
