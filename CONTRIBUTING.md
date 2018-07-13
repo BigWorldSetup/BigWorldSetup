@@ -1,6 +1,6 @@
 # How do I contribute
 
-* read technical documentation about how BWS is handling mods/components/translations  
+# Read technical documentation about how BWS is handling mods/components/translations, then:  
 * edit you local copy of the BWS, add mods/make other changes (use NoAutoUpdate) and test it  
 * you can edit files using web interface: <https://github.com/BigWorldSetup/BigWorldSetup/tree/master/App/Config/Global>  
 or  
