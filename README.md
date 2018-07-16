@@ -22,7 +22,7 @@ Instruction/FAQ: <https://forums.beamdog.com/discussion/comment/704157>
 
 Mod Request Template: <http://www.shsforums.net/topic/58006-big-world-setup-mod-request-template>
 
-Change History: <https://github.com/BigWorldSetup/BigWorldSetup/commits/master>
+Changelog: <https://github.com/BigWorldSetup/BigWorldSetup/commits/master>
 
 ### Contributors ###
 
