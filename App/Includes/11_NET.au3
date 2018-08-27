@@ -62,8 +62,8 @@ Func Au3Net($p_Num = 0)
 ; ---------------------------------------------------------------------------------------------
 	ReDim $DArray[$DArray[0][0]+1][12]
 	Local $DpS[100][2]
-	$DpS[0][0]=1; make shs the first one
-	$DpS[1][0]='shsforums.net'
+	$DpS[0][0]=1; make github the first one
+    $DpS[1][0]='github.com'
 	For $s=0 to 99
 		$DpS[$s][1]='|'
 	Next
