@@ -206,25 +206,64 @@
         <div class="level1">
 
             <p>
-                lynx GitHub API-Based links:
+                lynx GitHub API-Based links: https://github.com/Gibberlings3/modhub
+                <p>Microservice to find the latest or latest (pre)release version of a mod hosted on GitHub It will automatically redirect
+                to the desired archive. Defaults to archived code of the latest proper release.</p>
             </p>
+
             <pre class="ini code ini" style="font-family:monospace;">
-latest commit for master branch (it can be any branch):
-https://github.com/Gibberlings3/SpellRevisions/archive/master.zip
 
-latest release:
-http://lynxlynx.info/ie/modhub.php?Gibberlings3/SpellRevisions
+Usage
+Construct the desired url and follow it.
 
-latest prerelease:
-http://lynxlynx.info/ie/modhub.php?Gibberlings3/SpellRevisions&preonly
+Parameters
+Base url: http://lynxlynx.info/ie/modhub.php (or wherever the file is hosted)
 
-latest release or prerelease, which one has newest date:
-http://lynxlynx.info/ie/modhub.php?Gibberlings3/SpellRevisions&pre
+First parameter: ?githubName/modRepositoryName (eg. Gibberlings3/SongAndSilence)
+All other parameters: &parameterName=value
+Version parameters:
 
-OS build links works with all modes except master:
-add &pkg=lin for linux build
-add &pkg=win for windows build
-add &pkg=osx for OSX build
+master: get the latest code
+preonly: get the latest prerelease code
+pre: get whichever (pre)release code is more recent
+Package parameters (for mods that provide them):
+
+pkg=win: windows exe package
+pkg=wzp: windows zip package
+pkg=lin: linux package
+pkg=osx: apple package
+Note that the pkg parameter does not work with master mode.
+
+Url examples
+Spell Revisions latest release: http://lynxlynx.info/ie/modhub.php?Gibberlings3/SpellRevisions
+
+Spell Revisions latest master commit (unpackaged): http://lynxlynx.info/ie/modhub.php?Gibberlings3/SpellRevisions&master
+
+Spell Revisions latest prerelease: http://lynxlynx.info/ie/modhub.php?Gibberlings3/SpellRevisions&preonly
+
+Spell Revisions latest release or prerelease, whichever is fresher: http://lynxlynx.info/ie/modhub.php?Gibberlings3/SpellRevisions&pre
+
+Usage example
+Show the most recent pre-release or release of SpellRevisions for OSX:
+
+$  curl -I "http://lynxlynx.info/ie/modhub.php?Gibberlings3/SpellRevisions&pkg=osx&pre"
+HTTP/1.1 302 Moved Temporarily
+Server: nginx
+Date: Fri, 14 Oct 2016 17:54:20 GMT
+Content-Type: text/html; charset=UTF-8
+Connection: keep-alive
+Location: https://github.com/Gibberlings3/SpellRevisions/releases/download/v4b13/osx-spell_rev-v4-beta13.tar.gz
+Vary: User-Agent
+The URL printed under Location is the file that you want.
+
+For mod authors
+If you want the package detection to work, make sure you attach packages to the Github release and mind these patterns:
+
+a windows exe package name should end with "exe"
+a windows zip package name should start with "win" and end with "zip"
+a linux package name should start with "lin"
+an osx package name should start with "osx"
+For an example, check a release of Tweaks-Anthology.
 </pre>
         </div>
         <!-- SECTION "lynx_GitHub_API-Based_links" -->
@@ -1103,7 +1142,7 @@ AB Totl needs patch 142=D:ab_totlm(-):1.4.2.0
 
                     <b>Now just put those into the modname.ini in the [WeiDU-XX] section for the appropriate language.</b> Repeat
                     the step for each of the available translations.</p>
-                
+
                 <p>
                     <b>
                         <a href="#i_miss_component_x_for_mod_y">InstallOrder.ini</a>
