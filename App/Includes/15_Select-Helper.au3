@@ -216,6 +216,13 @@ Func _Selection_GetCurrentInstallType()
 EndFunc    ;==>_Selection_GetCurrentInstallType
 
 ; ---------------------------------------------------------------------------------------------
+; OpenFeedbackPage
+; ---------------------------------------------------------------------------------------------
+Func OpenFeedbackPage()
+    ShellExecute("https://docs.google.com/forms/d/16dH_cOUmhZ3iPFTwkJS9W_W7mUEr92IWZ9FxeKQb3h4")
+EndFunc    ;==>_OpenFeedbackPage
+
+; ---------------------------------------------------------------------------------------------
 ; Open the homepage of the currently selected mod
 ; ---------------------------------------------------------------------------------------------
 Func _Selection_OpenPage($p_String='Link')

@@ -185,6 +185,8 @@ Func Au3Select($p_Num = 0)
 #EndRegion special events
 ; ---------------------------------------------------------------------------------------------
 #Region always visible buttons
+		Case $g_UI_Button[0][4]; feedback
+			OpenFeedbackPage()
 		Case $g_UI_Static[0][3]; bws-pic
 			_Misc_AboutGUI()
 		Case $g_UI_Button[0][1]; back

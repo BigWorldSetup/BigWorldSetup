@@ -3,7 +3,7 @@
 Func Au3BuildGUI($p_Num = 0)
 	_PrintDebug('+' & @ScriptLineNumber & ' Calling Au3BuildGUI')
 	Local $Message = IniReadSection($g_TRAIni, 'UI-Buildtime')
-	$g_UI[0] = GUICreate($g_ProgName, 750, 480, -1, -1, $WS_MINIMIZEBOX + $WS_MAXIMIZEBOX + $WS_CAPTION + $WS_POPUP + $WS_SYSMENU + $WS_SIZEBOX)
+	$g_UI[0] = GUICreate($g_ProgName, 750, 520, -1, -1, $WS_MINIMIZEBOX + $WS_MAXIMIZEBOX + $WS_CAPTION + $WS_POPUP + $WS_SYSMENU + $WS_SIZEBOX)
 	GUISetOnEvent($GUI_EVENT_CLOSE, '_Process_OnEvent')
 	GUISetOnEvent($GUI_EVENT_MINIMIZE, '_Process_OnEvent')
 	GUISetOnEvent($GUI_EVENT_RESTORE, '_Process_OnEvent')
@@ -20,6 +20,7 @@ Func Au3BuildGUI($p_Num = 0)
 	GUICtrlSetResizing(-1, 800)
 	;#ce Uncomment to do GUI tests
 ; ---------------------------------------------------------------------------------------------
+
 #Region Always visible buttons
 	$g_UI_Static[0][1] = GUICtrlCreateGroup("", 15, 425, 720, 50)
 	GUICtrlSetResizing(-1, 576)
@@ -33,6 +34,9 @@ Func Au3BuildGUI($p_Num = 0)
 	$g_UI_Button[0][3] = GUICtrlCreateButton('', 505, 440, 170, 25, 0); Exit
 	GUICtrlSetResizing(-1, 576)
 	GUICtrlSetOnEvent(-1, '_Process_OnEvent')
+    $g_UI_Button[0][4] = GUICtrlCreateButton('CLICK HERE TO GIVE FEEDBACK ABOUT TOOL AND INSTALLATION OF MODS!', 30, 480, 700, 25, 0); Back
+	GUICtrlSetResizing(-1, 576)
+    GUICtrlSetOnEvent(-1, '_Process_OnEvent')
 	GUICtrlCreateGroup("", -99, -99, 1, 1)
 	$g_UI[1] = GUICreate("", 400, 260, 15, 105, $WS_POPUP, BitOR($WS_EX_LAYERED, $WS_EX_MDICHILD), $g_UI[0])
 	$g_UI_Static[0][2]=GUICtrlCreatePic(@ScriptDir & "\Pics\Greet.gif", 0, 0, 400, 260)
@@ -492,8 +496,8 @@ Func Au3BuildGUI($p_Num = 0)
 	;GUICtrlSetResizing(-1, 100)
 	$g_UI_Button[15][1] = GUICtrlCreateButton('', 15, 250, 90, 20)
 	$g_UI_Button[15][2] = GUICtrlCreateButton('', 115, 250, 90, 20)
-	$g_UI_Button[15][3] = GUICtrlCreateButton('',  225, 250, 90, 20)
-	$g_UI_Button[15][4] = GUICtrlCreateButton('',  325, 250, 90, 20)
+	$g_UI_Button[15][3] = GUICtrlCreateButton('', 225, 250, 90, 20)
+	$g_UI_Button[15][4] = GUICtrlCreateButton('', 325, 250, 90, 20)
 	$g_UI_Button[15][5] = GUICtrlCreateButton('', 15, 280, 400, 20, $BS_FLAT)
 	$g_UI_Interact[15][3] = GUICtrlCreateEdit('', 15, 305, 400, 105, BitOR($SS_Left, $WS_VSCROLL, $ES_READONLY)); list translations
 	GUICtrlSetBkColor(-1, 0xFFFFFF)
