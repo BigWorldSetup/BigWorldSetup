@@ -20,6 +20,8 @@ Community support: [SHSForums](<http://www.shsforums.net/topic/56670-big-world-s
 
 Instruction/FAQ: <https://forums.beamdog.com/discussion/comment/704157>
 
+Wiki: <https://github.com/BigWorldSetup/BigWorldSetup/wiki>
+
 Mod Request Template: <http://www.shsforums.net/topic/58006-big-world-setup-mod-request-template>
 
 Changelog: <https://github.com/BigWorldSetup/BigWorldSetup/commits/master>
