@@ -32,9 +32,9 @@ Func Au3BuildGUI($p_Num = 0)
 	GUICtrlSetOnEvent(-1, '_Process_OnEvent')
 	GUICtrlSetState($g_UI_Button[0][2], $GUI_DEFBUTTON)
 	$g_UI_Button[0][3] = GUICtrlCreateButton('', 505, 440, 170, 25, 0); Exit
-	GUICtrlSetResizing(-1, 576)
-	GUICtrlSetOnEvent(-1, '_Process_OnEvent')
-    $g_UI_Button[0][4] = GUICtrlCreateButton('CLICK HERE TO GIVE FEEDBACK ABOUT TOOL AND INSTALLATION OF MODS!', 30, 480, 700, 25, 0); Back
+	;GUICtrlSetResizing(-1, 576)
+	;GUICtrlSetOnEvent(-1, '_Process_OnEvent')
+    ;$g_UI_Button[0][4] = GUICtrlCreateButton('CLICK HERE TO GIVE FEEDBACK ABOUT TOOL AND INSTALLATION OF MODS!', 30, 480, 700, 25, 0)
 	GUICtrlSetResizing(-1, 576)
     GUICtrlSetOnEvent(-1, '_Process_OnEvent')
 	GUICtrlCreateGroup("", -99, -99, 1, 1)
