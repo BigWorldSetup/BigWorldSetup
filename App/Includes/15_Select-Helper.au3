@@ -219,7 +219,7 @@ EndFunc    ;==>_Selection_GetCurrentInstallType
 ; OpenFeedbackPage
 ; ---------------------------------------------------------------------------------------------
 Func OpenFeedbackPage()
-    ShellExecute("https://docs.google.com/forms/d/16dH_cOUmhZ3iPFTwkJS9W_W7mUEr92IWZ9FxeKQb3h4")
+    ShellExecute("https://forums.beamdog.com/discussion/72517/new-mod-install-tool-feedback-request-from-modders-and-players")
 EndFunc    ;==>_OpenFeedbackPage
 
 ; ---------------------------------------------------------------------------------------------
