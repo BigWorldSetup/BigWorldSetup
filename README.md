@@ -1,4 +1,4 @@
-**Big World Setup (BWS) : Mod Manager for Infinity Engine Games such as Baldur's Gate, Icewind Dale and Planescape: Torment
+**Big World Setup (BWS) : Mod Manager for Infinity Engine Games such as Baldur's Gate, Icewind Dale and Planescape: Torment**
 
 ![gRmfnLY[1].png](<https://github.com/BigWorldSetup/BigWorldSetup/raw/master/App/Pics/Preview.png>)
 
