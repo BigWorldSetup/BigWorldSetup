@@ -219,7 +219,7 @@ EndFunc    ;==>_Selection_GetCurrentInstallType
 ; OpenFeedbackPage
 ; ---------------------------------------------------------------------------------------------
 Func OpenFeedbackPage()
-    ShellExecute("https://forums.beamdog.com/discussion/72517/new-mod-install-tool-feedback-request-from-modders-and-players")
+    ShellExecute("https://forums.beamdog.com/discussion/74335/project-infinity-public-beta")
 EndFunc    ;==>_OpenFeedbackPage
 
 ; ---------------------------------------------------------------------------------------------
