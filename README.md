@@ -26,9 +26,6 @@ Changelog: <https://github.com/BigWorldSetup/BigWorldSetup/commits/master>
 
 dabus(author), agb1, AL|EN, Quiet and [others](<https://github.com/BigWorldSetup/BigWorldSetup/graphs/contributors>)
 
-### How do I contribute? ###
-Please read [CONTRIBUTING.md](<https://github.com/BigWorldSetup/BigWorldSetup/blob/master/CONTRIBUTING.md>)
-
 ### Features ###
 
 - downloading mods (outdated)
