@@ -34,7 +34,6 @@ dabus(author), agb1, AL|EN, Quiet and [others](<https://github.com/BigWorldSetup
 - handle mod and components conflicts (outdated)
 - apply community fixes from [Big World Fixpack](<https://github.com/BiGWorldProject/BiG-World-Fixpack>) (outdated)
 - easy backup creation/restoring
-- ability to add you own mods
 
 ### Supported games ###
 
