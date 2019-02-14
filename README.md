@@ -29,7 +29,7 @@ dabus(author), agb1, AL|EN, Quiet and [others](<https://github.com/BigWorldSetup
 ### Features ###
 
 - downloading mods (outdated)
-- easy mod installation for BGT and EET
+- easy mod installation for BGT and EET (outdated)
 - correct install order of mods/components (outdated)
 - handle mod and components conflicts (outdated)
 - apply community fixes from [Big World Fixpack](<https://github.com/BiGWorldProject/BiG-World-Fixpack>) (outdated)
