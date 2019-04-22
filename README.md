@@ -1,4 +1,4 @@
-**This application is outdated and it will be discontinued soon!**
+**This application is now obsolete.**
 
 **Big World Setup (BWS) : Mod Manager for Infinity Engine Games such as Baldur's Gate, Icewind Dale and Planescape: Torment**
 
